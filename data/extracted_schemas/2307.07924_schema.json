@@ -1,0 +1,17 @@
+{
+  "paper_id": "2307.07924",
+  "paper_title": "2307.07924 ChatDev Communicative Ag",
+  "authors": [
+    "Research Authors"
+  ],
+  "venue": "arXiv / Peer-Reviewed Venue",
+  "core_problem": "Multi-step reasoning and tool use limitations in LLMs.",
+  "methodology_summary": "ware development framework in which special- :::development framework, integrates LLM agents with technical inconsistencies, methods employed in a :::chat-powered software-:::development framework :::development framework that integrates multiple approach continues until all subtasks are com- based ",
+  "datasets_eval": [
+    "HotpotQA",
+    "HumanEval",
+    "ALFWorld"
+  ],
+  "empirical_results": "phases, which results in a fragmented and in- comprehensive analyses. The results indicate that peating, and fake replies. As a result, there is a sequential phases, resulting in two functionally dis- 4 Evaluation a result, this dataset includes impo",
+  "explicit_limitations": "testing. However, the deep learning model cludes. However, simply exchanging responses level. Under the current limitation of scarce bench- 6 Limitations certain limitations and risks must be considered by interactions. Despite these limitations, we "
+}

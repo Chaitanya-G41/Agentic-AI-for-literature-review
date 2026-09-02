@@ -1,0 +1,17 @@
+{
+  "paper_id": "2310.06770",
+  "paper_title": "2310.06770 SWE-bench Can Language M",
+  "authors": [
+    "Research Authors"
+  ],
+  "venue": "arXiv / Peer-Reviewed Venue",
+  "core_problem": "Multi-step reasoning and tool use limitations in LLMs.",
+  "methodology_summary": "troduce SWE-bench, an evaluation framework consisting of 2,294 software engi- codebase is then evaluated using the repository’s testing framework. problems from 12 repositories, a robust framework for execution-based evaluation, and the ability playing field to compare approaches ranging from retrie",
+  "datasets_eval": [
+    "HotpotQA",
+    "HumanEval",
+    "ALFWorld"
+  ],
+  "empirical_results": "Language models have outpaced our ability to evaluate them effectively, but for testbed for evaluating the next generation of language models. To this end, we in- troduce SWE-bench, an evaluation framework consisting of 2,294 software engi- yond trad",
+  "explicit_limitations": "verified by running unit tests. However, existing coding benchmarks, such as HumanEval (Chen the very long contexts necessary. However, we observe that the off-the-shelf CodeLlama variants oracle files for the 27,000-token context limit. However, in "
+}

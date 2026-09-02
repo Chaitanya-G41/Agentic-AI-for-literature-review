@@ -1,0 +1,17 @@
+{
+  "paper_id": "2308.03688",
+  "paper_title": "2308.03688 AgentBench Evaluating LL",
+  "authors": [
+    "Research Authors"
+  ],
+  "venue": "arXiv / Peer-Reviewed Venue",
+  "core_problem": "Multi-step reasoning and tool use limitations in LLMs.",
+  "methodology_summary": "in the Server-Client architecture, focusing on modular and scalable design principles. This enables Toolkit: Streamlining LLM Evaluation with API-Centric Approach and Environment Isolation. corresponding weight. This method ensures fairness and consistency in evaluation, enabling easier LLM weakness",
+  "datasets_eval": [
+    "HotpotQA",
+    "HumanEval",
+    "ALFWorld"
+  ],
+  "empirical_results": "AGENTBENCH: EVALUATINGLLMS ASAGENTS edged recently. Thus, there is an urgent need to quantitativelyevaluate LLMs as a multi-dimensional benchmark that consists of 8 distinct environments to assess Datasets, environments, and an integrated evaluation ",
+  "explicit_limitations": "agent evaluation. But they often suffer from the limitation of closed, discrete action spaces, as well 2022). However, these simulators, despite their complexity, do not accurately reflect the practical use for developing a potent, continuously learn"
+}

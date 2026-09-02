@@ -1,0 +1,17 @@
+{
+  "paper_id": "2303.11366",
+  "paper_title": "2303.11366 Reflexion Language Agent",
+  "authors": [
+    "Research Authors"
+  ],
+  "venue": "arXiv / Peer-Reviewed Venue",
+  "core_problem": "Multi-step reasoning and tool use limitations in LLMs.",
+  "methodology_summary": "from trial-and-error as traditional reinforcement learning methods require exten- novel framework to reinforce language agents not by updating weights, but in- studies using different feedback signals, feedback incorporation methods, and agent agents that are built on top of a large language model (",
+  "datasets_eval": [
+    "HotpotQA",
+    "HumanEval",
+    "ALFWorld"
+  ],
+  "empirical_results": "91% pass@1 accuracy on the HumanEval coding benchmark, surpassing the previ- self-evaluation such as binary classification using LLMs (decision-making) or self-written unit tests (programming). In all implementations, the evaluation signal is amplifi",
+  "explicit_limitations": "nal environments (e.g., games, compilers, APIs) as goal-driven agents. However, success. However, as LLM capabilities improve, we only expect this paradigm to get better over time. limitations. 4 Experiments We evaluate various natural language RL se"
+}

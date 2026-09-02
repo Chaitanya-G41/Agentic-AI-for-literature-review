@@ -1,0 +1,17 @@
+{
+  "paper_id": "2210.03629",
+  "paper_title": "2210.03629 ReAct Synergizing Reason",
+  "authors": [
+    "Research Authors"
+  ],
+  "venue": "arXiv / Peer-Reviewed Venue",
+  "core_problem": "Multi-step reasoning and tool use limitations in LLMs.",
+  "methodology_summary": "approach, named ReAct, to a diverse set of language and decision making tasks WebShop), ReAct outperforms imitation and reinforcement learning methods by Figure 1: (1) Comparison of 4 prompting methods, (a) Standard, (b) Chain-of-thought ( CoT, a focus on predicting actions via language priors. Thes",
+  "datasets_eval": [
+    "HotpotQA",
+    "HumanEval",
+    "ALFWorld"
+  ],
+  "empirical_results": "Furthermore, on two interactive decision making benchmarks (ALFWorld and Recent results have hinted at the possibility of combining verbal reasoning with interactive decision We conduct empirical evaluations ofReAct and state-of-the-art baselines on ",
+  "explicit_limitations": "2022). However, this “chain-of-thought” reasoning is a static black box, in that the model uses use a controller to choose or execute them. However, they do not employ language models to reason reasoning tasks, and reasoning in interactive tasks; (4)"
+}

@@ -1,0 +1,17 @@
+{
+  "paper_id": "2305.15334",
+  "paper_title": "2305.15334 Gorilla Large Language M",
+  "authors": [
+    "Research Authors"
+  ],
+  "venue": "arXiv / Peer-Reviewed Venue",
+  "core_problem": "Multi-step reasoning and tool use limitations in LLMs.",
+  "methodology_summary": "approach to how we integrate tools. It is not longer possible to describe the full set of APIs in a their experimentation. While our approach, Gorilla, incorporates techniques akin to those mentioned, method for evaluation and training (including fine-tuning). Our work, on the other hand, concentrat",
+  "datasets_eval": [
+    "HotpotQA",
+    "HumanEval",
+    "ALFWorld"
+  ],
+  "empirical_results": "hallucination, commonly encountered when prompting LLMs directly. To evaluate result = result = Figure 2: Accuracy (vs) hallucination in four settings, that is, zero-shot (i.e., without any retriever), and with at 100%, indicating an upper bound. Hig",
+  "explicit_limitations": "reasoning and program synthesis. However, their potential to effectively use tools capabilities including natural dialogue, mathematical reasoning, and program synthesis. However, APIs. However, much of the prior work [35, 24] integrating tools into "
+}

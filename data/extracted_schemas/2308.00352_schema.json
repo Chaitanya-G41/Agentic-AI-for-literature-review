@@ -1,0 +1,17 @@
+{
+  "paper_id": "2308.00352",
+  "paper_title": "2308.00352 MetaGPT Meta Programming",
+  "authors": [
+    "Research Authors"
+  ],
+  "venue": "arXiv / Peer-Reviewed Venue",
+  "core_problem": "Multi-step reasoning and tool use limitations in LLMs.",
+  "methodology_summary": "MULTI-AGENT COLLABORATIVE FRAMEWORK MetaGPT, an innovative meta-programming framework incorporating efficient Inspired by such ideas, we design a promising GPT -based Meta-Programming framework called Benefiting from SOPs, MetaGPT offers a promising approach to meta-programming. In this context, pop",
+  "datasets_eval": [
+    "HotpotQA",
+    "HumanEval",
+    "ALFWorld"
+  ],
+  "empirical_results": "to verify intermediate results and reduce errors. MetaGPT utilizes an assembly laborative software engineering benchmarks, MetaGPT generates more coherent MBPP (Austin et al., 2021) for evaluations. Notably, in code generation benchmarks, MetaGPT fun",
+  "explicit_limitations": "complex tasks, however, are complicated through logic inconsistencies due to hance and replicate human workflows. In real-world applications, however, existing systems (Park et al., 2023). However, MetaGPT stands out as a unique solution that allows "
+}

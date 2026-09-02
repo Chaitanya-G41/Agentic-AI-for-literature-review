@@ -1,0 +1,17 @@
+{
+  "paper_id": "2310.11511",
+  "paper_title": "2310.11511 Self-RAG Learning to Ret",
+  "authors": [
+    "Research Authors"
+  ],
+  "venue": "arXiv / Peer-Reviewed Venue",
+  "core_problem": "Multi-step reasoning and tool use limitations in LLMs.",
+  "methodology_summary": "hoc approach that augments LMs with retrieval of relevant knowledge, decreases We introduce a new framework called Self-Reflective Retrieval-Augmented Gen- and self-reflection. Our framework trains a single arbitrary LM that adaptively (RAG) methods (Figure 1 left; Lewis et al. 2020; Guu et al. 2020",
+  "datasets_eval": [
+    "HotpotQA",
+    "HumanEval",
+    "ALFWorld"
+  ],
+  "empirical_results": "to tailor its behavior to diverse task requirements. Experiments show that SELF - factuality and citation accuracy for long-form generations relative to these models.1 LLM’s generation quality, including its factual accuracy without hurting its versa",
+  "explicit_limitations": "such issues. However, indiscriminately retrieving and incorporating a fixed number 2023; Asai et al., 2023a). However, these methods may hinder the versatility of LLMs or introduce used to generate such feedback (Liu et al., 2023b). However, dependin"
+}

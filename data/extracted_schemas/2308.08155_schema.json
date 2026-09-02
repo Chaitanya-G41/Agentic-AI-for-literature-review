@@ -1,0 +1,17 @@
+{
+  "paper_id": "2308.08155",
+  "paper_title": "2308.08155 AutoGen Enabling Next-Ge",
+  "authors": [
+    "Research Authors"
+  ],
+  "venue": "arXiv / Peer-Reviewed Venue",
+  "core_problem": "Multi-step reasoning and tool use limitations in LLMs.",
+  "methodology_summary": "a chat, potentially with humans in the loop. (Bottom-middle) The framework supports flexible AutoGen2 is an open-source framework that allows developers to build LLM ap- patterns for different applications. AutoGen serves as a generic framework for pirical studies demonstrate the effectiveness of th",
+  "datasets_eval": [
+    "HotpotQA",
+    "HumanEval",
+    "ALFWorld"
+  ],
+  "empirical_results": "age LLMs, human inputs, tools, or a combination of them. The result is that developers can experimentation for both steps. (Section 2.2) evaluation on benchmarks and a pilot study of new applications. The results show thatAutoGen can enhanced LLM inf",
+  "explicit_limitations": "as a useful building block. However, to develop applications where agents make meaningful progress limitations of LLMs by incorporating external documents. In this section, we employ AutoGen to build a Retrieval-Augmented Generation (RAG) system (Lew"
+}

@@ -1,0 +1,17 @@
+{
+  "paper_id": "2302.04761",
+  "paper_title": "2302.04761 Toolformer Language Mode",
+  "authors": [
+    "Research Authors"
+  ],
+  "venue": "arXiv / Peer-Reviewed Venue",
+  "core_problem": "Multi-step reasoning and tool use limitations in LLMs.",
+  "methodology_summary": "Figure 2: Key steps in our approach, illustrated for a question answering tool: Given an input text x, we ﬁrst existing approaches, this enables a much more Our approach for achieving these goals is based this simple approach, LMs can learn to control a va- As our approach is agnostic of the dataset",
+  "datasets_eval": [
+    "HotpotQA",
+    "HumanEval",
+    "ALFWorld"
+  ],
+  "empirical_results": "best incorporate the results into future token and few-shot results on a variety of natural lan- with the original text, resulting in a new text x∗. We conduct experiments on a variety of differ- stronger zero-shot results, clearly outperforming a re",
+  "explicit_limitations": "capabilities (Wei et al., 2022). However, all of these models have several inherent limitations that ing. These limitations include an inability to access A simple way to overcome these limitations of calculators, or calendars. However, existing ap- "
+}
