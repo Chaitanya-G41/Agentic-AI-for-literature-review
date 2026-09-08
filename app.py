@@ -33,11 +33,28 @@ st.sidebar.title("🛠️ Project Controls")
 st.sidebar.info("**Current Phase:** Phase 2 Step 3 (Grounded Summarizer Agent & Global Memory Store) Active")
 
 api_key = st.sidebar.text_input("Google Gemini API Key(s) (Optional, comma-separated)", type="password", key="gemini_api_key_input")
-if api_key:
-    st.session_state["gemini_api_keys"] = api_key
-    os.environ["GEMINI_API_KEYS"] = api_key
-    os.environ["GEMINI_API_KEY"] = api_key.split(",")[0].strip()
-    st.sidebar.success(f"Gemini API Key Pool Configured! ({len(api_key.split(','))} key(s))")
+cleaned_api_key = api_key.strip().strip('"').strip("'") if api_key else ""
+if cleaned_api_key:
+    st.session_state["gemini_api_keys"] = cleaned_api_key
+    os.environ["GEMINI_API_KEYS"] = cleaned_api_key
+    os.environ["GEMINI_API_KEY"] = cleaned_api_key.split(",")[0].strip()
+    keys_cnt = len([k for k in cleaned_api_key.split(",") if k.strip()])
+    st.sidebar.success(f"Gemini API Key Pool Configured! ({keys_cnt} key(s))")
+else:
+    try:
+        from dotenv import load_dotenv, find_dotenv
+        env_file = find_dotenv(usecwd=True)
+        if env_file:
+            load_dotenv(env_file, override=True)
+    except Exception:
+        pass
+
+    env_keys = os.environ.get("GEMINI_API_KEYS", "") or os.environ.get("GEMINI_API_KEY", "") or os.environ.get("GOOGLE_API_KEY", "")
+    if env_keys.strip():
+        st.session_state["gemini_api_keys"] = env_keys.strip()
+        st.sidebar.success(f"Gemini API Key loaded from .env file! (...{env_keys.strip()[-4:]})")
+    else:
+        st.sidebar.warning("⚠️ No API Key detected in `.env` or sidebar input.\n\nAdd `GEMINI_API_KEY=your_key` in `.env` or paste it above to run LLM summarization!")
 
 # Tabs Breakdown
 tab1, tab2, tab3, tab4, tab5 = st.tabs([
@@ -99,8 +116,9 @@ with tab2:
     with c2:
         if st.button("🧠 Run Stage 2 Semantic Extraction Agent"):
             with st.spinner("Extracting PaperSchemas via Gemini / Heuristics..."):
+                ui_api_keys = st.session_state.get("gemini_api_keys", None)
                 from src.agents.extraction import process_all_parsed_json
-                process_all_parsed_json()
+                process_all_parsed_json(api_keys=ui_api_keys)
                 st.success("Stage 2 Extraction Complete! PaperSchema JSONs updated!")
 
 # Tab 3: Extracted Schemas Preview

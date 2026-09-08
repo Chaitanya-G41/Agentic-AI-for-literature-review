@@ -23,8 +23,9 @@ class GeminiLLMManager:
         self.preferred_models = preferred_models or [
             "gemini-3.6-flash",
             "models/gemini-3.6-flash",
+            "gemini-2.5-flash",
+            "models/gemini-2.5-flash",
             "gemini-1.5-flash",
-            "gemini-1.5-pro",
             "gemini-2.0-flash"
         ]
         self.last_used_model = None
@@ -33,27 +34,57 @@ class GeminiLLMManager:
     def _resolve_api_keys(self, custom_keys):
         keys = []
         source = "none"
+        
+        # Always reload .env file to catch any changes immediately
+        try:
+            from dotenv import load_dotenv, find_dotenv
+            env_file = find_dotenv(usecwd=True)
+            if env_file:
+                load_dotenv(env_file, override=True)
+        except Exception:
+            pass
+
+        def clean_key(k):
+            if not k or not isinstance(k, str):
+                return ""
+            # Strip whitespace, quotes, and newlines
+            return k.strip().strip('"').strip("'").strip()
+
         if custom_keys:
             if isinstance(custom_keys, str):
-                keys = [k.strip() for k in custom_keys.split(",") if k.strip()]
+                raw_list = custom_keys.split(",")
             elif isinstance(custom_keys, list):
-                keys = [k.strip() for k in custom_keys if k and isinstance(k, str)]
+                raw_list = custom_keys
+            else:
+                raw_list = []
+            
+            for k in raw_list:
+                cleaned = clean_key(k)
+                if cleaned:
+                    keys.append(cleaned)
             if keys:
-                source = "direct parameter"
-        
+                source = "direct parameter / session state"
+
         if not keys:
-            env_keys = os.environ.get("GEMINI_API_KEYS", "") or os.environ.get("GEMINI_API_KEY", "")
-            if env_keys:
-                keys = [k.strip() for k in env_keys.split(",") if k.strip()]
+            env_val = (
+                os.environ.get("GEMINI_API_KEYS", "") or 
+                os.environ.get("GEMINI_API_KEY", "") or 
+                os.environ.get("GOOGLE_API_KEY", "")
+            )
+            if env_val:
+                for k in env_val.split(","):
+                    cleaned = clean_key(k)
+                    if cleaned:
+                        keys.append(cleaned)
                 if keys:
-                    source = "environment variable"
-        
+                    source = "environment variable (.env / os.environ)"
+
         if keys:
-            masked = [f"...{k[-6:]}" for k in keys]
+            masked = [f"...{k[-6:]}" if len(k) >= 6 else "***" for k in keys]
             print(f"   [KEY-RESOLVE] Loaded {len(keys)} API key(s) from {source}: {masked}")
         else:
-            print(f"   [KEY-RESOLVE] No API keys found (checked: direct param, GEMINI_API_KEYS, GEMINI_API_KEY).")
-        
+            print(f"   [KEY-RESOLVE] No API keys found (checked: direct param, .env, GEMINI_API_KEYS, GEMINI_API_KEY, GOOGLE_API_KEY).")
+
         return keys
 
     def get_valid_key(self):
@@ -89,7 +120,6 @@ class GeminiLLMManager:
         """
         Dynamically queries Google ModelService via genai.list_models()
         to discover exact model names supported by the user's API key for generateContent.
-        Always prioritizes gemini-3.6-flash at top.
         """
         discovered = []
         try:
@@ -109,14 +139,14 @@ class GeminiLLMManager:
             if pm not in discovered:
                 discovered.append(pm)
 
-        # Prioritize models: 3.6 > 2.5 > 2.0 > 1.5
+        # Prioritize models: 3.6-flash > 2.5-flash > 1.5-flash > others
         def priority(name):
             score = 0
-            if "flash" in name: score += 20
             if "3.6" in name: score += 60
             elif "2.5" in name: score += 50
-            elif "2.0" in name: score += 40
-            elif "1.5" in name: score += 30
+            elif "1.5" in name: score += 40
+            elif "2.0" in name: score += 10
+            if "flash" in name: score += 20
             if "latest" in name: score += 5
             if "exp" in name: score -= 2
             if not name.startswith("models/"): score += 1
@@ -171,10 +201,15 @@ class GeminiLLMManager:
                 except Exception as e:
                     self.last_error = str(e)
                     err_str = str(e).lower()
-                    if "429" in err_str or "quota" in err_str or "rate limit" in err_str:
+                    if "api key not valid" in err_str or "api_key_invalid" in err_str:
+                        self.last_error = f"API key invalid or rejected by Google (key ending in ...{key[-4:]}). Please verify your Gemini API key."
+                        print(f"   [ERROR] {self.last_error}")
+                        break # Key invalid, stop trying other models with this key
+                    elif "429" in err_str or "quota" in err_str or "rate limit" in err_str:
                         self.mark_key_rate_limited(key, cooldown_seconds=30)
                         break # Switch key on 429
-                    elif "not found" in err_str or "invalid model" in err_str or "not supported" in err_str:
+                    elif any(k in err_str for k in ["not found", "invalid model", "not supported", "no longer available", "404", "deprecated", "does not exist"]):
+                        print(f"   [INFO] Model {model_name} unavailable ({e}). Trying next model in list...")
                         continue # Try next candidate model from dynamically resolved list
                     else:
                         print(f"   [WARN] LLM Call error with model {model_name}: {e}")

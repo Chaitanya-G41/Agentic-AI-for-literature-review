@@ -49,10 +49,10 @@ def extract_candidate_blocks(parsed_json):
     }
     return candidate_summary
 
-def run_extraction_agent(parsed_json_path, output_dir="data/extracted_schemas"):
+def run_extraction_agent(parsed_json_path, output_dir="data/extracted_schemas", llm_manager=None):
     """
     Runs the Extraction Agent on a parsed JSON file.
-    Uses Gemini API if GEMINI_API_KEY is available; falls back to structured heuristic extractor.
+    Uses Gemini LLM Manager if keys are available; falls back to structured heuristic extractor.
     """
     os.makedirs(output_dir, exist_ok=True)
     with open(parsed_json_path, "r", encoding="utf-8") as f:
@@ -61,33 +61,30 @@ def run_extraction_agent(parsed_json_path, output_dir="data/extracted_schemas"):
     paper_id = parsed_json.get("paper_id", "unknown")
     candidates = extract_candidate_blocks(parsed_json)
     
-    api_key = os.environ.get("GEMINI_API_KEY")
+    from src.agents.llm_manager import GeminiLLMManager
+    llm = llm_manager or GeminiLLMManager()
     extracted_schema = None
 
-    if api_key:
-        print(f"   Running Gemini 2.0 Flash Extraction for {paper_id}...")
-        try:
-            import google.generativeai as genai
-            genai.configure(api_key=api_key)
-            model = genai.GenerativeModel("gemini-2.0-flash")
-            
-            prompt = f"""
-            You are an expert NLP Research Extraction Agent.
-            Extract structured schema fields for this research paper:
-            Title Snippet: {candidates['title']}
-            Method Context: {candidates['method_context'][:1500]}
-            Results Context: {candidates['results_context'][:1500]}
-            Limitations Context: {candidates['limitation_context'][:1500]}
+    if llm.keys:
+        print(f"   Running Gemini LLM Extraction for {paper_id}...")
+        prompt = f"""
+        You are an expert NLP Research Extraction Agent.
+        Extract structured schema fields for this research paper:
+        Title Snippet: {candidates['title']}
+        Method Context: {candidates['method_context'][:1500]}
+        Results Context: {candidates['results_context'][:1500]}
+        Limitations Context: {candidates['limitation_context'][:1500]}
 
-            Return a strict JSON object with these exact keys:
-            paper_id, paper_title, authors, venue, core_problem, methodology_summary, datasets_eval, empirical_results, explicit_limitations
-            """
-            res = model.generate_content(prompt)
-            clean_json_str = re.sub(r'```json|```', '', res.text).strip()
-            schema_dict = json.loads(clean_json_str)
-            extracted_schema = PaperSchema(**schema_dict)
-        except Exception as e:
-            print(f"   Gemini LLM call failed ({e}). Using Heuristic Fallback...")
+        Return a strict JSON object with these exact keys:
+        paper_id, paper_title, authors, venue, core_problem, methodology_summary, datasets_eval, empirical_results, explicit_limitations
+        """
+        sys_inst = "You are an expert NLP Research Extraction Agent. Extract clean JSON matching the requested paper schema."
+        schema_dict = llm.generate_structured_json(prompt, system_instruction=sys_inst)
+        if schema_dict:
+            try:
+                extracted_schema = PaperSchema(**schema_dict)
+            except Exception as e:
+                print(f"   Schema validation failed ({e}). Using Heuristic Fallback...")
 
     if not extracted_schema:
         # Structured Heuristic Fallback Extractor
@@ -111,7 +108,7 @@ def run_extraction_agent(parsed_json_path, output_dir="data/extracted_schemas"):
     print(f"   Saved Extraction Schema: {output_filename}")
     return extracted_schema
 
-def process_all_parsed_json(input_dir="data/extracted_schemas"):
+def process_all_parsed_json(input_dir="data/extracted_schemas", api_keys=None):
     """Processes all parsed JSON files in input_dir."""
     if not os.path.exists(input_dir):
         print(f"Directory {input_dir} not found!")
@@ -123,10 +120,13 @@ def process_all_parsed_json(input_dir="data/extracted_schemas"):
     print(f"Found {len(parsed_files)} parsed files to extract")
     print("==================================================\n")
 
+    from src.agents.llm_manager import GeminiLLMManager
+    llm = GeminiLLMManager(api_keys=api_keys)
+
     for idx, filename in enumerate(parsed_files, start=1):
         filepath = os.path.join(input_dir, filename)
         print(f"[{idx}/{len(parsed_files)}] Extracting Schema: {filename}...")
-        run_extraction_agent(filepath, output_dir=input_dir)
+        run_extraction_agent(filepath, output_dir=input_dir, llm_manager=llm)
 
     print("\n==================================================")
     print("Step 2 Complete: All paper schemas extracted successfully!")
