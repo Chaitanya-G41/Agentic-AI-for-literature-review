@@ -7,7 +7,10 @@ import os
 import json
 import re
 from pypdf import PdfReader
-from src.ingestion.grobid_parser import check_grobid_server, parse_pdf_with_grobid
+try:
+    from src.ingestion.grobid_parser import check_grobid_server, parse_pdf_with_grobid
+except ModuleNotFoundError:
+    from grobid_parser import check_grobid_server, parse_pdf_with_grobid
 
 def parse_pdf_file(filepath, use_grobid_if_available=True):
     """
