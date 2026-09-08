@@ -25,7 +25,9 @@ class GlobalMemoryStore:
         if os.path.exists(self.memory_file):
             try:
                 with open(self.memory_file, "r", encoding="utf-8") as f:
-                    self.data = json.load(f)
+                    content = f.read().strip()
+                    if content:
+                        self.data = json.loads(content)
             except Exception as e:
                 print(f"   [WARN] Error loading memory store file: {e}")
 
@@ -84,6 +86,15 @@ class GlobalMemoryStore:
             if "schema" in pdata:
                 res[pid] = pdata["schema"]
         return res
+
+    def register_comparative_analysis(self, analysis_dict):
+        """Stores comparative analysis dictionary across papers."""
+        self.data["comparative_analysis"] = analysis_dict
+        self.save()
+
+    def get_comparative_analysis(self):
+        """Returns registered comparative analysis dictionary, if available."""
+        return self.data.get("comparative_analysis")
 
 # Global Singleton Instance Helper
 _memory_instance = None
