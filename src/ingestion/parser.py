@@ -1,5 +1,5 @@
 """
-Step 2 Stage 1: PDF Layout Parser & Section Chunk Indexer
+Step 2 Stage 1: PDF Layout Parser & Section Chunk Indexer (GROBID + PyPDF Fallback)
 Project: NLP-05 Agentic AI for Automated Research Paper Analysis
 """
 
@@ -7,12 +7,20 @@ import os
 import json
 import re
 from pypdf import PdfReader
+from src.ingestion.grobid_parser import check_grobid_server, parse_pdf_with_grobid
 
-def parse_pdf_file(filepath):
+def parse_pdf_file(filepath, use_grobid_if_available=True):
     """
     Parses a PDF file into structured paragraph chunks with page numbers and section labels.
-    Handles 2-column fallback layouts and basic section boundary detection.
+    Attempts GROBID TEI-XML extraction first if service is active, otherwise uses PyPDF layout parsing fallback.
     """
+    if use_grobid_if_available and check_grobid_server():
+        print(f"[GROBID Parser] Parsing {os.path.basename(filepath)} via GROBID REST Service...")
+        grobid_result = parse_pdf_with_grobid(filepath)
+        if grobid_result:
+            return grobid_result
+
+    # Fallback layout parser using PyPDF
     reader = PdfReader(filepath)
     filename = os.path.basename(filepath)
     paper_id = filename.split("_")[0]
@@ -48,6 +56,7 @@ def parse_pdf_file(filepath):
     parsed_document = {
         "paper_id": paper_id,
         "file_name": filename,
+        "parser_used": "PyPDF_Layout_Fallback",
         "total_pages": len(reader.pages),
         "full_text": "\n".join(full_text_list),
         "chunks": extracted_chunks
