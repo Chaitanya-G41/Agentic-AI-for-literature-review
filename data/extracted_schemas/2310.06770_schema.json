@@ -1,17 +1,13 @@
 {
   "paper_id": "2310.06770",
-  "paper_title": "2310.06770 SWE-bench Can Language M",
-  "authors": [
-    "Research Authors"
-  ],
-  "venue": "arXiv / Peer-Reviewed Venue",
-  "core_problem": "Multi-step reasoning and tool use limitations in LLMs.",
-  "methodology_summary": "troduce SWE-bench, an evaluation framework consisting of 2,294 software engi- codebase is then evaluated using the repository’s testing framework. problems from 12 repositories, a robust framework for execution-based evaluation, and the ability playing field to compare approaches ranging from retrie",
+  "paper_title": "SWE-bench: Can Language Models Resolve Real-World Software Engineering Problems?",
+  "authors": [],
+  "venue": "arXiv / Conference",
+  "core_problem": "Evaluating language models on complex, real-world software engineering tasks that require editing entire codebases and resolving issue descriptions.",
+  "methodology_summary": "Introduces SWE-bench, an evaluation framework consisting of 2,294 software engineering problems from 12 Python repositories. The methodology constructs prompts via sparse or dense retrieval over codebases and evaluates model-generated code patches using repository unit testing frameworks.",
   "datasets_eval": [
-    "HotpotQA",
-    "HumanEval",
-    "ALFWorld"
+    "SWE-bench"
   ],
-  "empirical_results": "Language models have outpaced our ability to evaluate them effectively, but for testbed for evaluating the next generation of language models. To this end, we in- troduce SWE-bench, an evaluation framework consisting of 2,294 software engi- yond trad",
-  "explicit_limitations": "verified by running unit tests. However, existing coding benchmarks, such as HumanEval (Chen the very long contexts necessary. However, we observe that the off-the-shelf CodeLlama variants oracle files for the 27,000-token context limit. However, in "
+  "empirical_results": "Evaluated state-of-the-art language models fail to solve all except a small fraction of instances, demonstrating that real-world software engineering tasks remain extremely challenging for existing models.",
+  "explicit_limitations": "Task instances are strictly in Python; evaluations only establish simple baseline retrieval methods without agent-based or tool-augmented setups; relying solely on execution-based testing does not guarantee code readability, efficiency, or comprehensiveness."
 }

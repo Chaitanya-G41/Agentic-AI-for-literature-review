@@ -1,17 +1,17 @@
 {
   "paper_id": "2303.11366",
-  "paper_title": "2303.11366 Reflexion Language Agent",
-  "authors": [
-    "Research Authors"
-  ],
-  "venue": "arXiv / Peer-Reviewed Venue",
-  "core_problem": "Multi-step reasoning and tool use limitations in LLMs.",
-  "methodology_summary": "from trial-and-error as traditional reinforcement learning methods require exten- novel framework to reinforce language agents not by updating weights, but in- studies using different feedback signals, feedback incorporation methods, and agent agents that are built on top of a large language model (",
+  "paper_title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+  "authors": [],
+  "venue": "arXiv",
+  "core_problem": "Traditional reinforcement learning requires extensive weight updates and massive training parameters to improve language agents on complex decision-making and reasoning tasks.",
+  "methodology_summary": "Reflexion is a novel framework that reinforces language agents through verbal reflection rather than updating weights, using an Actor model for text/action generation, an Evaluator model for scoring outputs, and a Self-Reflection component to update memory via in-context learning.",
   "datasets_eval": [
-    "HotpotQA",
+    "AlfWorld",
+    "HotPotQA",
     "HumanEval",
-    "ALFWorld"
+    "MBPP",
+    "LeetcodeHard"
   ],
-  "empirical_results": "91% pass@1 accuracy on the HumanEval coding benchmark, surpassing the previ- self-evaluation such as binary classification using LLMs (decision-making) or self-written unit tests (programming). In all implementations, the evaluation signal is amplifi",
-  "explicit_limitations": "nal environments (e.g., games, compilers, APIs) as goal-driven agents. However, success. However, as LLM capabilities improve, we only expect this paradigm to get better over time. limitations. 4 Experiments We evaluate various natural language RL se"
+  "empirical_results": "Achieved 91% pass@1 accuracy on HumanEval, and improved performance over strong baseline approaches by 22% in AlfWorld, 20% in HotPotQA, and 11% on HumanEval.",
+  "explicit_limitations": "Relies on the LLM's self-evaluation capabilities or heuristics without formal guarantees for optimal success, and depends on environment feedback mechanisms."
 }

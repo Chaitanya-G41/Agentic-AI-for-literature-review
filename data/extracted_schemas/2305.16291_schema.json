@@ -1,17 +1,14 @@
 {
   "paper_id": "2305.16291",
-  "paper_title": "2305.16291 Voyager An Open-Ended Em",
-  "authors": [
-    "Research Authors"
-  ],
-  "venue": "arXiv / Peer-Reviewed Venue",
-  "core_problem": "Multi-step reasoning and tool use limitations in LLMs.",
-  "methodology_summary": "in open-ended worlds is a grand challenge for the AI community [ 1–5]. Classical approaches with a blackbox LLM (GPT-4 [35]) through prompting and in-context learning [36–38]. Our approach possible”. This approach can be perceived as an in-context form ofnovelty search[39, 40]. VOYAGER continual lea",
+  "paper_title": "VOYAGER: An Open-Ended Embodied Agent with Large Language Models",
+  "authors": [],
+  "venue": "arXiv",
+  "core_problem": "Developing lifelong learning embodied agents capable of open-ended exploration and continuous skill acquisition without human intervention in complex environments like Minecraft.",
+  "methodology_summary": "VOYAGER uses GPT-4 via an iterative prompting framework for novelty search, combining an automatic curriculum, an executable skill library, and environment execution feedback for code generation and self-correction.",
   "datasets_eval": [
-    "HotpotQA",
-    "HumanEval",
-    "ALFWorld"
+    "MineDojo",
+    "Minecraft"
   ],
-  "empirical_results": "to novel tasks. We evaluate VOYAGER systematically against other LLM-based agent techniques 3 Experiments 3.1 Experimental Setup executable in MineDojo and compatible with our experimental setting: 3.3 Evaluation Results We systematically evaluate VO",
-  "explicit_limitations": "NLP tasks without embodiment [28–30]. However, these agents are not lifelong learners that can However, LLMs struggle to produce the correct action code consistently in one shot [41]. To address 0/3 means the method fails to unlock a level of the tec"
+  "empirical_results": "VOYAGER outperforms prior SOTA by obtaining 3.3x more unique items, unlocking advanced tech tree levels (Wooden to Diamond tools), and showing efficient zero-shot generalization to unseen tasks.",
+  "explicit_limitations": "LLMs can get stuck and fail to generate correct code skills; text-only modal inputs lack direct visual observation handling; reliance on GPT-4 since smaller open-source models struggle with task execution."
 }

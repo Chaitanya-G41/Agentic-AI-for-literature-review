@@ -1,17 +1,28 @@
 {
   "paper_id": "2308.03688",
-  "paper_title": "2308.03688 AgentBench Evaluating LL",
+  "paper_title": "AgentBench: Evaluating LLMs as Agents",
   "authors": [
-    "Research Authors"
+    "Xiao Liu",
+    "Hao Yu",
+    "Huanqi Cao",
+    "Jianxian Huang",
+    "Uran Li",
+    "Chao Liu",
+    "Zhouhui Song",
+    "Zhenyu Lu",
+    "Xiang Shen",
+    "Yuantao Xie",
+    "Yu Gu",
+    "Duanying Yi",
+    "Yuxiao Dong",
+    "Jie Tang"
   ],
-  "venue": "arXiv / Peer-Reviewed Venue",
-  "core_problem": "Multi-step reasoning and tool use limitations in LLMs.",
-  "methodology_summary": "in the Server-Client architecture, focusing on modular and scalable design principles. This enables Toolkit: Streamlining LLM Evaluation with API-Centric Approach and Environment Isolation. corresponding weight. This method ensures fairness and consistency in evaluation, enabling easier LLM weakness",
+  "venue": "arXiv",
+  "core_problem": "The lack of a systematic and standardized multi-dimensional benchmark to evaluate Large Language Models (LLMs) acting as agents across diverse, open-ended environments rather than traditional single-turn tasks.",
+  "methodology_summary": "Introduction of AGENTBENCH, a multi-dimensional evaluation benchmark featuring 8 distinct environments with a Server-Client architecture. It supports modular, scalable, and API-centric evaluation with environment isolation and a unified toolkit to support multi-round interactive evaluation.",
   "datasets_eval": [
-    "HotpotQA",
-    "HumanEval",
-    "ALFWorld"
+    "AGENTBENCH (consisting of 8 distinct agent environments, including Bash and SQL testing)"
   ],
-  "empirical_results": "AGENTBENCH: EVALUATINGLLMS ASAGENTS edged recently. Thus, there is an urgent need to quantitativelyevaluate LLMs as a multi-dimensional benchmark that consists of 8 distinct environments to assess Datasets, environments, and an integrated evaluation ",
-  "explicit_limitations": "agent evaluation. But they often suffer from the limitation of closed, discrete action spaces, as well 2022). However, these simulators, despite their complexity, do not accurately reflect the practical use for developing a potent, continuously learn"
+  "empirical_results": "Comprehensive benchmarking of 29 different LLMs, revealing a wide array of insights into agent performance and showcasing that current open-source LLMs commonly fail to solve problems in several highly challenging agent tasks.",
+  "explicit_limitations": "Open-source LLMs frequently fail in complex environments; non-chat models require custom post-processors; and evaluated models are immediately deemed defeated if they fail to output legal actions within a specified number of rounds."
 }

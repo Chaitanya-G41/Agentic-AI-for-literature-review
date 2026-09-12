@@ -1,17 +1,15 @@
 {
   "paper_id": "2302.04761",
-  "paper_title": "2302.04761 Toolformer Language Mode",
-  "authors": [
-    "Research Authors"
-  ],
-  "venue": "arXiv / Peer-Reviewed Venue",
-  "core_problem": "Multi-step reasoning and tool use limitations in LLMs.",
-  "methodology_summary": "Figure 2: Key steps in our approach, illustrated for a question answering tool: Given an input text x, we ﬁrst existing approaches, this enables a much more Our approach for achieving these goals is based this simple approach, LMs can learn to control a va- As our approach is agnostic of the dataset",
+  "paper_title": "Toolformer: Language Models Can Teach Themselves to Use Tools",
+  "authors": [],
+  "venue": "arXiv",
+  "core_problem": "Language models suffer from inherent limitations such as an inability to access up-to-date information, execute precise calculations, or interact with external tools.",
+  "methodology_summary": "A self-supervised approach where the language model samples candidate API calls, executes them to get results, filters calls based on whether their output reduces perplexity on subsequent tokens, and fine-tunes itself on the resulting augmented dataset.",
   "datasets_eval": [
-    "HotpotQA",
-    "HumanEval",
-    "ALFWorld"
+    "Question Answering datasets",
+    "DATESET",
+    "PLAMA"
   ],
-  "empirical_results": "best incorporate the results into future token and few-shot results on a variety of natural lan- with the original text, resulting in a new text x∗. We conduct experiments on a variety of differ- stronger zero-shot results, clearly outperforming a re",
-  "explicit_limitations": "capabilities (Wei et al., 2022). However, all of these models have several inherent limitations that ing. These limitations include an inability to access A simple way to overcome these limitations of calculators, or calendars. However, existing ap- "
+  "empirical_results": "Demonstrates strong zero-shot and few-shot performance across various natural language tasks, outperforming larger baseline models by effectively integrating API call outputs into token predictions.",
+  "explicit_limitations": "Toolformer still lags behind state-of-the-art models on certain benchmarks, fails to trigger tool usage in a significant portion of relevant cases, and may suffer from noise introduced during training on synthetic API-augmented datasets."
 }

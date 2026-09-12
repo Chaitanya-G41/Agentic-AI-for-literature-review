@@ -1,17 +1,13 @@
 {
   "paper_id": "2308.08155",
-  "paper_title": "2308.08155 AutoGen Enabling Next-Ge",
-  "authors": [
-    "Research Authors"
-  ],
-  "venue": "arXiv / Peer-Reviewed Venue",
-  "core_problem": "Multi-step reasoning and tool use limitations in LLMs.",
-  "methodology_summary": "a chat, potentially with humans in the loop. (Bottom-middle) The framework supports flexible AutoGen2 is an open-source framework that allows developers to build LLM ap- patterns for different applications. AutoGen serves as a generic framework for pirical studies demonstrate the effectiveness of th",
+  "paper_title": "AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation",
+  "authors": [],
+  "venue": ":null",
+  "core_problem": "How to scale up the power of LLMs for complex tasks and diverse domains using a generalized multi-agent conversation framework without limiting applicability.",
+  "methodology_summary": "Proposes AutoGen, a generalized multi-agent conversation framework supporting customizable built-in agents (e.g., User Proxy and Assistant agents), conversation-driven control flow, human-in-the-loop interactions, function calling, and inference features like result caching and error handling.",
   "datasets_eval": [
-    "HotpotQA",
-    "HumanEval",
-    "ALFWorld"
+    "MATH"
   ],
-  "empirical_results": "age LLMs, human inputs, tools, or a combination of them. The result is that developers can experimentation for both steps. (Section 2.2) evaluation on benchmarks and a pilot study of new applications. The results show thatAutoGen can enhanced LLM inf",
-  "explicit_limitations": "as a useful building block. However, to develop applications where agents make meaningful progress limitations of LLMs by incorporating external documents. In this section, we employ AutoGen to build a Retrieval-Augmented Generation (RAG) system (Lew"
+  "empirical_results": "AutoGen enables superior performance compared to alternative baselines including vanilla GPT-4, ChatGPT with Plugins/Code, Multi-Agent Debate, and LangChain ReAct on MATH benchmark problems and application scenarios.",
+  "explicit_limitations": "Evaluation across full datasets was restricted by ChatGPT's hourly message limitations and substantial required manual effort, while inherent LLM limitations necessitate integration with external retrieval tools."
 }

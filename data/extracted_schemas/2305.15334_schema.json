@@ -1,17 +1,16 @@
 {
   "paper_id": "2305.15334",
-  "paper_title": "2305.15334 Gorilla Large Language M",
-  "authors": [
-    "Research Authors"
-  ],
-  "venue": "arXiv / Peer-Reviewed Venue",
-  "core_problem": "Multi-step reasoning and tool use limitations in LLMs.",
-  "methodology_summary": "approach to how we integrate tools. It is not longer possible to describe the full set of APIs in a their experimentation. While our approach, Gorilla, incorporates techniques akin to those mentioned, method for evaluation and training (including fine-tuning). Our work, on the other hand, concentrat",
+  "paper_title": "Gorilla: Large Language Model Connected with Massive APIs",
+  "authors": [],
+  "venue": "arXiv",
+  "core_problem": "Enabling Large Language Models to accurately call massive numbers of APIs with constraints while reducing hallucinations and staying updated with API changes.",
+  "methodology_summary": "Gorilla uses LLaMA fine-tuning combined with retriever-aware training on APIBench, a dataset constructed from TorchHub, TensorHub, and HuggingFace API documentations. It evaluates model outputs using AST sub-tree matching to verify API functionality and argument correctness under constraints.",
   "datasets_eval": [
-    "HotpotQA",
-    "HumanEval",
-    "ALFWorld"
+    "APIBench",
+    "TorchHub",
+    "HuggingFace",
+    "TensorHub"
   ],
-  "empirical_results": "hallucination, commonly encountered when prompting LLMs directly. To evaluate result = result = Figure 2: Accuracy (vs) hallucination in four settings, that is, zero-shot (i.e., without any retriever), and with at 100%, indicating an upper bound. Hig",
-  "explicit_limitations": "reasoning and program synthesis. However, their potential to effectively use tools capabilities including natural dialogue, mathematical reasoning, and program synthesis. However, APIs. However, much of the prior work [35, 24] integrating tools into "
+  "empirical_results": "Gorilla significantly outperforms GPT-4 in API functionality accuracy and reduces hallucination across zero-shot and retriever-integrated settings.",
+  "explicit_limitations": "Evaluating API calls via direct code execution output is not fully realized in this benchmark (left for future work), and static test cases fall short for evaluating complex, nuanced API calls with overlapping functionality."
 }

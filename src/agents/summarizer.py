@@ -8,15 +8,30 @@ import os
 import json
 import re
 from typing import List, Dict, Any, Optional
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 from src.agents.llm_manager import GeminiLLMManager
 from src.agents.memory_store import get_global_memory_store
+
+
+def _coerce_to_list(v):
+    """Gemini sometimes returns a List[str] field as one paragraph of text
+    instead of an actual list. Wrap it instead of failing validation."""
+    if v is None:
+        return []
+    if isinstance(v, str):
+        return [v]
+    return v
 
 class ProblemMotivation(BaseModel):
     problem_statement: str = Field(description="Exact research problem or gap addressed by paper")
     motivation: str = Field(description="Why existing methods fail and motivation for this approach")
     core_challenges: List[str] = Field(default=[], description="Specific challenges tackled")
+
+    @field_validator("core_challenges", mode="before")
+    @classmethod
+    def _v_core_challenges(cls, v):
+        return _coerce_to_list(v)
 
 class ProposedMethodology(BaseModel):
     method_name: str = Field(description="Name or identifier of proposed architecture/method")
@@ -24,16 +39,33 @@ class ProposedMethodology(BaseModel):
     technical_innovations: List[str] = Field(default=[], description="Key algorithmic innovations introduced")
     key_algorithms: str = Field(default="", description="Core equations, prompting paradigm, or framework mechanics")
 
+    @field_validator("technical_innovations", mode="before")
+    @classmethod
+    def _v_technical_innovations(cls, v):
+        return _coerce_to_list(v)
+
 class EmpiricalResults(BaseModel):
     evaluated_datasets: List[str] = Field(default=[], description="Names of benchmark datasets used")
     key_metrics: List[str] = Field(default=[], description="Evaluation metrics (EM, Accuracy, Success Rate, ROUGE)")
     quantitative_results_summary: str = Field(description="Detailed numerical benchmark performance and gains achieved")
     baseline_comparisons: str = Field(description="Comparison against state-of-the-art baselines")
 
+    @field_validator("evaluated_datasets", "key_metrics", mode="before")
+    @classmethod
+    def _v_lists(cls, v):
+        return _coerce_to_list(v)
+
 class ExplicitLimitations(BaseModel):
     stated_limitations: List[str] = Field(default=[], description="Explicitly stated paper limitations or failure modes")
     failure_modes: str = Field(description="Specific failure patterns, hallucination cases, or bottleneck scenarios")
     computational_tradeoffs: str = Field(description="API token consumption, latency, or compute overhead")
+
+    @field_validator("stated_limitations", mode="before")
+    @classmethod
+    def _v_stated_limitations(cls, v):
+        return _coerce_to_list(v)
+
+ 
 
 class ComprehensivePaperSummary(BaseModel):
     paper_id: str
@@ -242,14 +274,15 @@ def run_summarizer_agent(schema_path: str, output_dir: str = "data/summaries", l
         - markdown_full_summary: (A complete ~600-800 word formatted markdown literature review summary block)
         """
 
-        res_json = llm.generate_structured_json(prompt, system_instruction=sys_instruction)
+        res_json = llm.generate_structured_json(prompt, system_instruction=sys_instruction, response_schema=ComprehensivePaperSummary,)
         if res_json:
             try:
-                res_json["summary_source"] = f"Google Gemini LLM ({llm.last_used_model or 'gemini-1.5-flash'})"
+                res_json["summary_source"] = f"Google Gemini LLM ({llm.last_used_model or 'gemini-2.5-flash'})"
                 summary_obj = ComprehensivePaperSummary(**res_json)
                 print(f"   [SUCCESS] Gemini LLM Summarization succeeded for {paper_id} using {summary_obj.summary_source}!")
             except Exception as e:
-                print(f"   [WARN] Schema validation error on LLM output ({e}). Switching to grounded heuristic engine...")
+                llm.last_error = f"LLM returned JSON but it failed schema validation: {e}"
+                print(f"   [WARN] {llm.last_error}. Switching to grounded heuristic engine...")
 
     if not summary_obj:
         reason_msg = llm.last_error if (llm and llm.last_error) else "No API key configured"

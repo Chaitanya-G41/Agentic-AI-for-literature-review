@@ -1,17 +1,17 @@
 {
   "paper_id": "2308.00352",
-  "paper_title": "2308.00352 MetaGPT Meta Programming",
+  "paper_title": "MetaGPT: Meta Programming Framework",
   "authors": [
-    "Research Authors"
+    "Unknown"
   ],
-  "venue": "arXiv / Peer-Reviewed Venue",
-  "core_problem": "Multi-step reasoning and tool use limitations in LLMs.",
-  "methodology_summary": "MULTI-AGENT COLLABORATIVE FRAMEWORK MetaGPT, an innovative meta-programming framework incorporating efficient Inspired by such ideas, we design a promising GPT -based Meta-Programming framework called Benefiting from SOPs, MetaGPT offers a promising approach to meta-programming. In this context, pop",
+  "venue": "arXiv",
+  "core_problem": "Addressing inefficiencies, logic inconsistencies, and communication topology issues in LLM-based multi-agent collaboration systems for software engineering.",
+  "methodology_summary": "MetaGPT introduces standard operating procedures (SOPs) into multi-agent collaboration frameworks based on LLMs, enabling structured role-playing and directional information sharing among agents.",
   "datasets_eval": [
-    "HotpotQA",
     "HumanEval",
-    "ALFWorld"
+    "MBPP",
+    "SoftwareDev"
   ],
-  "empirical_results": "to verify intermediate results and reduce errors. MetaGPT utilizes an assembly laborative software engineering benchmarks, MetaGPT generates more coherent MBPP (Austin et al., 2021) for evaluations. Notably, in code generation benchmarks, MetaGPT fun",
-  "explicit_limitations": "complex tasks, however, are complicated through logic inconsistencies due to hance and replicate human workflows. In real-world applications, however, existing systems (Park et al., 2023). However, MetaGPT stands out as a unique solution that allows "
+  "empirical_results": "MetaGPT achieves a 100% task completion rate on experimental evaluations and generates more coherent code, outperforming baseline models on code generation benchmarks.",
+  "explicit_limitations": "Each software project is executed independently, lacking long-term active teamwork learning and cross-project knowledge retention."
 }

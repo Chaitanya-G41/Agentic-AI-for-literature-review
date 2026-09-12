@@ -1,4 +1,4 @@
-"""
+"""parser.py
 Step 2 Stage 1: PDF Layout Parser & Section Chunk Indexer (GROBID + PyPDF Fallback)
 Project: NLP-05 Agentic AI for Automated Research Paper Analysis
 """

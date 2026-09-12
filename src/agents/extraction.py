@@ -6,7 +6,7 @@ Project: NLP-05 Agentic AI for Automated Research Paper Analysis
 import os
 import json
 import re
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 class PaperSchema(BaseModel):
     paper_id: str = Field(description="Unique paper ID or arXiv ID")
@@ -18,6 +18,35 @@ class PaperSchema(BaseModel):
     datasets_eval: list[str] = Field(default=[], description="Datasets or benchmarks evaluated")
     empirical_results: str = Field(description="Key accuracy or benchmark results achieved")
     explicit_limitations: str = Field(description="Explicit limitations, drawbacks, or failure modes")
+
+    @field_validator("authors", "datasets_eval", mode="before")
+    @classmethod
+    def _v_lists(cls, v):
+        """Gemini sometimes sends null instead of omitting the field, or a
+        single string instead of a one-item list. Normalize both."""
+        if v is None:
+            return []
+        if isinstance(v, str):
+            return [v]
+        return v
+
+    @field_validator("venue", mode="before")
+    @classmethod
+    def _v_venue(cls, v):
+        """A default= only applies when the key is missing entirely; an
+        explicit null still overrides it, so catch that case here."""
+        return v if v else "arXiv / Conference"
+
+    @field_validator("core_problem", "methodology_summary", "empirical_results", "explicit_limitations", mode="before")
+    @classmethod
+    def _v_strs(cls, v):
+        """Gemini sometimes returns these as a list of sentences instead of
+        one string. Join them instead of failing validation."""
+        if v is None:
+            return ""
+        if isinstance(v, list):
+            return " ".join(str(x) for x in v if x)
+        return v
 
 def extract_candidate_blocks(parsed_json):
     """Keyword heuristic pre-filter to pull candidate blocks for Gemini LLM processing."""
@@ -79,7 +108,7 @@ def run_extraction_agent(parsed_json_path, output_dir="data/extracted_schemas", 
         paper_id, paper_title, authors, venue, core_problem, methodology_summary, datasets_eval, empirical_results, explicit_limitations
         """
         sys_inst = "You are an expert NLP Research Extraction Agent. Extract clean JSON matching the requested paper schema."
-        schema_dict = llm.generate_structured_json(prompt, system_instruction=sys_inst)
+        schema_dict = llm.generate_structured_json(prompt, system_instruction=sys_inst, response_schema=PaperSchema)
         if schema_dict:
             try:
                 extracted_schema = PaperSchema(**schema_dict)
