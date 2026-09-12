@@ -19,7 +19,7 @@ class ResearchGapAnalysis(BaseModel):
 def run_research_gap_agent(schemas):
   paper_context = ""
   for paper in schemas:
-    paper_context += f"\nPaper Title: {paper.paper_title}\n Core Problem: {paper.core_problem}\n Methadology: {paper.methadology_summar}\nLimitations: {paper.explicit_limitations}\n"
+    paper_context += f"\nPaper Title: {paper.paper_title}\n Core Problem: {paper.core_problem}\n Methadology: {paper.methadology_summary}\nLimitations: {paper.explicit_limitations}\n"
 
   api_key = os.environ.get("GEMINI_API_KEY")
   if api_key:
