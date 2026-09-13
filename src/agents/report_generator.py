@@ -13,12 +13,13 @@ class LiteratureReviewReport(BaseModel):
 
 def generate_literature_review(schemas, summaries, comp_analysis, gap_analysis):
   md=""
-  md += "## 1. Corpus Overview\n\n"
-  md+= " Paper id | Title | Venue "
-  md+= " -------- | -----  | ---- "
-  for paper in schemas:
-    md+= "paper.paper_id | paper.paper_title | paper.venue "
   md += "# Automated Literature Review: Synthesis of Agentic AI Systems\n\n"
+  md += "## 1. Corpus Overview\n\n"
+  md+= " | Paper id | Title | Venue | "
+  md+= " | -------- | -----  | ---- |"
+  for paper in schemas:
+    md+= f"| {paper.paper_id} | {paper.paper_title} | {paper.venue} | "  
+    
   md += f"**Corpus Coverage:** {len(schemas)} Benchmark Papers\n\n"
   
   
