@@ -5,5 +5,6 @@ import re
 import json
 import google.generativeai as genai
 
-class LiteratureReviewReport:
+class LiteratureReviewReport(BaseModel):
+  
   
