@@ -28,17 +28,17 @@ def generate_literature_review(schemas, summaries, comp_analysis, gap_analysis):
     md+= f"{gap.title} : {gap.description}\n"
 
 
-os.makedirs(output_dir, exist_ok=True)
-os.path.join(output_dir, "literature_review_report.md")
-open(filepath, "w", encoding="utf-8") as f:
-    f.write(your_md_string)
+  os.makedirs(output_dir, exist_ok=True)
+  os.path.join(output_dir, "literature_review_report.md")
+  with open(filepath, "w", encoding="utf-8") as f:
+      f.write(your_md_string)
 
-return LiteratureReviewReport(
-    title = "the report title string",
-    generated_at = your_timestamp_variable,
-    paper_count = number of schemas,
-    full_markdown = your md string
-)
+  return LiteratureReviewReport(
+      title = "the report title string",
+      generated_at = your_timestamp_variable,
+      paper_count = number of schemas,
+      full_markdown = your md string
+  )
 
 
 
