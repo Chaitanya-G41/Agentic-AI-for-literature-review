@@ -1,27 +1,13 @@
 """
-Multi-API Key Manager & LLM Client Wrapper
+Multi-API Key & Provider LLM Client Manager
 Project: NLP-05 Agentic AI for Automated Research Paper Analysis
-Handles round-robin API key rotation, rate-limit fallback (429/401), exponential
-backoff, and model failover.
 
-NOTE: This was rewritten to use the current `google-genai` SDK
-(`pip install google-genai`, `from google import genai`).
-
-The previous version imported `google.generativeai`, which Google fully
-end-of-lifed on Nov 30, 2025 (no more bug fixes, and it never reliably
-supported Gemini 3.x models). That mismatch was the actual cause of the
-"key not getting configured" symptom: key resolution was working fine, but
-every model call downstream was silently failing against a dead SDK, so
-every attempt fell through to the heuristic fallback engine.
-
-Public interface is unchanged on purpose, so callers (e.g. the Step 3
-Summarizer Agent) do not need to change:
-    GeminiLLMManager(api_keys=..., preferred_models=...)
-        .keys
-        .generate_text(prompt, system_instruction=None, max_retries=3)
-        .generate_structured_json(prompt, system_instruction=None, max_retries=3)
-        .last_used_model
-        .last_error
+Supports:
+1. NVIDIA NIM API (Primary - OpenAI-compatible endpoint at https://integrate.api.nvidia.com/v1)
+   Models: meta/llama-3.3-70b-instruct, nvidia/llama-3.1-nemotron-70b-instruct
+2. Google GenAI (Fallback - google-genai SDK)
+   Models: gemini-2.5-flash, gemini-1.5-flash
+3. Provenance Tracking (GENUINE_LLM vs HEURISTIC_FALLBACK)
 """
 
 import os
@@ -30,46 +16,75 @@ import random
 import re
 import json
 
+# Try importing OpenAI client for NVIDIA NIM
+try:
+    from openai import OpenAI
+    _OPENAI_AVAILABLE = True
+except ImportError:
+    OpenAI = None
+    _OPENAI_AVAILABLE = False
+
+# Try importing Google GenAI for secondary fallback
 try:
     from google import genai
     from google.genai import types as genai_types
     from google.genai import errors as genai_errors
-    _GENAI_IMPORT_ERROR = None
-except ImportError as e:
+    _GENAI_AVAILABLE = True
+except ImportError:
     genai = None
     genai_types = None
     genai_errors = None
-    _GENAI_IMPORT_ERROR = str(e)
+    _GENAI_AVAILABLE = False
 
 
-class GeminiLLMManager:
+class LLMManager:
+    """
+    Unified LLM Manager with NVIDIA NIM primary support,
+    key rotation, model fallback, and provenance tracking.
+    """
     def __init__(self, api_keys=None, preferred_models=None):
-        """
-        Initializes the Gemini LLM Manager with multi-key rotation and model fallback.
-        api_keys: List of string keys or comma-separated env var GEMINI_API_KEYS / GEMINI_API_KEY.
-        preferred_models: List of model names to attempt in order of preference.
-        """
-        self.keys = self._resolve_api_keys(api_keys)
-        self.current_key_idx = 0
-        self.cooldowns = {}  # key -> timestamp until available
+        self._load_dotenv_safe()
+        
+        # 1. Resolve NVIDIA API Keys (Primary)
+        self.nvidia_keys = self._resolve_keys(api_keys, env_vars=["NVIDIA_API_KEY", "NVIDIA_API_KEYS", "NVAPI_KEY"])
+        
+        # 2. Resolve Gemini API Keys (Secondary Fallback)
+        self.gemini_keys = self._resolve_keys(None, env_vars=["GEMINI_API_KEY", "GEMINI_API_KEYS", "GOOGLE_API_KEY"])
 
-        # Curated list of currently-live Gemini models (checked Sept 2026).
-        # gemini-1.5-flash and gemini-2.0-flash have both been retired and
-        # now 404 for everyone, so they've been dropped from the default list.
-        self.preferred_models = preferred_models or [
-            "gemini-3.6-flash",
-            "gemini-3.5-flash",
-            "gemini-2.5-flash",
-            "gemini-2.5-flash-lite",
+        # Models to attempt on NVIDIA NIM
+        self.preferred_nvidia_models = preferred_models or [
+            "meta/llama-3.3-70b-instruct",
+            "nvidia/llama-3.1-nemotron-70b-instruct",
+            "mistralai/mixtral-8x22b-instruct-v0.1"
         ]
+        
+        # Gemini fallback models
+        self.preferred_gemini_models = [
+            "gemini-2.5-flash",
+            "gemini-1.5-flash"
+        ]
+
         self.last_used_model = None
+        self.last_provider = None
         self.last_error = None
+        self.generation_mode = "HEURISTIC_FALLBACK"
 
-    def _resolve_api_keys(self, custom_keys):
-        keys = []
-        source = "none"
+    @property
+    def keys(self):
+        """Returns any active keys (NVIDIA or Gemini) for backward compatibility."""
+        return self.nvidia_keys or self.gemini_keys
 
-        # Always reload .env file to catch any changes immediately
+        # Log active provider
+        if self.nvidia_keys:
+            masked = f"...{self.nvidia_keys[0][-6:]}" if len(self.nvidia_keys[0]) > 6 else "***"
+            print(f"   [LLM-INIT] NVIDIA NIM Provider Active (Key: {masked}, Model: {self.preferred_nvidia_models[0]})")
+        elif self.gemini_keys:
+            masked = f"...{self.gemini_keys[0][-6:]}" if len(self.gemini_keys[0]) > 6 else "***"
+            print(f"   [LLM-INIT] Google Gemini Fallback Provider Active (Key: {masked})")
+        else:
+            print(f"   [LLM-INIT] No API keys found (NVIDIA_API_KEY / GEMINI_API_KEY). Rule-based Heuristic Engine will be used.")
+
+    def _load_dotenv_safe(self):
         try:
             from dotenv import load_dotenv, find_dotenv
             env_file = find_dotenv(usecwd=True)
@@ -78,207 +93,117 @@ class GeminiLLMManager:
         except Exception:
             pass
 
-        def clean_key(k):
-            if not k or not isinstance(k, str):
-                return ""
-            return k.strip().strip('"').strip("'").strip()
-
+    def _resolve_keys(self, custom_keys, env_vars):
+        keys = []
         if custom_keys:
             if isinstance(custom_keys, str):
-                raw_list = custom_keys.split(",")
+                keys.extend([k.strip().strip('"').strip("'") for k in custom_keys.split(",") if k.strip()])
             elif isinstance(custom_keys, list):
-                raw_list = custom_keys
-            else:
-                raw_list = []
+                keys.extend([k.strip().strip('"').strip("'") for k in custom_keys if k and isinstance(k, str) and k.strip()])
 
-            for k in raw_list:
-                cleaned = clean_key(k)
-                if cleaned:
-                    keys.append(cleaned)
-            if keys:
-                source = "direct parameter / session state"
-
-        if not keys:
-            env_val = (
-                os.environ.get("GEMINI_API_KEYS", "") or
-                os.environ.get("GEMINI_API_KEY", "") or
-                os.environ.get("GOOGLE_API_KEY", "")
-            )
-            if env_val:
-                for k in env_val.split(","):
-                    cleaned = clean_key(k)
-                    if cleaned:
+        for var in env_vars:
+            val = os.environ.get(var, "")
+            if val:
+                for k in val.split(","):
+                    cleaned = k.strip().strip('"').strip("'")
+                    if cleaned and cleaned not in keys:
                         keys.append(cleaned)
-                if keys:
-                    source = "environment variable (.env / os.environ)"
-
-        if keys:
-            masked = [f"...{k[-6:]}" if len(k) >= 6 else "***" for k in keys]
-            print(f"   [KEY-RESOLVE] Loaded {len(keys)} API key(s) from {source}: {masked}")
-        else:
-            print("   [KEY-RESOLVE] No API keys found (checked: direct param, .env, GEMINI_API_KEYS, GEMINI_API_KEY, GOOGLE_API_KEY).")
-
         return keys
 
-    def get_valid_key(self):
-        """Returns an active API key not currently in rate-limit cooldown."""
-        if not self.keys:
-            return None
-
-        now = time.time()
-        num_keys = len(self.keys)
-
-        for idx_offset in range(num_keys):
-            idx = (self.current_key_idx + idx_offset) % num_keys
-            key = self.keys[idx]
-            cooldown_until = self.cooldowns.get(key, 0)
-            if now >= cooldown_until:
-                self.current_key_idx = (idx + 1) % num_keys
-                return key
-
-        # If all keys are in cooldown, return the one that expires soonest
-        soonest_key = min(self.keys, key=lambda k: self.cooldowns.get(k, 0))
-        wait_time = max(0, self.cooldowns.get(soonest_key, 0) - now)
-        if 0 < wait_time < 10:
-            time.sleep(wait_time)
-        return soonest_key
-
-    def mark_key_rate_limited(self, key, cooldown_seconds=60):
-        """Marks a key as rate-limited for a duration."""
-        if key:
-            print(f"   [RATE-LIMIT] Key ending in '...{key[-4:]}' rate-limited. Cooling down for {cooldown_seconds}s.")
-            self.cooldowns[key] = time.time() + cooldown_seconds
-
-    def generate_text(self, prompt, system_instruction=None, max_retries=3, as_json=False, response_schema=None):
+    def generate_text(self, prompt: str, system_instruction: str = None, max_retries: int = 3) -> str:
         """
-        Executes text generation using active API key rotation and model fallback.
-        Returns generated string or None on failure.
-
-        as_json: when True, tells Gemini to return raw JSON directly
-        (response_mime_type="application/json") instead of free-form text
-        that might come wrapped in markdown fences or trailing commentary.
-
-        response_schema: optional Pydantic model class. When set, Gemini's
-        decoder is constrained to match that schema's field types exactly
-        (e.g. a List[str] field literally cannot come back as a plain string),
-        instead of only being asked to via prompt instructions. Implies as_json.
+        Executes text generation. Tries NVIDIA NIM first, then Gemini, then returns None for Heuristic fallback.
         """
-        self.last_used_model = None
-        self.last_error = None
+        # Try NVIDIA NIM first
+        if self.nvidia_keys and _OPENAI_AVAILABLE:
+            for key in self.nvidia_keys:
+                client = OpenAI(
+                    base_url="https://integrate.api.nvidia.com/v1",
+                    api_key=key
+                )
+                messages = []
+                if system_instruction:
+                    messages.append({"role": "system", "content": system_instruction})
+                messages.append({"role": "user", "content": prompt})
 
-        if not self.keys:
-            self.last_error = "No Gemini API keys configured in environment or UI."
-            print(f"   [INFO] {self.last_error}")
-            return None
+                for model in self.preferred_nvidia_models:
+                    for attempt in range(max_retries):
+                        try:
+                            completion = client.chat.completions.create(
+                                model=model,
+                                messages=messages,
+                                temperature=0.2,
+                                top_p=0.7,
+                                max_tokens=1500
+                            )
+                            if completion and completion.choices:
+                                text = completion.choices[0].message.content
+                                if text:
+                                    self.last_used_model = model
+                                    self.last_provider = "NVIDIA_NIM"
+                                    self.generation_mode = "GENUINE_LLM"
+                                    return text.strip()
+                        except Exception as e:
+                            self.last_error = f"NVIDIA NIM error ({model}): {e}"
+                            time.sleep(1.5 ** attempt)
+                            continue
 
-        if genai is None:
-            self.last_error = f"google-genai package not installed ({_GENAI_IMPORT_ERROR}). Run: pip install google-genai"
-            print(f"   [ERROR] {self.last_error}")
-            return None
-
-        config_kwargs = {}
-        if system_instruction:
-            config_kwargs["system_instruction"] = system_instruction
-        if as_json or response_schema is not None:
-            config_kwargs["response_mime_type"] = "application/json"
-        if response_schema is not None:
-            config_kwargs["response_schema"] = response_schema
-        config = genai_types.GenerateContentConfig(**config_kwargs) if config_kwargs else None
-
-        for attempt in range(max_retries):
-            key = self.get_valid_key()
-            if not key:
-                self.last_error = "All API keys in rate-limit cooldown."
-                break
-
-            try:
-                client = genai.Client(api_key=key)
-            except Exception as e:
-                self.last_error = f"Failed to create Gemini client: {e}"
-                print(f"   [ERROR] {self.last_error}")
-                continue
-
-            got_response = False
-
-            for model_name in self.preferred_models:
+        # Secondary fallback: Gemini
+        if self.gemini_keys and _GENAI_AVAILABLE:
+            for key in self.gemini_keys:
                 try:
-                    res = client.models.generate_content(
-                        model=model_name,
-                        contents=prompt,
-                        config=config,
-                    )
-                    if res and getattr(res, "text", None):
-                        self.last_used_model = model_name
-                        return res.text.strip()
-                except genai_errors.APIError as e:
-                    code = getattr(e, "code", None)
-                    err_str = str(e).lower()
+                    client = genai.Client(api_key=key)
+                    config = genai_types.GenerateContentConfig(
+                        system_instruction=system_instruction
+                    ) if system_instruction else None
 
-                    if code == 401 or "api key not valid" in err_str or "api_key_invalid" in err_str:
-                        self.last_error = f"API key invalid or rejected by Google (key ending in ...{key[-4:]}). Please verify your Gemini API key."
-                        print(f"   [ERROR] {self.last_error}")
-                        break  # this key is bad, stop trying other models with it
-
-                    elif code == 429 or "quota" in err_str or "rate limit" in err_str:
-                        self.mark_key_rate_limited(key, cooldown_seconds=30)
-                        break  # switch key on 429
-
-                    elif code == 404 or any(k in err_str for k in ["not found", "invalid model", "not supported", "no longer available", "deprecated", "does not exist"]):
-                        print(f"   [INFO] Model {model_name} unavailable ({e}). Trying next model in list...")
-                        continue  # try next candidate model
-
-                    else:
-                        self.last_error = str(e)
-                        print(f"   [WARN] LLM call error with model {model_name}: {e}")
-                        continue
-
+                    for model in self.preferred_gemini_models:
+                        try:
+                            res = client.models.generate_content(
+                                model=model,
+                                contents=prompt,
+                                config=config
+                            )
+                            if res and getattr(res, "text", None):
+                                self.last_used_model = model
+                                self.last_provider = "GOOGLE_GEMINI"
+                                self.generation_mode = "GENUINE_LLM"
+                                return res.text.strip()
+                        except Exception as e:
+                            self.last_error = f"Gemini error ({model}): {e}"
+                            continue
                 except Exception as e:
-                    self.last_error = str(e)
-                    print(f"   [WARN] Unexpected error with model {model_name}: {e}")
+                    self.last_error = f"Gemini client error: {e}"
                     continue
 
-            if got_response:
-                break
-
-            # Backoff before retrying with next key
-            sleep_dur = (2 ** attempt) + random.uniform(0.1, 0.5)
-            time.sleep(sleep_dur)
-
+        self.generation_mode = "HEURISTIC_FALLBACK"
         return None
 
-    def generate_structured_json(self, prompt, system_instruction=None, max_retries=3, response_schema=None):
+    def generate_structured_json(self, prompt: str, system_instruction: str = None, max_retries: int = 3, response_schema=None):
         """
-        Executes LLM text generation and extracts clean parsed JSON object.
-
-        response_schema: optional Pydantic model class to constrain Gemini's
-        output shape directly (see generate_text docstring). Recommended for
-        any schema with List[...] fields, since it prevents Gemini from
-        collapsing a list field into a single string.
+        Generates and parses a JSON response from the LLM.
         """
-        raw_text = self.generate_text(
-            prompt,
-            system_instruction=system_instruction,
-            max_retries=max_retries,
-            as_json=True,
-            response_schema=response_schema,
-        )
+        augmented_prompt = prompt + "\n\nCRITICAL: Return ONLY a valid JSON object matching the requested schema. No markdown formatting, no conversational text."
+        raw_text = self.generate_text(augmented_prompt, system_instruction=system_instruction, max_retries=max_retries)
+        
         if not raw_text:
-            # last_error is already set by generate_text (bad key, rate limit, no models, etc.)
             return None
 
-        clean_json_str = re.sub(r'```json|```', '', raw_text).strip()
-        try:
-            return json.loads(clean_json_str)
-        except json.JSONDecodeError:
-            match = re.search(r'\{.*\}', raw_text, re.DOTALL)
-            if match:
-                try:
-                    return json.loads(match.group(0))
-                except json.JSONDecodeError:
-                    pass
+        # Clean ```json code fence blocks
+        cleaned = re.sub(r'```json\s*', '', raw_text)
+        cleaned = re.sub(r'```\s*$', '', cleaned).strip()
 
-        # The API call succeeded (we got text back) but it wasn't valid JSON.
-        # Record this explicitly so callers don't misreport it as "no API key".
-        self.last_error = f"LLM call succeeded but response was not valid JSON (first 200 chars: {raw_text[:200]!r})"
-        print(f"   [WARN] {self.last_error}")
-        return None
+        # Locate JSON block
+        json_match = re.search(r'(\{.*\}|\[.*\])', cleaned, re.DOTALL)
+        if json_match:
+            cleaned = json_match.group(0)
+
+        try:
+            return json.loads(cleaned)
+        except Exception as e:
+            self.last_error = f"JSON parse error: {e}"
+            return None
+
+
+# Backward-compatible alias for existing agent imports
+GeminiLLMManager = LLMManager
