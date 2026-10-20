@@ -277,16 +277,16 @@ def run_summarizer_agent(schema_path: str, output_dir: str = "data/summaries", l
         res_json = llm.generate_structured_json(prompt, system_instruction=sys_instruction, response_schema=ComprehensivePaperSummary,)
         if res_json:
             try:
-                res_json["summary_source"] = f"Google Gemini LLM ({llm.last_used_model or 'gemini-2.5-flash'})"
+                res_json["summary_source"] = f"{llm.last_provider or 'LLM'} ({llm.last_used_model or 'default'})"
                 summary_obj = ComprehensivePaperSummary(**res_json)
-                print(f"   [SUCCESS] Gemini LLM Summarization succeeded for {paper_id} using {summary_obj.summary_source}!")
+                print(f"   [GENUINE-LLM] Summarization succeeded for {paper_id} using {summary_obj.summary_source}!")
             except Exception as e:
                 llm.last_error = f"LLM returned JSON but it failed schema validation: {e}"
                 print(f"   [WARN] {llm.last_error}. Switching to grounded heuristic engine...")
 
     if not summary_obj:
         reason_msg = llm.last_error if (llm and llm.last_error) else "No API key configured"
-        print(f"   [HEURISTIC] Running Grounded Heuristic Summary Engine for {paper_id} (Reason: {reason_msg})...")
+        print(f"   [HEURISTIC-FALLBACK] Running Grounded Heuristic Summary Engine for {paper_id} (Reason: {reason_msg})...")
         summary_obj = generate_grounded_heuristic_summary(schema_dict, context, reason=reason_msg)
 
     # Save to disk

@@ -18,6 +18,8 @@ class PaperSchema(BaseModel):
     datasets_eval: list[str] = Field(default=[], description="Datasets or benchmarks evaluated")
     empirical_results: str = Field(description="Key accuracy or benchmark results achieved")
     explicit_limitations: str = Field(description="Explicit limitations, drawbacks, or failure modes")
+    generation_mode: str = Field(default="HEURISTIC_FALLBACK", description="GENUINE_LLM or HEURISTIC_FALLBACK")
+    model_name: str = Field(default="Rule-Based Heuristic Engine", description="Name of LLM or Heuristic Engine used")
 
     @field_validator("authors", "datasets_eval", mode="before")
     @classmethod
@@ -111,7 +113,10 @@ def run_extraction_agent(parsed_json_path, output_dir="data/extracted_schemas", 
         schema_dict = llm.generate_structured_json(prompt, system_instruction=sys_inst, response_schema=PaperSchema)
         if schema_dict:
             try:
+                schema_dict["generation_mode"] = "GENUINE_LLM"
+                schema_dict["model_name"] = f"{llm.last_provider or 'LLM'} ({llm.last_used_model or 'default'})"
                 extracted_schema = PaperSchema(**schema_dict)
+                print(f"   [GENUINE-LLM] Extracted schema for {paper_id} using {extracted_schema.model_name}")
             except Exception as e:
                 print(f"   Schema validation failed ({e}). Using Heuristic Fallback...")
 
@@ -126,8 +131,11 @@ def run_extraction_agent(parsed_json_path, output_dir="data/extracted_schemas", 
             methodology_summary=candidates['method_context'][:300] if candidates['method_context'] else "Interleaves reasoning traces with task execution.",
             datasets_eval=["HotpotQA", "HumanEval", "ALFWorld"],
             empirical_results=candidates['results_context'][:250] if candidates['results_context'] else "Outperforms single-prompt baselines on multi-step benchmarks.",
-            explicit_limitations=candidates['limitation_context'][:250] if candidates['limitation_context'] else "High API token consumption in multi-turn execution loops."
+            explicit_limitations=candidates['limitation_context'][:250] if candidates['limitation_context'] else "High API token consumption in multi-turn execution loops.",
+            generation_mode="HEURISTIC_FALLBACK",
+            model_name="Rule-Based Heuristic Engine"
         )
+        print(f"   [HEURISTIC-FALLBACK] Extracted schema for {paper_id} via Heuristic Engine")
 
     output_filename = f"{paper_id}_schema.json"
     output_filepath = os.path.join(output_dir, output_filename)

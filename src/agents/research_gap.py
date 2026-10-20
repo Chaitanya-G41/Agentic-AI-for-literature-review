@@ -33,12 +33,13 @@ Each gap item should contain: "gap_id", "title", "category", "description", "aff
   data_dict = llm.generate_structured_json(prompt)
   if data_dict and "explicit_gaps" in data_dict and "synthesized_gaps" in data_dict:
     try:
-      print(f"   [Agent 5] Research Gaps generated via {llm.last_provider} ({llm.last_used_model})")
+      print(f"   [GENUINE-LLM] Research Gaps generated via {llm.last_provider or 'LLM'} ({llm.last_used_model or 'default'})")
       return ResearchGapAnalysis(**data_dict)
     except Exception as e:
       print(f"   [Agent 5 Note] Pydantic parsing note: {e}")
 
   # Grounded Heuristic Fallback if API key is not present
+  print("   [HEURISTIC-FALLBACK] Synthesizing Grounded Heuristic Research Gaps (Reason: Offline or LLM unavailable)...")
   explicit = []
   for idx, p in enumerate(schemas, start=1):
     explicit.append(ResearchGap(
