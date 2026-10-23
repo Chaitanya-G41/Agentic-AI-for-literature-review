@@ -1,0 +1,55 @@
+{
+  "paper_id": "2310.11511",
+  "paper_title": "Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection",
+  "authors": [
+    "Akari Asai",
+    "Zeqiu Wu",
+    "Yizhong Wang",
+    "Aviram Stern",
+    "Shashi Narayan",
+    "Hugo Larochelle",
+    "Denny Zhou"
+  ],
+  "venue": "arXiv preprint arXiv:2310.11511, 2023",
+  "grounded_citation": "[Asai et al., arXiv preprint arXiv:2310.11511, 2023]",
+  "summary_source": "Heuristic Engine Fallback (No API key configured)",
+  "problem_motivation": {
+    "problem_statement": "Large language models often produce factual inaccuracies due to sole reliance on parametric knowledge. Retrieval-Augmented Generation reduces these issues but indiscriminately retrieving and incorporating a fixed number of passages regardless of necessity or relevance diminishes LM versatility and can lead to unhelpful response generation.",
+    "motivation": "Prior standard and chain-of-thought prompting approaches operate as static black boxes without real-world feedback, causing hallucination and error propagation.",
+    "core_challenges": [
+      "Reducing hallucination in reasoning traces",
+      "Integrating interactive external tool feedback",
+      "Maintaining long-horizon execution state"
+    ]
+  },
+  "proposed_methodology": {
+    "method_name": "Self-RAG",
+    "core_architecture": "SELF-RAG trains a single arbitrary LM to adaptively retrieve passages on-demand and to generate and reflect on retrieved passages and its own generations using special reflection tokens. Generating reflection tokens makes the LM controllable during inference, enabling it to tailor behavior to diverse task requirements and improve quality and factuality through retrieval and self-reflection.",
+    "technical_innovations": [
+      "Synergistic thought-action interleaved prompting",
+      "Asynchronous action-space language expansion",
+      "In-context few-shot trajectory learning"
+    ],
+    "key_algorithms": "Action space augmented as A' = A U L where L is free-form language thoughts."
+  },
+  "empirical_results": {
+    "evaluated_datasets": [
+      "Open-domain QA, multi-hop reasoning, fact verification and long-form generation tasks, including ASQA, QAMPARI, HotpotQA, 2WikiMultiHopQA, MuSiQue and long-form QA datasets for factuality and citation evaluation."
+    ],
+    "key_metrics": [
+      "Exact Match (EM)",
+      "Accuracy (Acc)",
+      "Task Success Rate (SR)"
+    ],
+    "quantitative_results_summary": "SELF-RAG 7B and 13B significantly outperforms state-of-the-art LLMs and retrieval-augmented models on a diverse set of tasks. Specifically, SELF-RAG outperforms ChatGPT and retrieval-augmented Llama2-chat on open-domain QA, reasoning and fact verification tasks, and shows significant gains in improving factuality and citation accuracy for long-form generation.",
+    "baseline_comparisons": "Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
+  },
+  "explicit_limitations": {
+    "stated_limitations": [
+      "No explicit limitations are provided in the supplied context."
+    ],
+    "failure_modes": "Repetitive looping in greedy decoding; non-informative search results derail trajectory formulation.",
+    "computational_tradeoffs": "Increased context window usage due to multi-turn thought-action-observation histories."
+  },
+  "markdown_full_summary": "# Grounded Literature Review Summary: Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection\n\n**Citation Anchor:** [Asai et al., arXiv preprint arXiv:2310.11511, 2023]  \n**Venue:** arXiv preprint arXiv:2310.11511, 2023 | **Authors:** Akari Asai, Zeqiu Wu, Yizhong Wang, Aviram Stern, Shashi Narayan, Hugo Larochelle, Denny Zhou  \n\n---\n\n### 1. Core Problem & Motivation\nLarge language models often produce factual inaccuracies due to sole reliance on parametric knowledge. Retrieval-Augmented Generation reduces these issues but indiscriminately retrieving and incorporating a fixed number of passages regardless of necessity or relevance diminishes LM versatility and can lead to unhelpful response generation.\n\n*Motivation & Gaps:* Prior standard and chain-of-thought prompting approaches operate as static black boxes without real-world feedback, causing hallucination and error propagation.  \n*Key Challenges Tackled:*\n- Reducing hallucination in reasoning traces\n- Integrating interactive external tool feedback\n\n---\n\n### 2. Proposed Methodology & Technical Architecture\n**Architecture Overview:**  \nSELF-RAG trains a single arbitrary LM to adaptively retrieve passages on-demand and to generate and reflect on retrieved passages and its own generations using special reflection tokens. Generating reflection tokens makes the LM controllable during inference, enabling it to tailor behavior to diverse task requirements and improve quality and factuality through retrieval and self-reflection.\n\n**Algorithmic Innovation:**  \nAction space augmented as A' = A U L where L is free-form language thoughts.  \n\n*Core Technical Innovations:*\n- Synergistic thought-action interleaved prompting\n- Asynchronous action-space language expansion\n\n---\n\n### 3. Empirical Results & Benchmark Datasets\n**Evaluated Datasets:** Open-domain QA, multi-hop reasoning, fact verification and long-form generation tasks, including ASQA, QAMPARI, HotpotQA, 2WikiMultiHopQA, MuSiQue and long-form QA datasets for factuality and citation evaluation.  \n**Key Metrics:** Exact Match (EM), Accuracy (Acc), Task Success Rate (SR)  \n\n**Quantitative Findings:**  \nSELF-RAG 7B and 13B significantly outperforms state-of-the-art LLMs and retrieval-augmented models on a diverse set of tasks. Specifically, SELF-RAG outperforms ChatGPT and retrieval-augmented Llama2-chat on open-domain QA, reasoning and fact verification tasks, and shows significant gains in improving factuality and citation accuracy for long-form generation.  \n\n**Baseline Comparison:**  \nConsistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks.\n\n---\n\n### 4. Explicit Limitations & Failure Modes\n**Stated Limitations:**  \nNo explicit limitations are provided in the supplied context.  \n\n**Failure Modes & Bottlenecks:**  \nRepetitive looping in greedy decoding; non-informative search results derail trajectory formulation.  \n\n**Computational Trade-offs:**  \nIncreased context window usage due to multi-turn thought-action-observation histories.\n"
+}

@@ -3,7 +3,6 @@ from typing import List
 import os
 import re
 import json
-import google.generativeai as genai
 
 class ResearchGap(BaseModel):
   gap_id: str = Field(description = "unique code")
@@ -31,7 +30,9 @@ Synthesize 3 to 5 research gaps. Return a JSON OBJECT with keys "explicit_gaps" 
 Each gap item should contain: "gap_id", "title", "category", "description", "affected_papers"."""
 
   data_dict = llm.generate_structured_json(prompt)
-  if data_dict and "explicit_gaps" in data_dict and "synthesized_gaps" in data_dict:
+  if isinstance(data_dict, list) and len(data_dict) > 0 and isinstance(data_dict[0], dict):
+    data_dict = data_dict[0]
+  if data_dict and isinstance(data_dict, dict) and "explicit_gaps" in data_dict and "synthesized_gaps" in data_dict:
     try:
       print(f"   [GENUINE-LLM] Research Gaps generated via {llm.last_provider or 'LLM'} ({llm.last_used_model or 'default'})")
       return ResearchGapAnalysis(**data_dict)

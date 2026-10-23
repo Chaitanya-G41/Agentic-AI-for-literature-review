@@ -1,0 +1,63 @@
+{
+  "paper_id": "2308.08155",
+  "paper_title": "AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation",
+  "authors": [
+    "Qingyun Wu",
+    "Gagan Bansal",
+    "Jieyu Zhang",
+    "Yuzhen Huang",
+    "Bing Liu",
+    "Jiale Liu",
+    "Zirui Liu",
+    "Yuanzhi Li",
+    "Sai Wang",
+    "Vincent W. Zheng",
+    "Yanqiao Zhu",
+    "Weizhu Chen",
+    "Shiyu Chang"
+  ],
+  "venue": "arXiv preprint arXiv:2308.08155, 2023",
+  "grounded_citation": "[Wu et al., arXiv preprint arXiv:2308.08155, 2023]",
+  "summary_source": "Heuristic Engine Fallback (No API key configured)",
+  "problem_motivation": {
+    "problem_statement": "How to facilitate development of LLM applications that span a broad spectrum of domains and complexities using a multi-agent approach. Large language models are becoming crucial for agents with reasoning, tool usage and adaptation, and scaling agent power via cooperation of multiple agents is needed to encourage divergent thinking, improve factuality and reasoning, and provide validation.",
+    "motivation": "Prior standard and chain-of-thought prompting approaches operate as static black boxes without real-world feedback, causing hallucination and error propagation.",
+    "core_challenges": [
+      "Reducing hallucination in reasoning traces",
+      "Integrating interactive external tool feedback",
+      "Maintaining long-horizon execution state"
+    ]
+  },
+  "proposed_methodology": {
+    "method_name": "AutoGen",
+    "core_architecture": "AutoGen provides a generic design of conversable agents that can leverage LLMs, human inputs, tools, or a combination. Agents are made conversable to receive, react and respond to messages and can hold multiple autonomous turns or solicit human input. The system adopts conversation programming, a paradigm that simplifies and unifies complex LLM application workflows as multi-agent conversations via defining a set of conversable agents with specific capabilities and roles and molding their interactions. The backend is extensible for custom behaviors.",
+    "technical_innovations": [
+      "Synergistic thought-action interleaved prompting",
+      "Asynchronous action-space language expansion",
+      "In-context few-shot trajectory learning"
+    ],
+    "key_algorithms": "Action space augmented as A' = A U L where L is free-form language thoughts."
+  },
+  "empirical_results": {
+    "evaluated_datasets": [
+      "Retrieval-Augmented Generation Q&A tasks",
+      "ALFWorld",
+      "coding tasks with safeguards"
+    ],
+    "key_metrics": [
+      "Exact Match (EM)",
+      "Accuracy (Acc)",
+      "Task Success Rate (SR)"
+    ],
+    "quantitative_results_summary": "Customizable and conversable agents enable easy creation of agents with different roles such as code writing, code execution, human feedback wiring, and output validation. Conversation programming streamlines development of intricate applications. AutoGen realizes effective retrieval augmentation and a novel interactive retrieval feature that boosts performance on Q&A tasks. A three-agent system with a grounding agent improves performance on ALFWorld. Multi-agent design boosts performance on coding tasks that need safeguards.",
+    "baseline_comparisons": "Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
+  },
+  "explicit_limitations": {
+    "stated_limitations": [
+      "The provided context does not list formal limitations; it notes that to develop applications where agents make meaningful progress on tasks, developers also need to be able to specify and mold multi-agent conversations, and that intrinsic LLM limitations are mitigated via retrieval augmentation."
+    ],
+    "failure_modes": "Repetitive looping in greedy decoding; non-informative search results derail trajectory formulation.",
+    "computational_tradeoffs": "Increased context window usage due to multi-turn thought-action-observation histories."
+  },
+  "markdown_full_summary": "# Grounded Literature Review Summary: AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation\n\n**Citation Anchor:** [Wu et al., arXiv preprint arXiv:2308.08155, 2023]  \n**Venue:** arXiv preprint arXiv:2308.08155, 2023 | **Authors:** Qingyun Wu, Gagan Bansal, Jieyu Zhang, Yuzhen Huang, Bing Liu, Jiale Liu, Zirui Liu, Yuanzhi Li, Sai Wang, Vincent W. Zheng, Yanqiao Zhu, Weizhu Chen, Shiyu Chang  \n\n---\n\n### 1. Core Problem & Motivation\nHow to facilitate development of LLM applications that span a broad spectrum of domains and complexities using a multi-agent approach. Large language models are becoming crucial for agents with reasoning, tool usage and adaptation, and scaling agent power via cooperation of multiple agents is needed to encourage divergent thinking, improve factuality and reasoning, and provide validation.\n\n*Motivation & Gaps:* Prior standard and chain-of-thought prompting approaches operate as static black boxes without real-world feedback, causing hallucination and error propagation.  \n*Key Challenges Tackled:*\n- Reducing hallucination in reasoning traces\n- Integrating interactive external tool feedback\n\n---\n\n### 2. Proposed Methodology & Technical Architecture\n**Architecture Overview:**  \nAutoGen provides a generic design of conversable agents that can leverage LLMs, human inputs, tools, or a combination. Agents are made conversable to receive, react and respond to messages and can hold multiple autonomous turns or solicit human input. The system adopts conversation programming, a paradigm that simplifies and unifies complex LLM application workflows as multi-agent conversations via defining a set of conversable agents with specific capabilities and roles and molding their interactions. The backend is extensible for custom behaviors.\n\n**Algorithmic Innovation:**  \nAction space augmented as A' = A U L where L is free-form language thoughts.  \n\n*Core Technical Innovations:*\n- Synergistic thought-action interleaved prompting\n- Asynchronous action-space language expansion\n\n---\n\n### 3. Empirical Results & Benchmark Datasets\n**Evaluated Datasets:** Retrieval-Augmented Generation Q&A tasks, ALFWorld, coding tasks with safeguards  \n**Key Metrics:** Exact Match (EM), Accuracy (Acc), Task Success Rate (SR)  \n\n**Quantitative Findings:**  \nCustomizable and conversable agents enable easy creation of agents with different roles such as code writing, code execution, human feedback wiring, and output validation. Conversation programming streamlines development of intricate applications. AutoGen realizes effective retrieval augmentation and a novel interactive retrieval feature that boosts performance on Q&A tasks. A three-agent system with a grounding agent improves performance on ALFWorld. Multi-agent design boosts performance on coding tasks that need safeguards.  \n\n**Baseline Comparison:**  \nConsistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks.\n\n---\n\n### 4. Explicit Limitations & Failure Modes\n**Stated Limitations:**  \nThe provided context does not list formal limitations; it notes that to develop applications where agents make meaningful progress on tasks, developers also need to be able to specify and mold multi-agent conversations, and that intrinsic LLM limitations are mitigated via retrieval augmentation.  \n\n**Failure Modes & Bottlenecks:**  \nRepetitive looping in greedy decoding; non-informative search results derail trajectory formulation.  \n\n**Computational Trade-offs:**  \nIncreased context window usage due to multi-turn thought-action-observation histories.\n"
+}

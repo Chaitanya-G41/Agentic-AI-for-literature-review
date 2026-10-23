@@ -1,0 +1,57 @@
+{
+  "paper_id": "2210.03629",
+  "paper_title": "ReAct: Synergizing Reasoning and Acting with Large Language Models",
+  "authors": [
+    "Shunyu Yao",
+    "Jeffrey Zhao",
+    "Dian Yu",
+    "Nan Du",
+    "Izhak Shafran",
+    "Karthik Narasimhan"
+  ],
+  "venue": "arXiv preprint arXiv:2210.03629",
+  "grounded_citation": "[Yao et al., arXiv preprint arXiv:2210.03629]",
+  "summary_source": "Heuristic Engine Fallback (Grounded Vector RAG Engine (Design Rule: 0 LLM calls))",
+  "problem_motivation": {
+    "problem_statement": "Large language models' abilities for reasoning, e.g., chain-of-thought prompting, and acting, e.g., action plan generation, have been studied as separate topics. Chain-of-thought reasoning is a static black box using internal representations, not grounded in the external world, limiting reactive reasoning and knowledge update and leading to fact hallucination and error propagation. Acting approaches convert multi-modal observations to text and use language models to generate domain-specific actions or plans, but do not employ language models to reason abstractly about high-level goals or maintain working memory to support acting, limiting synergistic task solving.",
+    "motivation": "Prior standard and chain-of-thought prompting approaches operate as static black boxes without real-world feedback, causing hallucination and error propagation.",
+    "core_challenges": [
+      "Reducing hallucination in reasoning traces",
+      "Integrating interactive external tool feedback",
+      "Maintaining long-horizon execution state"
+    ]
+  },
+  "proposed_methodology": {
+    "method_name": "ReAct",
+    "core_architecture": "ReAct uses large language models to generate both reasoning traces and task-specific actions in an interleaved manner via Thought-Action-Observation cycles. Reasoning traces help the model induce, track, and update action plans and handle exceptions, while actions allow interfacing with and gathering additional information from external sources such as knowledge bases or environments. The approach is applied to a diverse set of language and decision making tasks with prompting to produce interleaved reasoning and acting.",
+    "technical_innovations": [
+      "Synergistic thought-action interleaved prompting",
+      "Asynchronous action-space language expansion",
+      "In-context few-shot trajectory learning"
+    ],
+    "key_algorithms": "Action space augmented as A' = A U L where L is free-form language thoughts."
+  },
+  "empirical_results": {
+    "evaluated_datasets": [
+      "HotpotQA",
+      "Fever",
+      "ALFWorld",
+      "WebShop"
+    ],
+    "key_metrics": [
+      "Exact Match (EM)",
+      "Accuracy (Acc)",
+      "Task Success Rate (SR)"
+    ],
+    "quantitative_results_summary": "On question answering HotpotQA and fact verification Fever, ReAct overcomes prevalent hallucination and error propagation in chain-of-thought reasoning by interacting with a simple Wikipedia API and generates human-like task-solving trajectories that are more interpretable than baselines without reasoning traces. On interactive decision making benchmarks ALFWorld and WebShop, ReAct outperforms imitation and reinforcement learning methods by an absolute success rate of 34% and 10% respectively, with improved human interpretability and trustworthiness over state-of-the-art baselines.",
+    "baseline_comparisons": "Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
+  },
+  "explicit_limitations": {
+    "stated_limitations": [
+      "Chain-of-thought reasoning is a static black box, not grounded in the external world, which limits reactive reasoning or updating knowledge and can lead to fact hallucination and error propagation over the reasoning process. Prior acting work focuses on predicting actions via language priors and lacks abstract reasoning about high-level goals or working memory to support acting, with only limited verbal reasoning for spatial facts. There have not been prior studies on how reasoning and acting can be combined synergistically for general task solving and whether such a combination brings systematic benefits compared to reasoning or acting alone."
+    ],
+    "failure_modes": "Repetitive looping in greedy decoding; non-informative search results derail trajectory formulation.",
+    "computational_tradeoffs": "Increased context window usage due to multi-turn thought-action-observation histories."
+  },
+  "markdown_full_summary": "# Grounded Literature Review Summary: ReAct: Synergizing Reasoning and Acting with Large Language Models\n\n**Citation Anchor:** [Yao et al., arXiv preprint arXiv:2210.03629]  \n**Venue:** arXiv preprint arXiv:2210.03629 | **Authors:** Shunyu Yao, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan  \n\n---\n\n### 1. Core Problem & Motivation\nLarge language models' abilities for reasoning, e.g., chain-of-thought prompting, and acting, e.g., action plan generation, have been studied as separate topics. Chain-of-thought reasoning is a static black box using internal representations, not grounded in the external world, limiting reactive reasoning and knowledge update and leading to fact hallucination and error propagation. Acting approaches convert multi-modal observations to text and use language models to generate domain-specific actions or plans, but do not employ language models to reason abstractly about high-level goals or maintain working memory to support acting, limiting synergistic task solving.\n\n*Motivation & Gaps:* Prior standard and chain-of-thought prompting approaches operate as static black boxes without real-world feedback, causing hallucination and error propagation.  \n*Key Challenges Tackled:*\n- Reducing hallucination in reasoning traces\n- Integrating interactive external tool feedback\n\n---\n\n### 2. Proposed Methodology & Technical Architecture\n**Architecture Overview:**  \nReAct uses large language models to generate both reasoning traces and task-specific actions in an interleaved manner via Thought-Action-Observation cycles. Reasoning traces help the model induce, track, and update action plans and handle exceptions, while actions allow interfacing with and gathering additional information from external sources such as knowledge bases or environments. The approach is applied to a diverse set of language and decision making tasks with prompting to produce interleaved reasoning and acting.\n\n**Algorithmic Innovation:**  \nAction space augmented as A' = A U L where L is free-form language thoughts.  \n\n*Core Technical Innovations:*\n- Synergistic thought-action interleaved prompting\n- Asynchronous action-space language expansion\n\n---\n\n### 3. Empirical Results & Benchmark Datasets\n**Evaluated Datasets:** HotpotQA, Fever, ALFWorld, WebShop  \n**Key Metrics:** Exact Match (EM), Accuracy (Acc), Task Success Rate (SR)  \n\n**Quantitative Findings:**  \nOn question answering HotpotQA and fact verification Fever, ReAct overcomes prevalent hallucination and error propagation in chain-of-thought reasoning by interacting with a simple Wikipedia API and generates human-like task-solving trajectories that are more interpretable than baselines without reasoning traces. On interactive decision making benchmarks ALFWorld and WebShop, ReAct outperforms imitation and reinforcement learning methods by an absolute success rate of 34% and 10% respectively, with improved human interpretability and trustworthiness over state-of-the-art baselines.  \n\n**Baseline Comparison:**  \nConsistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks.\n\n---\n\n### 4. Explicit Limitations & Failure Modes\n**Stated Limitations:**  \nChain-of-thought reasoning is a static black box, not grounded in the external world, which limits reactive reasoning or updating knowledge and can lead to fact hallucination and error propagation over the reasoning process. Prior acting work focuses on predicting actions via language priors and lacks abstract reasoning about high-level goals or working memory to support acting, with only limited verbal reasoning for spatial facts. There have not been prior studies on how reasoning and acting can be combined synergistically for general task solving and whether such a combination brings systematic benefits compared to reasoning or acting alone.  \n\n**Failure Modes & Bottlenecks:**  \nRepetitive looping in greedy decoding; non-informative search results derail trajectory formulation.  \n\n**Computational Trade-offs:**  \nIncreased context window usage due to multi-turn thought-action-observation histories.\n"
+}

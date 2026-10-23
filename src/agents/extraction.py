@@ -113,6 +113,9 @@ def run_extraction_agent(parsed_json_path, output_dir="data/extracted_schemas", 
         schema_dict = llm.generate_structured_json(prompt, system_instruction=sys_inst, response_schema=PaperSchema)
         if schema_dict:
             try:
+                if isinstance(schema_dict, list) and len(schema_dict) > 0 and isinstance(schema_dict[0], dict):
+                    schema_dict = schema_dict[0]
+                schema_dict["paper_id"] = schema_dict.get("paper_id") or paper_id
                 schema_dict["generation_mode"] = "GENUINE_LLM"
                 schema_dict["model_name"] = f"{llm.last_provider or 'LLM'} ({llm.last_used_model or 'default'})"
                 extracted_schema = PaperSchema(**schema_dict)

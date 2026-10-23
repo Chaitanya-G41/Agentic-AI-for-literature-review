@@ -1,1 +1,1452 @@
- 
+{
+  "papers": {
+    "2210.03629": {
+      "schema": {
+        "paper_id": "2210.03629",
+        "paper_title": "ReAct: Synergizing Reasoning and Acting with Large Language Models",
+        "authors": [
+          "Shunyu Yao",
+          "Jeffrey Zhao",
+          "Dian Yu",
+          "Nan Du",
+          "Izhak Shafran",
+          "Karthik Narasimhan"
+        ],
+        "venue": "arXiv preprint arXiv:2210.03629",
+        "core_problem": "Large language models' abilities for reasoning, e.g., chain-of-thought prompting, and acting, e.g., action plan generation, have been studied as separate topics. Chain-of-thought reasoning is a static black box using internal representations, not grounded in the external world, limiting reactive reasoning and knowledge update and leading to fact hallucination and error propagation. Acting approaches convert multi-modal observations to text and use language models to generate domain-specific actions or plans, but do not employ language models to reason abstractly about high-level goals or maintain working memory to support acting, limiting synergistic task solving.",
+        "methodology_summary": "ReAct uses large language models to generate both reasoning traces and task-specific actions in an interleaved manner via Thought-Action-Observation cycles. Reasoning traces help the model induce, track, and update action plans and handle exceptions, while actions allow interfacing with and gathering additional information from external sources such as knowledge bases or environments. The approach is applied to a diverse set of language and decision making tasks with prompting to produce interleaved reasoning and acting.",
+        "datasets_eval": [
+          "HotpotQA",
+          "Fever",
+          "ALFWorld",
+          "WebShop"
+        ],
+        "empirical_results": "On question answering HotpotQA and fact verification Fever, ReAct overcomes prevalent hallucination and error propagation in chain-of-thought reasoning by interacting with a simple Wikipedia API and generates human-like task-solving trajectories that are more interpretable than baselines without reasoning traces. On interactive decision making benchmarks ALFWorld and WebShop, ReAct outperforms imitation and reinforcement learning methods by an absolute success rate of 34% and 10% respectively, with improved human interpretability and trustworthiness over state-of-the-art baselines.",
+        "explicit_limitations": "Chain-of-thought reasoning is a static black box, not grounded in the external world, which limits reactive reasoning or updating knowledge and can lead to fact hallucination and error propagation over the reasoning process. Prior acting work focuses on predicting actions via language priors and lacks abstract reasoning about high-level goals or working memory to support acting, with only limited verbal reasoning for spatial facts. There have not been prior studies on how reasoning and acting can be combined synergistically for general task solving and whether such a combination brings systematic benefits compared to reasoning or acting alone.",
+        "generation_mode": "GENUINE_LLM",
+        "model_name": "NVIDIA_NIM (meta/muse-glimmer-30b)"
+      },
+      "summary": {
+        "paper_id": "2210.03629",
+        "paper_title": "ReAct: Synergizing Reasoning and Acting with Large Language Models",
+        "authors": [
+          "Shunyu Yao",
+          "Jeffrey Zhao",
+          "Dian Yu",
+          "Nan Du",
+          "Izhak Shafran",
+          "Karthik Narasimhan"
+        ],
+        "venue": "arXiv preprint arXiv:2210.03629",
+        "grounded_citation": "[Yao et al., arXiv preprint arXiv:2210.03629]",
+        "summary_source": "Heuristic Engine Fallback (Grounded Vector RAG Engine (Design Rule: 0 LLM calls))",
+        "problem_motivation": {
+          "problem_statement": "Large language models' abilities for reasoning, e.g., chain-of-thought prompting, and acting, e.g., action plan generation, have been studied as separate topics. Chain-of-thought reasoning is a static black box using internal representations, not grounded in the external world, limiting reactive reasoning and knowledge update and leading to fact hallucination and error propagation. Acting approaches convert multi-modal observations to text and use language models to generate domain-specific actions or plans, but do not employ language models to reason abstractly about high-level goals or maintain working memory to support acting, limiting synergistic task solving.",
+          "motivation": "Prior standard and chain-of-thought prompting approaches operate as static black boxes without real-world feedback, causing hallucination and error propagation.",
+          "core_challenges": [
+            "Reducing hallucination in reasoning traces",
+            "Integrating interactive external tool feedback",
+            "Maintaining long-horizon execution state"
+          ]
+        },
+        "proposed_methodology": {
+          "method_name": "ReAct",
+          "core_architecture": "ReAct uses large language models to generate both reasoning traces and task-specific actions in an interleaved manner via Thought-Action-Observation cycles. Reasoning traces help the model induce, track, and update action plans and handle exceptions, while actions allow interfacing with and gathering additional information from external sources such as knowledge bases or environments. The approach is applied to a diverse set of language and decision making tasks with prompting to produce interleaved reasoning and acting.",
+          "technical_innovations": [
+            "Synergistic thought-action interleaved prompting",
+            "Asynchronous action-space language expansion",
+            "In-context few-shot trajectory learning"
+          ],
+          "key_algorithms": "Action space augmented as A' = A U L where L is free-form language thoughts."
+        },
+        "empirical_results": {
+          "evaluated_datasets": [
+            "HotpotQA",
+            "Fever",
+            "ALFWorld",
+            "WebShop"
+          ],
+          "key_metrics": [
+            "Exact Match (EM)",
+            "Accuracy (Acc)",
+            "Task Success Rate (SR)"
+          ],
+          "quantitative_results_summary": "On question answering HotpotQA and fact verification Fever, ReAct overcomes prevalent hallucination and error propagation in chain-of-thought reasoning by interacting with a simple Wikipedia API and generates human-like task-solving trajectories that are more interpretable than baselines without reasoning traces. On interactive decision making benchmarks ALFWorld and WebShop, ReAct outperforms imitation and reinforcement learning methods by an absolute success rate of 34% and 10% respectively, with improved human interpretability and trustworthiness over state-of-the-art baselines.",
+          "baseline_comparisons": "Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
+        },
+        "explicit_limitations": {
+          "stated_limitations": [
+            "Chain-of-thought reasoning is a static black box, not grounded in the external world, which limits reactive reasoning or updating knowledge and can lead to fact hallucination and error propagation over the reasoning process. Prior acting work focuses on predicting actions via language priors and lacks abstract reasoning about high-level goals or working memory to support acting, with only limited verbal reasoning for spatial facts. There have not been prior studies on how reasoning and acting can be combined synergistically for general task solving and whether such a combination brings systematic benefits compared to reasoning or acting alone."
+          ],
+          "failure_modes": "Repetitive looping in greedy decoding; non-informative search results derail trajectory formulation.",
+          "computational_tradeoffs": "Increased context window usage due to multi-turn thought-action-observation histories."
+        },
+        "markdown_full_summary": "# Grounded Literature Review Summary: ReAct: Synergizing Reasoning and Acting with Large Language Models\n\n**Citation Anchor:** [Yao et al., arXiv preprint arXiv:2210.03629]  \n**Venue:** arXiv preprint arXiv:2210.03629 | **Authors:** Shunyu Yao, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan  \n\n---\n\n### 1. Core Problem & Motivation\nLarge language models' abilities for reasoning, e.g., chain-of-thought prompting, and acting, e.g., action plan generation, have been studied as separate topics. Chain-of-thought reasoning is a static black box using internal representations, not grounded in the external world, limiting reactive reasoning and knowledge update and leading to fact hallucination and error propagation. Acting approaches convert multi-modal observations to text and use language models to generate domain-specific actions or plans, but do not employ language models to reason abstractly about high-level goals or maintain working memory to support acting, limiting synergistic task solving.\n\n*Motivation & Gaps:* Prior standard and chain-of-thought prompting approaches operate as static black boxes without real-world feedback, causing hallucination and error propagation.  \n*Key Challenges Tackled:*\n- Reducing hallucination in reasoning traces\n- Integrating interactive external tool feedback\n\n---\n\n### 2. Proposed Methodology & Technical Architecture\n**Architecture Overview:**  \nReAct uses large language models to generate both reasoning traces and task-specific actions in an interleaved manner via Thought-Action-Observation cycles. Reasoning traces help the model induce, track, and update action plans and handle exceptions, while actions allow interfacing with and gathering additional information from external sources such as knowledge bases or environments. The approach is applied to a diverse set of language and decision making tasks with prompting to produce interleaved reasoning and acting.\n\n**Algorithmic Innovation:**  \nAction space augmented as A' = A U L where L is free-form language thoughts.  \n\n*Core Technical Innovations:*\n- Synergistic thought-action interleaved prompting\n- Asynchronous action-space language expansion\n\n---\n\n### 3. Empirical Results & Benchmark Datasets\n**Evaluated Datasets:** HotpotQA, Fever, ALFWorld, WebShop  \n**Key Metrics:** Exact Match (EM), Accuracy (Acc), Task Success Rate (SR)  \n\n**Quantitative Findings:**  \nOn question answering HotpotQA and fact verification Fever, ReAct overcomes prevalent hallucination and error propagation in chain-of-thought reasoning by interacting with a simple Wikipedia API and generates human-like task-solving trajectories that are more interpretable than baselines without reasoning traces. On interactive decision making benchmarks ALFWorld and WebShop, ReAct outperforms imitation and reinforcement learning methods by an absolute success rate of 34% and 10% respectively, with improved human interpretability and trustworthiness over state-of-the-art baselines.  \n\n**Baseline Comparison:**  \nConsistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks.\n\n---\n\n### 4. Explicit Limitations & Failure Modes\n**Stated Limitations:**  \nChain-of-thought reasoning is a static black box, not grounded in the external world, which limits reactive reasoning or updating knowledge and can lead to fact hallucination and error propagation over the reasoning process. Prior acting work focuses on predicting actions via language priors and lacks abstract reasoning about high-level goals or working memory to support acting, with only limited verbal reasoning for spatial facts. There have not been prior studies on how reasoning and acting can be combined synergistically for general task solving and whether such a combination brings systematic benefits compared to reasoning or acting alone.  \n\n**Failure Modes & Bottlenecks:**  \nRepetitive looping in greedy decoding; non-informative search results derail trajectory formulation.  \n\n**Computational Trade-offs:**  \nIncreased context window usage due to multi-turn thought-action-observation histories.\n"
+      }
+    },
+    "2302.04761": {
+      "schema": {
+        "paper_id": "2302.04761",
+        "paper_title": "Toolformer: Language Models Can Teach Themselves to Use Tools",
+        "authors": [
+          "Timo Schick",
+          "David Bahdanau",
+          "Shunyu Yao",
+          "Morey Varia",
+          "Kurt Shuster",
+          "Naman Goyal",
+          "Tomasz Kocisky",
+          "Sebastian Ruder",
+          "Dustin Jurafsky",
+          "Jason Weston",
+          "A. S. ..."
+        ],
+        "venue": "arXiv preprint 2023; NeurIPS 2023",
+        "core_problem": "Large language models exhibit strong zero- and few-shot abilities but struggle with basic functionality such as arithmetic, factual lookup, up-to-date information, and temporal awareness, leading to hallucinations and errors. Existing approaches to give LMs external tools rely on large amounts of human annotations or are limited to task-specific settings, hindering widespread adoption of tool use.",
+        "methodology_summary": "Toolformer learns to use tools in a self-supervised way. Given input text x, a position i is sampled and candidate API calls c_i are generated. The calls are executed and filtered to keep only those that reduce loss L_i over the next tokens. Remaining calls are interleaved with the original text to form x*. The LM is trained to predict both tokens and API calls, learning when and how to call which tool and how to incorporate results. Only a handful of demonstrations per API are required. Tools used include a calculator, a Q&A system, a search engine, a translation system, and a calendar.",
+        "datasets_eval": [
+          "Zero-shot evaluation on general language modeling and reasoning benchmarks and tool-specific probes for arithmetic, factual question answering, search, translation and calendar use. Evaluation covers common downstream tasks such as LAMBADA, HellaSwag, PIQA and similar zero-shot benchmarks, plus custom tool-use assessments measuring accuracy of calculator, QA, search and translation calls."
+        ],
+        "empirical_results": "Toolformer achieves substantially improved zero-shot performance across a variety of downstream tasks, often competitive with much larger models, without sacrificing core language modeling abilities. Tool use improves arithmetic accuracy, factual correctness and translation quality, and the model autonomously decides which APIs to call to obtain useful information for text completion.",
+        "explicit_limitations": "Large language models cannot access up-to-date information on recent events and tend to hallucinate facts, have difficulties understanding low-resource languages, lack mathematical skills for precise calculations, and are unaware of the progression of time. Tool use introduces latency, cost and dependency on external API reliability, and the model can still misuse tools or be limited by the coverage and correctness of the APIs.",
+        "generation_mode": "GENUINE_LLM",
+        "model_name": "NVIDIA_NIM (meta/muse-glimmer-30b)"
+      },
+      "summary": {
+        "paper_id": "2302.04761",
+        "paper_title": "Toolformer: Language Models Can Teach Themselves to Use Tools",
+        "authors": [
+          "Timo Schick",
+          "David Bahdanau",
+          "Shunyu Yao",
+          "Morey Varia",
+          "Kurt Shuster",
+          "Naman Goyal",
+          "Tomasz Kocisky",
+          "Sebastian Ruder",
+          "Dustin Jurafsky",
+          "Jason Weston",
+          "A. S. ..."
+        ],
+        "venue": "arXiv preprint 2023; NeurIPS 2023",
+        "grounded_citation": "[Schick et al., arXiv preprint 2023; NeurIPS 2023]",
+        "summary_source": "Heuristic Engine Fallback (No API key configured)",
+        "problem_motivation": {
+          "problem_statement": "Large language models exhibit strong zero- and few-shot abilities but struggle with basic functionality such as arithmetic, factual lookup, up-to-date information, and temporal awareness, leading to hallucinations and errors. Existing approaches to give LMs external tools rely on large amounts of human annotations or are limited to task-specific settings, hindering widespread adoption of tool use.",
+          "motivation": "Prior standard and chain-of-thought prompting approaches operate as static black boxes without real-world feedback, causing hallucination and error propagation.",
+          "core_challenges": [
+            "Reducing hallucination in reasoning traces",
+            "Integrating interactive external tool feedback",
+            "Maintaining long-horizon execution state"
+          ]
+        },
+        "proposed_methodology": {
+          "method_name": "Toolformer",
+          "core_architecture": "Toolformer learns to use tools in a self-supervised way. Given input text x, a position i is sampled and candidate API calls c_i are generated. The calls are executed and filtered to keep only those that reduce loss L_i over the next tokens. Remaining calls are interleaved with the original text to form x*. The LM is trained to predict both tokens and API calls, learning when and how to call which tool and how to incorporate results. Only a handful of demonstrations per API are required. Tools used include a calculator, a Q&A system, a search engine, a translation system, and a calendar.",
+          "technical_innovations": [
+            "Synergistic thought-action interleaved prompting",
+            "Asynchronous action-space language expansion",
+            "In-context few-shot trajectory learning"
+          ],
+          "key_algorithms": "Action space augmented as A' = A U L where L is free-form language thoughts."
+        },
+        "empirical_results": {
+          "evaluated_datasets": [
+            "Zero-shot evaluation on general language modeling and reasoning benchmarks and tool-specific probes for arithmetic, factual question answering, search, translation and calendar use. Evaluation covers common downstream tasks such as LAMBADA, HellaSwag, PIQA and similar zero-shot benchmarks, plus custom tool-use assessments measuring accuracy of calculator, QA, search and translation calls."
+          ],
+          "key_metrics": [
+            "Exact Match (EM)",
+            "Accuracy (Acc)",
+            "Task Success Rate (SR)"
+          ],
+          "quantitative_results_summary": "Toolformer achieves substantially improved zero-shot performance across a variety of downstream tasks, often competitive with much larger models, without sacrificing core language modeling abilities. Tool use improves arithmetic accuracy, factual correctness and translation quality, and the model autonomously decides which APIs to call to obtain useful information for text completion.",
+          "baseline_comparisons": "Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
+        },
+        "explicit_limitations": {
+          "stated_limitations": [
+            "Large language models cannot access up-to-date information on recent events and tend to hallucinate facts, have difficulties understanding low-resource languages, lack mathematical skills for precise calculations, and are unaware of the progression of time. Tool use introduces latency, cost and dependency on external API reliability, and the model can still misuse tools or be limited by the coverage and correctness of the APIs."
+          ],
+          "failure_modes": "Repetitive looping in greedy decoding; non-informative search results derail trajectory formulation.",
+          "computational_tradeoffs": "Increased context window usage due to multi-turn thought-action-observation histories."
+        },
+        "markdown_full_summary": "# Grounded Literature Review Summary: Toolformer: Language Models Can Teach Themselves to Use Tools\n\n**Citation Anchor:** [Schick et al., arXiv preprint 2023; NeurIPS 2023]  \n**Venue:** arXiv preprint 2023; NeurIPS 2023 | **Authors:** Timo Schick, David Bahdanau, Shunyu Yao, Morey Varia, Kurt Shuster, Naman Goyal, Tomasz Kocisky, Sebastian Ruder, Dustin Jurafsky, Jason Weston, A. S. ...  \n\n---\n\n### 1. Core Problem & Motivation\nLarge language models exhibit strong zero- and few-shot abilities but struggle with basic functionality such as arithmetic, factual lookup, up-to-date information, and temporal awareness, leading to hallucinations and errors. Existing approaches to give LMs external tools rely on large amounts of human annotations or are limited to task-specific settings, hindering widespread adoption of tool use.\n\n*Motivation & Gaps:* Prior standard and chain-of-thought prompting approaches operate as static black boxes without real-world feedback, causing hallucination and error propagation.  \n*Key Challenges Tackled:*\n- Reducing hallucination in reasoning traces\n- Integrating interactive external tool feedback\n\n---\n\n### 2. Proposed Methodology & Technical Architecture\n**Architecture Overview:**  \nToolformer learns to use tools in a self-supervised way. Given input text x, a position i is sampled and candidate API calls c_i are generated. The calls are executed and filtered to keep only those that reduce loss L_i over the next tokens. Remaining calls are interleaved with the original text to form x*. The LM is trained to predict both tokens and API calls, learning when and how to call which tool and how to incorporate results. Only a handful of demonstrations per API are required. Tools used include a calculator, a Q&A system, a search engine, a translation system, and a calendar.\n\n**Algorithmic Innovation:**  \nAction space augmented as A' = A U L where L is free-form language thoughts.  \n\n*Core Technical Innovations:*\n- Synergistic thought-action interleaved prompting\n- Asynchronous action-space language expansion\n\n---\n\n### 3. Empirical Results & Benchmark Datasets\n**Evaluated Datasets:** Zero-shot evaluation on general language modeling and reasoning benchmarks and tool-specific probes for arithmetic, factual question answering, search, translation and calendar use. Evaluation covers common downstream tasks such as LAMBADA, HellaSwag, PIQA and similar zero-shot benchmarks, plus custom tool-use assessments measuring accuracy of calculator, QA, search and translation calls.  \n**Key Metrics:** Exact Match (EM), Accuracy (Acc), Task Success Rate (SR)  \n\n**Quantitative Findings:**  \nToolformer achieves substantially improved zero-shot performance across a variety of downstream tasks, often competitive with much larger models, without sacrificing core language modeling abilities. Tool use improves arithmetic accuracy, factual correctness and translation quality, and the model autonomously decides which APIs to call to obtain useful information for text completion.  \n\n**Baseline Comparison:**  \nConsistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks.\n\n---\n\n### 4. Explicit Limitations & Failure Modes\n**Stated Limitations:**  \nLarge language models cannot access up-to-date information on recent events and tend to hallucinate facts, have difficulties understanding low-resource languages, lack mathematical skills for precise calculations, and are unaware of the progression of time. Tool use introduces latency, cost and dependency on external API reliability, and the model can still misuse tools or be limited by the coverage and correctness of the APIs.  \n\n**Failure Modes & Bottlenecks:**  \nRepetitive looping in greedy decoding; non-informative search results derail trajectory formulation.  \n\n**Computational Trade-offs:**  \nIncreased context window usage due to multi-turn thought-action-observation histories.\n"
+      }
+    },
+    "2303.11366": {
+      "schema": {
+        "paper_id": "2303.11366",
+        "paper_title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+        "authors": [
+          "Noah Shinn",
+          "Federico Cassano",
+          "Ashwin Gopinath",
+          "Karthik R. Narasimhan",
+          "Shunyu Yao"
+        ],
+        "venue": "arXiv preprint",
+        "core_problem": "Large language models have been increasingly used to interact with external environments as goal-driven agents, but it remains challenging for these language agents to quickly and efficiently learn from trial-and-error as traditional reinforcement learning methods require extensive training samples and expensive model fine-tuning.",
+        "methodology_summary": "Reflexion is a framework to reinforce language agents not by updating weights but through linguistic feedback. Reflexion agents verbally reflect on task feedback signals and maintain their own reflective text in an episodic memory buffer to induce better decision-making in subsequent trials. The framework is flexible enough to incorporate various types, e.g., scalar values or free-form language, and sources, e.g., external or internally simulated, of feedback signals.",
+        "datasets_eval": [
+          "HumanEval coding benchmark",
+          "sequential decision-making tasks",
+          "language reasoning tasks"
+        ],
+        "empirical_results": "Reflexion obtains significant improvements over a baseline agent across diverse tasks including sequential decision-making, coding, and language reasoning. On HumanEval coding benchmark, Reflexion achieves 91% pass@1 accuracy, surpassing the previous state-of-the-art GPT-4 that achieves 80%.",
+        "explicit_limitations": "",
+        "generation_mode": "GENUINE_LLM",
+        "model_name": "NVIDIA_NIM (meta/muse-glimmer-30b)"
+      },
+      "summary": {
+        "paper_id": "2303.11366",
+        "paper_title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+        "authors": [
+          "Noah Shinn",
+          "Federico Cassano",
+          "Ashwin Gopinath",
+          "Karthik R. Narasimhan",
+          "Shunyu Yao"
+        ],
+        "venue": "arXiv preprint",
+        "grounded_citation": "[Shinn et al., arXiv preprint]",
+        "summary_source": "Heuristic Engine Fallback (No API key configured)",
+        "problem_motivation": {
+          "problem_statement": "Large language models have been increasingly used to interact with external environments as goal-driven agents, but it remains challenging for these language agents to quickly and efficiently learn from trial-and-error as traditional reinforcement learning methods require extensive training samples and expensive model fine-tuning.",
+          "motivation": "Prior standard and chain-of-thought prompting approaches operate as static black boxes without real-world feedback, causing hallucination and error propagation.",
+          "core_challenges": [
+            "Reducing hallucination in reasoning traces",
+            "Integrating interactive external tool feedback",
+            "Maintaining long-horizon execution state"
+          ]
+        },
+        "proposed_methodology": {
+          "method_name": "Reflexion",
+          "core_architecture": "Reflexion is a framework to reinforce language agents not by updating weights but through linguistic feedback. Reflexion agents verbally reflect on task feedback signals and maintain their own reflective text in an episodic memory buffer to induce better decision-making in subsequent trials. The framework is flexible enough to incorporate various types, e.g., scalar values or free-form language, and sources, e.g., external or internally simulated, of feedback signals.",
+          "technical_innovations": [
+            "Synergistic thought-action interleaved prompting",
+            "Asynchronous action-space language expansion",
+            "In-context few-shot trajectory learning"
+          ],
+          "key_algorithms": "Action space augmented as A' = A U L where L is free-form language thoughts."
+        },
+        "empirical_results": {
+          "evaluated_datasets": [
+            "HumanEval coding benchmark",
+            "sequential decision-making tasks",
+            "language reasoning tasks"
+          ],
+          "key_metrics": [
+            "Exact Match (EM)",
+            "Accuracy (Acc)",
+            "Task Success Rate (SR)"
+          ],
+          "quantitative_results_summary": "Reflexion obtains significant improvements over a baseline agent across diverse tasks including sequential decision-making, coding, and language reasoning. On HumanEval coding benchmark, Reflexion achieves 91% pass@1 accuracy, surpassing the previous state-of-the-art GPT-4 that achieves 80%.",
+          "baseline_comparisons": "Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
+        },
+        "explicit_limitations": {
+          "stated_limitations": [
+            "The Reflexion process Reflexion is formalized as an iterative optimization process in 1. In the first trial, the Actor produces a trajectory τ 0 by interacting with the environment. The Evaluator then produces a score r 0 which is computed as r t = M e (τ 0 ). r t is only a scalar reward for trial t"
+          ],
+          "failure_modes": "Repetitive looping in greedy decoding; non-informative search results derail trajectory formulation.",
+          "computational_tradeoffs": "Increased context window usage due to multi-turn thought-action-observation histories."
+        },
+        "markdown_full_summary": "# Grounded Literature Review Summary: Reflexion: Language Agents with Verbal Reinforcement Learning\n\n**Citation Anchor:** [Shinn et al., arXiv preprint]  \n**Venue:** arXiv preprint | **Authors:** Noah Shinn, Federico Cassano, Ashwin Gopinath, Karthik R. Narasimhan, Shunyu Yao  \n\n---\n\n### 1. Core Problem & Motivation\nLarge language models have been increasingly used to interact with external environments as goal-driven agents, but it remains challenging for these language agents to quickly and efficiently learn from trial-and-error as traditional reinforcement learning methods require extensive training samples and expensive model fine-tuning.\n\n*Motivation & Gaps:* Prior standard and chain-of-thought prompting approaches operate as static black boxes without real-world feedback, causing hallucination and error propagation.  \n*Key Challenges Tackled:*\n- Reducing hallucination in reasoning traces\n- Integrating interactive external tool feedback\n\n---\n\n### 2. Proposed Methodology & Technical Architecture\n**Architecture Overview:**  \nReflexion is a framework to reinforce language agents not by updating weights but through linguistic feedback. Reflexion agents verbally reflect on task feedback signals and maintain their own reflective text in an episodic memory buffer to induce better decision-making in subsequent trials. The framework is flexible enough to incorporate various types, e.g., scalar values or free-form language, and sources, e.g., external or internally simulated, of feedback signals.\n\n**Algorithmic Innovation:**  \nAction space augmented as A' = A U L where L is free-form language thoughts.  \n\n*Core Technical Innovations:*\n- Synergistic thought-action interleaved prompting\n- Asynchronous action-space language expansion\n\n---\n\n### 3. Empirical Results & Benchmark Datasets\n**Evaluated Datasets:** HumanEval coding benchmark, sequential decision-making tasks, language reasoning tasks  \n**Key Metrics:** Exact Match (EM), Accuracy (Acc), Task Success Rate (SR)  \n\n**Quantitative Findings:**  \nReflexion obtains significant improvements over a baseline agent across diverse tasks including sequential decision-making, coding, and language reasoning. On HumanEval coding benchmark, Reflexion achieves 91% pass@1 accuracy, surpassing the previous state-of-the-art GPT-4 that achieves 80%.  \n\n**Baseline Comparison:**  \nConsistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks.\n\n---\n\n### 4. Explicit Limitations & Failure Modes\n**Stated Limitations:**  \nThe Reflexion process Reflexion is formalized as an iterative optimization process in 1. In the first trial, the Actor produces a trajectory τ 0 by interacting with the environment. The Evaluator then produces a score r 0 which is computed as r t = M e (τ 0 ). r t is only a scalar reward for trial t  \n\n**Failure Modes & Bottlenecks:**  \nRepetitive looping in greedy decoding; non-informative search results derail trajectory formulation.  \n\n**Computational Trade-offs:**  \nIncreased context window usage due to multi-turn thought-action-observation histories.\n"
+      }
+    },
+    "2305.10601": {
+      "schema": {
+        "paper_id": "2305.10601",
+        "paper_title": "Tree of Thoughts: Deliberate Problem Solving with Large Language Models",
+        "authors": [
+          "Shunyu Yao",
+          "Dian Yu",
+          "Jeffrey Zhao",
+          "Izhak Shafran",
+          "Thomas L. Griffiths",
+          "Yuan Cao",
+          "Karthik Narasimhan"
+        ],
+        "venue": "arXiv 2023",
+        "core_problem": "Language models are increasingly deployed for general problem solving but are confined to token-level left-to-right decision making during inference. This limits exploration, strategic lookahead, and sensitivity to initial decisions, causing them to fall short on tasks requiring non-trivial planning or search.",
+        "methodology_summary": "Tree of Thoughts generalizes Chain of Thought prompting by enabling exploration over coherent units of text called thoughts that serve as intermediate steps. ToT allows language models to perform deliberate decision making by generating multiple candidate thoughts, self-evaluating choices, and searching a tree of reasoning paths with lookahead and backtracking. Different search algorithms can be plugged in; the paper explores relatively simple search strategies with thought generation and state evaluation for pruning.",
+        "datasets_eval": [
+          "Game of 24",
+          "Creative Writing",
+          "Mini Crosswords"
+        ],
+        "empirical_results": "ToT significantly enhances problem-solving abilities over Chain of Thought on three novel planning/search tasks. On Game of 24, GPT-4 with chain-of-thought prompting solves ~4% of tasks while ToT achieves ~74% success rate. Improvements are also shown on Creative Writing and Mini Crosswords, demonstrating gains from deliberate multi-path exploration and self-evaluation.",
+        "explicit_limitations": "Self-consistency improves over CoT but provides no local exploration within each chain and the most-frequent output heuristic only applies when the output space is limited, e.g., multi-choice QA. Within ToT, only relatively simple search algorithms are explored and more advanced methods such as A* or MCTS are left for future work. Oracle ablation shows performance can be higher with an oracle best DFS state selection, indicating the simple output heuristics are suboptimal. State evaluation used for pruning is imperfect: the evaluator can deem valid words as impossible and prune them, possibly due to rare or obsolete words in 5x5 crosswords that GPT-4 cannot recognize. Ablating pruning generally worsens performance, though it can occasionally find solutions that pruning discards.",
+        "generation_mode": "GENUINE_LLM",
+        "model_name": "NVIDIA_NIM (meta/muse-glimmer-30b)"
+      },
+      "summary": {
+        "paper_id": "2305.10601",
+        "paper_title": "Tree of Thoughts: Deliberate Problem Solving with Large Language Models",
+        "authors": [
+          "Shunyu Yao",
+          "Dian Yu",
+          "Jeffrey Zhao",
+          "Izhak Shafran",
+          "Thomas L. Griffiths",
+          "Yuan Cao",
+          "Karthik Narasimhan"
+        ],
+        "venue": "arXiv 2023",
+        "grounded_citation": "[Yao et al., arXiv 2023]",
+        "summary_source": "Heuristic Engine Fallback (No API key configured)",
+        "problem_motivation": {
+          "problem_statement": "Language models are increasingly deployed for general problem solving but are confined to token-level left-to-right decision making during inference. This limits exploration, strategic lookahead, and sensitivity to initial decisions, causing them to fall short on tasks requiring non-trivial planning or search.",
+          "motivation": "Prior standard and chain-of-thought prompting approaches operate as static black boxes without real-world feedback, causing hallucination and error propagation.",
+          "core_challenges": [
+            "Reducing hallucination in reasoning traces",
+            "Integrating interactive external tool feedback",
+            "Maintaining long-horizon execution state"
+          ]
+        },
+        "proposed_methodology": {
+          "method_name": "Tree of Thoughts",
+          "core_architecture": "Tree of Thoughts generalizes Chain of Thought prompting by enabling exploration over coherent units of text called thoughts that serve as intermediate steps. ToT allows language models to perform deliberate decision making by generating multiple candidate thoughts, self-evaluating choices, and searching a tree of reasoning paths with lookahead and backtracking. Different search algorithms can be plugged in; the paper explores relatively simple search strategies with thought generation and state evaluation for pruning.",
+          "technical_innovations": [
+            "Synergistic thought-action interleaved prompting",
+            "Asynchronous action-space language expansion",
+            "In-context few-shot trajectory learning"
+          ],
+          "key_algorithms": "Action space augmented as A' = A U L where L is free-form language thoughts."
+        },
+        "empirical_results": {
+          "evaluated_datasets": [
+            "Game of 24",
+            "Creative Writing",
+            "Mini Crosswords"
+          ],
+          "key_metrics": [
+            "Exact Match (EM)",
+            "Accuracy (Acc)",
+            "Task Success Rate (SR)"
+          ],
+          "quantitative_results_summary": "ToT significantly enhances problem-solving abilities over Chain of Thought on three novel planning/search tasks. On Game of 24, GPT-4 with chain-of-thought prompting solves ~4% of tasks while ToT achieves ~74% success rate. Improvements are also shown on Creative Writing and Mini Crosswords, demonstrating gains from deliberate multi-path exploration and self-evaluation.",
+          "baseline_comparisons": "Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
+        },
+        "explicit_limitations": {
+          "stated_limitations": [
+            "Self-consistency improves over CoT but provides no local exploration within each chain and the most-frequent output heuristic only applies when the output space is limited, e.g., multi-choice QA. Within ToT, only relatively simple search algorithms are explored and more advanced methods such as A* or MCTS are left for future work. Oracle ablation shows performance can be higher with an oracle best DFS state selection, indicating the simple output heuristics are suboptimal. State evaluation used for pruning is imperfect: the evaluator can deem valid words as impossible and prune them, possibly due to rare or obsolete words in 5x5 crosswords that GPT-4 cannot recognize. Ablating pruning generally worsens performance, though it can occasionally find solutions that pruning discards."
+          ],
+          "failure_modes": "Repetitive looping in greedy decoding; non-informative search results derail trajectory formulation.",
+          "computational_tradeoffs": "Increased context window usage due to multi-turn thought-action-observation histories."
+        },
+        "markdown_full_summary": "# Grounded Literature Review Summary: Tree of Thoughts: Deliberate Problem Solving with Large Language Models\n\n**Citation Anchor:** [Yao et al., arXiv 2023]  \n**Venue:** arXiv 2023 | **Authors:** Shunyu Yao, Dian Yu, Jeffrey Zhao, Izhak Shafran, Thomas L. Griffiths, Yuan Cao, Karthik Narasimhan  \n\n---\n\n### 1. Core Problem & Motivation\nLanguage models are increasingly deployed for general problem solving but are confined to token-level left-to-right decision making during inference. This limits exploration, strategic lookahead, and sensitivity to initial decisions, causing them to fall short on tasks requiring non-trivial planning or search.\n\n*Motivation & Gaps:* Prior standard and chain-of-thought prompting approaches operate as static black boxes without real-world feedback, causing hallucination and error propagation.  \n*Key Challenges Tackled:*\n- Reducing hallucination in reasoning traces\n- Integrating interactive external tool feedback\n\n---\n\n### 2. Proposed Methodology & Technical Architecture\n**Architecture Overview:**  \nTree of Thoughts generalizes Chain of Thought prompting by enabling exploration over coherent units of text called thoughts that serve as intermediate steps. ToT allows language models to perform deliberate decision making by generating multiple candidate thoughts, self-evaluating choices, and searching a tree of reasoning paths with lookahead and backtracking. Different search algorithms can be plugged in; the paper explores relatively simple search strategies with thought generation and state evaluation for pruning.\n\n**Algorithmic Innovation:**  \nAction space augmented as A' = A U L where L is free-form language thoughts.  \n\n*Core Technical Innovations:*\n- Synergistic thought-action interleaved prompting\n- Asynchronous action-space language expansion\n\n---\n\n### 3. Empirical Results & Benchmark Datasets\n**Evaluated Datasets:** Game of 24, Creative Writing, Mini Crosswords  \n**Key Metrics:** Exact Match (EM), Accuracy (Acc), Task Success Rate (SR)  \n\n**Quantitative Findings:**  \nToT significantly enhances problem-solving abilities over Chain of Thought on three novel planning/search tasks. On Game of 24, GPT-4 with chain-of-thought prompting solves ~4% of tasks while ToT achieves ~74% success rate. Improvements are also shown on Creative Writing and Mini Crosswords, demonstrating gains from deliberate multi-path exploration and self-evaluation.  \n\n**Baseline Comparison:**  \nConsistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks.\n\n---\n\n### 4. Explicit Limitations & Failure Modes\n**Stated Limitations:**  \nSelf-consistency improves over CoT but provides no local exploration within each chain and the most-frequent output heuristic only applies when the output space is limited, e.g., multi-choice QA. Within ToT, only relatively simple search algorithms are explored and more advanced methods such as A* or MCTS are left for future work. Oracle ablation shows performance can be higher with an oracle best DFS state selection, indicating the simple output heuristics are suboptimal. State evaluation used for pruning is imperfect: the evaluator can deem valid words as impossible and prune them, possibly due to rare or obsolete words in 5x5 crosswords that GPT-4 cannot recognize. Ablating pruning generally worsens performance, though it can occasionally find solutions that pruning discards.  \n\n**Failure Modes & Bottlenecks:**  \nRepetitive looping in greedy decoding; non-informative search results derail trajectory formulation.  \n\n**Computational Trade-offs:**  \nIncreased context window usage due to multi-turn thought-action-observation histories.\n"
+      }
+    },
+    "2305.15334": {
+      "schema": {
+        "paper_id": "2305.15334",
+        "paper_title": "Gorilla: Large Language Model Connected with Massive APIs",
+        "authors": [
+          "Jianqiao Wang et al."
+        ],
+        "venue": "arXiv preprint, under review",
+        "core_problem": "Large language models struggle to effectively use tools via API calls, generating inaccurate input arguments and hallucinating wrong API usage. Supporting a web-scale collection of potentially millions of changing APIs with overlapping functionality and nuanced constraints cannot be described in a single context, requiring new integration approaches and benchmarks for tool use.",
+        "methodology_summary": "A LLaMA-based model is instruction fine-tuned to enhance API call generation, with a first study of fine-tuning a base model supplemented by information retrieval. The approach emphasizes tool use over conversational refinement and is combined with a document retriever to provide up-to-date API documentation at test time, enabling adaptation to test-time document changes, user updates and version changes.",
+        "datasets_eval": [
+          "APIBench, a comprehensive dataset consisting of HuggingFace, TorchHub and TensorHub APIs, introduced to evaluate API call writing ability and hallucination."
+        ],
+        "empirical_results": "Gorilla surpasses GPT-4 on writing API calls. When combined with a document retriever it demonstrates strong capability to adapt to test-time document changes and substantially mitigates hallucination commonly encountered when prompting LLMs directly. Evaluation shows improved accuracy versus hallucination across settings.",
+        "explicit_limitations": "No explicit limitations are provided in the given context.",
+        "generation_mode": "GENUINE_LLM",
+        "model_name": "NVIDIA_NIM (meta/muse-glimmer-30b)"
+      },
+      "summary": {
+        "paper_id": "2305.15334",
+        "paper_title": "Gorilla: Large Language Model Connected with Massive APIs",
+        "authors": [
+          "Jianqiao Wang et al."
+        ],
+        "venue": "arXiv preprint, under review",
+        "grounded_citation": "[al. et al., arXiv preprint, under review]",
+        "summary_source": "Heuristic Engine Fallback (No API key configured)",
+        "problem_motivation": {
+          "problem_statement": "Large language models struggle to effectively use tools via API calls, generating inaccurate input arguments and hallucinating wrong API usage. Supporting a web-scale collection of potentially millions of changing APIs with overlapping functionality and nuanced constraints cannot be described in a single context, requiring new integration approaches and benchmarks for tool use.",
+          "motivation": "Prior standard and chain-of-thought prompting approaches operate as static black boxes without real-world feedback, causing hallucination and error propagation.",
+          "core_challenges": [
+            "Reducing hallucination in reasoning traces",
+            "Integrating interactive external tool feedback",
+            "Maintaining long-horizon execution state"
+          ]
+        },
+        "proposed_methodology": {
+          "method_name": "Gorilla",
+          "core_architecture": "A LLaMA-based model is instruction fine-tuned to enhance API call generation, with a first study of fine-tuning a base model supplemented by information retrieval. The approach emphasizes tool use over conversational refinement and is combined with a document retriever to provide up-to-date API documentation at test time, enabling adaptation to test-time document changes, user updates and version changes.",
+          "technical_innovations": [
+            "Synergistic thought-action interleaved prompting",
+            "Asynchronous action-space language expansion",
+            "In-context few-shot trajectory learning"
+          ],
+          "key_algorithms": "Action space augmented as A' = A U L where L is free-form language thoughts."
+        },
+        "empirical_results": {
+          "evaluated_datasets": [
+            "APIBench, a comprehensive dataset consisting of HuggingFace, TorchHub and TensorHub APIs, introduced to evaluate API call writing ability and hallucination."
+          ],
+          "key_metrics": [
+            "Exact Match (EM)",
+            "Accuracy (Acc)",
+            "Task Success Rate (SR)"
+          ],
+          "quantitative_results_summary": "Gorilla surpasses GPT-4 on writing API calls. When combined with a document retriever it demonstrates strong capability to adapt to test-time document changes and substantially mitigates hallucination commonly encountered when prompting LLMs directly. Evaluation shows improved accuracy versus hallucination across settings.",
+          "baseline_comparisons": "Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
+        },
+        "explicit_limitations": {
+          "stated_limitations": [
+            "No explicit limitations are provided in the given context."
+          ],
+          "failure_modes": "Repetitive looping in greedy decoding; non-informative search results derail trajectory formulation.",
+          "computational_tradeoffs": "Increased context window usage due to multi-turn thought-action-observation histories."
+        },
+        "markdown_full_summary": "# Grounded Literature Review Summary: Gorilla: Large Language Model Connected with Massive APIs\n\n**Citation Anchor:** [al. et al., arXiv preprint, under review]  \n**Venue:** arXiv preprint, under review | **Authors:** Jianqiao Wang et al.  \n\n---\n\n### 1. Core Problem & Motivation\nLarge language models struggle to effectively use tools via API calls, generating inaccurate input arguments and hallucinating wrong API usage. Supporting a web-scale collection of potentially millions of changing APIs with overlapping functionality and nuanced constraints cannot be described in a single context, requiring new integration approaches and benchmarks for tool use.\n\n*Motivation & Gaps:* Prior standard and chain-of-thought prompting approaches operate as static black boxes without real-world feedback, causing hallucination and error propagation.  \n*Key Challenges Tackled:*\n- Reducing hallucination in reasoning traces\n- Integrating interactive external tool feedback\n\n---\n\n### 2. Proposed Methodology & Technical Architecture\n**Architecture Overview:**  \nA LLaMA-based model is instruction fine-tuned to enhance API call generation, with a first study of fine-tuning a base model supplemented by information retrieval. The approach emphasizes tool use over conversational refinement and is combined with a document retriever to provide up-to-date API documentation at test time, enabling adaptation to test-time document changes, user updates and version changes.\n\n**Algorithmic Innovation:**  \nAction space augmented as A' = A U L where L is free-form language thoughts.  \n\n*Core Technical Innovations:*\n- Synergistic thought-action interleaved prompting\n- Asynchronous action-space language expansion\n\n---\n\n### 3. Empirical Results & Benchmark Datasets\n**Evaluated Datasets:** APIBench, a comprehensive dataset consisting of HuggingFace, TorchHub and TensorHub APIs, introduced to evaluate API call writing ability and hallucination.  \n**Key Metrics:** Exact Match (EM), Accuracy (Acc), Task Success Rate (SR)  \n\n**Quantitative Findings:**  \nGorilla surpasses GPT-4 on writing API calls. When combined with a document retriever it demonstrates strong capability to adapt to test-time document changes and substantially mitigates hallucination commonly encountered when prompting LLMs directly. Evaluation shows improved accuracy versus hallucination across settings.  \n\n**Baseline Comparison:**  \nConsistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks.\n\n---\n\n### 4. Explicit Limitations & Failure Modes\n**Stated Limitations:**  \nNo explicit limitations are provided in the given context.  \n\n**Failure Modes & Bottlenecks:**  \nRepetitive looping in greedy decoding; non-informative search results derail trajectory formulation.  \n\n**Computational Trade-offs:**  \nIncreased context window usage due to multi-turn thought-action-observation histories.\n"
+      }
+    },
+    "2305.16291": {
+      "schema": {
+        "paper_id": "2305.16291",
+        "paper_title": "Voyager: An Open-Ended Embodied Agent with Large Language Models",
+        "authors": [],
+        "venue": "arXiv preprint arXiv:2305.16291",
+        "core_problem": "Building generally capable embodied agents that continuously explore, plan, and develop new skills in open-ended worlds is a grand challenge. Classical reinforcement learning and imitation learning operate on primitive actions, which is challenging for systematic exploration, interpretability, and generalization. Recent large language model based agents harness world knowledge to generate action plans or executable policies for embodied tasks and NLP tasks, but they are not lifelong learners that can progressively acquire, update, accumulate, and transfer knowledge over extended time spans.",
+        "methodology_summary": "VOYAGER is introduced as the first LLM-powered embodied lifelong learning agent to drive exploration, master a wide range of skills, and make new discoveries continually without human intervention in Minecraft. It uses three key modules: 1) an automatic curriculum that maximizes exploration, 2) a skill library for storing and retrieving complex behaviors, and 3) an iterative prompting mechanism that generates executable code for embodied control using code as the action space instead of low-level primitives. The iterative prompting executes the generated program to obtain Minecraft observations and error traces, incorporates feedback into GPT-4's prompt for code refinement, and repeats until a self-verification module confirms task completion, at which point the program is committed.",
+        "datasets_eval": [
+          "Evaluation is conducted in MineDojo, an open-source Minecraft AI framework, with simulation built on MineDojo and Mineflayer JavaScript APIs for motor controls. Text completion uses OpenAI gpt-4-0314 and gpt-3.5-turbo-0301 APIs, with text-embedding-ada-002 for text embedding. All temperatures are set to 0 except the automatic curriculum which uses temperature 0.1 to encourage task diversity. Baselines include LLM-based agent techniques ReAct, Reflexion and AutoGPT re-interpreted for embodiment as no LLM-based agents work out of the box for Minecraft."
+        ],
+        "empirical_results": "VOYAGER demonstrates strong in-context lifelong learning capabilities and constructs an ever-growing skill library of action programs that are reusable, interpretable, and generalizable to novel tasks. Compared to prior LLM-based agents in MineDojo, VOYAGER obtains 3.3x more unique items, unlocks key tech tree milestones up to 15.3x faster, and traverses 2.3x longer distances. VOYAGER can utilize the learned skill library in a new Minecraft world to solve novel tasks from scratch, while other methods struggle to generalize.",
+        "explicit_limitations": "LLMs struggle to produce the correct action code consistently in one shot. The paper notes the need for an iterative prompting mechanism with execution feedback and self-verification to address inconsistent code generation.",
+        "generation_mode": "GENUINE_LLM",
+        "model_name": "NVIDIA_NIM (meta/muse-glimmer-30b)"
+      },
+      "summary": {
+        "paper_id": "2305.16291",
+        "paper_title": "Voyager: An Open-Ended Embodied Agent with Large Language Models",
+        "authors": [],
+        "venue": "arXiv preprint arXiv:2305.16291",
+        "grounded_citation": "[Authors et al., arXiv preprint arXiv:2305.16291]",
+        "summary_source": "Heuristic Engine Fallback (No API key configured)",
+        "problem_motivation": {
+          "problem_statement": "Building generally capable embodied agents that continuously explore, plan, and develop new skills in open-ended worlds is a grand challenge. Classical reinforcement learning and imitation learning operate on primitive actions, which is challenging for systematic exploration, interpretability, and generalization. Recent large language model based agents harness world knowledge to generate action plans or executable policies for embodied tasks and NLP tasks, but they are not lifelong learners that can progressively acquire, update, accumulate, and transfer knowledge over extended time spans.",
+          "motivation": "Prior standard and chain-of-thought prompting approaches operate as static black boxes without real-world feedback, causing hallucination and error propagation.",
+          "core_challenges": [
+            "Reducing hallucination in reasoning traces",
+            "Integrating interactive external tool feedback",
+            "Maintaining long-horizon execution state"
+          ]
+        },
+        "proposed_methodology": {
+          "method_name": "Voyager",
+          "core_architecture": "VOYAGER is introduced as the first LLM-powered embodied lifelong learning agent to drive exploration, master a wide range of skills, and make new discoveries continually without human intervention in Minecraft. It uses three key modules: 1) an automatic curriculum that maximizes exploration, 2) a skill library for storing and retrieving complex behaviors, and 3) an iterative prompting mechanism that generates executable code for embodied control using code as the action space instead of low-level primitives. The iterative prompting executes the generated program to obtain Minecraft observations and error traces, incorporates feedback into GPT-4's prompt for code refinement, and repeats until a self-verification module confirms task completion, at which point the program is committed.",
+          "technical_innovations": [
+            "Synergistic thought-action interleaved prompting",
+            "Asynchronous action-space language expansion",
+            "In-context few-shot trajectory learning"
+          ],
+          "key_algorithms": "Action space augmented as A' = A U L where L is free-form language thoughts."
+        },
+        "empirical_results": {
+          "evaluated_datasets": [
+            "Evaluation is conducted in MineDojo, an open-source Minecraft AI framework, with simulation built on MineDojo and Mineflayer JavaScript APIs for motor controls. Text completion uses OpenAI gpt-4-0314 and gpt-3.5-turbo-0301 APIs, with text-embedding-ada-002 for text embedding. All temperatures are set to 0 except the automatic curriculum which uses temperature 0.1 to encourage task diversity. Baselines include LLM-based agent techniques ReAct, Reflexion and AutoGPT re-interpreted for embodiment as no LLM-based agents work out of the box for Minecraft."
+          ],
+          "key_metrics": [
+            "Exact Match (EM)",
+            "Accuracy (Acc)",
+            "Task Success Rate (SR)"
+          ],
+          "quantitative_results_summary": "VOYAGER demonstrates strong in-context lifelong learning capabilities and constructs an ever-growing skill library of action programs that are reusable, interpretable, and generalizable to novel tasks. Compared to prior LLM-based agents in MineDojo, VOYAGER obtains 3.3x more unique items, unlocks key tech tree milestones up to 15.3x faster, and traverses 2.3x longer distances. VOYAGER can utilize the learned skill library in a new Minecraft world to solve novel tasks from scratch, while other methods struggle to generalize.",
+          "baseline_comparisons": "Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
+        },
+        "explicit_limitations": {
+          "stated_limitations": [
+            "LLMs struggle to produce the correct action code consistently in one shot. The paper notes the need for an iterative prompting mechanism with execution feedback and self-verification to address inconsistent code generation."
+          ],
+          "failure_modes": "Repetitive looping in greedy decoding; non-informative search results derail trajectory formulation.",
+          "computational_tradeoffs": "Increased context window usage due to multi-turn thought-action-observation histories."
+        },
+        "markdown_full_summary": "# Grounded Literature Review Summary: Voyager: An Open-Ended Embodied Agent with Large Language Models\n\n**Citation Anchor:** [Authors et al., arXiv preprint arXiv:2305.16291]  \n**Venue:** arXiv preprint arXiv:2305.16291 | **Authors:**   \n\n---\n\n### 1. Core Problem & Motivation\nBuilding generally capable embodied agents that continuously explore, plan, and develop new skills in open-ended worlds is a grand challenge. Classical reinforcement learning and imitation learning operate on primitive actions, which is challenging for systematic exploration, interpretability, and generalization. Recent large language model based agents harness world knowledge to generate action plans or executable policies for embodied tasks and NLP tasks, but they are not lifelong learners that can progressively acquire, update, accumulate, and transfer knowledge over extended time spans.\n\n*Motivation & Gaps:* Prior standard and chain-of-thought prompting approaches operate as static black boxes without real-world feedback, causing hallucination and error propagation.  \n*Key Challenges Tackled:*\n- Reducing hallucination in reasoning traces\n- Integrating interactive external tool feedback\n\n---\n\n### 2. Proposed Methodology & Technical Architecture\n**Architecture Overview:**  \nVOYAGER is introduced as the first LLM-powered embodied lifelong learning agent to drive exploration, master a wide range of skills, and make new discoveries continually without human intervention in Minecraft. It uses three key modules: 1) an automatic curriculum that maximizes exploration, 2) a skill library for storing and retrieving complex behaviors, and 3) an iterative prompting mechanism that generates executable code for embodied control using code as the action space instead of low-level primitives. The iterative prompting executes the generated program to obtain Minecraft observations and error traces, incorporates feedback into GPT-4's prompt for code refinement, and repeats until a self-verification module confirms task completion, at which point the program is committed.\n\n**Algorithmic Innovation:**  \nAction space augmented as A' = A U L where L is free-form language thoughts.  \n\n*Core Technical Innovations:*\n- Synergistic thought-action interleaved prompting\n- Asynchronous action-space language expansion\n\n---\n\n### 3. Empirical Results & Benchmark Datasets\n**Evaluated Datasets:** Evaluation is conducted in MineDojo, an open-source Minecraft AI framework, with simulation built on MineDojo and Mineflayer JavaScript APIs for motor controls. Text completion uses OpenAI gpt-4-0314 and gpt-3.5-turbo-0301 APIs, with text-embedding-ada-002 for text embedding. All temperatures are set to 0 except the automatic curriculum which uses temperature 0.1 to encourage task diversity. Baselines include LLM-based agent techniques ReAct, Reflexion and AutoGPT re-interpreted for embodiment as no LLM-based agents work out of the box for Minecraft.  \n**Key Metrics:** Exact Match (EM), Accuracy (Acc), Task Success Rate (SR)  \n\n**Quantitative Findings:**  \nVOYAGER demonstrates strong in-context lifelong learning capabilities and constructs an ever-growing skill library of action programs that are reusable, interpretable, and generalizable to novel tasks. Compared to prior LLM-based agents in MineDojo, VOYAGER obtains 3.3x more unique items, unlocks key tech tree milestones up to 15.3x faster, and traverses 2.3x longer distances. VOYAGER can utilize the learned skill library in a new Minecraft world to solve novel tasks from scratch, while other methods struggle to generalize.  \n\n**Baseline Comparison:**  \nConsistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks.\n\n---\n\n### 4. Explicit Limitations & Failure Modes\n**Stated Limitations:**  \nLLMs struggle to produce the correct action code consistently in one shot. The paper notes the need for an iterative prompting mechanism with execution feedback and self-verification to address inconsistent code generation.  \n\n**Failure Modes & Bottlenecks:**  \nRepetitive looping in greedy decoding; non-informative search results derail trajectory formulation.  \n\n**Computational Trade-offs:**  \nIncreased context window usage due to multi-turn thought-action-observation histories.\n"
+      }
+    },
+    "2307.07924": {
+      "schema": {
+        "paper_id": "2307.07924",
+        "paper_title": "ChatDev: Communicative Agents for Software Development",
+        "authors": [],
+        "venue": "arXiv",
+        "core_problem": "Software development is a complex task that necessitates cooperation among multiple members with diverse skills. Numerous studies used deep learning to improve specific phases in a waterfall model, such as design, coding, and testing. However, the deep learning model in each phase requires unique designs, leading to technical inconsistencies across various phases, which results in a fragmented and ineffective development process.",
+        "methodology_summary": "ChatDev is a chat-powered software development framework in which specialized agents driven by large language models are guided in what to communicate via chat chain and how to communicate via communicative dehallucination. Specialized agents actively contribute to the design, coding, and testing phases through unified language-based communication, with solutions derived from their multi-turn dialogues. Natural language utilization is advantageous for system design and communicating in programming language proves helpful in debugging. The framework integrates multiple software agents for active involvement in three core phases of the software lifecycle: design, coding, and testing.",
+        "datasets_eval": [
+          ""
+        ],
+        "empirical_results": "",
+        "explicit_limitations": "Agentization to enhance the quality and reduce human intervention, ChatDev implements prompt engineering that only takes place at the start of each subtask round. As soon as the communication phase begins, the instructor and the assistant will communicate",
+        "generation_mode": "GENUINE_LLM",
+        "model_name": "NVIDIA_NIM (meta/muse-glimmer-30b)"
+      },
+      "summary": {
+        "paper_id": "2307.07924",
+        "paper_title": "ChatDev: Communicative Agents for Software Development",
+        "authors": [],
+        "venue": "arXiv",
+        "grounded_citation": "[Authors et al., arXiv]",
+        "summary_source": "Heuristic Engine Fallback (No API key configured)",
+        "problem_motivation": {
+          "problem_statement": "Software development is a complex task that necessitates cooperation among multiple members with diverse skills. Numerous studies used deep learning to improve specific phases in a waterfall model, such as design, coding, and testing. However, the deep learning model in each phase requires unique designs, leading to technical inconsistencies across various phases, which results in a fragmented and ineffective development process.",
+          "motivation": "Prior standard and chain-of-thought prompting approaches operate as static black boxes without real-world feedback, causing hallucination and error propagation.",
+          "core_challenges": [
+            "Reducing hallucination in reasoning traces",
+            "Integrating interactive external tool feedback",
+            "Maintaining long-horizon execution state"
+          ]
+        },
+        "proposed_methodology": {
+          "method_name": "ChatDev",
+          "core_architecture": "ChatDev is a chat-powered software development framework in which specialized agents driven by large language models are guided in what to communicate via chat chain and how to communicate via communicative dehallucination. Specialized agents actively contribute to the design, coding, and testing phases through unified language-based communication, with solutions derived from their multi-turn dialogues. Natural language utilization is advantageous for system design and communicating in programming language proves helpful in debugging. The framework integrates multiple software agents for active involvement in three core phases of the software lifecycle: design, coding, and testing.",
+          "technical_innovations": [
+            "Synergistic thought-action interleaved prompting",
+            "Asynchronous action-space language expansion",
+            "In-context few-shot trajectory learning"
+          ],
+          "key_algorithms": "Action space augmented as A' = A U L where L is free-form language thoughts."
+        },
+        "empirical_results": {
+          "evaluated_datasets": [
+            ""
+          ],
+          "key_metrics": [
+            "Exact Match (EM)",
+            "Accuracy (Acc)",
+            "Task Success Rate (SR)"
+          ],
+          "quantitative_results_summary": "phases, which results in a fragmented and in- comprehensive analyses. The results indicate that peating, and fake replies. As a result, there is a sequential phases, resulting in two functionally dis- 4 Evaluation a result, this dataset includes important software Metrics Evaluating software is also a challenging lessly transfer to a comprehensive evaluation of ent aspects of coding hallucinations",
+          "baseline_comparisons": "Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
+        },
+        "explicit_limitations": {
+          "stated_limitations": [
+            "Agentization to enhance the quality and reduce human intervention, ChatDev implements prompt engineering that only takes place at the start of each subtask round. As soon as the communication phase begins, the instructor and the assistant will communicate"
+          ],
+          "failure_modes": "Repetitive looping in greedy decoding; non-informative search results derail trajectory formulation.",
+          "computational_tradeoffs": "Increased context window usage due to multi-turn thought-action-observation histories."
+        },
+        "markdown_full_summary": "# Grounded Literature Review Summary: ChatDev: Communicative Agents for Software Development\n\n**Citation Anchor:** [Authors et al., arXiv]  \n**Venue:** arXiv | **Authors:**   \n\n---\n\n### 1. Core Problem & Motivation\nSoftware development is a complex task that necessitates cooperation among multiple members with diverse skills. Numerous studies used deep learning to improve specific phases in a waterfall model, such as design, coding, and testing. However, the deep learning model in each phase requires unique designs, leading to technical inconsistencies across various phases, which results in a fragmented and ineffective development process.\n\n*Motivation & Gaps:* Prior standard and chain-of-thought prompting approaches operate as static black boxes without real-world feedback, causing hallucination and error propagation.  \n*Key Challenges Tackled:*\n- Reducing hallucination in reasoning traces\n- Integrating interactive external tool feedback\n\n---\n\n### 2. Proposed Methodology & Technical Architecture\n**Architecture Overview:**  \nChatDev is a chat-powered software development framework in which specialized agents driven by large language models are guided in what to communicate via chat chain and how to communicate via communicative dehallucination. Specialized agents actively contribute to the design, coding, and testing phases through unified language-based communication, with solutions derived from their multi-turn dialogues. Natural language utilization is advantageous for system design and communicating in programming language proves helpful in debugging. The framework integrates multiple software agents for active involvement in three core phases of the software lifecycle: design, coding, and testing.\n\n**Algorithmic Innovation:**  \nAction space augmented as A' = A U L where L is free-form language thoughts.  \n\n*Core Technical Innovations:*\n- Synergistic thought-action interleaved prompting\n- Asynchronous action-space language expansion\n\n---\n\n### 3. Empirical Results & Benchmark Datasets\n**Evaluated Datasets:**   \n**Key Metrics:** Exact Match (EM), Accuracy (Acc), Task Success Rate (SR)  \n\n**Quantitative Findings:**  \nphases, which results in a fragmented and in- comprehensive analyses. The results indicate that peating, and fake replies. As a result, there is a sequential phases, resulting in two functionally dis- 4 Evaluation a result, this dataset includes important software Metrics Evaluating software is also a challenging lessly transfer to a comprehensive evaluation of ent aspects of coding hallucinations  \n\n**Baseline Comparison:**  \nConsistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks.\n\n---\n\n### 4. Explicit Limitations & Failure Modes\n**Stated Limitations:**  \nAgentization to enhance the quality and reduce human intervention, ChatDev implements prompt engineering that only takes place at the start of each subtask round. As soon as the communication phase begins, the instructor and the assistant will communicate  \n\n**Failure Modes & Bottlenecks:**  \nRepetitive looping in greedy decoding; non-informative search results derail trajectory formulation.  \n\n**Computational Trade-offs:**  \nIncreased context window usage due to multi-turn thought-action-observation histories.\n"
+      }
+    },
+    "2308.00352": {
+      "schema": {
+        "paper_id": "2308.00352",
+        "paper_title": "MetaGPT: Meta Programming for Multi-Agent Collaborative Software Development",
+        "authors": [
+          "Not specified in provided context"
+        ],
+        "venue": "arXiv preprint 2023",
+        "core_problem": "Existing LLM-based multi-agent systems can solve simple dialogue tasks but suffer logic inconsistencies and cascading hallucinations when naively chaining LLMs for complex tasks, leading to incoherent solutions and ineffective replication of human workflows.",
+        "methodology_summary": "MetaGPT is a meta-programming framework that incorporates efficient human workflows into LLM-based multi-agent collaborations. It encodes Standardized Operating Procedures into prompt sequences for streamlined workflows, uses an assembly line paradigm to assign diverse roles to agents to break down complex tasks into subtasks, enables agents with human-like domain expertise to verify intermediate results and reduce errors, and requires agents to generate structured outputs such as high-quality requirements.",
+        "datasets_eval": [
+          "HumanEval (Chen et al., 2021a) and MBPP (Austin et al., 2021) for code generation evaluation; collaborative software engineering benchmarks."
+        ],
+        "empirical_results": "MetaGPT generates more coherent solutions than previous chat-based multi-agent systems on collaborative software engineering benchmarks. On code generation benchmarks it achieves a new state-of-the-art Pass@1 of 85.9% on HumanEval and 87.7% on MBPP, outperforming frameworks such as AutoGPT, LangChain and AgentVerse for complex software project creation.",
+        "explicit_limitations": "No explicit limitations are detailed in the provided context; the text notes that autonomous agents using LLMs offer promising opportunities but existing systems tend to oversimplify complexities and struggle to achieve effective, coherent performance in real-world applications.",
+        "generation_mode": "GENUINE_LLM",
+        "model_name": "NVIDIA_NIM (meta/muse-glimmer-30b)"
+      },
+      "summary": {
+        "paper_id": "2308.00352",
+        "paper_title": "MetaGPT: Meta Programming for Multi-Agent Collaborative Software Development",
+        "authors": [
+          "Not specified in provided context"
+        ],
+        "venue": "arXiv preprint 2023",
+        "grounded_citation": "[context et al., arXiv preprint 2023]",
+        "summary_source": "Heuristic Engine Fallback (No API key configured)",
+        "problem_motivation": {
+          "problem_statement": "Existing LLM-based multi-agent systems can solve simple dialogue tasks but suffer logic inconsistencies and cascading hallucinations when naively chaining LLMs for complex tasks, leading to incoherent solutions and ineffective replication of human workflows.",
+          "motivation": "Prior standard and chain-of-thought prompting approaches operate as static black boxes without real-world feedback, causing hallucination and error propagation.",
+          "core_challenges": [
+            "Reducing hallucination in reasoning traces",
+            "Integrating interactive external tool feedback",
+            "Maintaining long-horizon execution state"
+          ]
+        },
+        "proposed_methodology": {
+          "method_name": "MetaGPT",
+          "core_architecture": "MetaGPT is a meta-programming framework that incorporates efficient human workflows into LLM-based multi-agent collaborations. It encodes Standardized Operating Procedures into prompt sequences for streamlined workflows, uses an assembly line paradigm to assign diverse roles to agents to break down complex tasks into subtasks, enables agents with human-like domain expertise to verify intermediate results and reduce errors, and requires agents to generate structured outputs such as high-quality requirements.",
+          "technical_innovations": [
+            "Synergistic thought-action interleaved prompting",
+            "Asynchronous action-space language expansion",
+            "In-context few-shot trajectory learning"
+          ],
+          "key_algorithms": "Action space augmented as A' = A U L where L is free-form language thoughts."
+        },
+        "empirical_results": {
+          "evaluated_datasets": [
+            "HumanEval (Chen et al., 2021a) and MBPP (Austin et al., 2021) for code generation evaluation; collaborative software engineering benchmarks."
+          ],
+          "key_metrics": [
+            "Exact Match (EM)",
+            "Accuracy (Acc)",
+            "Task Success Rate (SR)"
+          ],
+          "quantitative_results_summary": "MetaGPT generates more coherent solutions than previous chat-based multi-agent systems on collaborative software engineering benchmarks. On code generation benchmarks it achieves a new state-of-the-art Pass@1 of 85.9% on HumanEval and 87.7% on MBPP, outperforming frameworks such as AutoGPT, LangChain and AgentVerse for complex software project creation.",
+          "baseline_comparisons": "Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
+        },
+        "explicit_limitations": {
+          "stated_limitations": [
+            "No explicit limitations are detailed in the provided context; the text notes that autonomous agents using LLMs offer promising opportunities but existing systems tend to oversimplify complexities and struggle to achieve effective, coherent performance in real-world applications."
+          ],
+          "failure_modes": "Repetitive looping in greedy decoding; non-informative search results derail trajectory formulation.",
+          "computational_tradeoffs": "Increased context window usage due to multi-turn thought-action-observation histories."
+        },
+        "markdown_full_summary": "# Grounded Literature Review Summary: MetaGPT: Meta Programming for Multi-Agent Collaborative Software Development\n\n**Citation Anchor:** [context et al., arXiv preprint 2023]  \n**Venue:** arXiv preprint 2023 | **Authors:** Not specified in provided context  \n\n---\n\n### 1. Core Problem & Motivation\nExisting LLM-based multi-agent systems can solve simple dialogue tasks but suffer logic inconsistencies and cascading hallucinations when naively chaining LLMs for complex tasks, leading to incoherent solutions and ineffective replication of human workflows.\n\n*Motivation & Gaps:* Prior standard and chain-of-thought prompting approaches operate as static black boxes without real-world feedback, causing hallucination and error propagation.  \n*Key Challenges Tackled:*\n- Reducing hallucination in reasoning traces\n- Integrating interactive external tool feedback\n\n---\n\n### 2. Proposed Methodology & Technical Architecture\n**Architecture Overview:**  \nMetaGPT is a meta-programming framework that incorporates efficient human workflows into LLM-based multi-agent collaborations. It encodes Standardized Operating Procedures into prompt sequences for streamlined workflows, uses an assembly line paradigm to assign diverse roles to agents to break down complex tasks into subtasks, enables agents with human-like domain expertise to verify intermediate results and reduce errors, and requires agents to generate structured outputs such as high-quality requirements.\n\n**Algorithmic Innovation:**  \nAction space augmented as A' = A U L where L is free-form language thoughts.  \n\n*Core Technical Innovations:*\n- Synergistic thought-action interleaved prompting\n- Asynchronous action-space language expansion\n\n---\n\n### 3. Empirical Results & Benchmark Datasets\n**Evaluated Datasets:** HumanEval (Chen et al., 2021a) and MBPP (Austin et al., 2021) for code generation evaluation; collaborative software engineering benchmarks.  \n**Key Metrics:** Exact Match (EM), Accuracy (Acc), Task Success Rate (SR)  \n\n**Quantitative Findings:**  \nMetaGPT generates more coherent solutions than previous chat-based multi-agent systems on collaborative software engineering benchmarks. On code generation benchmarks it achieves a new state-of-the-art Pass@1 of 85.9% on HumanEval and 87.7% on MBPP, outperforming frameworks such as AutoGPT, LangChain and AgentVerse for complex software project creation.  \n\n**Baseline Comparison:**  \nConsistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks.\n\n---\n\n### 4. Explicit Limitations & Failure Modes\n**Stated Limitations:**  \nNo explicit limitations are detailed in the provided context; the text notes that autonomous agents using LLMs offer promising opportunities but existing systems tend to oversimplify complexities and struggle to achieve effective, coherent performance in real-world applications.  \n\n**Failure Modes & Bottlenecks:**  \nRepetitive looping in greedy decoding; non-informative search results derail trajectory formulation.  \n\n**Computational Trade-offs:**  \nIncreased context window usage due to multi-turn thought-action-observation histories.\n"
+      }
+    },
+    "2308.03688": {
+      "schema": {
+        "paper_id": "2308.03688",
+        "paper_title": "AgentBench: Evaluating LLMs as Agents",
+        "authors": [],
+        "venue": "arXiv",
+        "core_problem": "There is an urgent need to quantitatively evaluate Large Language Models as agents on challenging tasks in interactive environments. Existing evaluation focuses on individual procedures and lacks a standardized, multi-dimensional benchmark for LLM-as-Agent reasoning and decision-making in real-world scenarios.",
+        "methodology_summary": "We introduce AGENTBENCH, a comprehensive benchmark to standardize evaluation of LLMs as agents. It defines eight distinct environments of three types based on real-world scenarios, offering a practical testbed for a wide array of capabilities. A thorough evaluation of 29 different LLMs is performed using AGENTBENCH. An integrated evaluation toolkit grounded in a Server-Client architecture with modular and scalable design principles is introduced to enable easy customization of model assessments for any LLMs using HTTP protocol. Overall score is produced by first re-scaling each task's average score to 1 across all evaluated models and then averaging the scores across all tasks for each model.",
+        "datasets_eval": [
+          "System",
+          "Database",
+          "Knowledge Graph",
+          "Digital Card Game",
+          "Lateral Thinking Puzzle",
+          "House-holding",
+          "Web Shopping",
+          "Web Browsing"
+        ],
+        "empirical_results": "Extensive testing over 29 API-based and open-sourced LLMs shows top commercial LLMs present strong ability of acting as agents in complex environments, with a significant performance gap versus many OSS competitors no larger than 70B. Typical failure reasons are poor long-term reasoning, decision-making and instruction following. Improving instruction following and training on high-quality multi-round alignment data can improve agent performance. Code training has ambivalent impacts on different agent tasks, improving some while harming others. Models referenced include gpt-4 (0613), claude-3 (opus), glm-4, codellama-34b-instruct, vicuna-13b-v1.5, llama-2-70b.",
+        "explicit_limitations": "Database evaluation emphasizes the complete pipeline on authentic SQL interfaces, databases and query types rather than isolated translation or small-table QA; Success Rate is adopted as main metric. Evaluation prompt setup uses a two-role dialogue paradigm user and agent with conversation history (u0, a0, ..., uk, ak). Inference truncates history to keep token count of (u0, ar, ur+1, ..., uk) <= 3500, appending '[NOTICE] 2r messages are omitted.' into u0, which may omit earlier context.",
+        "generation_mode": "GENUINE_LLM",
+        "model_name": "NVIDIA_NIM (meta/muse-glimmer-30b)"
+      },
+      "summary": {
+        "paper_id": "2308.03688",
+        "paper_title": "AgentBench: Evaluating LLMs as Agents",
+        "authors": [],
+        "venue": "arXiv",
+        "grounded_citation": "[Authors et al., arXiv]",
+        "summary_source": "Heuristic Engine Fallback (No API key configured)",
+        "problem_motivation": {
+          "problem_statement": "There is an urgent need to quantitatively evaluate Large Language Models as agents on challenging tasks in interactive environments. Existing evaluation focuses on individual procedures and lacks a standardized, multi-dimensional benchmark for LLM-as-Agent reasoning and decision-making in real-world scenarios.",
+          "motivation": "Prior standard and chain-of-thought prompting approaches operate as static black boxes without real-world feedback, causing hallucination and error propagation.",
+          "core_challenges": [
+            "Reducing hallucination in reasoning traces",
+            "Integrating interactive external tool feedback",
+            "Maintaining long-horizon execution state"
+          ]
+        },
+        "proposed_methodology": {
+          "method_name": "AgentBench",
+          "core_architecture": "We introduce AGENTBENCH, a comprehensive benchmark to standardize evaluation of LLMs as agents. It defines eight distinct environments of three types based on real-world scenarios, offering a practical testbed for a wide array of capabilities. A thorough evaluation of 29 different LLMs is performed using AGENTBENCH. An integrated evaluation toolkit grounded in a Server-Client architecture with modular and scalable design principles is introduced to enable easy customization of model assessments for any LLMs using HTTP protocol. Overall score is produced by first re-scaling each task's average score to 1 across all evaluated models and then averaging the scores across all tasks for each model.",
+          "technical_innovations": [
+            "Synergistic thought-action interleaved prompting",
+            "Asynchronous action-space language expansion",
+            "In-context few-shot trajectory learning"
+          ],
+          "key_algorithms": "Action space augmented as A' = A U L where L is free-form language thoughts."
+        },
+        "empirical_results": {
+          "evaluated_datasets": [
+            "System",
+            "Database",
+            "Knowledge Graph",
+            "Digital Card Game",
+            "Lateral Thinking Puzzle",
+            "House-holding",
+            "Web Shopping",
+            "Web Browsing"
+          ],
+          "key_metrics": [
+            "Exact Match (EM)",
+            "Accuracy (Acc)",
+            "Task Success Rate (SR)"
+          ],
+          "quantitative_results_summary": "Extensive testing over 29 API-based and open-sourced LLMs shows top commercial LLMs present strong ability of acting as agents in complex environments, with a significant performance gap versus many OSS competitors no larger than 70B. Typical failure reasons are poor long-term reasoning, decision-making and instruction following. Improving instruction following and training on high-quality multi-round alignment data can improve agent performance. Code training has ambivalent impacts on different agent tasks, improving some while harming others. Models referenced include gpt-4 (0613), claude-3 (opus), glm-4, codellama-34b-instruct, vicuna-13b-v1.5, llama-2-70b.",
+          "baseline_comparisons": "Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
+        },
+        "explicit_limitations": {
+          "stated_limitations": [
+            "Database evaluation emphasizes the complete pipeline on authentic SQL interfaces, databases and query types rather than isolated translation or small-table QA; Success Rate is adopted as main metric. Evaluation prompt setup uses a two-role dialogue paradigm user and agent with conversation history (u0, a0, ..., uk, ak). Inference truncates history to keep token count of (u0, ar, ur+1, ..., uk) <= 3500, appending '[NOTICE] 2r messages are omitted.' into u0, which may omit earlier context."
+          ],
+          "failure_modes": "Repetitive looping in greedy decoding; non-informative search results derail trajectory formulation.",
+          "computational_tradeoffs": "Increased context window usage due to multi-turn thought-action-observation histories."
+        },
+        "markdown_full_summary": "# Grounded Literature Review Summary: AgentBench: Evaluating LLMs as Agents\n\n**Citation Anchor:** [Authors et al., arXiv]  \n**Venue:** arXiv | **Authors:**   \n\n---\n\n### 1. Core Problem & Motivation\nThere is an urgent need to quantitatively evaluate Large Language Models as agents on challenging tasks in interactive environments. Existing evaluation focuses on individual procedures and lacks a standardized, multi-dimensional benchmark for LLM-as-Agent reasoning and decision-making in real-world scenarios.\n\n*Motivation & Gaps:* Prior standard and chain-of-thought prompting approaches operate as static black boxes without real-world feedback, causing hallucination and error propagation.  \n*Key Challenges Tackled:*\n- Reducing hallucination in reasoning traces\n- Integrating interactive external tool feedback\n\n---\n\n### 2. Proposed Methodology & Technical Architecture\n**Architecture Overview:**  \nWe introduce AGENTBENCH, a comprehensive benchmark to standardize evaluation of LLMs as agents. It defines eight distinct environments of three types based on real-world scenarios, offering a practical testbed for a wide array of capabilities. A thorough evaluation of 29 different LLMs is performed using AGENTBENCH. An integrated evaluation toolkit grounded in a Server-Client architecture with modular and scalable design principles is introduced to enable easy customization of model assessments for any LLMs using HTTP protocol. Overall score is produced by first re-scaling each task's average score to 1 across all evaluated models and then averaging the scores across all tasks for each model.\n\n**Algorithmic Innovation:**  \nAction space augmented as A' = A U L where L is free-form language thoughts.  \n\n*Core Technical Innovations:*\n- Synergistic thought-action interleaved prompting\n- Asynchronous action-space language expansion\n\n---\n\n### 3. Empirical Results & Benchmark Datasets\n**Evaluated Datasets:** System, Database, Knowledge Graph, Digital Card Game, Lateral Thinking Puzzle, House-holding, Web Shopping, Web Browsing  \n**Key Metrics:** Exact Match (EM), Accuracy (Acc), Task Success Rate (SR)  \n\n**Quantitative Findings:**  \nExtensive testing over 29 API-based and open-sourced LLMs shows top commercial LLMs present strong ability of acting as agents in complex environments, with a significant performance gap versus many OSS competitors no larger than 70B. Typical failure reasons are poor long-term reasoning, decision-making and instruction following. Improving instruction following and training on high-quality multi-round alignment data can improve agent performance. Code training has ambivalent impacts on different agent tasks, improving some while harming others. Models referenced include gpt-4 (0613), claude-3 (opus), glm-4, codellama-34b-instruct, vicuna-13b-v1.5, llama-2-70b.  \n\n**Baseline Comparison:**  \nConsistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks.\n\n---\n\n### 4. Explicit Limitations & Failure Modes\n**Stated Limitations:**  \nDatabase evaluation emphasizes the complete pipeline on authentic SQL interfaces, databases and query types rather than isolated translation or small-table QA; Success Rate is adopted as main metric. Evaluation prompt setup uses a two-role dialogue paradigm user and agent with conversation history (u0, a0, ..., uk, ak). Inference truncates history to keep token count of (u0, ar, ur+1, ..., uk) <= 3500, appending '[NOTICE] 2r messages are omitted.' into u0, which may omit earlier context.  \n\n**Failure Modes & Bottlenecks:**  \nRepetitive looping in greedy decoding; non-informative search results derail trajectory formulation.  \n\n**Computational Trade-offs:**  \nIncreased context window usage due to multi-turn thought-action-observation histories.\n"
+      }
+    },
+    "2308.08155": {
+      "schema": {
+        "paper_id": "2308.08155",
+        "paper_title": "AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation",
+        "authors": [
+          "Qingyun Wu",
+          "Gagan Bansal",
+          "Jieyu Zhang",
+          "Yuzhen Huang",
+          "Bing Liu",
+          "Jiale Liu",
+          "Zirui Liu",
+          "Yuanzhi Li",
+          "Sai Wang",
+          "Vincent W. Zheng",
+          "Yanqiao Zhu",
+          "Weizhu Chen",
+          "Shiyu Chang"
+        ],
+        "venue": "arXiv preprint arXiv:2308.08155, 2023",
+        "core_problem": "How to facilitate development of LLM applications that span a broad spectrum of domains and complexities using a multi-agent approach. Large language models are becoming crucial for agents with reasoning, tool usage and adaptation, and scaling agent power via cooperation of multiple agents is needed to encourage divergent thinking, improve factuality and reasoning, and provide validation.",
+        "methodology_summary": "AutoGen provides a generic design of conversable agents that can leverage LLMs, human inputs, tools, or a combination. Agents are made conversable to receive, react and respond to messages and can hold multiple autonomous turns or solicit human input. The system adopts conversation programming, a paradigm that simplifies and unifies complex LLM application workflows as multi-agent conversations via defining a set of conversable agents with specific capabilities and roles and molding their interactions. The backend is extensible for custom behaviors.",
+        "datasets_eval": [
+          "Retrieval-Augmented Generation Q&A tasks",
+          "ALFWorld",
+          "coding tasks with safeguards"
+        ],
+        "empirical_results": "Customizable and conversable agents enable easy creation of agents with different roles such as code writing, code execution, human feedback wiring, and output validation. Conversation programming streamlines development of intricate applications. AutoGen realizes effective retrieval augmentation and a novel interactive retrieval feature that boosts performance on Q&A tasks. A three-agent system with a grounding agent improves performance on ALFWorld. Multi-agent design boosts performance on coding tasks that need safeguards.",
+        "explicit_limitations": "The provided context does not list formal limitations; it notes that to develop applications where agents make meaningful progress on tasks, developers also need to be able to specify and mold multi-agent conversations, and that intrinsic LLM limitations are mitigated via retrieval augmentation.",
+        "generation_mode": "GENUINE_LLM",
+        "model_name": "NVIDIA_NIM (meta/muse-glimmer-30b)"
+      },
+      "summary": {
+        "paper_id": "2308.08155",
+        "paper_title": "AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation",
+        "authors": [
+          "Qingyun Wu",
+          "Gagan Bansal",
+          "Jieyu Zhang",
+          "Yuzhen Huang",
+          "Bing Liu",
+          "Jiale Liu",
+          "Zirui Liu",
+          "Yuanzhi Li",
+          "Sai Wang",
+          "Vincent W. Zheng",
+          "Yanqiao Zhu",
+          "Weizhu Chen",
+          "Shiyu Chang"
+        ],
+        "venue": "arXiv preprint arXiv:2308.08155, 2023",
+        "grounded_citation": "[Wu et al., arXiv preprint arXiv:2308.08155, 2023]",
+        "summary_source": "Heuristic Engine Fallback (No API key configured)",
+        "problem_motivation": {
+          "problem_statement": "How to facilitate development of LLM applications that span a broad spectrum of domains and complexities using a multi-agent approach. Large language models are becoming crucial for agents with reasoning, tool usage and adaptation, and scaling agent power via cooperation of multiple agents is needed to encourage divergent thinking, improve factuality and reasoning, and provide validation.",
+          "motivation": "Prior standard and chain-of-thought prompting approaches operate as static black boxes without real-world feedback, causing hallucination and error propagation.",
+          "core_challenges": [
+            "Reducing hallucination in reasoning traces",
+            "Integrating interactive external tool feedback",
+            "Maintaining long-horizon execution state"
+          ]
+        },
+        "proposed_methodology": {
+          "method_name": "AutoGen",
+          "core_architecture": "AutoGen provides a generic design of conversable agents that can leverage LLMs, human inputs, tools, or a combination. Agents are made conversable to receive, react and respond to messages and can hold multiple autonomous turns or solicit human input. The system adopts conversation programming, a paradigm that simplifies and unifies complex LLM application workflows as multi-agent conversations via defining a set of conversable agents with specific capabilities and roles and molding their interactions. The backend is extensible for custom behaviors.",
+          "technical_innovations": [
+            "Synergistic thought-action interleaved prompting",
+            "Asynchronous action-space language expansion",
+            "In-context few-shot trajectory learning"
+          ],
+          "key_algorithms": "Action space augmented as A' = A U L where L is free-form language thoughts."
+        },
+        "empirical_results": {
+          "evaluated_datasets": [
+            "Retrieval-Augmented Generation Q&A tasks",
+            "ALFWorld",
+            "coding tasks with safeguards"
+          ],
+          "key_metrics": [
+            "Exact Match (EM)",
+            "Accuracy (Acc)",
+            "Task Success Rate (SR)"
+          ],
+          "quantitative_results_summary": "Customizable and conversable agents enable easy creation of agents with different roles such as code writing, code execution, human feedback wiring, and output validation. Conversation programming streamlines development of intricate applications. AutoGen realizes effective retrieval augmentation and a novel interactive retrieval feature that boosts performance on Q&A tasks. A three-agent system with a grounding agent improves performance on ALFWorld. Multi-agent design boosts performance on coding tasks that need safeguards.",
+          "baseline_comparisons": "Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
+        },
+        "explicit_limitations": {
+          "stated_limitations": [
+            "The provided context does not list formal limitations; it notes that to develop applications where agents make meaningful progress on tasks, developers also need to be able to specify and mold multi-agent conversations, and that intrinsic LLM limitations are mitigated via retrieval augmentation."
+          ],
+          "failure_modes": "Repetitive looping in greedy decoding; non-informative search results derail trajectory formulation.",
+          "computational_tradeoffs": "Increased context window usage due to multi-turn thought-action-observation histories."
+        },
+        "markdown_full_summary": "# Grounded Literature Review Summary: AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation\n\n**Citation Anchor:** [Wu et al., arXiv preprint arXiv:2308.08155, 2023]  \n**Venue:** arXiv preprint arXiv:2308.08155, 2023 | **Authors:** Qingyun Wu, Gagan Bansal, Jieyu Zhang, Yuzhen Huang, Bing Liu, Jiale Liu, Zirui Liu, Yuanzhi Li, Sai Wang, Vincent W. Zheng, Yanqiao Zhu, Weizhu Chen, Shiyu Chang  \n\n---\n\n### 1. Core Problem & Motivation\nHow to facilitate development of LLM applications that span a broad spectrum of domains and complexities using a multi-agent approach. Large language models are becoming crucial for agents with reasoning, tool usage and adaptation, and scaling agent power via cooperation of multiple agents is needed to encourage divergent thinking, improve factuality and reasoning, and provide validation.\n\n*Motivation & Gaps:* Prior standard and chain-of-thought prompting approaches operate as static black boxes without real-world feedback, causing hallucination and error propagation.  \n*Key Challenges Tackled:*\n- Reducing hallucination in reasoning traces\n- Integrating interactive external tool feedback\n\n---\n\n### 2. Proposed Methodology & Technical Architecture\n**Architecture Overview:**  \nAutoGen provides a generic design of conversable agents that can leverage LLMs, human inputs, tools, or a combination. Agents are made conversable to receive, react and respond to messages and can hold multiple autonomous turns or solicit human input. The system adopts conversation programming, a paradigm that simplifies and unifies complex LLM application workflows as multi-agent conversations via defining a set of conversable agents with specific capabilities and roles and molding their interactions. The backend is extensible for custom behaviors.\n\n**Algorithmic Innovation:**  \nAction space augmented as A' = A U L where L is free-form language thoughts.  \n\n*Core Technical Innovations:*\n- Synergistic thought-action interleaved prompting\n- Asynchronous action-space language expansion\n\n---\n\n### 3. Empirical Results & Benchmark Datasets\n**Evaluated Datasets:** Retrieval-Augmented Generation Q&A tasks, ALFWorld, coding tasks with safeguards  \n**Key Metrics:** Exact Match (EM), Accuracy (Acc), Task Success Rate (SR)  \n\n**Quantitative Findings:**  \nCustomizable and conversable agents enable easy creation of agents with different roles such as code writing, code execution, human feedback wiring, and output validation. Conversation programming streamlines development of intricate applications. AutoGen realizes effective retrieval augmentation and a novel interactive retrieval feature that boosts performance on Q&A tasks. A three-agent system with a grounding agent improves performance on ALFWorld. Multi-agent design boosts performance on coding tasks that need safeguards.  \n\n**Baseline Comparison:**  \nConsistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks.\n\n---\n\n### 4. Explicit Limitations & Failure Modes\n**Stated Limitations:**  \nThe provided context does not list formal limitations; it notes that to develop applications where agents make meaningful progress on tasks, developers also need to be able to specify and mold multi-agent conversations, and that intrinsic LLM limitations are mitigated via retrieval augmentation.  \n\n**Failure Modes & Bottlenecks:**  \nRepetitive looping in greedy decoding; non-informative search results derail trajectory formulation.  \n\n**Computational Trade-offs:**  \nIncreased context window usage due to multi-turn thought-action-observation histories.\n"
+      }
+    },
+    "2310.06770": {
+      "schema": {
+        "paper_id": "2310.06770",
+        "paper_title": "SWE-bench: Can Language Models Resolve Real-World Issues?",
+        "authors": [],
+        "venue": "arXiv preprint",
+        "core_problem": "Language models have outpaced our ability to evaluate them effectively, but for their future development it is essential to study the frontier of their capabilities. Real-world software engineering is identified as a rich, sustainable, and challenging testbed for evaluating next-generation language models, requiring understanding and coordinating changes across multiple functions, classes, and files, interaction with execution environments, processing extremely long contexts and complex reasoning beyond traditional code generation.",
+        "methodology_summary": "Introduce SWE-bench, an evaluation framework consisting of 2,294 software engineering problems drawn from real GitHub issues and corresponding pull requests across 12 popular Python repositories. Given a codebase along with a description of an issue to be resolved, a language model is tasked with editing the codebase to address the issue. Resolving issues requires understanding and coordinating changes across multiple functions, classes, and even files simultaneously, calling for models to interact with execution environments, process extremely long contexts and perform complex reasoning far beyond traditional code generation tasks. Fine-tuned SWE-Llama models are created via supervised fine-tuning on 7B and 13B CodeLlama-Python models to specialize as repository editors runnable on consumer hardware.",
+        "datasets_eval": [
+          "SWE-bench comprising 2,294 software engineering problems drawn from real GitHub issues and corresponding pull requests across 12 popular Python repositories."
+        ],
+        "empirical_results": "Evaluations show both state-of-the-art proprietary models and the fine-tuned SWE-Llama can resolve only the simplest issues. The best-performing model, Claude 2, solves a mere 1.96% of the issues.",
+        "explicit_limitations": "Building a good benchmark is difficult since tasks must be challenging enough to stump existing models, but model predictions must also be easy to verify. Existing coding benchmarks such as HumanEval mostly involve self-contained problems solvable in a few lines of code. Benchmarking open models alongside proprietary models is important; at the time of writing only CodeLlama models can handle the very long contexts necessary, but off-the-shelf CodeLlama variants are not capable of following detailed instructions to generate repository-wide code edits and typically output placeholder responses or unrelated code. BM25 retrieval compared to oracle retrieval shows in approximately 40% of instances BM25 retrieves a superset of the oracle files for the 27,000-token context limit, however in almost half of the instances with the 27,000-token context limit the retrieval is incomplete.",
+        "generation_mode": "GENUINE_LLM",
+        "model_name": "NVIDIA_NIM (meta/muse-glimmer-30b)"
+      },
+      "summary": {
+        "paper_id": "2310.06770",
+        "paper_title": "SWE-bench: Can Language Models Resolve Real-World Issues?",
+        "authors": [],
+        "venue": "arXiv preprint",
+        "grounded_citation": "[Authors et al., arXiv preprint]",
+        "summary_source": "Heuristic Engine Fallback (No API key configured)",
+        "problem_motivation": {
+          "problem_statement": "Language models have outpaced our ability to evaluate them effectively, but for their future development it is essential to study the frontier of their capabilities. Real-world software engineering is identified as a rich, sustainable, and challenging testbed for evaluating next-generation language models, requiring understanding and coordinating changes across multiple functions, classes, and files, interaction with execution environments, processing extremely long contexts and complex reasoning beyond traditional code generation.",
+          "motivation": "Prior standard and chain-of-thought prompting approaches operate as static black boxes without real-world feedback, causing hallucination and error propagation.",
+          "core_challenges": [
+            "Reducing hallucination in reasoning traces",
+            "Integrating interactive external tool feedback",
+            "Maintaining long-horizon execution state"
+          ]
+        },
+        "proposed_methodology": {
+          "method_name": "SWE-bench",
+          "core_architecture": "Introduce SWE-bench, an evaluation framework consisting of 2,294 software engineering problems drawn from real GitHub issues and corresponding pull requests across 12 popular Python repositories. Given a codebase along with a description of an issue to be resolved, a language model is tasked with editing the codebase to address the issue. Resolving issues requires understanding and coordinating changes across multiple functions, classes, and even files simultaneously, calling for models to interact with execution environments, process extremely long contexts and perform complex reasoning far beyond traditional code generation tasks. Fine-tuned SWE-Llama models are created via supervised fine-tuning on 7B and 13B CodeLlama-Python models to specialize as repository editors runnable on consumer hardware.",
+          "technical_innovations": [
+            "Synergistic thought-action interleaved prompting",
+            "Asynchronous action-space language expansion",
+            "In-context few-shot trajectory learning"
+          ],
+          "key_algorithms": "Action space augmented as A' = A U L where L is free-form language thoughts."
+        },
+        "empirical_results": {
+          "evaluated_datasets": [
+            "SWE-bench comprising 2,294 software engineering problems drawn from real GitHub issues and corresponding pull requests across 12 popular Python repositories."
+          ],
+          "key_metrics": [
+            "Exact Match (EM)",
+            "Accuracy (Acc)",
+            "Task Success Rate (SR)"
+          ],
+          "quantitative_results_summary": "Evaluations show both state-of-the-art proprietary models and the fine-tuned SWE-Llama can resolve only the simplest issues. The best-performing model, Claude 2, solves a mere 1.96% of the issues.",
+          "baseline_comparisons": "Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
+        },
+        "explicit_limitations": {
+          "stated_limitations": [
+            "Building a good benchmark is difficult since tasks must be challenging enough to stump existing models, but model predictions must also be easy to verify. Existing coding benchmarks such as HumanEval mostly involve self-contained problems solvable in a few lines of code. Benchmarking open models alongside proprietary models is important; at the time of writing only CodeLlama models can handle the very long contexts necessary, but off-the-shelf CodeLlama variants are not capable of following detailed instructions to generate repository-wide code edits and typically output placeholder responses or unrelated code. BM25 retrieval compared to oracle retrieval shows in approximately 40% of instances BM25 retrieves a superset of the oracle files for the 27,000-token context limit, however in almost half of the instances with the 27,000-token context limit the retrieval is incomplete."
+          ],
+          "failure_modes": "Repetitive looping in greedy decoding; non-informative search results derail trajectory formulation.",
+          "computational_tradeoffs": "Increased context window usage due to multi-turn thought-action-observation histories."
+        },
+        "markdown_full_summary": "# Grounded Literature Review Summary: SWE-bench: Can Language Models Resolve Real-World Issues?\n\n**Citation Anchor:** [Authors et al., arXiv preprint]  \n**Venue:** arXiv preprint | **Authors:**   \n\n---\n\n### 1. Core Problem & Motivation\nLanguage models have outpaced our ability to evaluate them effectively, but for their future development it is essential to study the frontier of their capabilities. Real-world software engineering is identified as a rich, sustainable, and challenging testbed for evaluating next-generation language models, requiring understanding and coordinating changes across multiple functions, classes, and files, interaction with execution environments, processing extremely long contexts and complex reasoning beyond traditional code generation.\n\n*Motivation & Gaps:* Prior standard and chain-of-thought prompting approaches operate as static black boxes without real-world feedback, causing hallucination and error propagation.  \n*Key Challenges Tackled:*\n- Reducing hallucination in reasoning traces\n- Integrating interactive external tool feedback\n\n---\n\n### 2. Proposed Methodology & Technical Architecture\n**Architecture Overview:**  \nIntroduce SWE-bench, an evaluation framework consisting of 2,294 software engineering problems drawn from real GitHub issues and corresponding pull requests across 12 popular Python repositories. Given a codebase along with a description of an issue to be resolved, a language model is tasked with editing the codebase to address the issue. Resolving issues requires understanding and coordinating changes across multiple functions, classes, and even files simultaneously, calling for models to interact with execution environments, process extremely long contexts and perform complex reasoning far beyond traditional code generation tasks. Fine-tuned SWE-Llama models are created via supervised fine-tuning on 7B and 13B CodeLlama-Python models to specialize as repository editors runnable on consumer hardware.\n\n**Algorithmic Innovation:**  \nAction space augmented as A' = A U L where L is free-form language thoughts.  \n\n*Core Technical Innovations:*\n- Synergistic thought-action interleaved prompting\n- Asynchronous action-space language expansion\n\n---\n\n### 3. Empirical Results & Benchmark Datasets\n**Evaluated Datasets:** SWE-bench comprising 2,294 software engineering problems drawn from real GitHub issues and corresponding pull requests across 12 popular Python repositories.  \n**Key Metrics:** Exact Match (EM), Accuracy (Acc), Task Success Rate (SR)  \n\n**Quantitative Findings:**  \nEvaluations show both state-of-the-art proprietary models and the fine-tuned SWE-Llama can resolve only the simplest issues. The best-performing model, Claude 2, solves a mere 1.96% of the issues.  \n\n**Baseline Comparison:**  \nConsistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks.\n\n---\n\n### 4. Explicit Limitations & Failure Modes\n**Stated Limitations:**  \nBuilding a good benchmark is difficult since tasks must be challenging enough to stump existing models, but model predictions must also be easy to verify. Existing coding benchmarks such as HumanEval mostly involve self-contained problems solvable in a few lines of code. Benchmarking open models alongside proprietary models is important; at the time of writing only CodeLlama models can handle the very long contexts necessary, but off-the-shelf CodeLlama variants are not capable of following detailed instructions to generate repository-wide code edits and typically output placeholder responses or unrelated code. BM25 retrieval compared to oracle retrieval shows in approximately 40% of instances BM25 retrieves a superset of the oracle files for the 27,000-token context limit, however in almost half of the instances with the 27,000-token context limit the retrieval is incomplete.  \n\n**Failure Modes & Bottlenecks:**  \nRepetitive looping in greedy decoding; non-informative search results derail trajectory formulation.  \n\n**Computational Trade-offs:**  \nIncreased context window usage due to multi-turn thought-action-observation histories.\n"
+      }
+    },
+    "2310.11511": {
+      "schema": {
+        "paper_id": "2310.11511",
+        "paper_title": "Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection",
+        "authors": [
+          "Akari Asai",
+          "Zeqiu Wu",
+          "Yizhong Wang",
+          "Aviram Stern",
+          "Shashi Narayan",
+          "Hugo Larochelle",
+          "Denny Zhou"
+        ],
+        "venue": "arXiv preprint arXiv:2310.11511, 2023",
+        "core_problem": "Large language models often produce factual inaccuracies due to sole reliance on parametric knowledge. Retrieval-Augmented Generation reduces these issues but indiscriminately retrieving and incorporating a fixed number of passages regardless of necessity or relevance diminishes LM versatility and can lead to unhelpful response generation.",
+        "methodology_summary": "SELF-RAG trains a single arbitrary LM to adaptively retrieve passages on-demand and to generate and reflect on retrieved passages and its own generations using special reflection tokens. Generating reflection tokens makes the LM controllable during inference, enabling it to tailor behavior to diverse task requirements and improve quality and factuality through retrieval and self-reflection.",
+        "datasets_eval": [
+          "Open-domain QA, multi-hop reasoning, fact verification and long-form generation tasks, including ASQA, QAMPARI, HotpotQA, 2WikiMultiHopQA, MuSiQue and long-form QA datasets for factuality and citation evaluation."
+        ],
+        "empirical_results": "SELF-RAG 7B and 13B significantly outperforms state-of-the-art LLMs and retrieval-augmented models on a diverse set of tasks. Specifically, SELF-RAG outperforms ChatGPT and retrieval-augmented Llama2-chat on open-domain QA, reasoning and fact verification tasks, and shows significant gains in improving factuality and citation accuracy for long-form generation.",
+        "explicit_limitations": "No explicit limitations are provided in the supplied context.",
+        "generation_mode": "GENUINE_LLM",
+        "model_name": "NVIDIA_NIM (meta/muse-glimmer-30b)"
+      },
+      "summary": {
+        "paper_id": "2310.11511",
+        "paper_title": "Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection",
+        "authors": [
+          "Akari Asai",
+          "Zeqiu Wu",
+          "Yizhong Wang",
+          "Aviram Stern",
+          "Shashi Narayan",
+          "Hugo Larochelle",
+          "Denny Zhou"
+        ],
+        "venue": "arXiv preprint arXiv:2310.11511, 2023",
+        "grounded_citation": "[Asai et al., arXiv preprint arXiv:2310.11511, 2023]",
+        "summary_source": "Heuristic Engine Fallback (No API key configured)",
+        "problem_motivation": {
+          "problem_statement": "Large language models often produce factual inaccuracies due to sole reliance on parametric knowledge. Retrieval-Augmented Generation reduces these issues but indiscriminately retrieving and incorporating a fixed number of passages regardless of necessity or relevance diminishes LM versatility and can lead to unhelpful response generation.",
+          "motivation": "Prior standard and chain-of-thought prompting approaches operate as static black boxes without real-world feedback, causing hallucination and error propagation.",
+          "core_challenges": [
+            "Reducing hallucination in reasoning traces",
+            "Integrating interactive external tool feedback",
+            "Maintaining long-horizon execution state"
+          ]
+        },
+        "proposed_methodology": {
+          "method_name": "Self-RAG",
+          "core_architecture": "SELF-RAG trains a single arbitrary LM to adaptively retrieve passages on-demand and to generate and reflect on retrieved passages and its own generations using special reflection tokens. Generating reflection tokens makes the LM controllable during inference, enabling it to tailor behavior to diverse task requirements and improve quality and factuality through retrieval and self-reflection.",
+          "technical_innovations": [
+            "Synergistic thought-action interleaved prompting",
+            "Asynchronous action-space language expansion",
+            "In-context few-shot trajectory learning"
+          ],
+          "key_algorithms": "Action space augmented as A' = A U L where L is free-form language thoughts."
+        },
+        "empirical_results": {
+          "evaluated_datasets": [
+            "Open-domain QA, multi-hop reasoning, fact verification and long-form generation tasks, including ASQA, QAMPARI, HotpotQA, 2WikiMultiHopQA, MuSiQue and long-form QA datasets for factuality and citation evaluation."
+          ],
+          "key_metrics": [
+            "Exact Match (EM)",
+            "Accuracy (Acc)",
+            "Task Success Rate (SR)"
+          ],
+          "quantitative_results_summary": "SELF-RAG 7B and 13B significantly outperforms state-of-the-art LLMs and retrieval-augmented models on a diverse set of tasks. Specifically, SELF-RAG outperforms ChatGPT and retrieval-augmented Llama2-chat on open-domain QA, reasoning and fact verification tasks, and shows significant gains in improving factuality and citation accuracy for long-form generation.",
+          "baseline_comparisons": "Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
+        },
+        "explicit_limitations": {
+          "stated_limitations": [
+            "No explicit limitations are provided in the supplied context."
+          ],
+          "failure_modes": "Repetitive looping in greedy decoding; non-informative search results derail trajectory formulation.",
+          "computational_tradeoffs": "Increased context window usage due to multi-turn thought-action-observation histories."
+        },
+        "markdown_full_summary": "# Grounded Literature Review Summary: Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection\n\n**Citation Anchor:** [Asai et al., arXiv preprint arXiv:2310.11511, 2023]  \n**Venue:** arXiv preprint arXiv:2310.11511, 2023 | **Authors:** Akari Asai, Zeqiu Wu, Yizhong Wang, Aviram Stern, Shashi Narayan, Hugo Larochelle, Denny Zhou  \n\n---\n\n### 1. Core Problem & Motivation\nLarge language models often produce factual inaccuracies due to sole reliance on parametric knowledge. Retrieval-Augmented Generation reduces these issues but indiscriminately retrieving and incorporating a fixed number of passages regardless of necessity or relevance diminishes LM versatility and can lead to unhelpful response generation.\n\n*Motivation & Gaps:* Prior standard and chain-of-thought prompting approaches operate as static black boxes without real-world feedback, causing hallucination and error propagation.  \n*Key Challenges Tackled:*\n- Reducing hallucination in reasoning traces\n- Integrating interactive external tool feedback\n\n---\n\n### 2. Proposed Methodology & Technical Architecture\n**Architecture Overview:**  \nSELF-RAG trains a single arbitrary LM to adaptively retrieve passages on-demand and to generate and reflect on retrieved passages and its own generations using special reflection tokens. Generating reflection tokens makes the LM controllable during inference, enabling it to tailor behavior to diverse task requirements and improve quality and factuality through retrieval and self-reflection.\n\n**Algorithmic Innovation:**  \nAction space augmented as A' = A U L where L is free-form language thoughts.  \n\n*Core Technical Innovations:*\n- Synergistic thought-action interleaved prompting\n- Asynchronous action-space language expansion\n\n---\n\n### 3. Empirical Results & Benchmark Datasets\n**Evaluated Datasets:** Open-domain QA, multi-hop reasoning, fact verification and long-form generation tasks, including ASQA, QAMPARI, HotpotQA, 2WikiMultiHopQA, MuSiQue and long-form QA datasets for factuality and citation evaluation.  \n**Key Metrics:** Exact Match (EM), Accuracy (Acc), Task Success Rate (SR)  \n\n**Quantitative Findings:**  \nSELF-RAG 7B and 13B significantly outperforms state-of-the-art LLMs and retrieval-augmented models on a diverse set of tasks. Specifically, SELF-RAG outperforms ChatGPT and retrieval-augmented Llama2-chat on open-domain QA, reasoning and fact verification tasks, and shows significant gains in improving factuality and citation accuracy for long-form generation.  \n\n**Baseline Comparison:**  \nConsistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks.\n\n---\n\n### 4. Explicit Limitations & Failure Modes\n**Stated Limitations:**  \nNo explicit limitations are provided in the supplied context.  \n\n**Failure Modes & Bottlenecks:**  \nRepetitive looping in greedy decoding; non-informative search results derail trajectory formulation.  \n\n**Computational Trade-offs:**  \nIncreased context window usage due to multi-turn thought-action-observation histories.\n"
+      }
+    }
+  },
+  "last_updated": "2026-10-23T20:33:21.041279",
+  "comparative_analysis": {
+    "paper_count": 12,
+    "paper_ids": [
+      "2210.03629",
+      "2302.04761",
+      "2303.11366",
+      "2305.10601",
+      "2305.15334",
+      "2305.16291",
+      "2307.07924",
+      "2308.00352",
+      "2308.03688",
+      "2308.08155",
+      "2310.06770",
+      "2310.11511"
+    ],
+    "methodology_comparison": [
+      {
+        "paper_id": "2210.03629",
+        "paper_title": "ReAct: Synergizing Reasoning and Acting with Large Language Models",
+        "grounded_citation": "[Yao et al., arXiv preprint arXiv:2210.03629]",
+        "method_name": "ReAct",
+        "architecture_category": "Reasoning & Prompting",
+        "key_innovation": "Synergistic thought-action interleaved prompting",
+        "paradigm": "Reasoning & Prompting"
+      },
+      {
+        "paper_id": "2302.04761",
+        "paper_title": "Toolformer: Language Models Can Teach Themselves to Use Tools",
+        "grounded_citation": "[Schick et al., arXiv preprint 2023; NeurIPS 2023]",
+        "method_name": "Toolformer",
+        "architecture_category": "Tool-Augmented / API Integration",
+        "key_innovation": "Synergistic thought-action interleaved prompting",
+        "paradigm": "Tool-Augmented / API Integration"
+      },
+      {
+        "paper_id": "2303.11366",
+        "paper_title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+        "grounded_citation": "[Shinn et al., arXiv preprint]",
+        "method_name": "Reflexion",
+        "architecture_category": "Self-Reflection & Refinement",
+        "key_innovation": "Synergistic thought-action interleaved prompting",
+        "paradigm": "Self-Reflection & Refinement"
+      },
+      {
+        "paper_id": "2305.10601",
+        "paper_title": "Tree of Thoughts: Deliberate Problem Solving with Large Language Models",
+        "grounded_citation": "[Yao et al., arXiv 2023]",
+        "method_name": "Tree of Thoughts",
+        "architecture_category": "Tree / Graph Search & Planning",
+        "key_innovation": "Synergistic thought-action interleaved prompting",
+        "paradigm": "Tree / Graph Search & Planning"
+      },
+      {
+        "paper_id": "2305.15334",
+        "paper_title": "Gorilla: Large Language Model Connected with Massive APIs",
+        "grounded_citation": "[al. et al., arXiv preprint, under review]",
+        "method_name": "Gorilla",
+        "architecture_category": "Tool-Augmented / API Integration",
+        "key_innovation": "Synergistic thought-action interleaved prompting",
+        "paradigm": "Tool-Augmented / API Integration"
+      },
+      {
+        "paper_id": "2305.16291",
+        "paper_title": "Voyager: An Open-Ended Embodied Agent with Large Language Models",
+        "grounded_citation": "[Authors et al., arXiv preprint arXiv:2305.16291]",
+        "method_name": "Voyager",
+        "architecture_category": "Reasoning & Prompting",
+        "key_innovation": "Synergistic thought-action interleaved prompting",
+        "paradigm": "Reasoning & Prompting"
+      },
+      {
+        "paper_id": "2307.07924",
+        "paper_title": "ChatDev: Communicative Agents for Software Development",
+        "grounded_citation": "[Authors et al., arXiv]",
+        "method_name": "ChatDev",
+        "architecture_category": "Reasoning & Prompting",
+        "key_innovation": "Synergistic thought-action interleaved prompting",
+        "paradigm": "Reasoning & Prompting"
+      },
+      {
+        "paper_id": "2308.00352",
+        "paper_title": "MetaGPT: Meta Programming for Multi-Agent Collaborative Software Development",
+        "grounded_citation": "[context et al., arXiv preprint 2023]",
+        "method_name": "MetaGPT",
+        "architecture_category": "Multi-Agent Collaboration",
+        "key_innovation": "Synergistic thought-action interleaved prompting",
+        "paradigm": "Multi-Agent Collaboration"
+      },
+      {
+        "paper_id": "2308.03688",
+        "paper_title": "AgentBench: Evaluating LLMs as Agents",
+        "grounded_citation": "[Authors et al., arXiv]",
+        "method_name": "AgentBench",
+        "architecture_category": "Reasoning & Prompting",
+        "key_innovation": "Synergistic thought-action interleaved prompting",
+        "paradigm": "Reasoning & Prompting"
+      },
+      {
+        "paper_id": "2308.08155",
+        "paper_title": "AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation",
+        "grounded_citation": "[Wu et al., arXiv preprint arXiv:2308.08155, 2023]",
+        "method_name": "AutoGen",
+        "architecture_category": "Multi-Agent Collaboration",
+        "key_innovation": "Synergistic thought-action interleaved prompting",
+        "paradigm": "Multi-Agent Collaboration"
+      },
+      {
+        "paper_id": "2310.06770",
+        "paper_title": "SWE-bench: Can Language Models Resolve Real-World Issues?",
+        "grounded_citation": "[Authors et al., arXiv preprint]",
+        "method_name": "SWE-bench",
+        "architecture_category": "Reasoning & Prompting",
+        "key_innovation": "Synergistic thought-action interleaved prompting",
+        "paradigm": "Reasoning & Prompting"
+      },
+      {
+        "paper_id": "2310.11511",
+        "paper_title": "Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection",
+        "grounded_citation": "[Asai et al., arXiv preprint arXiv:2310.11511, 2023]",
+        "method_name": "Self-RAG",
+        "architecture_category": "Self-Reflection & Refinement",
+        "key_innovation": "Synergistic thought-action interleaved prompting",
+        "paradigm": "Self-Reflection & Refinement"
+      }
+    ],
+    "dataset_overlap_matrix": {
+      "HotpotQA": [
+        "2210.03629"
+      ],
+      "Fever": [
+        "2210.03629"
+      ],
+      "ALFWorld": [
+        "2210.03629",
+        "2308.08155"
+      ],
+      "WebShop": [
+        "2210.03629"
+      ],
+      "Zero-shot evaluation on general language modeling and reasoning benchmarks and tool-specific probes for arithmetic, factual question answering, search, translation and calendar use. Evaluation covers common downstream tasks such as LAMBADA, HellaSwag, PIQA and similar zero-shot benchmarks, plus custom tool-use assessments measuring accuracy of calculator, QA, search and translation calls.": [
+        "2302.04761"
+      ],
+      "HumanEval coding benchmark": [
+        "2303.11366"
+      ],
+      "sequential decision-making tasks": [
+        "2303.11366"
+      ],
+      "language reasoning tasks": [
+        "2303.11366"
+      ],
+      "Game of 24": [
+        "2305.10601"
+      ],
+      "Creative Writing": [
+        "2305.10601"
+      ],
+      "Mini Crosswords": [
+        "2305.10601"
+      ],
+      "APIBench, a comprehensive dataset consisting of HuggingFace, TorchHub and TensorHub APIs, introduced to evaluate API call writing ability and hallucination.": [
+        "2305.15334"
+      ],
+      "Evaluation is conducted in MineDojo, an open-source Minecraft AI framework, with simulation built on MineDojo and Mineflayer JavaScript APIs for motor controls. Text completion uses OpenAI gpt-4-0314 and gpt-3.5-turbo-0301 APIs, with text-embedding-ada-002 for text embedding. All temperatures are set to 0 except the automatic curriculum which uses temperature 0.1 to encourage task diversity. Baselines include LLM-based agent techniques ReAct, Reflexion and AutoGPT re-interpreted for embodiment as no LLM-based agents work out of the box for Minecraft.": [
+        "2305.16291"
+      ],
+      "HumanEval (Chen et al., 2021a) and MBPP (Austin et al., 2021) for code generation evaluation; collaborative software engineering benchmarks.": [
+        "2308.00352"
+      ],
+      "System": [
+        "2308.03688"
+      ],
+      "Database": [
+        "2308.03688"
+      ],
+      "Knowledge Graph": [
+        "2308.03688"
+      ],
+      "Digital Card Game": [
+        "2308.03688"
+      ],
+      "Lateral Thinking Puzzle": [
+        "2308.03688"
+      ],
+      "House-holding": [
+        "2308.03688"
+      ],
+      "Web Shopping": [
+        "2308.03688"
+      ],
+      "Web Browsing": [
+        "2308.03688"
+      ],
+      "Retrieval-Augmented Generation Q&A tasks": [
+        "2308.08155"
+      ],
+      "coding tasks with safeguards": [
+        "2308.08155"
+      ],
+      "SWE-bench comprising 2,294 software engineering problems drawn from real GitHub issues and corresponding pull requests across 12 popular Python repositories.": [
+        "2310.06770"
+      ],
+      "Open-domain QA, multi-hop reasoning, fact verification and long-form generation tasks, including ASQA, QAMPARI, HotpotQA, 2WikiMultiHopQA, MuSiQue and long-form QA datasets for factuality and citation evaluation.": [
+        "2310.11511"
+      ]
+    },
+    "metrics_comparison": [
+      {
+        "paper_id": "2210.03629",
+        "grounded_citation": "[Yao et al., arXiv preprint arXiv:2210.03629]",
+        "evaluated_datasets": [
+          "HotpotQA",
+          "Fever",
+          "ALFWorld",
+          "WebShop"
+        ],
+        "key_metrics": [
+          "Exact Match (EM)",
+          "Accuracy (Acc)",
+          "Task Success Rate (SR)"
+        ],
+        "quantitative_results": "On question answering HotpotQA and fact verification Fever, ReAct overcomes prevalent hallucination and error propagation in chain-of-thought reasoning by interacting with a simple Wikipedia API and generates human-like task-solving trajectories that are more interpretable than baselines without reasoning traces. On interactive decision making benchmarks ALFWorld and WebShop, ReAct outperforms imitation and reinforcement learning methods by an absolute success rate of 34% and 10% respectively, with improved human interpretability and trustworthiness over state-of-the-art baselines.",
+        "baseline_comparison": "Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
+      },
+      {
+        "paper_id": "2302.04761",
+        "grounded_citation": "[Schick et al., arXiv preprint 2023; NeurIPS 2023]",
+        "evaluated_datasets": [
+          "Zero-shot evaluation on general language modeling and reasoning benchmarks and tool-specific probes for arithmetic, factual question answering, search, translation and calendar use. Evaluation covers common downstream tasks such as LAMBADA, HellaSwag, PIQA and similar zero-shot benchmarks, plus custom tool-use assessments measuring accuracy of calculator, QA, search and translation calls."
+        ],
+        "key_metrics": [
+          "Exact Match (EM)",
+          "Accuracy (Acc)",
+          "Task Success Rate (SR)"
+        ],
+        "quantitative_results": "Toolformer achieves substantially improved zero-shot performance across a variety of downstream tasks, often competitive with much larger models, without sacrificing core language modeling abilities. Tool use improves arithmetic accuracy, factual correctness and translation quality, and the model autonomously decides which APIs to call to obtain useful information for text completion.",
+        "baseline_comparison": "Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
+      },
+      {
+        "paper_id": "2303.11366",
+        "grounded_citation": "[Shinn et al., arXiv preprint]",
+        "evaluated_datasets": [
+          "HumanEval coding benchmark",
+          "sequential decision-making tasks",
+          "language reasoning tasks"
+        ],
+        "key_metrics": [
+          "Exact Match (EM)",
+          "Accuracy (Acc)",
+          "Task Success Rate (SR)"
+        ],
+        "quantitative_results": "Reflexion obtains significant improvements over a baseline agent across diverse tasks including sequential decision-making, coding, and language reasoning. On HumanEval coding benchmark, Reflexion achieves 91% pass@1 accuracy, surpassing the previous state-of-the-art GPT-4 that achieves 80%.",
+        "baseline_comparison": "Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
+      },
+      {
+        "paper_id": "2305.10601",
+        "grounded_citation": "[Yao et al., arXiv 2023]",
+        "evaluated_datasets": [
+          "Game of 24",
+          "Creative Writing",
+          "Mini Crosswords"
+        ],
+        "key_metrics": [
+          "Exact Match (EM)",
+          "Accuracy (Acc)",
+          "Task Success Rate (SR)"
+        ],
+        "quantitative_results": "ToT significantly enhances problem-solving abilities over Chain of Thought on three novel planning/search tasks. On Game of 24, GPT-4 with chain-of-thought prompting solves ~4% of tasks while ToT achieves ~74% success rate. Improvements are also shown on Creative Writing and Mini Crosswords, demonstrating gains from deliberate multi-path exploration and self-evaluation.",
+        "baseline_comparison": "Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
+      },
+      {
+        "paper_id": "2305.15334",
+        "grounded_citation": "[al. et al., arXiv preprint, under review]",
+        "evaluated_datasets": [
+          "APIBench, a comprehensive dataset consisting of HuggingFace, TorchHub and TensorHub APIs, introduced to evaluate API call writing ability and hallucination."
+        ],
+        "key_metrics": [
+          "Exact Match (EM)",
+          "Accuracy (Acc)",
+          "Task Success Rate (SR)"
+        ],
+        "quantitative_results": "Gorilla surpasses GPT-4 on writing API calls. When combined with a document retriever it demonstrates strong capability to adapt to test-time document changes and substantially mitigates hallucination commonly encountered when prompting LLMs directly. Evaluation shows improved accuracy versus hallucination across settings.",
+        "baseline_comparison": "Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
+      },
+      {
+        "paper_id": "2305.16291",
+        "grounded_citation": "[Authors et al., arXiv preprint arXiv:2305.16291]",
+        "evaluated_datasets": [
+          "Evaluation is conducted in MineDojo, an open-source Minecraft AI framework, with simulation built on MineDojo and Mineflayer JavaScript APIs for motor controls. Text completion uses OpenAI gpt-4-0314 and gpt-3.5-turbo-0301 APIs, with text-embedding-ada-002 for text embedding. All temperatures are set to 0 except the automatic curriculum which uses temperature 0.1 to encourage task diversity. Baselines include LLM-based agent techniques ReAct, Reflexion and AutoGPT re-interpreted for embodiment as no LLM-based agents work out of the box for Minecraft."
+        ],
+        "key_metrics": [
+          "Exact Match (EM)",
+          "Accuracy (Acc)",
+          "Task Success Rate (SR)"
+        ],
+        "quantitative_results": "VOYAGER demonstrates strong in-context lifelong learning capabilities and constructs an ever-growing skill library of action programs that are reusable, interpretable, and generalizable to novel tasks. Compared to prior LLM-based agents in MineDojo, VOYAGER obtains 3.3x more unique items, unlocks key tech tree milestones up to 15.3x faster, and traverses 2.3x longer distances. VOYAGER can utilize the learned skill library in a new Minecraft world to solve novel tasks from scratch, while other methods struggle to generalize.",
+        "baseline_comparison": "Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
+      },
+      {
+        "paper_id": "2307.07924",
+        "grounded_citation": "[Authors et al., arXiv]",
+        "evaluated_datasets": [
+          ""
+        ],
+        "key_metrics": [
+          "Exact Match (EM)",
+          "Accuracy (Acc)",
+          "Task Success Rate (SR)"
+        ],
+        "quantitative_results": "phases, which results in a fragmented and in- comprehensive analyses. The results indicate that peating, and fake replies. As a result, there is a sequential phases, resulting in two functionally dis- 4 Evaluation a result, this dataset includes important software Metrics Evaluating software is also a challenging lessly transfer to a comprehensive evaluation of ent aspects of coding hallucinations",
+        "baseline_comparison": "Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
+      },
+      {
+        "paper_id": "2308.00352",
+        "grounded_citation": "[context et al., arXiv preprint 2023]",
+        "evaluated_datasets": [
+          "HumanEval (Chen et al., 2021a) and MBPP (Austin et al., 2021) for code generation evaluation; collaborative software engineering benchmarks."
+        ],
+        "key_metrics": [
+          "Exact Match (EM)",
+          "Accuracy (Acc)",
+          "Task Success Rate (SR)"
+        ],
+        "quantitative_results": "MetaGPT generates more coherent solutions than previous chat-based multi-agent systems on collaborative software engineering benchmarks. On code generation benchmarks it achieves a new state-of-the-art Pass@1 of 85.9% on HumanEval and 87.7% on MBPP, outperforming frameworks such as AutoGPT, LangChain and AgentVerse for complex software project creation.",
+        "baseline_comparison": "Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
+      },
+      {
+        "paper_id": "2308.03688",
+        "grounded_citation": "[Authors et al., arXiv]",
+        "evaluated_datasets": [
+          "System",
+          "Database",
+          "Knowledge Graph",
+          "Digital Card Game",
+          "Lateral Thinking Puzzle",
+          "House-holding",
+          "Web Shopping",
+          "Web Browsing"
+        ],
+        "key_metrics": [
+          "Exact Match (EM)",
+          "Accuracy (Acc)",
+          "Task Success Rate (SR)"
+        ],
+        "quantitative_results": "Extensive testing over 29 API-based and open-sourced LLMs shows top commercial LLMs present strong ability of acting as agents in complex environments, with a significant performance gap versus many OSS competitors no larger than 70B. Typical failure reasons are poor long-term reasoning, decision-making and instruction following. Improving instruction following and training on high-quality multi-round alignment data can improve agent performance. Code training has ambivalent impacts on different agent tasks, improving some while harming others. Models referenced include gpt-4 (0613), claude-3 (opus), glm-4, codellama-34b-instruct, vicuna-13b-v1.5, llama-2-70b.",
+        "baseline_comparison": "Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
+      },
+      {
+        "paper_id": "2308.08155",
+        "grounded_citation": "[Wu et al., arXiv preprint arXiv:2308.08155, 2023]",
+        "evaluated_datasets": [
+          "Retrieval-Augmented Generation Q&A tasks",
+          "ALFWorld",
+          "coding tasks with safeguards"
+        ],
+        "key_metrics": [
+          "Exact Match (EM)",
+          "Accuracy (Acc)",
+          "Task Success Rate (SR)"
+        ],
+        "quantitative_results": "Customizable and conversable agents enable easy creation of agents with different roles such as code writing, code execution, human feedback wiring, and output validation. Conversation programming streamlines development of intricate applications. AutoGen realizes effective retrieval augmentation and a novel interactive retrieval feature that boosts performance on Q&A tasks. A three-agent system with a grounding agent improves performance on ALFWorld. Multi-agent design boosts performance on coding tasks that need safeguards.",
+        "baseline_comparison": "Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
+      },
+      {
+        "paper_id": "2310.06770",
+        "grounded_citation": "[Authors et al., arXiv preprint]",
+        "evaluated_datasets": [
+          "SWE-bench comprising 2,294 software engineering problems drawn from real GitHub issues and corresponding pull requests across 12 popular Python repositories."
+        ],
+        "key_metrics": [
+          "Exact Match (EM)",
+          "Accuracy (Acc)",
+          "Task Success Rate (SR)"
+        ],
+        "quantitative_results": "Evaluations show both state-of-the-art proprietary models and the fine-tuned SWE-Llama can resolve only the simplest issues. The best-performing model, Claude 2, solves a mere 1.96% of the issues.",
+        "baseline_comparison": "Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
+      },
+      {
+        "paper_id": "2310.11511",
+        "grounded_citation": "[Asai et al., arXiv preprint arXiv:2310.11511, 2023]",
+        "evaluated_datasets": [
+          "Open-domain QA, multi-hop reasoning, fact verification and long-form generation tasks, including ASQA, QAMPARI, HotpotQA, 2WikiMultiHopQA, MuSiQue and long-form QA datasets for factuality and citation evaluation."
+        ],
+        "key_metrics": [
+          "Exact Match (EM)",
+          "Accuracy (Acc)",
+          "Task Success Rate (SR)"
+        ],
+        "quantitative_results": "SELF-RAG 7B and 13B significantly outperforms state-of-the-art LLMs and retrieval-augmented models on a diverse set of tasks. Specifically, SELF-RAG outperforms ChatGPT and retrieval-augmented Llama2-chat on open-domain QA, reasoning and fact verification tasks, and shows significant gains in improving factuality and citation accuracy for long-form generation.",
+        "baseline_comparison": "Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
+      }
+    ],
+    "limitation_themes": [
+      {
+        "theme": "Inference Latency & Token / Computational Overhead",
+        "paper_ids": [
+          "2308.03688",
+          "2308.08155",
+          "2310.11511",
+          "2307.07924",
+          "2210.03629",
+          "2305.16291",
+          "2305.10601",
+          "2308.00352",
+          "2310.06770",
+          "2303.11366",
+          "2302.04761",
+          "2305.15334"
+        ],
+        "citations": [
+          "[Yao et al., arXiv 2023]",
+          "[Authors et al., arXiv preprint arXiv:2305.16291]",
+          "[Authors et al., arXiv]",
+          "[Wu et al., arXiv preprint arXiv:2308.08155, 2023]",
+          "[al. et al., arXiv preprint, under review]",
+          "[context et al., arXiv preprint 2023]",
+          "[Asai et al., arXiv preprint arXiv:2310.11511, 2023]",
+          "[Shinn et al., arXiv preprint]",
+          "[Schick et al., arXiv preprint 2023; NeurIPS 2023]",
+          "[Authors et al., arXiv preprint]",
+          "[Yao et al., arXiv preprint arXiv:2210.03629]"
+        ],
+        "description": "Observed in 12 paper(s): Chain-of-thought reasoning is a static black box, not grounded in the external world, which limits reactive reasoning or updating knowledge and can lead to fact hallucination and error propagation ove...",
+        "frequency": 12
+      },
+      {
+        "theme": "Hallucination & Error Cascade / Repetitive Looping",
+        "paper_ids": [
+          "2308.03688",
+          "2308.08155",
+          "2310.11511",
+          "2307.07924",
+          "2210.03629",
+          "2305.16291",
+          "2305.10601",
+          "2308.00352",
+          "2310.06770",
+          "2303.11366",
+          "2302.04761",
+          "2305.15334"
+        ],
+        "citations": [
+          "[Yao et al., arXiv 2023]",
+          "[Authors et al., arXiv preprint arXiv:2305.16291]",
+          "[Authors et al., arXiv]",
+          "[Wu et al., arXiv preprint arXiv:2308.08155, 2023]",
+          "[al. et al., arXiv preprint, under review]",
+          "[context et al., arXiv preprint 2023]",
+          "[Asai et al., arXiv preprint arXiv:2310.11511, 2023]",
+          "[Shinn et al., arXiv preprint]",
+          "[Schick et al., arXiv preprint 2023; NeurIPS 2023]",
+          "[Authors et al., arXiv preprint]",
+          "[Yao et al., arXiv preprint arXiv:2210.03629]"
+        ],
+        "description": "Observed in 12 paper(s): Chain-of-thought reasoning is a static black box, not grounded in the external world, which limits reactive reasoning or updating knowledge and can lead to fact hallucination and error propagation ove...",
+        "frequency": 12
+      },
+      {
+        "theme": "Search Space Explosion & Long-Horizon Horizon Trapping",
+        "paper_ids": [
+          "2308.03688",
+          "2308.08155",
+          "2310.11511",
+          "2307.07924",
+          "2210.03629",
+          "2305.16291",
+          "2305.10601",
+          "2308.00352",
+          "2310.06770",
+          "2303.11366",
+          "2302.04761",
+          "2305.15334"
+        ],
+        "citations": [
+          "[Yao et al., arXiv 2023]",
+          "[Authors et al., arXiv preprint arXiv:2305.16291]",
+          "[Authors et al., arXiv]",
+          "[Wu et al., arXiv preprint arXiv:2308.08155, 2023]",
+          "[al. et al., arXiv preprint, under review]",
+          "[context et al., arXiv preprint 2023]",
+          "[Asai et al., arXiv preprint arXiv:2310.11511, 2023]",
+          "[Shinn et al., arXiv preprint]",
+          "[Schick et al., arXiv preprint 2023; NeurIPS 2023]",
+          "[Authors et al., arXiv preprint]",
+          "[Yao et al., arXiv preprint arXiv:2210.03629]"
+        ],
+        "description": "Observed in 12 paper(s): Chain-of-thought reasoning is a static black box, not grounded in the external world, which limits reactive reasoning or updating knowledge and can lead to fact hallucination and error propagation ove...",
+        "frequency": 12
+      },
+      {
+        "theme": "Environment Grounding & Tool Execution Bottlenecks",
+        "paper_ids": [
+          "2305.16291",
+          "2302.04761",
+          "2303.11366"
+        ],
+        "citations": [
+          "[Shinn et al., arXiv preprint]",
+          "[Authors et al., arXiv preprint arXiv:2305.16291]",
+          "[Schick et al., arXiv preprint 2023; NeurIPS 2023]"
+        ],
+        "description": "Observed in 3 paper(s): Large language models cannot access up-to-date information on recent events and tend to hallucinate facts, have difficulties understanding low-resource languages, lack mathematical skills for precise...",
+        "frequency": 3
+      },
+      {
+        "theme": "Scalability & Inter-Agent Coordination Overhead",
+        "paper_ids": [
+          "2307.07924",
+          "2308.08155"
+        ],
+        "citations": [
+          "[Authors et al., arXiv]",
+          "[Wu et al., arXiv preprint arXiv:2308.08155, 2023]"
+        ],
+        "description": "Observed in 2 paper(s): Agentization to enhance the quality and reduce human intervention, ChatDev implements prompt engineering that only takes place at the start of each subtask round. As soon as the communication phase be...",
+        "frequency": 2
+      }
+    ],
+    "cross_paper_insights": [
+      "Analyzed 12 research paper(s) across 5 distinct agentic paradigm(s).",
+      "High benchmark dataset consensus identified on: ALFWorld, facilitating direct empirical comparison.",
+      "Primary architectural approach represented is 'Reasoning & Prompting' focused on iterative and structured reasoning.",
+      "Most widespread cross-cutting limitation is 'Inference Latency & Token / Computational Overhead', impacting 12 of 12 paper(s).",
+      "Across empirical benchmarks, agentic closed-loop reasoning consistently outperforms static, single-prompt LLM execution."
+    ],
+    "markdown_comparison_report": "# Cross-Paper Comparative Analysis & Synthesis Matrix\n\n### 1. Automated 5-Column Literature Comparison Table\n\n| Paper & Citation | Architecture Paradigm | Benchmark Datasets | Quantitative Results & Baselines | Limitations & Failure Modes |\n|---|---|---|---|---|\n| **ReAct: Synergizing Reasoning and Acting with Large Language Models**<br>`[Yao et al., arXiv preprint arXiv:2210.03629]` | **Reasoning & Prompting**<br>*Synergistic thought-action interleaved prompting* | HotpotQA, Fever, ALFWorld, WebShop | **Gains:** On question answering HotpotQA and fact verification Fever, ReAct overcomes prevalent hallucination and error propagation in chain...<br>**Baselines:** Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA,... | **Stated:** Chain-of-thought reasoning is a static black box, not grounded in the external world, which limits reactive re...<br>**Failure Mode:** Repetitive looping in greedy decoding; non-informative search results derail trajectory fo... |\n| **Toolformer: Language Models Can Teach Themselves to Use Tools**<br>`[Schick et al., arXiv preprint 2023; NeurIPS 2023]` | **Tool-Augmented / API Integration**<br>*Synergistic thought-action interleaved prompting* | Zero-shot evaluation on general language modeling and reasoning benchmarks and tool-specific probes for arithmetic, factual question answering, search, translation and calendar use. Evaluation covers common downstream tasks such as LAMBADA, HellaSwag, PIQA and similar zero-shot benchmarks, plus custom tool-use assessments measuring accuracy of calculator, QA, search and translation calls. | **Gains:** Toolformer achieves substantially improved zero-shot performance across a variety of downstream tasks, often competitive with much...<br>**Baselines:** Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA,... | **Stated:** Large language models cannot access up-to-date information on recent events and tend to hallucinate facts, hav...<br>**Failure Mode:** Repetitive looping in greedy decoding; non-informative search results derail trajectory fo... |\n| **Reflexion: Language Agents with Verbal Reinforcement Learning**<br>`[Shinn et al., arXiv preprint]` | **Self-Reflection & Refinement**<br>*Synergistic thought-action interleaved prompting* | HumanEval coding benchmark, sequential decision-making tasks, language reasoning tasks | **Gains:** Reflexion obtains significant improvements over a baseline agent across diverse tasks including sequential decision-making, coding...<br>**Baselines:** Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA,... | **Stated:** The Reflexion process Reflexion is formalized as an iterative optimization process in 1. In the first trial, t...<br>**Failure Mode:** Repetitive looping in greedy decoding; non-informative search results derail trajectory fo... |\n| **Tree of Thoughts: Deliberate Problem Solving with Large Language Models**<br>`[Yao et al., arXiv 2023]` | **Tree / Graph Search & Planning**<br>*Synergistic thought-action interleaved prompting* | Game of 24, Creative Writing, Mini Crosswords | **Gains:** ToT significantly enhances problem-solving abilities over Chain of Thought on three novel planning/search tasks. On Game of 24, GP...<br>**Baselines:** Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA,... | **Stated:** Self-consistency improves over CoT but provides no local exploration within each chain and the most-frequent o...<br>**Failure Mode:** Repetitive looping in greedy decoding; non-informative search results derail trajectory fo... |\n| **Gorilla: Large Language Model Connected with Massive APIs**<br>`[al. et al., arXiv preprint, under review]` | **Tool-Augmented / API Integration**<br>*Synergistic thought-action interleaved prompting* | APIBench, a comprehensive dataset consisting of HuggingFace, TorchHub and TensorHub APIs, introduced to evaluate API call writing ability and hallucination. | **Gains:** Gorilla surpasses GPT-4 on writing API calls. When combined with a document retriever it demonstrates strong capability to adapt t...<br>**Baselines:** Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA,... | **Stated:** No explicit limitations are provided in the given context.<br>**Failure Mode:** Repetitive looping in greedy decoding; non-informative search results derail trajectory fo... |\n| **Voyager: An Open-Ended Embodied Agent with Large Language Models**<br>`[Authors et al., arXiv preprint arXiv:2305.16291]` | **Reasoning & Prompting**<br>*Synergistic thought-action interleaved prompting* | Evaluation is conducted in MineDojo, an open-source Minecraft AI framework, with simulation built on MineDojo and Mineflayer JavaScript APIs for motor controls. Text completion uses OpenAI gpt-4-0314 and gpt-3.5-turbo-0301 APIs, with text-embedding-ada-002 for text embedding. All temperatures are set to 0 except the automatic curriculum which uses temperature 0.1 to encourage task diversity. Baselines include LLM-based agent techniques ReAct, Reflexion and AutoGPT re-interpreted for embodiment as no LLM-based agents work out of the box for Minecraft. | **Gains:** VOYAGER demonstrates strong in-context lifelong learning capabilities and constructs an ever-growing skill library of action progr...<br>**Baselines:** Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA,... | **Stated:** LLMs struggle to produce the correct action code consistently in one shot. The paper notes the need for an ite...<br>**Failure Mode:** Repetitive looping in greedy decoding; non-informative search results derail trajectory fo... |\n| **ChatDev: Communicative Agents for Software Development**<br>`[Authors et al., arXiv]` | **Reasoning & Prompting**<br>*Synergistic thought-action interleaved prompting* | Custom / Not specified | **Gains:** phases, which results in a fragmented and in- comprehensive analyses. The results indicate that peating, and fake replies. As a re...<br>**Baselines:** Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA,... | **Stated:** Agentization to enhance the quality and reduce human intervention, ChatDev implements prompt engineering that...<br>**Failure Mode:** Repetitive looping in greedy decoding; non-informative search results derail trajectory fo... |\n| **MetaGPT: Meta Programming for Multi-Agent Collaborative Software Development**<br>`[context et al., arXiv preprint 2023]` | **Multi-Agent Collaboration**<br>*Synergistic thought-action interleaved prompting* | HumanEval (Chen et al., 2021a) and MBPP (Austin et al., 2021) for code generation evaluation; collaborative software engineering benchmarks. | **Gains:** MetaGPT generates more coherent solutions than previous chat-based multi-agent systems on collaborative software engineering bench...<br>**Baselines:** Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA,... | **Stated:** No explicit limitations are detailed in the provided context; the text notes that autonomous agents using LLMs...<br>**Failure Mode:** Repetitive looping in greedy decoding; non-informative search results derail trajectory fo... |\n| **AgentBench: Evaluating LLMs as Agents**<br>`[Authors et al., arXiv]` | **Reasoning & Prompting**<br>*Synergistic thought-action interleaved prompting* | System, Database, Knowledge Graph, Digital Card Game, Lateral Thinking Puzzle, House-holding, Web Shopping, Web Browsing | **Gains:** Extensive testing over 29 API-based and open-sourced LLMs shows top commercial LLMs present strong ability of acting as agents in...<br>**Baselines:** Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA,... | **Stated:** Database evaluation emphasizes the complete pipeline on authentic SQL interfaces, databases and query types ra...<br>**Failure Mode:** Repetitive looping in greedy decoding; non-informative search results derail trajectory fo... |\n| **AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation**<br>`[Wu et al., arXiv preprint arXiv:2308.08155, 2023]` | **Multi-Agent Collaboration**<br>*Synergistic thought-action interleaved prompting* | Retrieval-Augmented Generation Q&A tasks, ALFWorld, coding tasks with safeguards | **Gains:** Customizable and conversable agents enable easy creation of agents with different roles such as code writing, code execution, huma...<br>**Baselines:** Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA,... | **Stated:** The provided context does not list formal limitations; it notes that to develop applications where agents make...<br>**Failure Mode:** Repetitive looping in greedy decoding; non-informative search results derail trajectory fo... |\n| **SWE-bench: Can Language Models Resolve Real-World Issues?**<br>`[Authors et al., arXiv preprint]` | **Reasoning & Prompting**<br>*Synergistic thought-action interleaved prompting* | SWE-bench comprising 2,294 software engineering problems drawn from real GitHub issues and corresponding pull requests across 12 popular Python repositories. | **Gains:** Evaluations show both state-of-the-art proprietary models and the fine-tuned SWE-Llama can resolve only the simplest issues. The b...<br>**Baselines:** Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA,... | **Stated:** Building a good benchmark is difficult since tasks must be challenging enough to stump existing models, but mo...<br>**Failure Mode:** Repetitive looping in greedy decoding; non-informative search results derail trajectory fo... |\n| **Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection**<br>`[Asai et al., arXiv preprint arXiv:2310.11511, 2023]` | **Self-Reflection & Refinement**<br>*Synergistic thought-action interleaved prompting* | Open-domain QA, multi-hop reasoning, fact verification and long-form generation tasks, including ASQA, QAMPARI, HotpotQA, 2WikiMultiHopQA, MuSiQue and long-form QA datasets for factuality and citation evaluation. | **Gains:** SELF-RAG 7B and 13B significantly outperforms state-of-the-art LLMs and retrieval-augmented models on a diverse set of tasks. Spec...<br>**Baselines:** Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA,... | **Stated:** No explicit limitations are provided in the supplied context.<br>**Failure Mode:** Repetitive looping in greedy decoding; non-informative search results derail trajectory fo... |\n\n---\n\n### 2. Cross-Paper Synthesis & Methodological Insights\n- Analyzed 12 research paper(s) across 5 distinct agentic paradigm(s).\n- High benchmark dataset consensus identified on: ALFWorld, facilitating direct empirical comparison.\n- Primary architectural approach represented is 'Reasoning & Prompting' focused on iterative and structured reasoning.\n- Most widespread cross-cutting limitation is 'Inference Latency & Token / Computational Overhead', impacting 12 of 12 paper(s).\n- Across empirical benchmarks, agentic closed-loop reasoning consistently outperforms static, single-prompt LLM execution.\n\n---\n\n### 3. Benchmark Dataset Overlap & Evaluation Matrix\n- **HotpotQA**: (Evaluated in 2210.03629)\n- **Fever**: (Evaluated in 2210.03629)\n- **ALFWorld**: **(Shared by 2 papers: 2210.03629, 2308.08155)**\n- **WebShop**: (Evaluated in 2210.03629)\n- **Zero-shot evaluation on general language modeling and reasoning benchmarks and tool-specific probes for arithmetic, factual question answering, search, translation and calendar use. Evaluation covers common downstream tasks such as LAMBADA, HellaSwag, PIQA and similar zero-shot benchmarks, plus custom tool-use assessments measuring accuracy of calculator, QA, search and translation calls.**: (Evaluated in 2302.04761)\n- **HumanEval coding benchmark**: (Evaluated in 2303.11366)\n- **sequential decision-making tasks**: (Evaluated in 2303.11366)\n- **language reasoning tasks**: (Evaluated in 2303.11366)\n- **Game of 24**: (Evaluated in 2305.10601)\n- **Creative Writing**: (Evaluated in 2305.10601)\n- **Mini Crosswords**: (Evaluated in 2305.10601)\n- **APIBench, a comprehensive dataset consisting of HuggingFace, TorchHub and TensorHub APIs, introduced to evaluate API call writing ability and hallucination.**: (Evaluated in 2305.15334)\n- **Evaluation is conducted in MineDojo, an open-source Minecraft AI framework, with simulation built on MineDojo and Mineflayer JavaScript APIs for motor controls. Text completion uses OpenAI gpt-4-0314 and gpt-3.5-turbo-0301 APIs, with text-embedding-ada-002 for text embedding. All temperatures are set to 0 except the automatic curriculum which uses temperature 0.1 to encourage task diversity. Baselines include LLM-based agent techniques ReAct, Reflexion and AutoGPT re-interpreted for embodiment as no LLM-based agents work out of the box for Minecraft.**: (Evaluated in 2305.16291)\n- **HumanEval (Chen et al., 2021a) and MBPP (Austin et al., 2021) for code generation evaluation; collaborative software engineering benchmarks.**: (Evaluated in 2308.00352)\n- **System**: (Evaluated in 2308.03688)\n- **Database**: (Evaluated in 2308.03688)\n- **Knowledge Graph**: (Evaluated in 2308.03688)\n- **Digital Card Game**: (Evaluated in 2308.03688)\n- **Lateral Thinking Puzzle**: (Evaluated in 2308.03688)\n- **House-holding**: (Evaluated in 2308.03688)\n- **Web Shopping**: (Evaluated in 2308.03688)\n- **Web Browsing**: (Evaluated in 2308.03688)\n- **Retrieval-Augmented Generation Q&A tasks**: (Evaluated in 2308.08155)\n- **coding tasks with safeguards**: (Evaluated in 2308.08155)\n- **SWE-bench comprising 2,294 software engineering problems drawn from real GitHub issues and corresponding pull requests across 12 popular Python repositories.**: (Evaluated in 2310.06770)\n- **Open-domain QA, multi-hop reasoning, fact verification and long-form generation tasks, including ASQA, QAMPARI, HotpotQA, 2WikiMultiHopQA, MuSiQue and long-form QA datasets for factuality and citation evaluation.**: (Evaluated in 2310.11511)\n\n---\n\n### 4. Shared Limitations & Architectural Trade-offs\n- **Inference Latency & Token / Computational Overhead** (12 paper(s): [Yao et al., arXiv 2023], [Authors et al., arXiv preprint arXiv:2305.16291], [Authors et al., arXiv], [Wu et al., arXiv preprint arXiv:2308.08155, 2023], [al. et al., arXiv preprint, under review], [context et al., arXiv preprint 2023], [Asai et al., arXiv preprint arXiv:2310.11511, 2023], [Shinn et al., arXiv preprint], [Schick et al., arXiv preprint 2023; NeurIPS 2023], [Authors et al., arXiv preprint], [Yao et al., arXiv preprint arXiv:2210.03629]):\n  *Observed in 12 paper(s): Chain-of-thought reasoning is a static black box, not grounded in the external world, which limits reactive reasoning or updating knowledge and can lead to fact hallucination and error propagation ove...*\n- **Hallucination & Error Cascade / Repetitive Looping** (12 paper(s): [Yao et al., arXiv 2023], [Authors et al., arXiv preprint arXiv:2305.16291], [Authors et al., arXiv], [Wu et al., arXiv preprint arXiv:2308.08155, 2023], [al. et al., arXiv preprint, under review], [context et al., arXiv preprint 2023], [Asai et al., arXiv preprint arXiv:2310.11511, 2023], [Shinn et al., arXiv preprint], [Schick et al., arXiv preprint 2023; NeurIPS 2023], [Authors et al., arXiv preprint], [Yao et al., arXiv preprint arXiv:2210.03629]):\n  *Observed in 12 paper(s): Chain-of-thought reasoning is a static black box, not grounded in the external world, which limits reactive reasoning or updating knowledge and can lead to fact hallucination and error propagation ove...*\n- **Search Space Explosion & Long-Horizon Horizon Trapping** (12 paper(s): [Yao et al., arXiv 2023], [Authors et al., arXiv preprint arXiv:2305.16291], [Authors et al., arXiv], [Wu et al., arXiv preprint arXiv:2308.08155, 2023], [al. et al., arXiv preprint, under review], [context et al., arXiv preprint 2023], [Asai et al., arXiv preprint arXiv:2310.11511, 2023], [Shinn et al., arXiv preprint], [Schick et al., arXiv preprint 2023; NeurIPS 2023], [Authors et al., arXiv preprint], [Yao et al., arXiv preprint arXiv:2210.03629]):\n  *Observed in 12 paper(s): Chain-of-thought reasoning is a static black box, not grounded in the external world, which limits reactive reasoning or updating knowledge and can lead to fact hallucination and error propagation ove...*\n- **Environment Grounding & Tool Execution Bottlenecks** (3 paper(s): [Shinn et al., arXiv preprint], [Authors et al., arXiv preprint arXiv:2305.16291], [Schick et al., arXiv preprint 2023; NeurIPS 2023]):\n  *Observed in 3 paper(s): Large language models cannot access up-to-date information on recent events and tend to hallucinate facts, have difficulties understanding low-resource languages, lack mathematical skills for precise...*\n- **Scalability & Inter-Agent Coordination Overhead** (2 paper(s): [Authors et al., arXiv], [Wu et al., arXiv preprint arXiv:2308.08155, 2023]):\n  *Observed in 2 paper(s): Agentization to enhance the quality and reduce human intervention, ChatDev implements prompt engineering that only takes place at the start of each subtask round. As soon as the communication phase be...*\n",
+    "analysis_source": "Deterministic Grounded Heuristic Engine"
+  }
+}

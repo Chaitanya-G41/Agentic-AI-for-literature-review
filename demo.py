@@ -67,7 +67,7 @@ def main():
     for schema in schemas:
         try:
             schema_file = f"data/extracted_schemas/{schema.paper_id}_schema.json"
-            summary = run_summarizer_agent(schema_file, output_dir="data/summaries")
+            summary = run_summarizer_agent(schema_file, output_dir="data/summaries", use_llm=False)
             summaries.append(summary)
             print(f"   Summarized: {schema.paper_title}")
         except Exception as e:

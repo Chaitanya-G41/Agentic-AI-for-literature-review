@@ -53,7 +53,7 @@ class LLMManager:
 
         # Models to attempt on NVIDIA NIM
         self.preferred_nvidia_models = preferred_models or [
-            "meta/llama-3.3-70b-instruct",
+            "meta/muse-glimmer-30b",
             "nvidia/llama-3.1-nemotron-70b-instruct",
             "mistralai/mixtral-8x22b-instruct-v0.1"
         ]
@@ -69,12 +69,7 @@ class LLMManager:
         self.last_error = None
         self.generation_mode = "HEURISTIC_FALLBACK"
 
-    @property
-    def keys(self):
-        """Returns any active keys (NVIDIA or Gemini) for backward compatibility."""
-        return self.nvidia_keys or self.gemini_keys
-
-        # Log active provider
+        # Log active provider at initialization
         if self.nvidia_keys:
             masked = f"...{self.nvidia_keys[0][-6:]}" if len(self.nvidia_keys[0]) > 6 else "***"
             print(f"   [LLM-INIT] NVIDIA NIM Provider Active (Key: {masked}, Model: {self.preferred_nvidia_models[0]})")
@@ -83,6 +78,11 @@ class LLMManager:
             print(f"   [LLM-INIT] Google Gemini Fallback Provider Active (Key: {masked})")
         else:
             print(f"   [LLM-INIT] No API keys found (NVIDIA_API_KEY / GEMINI_API_KEY). Rule-based Heuristic Engine will be used.")
+
+    @property
+    def keys(self):
+        """Returns any active keys (NVIDIA or Gemini) for backward compatibility."""
+        return self.nvidia_keys or self.gemini_keys
 
     def _load_dotenv_safe(self):
         try:
@@ -134,10 +134,13 @@ class LLMManager:
                                 messages=messages,
                                 temperature=0.2,
                                 top_p=0.7,
-                                max_tokens=1500
+                                max_tokens=4096
                             )
                             if completion and completion.choices:
-                                text = completion.choices[0].message.content
+                                msg = completion.choices[0].message
+                                text = msg.content
+                                if not text and getattr(msg, "reasoning_content", None):
+                                    text = msg.reasoning_content
                                 if text:
                                     self.last_used_model = model
                                     self.last_provider = "NVIDIA_NIM"
@@ -194,9 +197,13 @@ class LLMManager:
         cleaned = re.sub(r'```\s*$', '', cleaned).strip()
 
         # Locate JSON block
-        json_match = re.search(r'(\{.*\}|\[.*\])', cleaned, re.DOTALL)
-        if json_match:
-            cleaned = json_match.group(0)
+        json_obj = re.search(r'\{.*\}', cleaned, re.DOTALL)
+        if json_obj:
+            cleaned = json_obj.group(0)
+        else:
+            json_arr = re.search(r'\[.*\]', cleaned, re.DOTALL)
+            if json_arr:
+                cleaned = json_arr.group(0)
 
         try:
             return json.loads(cleaned)

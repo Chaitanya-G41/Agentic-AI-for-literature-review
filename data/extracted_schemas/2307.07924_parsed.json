@@ -1,0 +1,849 @@
+{
+  "paper_id": "2307.07924",
+  "file_name": "2307.07924_ChatDev_Communicative_Ag.pdf",
+  "title": "ChatDev: Communicative Agents for Software Development",
+  "abstract": "Software development is a complex task that necessitates cooperation among multiple members with diverse skills. Numerous studies used deep learning to improve specific phases in a waterfall model, such as design, coding, and testing. However, the deep learning model in each phase requires unique designs, leading to technical inconsistencies across various phases, which results in a fragmented and ineffective development process. In this paper, we introduce ChatDev, a chat-powered software development framework in which specialized agents driven by large language models (LLMs) are guided in what to communicate (via chat chain) and how to communicate (via communicative dehallucination). These agents actively contribute to the design, coding, and testing phases through unified language-based communication, with solutions derived from their multi-turn dialogues. We found their utilization of natural language is advantageous for system design, and communicating in programming language proves helpful in debugging. This paradigm demonstrates how linguistic communication facilitates multi-agent collaboration, establishing language as a unifying bridge for autonomous task-solving among LLM agents. The code and data are available at",
+  "parser_used": "GROBID_TEI_XML_with_PyMuPDF_Visuals",
+  "total_pages": 1,
+  "full_text": "Abstract:\nSoftware development is a complex task that necessitates cooperation among multiple members with diverse skills. Numerous studies used deep learning to improve specific phases in a waterfall model, such as design, coding, and testing. However, the deep learning model in each phase requires unique designs, leading to technical inconsistencies across various phases, which results in a fragmented and ineffective development process. In this paper, we introduce ChatDev, a chat-powered software development framework in which specialized agents driven by large language models (LLMs) are guided in what to communicate (via chat chain) and how to communicate (via communicative dehallucination). These agents actively contribute to the design, coding, and testing phases through unified language-based communication, with solutions derived from their multi-turn dialogues. We found their utilization of natural language is advantageous for system design, and communicating in programming language proves helpful in debugging. This paradigm demonstrates how linguistic communication facilitates multi-agent collaboration, establishing language as a unifying bridge for autonomous task-solving among LLM agents. The code and data are available at\n[Introduction] Large language models (LLMs) have led to substantial transformations due to their ability to effortlessly integrate extensive knowledge expressed in language (Brown et al., 2020;Bubeck et al., 2023), combined with their strong capacity for roleplaying within designated roles (Park et al., 2023;Hua et al., 2023;Chen et al., 2023b). This advancement eliminates the need for model-specific designs and delivers impressive performance in : Corresponding Author. diverse downstream applications. Furthermore, autonomous agents (Richards, 2023;Zhou et al., 2023a) have gained attention for enhancing the capabilities of LLMs with advanced features such as context-aware memory (Sumers et al., 2023), multistep planning (Liu et al., 2023), and strategic tool using (Schick et al., 2023). Software development is a complex task that necessitates cooperation among multiple members with diverse skills (e.g., architects, programmers, and testers) (Basili, 1989;Sawyer and Guinan, 1998). This entails extensive communication among different roles to understand and analyze requirements through natural language, while also encompassing development and debugging using programming languages (Ernst, 2017;Banker et al., 1998). Numerous studies use deep learning to improve specific phases of the waterfall model in software development, such as design, coding, and testing (Pudlitz et al., 2019;Martín and Abran, 2015;Gao et al., 2019;Wang et al., 2016). Due to these technical inconsistencies, methods employed in different phases remain isolated until now. Every phase, from data collection and labeling to model training and inference, requires its unique designs, leading to a fragmented and less efficient development process in the field (Freeman et al., 2001;Ernst, 2017;Winkler et al., 2020).\n[Introduction] Motivated by the expert-like potential of autonomous agents, we aim to establish language as a unifying bridge-utilizing multiple LLM-powered agents with specialized roles for cooperative software development through language-based communication across different phases; solutions in different phases are derived from their multi-turn dialogues, whether dealing with text or code. Nevertheless, due to the tendency of LLM hallucinations (Dhuliawala et al., 2023;Zhang et al., 2023b), the strategy of generating software through communicative agents could lead to the non-trivial challenge of coding hallucinations, which involves the generation of source code that is incomplete, unexecutable, or inaccurate, ultimately failing to fulfill the intended requirements (Agnihotri and Chug, 2020). The frequent occurrence of coding hallucination in turn reflects the constrained autonomy of agents in task completion, inevitably demanding additional manual intervention and thereby hindering the immediate usability and reliability of the generated software (Ji et al., 2023).\n[Introduction] In this paper, we propose ChatDev (see Figure 1), a ::: chat-powered software-::: development framework integrating multiple \"software agents\" for active involvement in three core phases of the software lifecycle: design, coding, and testing. Technically, ChatDev uses a chat chain to divide each phase into smaller subtasks further, enabling agents' multi-turn communications to cooperatively propose and develop solutions (e.g., creative ideas or source code). The chain-structured workflow guides agents on what to communicate, fostering cooperation and smoothly linking natural-and programming-language subtasks to propel problemsolving. Additionally, to minimize coding hallucinations, ChatDev includes an communicative dehallucination mechanism, enabling agents to actively request more specific details before giving direct responses. The communication pattern instructs agents on how to communicate, enabling precise information exchange for effective solution optimization while reducing coding hallucinations. We built a comprehensive dataset containing software requirement descriptions and conducted comprehensive analyses. The results indicate that ChatDev notably improves the quality of software, leading to improved completeness, executability, and better consistency with requirements. Further investigations reveal that natural-language communications contribute to comprehensive system design, while programming-language communications drive software optimization. In summary, the proposed paradigm demonstrates how linguistic communication facilitates multi-agent collaboration, establishing language as a unifying bridge for autonomous task-solving among LLM agents.\n[Related Work] Trained on vast datasets to comprehend and manipulate billions of parameters, LLMs have become pivotal in natural language processing due to their seamless integration of extensive knowledge (Brown et al., 2020;Bubeck et al., 2023;Vaswani et al., 2017;Radford et al.;Touvron et al., 2023;Wei et al., 2022a;Shanahan et al., 2023;Chen et al., 2021;Brants et al., 2007;Chen et al., 2021;Ouyang et al., 2022;Yang et al., 2023a;Qin et al., 2023b;Kaplan et al., 2020). Furthermore, LLMs have demonstrated strong role-playing abilities (Li et al., 2023a;Park et al., 2023;Hua et al., 2023;Chan et al., 2023;Zhou et al., 2023b;Chen et al., 2023b,a;Cohen et al., 2023;Li et al., 2023b). Recent progress, particularly in the field of autonomous agents (Zhou et al., 2023a;Wang et al., 2023a;Park et al., 2023;Wang et al., 2023e;Richards, 2023;Osika, 2023;Wang et al., 2023d), is largely attributed to the foundational advances in LLMs. These agents utilize the robust capabilities of LLMs, displaying remarkable skills in memory (Park et al., 2023;Sumers et al., 2023), planning (Chen et al., 2023b;Liu et al., 2023) and tool use (Schick et al., 2023;Cai et al., 2023;Qin et al., 2023a;Ruan et al., 2023;Yang et al., 2023b), enabling them to reason in complex scenarios (Wei et al., 2022b;Zhao et al., 2023;Zhou et al., 2023a;Ma et al., 2023;Zhang et al., 2023a;Wang et al., 2023b;Ding et al., 2023;Weng, 2023).\n[Related Work] Software development is a multifaceted and intricate process that requires the cooperation of multiple experts from various fields (Yilmaz et al., 2012;Acuna et al., 2006;Basili, 1989;Sawyer and Guinan, 1998;Banker et al., 1998;France and Rumpe, 2007), encompassing the requirement analysis and system design in natural lan- guages (Pudlitz et al., 2019;Martín and Abran, 2015;Nahar et al., 2022), along with system development and debugging in programming languages (Gao et al., 2019;Wang et al., 2016;Wan et al., 2022). Numerous studies employ the waterfall model, a particular software development life cycle, to segment the process into discrete phases (e.g., design, coding, testing) and apply deep learning to improve the effectiveness of certain phases (Winkler et al., 2020;Ezzini et al., 2022;Thaller et al., 2019;Zhao et al., 2021;Nijkamp et al., 2023;Wan et al., 2018;Wang et al., 2021).\n[ChatDev] We introduce ChatDev, a :::: chat-powered software-:::\n[ChatDev] development framework that integrates multiple \"software agents\" with various social roles (e.g., requirements analysts, professional programmers and test engineers) collaborating in the core phases of the software life cycle, see Figure 1. Technically, to facilitate cooperative communication, ChatDev introduces chat chain to further break down each phase into smaller and manageable subtasks, which guides multi-turn communications between different roles to propose and validate solutions for each subtask. In addition, to alleviate unexpected hallucinations, a communicative pattern named communicative dehallucination is devised, wherein agents request more detailed information before responding directly and then continue the next round of communication based on these details.\n[Chat Chain] Although LLMs show a good understanding of natural and programming languages, efficiently trans-forming textual requirements into functional software in a single step remains a significant challenge. ChatDev thus adopts the core principles of the waterfall model, using a chat chain (C) with sequential phases (P), each comprising sequential subtasks (T ). Specifically, ChatDev segments the software development process into three sequential phases: design, coding, and testing. The coding phase is further subdivided into subtasks of code writing and completion, and the testing phase is segmented into code review (static testing) and system testing (dynamic testing), as illustrated in Figure 2. In every subtask, two agents, each with their own specialized roles (e.g., a reviewer skilled at identifying endless loops and a programmer adept in GUI design), perform the functions of an instructor (I) and an assistant (A). The instructor agent initiates instructions, instructing (→) the discourse toward the completion of the subtask, while the assistant agent adheres to these instructions and responds with (;) appropriate solutions. They engage in a multi-turn dialogue (C), working cooperatively until they achieve consensus, extracting (τ ) solutions that can range from the text (e.g., defining a software function point) to code (e.g., creating the initial version of source code), ultimately leading to the completion of the subtask. The entire tasksolving process along the agentic workflow can be formulated as:\n[Chat Chain] The dual-agent communication design simplifies communications by avoiding complex multi-agent topologies, effectively streamlining the consensusreaching process (Yin et al., 2023;Chen et al., 2023b). Subsequently, the solutions from previous tasks serve as bridges to the next phase, allowing a smooth transition between subtasks. This approach continues until all subtasks are completed. It's worth noting that the conceptually simple but empirically powerful chain-style structure guides agents on what to communicate, fostering cooperation and smoothly linking natural-and programming-language subtasks. It also offers a transparent view of the entire software development process, allowing for the examination of intermediate solutions and assisting in identifying possible problems.\n[Chat Chain] Agentization To enhance the quality and reduce human intervention, ChatDev implements prompt engineering that only takes place at the start of each subtask round. As soon as the communication phase begins, the instructor and the assistant will communicate with each other in an automated loop, continuing this exchange until the task concludes. However, simply exchanging responses cannot achieve effective multi-round task-oriented communication, since it inevitably faces significant challenges including role flipping, instruction repeating, and fake replies. As a result, there is a failure to advance the progression of productive communications and hinders the achievement of meaningful solutions. ChatDev thus employs inception prompting mechanism (Li et al., 2023a) for initiating, sustaining, and concluding agents' communication to guarantee a robust and efficient workflow. This mechanism is composed of the instructor system prompt P I and the assistant system prompt P A . The system prompts for both roles are mostly symmetrical, covering the overview and objectives of the current subtask, specialized roles, accessible external tools, communication protocols, termination conditions, and constraints or requirements to avoid undesirable behaviors. Then, an instructor I and an assistant A are instantiated by hypnotizing LLMs via P I and P A :\n[Chat Chain] where ρ is the role customization operation, implemented via system message assignment.\n[Chat Chain] Memory Note that the limited context length of common LLMs typically restricts the ability to maintain a complete communication history among all agents and phases. To tackle this issue, based on the nature of the chat chain, we accordingly segment the agents' context memories based on their sequential phases, resulting in two functionally distinct types of memory: short-term memory and long-term memory. Short-term memory is utilized to sustain the continuity of the dialogue within a single phase, while long-term memory is leveraged to preserve contextual awareness across different phases.\n[Chat Chain] Formally, short-term memory records an agent's current phase utterances, aiding context-aware decision-making. At the time t during phase P i , we use I i t to represent the instructor's instruction and A i t for the assistant's response. The short-term memory M collects utterances up to time t as:\n[Chat Chain] In the next time step t + 1, the instructor utilizes the current memory to generate a new instruction I i t+1 , which is then conveyed to the assistant to produce a new response A i t+1 . The short-term memory iteratively updates until the number of communications reaches the upper limit |M i |:\n[Chat Chain] To perceive dialogues through previous phases, the chat chain only transmits the solutions from previous phases as long-term memories M, integrating them at the start of the next phase and enabling the cross-phase transmission of long dialogues:\n[Chat Chain] where P symbolizes a predetermined prompt that appears exclusively at the start of each phase. By sharing only the solutions of each subtask rather than the entire communication history, Chat-Dev minimizes the risk of being overwhelmed by too much information, enhancing concentration on each task and encouraging more targeted cooperation, while simultaneously facilitating cross-phase context continuity.\n[Communicative Dehallucination] LLM hallucinations manifest when models generate outputs that are nonsensical, factually incorrect, or inaccurate (Dhuliawala et al., 2023;Zhang et al., 2023b). This issue is particularly concerning in software development, where programming languages demand precise syntax-the absence of even a single line can lead to system failure. We have observed that LLMs often produce coding hallucinations, which encompass potential issues like incomplete implementations, unexecutable code, and inconsistencies that don't meet requirements. Coding hallucinations frequently appear when the assistant struggles to precisely follow instructions, often due to the vagueness and generality of certain instructions that require multiple adjustments, making it challenging for agents to achieve full compliance. Inspired by this, we introduce communicative dehallucination, which encourages the assistant to actively seek more detailed suggestions from the instructor before delivering a formal response.\n[Communicative Dehallucination] Specifically, a vanilla communication pattern between the assistant and the instructor follows a straightforward instruction-response format:\n[Communicative Dehallucination] In contrast, our communicative dehallucination mechanism features a deliberate \"role reversal\", where the assistant takes on an instructor-like role, proactively seeking more specific information (e.g., the precise name of an external dependency and its related class) before delivering a conclusive response. After the instructor provides a specific modification suggestion, the assistant proceeds to perform precise optimization:\n[Communicative Dehallucination] Since this mechanism tackles one concrete issue at a time, it requires multiple rounds of communication to optimize various potential problems. The communication pattern instructs agents on how to communicate, enabling finer-grained information exchange for effective solution optimization, which practically aids in reducing coding hallucinations.\n[Evaluation] Baselines We chose some representative LLMbased software development methods as our baselines. GPT-Engineer (Osika, 2023) is a fundamental single-agent approach in LLM-driven software agents with a precise understanding of task requirements and the application of one-step reasoning, which highlights its efficiency in generating detailed software solutions at the repository level.\n[Evaluation] MetaGPT (Hong et al., 2023)  Metrics Evaluating software is also a challenging task, especially when trying to assess it on a holistic level. Under the current limitation of scarce benchmark resources, traditional function-oriented code generation metrics (e.g., pass@k), cannot seamlessly transfer to a comprehensive evaluation of entire software systems. The main reason for this is that it is often impractical to develop manual or automated test cases for various types of software, especially those involving complex interfaces, frequent user interactions, or non-deterministic feedback. As an initial strategy, we apply three fundamental and objective dimensions that reflect different aspects of coding hallucinations to evaluate the agent-generated software, and then integrate them to facilitate a more holistic evaluation:\n[Evaluation] • Completeness measures the software's ability to fulfill code completion in software development, quantified as the percentage of software without any \"placeholder\" code snippets. A higher score indicates a higher probability of automated completion.  • Executability assesses the software's ability to run correctly within a compilation environment, quantified as the percentage of software that compiles successfully and can run directly. A higher score indicates a higher probability of successful execution. • Consistency measures how closely the generated software code aligns with the original requirement description, quantified as the cosine distance between the semantic embeddings of the textual requirements and the generated software code 1 . A higher score indicates a greater degree of consistency with the requirements. • Quality is a comprehensive metric that integrates various factors to assess the overall quality of software, quantified by multiplying 2 completeness, executability, and consistency. A higher quality score suggests a higher overall satisfaction with the software generated, implying a lower need for further manual intervention.\n[Method] Implementation Details We divided software development into 5 subtasks within 3 phases, assigning specific roles like CEO, CTO, programmer, reviewer, and tester. A subtask would terminate and get a conclusion either after two unchanged code modifications or after 10 rounds of communication. During the code completion, review, and testing, a communicative dehallucination is activated. For ease of identifying solutions, the assistant begins responses with \"<SOLUTION>\" when 1 Comments should be excluded from the code to avoid potential information leakage during evaluations.\n[Method] 2 One can also choose to average the sub-metrics, which yields similar trends. Table 3: Software statistics include Duration (time consumed), #Tokens (number of tokens used), #Files (number of code files generated), and #Lines (total lines of code across all files) in the software generation process.\n[Method] a consensus is reached. We used ChatGPT-3.5 with a temperature of 0.2 and integrated Python-3.11.4 for feedback. All baselines in the evaluation share the same hyperparameters and settings for fairness.\n[Overall Performance] As illustrated in Table 1, ChatDev outperforms all baseline methods across all metrics, showing a considerable margin of improvement. Firstly, the improvement of ChatDev and MetaGPT over GPT-Engineer demonstrates that complex tasks are difficult to solve in a single-step solution. Therefore, explicitly decomposing the difficult problem into several smaller, more manageable subtasks enhances the effectiveness of task completion. Additionally, in comparison to MetaGPT, ChatDev significantly raises the Quality from 0.1523 to 0.3953. This advancement is largely attributed to the agents employing a cooperative communication method, which involves autonomously proposing and continuously refining source code through a blend of natural and programming languages, as opposed to merely delivering responses based on humanpredefined instructions. The communicative agents guide each subtask towards integrated and automated solutions, efficiently overcoming the restrictions typically linked to manually established optimization rules, and offering a more versatile and adaptable framework for problem-solving.\n[Overall Performance] To further understand user preferences in practical settings, we use the setting adopted by Li et al. (2023a), where agent-generated solutions are com- Table 4: Ablation study on main components or mechanisms. ≤ x denotes halting the chat chain after the completion of the x phrase, and ⧹ denotes the removing operation. CDH denotes the communicative dehallucination mechanism.\n[Overall Performance] pared in pairs by both human participants and the prevalent GPT-4 model to identify the preferred one. 3 Table 2 shows ChatDev consistently outperforming other baselines, with higher average win rates in both GPT-4 and human evaluations. Furthermore, the software statistics presented in Table 3 indicates that the multi-agent paradigm, despite being slower and consuming more tokens than the single-agent method, yields a greater number of code files and a larger codebase, which may enhance the software's functionality and integrity. Analyzing the dialogues of agents suggests that the multi-agent communication method often leads agents to autonomously offer functional enhancements (e.g., GUI creation or increasing game difficulty), thereby potentially resulting in the incorporation of beneficial features that were not explicitly specified in requirements. Taking all these factors together, we posit that the fundamental characteristics of multi-agent software development take on greater significance, surpassing short-term concerns like time and economic costs in the current landscape.\n[Ablation Study] This section examines key components or mechanisms within our multi-agent cooperation framework by removing particular phases in the chat chain, communicative dehallucination, or the roles assigned to all agents in their system prompts. Figure 4 shows that the code complete phase enhances Completeness, with testing critical for Executability. Quality steadily rises with each step, suggesting that software development optimization is progressively attained through multi-phase communica-3 For fairness, GPT-4's evaluation mitigated possible positional bias (Wang et al., 2023c), and human experts independently assessed the task solutions, randomized to prevent order bias.  tions among intelligent agents. Meanwhile, eliminating communicative dehallucination results in a decrease across all metrics, indicating its effectiveness in addressing coding hallucinations. Most interestingly, the most substantial impact on performance occurs when the roles of all agents are removed from their system prompts. Detailed dialogue analysis shows that assigning a \"prefer GUI design\" role to a programmer results in generated source code with relevant GUI implementations; in the absence of such role indications, it defaults to implement unfriend command-line-only programs only. Likewise, assigning roles such as a \"careful reviewer for bug detection\" enhances the chances of discovering code vulnerabilities; without such roles, feedback tends to be high-level, leading to limited adjustments by the programmer. This finding underscores the importance of assigning roles in eliciting responses from LLMs, underscoring the significant influence of multi-agent cooperation on software quality.\n[Communication Analysis] Our agent-driven software development paradigm promotes cooperative agents through effective communication for automated solution optimization. Phases in the chat chain have varying levels of engagement in natural and programming languages.  We now analyze the content of their communications to understand linguistic effects. Figure 3 depicts a communication breakdown, with natural language at 57.20%. In the naturallanguage phase (i.e., design), natural language communication plays a crucial role in the thorough design of the system, with agents autonomously discussing and designing aspects like target user, data management, and user interface. Post-design phases show a balanced mix of coding, code completion, and testing activities, with most communication occurring during code reviews. This trend is due to agents' self-reviews and code fixes consistently propelling software development; otherwise, progress halts when successive updates don't show significant changes, leading to a natural decrease in code review communications.\n[Communication Analysis] We explore the properties of static debugging dynamics in code reviews resulting from communication between reviewers and programmers, as depicted in Figure 4. The data uncovers that during the review phase, reviewers may spot different issues through language interactions. The programmer's intervention can transform certain issues into different ones or a state where no further suggestions are needed; the increasing proportion of the latter indicates successful software optimization. Particularly, the \"Method Not Implemented\" issue is most common in communication between reviewers and programmers during code reviews, accounting for 34.85% of discussions. This problem usually arises from unclear text requirements and the use of \"placeholder\" tags in Python code, necessitating additional manual adjustments. Furthermore, the \"Module Not Imported\" issue often arises due to code generation omitting crucial details. Apart from common problems, reviewers often focus on enhancing code robustness by identifying rare exceptions, unused classes, or potential infinite loops.\n[Communication Analysis] Likewise, we analyze the tester-programmer communication during the testing phase, illustrating the dynamic debugging dynamics in their multi-turn interactions with compiler feedback, as depicted in Figure 5. The likelihood of successful compilation at each step is generally higher than encountering errors, with most errors persisting and a lower probability of transforming into different errors. The most frequent error is \"ModuleNotFound\" (45.76%), followed by \"NameError\" and \"ImportError\" (each at 15.25%). The observation highlights the model's tendency to overlook basic elements like an \"import\" statement, underscoring its difficulty in managing intricate details during code generation. Besides, the tester also detects rarer errors like improperly initialized GUIs, incorrect method calls, missing file dependencies, and unused modules. The communicative dehallucination mechanism effectively resolves certain errors, frequently resulting in \"compilation success\" after code changes. There's a significantly low chance of returning to an error state from a successful compilation. Over time, the multi-turn communication process statisti- cally shows a consistent decrease in errors, steadily moving towards successful software execution.\n[Conclusion] We have introduced ChatDev, an innovative multiagent collaboration framework for software development that utilizes multiple LLM-powered agents to integrate fragmented phases of the waterfall model into a cohesive communication system. It features chat chain organizing communication targets and dehallucination for resolving coding hallucinations. The results demonstrate its superiority and highlight the benefits of multi-turn communications in software optimization. We aim for the insights to advance LLM agents towards increased autonomy and illuminate the profound effects of \"language\" and its empowering role across an even broader spectrum of applications.\n[Limitations] Our study explores the potential of cooperative autonomous agents in software development, but certain limitations and risks must be considered by researchers and practitioners. Firstly, the capabilities of autonomous agents in software production might be overestimated. While they enhance development quality, agents often implement simple logic, resulting in low information density. Without clear, detailed requirements, agents struggle to grasp task ideas. For instance, vague guidelines in developing a Snake game lead to basic representa-tions; in information management systems, agents might retrieve static key-value placeholders instead of external databases. Therefore, it is crucial to clearly define detailed software requirements. Currently, these technologies are more suitable for prototype systems rather than complex real-world applications. Secondly, unlike traditional functionlevel code generation, automating the evaluation of general-purpose software is highly complex. While some efforts have focused on Human Revision Cost (Hong et al., 2023), manual verification for large datasets is impractical. Our paper emphasizes completeness, executability, consistency, and overall quality, but future research should consider additional factors such as functionalities, robustness, safety, and user-friendliness. Thirdly, compared to single-agent approaches, multiple agents require more tokens and time, increasing computational demands and environmental impact. Future research should aim to enhance agent capabilities with fewer interactions. Despite these limitations, we believe that engaging a broader, technically proficient audience can unlock additional potential directions in LLM-powered multi-agent collaboration.",
+  "chunks": [
+    {
+      "paper_id": "2307.07924",
+      "file_name": "2307.07924_ChatDev_Communicative_Ag.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "text": "Software development is a complex task that necessitates cooperation among multiple members with diverse skills. Numerous studies used deep learning to improve specific phases in a waterfall model, such as design, coding, and testing. However, the deep learning model in each phase requires unique designs, leading to technical inconsistencies across various phases, which results in a fragmented and ineffective development process. In this paper, we introduce ChatDev, a chat-powered software development framework in which specialized agents driven by large language models (LLMs) are guided in what to communicate (via chat chain) and how to communicate (via communicative dehallucination). These agents actively contribute to the design, coding, and testing phases through unified language-based communication, with solutions derived from their multi-turn dialogues. We found their utilization of natural language is advantageous for system design, and communicating in programming language proves helpful in debugging. This paradigm demonstrates how linguistic communication facilitates multi-agent collaboration, establishing language as a unifying bridge for autonomous task-solving among LLM agents. The code and data are available at"
+    },
+    {
+      "paper_id": "2307.07924",
+      "file_name": "2307.07924_ChatDev_Communicative_Ag.pdf",
+      "page_number": 1,
+      "section": "Introduction",
+      "text": "Large language models (LLMs) have led to substantial transformations due to their ability to effortlessly integrate extensive knowledge expressed in language (Brown et al., 2020;Bubeck et al., 2023), combined with their strong capacity for roleplaying within designated roles (Park et al., 2023;Hua et al., 2023;Chen et al., 2023b). This advancement eliminates the need for model-specific designs and delivers impressive performance in : Corresponding Author. diverse downstream applications. Furthermore, autonomous agents (Richards, 2023;Zhou et al., 2023a) have gained attention for enhancing the capabilities of LLMs with advanced features such as context-aware memory (Sumers et al., 2023), multistep planning (Liu et al., 2023), and strategic tool using (Schick et al., 2023). Software development is a complex task that necessitates cooperation among multiple members with diverse skills (e.g., architects, programmers, and testers) (Basili, 1989;Sawyer and Guinan, 1998). This entails extensive communication among different roles to understand and analyze requirements through natural language, while also encompassing development and debugging using programming languages (Ernst, 2017;Banker et al., 1998). Numerous studies use deep learning to improve specific phases of the waterfall model in software development, such as design, coding, and testing (Pudlitz et al., 2019;Martín and Abran, 2015;Gao et al., 2019;Wang et al., 2016). Due to these technical inconsistencies, methods employed in different phases remain isolated until now. Every phase, from data collection and labeling to model training and inference, requires its unique designs, leading to a fragmented and less efficient development process in the field (Freeman et al., 2001;Ernst, 2017;Winkler et al., 2020)."
+    },
+    {
+      "paper_id": "2307.07924",
+      "file_name": "2307.07924_ChatDev_Communicative_Ag.pdf",
+      "page_number": 1,
+      "section": "Introduction",
+      "text": "Motivated by the expert-like potential of autonomous agents, we aim to establish language as a unifying bridge-utilizing multiple LLM-powered agents with specialized roles for cooperative software development through language-based communication across different phases; solutions in different phases are derived from their multi-turn dialogues, whether dealing with text or code. Nevertheless, due to the tendency of LLM hallucinations (Dhuliawala et al., 2023;Zhang et al., 2023b), the strategy of generating software through communicative agents could lead to the non-trivial challenge of coding hallucinations, which involves the generation of source code that is incomplete, unexecutable, or inaccurate, ultimately failing to fulfill the intended requirements (Agnihotri and Chug, 2020). The frequent occurrence of coding hallucination in turn reflects the constrained autonomy of agents in task completion, inevitably demanding additional manual intervention and thereby hindering the immediate usability and reliability of the generated software (Ji et al., 2023)."
+    },
+    {
+      "paper_id": "2307.07924",
+      "file_name": "2307.07924_ChatDev_Communicative_Ag.pdf",
+      "page_number": 1,
+      "section": "Introduction",
+      "text": "In this paper, we propose ChatDev (see Figure 1), a ::: chat-powered software-::: development framework integrating multiple \"software agents\" for active involvement in three core phases of the software lifecycle: design, coding, and testing. Technically, ChatDev uses a chat chain to divide each phase into smaller subtasks further, enabling agents' multi-turn communications to cooperatively propose and develop solutions (e.g., creative ideas or source code). The chain-structured workflow guides agents on what to communicate, fostering cooperation and smoothly linking natural-and programming-language subtasks to propel problemsolving. Additionally, to minimize coding hallucinations, ChatDev includes an communicative dehallucination mechanism, enabling agents to actively request more specific details before giving direct responses. The communication pattern instructs agents on how to communicate, enabling precise information exchange for effective solution optimization while reducing coding hallucinations. We built a comprehensive dataset containing software requirement descriptions and conducted comprehensive analyses. The results indicate that ChatDev notably improves the quality of software, leading to improved completeness, executability, and better consistency with requirements. Further investigations reveal that natural-language communications contribute to comprehensive system design, while programming-language communications drive software optimization. In summary, the proposed paradigm demonstrates how linguistic communication facilitates multi-agent collaboration, establishing language as a unifying bridge for autonomous task-solving among LLM agents."
+    },
+    {
+      "paper_id": "2307.07924",
+      "file_name": "2307.07924_ChatDev_Communicative_Ag.pdf",
+      "page_number": 1,
+      "section": "Related Work",
+      "text": "Trained on vast datasets to comprehend and manipulate billions of parameters, LLMs have become pivotal in natural language processing due to their seamless integration of extensive knowledge (Brown et al., 2020;Bubeck et al., 2023;Vaswani et al., 2017;Radford et al.;Touvron et al., 2023;Wei et al., 2022a;Shanahan et al., 2023;Chen et al., 2021;Brants et al., 2007;Chen et al., 2021;Ouyang et al., 2022;Yang et al., 2023a;Qin et al., 2023b;Kaplan et al., 2020). Furthermore, LLMs have demonstrated strong role-playing abilities (Li et al., 2023a;Park et al., 2023;Hua et al., 2023;Chan et al., 2023;Zhou et al., 2023b;Chen et al., 2023b,a;Cohen et al., 2023;Li et al., 2023b). Recent progress, particularly in the field of autonomous agents (Zhou et al., 2023a;Wang et al., 2023a;Park et al., 2023;Wang et al., 2023e;Richards, 2023;Osika, 2023;Wang et al., 2023d), is largely attributed to the foundational advances in LLMs. These agents utilize the robust capabilities of LLMs, displaying remarkable skills in memory (Park et al., 2023;Sumers et al., 2023), planning (Chen et al., 2023b;Liu et al., 2023) and tool use (Schick et al., 2023;Cai et al., 2023;Qin et al., 2023a;Ruan et al., 2023;Yang et al., 2023b), enabling them to reason in complex scenarios (Wei et al., 2022b;Zhao et al., 2023;Zhou et al., 2023a;Ma et al., 2023;Zhang et al., 2023a;Wang et al., 2023b;Ding et al., 2023;Weng, 2023)."
+    },
+    {
+      "paper_id": "2307.07924",
+      "file_name": "2307.07924_ChatDev_Communicative_Ag.pdf",
+      "page_number": 1,
+      "section": "Related Work",
+      "text": "Software development is a multifaceted and intricate process that requires the cooperation of multiple experts from various fields (Yilmaz et al., 2012;Acuna et al., 2006;Basili, 1989;Sawyer and Guinan, 1998;Banker et al., 1998;France and Rumpe, 2007), encompassing the requirement analysis and system design in natural lan- guages (Pudlitz et al., 2019;Martín and Abran, 2015;Nahar et al., 2022), along with system development and debugging in programming languages (Gao et al., 2019;Wang et al., 2016;Wan et al., 2022). Numerous studies employ the waterfall model, a particular software development life cycle, to segment the process into discrete phases (e.g., design, coding, testing) and apply deep learning to improve the effectiveness of certain phases (Winkler et al., 2020;Ezzini et al., 2022;Thaller et al., 2019;Zhao et al., 2021;Nijkamp et al., 2023;Wan et al., 2018;Wang et al., 2021)."
+    },
+    {
+      "paper_id": "2307.07924",
+      "file_name": "2307.07924_ChatDev_Communicative_Ag.pdf",
+      "page_number": 1,
+      "section": "ChatDev",
+      "text": "We introduce ChatDev, a :::: chat-powered software-:::"
+    },
+    {
+      "paper_id": "2307.07924",
+      "file_name": "2307.07924_ChatDev_Communicative_Ag.pdf",
+      "page_number": 1,
+      "section": "ChatDev",
+      "text": "development framework that integrates multiple \"software agents\" with various social roles (e.g., requirements analysts, professional programmers and test engineers) collaborating in the core phases of the software life cycle, see Figure 1. Technically, to facilitate cooperative communication, ChatDev introduces chat chain to further break down each phase into smaller and manageable subtasks, which guides multi-turn communications between different roles to propose and validate solutions for each subtask. In addition, to alleviate unexpected hallucinations, a communicative pattern named communicative dehallucination is devised, wherein agents request more detailed information before responding directly and then continue the next round of communication based on these details."
+    },
+    {
+      "paper_id": "2307.07924",
+      "file_name": "2307.07924_ChatDev_Communicative_Ag.pdf",
+      "page_number": 1,
+      "section": "Chat Chain",
+      "text": "Although LLMs show a good understanding of natural and programming languages, efficiently trans-forming textual requirements into functional software in a single step remains a significant challenge. ChatDev thus adopts the core principles of the waterfall model, using a chat chain (C) with sequential phases (P), each comprising sequential subtasks (T ). Specifically, ChatDev segments the software development process into three sequential phases: design, coding, and testing. The coding phase is further subdivided into subtasks of code writing and completion, and the testing phase is segmented into code review (static testing) and system testing (dynamic testing), as illustrated in Figure 2. In every subtask, two agents, each with their own specialized roles (e.g., a reviewer skilled at identifying endless loops and a programmer adept in GUI design), perform the functions of an instructor (I) and an assistant (A). The instructor agent initiates instructions, instructing (→) the discourse toward the completion of the subtask, while the assistant agent adheres to these instructions and responds with (;) appropriate solutions. They engage in a multi-turn dialogue (C), working cooperatively until they achieve consensus, extracting (τ ) solutions that can range from the text (e.g., defining a software function point) to code (e.g., creating the initial version of source code), ultimately leading to the completion of the subtask. The entire tasksolving process along the agentic workflow can be formulated as:"
+    },
+    {
+      "paper_id": "2307.07924",
+      "file_name": "2307.07924_ChatDev_Communicative_Ag.pdf",
+      "page_number": 1,
+      "section": "Chat Chain",
+      "text": "The dual-agent communication design simplifies communications by avoiding complex multi-agent topologies, effectively streamlining the consensusreaching process (Yin et al., 2023;Chen et al., 2023b). Subsequently, the solutions from previous tasks serve as bridges to the next phase, allowing a smooth transition between subtasks. This approach continues until all subtasks are completed. It's worth noting that the conceptually simple but empirically powerful chain-style structure guides agents on what to communicate, fostering cooperation and smoothly linking natural-and programming-language subtasks. It also offers a transparent view of the entire software development process, allowing for the examination of intermediate solutions and assisting in identifying possible problems."
+    },
+    {
+      "paper_id": "2307.07924",
+      "file_name": "2307.07924_ChatDev_Communicative_Ag.pdf",
+      "page_number": 1,
+      "section": "Chat Chain",
+      "text": "Agentization To enhance the quality and reduce human intervention, ChatDev implements prompt engineering that only takes place at the start of each subtask round. As soon as the communication phase begins, the instructor and the assistant will communicate with each other in an automated loop, continuing this exchange until the task concludes. However, simply exchanging responses cannot achieve effective multi-round task-oriented communication, since it inevitably faces significant challenges including role flipping, instruction repeating, and fake replies. As a result, there is a failure to advance the progression of productive communications and hinders the achievement of meaningful solutions. ChatDev thus employs inception prompting mechanism (Li et al., 2023a) for initiating, sustaining, and concluding agents' communication to guarantee a robust and efficient workflow. This mechanism is composed of the instructor system prompt P I and the assistant system prompt P A . The system prompts for both roles are mostly symmetrical, covering the overview and objectives of the current subtask, specialized roles, accessible external tools, communication protocols, termination conditions, and constraints or requirements to avoid undesirable behaviors. Then, an instructor I and an assistant A are instantiated by hypnotizing LLMs via P I and P A :"
+    },
+    {
+      "paper_id": "2307.07924",
+      "file_name": "2307.07924_ChatDev_Communicative_Ag.pdf",
+      "page_number": 1,
+      "section": "Chat Chain",
+      "text": "where ρ is the role customization operation, implemented via system message assignment."
+    },
+    {
+      "paper_id": "2307.07924",
+      "file_name": "2307.07924_ChatDev_Communicative_Ag.pdf",
+      "page_number": 1,
+      "section": "Chat Chain",
+      "text": "Memory Note that the limited context length of common LLMs typically restricts the ability to maintain a complete communication history among all agents and phases. To tackle this issue, based on the nature of the chat chain, we accordingly segment the agents' context memories based on their sequential phases, resulting in two functionally distinct types of memory: short-term memory and long-term memory. Short-term memory is utilized to sustain the continuity of the dialogue within a single phase, while long-term memory is leveraged to preserve contextual awareness across different phases."
+    },
+    {
+      "paper_id": "2307.07924",
+      "file_name": "2307.07924_ChatDev_Communicative_Ag.pdf",
+      "page_number": 1,
+      "section": "Chat Chain",
+      "text": "Formally, short-term memory records an agent's current phase utterances, aiding context-aware decision-making. At the time t during phase P i , we use I i t to represent the instructor's instruction and A i t for the assistant's response. The short-term memory M collects utterances up to time t as:"
+    },
+    {
+      "paper_id": "2307.07924",
+      "file_name": "2307.07924_ChatDev_Communicative_Ag.pdf",
+      "page_number": 1,
+      "section": "Chat Chain",
+      "text": "In the next time step t + 1, the instructor utilizes the current memory to generate a new instruction I i t+1 , which is then conveyed to the assistant to produce a new response A i t+1 . The short-term memory iteratively updates until the number of communications reaches the upper limit |M i |:"
+    },
+    {
+      "paper_id": "2307.07924",
+      "file_name": "2307.07924_ChatDev_Communicative_Ag.pdf",
+      "page_number": 1,
+      "section": "Chat Chain",
+      "text": "To perceive dialogues through previous phases, the chat chain only transmits the solutions from previous phases as long-term memories M, integrating them at the start of the next phase and enabling the cross-phase transmission of long dialogues:"
+    },
+    {
+      "paper_id": "2307.07924",
+      "file_name": "2307.07924_ChatDev_Communicative_Ag.pdf",
+      "page_number": 1,
+      "section": "Chat Chain",
+      "text": "where P symbolizes a predetermined prompt that appears exclusively at the start of each phase. By sharing only the solutions of each subtask rather than the entire communication history, Chat-Dev minimizes the risk of being overwhelmed by too much information, enhancing concentration on each task and encouraging more targeted cooperation, while simultaneously facilitating cross-phase context continuity."
+    },
+    {
+      "paper_id": "2307.07924",
+      "file_name": "2307.07924_ChatDev_Communicative_Ag.pdf",
+      "page_number": 1,
+      "section": "Communicative Dehallucination",
+      "text": "LLM hallucinations manifest when models generate outputs that are nonsensical, factually incorrect, or inaccurate (Dhuliawala et al., 2023;Zhang et al., 2023b). This issue is particularly concerning in software development, where programming languages demand precise syntax-the absence of even a single line can lead to system failure. We have observed that LLMs often produce coding hallucinations, which encompass potential issues like incomplete implementations, unexecutable code, and inconsistencies that don't meet requirements. Coding hallucinations frequently appear when the assistant struggles to precisely follow instructions, often due to the vagueness and generality of certain instructions that require multiple adjustments, making it challenging for agents to achieve full compliance. Inspired by this, we introduce communicative dehallucination, which encourages the assistant to actively seek more detailed suggestions from the instructor before delivering a formal response."
+    },
+    {
+      "paper_id": "2307.07924",
+      "file_name": "2307.07924_ChatDev_Communicative_Ag.pdf",
+      "page_number": 1,
+      "section": "Communicative Dehallucination",
+      "text": "Specifically, a vanilla communication pattern between the assistant and the instructor follows a straightforward instruction-response format:"
+    },
+    {
+      "paper_id": "2307.07924",
+      "file_name": "2307.07924_ChatDev_Communicative_Ag.pdf",
+      "page_number": 1,
+      "section": "Communicative Dehallucination",
+      "text": "In contrast, our communicative dehallucination mechanism features a deliberate \"role reversal\", where the assistant takes on an instructor-like role, proactively seeking more specific information (e.g., the precise name of an external dependency and its related class) before delivering a conclusive response. After the instructor provides a specific modification suggestion, the assistant proceeds to perform precise optimization:"
+    },
+    {
+      "paper_id": "2307.07924",
+      "file_name": "2307.07924_ChatDev_Communicative_Ag.pdf",
+      "page_number": 1,
+      "section": "Communicative Dehallucination",
+      "text": "Since this mechanism tackles one concrete issue at a time, it requires multiple rounds of communication to optimize various potential problems. The communication pattern instructs agents on how to communicate, enabling finer-grained information exchange for effective solution optimization, which practically aids in reducing coding hallucinations."
+    },
+    {
+      "paper_id": "2307.07924",
+      "file_name": "2307.07924_ChatDev_Communicative_Ag.pdf",
+      "page_number": 1,
+      "section": "Evaluation",
+      "text": "Baselines We chose some representative LLMbased software development methods as our baselines. GPT-Engineer (Osika, 2023) is a fundamental single-agent approach in LLM-driven software agents with a precise understanding of task requirements and the application of one-step reasoning, which highlights its efficiency in generating detailed software solutions at the repository level."
+    },
+    {
+      "paper_id": "2307.07924",
+      "file_name": "2307.07924_ChatDev_Communicative_Ag.pdf",
+      "page_number": 1,
+      "section": "Evaluation",
+      "text": "MetaGPT (Hong et al., 2023)  Metrics Evaluating software is also a challenging task, especially when trying to assess it on a holistic level. Under the current limitation of scarce benchmark resources, traditional function-oriented code generation metrics (e.g., pass@k), cannot seamlessly transfer to a comprehensive evaluation of entire software systems. The main reason for this is that it is often impractical to develop manual or automated test cases for various types of software, especially those involving complex interfaces, frequent user interactions, or non-deterministic feedback. As an initial strategy, we apply three fundamental and objective dimensions that reflect different aspects of coding hallucinations to evaluate the agent-generated software, and then integrate them to facilitate a more holistic evaluation:"
+    },
+    {
+      "paper_id": "2307.07924",
+      "file_name": "2307.07924_ChatDev_Communicative_Ag.pdf",
+      "page_number": 1,
+      "section": "Evaluation",
+      "text": "• Completeness measures the software's ability to fulfill code completion in software development, quantified as the percentage of software without any \"placeholder\" code snippets. A higher score indicates a higher probability of automated completion.  • Executability assesses the software's ability to run correctly within a compilation environment, quantified as the percentage of software that compiles successfully and can run directly. A higher score indicates a higher probability of successful execution. • Consistency measures how closely the generated software code aligns with the original requirement description, quantified as the cosine distance between the semantic embeddings of the textual requirements and the generated software code 1 . A higher score indicates a greater degree of consistency with the requirements. • Quality is a comprehensive metric that integrates various factors to assess the overall quality of software, quantified by multiplying 2 completeness, executability, and consistency. A higher quality score suggests a higher overall satisfaction with the software generated, implying a lower need for further manual intervention."
+    },
+    {
+      "paper_id": "2307.07924",
+      "file_name": "2307.07924_ChatDev_Communicative_Ag.pdf",
+      "page_number": 1,
+      "section": "Method",
+      "text": "Implementation Details We divided software development into 5 subtasks within 3 phases, assigning specific roles like CEO, CTO, programmer, reviewer, and tester. A subtask would terminate and get a conclusion either after two unchanged code modifications or after 10 rounds of communication. During the code completion, review, and testing, a communicative dehallucination is activated. For ease of identifying solutions, the assistant begins responses with \"<SOLUTION>\" when 1 Comments should be excluded from the code to avoid potential information leakage during evaluations."
+    },
+    {
+      "paper_id": "2307.07924",
+      "file_name": "2307.07924_ChatDev_Communicative_Ag.pdf",
+      "page_number": 1,
+      "section": "Method",
+      "text": "2 One can also choose to average the sub-metrics, which yields similar trends. Table 3: Software statistics include Duration (time consumed), #Tokens (number of tokens used), #Files (number of code files generated), and #Lines (total lines of code across all files) in the software generation process."
+    },
+    {
+      "paper_id": "2307.07924",
+      "file_name": "2307.07924_ChatDev_Communicative_Ag.pdf",
+      "page_number": 1,
+      "section": "Method",
+      "text": "a consensus is reached. We used ChatGPT-3.5 with a temperature of 0.2 and integrated Python-3.11.4 for feedback. All baselines in the evaluation share the same hyperparameters and settings for fairness."
+    },
+    {
+      "paper_id": "2307.07924",
+      "file_name": "2307.07924_ChatDev_Communicative_Ag.pdf",
+      "page_number": 1,
+      "section": "Overall Performance",
+      "text": "As illustrated in Table 1, ChatDev outperforms all baseline methods across all metrics, showing a considerable margin of improvement. Firstly, the improvement of ChatDev and MetaGPT over GPT-Engineer demonstrates that complex tasks are difficult to solve in a single-step solution. Therefore, explicitly decomposing the difficult problem into several smaller, more manageable subtasks enhances the effectiveness of task completion. Additionally, in comparison to MetaGPT, ChatDev significantly raises the Quality from 0.1523 to 0.3953. This advancement is largely attributed to the agents employing a cooperative communication method, which involves autonomously proposing and continuously refining source code through a blend of natural and programming languages, as opposed to merely delivering responses based on humanpredefined instructions. The communicative agents guide each subtask towards integrated and automated solutions, efficiently overcoming the restrictions typically linked to manually established optimization rules, and offering a more versatile and adaptable framework for problem-solving."
+    },
+    {
+      "paper_id": "2307.07924",
+      "file_name": "2307.07924_ChatDev_Communicative_Ag.pdf",
+      "page_number": 1,
+      "section": "Overall Performance",
+      "text": "To further understand user preferences in practical settings, we use the setting adopted by Li et al. (2023a), where agent-generated solutions are com- Table 4: Ablation study on main components or mechanisms. ≤ x denotes halting the chat chain after the completion of the x phrase, and ⧹ denotes the removing operation. CDH denotes the communicative dehallucination mechanism."
+    },
+    {
+      "paper_id": "2307.07924",
+      "file_name": "2307.07924_ChatDev_Communicative_Ag.pdf",
+      "page_number": 1,
+      "section": "Overall Performance",
+      "text": "pared in pairs by both human participants and the prevalent GPT-4 model to identify the preferred one. 3 Table 2 shows ChatDev consistently outperforming other baselines, with higher average win rates in both GPT-4 and human evaluations. Furthermore, the software statistics presented in Table 3 indicates that the multi-agent paradigm, despite being slower and consuming more tokens than the single-agent method, yields a greater number of code files and a larger codebase, which may enhance the software's functionality and integrity. Analyzing the dialogues of agents suggests that the multi-agent communication method often leads agents to autonomously offer functional enhancements (e.g., GUI creation or increasing game difficulty), thereby potentially resulting in the incorporation of beneficial features that were not explicitly specified in requirements. Taking all these factors together, we posit that the fundamental characteristics of multi-agent software development take on greater significance, surpassing short-term concerns like time and economic costs in the current landscape."
+    },
+    {
+      "paper_id": "2307.07924",
+      "file_name": "2307.07924_ChatDev_Communicative_Ag.pdf",
+      "page_number": 1,
+      "section": "Ablation Study",
+      "text": "This section examines key components or mechanisms within our multi-agent cooperation framework by removing particular phases in the chat chain, communicative dehallucination, or the roles assigned to all agents in their system prompts. Figure 4 shows that the code complete phase enhances Completeness, with testing critical for Executability. Quality steadily rises with each step, suggesting that software development optimization is progressively attained through multi-phase communica-3 For fairness, GPT-4's evaluation mitigated possible positional bias (Wang et al., 2023c), and human experts independently assessed the task solutions, randomized to prevent order bias.  tions among intelligent agents. Meanwhile, eliminating communicative dehallucination results in a decrease across all metrics, indicating its effectiveness in addressing coding hallucinations. Most interestingly, the most substantial impact on performance occurs when the roles of all agents are removed from their system prompts. Detailed dialogue analysis shows that assigning a \"prefer GUI design\" role to a programmer results in generated source code with relevant GUI implementations; in the absence of such role indications, it defaults to implement unfriend command-line-only programs only. Likewise, assigning roles such as a \"careful reviewer for bug detection\" enhances the chances of discovering code vulnerabilities; without such roles, feedback tends to be high-level, leading to limited adjustments by the programmer. This finding underscores the importance of assigning roles in eliciting responses from LLMs, underscoring the significant influence of multi-agent cooperation on software quality."
+    },
+    {
+      "paper_id": "2307.07924",
+      "file_name": "2307.07924_ChatDev_Communicative_Ag.pdf",
+      "page_number": 1,
+      "section": "Communication Analysis",
+      "text": "Our agent-driven software development paradigm promotes cooperative agents through effective communication for automated solution optimization. Phases in the chat chain have varying levels of engagement in natural and programming languages.  We now analyze the content of their communications to understand linguistic effects. Figure 3 depicts a communication breakdown, with natural language at 57.20%. In the naturallanguage phase (i.e., design), natural language communication plays a crucial role in the thorough design of the system, with agents autonomously discussing and designing aspects like target user, data management, and user interface. Post-design phases show a balanced mix of coding, code completion, and testing activities, with most communication occurring during code reviews. This trend is due to agents' self-reviews and code fixes consistently propelling software development; otherwise, progress halts when successive updates don't show significant changes, leading to a natural decrease in code review communications."
+    },
+    {
+      "paper_id": "2307.07924",
+      "file_name": "2307.07924_ChatDev_Communicative_Ag.pdf",
+      "page_number": 1,
+      "section": "Communication Analysis",
+      "text": "We explore the properties of static debugging dynamics in code reviews resulting from communication between reviewers and programmers, as depicted in Figure 4. The data uncovers that during the review phase, reviewers may spot different issues through language interactions. The programmer's intervention can transform certain issues into different ones or a state where no further suggestions are needed; the increasing proportion of the latter indicates successful software optimization. Particularly, the \"Method Not Implemented\" issue is most common in communication between reviewers and programmers during code reviews, accounting for 34.85% of discussions. This problem usually arises from unclear text requirements and the use of \"placeholder\" tags in Python code, necessitating additional manual adjustments. Furthermore, the \"Module Not Imported\" issue often arises due to code generation omitting crucial details. Apart from common problems, reviewers often focus on enhancing code robustness by identifying rare exceptions, unused classes, or potential infinite loops."
+    },
+    {
+      "paper_id": "2307.07924",
+      "file_name": "2307.07924_ChatDev_Communicative_Ag.pdf",
+      "page_number": 1,
+      "section": "Communication Analysis",
+      "text": "Likewise, we analyze the tester-programmer communication during the testing phase, illustrating the dynamic debugging dynamics in their multi-turn interactions with compiler feedback, as depicted in Figure 5. The likelihood of successful compilation at each step is generally higher than encountering errors, with most errors persisting and a lower probability of transforming into different errors. The most frequent error is \"ModuleNotFound\" (45.76%), followed by \"NameError\" and \"ImportError\" (each at 15.25%). The observation highlights the model's tendency to overlook basic elements like an \"import\" statement, underscoring its difficulty in managing intricate details during code generation. Besides, the tester also detects rarer errors like improperly initialized GUIs, incorrect method calls, missing file dependencies, and unused modules. The communicative dehallucination mechanism effectively resolves certain errors, frequently resulting in \"compilation success\" after code changes. There's a significantly low chance of returning to an error state from a successful compilation. Over time, the multi-turn communication process statisti- cally shows a consistent decrease in errors, steadily moving towards successful software execution."
+    },
+    {
+      "paper_id": "2307.07924",
+      "file_name": "2307.07924_ChatDev_Communicative_Ag.pdf",
+      "page_number": 1,
+      "section": "Conclusion",
+      "text": "We have introduced ChatDev, an innovative multiagent collaboration framework for software development that utilizes multiple LLM-powered agents to integrate fragmented phases of the waterfall model into a cohesive communication system. It features chat chain organizing communication targets and dehallucination for resolving coding hallucinations. The results demonstrate its superiority and highlight the benefits of multi-turn communications in software optimization. We aim for the insights to advance LLM agents towards increased autonomy and illuminate the profound effects of \"language\" and its empowering role across an even broader spectrum of applications."
+    },
+    {
+      "paper_id": "2307.07924",
+      "file_name": "2307.07924_ChatDev_Communicative_Ag.pdf",
+      "page_number": 1,
+      "section": "Limitations",
+      "text": "Our study explores the potential of cooperative autonomous agents in software development, but certain limitations and risks must be considered by researchers and practitioners. Firstly, the capabilities of autonomous agents in software production might be overestimated. While they enhance development quality, agents often implement simple logic, resulting in low information density. Without clear, detailed requirements, agents struggle to grasp task ideas. For instance, vague guidelines in developing a Snake game lead to basic representa-tions; in information management systems, agents might retrieve static key-value placeholders instead of external databases. Therefore, it is crucial to clearly define detailed software requirements. Currently, these technologies are more suitable for prototype systems rather than complex real-world applications. Secondly, unlike traditional functionlevel code generation, automating the evaluation of general-purpose software is highly complex. While some efforts have focused on Human Revision Cost (Hong et al., 2023), manual verification for large datasets is impractical. Our paper emphasizes completeness, executability, consistency, and overall quality, but future research should consider additional factors such as functionalities, robustness, safety, and user-friendliness. Thirdly, compared to single-agent approaches, multiple agents require more tokens and time, increasing computational demands and environmental impact. Future research should aim to enhance agent capabilities with fewer interactions. Despite these limitations, we believe that engaging a broader, technically proficient audience can unlock additional potential directions in LLM-powered multi-agent collaboration."
+    }
+  ],
+  "figures": [
+    {
+      "figure_id": "FIG-2307.07924-P1-2",
+      "page_number": 1,
+      "file_path": "data/figures\\2307.07924\\fig_p1_2.png",
+      "dimensions": "136x248",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P1-3",
+      "page_number": 1,
+      "file_path": "data/figures\\2307.07924\\fig_p1_3.png",
+      "dimensions": "272x328",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P1-4",
+      "page_number": 1,
+      "file_path": "data/figures\\2307.07924\\fig_p1_4.png",
+      "dimensions": "1081x204",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P1-5",
+      "page_number": 1,
+      "file_path": "data/figures\\2307.07924\\fig_p1_5.png",
+      "dimensions": "546x450",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P1-6",
+      "page_number": 1,
+      "file_path": "data/figures\\2307.07924\\fig_p1_6.png",
+      "dimensions": "184x264",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P1-7",
+      "page_number": 1,
+      "file_path": "data/figures\\2307.07924\\fig_p1_7.png",
+      "dimensions": "200x240",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P1-8",
+      "page_number": 1,
+      "file_path": "data/figures\\2307.07924\\fig_p1_8.png",
+      "dimensions": "152x248",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P1-9",
+      "page_number": 1,
+      "file_path": "data/figures\\2307.07924\\fig_p1_9.png",
+      "dimensions": "464x316",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P1-10",
+      "page_number": 1,
+      "file_path": "data/figures\\2307.07924\\fig_p1_10.png",
+      "dimensions": "208x280",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P1-11",
+      "page_number": 1,
+      "file_path": "data/figures\\2307.07924\\fig_p1_11.png",
+      "dimensions": "240x328",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P1-12",
+      "page_number": 1,
+      "file_path": "data/figures\\2307.07924\\fig_p1_12.png",
+      "dimensions": "2549x1841",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P1-13",
+      "page_number": 1,
+      "file_path": "data/figures\\2307.07924\\fig_p1_13.png",
+      "dimensions": "543x135",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P1-14",
+      "page_number": 1,
+      "file_path": "data/figures\\2307.07924\\fig_p1_14.png",
+      "dimensions": "719x592",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P1-15",
+      "page_number": 1,
+      "file_path": "data/figures\\2307.07924\\fig_p1_15.png",
+      "dimensions": "136x240",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P1-16",
+      "page_number": 1,
+      "file_path": "data/figures\\2307.07924\\fig_p1_16.png",
+      "dimensions": "160x248",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P1-17",
+      "page_number": 1,
+      "file_path": "data/figures\\2307.07924\\fig_p1_17.png",
+      "dimensions": "152x248",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P1-18",
+      "page_number": 1,
+      "file_path": "data/figures\\2307.07924\\fig_p1_18.png",
+      "dimensions": "158x248",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P1-19",
+      "page_number": 1,
+      "file_path": "data/figures\\2307.07924\\fig_p1_19.png",
+      "dimensions": "146x284",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P1-20",
+      "page_number": 1,
+      "file_path": "data/figures\\2307.07924\\fig_p1_20.png",
+      "dimensions": "192x248",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P1-21",
+      "page_number": 1,
+      "file_path": "data/figures\\2307.07924\\fig_p1_21.png",
+      "dimensions": "160x248",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P1-22",
+      "page_number": 1,
+      "file_path": "data/figures\\2307.07924\\fig_p1_22.png",
+      "dimensions": "176x248",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P1-23",
+      "page_number": 1,
+      "file_path": "data/figures\\2307.07924\\fig_p1_23.png",
+      "dimensions": "819x817",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P1-24",
+      "page_number": 1,
+      "file_path": "data/figures\\2307.07924\\fig_p1_24.png",
+      "dimensions": "463x135",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P1-25",
+      "page_number": 1,
+      "file_path": "data/figures\\2307.07924\\fig_p1_25.png",
+      "dimensions": "150x248",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P1-26",
+      "page_number": 1,
+      "file_path": "data/figures\\2307.07924\\fig_p1_26.png",
+      "dimensions": "216x296",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P1-28",
+      "page_number": 1,
+      "file_path": "data/figures\\2307.07924\\fig_p1_28.png",
+      "dimensions": "245x261",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P1-29",
+      "page_number": 1,
+      "file_path": "data/figures\\2307.07924\\fig_p1_29.png",
+      "dimensions": "512x512",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P1-30",
+      "page_number": 1,
+      "file_path": "data/figures\\2307.07924\\fig_p1_30.png",
+      "dimensions": "360x433",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P1-31",
+      "page_number": 1,
+      "file_path": "data/figures\\2307.07924\\fig_p1_31.png",
+      "dimensions": "888x250",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P1-32",
+      "page_number": 1,
+      "file_path": "data/figures\\2307.07924\\fig_p1_32.png",
+      "dimensions": "1024x933",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P1-33",
+      "page_number": 1,
+      "file_path": "data/figures\\2307.07924\\fig_p1_33.png",
+      "dimensions": "588x520",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P1-34",
+      "page_number": 1,
+      "file_path": "data/figures\\2307.07924\\fig_p1_34.png",
+      "dimensions": "392x176",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P1-35",
+      "page_number": 1,
+      "file_path": "data/figures\\2307.07924\\fig_p1_35.png",
+      "dimensions": "448x216",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P1-36",
+      "page_number": 1,
+      "file_path": "data/figures\\2307.07924\\fig_p1_36.png",
+      "dimensions": "106x114",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P1-37",
+      "page_number": 1,
+      "file_path": "data/figures\\2307.07924\\fig_p1_37.png",
+      "dimensions": "224x168",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P1-38",
+      "page_number": 1,
+      "file_path": "data/figures\\2307.07924\\fig_p1_38.png",
+      "dimensions": "368x104",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P1-39",
+      "page_number": 1,
+      "file_path": "data/figures\\2307.07924\\fig_p1_39.png",
+      "dimensions": "160x248",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P1-45",
+      "page_number": 1,
+      "file_path": "data/figures\\2307.07924\\fig_p1_45.png",
+      "dimensions": "152x240",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P1-48",
+      "page_number": 1,
+      "file_path": "data/figures\\2307.07924\\fig_p1_48.png",
+      "dimensions": "152x248",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P1-49",
+      "page_number": 1,
+      "file_path": "data/figures\\2307.07924\\fig_p1_49.png",
+      "dimensions": "695x572",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P1-50",
+      "page_number": 1,
+      "file_path": "data/figures\\2307.07924\\fig_p1_50.png",
+      "dimensions": "152x240",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P1-51",
+      "page_number": 1,
+      "file_path": "data/figures\\2307.07924\\fig_p1_51.png",
+      "dimensions": "152x248",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P3-1",
+      "page_number": 3,
+      "file_path": "data/figures\\2307.07924\\fig_p3_1.png",
+      "dimensions": "208x280",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P3-7",
+      "page_number": 3,
+      "file_path": "data/figures\\2307.07924\\fig_p3_7.png",
+      "dimensions": "160x248",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P3-8",
+      "page_number": 3,
+      "file_path": "data/figures\\2307.07924\\fig_p3_8.png",
+      "dimensions": "1078x1177",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P3-9",
+      "page_number": 3,
+      "file_path": "data/figures\\2307.07924\\fig_p3_9.png",
+      "dimensions": "160x248",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P3-10",
+      "page_number": 3,
+      "file_path": "data/figures\\2307.07924\\fig_p3_10.png",
+      "dimensions": "160x248",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P3-11",
+      "page_number": 3,
+      "file_path": "data/figures\\2307.07924\\fig_p3_11.png",
+      "dimensions": "160x248",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P6-1",
+      "page_number": 6,
+      "file_path": "data/figures\\2307.07924\\fig_p6_1.png",
+      "dimensions": "404x365",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P6-2",
+      "page_number": 6,
+      "file_path": "data/figures\\2307.07924\\fig_p6_2.png",
+      "dimensions": "826x365",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P7-1",
+      "page_number": 7,
+      "file_path": "data/figures\\2307.07924\\fig_p7_1.png",
+      "dimensions": "639x411",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P7-2",
+      "page_number": 7,
+      "file_path": "data/figures\\2307.07924\\fig_p7_2.png",
+      "dimensions": "355x301",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P7-3",
+      "page_number": 7,
+      "file_path": "data/figures\\2307.07924\\fig_p7_3.png",
+      "dimensions": "378x193",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P7-4",
+      "page_number": 7,
+      "file_path": "data/figures\\2307.07924\\fig_p7_4.png",
+      "dimensions": "377x190",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P7-5",
+      "page_number": 7,
+      "file_path": "data/figures\\2307.07924\\fig_p7_5.png",
+      "dimensions": "348x280",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P7-6",
+      "page_number": 7,
+      "file_path": "data/figures\\2307.07924\\fig_p7_6.png",
+      "dimensions": "287x324",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P7-7",
+      "page_number": 7,
+      "file_path": "data/figures\\2307.07924\\fig_p7_7.png",
+      "dimensions": "234x354",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P7-8",
+      "page_number": 7,
+      "file_path": "data/figures\\2307.07924\\fig_p7_8.png",
+      "dimensions": "177x369",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P7-9",
+      "page_number": 7,
+      "file_path": "data/figures\\2307.07924\\fig_p7_9.png",
+      "dimensions": "129x376",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P7-12",
+      "page_number": 7,
+      "file_path": "data/figures\\2307.07924\\fig_p7_12.png",
+      "dimensions": "682x378",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P7-13",
+      "page_number": 7,
+      "file_path": "data/figures\\2307.07924\\fig_p7_13.png",
+      "dimensions": "334x351",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P7-14",
+      "page_number": 7,
+      "file_path": "data/figures\\2307.07924\\fig_p7_14.png",
+      "dimensions": "404x377",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P7-15",
+      "page_number": 7,
+      "file_path": "data/figures\\2307.07924\\fig_p7_15.png",
+      "dimensions": "547x480",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P7-16",
+      "page_number": 7,
+      "file_path": "data/figures\\2307.07924\\fig_p7_16.png",
+      "dimensions": "377x254",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P7-17",
+      "page_number": 7,
+      "file_path": "data/figures\\2307.07924\\fig_p7_17.png",
+      "dimensions": "370x378",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P7-18",
+      "page_number": 7,
+      "file_path": "data/figures\\2307.07924\\fig_p7_18.png",
+      "dimensions": "378x409",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2307.07924-P7-19",
+      "page_number": 7,
+      "file_path": "data/figures\\2307.07924\\fig_p7_19.png",
+      "dimensions": "419x378",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    }
+  ],
+  "figures_count": 67,
+  "vector_graphs": [
+    {
+      "page_number": 3,
+      "drawing_path_count": 81,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        595.2760009765625,
+        841.8900146484375
+      ]
+    },
+    {
+      "page_number": 7,
+      "drawing_path_count": 84,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        595.2760009765625,
+        841.8900146484375
+      ]
+    },
+    {
+      "page_number": 8,
+      "drawing_path_count": 398,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        595.2760009765625,
+        841.8900146484375
+      ]
+    },
+    {
+      "page_number": 9,
+      "drawing_path_count": 257,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        595.2760009765625,
+        841.8900146484375
+      ]
+    }
+  ],
+  "vector_graphs_count": 4
+}

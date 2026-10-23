@@ -1,28 +1,22 @@
 {
   "paper_id": "2308.03688",
   "paper_title": "AgentBench: Evaluating LLMs as Agents",
-  "authors": [
-    "Xiao Liu",
-    "Hao Yu",
-    "Huanqi Cao",
-    "Jianxian Huang",
-    "Uran Li",
-    "Chao Liu",
-    "Zhouhui Song",
-    "Zhenyu Lu",
-    "Xiang Shen",
-    "Yuantao Xie",
-    "Yu Gu",
-    "Duanying Yi",
-    "Yuxiao Dong",
-    "Jie Tang"
-  ],
+  "authors": [],
   "venue": "arXiv",
-  "core_problem": "The lack of a systematic and standardized multi-dimensional benchmark to evaluate Large Language Models (LLMs) acting as agents across diverse, open-ended environments rather than traditional single-turn tasks.",
-  "methodology_summary": "Introduction of AGENTBENCH, a multi-dimensional evaluation benchmark featuring 8 distinct environments with a Server-Client architecture. It supports modular, scalable, and API-centric evaluation with environment isolation and a unified toolkit to support multi-round interactive evaluation.",
+  "core_problem": "There is an urgent need to quantitatively evaluate Large Language Models as agents on challenging tasks in interactive environments. Existing evaluation focuses on individual procedures and lacks a standardized, multi-dimensional benchmark for LLM-as-Agent reasoning and decision-making in real-world scenarios.",
+  "methodology_summary": "We introduce AGENTBENCH, a comprehensive benchmark to standardize evaluation of LLMs as agents. It defines eight distinct environments of three types based on real-world scenarios, offering a practical testbed for a wide array of capabilities. A thorough evaluation of 29 different LLMs is performed using AGENTBENCH. An integrated evaluation toolkit grounded in a Server-Client architecture with modular and scalable design principles is introduced to enable easy customization of model assessments for any LLMs using HTTP protocol. Overall score is produced by first re-scaling each task's average score to 1 across all evaluated models and then averaging the scores across all tasks for each model.",
   "datasets_eval": [
-    "AGENTBENCH (consisting of 8 distinct agent environments, including Bash and SQL testing)"
+    "System",
+    "Database",
+    "Knowledge Graph",
+    "Digital Card Game",
+    "Lateral Thinking Puzzle",
+    "House-holding",
+    "Web Shopping",
+    "Web Browsing"
   ],
-  "empirical_results": "Comprehensive benchmarking of 29 different LLMs, revealing a wide array of insights into agent performance and showcasing that current open-source LLMs commonly fail to solve problems in several highly challenging agent tasks.",
-  "explicit_limitations": "Open-source LLMs frequently fail in complex environments; non-chat models require custom post-processors; and evaluated models are immediately deemed defeated if they fail to output legal actions within a specified number of rounds."
+  "empirical_results": "Extensive testing over 29 API-based and open-sourced LLMs shows top commercial LLMs present strong ability of acting as agents in complex environments, with a significant performance gap versus many OSS competitors no larger than 70B. Typical failure reasons are poor long-term reasoning, decision-making and instruction following. Improving instruction following and training on high-quality multi-round alignment data can improve agent performance. Code training has ambivalent impacts on different agent tasks, improving some while harming others. Models referenced include gpt-4 (0613), claude-3 (opus), glm-4, codellama-34b-instruct, vicuna-13b-v1.5, llama-2-70b.",
+  "explicit_limitations": "Database evaluation emphasizes the complete pipeline on authentic SQL interfaces, databases and query types rather than isolated translation or small-table QA; Success Rate is adopted as main metric. Evaluation prompt setup uses a two-role dialogue paradigm user and agent with conversation history (u0, a0, ..., uk, ak). Inference truncates history to keep token count of (u0, ar, ur+1, ..., uk) <= 3500, appending '[NOTICE] 2r messages are omitted.' into u0, which may omit earlier context.",
+  "generation_mode": "GENUINE_LLM",
+  "model_name": "NVIDIA_NIM (meta/muse-glimmer-30b)"
 }

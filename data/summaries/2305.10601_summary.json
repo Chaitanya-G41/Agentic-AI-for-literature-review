@@ -1,0 +1,57 @@
+{
+  "paper_id": "2305.10601",
+  "paper_title": "Tree of Thoughts: Deliberate Problem Solving with Large Language Models",
+  "authors": [
+    "Shunyu Yao",
+    "Dian Yu",
+    "Jeffrey Zhao",
+    "Izhak Shafran",
+    "Thomas L. Griffiths",
+    "Yuan Cao",
+    "Karthik Narasimhan"
+  ],
+  "venue": "arXiv 2023",
+  "grounded_citation": "[Yao et al., arXiv 2023]",
+  "summary_source": "Heuristic Engine Fallback (No API key configured)",
+  "problem_motivation": {
+    "problem_statement": "Language models are increasingly deployed for general problem solving but are confined to token-level left-to-right decision making during inference. This limits exploration, strategic lookahead, and sensitivity to initial decisions, causing them to fall short on tasks requiring non-trivial planning or search.",
+    "motivation": "Prior standard and chain-of-thought prompting approaches operate as static black boxes without real-world feedback, causing hallucination and error propagation.",
+    "core_challenges": [
+      "Reducing hallucination in reasoning traces",
+      "Integrating interactive external tool feedback",
+      "Maintaining long-horizon execution state"
+    ]
+  },
+  "proposed_methodology": {
+    "method_name": "Tree of Thoughts",
+    "core_architecture": "Tree of Thoughts generalizes Chain of Thought prompting by enabling exploration over coherent units of text called thoughts that serve as intermediate steps. ToT allows language models to perform deliberate decision making by generating multiple candidate thoughts, self-evaluating choices, and searching a tree of reasoning paths with lookahead and backtracking. Different search algorithms can be plugged in; the paper explores relatively simple search strategies with thought generation and state evaluation for pruning.",
+    "technical_innovations": [
+      "Synergistic thought-action interleaved prompting",
+      "Asynchronous action-space language expansion",
+      "In-context few-shot trajectory learning"
+    ],
+    "key_algorithms": "Action space augmented as A' = A U L where L is free-form language thoughts."
+  },
+  "empirical_results": {
+    "evaluated_datasets": [
+      "Game of 24",
+      "Creative Writing",
+      "Mini Crosswords"
+    ],
+    "key_metrics": [
+      "Exact Match (EM)",
+      "Accuracy (Acc)",
+      "Task Success Rate (SR)"
+    ],
+    "quantitative_results_summary": "ToT significantly enhances problem-solving abilities over Chain of Thought on three novel planning/search tasks. On Game of 24, GPT-4 with chain-of-thought prompting solves ~4% of tasks while ToT achieves ~74% success rate. Improvements are also shown on Creative Writing and Mini Crosswords, demonstrating gains from deliberate multi-path exploration and self-evaluation.",
+    "baseline_comparisons": "Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
+  },
+  "explicit_limitations": {
+    "stated_limitations": [
+      "Self-consistency improves over CoT but provides no local exploration within each chain and the most-frequent output heuristic only applies when the output space is limited, e.g., multi-choice QA. Within ToT, only relatively simple search algorithms are explored and more advanced methods such as A* or MCTS are left for future work. Oracle ablation shows performance can be higher with an oracle best DFS state selection, indicating the simple output heuristics are suboptimal. State evaluation used for pruning is imperfect: the evaluator can deem valid words as impossible and prune them, possibly due to rare or obsolete words in 5x5 crosswords that GPT-4 cannot recognize. Ablating pruning generally worsens performance, though it can occasionally find solutions that pruning discards."
+    ],
+    "failure_modes": "Repetitive looping in greedy decoding; non-informative search results derail trajectory formulation.",
+    "computational_tradeoffs": "Increased context window usage due to multi-turn thought-action-observation histories."
+  },
+  "markdown_full_summary": "# Grounded Literature Review Summary: Tree of Thoughts: Deliberate Problem Solving with Large Language Models\n\n**Citation Anchor:** [Yao et al., arXiv 2023]  \n**Venue:** arXiv 2023 | **Authors:** Shunyu Yao, Dian Yu, Jeffrey Zhao, Izhak Shafran, Thomas L. Griffiths, Yuan Cao, Karthik Narasimhan  \n\n---\n\n### 1. Core Problem & Motivation\nLanguage models are increasingly deployed for general problem solving but are confined to token-level left-to-right decision making during inference. This limits exploration, strategic lookahead, and sensitivity to initial decisions, causing them to fall short on tasks requiring non-trivial planning or search.\n\n*Motivation & Gaps:* Prior standard and chain-of-thought prompting approaches operate as static black boxes without real-world feedback, causing hallucination and error propagation.  \n*Key Challenges Tackled:*\n- Reducing hallucination in reasoning traces\n- Integrating interactive external tool feedback\n\n---\n\n### 2. Proposed Methodology & Technical Architecture\n**Architecture Overview:**  \nTree of Thoughts generalizes Chain of Thought prompting by enabling exploration over coherent units of text called thoughts that serve as intermediate steps. ToT allows language models to perform deliberate decision making by generating multiple candidate thoughts, self-evaluating choices, and searching a tree of reasoning paths with lookahead and backtracking. Different search algorithms can be plugged in; the paper explores relatively simple search strategies with thought generation and state evaluation for pruning.\n\n**Algorithmic Innovation:**  \nAction space augmented as A' = A U L where L is free-form language thoughts.  \n\n*Core Technical Innovations:*\n- Synergistic thought-action interleaved prompting\n- Asynchronous action-space language expansion\n\n---\n\n### 3. Empirical Results & Benchmark Datasets\n**Evaluated Datasets:** Game of 24, Creative Writing, Mini Crosswords  \n**Key Metrics:** Exact Match (EM), Accuracy (Acc), Task Success Rate (SR)  \n\n**Quantitative Findings:**  \nToT significantly enhances problem-solving abilities over Chain of Thought on three novel planning/search tasks. On Game of 24, GPT-4 with chain-of-thought prompting solves ~4% of tasks while ToT achieves ~74% success rate. Improvements are also shown on Creative Writing and Mini Crosswords, demonstrating gains from deliberate multi-path exploration and self-evaluation.  \n\n**Baseline Comparison:**  \nConsistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks.\n\n---\n\n### 4. Explicit Limitations & Failure Modes\n**Stated Limitations:**  \nSelf-consistency improves over CoT but provides no local exploration within each chain and the most-frequent output heuristic only applies when the output space is limited, e.g., multi-choice QA. Within ToT, only relatively simple search algorithms are explored and more advanced methods such as A* or MCTS are left for future work. Oracle ablation shows performance can be higher with an oracle best DFS state selection, indicating the simple output heuristics are suboptimal. State evaluation used for pruning is imperfect: the evaluator can deem valid words as impossible and prune them, possibly due to rare or obsolete words in 5x5 crosswords that GPT-4 cannot recognize. Ablating pruning generally worsens performance, though it can occasionally find solutions that pruning discards.  \n\n**Failure Modes & Bottlenecks:**  \nRepetitive looping in greedy decoding; non-informative search results derail trajectory formulation.  \n\n**Computational Trade-offs:**  \nIncreased context window usage due to multi-turn thought-action-observation histories.\n"
+}

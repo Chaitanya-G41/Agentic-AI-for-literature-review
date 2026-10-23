@@ -1,13 +1,31 @@
 {
   "paper_id": "2308.08155",
   "paper_title": "AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation",
-  "authors": [],
-  "venue": ":null",
-  "core_problem": "How to scale up the power of LLMs for complex tasks and diverse domains using a generalized multi-agent conversation framework without limiting applicability.",
-  "methodology_summary": "Proposes AutoGen, a generalized multi-agent conversation framework supporting customizable built-in agents (e.g., User Proxy and Assistant agents), conversation-driven control flow, human-in-the-loop interactions, function calling, and inference features like result caching and error handling.",
-  "datasets_eval": [
-    "MATH"
+  "authors": [
+    "Qingyun Wu",
+    "Gagan Bansal",
+    "Jieyu Zhang",
+    "Yuzhen Huang",
+    "Bing Liu",
+    "Jiale Liu",
+    "Zirui Liu",
+    "Yuanzhi Li",
+    "Sai Wang",
+    "Vincent W. Zheng",
+    "Yanqiao Zhu",
+    "Weizhu Chen",
+    "Shiyu Chang"
   ],
-  "empirical_results": "AutoGen enables superior performance compared to alternative baselines including vanilla GPT-4, ChatGPT with Plugins/Code, Multi-Agent Debate, and LangChain ReAct on MATH benchmark problems and application scenarios.",
-  "explicit_limitations": "Evaluation across full datasets was restricted by ChatGPT's hourly message limitations and substantial required manual effort, while inherent LLM limitations necessitate integration with external retrieval tools."
+  "venue": "arXiv preprint arXiv:2308.08155, 2023",
+  "core_problem": "How to facilitate development of LLM applications that span a broad spectrum of domains and complexities using a multi-agent approach. Large language models are becoming crucial for agents with reasoning, tool usage and adaptation, and scaling agent power via cooperation of multiple agents is needed to encourage divergent thinking, improve factuality and reasoning, and provide validation.",
+  "methodology_summary": "AutoGen provides a generic design of conversable agents that can leverage LLMs, human inputs, tools, or a combination. Agents are made conversable to receive, react and respond to messages and can hold multiple autonomous turns or solicit human input. The system adopts conversation programming, a paradigm that simplifies and unifies complex LLM application workflows as multi-agent conversations via defining a set of conversable agents with specific capabilities and roles and molding their interactions. The backend is extensible for custom behaviors.",
+  "datasets_eval": [
+    "Retrieval-Augmented Generation Q&A tasks",
+    "ALFWorld",
+    "coding tasks with safeguards"
+  ],
+  "empirical_results": "Customizable and conversable agents enable easy creation of agents with different roles such as code writing, code execution, human feedback wiring, and output validation. Conversation programming streamlines development of intricate applications. AutoGen realizes effective retrieval augmentation and a novel interactive retrieval feature that boosts performance on Q&A tasks. A three-agent system with a grounding agent improves performance on ALFWorld. Multi-agent design boosts performance on coding tasks that need safeguards.",
+  "explicit_limitations": "The provided context does not list formal limitations; it notes that to develop applications where agents make meaningful progress on tasks, developers also need to be able to specify and mold multi-agent conversations, and that intrinsic LLM limitations are mitigated via retrieval augmentation.",
+  "generation_mode": "GENUINE_LLM",
+  "model_name": "NVIDIA_NIM (meta/muse-glimmer-30b)"
 }

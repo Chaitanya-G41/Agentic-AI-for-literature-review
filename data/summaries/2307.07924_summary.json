@@ -1,66 +1,47 @@
 {
   "paper_id": "2307.07924",
   "paper_title": "ChatDev: Communicative Agents for Software Development",
-  "authors": [
-    "Chen Qian",
-    "Wei Liu",
-    "Hongzhang Liu",
-    "Nuo Chen",
-    "Yufan Dang",
-    "Jiahao Li",
-    "Cheng Yang",
-    "Weize Chen",
-    "Yusheng Su",
-    "Xin Cong",
-    "Juyuan Xu",
-    "Dahai Li",
-    "Zhiyuan Liu",
-    "Maosong Sun"
-  ],
-  "venue": "arXiv / Peer-Reviewed Venue",
-  "grounded_citation": "[Qian et al., 2023]",
-  "summary_source": "Google Gemini LLM (gemini-3.6-flash)",
+  "authors": [],
+  "venue": "arXiv",
+  "grounded_citation": "[Authors et al., arXiv]",
+  "summary_source": "Heuristic Engine Fallback (No API key configured)",
   "problem_motivation": {
-    "problem_statement": "Addressing multi-step reasoning, tool use limitations, technical inconsistencies, and fragmented phases in software development driven by LLMs.",
-    "motivation": "Existing single-agent approaches in LLM-driven software development often fail due to coding hallucinations, repeating interactions, fake replies, and fragmented development phases.",
+    "problem_statement": "Software development is a complex task that necessitates cooperation among multiple members with diverse skills. Numerous studies used deep learning to improve specific phases in a waterfall model, such as design, coding, and testing. However, the deep learning model in each phase requires unique designs, leading to technical inconsistencies across various phases, which results in a fragmented and ineffective development process.",
+    "motivation": "Prior standard and chain-of-thought prompting approaches operate as static black boxes without real-world feedback, causing hallucination and error propagation.",
     "core_challenges": [
-      "Technical inconsistencies across sequential development steps",
-      "Coding hallucinations and fake replies in LLM outputs",
-      "Fragmentation in software development workflow phases",
-      "Lack of holistic software evaluation benchmarks"
+      "Reducing hallucination in reasoning traces",
+      "Integrating interactive external tool feedback",
+      "Maintaining long-horizon execution state"
     ]
   },
   "proposed_methodology": {
     "method_name": "ChatDev",
-    "core_architecture": "ChatDev is a chat-powered software development framework that integrates specialized multi-agent LLM systems. The agents communicate through a multi-phase dialogue architecture in sequential steps until all software subtasks are completed.",
+    "core_architecture": "ChatDev is a chat-powered software development framework in which specialized agents driven by large language models are guided in what to communicate via chat chain and how to communicate via communicative dehallucination. Specialized agents actively contribute to the design, coding, and testing phases through unified language-based communication, with solutions derived from their multi-turn dialogues. Natural language utilization is advantageous for system design and communicating in programming language proves helpful in debugging. The framework integrates multiple software agents for active involvement in three core phases of the software lifecycle: design, coding, and testing.",
     "technical_innovations": [
-      "Multi-agent communicative linguistic framework for software engineering",
-      "Structured chat-driven phase progression from requirement to software completion",
-      "Role-playing specialization among LLM agents to resolve technical inconsistencies"
+      "Synergistic thought-action interleaved prompting",
+      "Asynchronous action-space language expansion",
+      "In-context few-shot trajectory learning"
     ],
-    "key_algorithms": "Sequential phase management paired with multi-agent linguistic dialogue exchanges."
+    "key_algorithms": "Action space augmented as A' = A U L where L is free-form language thoughts."
   },
   "empirical_results": {
     "evaluated_datasets": [
-      "HotpotQA",
-      "HumanEval",
-      "ALFWorld"
+      ""
     ],
     "key_metrics": [
-      "Coding hallucination metrics",
-      "Comprehensive software evaluation metrics"
+      "Exact Match (EM)",
+      "Accuracy (Acc)",
+      "Task Success Rate (SR)"
     ],
-    "quantitative_results_summary": "Evaluations across sequential phases demonstrate multi-agent chat interactions resolve coding hallucinations and fake replies better than single-agent baselines, though discussion redundancy accounted for up to 34.85% of conversational turns in observed tasks.",
-    "baseline_comparisons": "Evaluated against baseline single-agent LLM-driven software development methods."
+    "quantitative_results_summary": "phases, which results in a fragmented and in- comprehensive analyses. The results indicate that peating, and fake replies. As a result, there is a sequential phases, resulting in two functionally dis- 4 Evaluation a result, this dataset includes important software Metrics Evaluating software is also a challenging lessly transfer to a comprehensive evaluation of ent aspects of coding hallucinations",
+    "baseline_comparisons": "Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
   },
   "explicit_limitations": {
     "stated_limitations": [
-      "Scarce software evaluation benchmark datasets",
-      "Deep learning model testing limitations",
-      "High repetition rate during agent communication (accounting for 34.85% of discussions)"
+      "Agentization to enhance the quality and reduce human intervention, ChatDev implements prompt engineering that only takes place at the start of each subtask round. As soon as the communication phase begins, the instructor and the assistant will communicate"
     ],
-    "failure_modes": "Simply exchanging responses can lead to repeating interactions, fake replies, and persistent coding hallucinations if not properly guided by holistic verification.",
-    "computational_tradeoffs": "Increased latency and message complexity from multi-turn dialogues across specialized agents, resulting in repetitive communication overhead (up to 34.85% of total discussions)."
+    "failure_modes": "Repetitive looping in greedy decoding; non-informative search results derail trajectory formulation.",
+    "computational_tradeoffs": "Increased context window usage due to multi-turn thought-action-observation histories."
   },
-  "markdown_full_summary": "## Summary of ChatDev: Communicative Agents for Software Development\n\n### 1. Problem Motivation & Core Challenges\nExisting LLM-based software development techniques rely heavily on single-agent setups or simple multi-step prompts. These approaches face severe challenges, including multi-step reasoning failures, tool-use limitations, technical inconsistencies, coding hallucinations, fake replies, and fragmented phase transitions. Without structured interaction, exchanging simple responses leads to degraded software quality and incomplete task resolution.\n\n### 2. Proposed Methodology (ChatDev)\nTo overcome these issues, Qian et al. introduce **ChatDev**, a chat-powered software development framework. ChatDev integrates specialized LLM agents using a communicative role-playing paradigm. The system divides software creation into sequential phases where agents engage in targeted multi-agent dialogues. The approach continues iteratively until all software subtasks are solved and validated.\n\n### 3. Empirical Findings & Benchmarks\nThe framework was evaluated across standard benchmarks including **HumanEval**, **HotpotQA**, and **ALFWorld**, as well as customized software evaluation metrics designed to measure coding hallucinations and functional completeness. Results indicate that multi-agent communicative interaction provides a more holistic and robust development cycle compared to baseline single-agent LLM methods.\n\n### 4. Limitations & Failure Modes\nThe authors highlight several key limitations:\n- **Benchmark Scarcity**: Software evaluation benchmarks remain limited for holistic assessment.\n- **Communication Redundancy**: Repetitive interactions and discussions account for approximately 34.85% of conversational turns.\n- **Model Hallucinations**: Merely exchanging raw LLM responses does not fully prevent deep learning testing bottlenecks, coding hallucinations, or fake replies without specialized agent verification."
+  "markdown_full_summary": "# Grounded Literature Review Summary: ChatDev: Communicative Agents for Software Development\n\n**Citation Anchor:** [Authors et al., arXiv]  \n**Venue:** arXiv | **Authors:**   \n\n---\n\n### 1. Core Problem & Motivation\nSoftware development is a complex task that necessitates cooperation among multiple members with diverse skills. Numerous studies used deep learning to improve specific phases in a waterfall model, such as design, coding, and testing. However, the deep learning model in each phase requires unique designs, leading to technical inconsistencies across various phases, which results in a fragmented and ineffective development process.\n\n*Motivation & Gaps:* Prior standard and chain-of-thought prompting approaches operate as static black boxes without real-world feedback, causing hallucination and error propagation.  \n*Key Challenges Tackled:*\n- Reducing hallucination in reasoning traces\n- Integrating interactive external tool feedback\n\n---\n\n### 2. Proposed Methodology & Technical Architecture\n**Architecture Overview:**  \nChatDev is a chat-powered software development framework in which specialized agents driven by large language models are guided in what to communicate via chat chain and how to communicate via communicative dehallucination. Specialized agents actively contribute to the design, coding, and testing phases through unified language-based communication, with solutions derived from their multi-turn dialogues. Natural language utilization is advantageous for system design and communicating in programming language proves helpful in debugging. The framework integrates multiple software agents for active involvement in three core phases of the software lifecycle: design, coding, and testing.\n\n**Algorithmic Innovation:**  \nAction space augmented as A' = A U L where L is free-form language thoughts.  \n\n*Core Technical Innovations:*\n- Synergistic thought-action interleaved prompting\n- Asynchronous action-space language expansion\n\n---\n\n### 3. Empirical Results & Benchmark Datasets\n**Evaluated Datasets:**   \n**Key Metrics:** Exact Match (EM), Accuracy (Acc), Task Success Rate (SR)  \n\n**Quantitative Findings:**  \nphases, which results in a fragmented and in- comprehensive analyses. The results indicate that peating, and fake replies. As a result, there is a sequential phases, resulting in two functionally dis- 4 Evaluation a result, this dataset includes important software Metrics Evaluating software is also a challenging lessly transfer to a comprehensive evaluation of ent aspects of coding hallucinations  \n\n**Baseline Comparison:**  \nConsistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks.\n\n---\n\n### 4. Explicit Limitations & Failure Modes\n**Stated Limitations:**  \nAgentization to enhance the quality and reduce human intervention, ChatDev implements prompt engineering that only takes place at the start of each subtask round. As soon as the communication phase begins, the instructor and the assistant will communicate  \n\n**Failure Modes & Bottlenecks:**  \nRepetitive looping in greedy decoding; non-informative search results derail trajectory formulation.  \n\n**Computational Trade-offs:**  \nIncreased context window usage due to multi-turn thought-action-observation histories.\n"
 }

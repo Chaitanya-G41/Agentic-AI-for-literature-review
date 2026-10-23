@@ -228,7 +228,7 @@ def generate_grounded_heuristic_summary(schema_dict: Dict[str, Any], context: Di
         markdown_full_summary=md_summary
     )
 
-def run_summarizer_agent(schema_path: str, output_dir: str = "data/summaries", llm_manager: Optional[GeminiLLMManager] = None) -> ComprehensivePaperSummary:
+def run_summarizer_agent(schema_path: str, output_dir: str = "data/summaries", llm_manager: Optional[GeminiLLMManager] = None, use_llm: bool = False) -> ComprehensivePaperSummary:
     """
     Runs Grounded Summarizer Agent on a paper schema JSON file.
     Integrates Gemini LLM rotation and falls back to grounded heuristic engine on failure.
@@ -241,52 +241,59 @@ def run_summarizer_agent(schema_path: str, output_dir: str = "data/summaries", l
     schema_dir = os.path.dirname(schema_path)
     context = load_parsed_context(paper_id, schema_dir=schema_dir)
 
-    llm = llm_manager or GeminiLLMManager()
     summary_obj = None
 
-    if llm.keys:
-        print(f"   [LLM] Running Gemini Grounded Summarizer for Paper ID: {paper_id}...")
-        sys_instruction = (
-            "You are an expert academic research summarizer agent. "
-            "Your output MUST be strictly grounded in the provided paper context. "
-            "Do NOT speculate or invent metrics, baselines, or findings not present in the text. "
-            "Produce a structured JSON response matching the required schema."
-        )
+    if use_llm:
+        llm = llm_manager or GeminiLLMManager()
+        if llm.keys:
+            print(f"   [LLM] Running Grounded Summarizer for Paper ID: {paper_id}...")
+            sys_instruction = (
+                "You are an expert academic research summarizer agent. "
+                "Your output MUST be strictly grounded in the provided paper context. "
+                "Do NOT speculate or invent metrics, baselines, or findings not present in the text. "
+                "Produce a structured JSON response matching the required schema."
+            )
 
-        prompt = f"""
-        Generate a grounded multi-pillar paper summary for paper '{schema_dict.get('paper_title')}'.
-        
-        EXTRACTED SCHEMA DATA:
-        {json.dumps(schema_dict, indent=2)}
+            prompt = f"""
+            Generate a grounded multi-pillar paper summary for paper '{schema_dict.get('paper_title')}'.
+            
+            EXTRACTED SCHEMA DATA:
+            {json.dumps(schema_dict, indent=2)}
 
-        RAW SOURCE TEXT CONTEXT:
-        Intro Context: {context['intro'][:1500]}
-        Methods Context: {context['methods'][:2000]}
-        Results Context: {context['results'][:2000]}
-        Limitations Context: {context['limitations'][:1500]}
+            RAW SOURCE TEXT CONTEXT:
+            Intro Context: {context['intro'][:1500]}
+            Methods Context: {context['methods'][:2000]}
+            Results Context: {context['results'][:2000]}
+            Limitations Context: {context['limitations'][:1500]}
 
-        Return a strict JSON object with these exact keys:
-        - paper_id, paper_title, authors, venue, grounded_citation
-        - problem_motivation: {{ problem_statement, motivation, core_challenges }}
-        - proposed_methodology: {{ method_name, core_architecture, technical_innovations, key_algorithms }}
-        - empirical_results: {{ evaluated_datasets, key_metrics, quantitative_results_summary, baseline_comparisons }}
-        - explicit_limitations: {{ stated_limitations, failure_modes, computational_tradeoffs }}
-        - markdown_full_summary: (A complete ~600-800 word formatted markdown literature review summary block)
-        """
+            Return a strict JSON object with these exact keys:
+            - paper_id, paper_title, authors, venue, grounded_citation
+            - problem_motivation: {{ problem_statement, motivation, core_challenges }}
+            - proposed_methodology: {{ method_name, core_architecture, technical_innovations, key_algorithms }}
+            - empirical_results: {{ evaluated_datasets, key_metrics, quantitative_results_summary, baseline_comparisons }}
+            - explicit_limitations: {{ stated_limitations, failure_modes, computational_tradeoffs }}
+            - markdown_full_summary: (A complete ~600-800 word formatted markdown literature review summary block)
+            """
 
-        res_json = llm.generate_structured_json(prompt, system_instruction=sys_instruction, response_schema=ComprehensivePaperSummary,)
-        if res_json:
-            try:
-                res_json["summary_source"] = f"{llm.last_provider or 'LLM'} ({llm.last_used_model or 'default'})"
-                summary_obj = ComprehensivePaperSummary(**res_json)
-                print(f"   [GENUINE-LLM] Summarization succeeded for {paper_id} using {summary_obj.summary_source}!")
-            except Exception as e:
-                llm.last_error = f"LLM returned JSON but it failed schema validation: {e}"
-                print(f"   [WARN] {llm.last_error}. Switching to grounded heuristic engine...")
+            res_json = llm.generate_structured_json(prompt, system_instruction=sys_instruction, response_schema=ComprehensivePaperSummary)
+            if res_json:
+                try:
+                    if isinstance(res_json, list) and len(res_json) > 0 and isinstance(res_json[0], dict):
+                        res_json = res_json[0]
+                    res_json["summary_source"] = f"{llm.last_provider or 'LLM'} ({llm.last_used_model or 'default'})"
+                    summary_obj = ComprehensivePaperSummary(**res_json)
+                    print(f"   [GENUINE-LLM] Summarization succeeded for {paper_id} using {summary_obj.summary_source}!")
+                except Exception as e:
+                    llm.last_error = f"LLM returned JSON but it failed schema validation: {e}"
+                    print(f"   [WARN] {llm.last_error}. Switching to grounded heuristic engine...")
 
     if not summary_obj:
-        reason_msg = llm.last_error if (llm and llm.last_error) else "No API key configured"
-        print(f"   [HEURISTIC-FALLBACK] Running Grounded Heuristic Summary Engine for {paper_id} (Reason: {reason_msg})...")
+        if not use_llm:
+            reason_msg = "Grounded Vector RAG Engine (Design Rule: 0 LLM calls)"
+            print(f"   [GROUNDED-RAG] Generating Grounded Summary for {paper_id}...")
+        else:
+            reason_msg = (llm.last_error if ('llm' in locals() and llm and llm.last_error) else "No API key configured")
+            print(f"   [HEURISTIC-FALLBACK] Running Grounded Heuristic Summary Engine for {paper_id} (Reason: {reason_msg})...")
         summary_obj = generate_grounded_heuristic_summary(schema_dict, context, reason=reason_msg)
 
     # Save to disk

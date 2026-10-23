@@ -1,0 +1,1392 @@
+{
+  "paper_id": "2310.06770",
+  "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+  "title": "SWE-BENCH: CAN LANGUAGE MODELS RESOLVE REAL-WORLD GITHUB ISSUES?",
+  "abstract": "Language models have outpaced our ability to evaluate them effectively, but for their future development it is essential to study the frontier of their capabilities. We find real-world software engineering to be a rich, sustainable, and challenging testbed for evaluating the next generation of language models. To this end, we introduce SWE-bench, an evaluation framework consisting of 2,294 software engineering problems drawn from real GitHub issues and corresponding pull requests across 12 popular Python repositories. Given a codebase along with a description of an issue to be resolved, a language model is tasked with editing the codebase to address the issue. Resolving issues in SWE-bench frequently requires understanding and coordinating changes across multiple functions, classes, and even files simultaneously, calling for models to interact with execution environments, process extremely long contexts and perform complex reasoning that goes far beyond traditional code generation tasks. Our evaluations show that both state-ofthe-art proprietary models and our fine-tuned model SWE-Llama can resolve only the simplest issues. The best-performing model, Claude 2, is able to solve a mere 1.96% of the issues. Advances on SWE-bench represent steps towards LMs that are more practical, intelligent, and autonomous.",
+  "parser_used": "GROBID_TEI_XML_with_PyMuPDF_Visuals",
+  "total_pages": 1,
+  "full_text": "Abstract:\nLanguage models have outpaced our ability to evaluate them effectively, but for their future development it is essential to study the frontier of their capabilities. We find real-world software engineering to be a rich, sustainable, and challenging testbed for evaluating the next generation of language models. To this end, we introduce SWE-bench, an evaluation framework consisting of 2,294 software engineering problems drawn from real GitHub issues and corresponding pull requests across 12 popular Python repositories. Given a codebase along with a description of an issue to be resolved, a language model is tasked with editing the codebase to address the issue. Resolving issues in SWE-bench frequently requires understanding and coordinating changes across multiple functions, classes, and even files simultaneously, calling for models to interact with execution environments, process extremely long contexts and perform complex reasoning that goes far beyond traditional code generation tasks. Our evaluations show that both state-ofthe-art proprietary models and our fine-tuned model SWE-Llama can resolve only the simplest issues. The best-performing model, Claude 2, is able to solve a mere 1.96% of the issues. Advances on SWE-bench represent steps towards LMs that are more practical, intelligent, and autonomous.\n[INTRODUCTION] Language models (LMs) are rapidly being deployed in commercial products such as chatbots and coding assistants. At the same time, existing benchmarks have become saturated (Kiela et al., 2021;Ott et al., 2022) and fail to capture the frontier of what state-of-the-art LMs can and cannot do. There is a need for challenging benchmarks that more accurately reflect real-world applications of LMs to help shape their future development and usage (Srivastava et al., 2023). Figure 1: SWE-bench sources task instances from real-world Python repositories by connecting GitHub issues to merged pull request solutions that resolve related tests. Provided with the issue text and a codebase snapshot, models generate a patch that is evaluated against real tests.\n[INTRODUCTION] Building a good benchmark is difficult since tasks must be challenging enough to stump existing models, but model predictions must also be easy to verify (Martínez-Plumed et al., 2021). Coding tasks are appealing as they pose challenging problems to LMs yet generated solutions can be easily verified by running unit tests. However, existing coding benchmarks, such as HumanEval (Chen et al., 2021), mostly involve self-contained problems that can be solved in a few lines of code.\n[INTRODUCTION] In the real world, software engineering is not as simple. Fixing a bug might involve navigating a large repository, understanding the interplay between functions in different files, or spotting a small error in convoluted code. Inspired by this, we introduce SWE-bench, a benchmark that evaluates LMs in a realistic software engineering setting. As shown in Figure 1, models are tasked to resolve issues (typically a bug report or a feature request) submitted to popular GitHub repositories. Each task requires generating a patch describing changes to apply to the existing codebase. The revised codebase is then evaluated using the repository's testing framework.\n[INTRODUCTION] SWE-bench offers several advantages over existing LM programming benchmarks. These include, a realistic setting that utilizes user-submitted issues and solutions, diverse inputs featuring unique code problems from 12 repositories, a robust framework for execution-based evaluation, and the ability to continuously update the benchmark with new instances, requiring minimal human intervention.\n[INTRODUCTION] We evaluate multiple state-of-the-art LMs on SWE-bench and find that they fail to solve all except the simplest issues. Using a BM25 retriever, Claude 2 is only able to resolve 1.96% of the issues.\n[INTRODUCTION] In addition to SWE-bench our contributions include the release of a training dataset, SWE-benchtrain, which is essential for advancing open model development in this challenging domain. This dataset comprises a collection of 19,000 non-testing task instances derived from 37 repositories.\n[INTRODUCTION] Utilizing SWE-bench-train, we release two fine-tuned models, SWE-Llama 7b and 13b, based on the CodeLlama (Rozière et al., 2023) model. We find that in some settings SWE-Llama 13b is competitive with Claude 2 and is capable of processing contexts exceeding 100,000 tokens.\n[INTRODUCTION] 2 SWE-BENCH SWE-bench is a benchmark featuring GitHub issues from popular repositories that report bugs or request new features, and pull requests that make changes to the repository to resolve these issues.\n[INTRODUCTION] The task is to generate a pull request that addresses a given issue and passes tests related to the issue.\n[BENCHMARK CONSTRUCTION] GitHub is a rich data source for software development, but repositories, issues, and pull requests can be noisy, ad-hoc, or poorly documented or maintained. To find high-quality task instances at scale, we use a 3-stage pipeline as follows.  Stage I: Repo selection and data scraping. We start by collecting pull requests (PRs) from 12 popular open-source Python repositories on GitHub, producing about ∼ 90,000 PRs in total. We focus on popular repositories as they tend be better maintained, have clear contributor guidelines, and have better test coverage. Each PR has an associated codebase specified by it's base commit.\n[Resolves an issue] Stage II: Attribute-based filtering. We create candidate tasks by selecting the merged PRs that (1) resolve a GitHub issue and (2) make changes to the test files of the repository, which indicates that the user likely contributed tests to check whether the issue has been resolved.\n[Resolves an issue] Stage III: Execution-based filtering. For each candidate task, we apply the PR's test content, and log the associated test results before and after the PR's other content is applied. We filter out task instances without at least one test where its status changes from a fail to pass (henceforth referred to as fail-to-pass test). We also filter out instances that result in installation or runtime errors.\n[Resolves an issue] Through these stages of filtering, the original 90,000 PRs are filtered down to the 2,294 task instances which comprise SWE-bench. A final breakdown of these task instances across repositories is presented in Figure 3, and Table 1 highlights the key features of SWE-bench task instances. We highlight that the codebases are large with thousands of files, and the reference pull requests often make changes to multiple files at once. Technical details about SWE-bench's construction pipeline are discussed in Appendix A. Additional dataset statistics are in Appendix A.5.\n[TASK FORMULATION] Model input. A model is given an issue text description and a complete codebase. The model is then tasked to make an edit to the codebase to resolve the issue. In practice, we represent edits as patch files, which specify which lines in the codebase to modify in order to resolve the issue.\n[TASK FORMULATION] Evaluation metrics. To evaluate a proposed solution, we apply the generated patch, using unix's patch program, to the codebase and then execute the unit and system tests associated with the task instance. If the patch applies successfully and all of these tests pass we consider the proposed solution to have successfully resolved the issue. The metric for our benchmark is the percentage of task instances that are resolved. Additional technical details in Appendix A.4.\n[FEATURES OF SWE-BENCH] Traditional benchmarks in NLP typically involve only short input and output sequences and consider somewhat \"contrived\" problems created specifically for the benchmark. In contrast, SWE-bench's realistic construction setting imbues the dataset with unique properties, which we discuss below.\n[FEATURES OF SWE-BENCH] Real-world software engineering tasks. Since each task instance in SWE-bench consists of a large and complex codebase and a description of a relevant issue, solving SWE-bench requires demonstrating sophisticated skills and knowledge possessed by experienced software engineers but are not commonly evaluated in traditional code generation benchmarks.\n[FEATURES OF SWE-BENCH] Continually updatable. Our collection process can be easily applied to any Python repository on GitHub and requires minimal human intervention. Therefore, we can extend SWE-bench with a continual supply of new task instances and evaluate LMs on issues created after their training date, which ensures that the solution was not included in their training corpus.\n[FEATURES OF SWE-BENCH] Diverse long inputs. Issue descriptions are typically long and detailed (195 words on average), and codebases regularly contain many thousands of files. Solving SWE-bench requires identifying the relatively small number of lines that need to be edited to solve an issue amongst a sea of context.\n[FEATURES OF SWE-BENCH] Robust evaluation. For each task instance, there is at least one fail-to-pass test which was used to test the reference solution, and 40% of instances have at least two fail-to-pass tests. These tests evaluate whether the model addressed the problem in the issue. In addition, a median of 51 additional tests run to check whether prior functionality is properly maintained.\n[FEATURES OF SWE-BENCH] Cross-context code editing. Unlike prior settings that may constrain edit scope to an individual function or class (e.g., Chen et al., 2021;Cassano et al., 2022) or provide cloze-style fill-in blanks (e.g., Lu et al., 2021;Fried et al., 2023), SWE-bench does not provide such explicit guidance. Rather than merely having to produce a short code snippet, our benchmark challenges models to generate revisions in multiple locations of a large codebase. SWE-bench's reference solutions average editing 1.7 files, 3.0 functions, and 32.8 lines (added or removed).\n[FEATURES OF SWE-BENCH] Wide scope for possible solutions. The task of repository-scale code editing can serve as a level playing field to compare approaches ranging from retrieval and long-context models to decisionmaking agents, which could reason and act in code. SWE-bench also allows creative freedom, as models can generate novel solutions that may deviate from the reference PR.\n[SWE-BENCH LITE] Evaluating LMs on SWE-bench can be time-consuming and, depending on the model, require a costly amount of compute or API credits. Given that initial performance returns as presented in Section 5 are quite low, SWE-bench's difficulty makes it useful for gauging LM progress in the long term, but potentially intimidating for initial systems that attempt to make progress in the short term. astropy ( 95) django ( 850) flask ( 11) matplotlib ( 184) pylint ( 57) pytest ( 119) requests ( 44) scikit-learn ( 229) seaborn ( 22) sphinx ( 187) sympy ( 386)\n[SWE-BENCH LITE] xarray ( 110)  To encourage adoption of SWE-bench, we create a Lite subset of 300 instances from SWE-bench that have been sampled to be more self-contained, with a focus on evaluating functional bug fixes.\n[SWE-BENCH LITE] The full filtering criteria and dataset information is included in SWE-bench Lite covers 11 of the original 12 repositories, with a similar diversity and distribution of task instances across repositories as the original. Full details of the Lite split and filtering details are included in Appendix A.7.\n[SWE-LLAMA: FINE-TUNING CODELLAMA FOR SWE-BENCH] It is important to benchmark the performance of open models on SWE-bench alongside proprietary models. At the time of writing, only the CodeLlama models (Rozière et al., 2023) are able to handle the very long contexts necessary. However, we observe that the off-the-shelf CodeLlama variants are not capable of following the detailed instructions to generate repository-wide code edits, and typically output placeholder responses or unrelated code. To better evaluate the capabilities of these models, we perform supervised fine-tuning on the 7 billion-and 13 billion-parameter CodeLlama-Python models. The resulting models are specialized repository editors that can run on consumer hardware and resolve GitHub issues.\n[SWE-LLAMA: FINE-TUNING CODELLAMA FOR SWE-BENCH] Training data. We follow our data collection procedure and collect 19,000 issue-PR pairs from an additional 37 popular Python package repositories. In contrast to Section 2.1, we do not require that pull requests contribute test changes. This allows us to create a much larger training set to use for supervised fine-tuning. To eliminate the risk of data contamination, the set of repositories in the training data is disjoint from those included in the evaluation benchmark.\n[SWE-LLAMA: FINE-TUNING CODELLAMA FOR SWE-BENCH] Training details. Given the instructions, an issue text from GitHub and the relevant code files as the prompt, we finetune SWE-Llama to generate the patch that solved the given issue (the \"gold patch\").\n[SWE-LLAMA: FINE-TUNING CODELLAMA FOR SWE-BENCH] For memory efficiency, we fine-tune only the weights of the attention sublayer using LoRA Hu et al.\n[SWE-LLAMA: FINE-TUNING CODELLAMA FOR SWE-BENCH] (2022), and exclude training sequences with more than 30,000 tokens, reducing the effective size of the training corpus to 10,000 instances. More details are provided in Appendix B.\n[EXPERIMENTAL SETUP] In this section we explain how inputs are constructed to run SWE-bench evaluation. In addition, we review the models that we evaluate in this work.\n[RETRIEVAL-BASED APPROACH] SWE-bench instances provide an issue description and a codebase as input to the model. While issues descriptions are usually short (195 words on average as shown in Table 1), codebases consist of many more tokens (438K lines on average) than can typically be fit into an LMs context window.\n[RETRIEVAL-BASED APPROACH] Then the question remains of exactly how to choose the relevant context to provide to the model?\n[RETRIEVAL-BASED APPROACH] To address this issue for our baselines, we simply use a generic retrieval system to select the files to insert as context. In particular, we evaluate models under two relevant context settings: 1) sparse retrieval and 2) an oracle retrieval.\n[RETRIEVAL-BASED APPROACH] Sparse retrieval. Dense retrieval methods are ill-suited to our setting due to very long key and query lengths, and especially the unusual setting of retrieving code documents with natural language queries. Therefore, we choose to use BM25 retrieval (Robertson et al., 2009) to retrieve relevant files to provide as context for each task instance. We experiment with three different maximum context limits, and simply retrieve as many files as fits within the specified limit. We evaluate each model on all limits that fit within its context window and report the best performance. From observation, models perform best on the shortest context window, as shown in Table 2.\n[RETRIEVAL-BASED APPROACH] \"Oracle\" retrieval. For analysis purposes we also consider a setting where we \"retrieve\" the files edited by the reference patch that solved the issue on GitHub. This \"oracle\" setting is less realistic, since an engineer working on addressing an issue may not know a priori which files need to be modified. In addition, this setting is also not necessarily comprehensive since edited files alone may not include all the required context to understand exactly how software will behave when interacting with unseen parts of the code.\n[RETRIEVAL-BASED APPROACH] We compare the BM25 retrieval results with those of the \"oracle\" retrieval setting, as shown in Table 3. We observe that in approximately 40% of instances, BM25 retrieves a superset of the oracle files for the 27,000-token context limit. However, in almost half of the instances with the 27,000-token limit, it retrieves none of the files from the \"oracle\" context.\n[INPUT FORMAT] Once the retrieved files are selected using one of the two methods above, we construct the input to the model consisting of task instructions, the issue text, retrieved files and documentation, and finally an example patch file and prompt for generating the patch file. Examples of instances and further details on this formulation are provided in Appendix D.\n[MODELS] Due to the need to process long sequence lengths, there are only a few models that are currently suitable for SWE-bench. Thus we evaluate , , Claude 2, and SWE-Llama with their context limits shown in Table 4.  4: We compare the different context lengths and proportion of the \"oracle\" retrieval setting covered. Models with shorter context lengths are thus inherently disadvantaged. Note that descriptions of token-lengths is a relative non-standard measure (e.g. Llama-tokenized sequences are 42% longer on average than the equivalent sequence tokenized for GPT-4).\n[RESULTS] We report results for models using different retrieval mechanisms and prompting styles, then provide some analysis and insight into model performance and difficulty. We summarize models' performance using BM25 retrieval in Table 5. Across the board, models struggle significantly to resolve issues. The best performing model, Claude 2, is only able to resolve 1.96% of the issues.\n[RESULTS] To analyze the importance of the retriever to the overall system results, we present the \"oracle\" retrieval results in Appendix Table 18. There, Claude 2 is able to resolve 4.8% of issues using the \"oracle\" retriever. We further analyze the importance of context in the discussion below.\n[RESULTS] Difficulty differs across repositories. When breaking performance down by repository, all models trend similarly across different repositories as show in Figure 4. Despite this, the issues resolved by each model do not necessarily overlap extensively. For example, in the \"oracle\" setting Claude 2 and SWE-Llama 13b perform comparably, with each model resolving 110 and 91 instances respectively. Yet of these instances, Claude 2 only solves 42% of the instances solved by SWE-Llama.\n[RESULTS] This may also be related to the presence of images in issues, which can be encoded into the issue markdown with embedded image links (i.e. ![image][https://...]). Some repositories naturally feature more instances with images; for example 32% of matplotlib and 10% of seaborn instances contain embedded images in their issue text compared to just 2% of all instances. Solving these instances may require multi-modal LMs or some kind of external tool use to process images.\n[RESULTS] Difficulty correlates with context length. Chat models may be pre-trained on long sequences of code but are typically asked to generate shorter coder snippets with limited context provided to frame the question. As shown in Figure 5, we see that as total context length increases, Claude 2's performance drops considerably; behavior that is also observed in other models. In our evaluation settings, models see a lot of code that may not be directly related to solving the issue at hand, and they seem to frequently struggle with localizing problematic code needing to be updated. This result corroborates other studies showing that models become distracted by additional context and may be sensitive to the relative location of target sequences (Liu et al., 2023b). Even when increasing the maximum context size for BM25 would increase recall with respect to the oracle files, performance drops, as shown in Table 2, as models are simply ineffective at localizing problematic code.\n[RESULTS] Further investigating this, we provide an input ablation on the \"oracle\" retrieval context, \"oracle\"collapsed, where retrieved files are collapsed entirely, except for the lines actually edited by the  true pull request (with ±15 lines of buffer) shown in Table 6. In this setting, we see increases in performance, with GPT-4 jumping from 1.3% to 3.4% and Claude 2 from 4.8% to 5.9%.\n[RESULTS] Difficulty does not correlate with issue resolution date. In Table 7 we show model results in the \"oracle\" retrieval setting, partitioned by date, for PRs created before or after 2023. We find that for most models there's little difference in performance before or after this date, with the exception of GPT-4. We consider this result to be largely promising as it suggests that despite models having been exposed to some version of an repository's codebase, they are unlikely to \"cheat\" to address issues simply by generating a more recent version of the repository. Finetuned models are sensitive to context distribution shifts. The finetuned models SWE-Llama 7b and 13b perform surprisingly poorly with BM25 retrieved context. As these models were finetuned using the \"oracle\" retrieval as context, we suspect this shift in context makes it difficult for the model to perform reliably. For instance, SWE-Llama was trained to edit every file included as context whereas in the BM25 setting many files provided in context are not expected to be changed.\n[RESULTS] Generating patches is easier than generating whole files. Models are often trained using standard code files and likely rarely see patch files. We generally formulate our task to have models generate patch files as opposed to recreating the entire file with their proposed change, since patch files will usually be a much more efficient representation of a file change. As shown in Table 5, we observe that models still struggle with generating well-formatted patch files. So we experiment with asking models to instead regenerate entire files with their proposed changes to resolve the issue. In this setting, we find that models generally perform worse at this task than when generating patch files; for instance, Claude 2 scores at 2.2% compared to 4.8% in the main table for \"oracle\" retrieval.\n[RESULTS] Even when controlling for instance length, generating on the shorter half of the task instances by input tokens yields 3.9% compared to 7.8% for generating patches with Claude 2.\n[RESULTS] Language models tend to generate shorter, simpler edits. Model generated patch files tend to add and remove fewer lines than their respective gold patch. As shown in Table 8, compared to an average gold patch, model generated patch files that apply correctly are less than half the total length (74.5 versus 30.1 lines) of gold edit patch files, and rarely edit more than a single file.\n[A QUALITATIVE ANALYSIS OF SWE-LLAMA GENERATIONS] We select 11 generations from SWE-Llama and Claude 2 to better understand the quality of the task and generated patches under the \"oracle\" retrieval setting. Here we discuss an example from SWE-Llama and our overall findings, with in-depth analyses for other examples shown in Appendix F.   We'll consider the task instance sphinx-doc sphinx-8713 from the Sphinx documentation generator, shown in Figure 6. The issue states that the napoleon extension of Sphinx is not properly formatting the documentation keyword \"Other Parameters\" when the config setting napoleon.use_param is set to True. The issue text further provides a detailed code snippet of where the problematic source code is suspected to be, as well as some code examples for reproducing the error and additional information related to package versions. For this particular instance, the model did not resolve the task, failing to pass some of the tests resolved by the gold solution.\n[A QUALITATIVE ANALYSIS OF SWE-LLAMA GENERATIONS] In the \"oracle\" retrieval setting, the model input provides this issue text along with some instructions, the full contents of files edited by the gold patch, and an example of the diff format we expect the answer to be in. The total model input consists of 1,558 lines of context or 20,882 tokens. When comparing the gold patch and the model's patch, we find an obvious mistake. While the model edits the correct function, _parse_other_parameters_section at line 684 in sphinx/ext/napoleon/docstring.py , it changes the function to behave as if napoleon. use_param were always True instead of checking the config setting first and copying what the _parse_parameters_section does, like the gold patch. In the tests, test_parameters _with_class_reference directly compares the documentation produced using a config where napoleon_use_param is set to False, which catches the model's error immediately.\n[A QUALITATIVE ANALYSIS OF SWE-LLAMA GENERATIONS] Comparing results across all the examples we consider, we notice a few prominent trends in behavior. Models tend to write primitive Python code and do not leverage existing third-party libraries or the rest of the codebase for their solutions. Models' generations also reflect a \"greedy\" approach of solving the problem exactly, with little regard for code style or logical constraints that might be reflected by the codebase (i.e. using relative instead of absolute imports). In contrast, we observe that many gold patches will make structural improvements that cover a much larger scope of the codebase; these edits not only resolve the issue, but also anticipate and solve potential future issues.\n[RELATED WORK] Evaluation of LMs. Several recent works for evaluating LMs have either proposed a collection of mutually distinct tasks spanning across multiple domains (Hendrycks et al., 2021;Liang et al., 2022;Srivastava et al., 2023) or turned to the web as an interactive setting featuring tasks that require multiple steps to solve (Yao et al., 2022;Zhou et al., 2023;Deng et al., 2023;Liu et al., 2023d). There are several drawbacks with such a \"potpourri\" style setup. First, each task tends to narrowly focus on one or a few skills, resulting in challenges that are typically too simple, pigeonhole the model into a reduced role, and do not provide models with the bandwidth to exercise their versatility or potentially demonstrate new abilities (Srivastava et al., 2023). Consequently, a model's performance on such task conglomerations may not yield actionable, deep insights regarding its capabilities and how to improve them (Schlangen, 2019;Martínez-Plumed et al., 2021;Bowman & Dahl, 2021). SWEbench addresses these shortcomings, as our work demonstrates that it is significantly challenging, presents a wide range of possibilities for improving LMs to solve this task, and is easy to refresh over time with new task instances, each of which introduce novel, nuanced, and practical challenges.\n[RELATED WORK] Code Generation Benchmarks. HumanEval (Chen et al., 2021) is the current standard in a longstanding pursuit of synthesizing code from natural language descriptions (Yu et al., 2018;Austin et al., 2021;Hendrycks et al., 2021;Li et al., 2022a;Zan et al., 2023). In the past year, subsequent benchmarks have sought to augment HumanEval with extensions to different languages (Cassano et al., 2022;Athiwaratkun et al., 2023;Orlanski et al., 2023), variations in edit scope (Yu et al., 2023;Du et al., 2023), similar but novel code completion tasks (Muennighoff et al., 2023), and more testing (Liu et al., 2023a). Simultaneously, separate works have sought to introduce new coding paradigms (Yin et al., 2022;Yang et al., 2023) or design library-specific problems (Lai et al., 2022;Zan et al., 2022). Instead of partitioning problems into siloed datasets and curtailing them for simplicity's sake, SWE-bench's collection procedure transforms the source code with minimal post-processing, preserving a much broader set of challenges grounded in real-world software engineering beyond closed form completion, such as patch generation, reasoning over long contexts, navigating a codebase directory, and capturing dependency-based relationships across modules.\n[RELATED WORK] ML for Software Engineering. To overcome traditional program analysis techniques that may not scale or incorporate natural language, one direction of current software engineering research is to use neural networks, including LMs, to automate real-world software development processes (Maniatis et al., 2023;Zheng et al., 2023;Hou et al., 2023). Use cases include automating commit generation (Jung, 2021;Liu et al., 2023c), PR review (Yang et al., 2016;Li et al., 2022b;Tufano et al., 2021), bug localization (Kim et al., 2019;Chakraborty et al., 2018), testing (Kang et al., 2023;Xia et al., 2023;Wang et al., 2023), and program repair (Gupta et al., 2017;Allamanis et al., 2017;Monperrus, 2018;Jiang et al., 2018;Goues et al., 2019;Gao et al., 2022;Dinh et al., 2023;Motwani & Brun, 2023). Most relevant to SWE-bench are works that have sought to apply LMs towards automated program repair (Xia & Zhang, 2022;2023;Fan et al., 2023;Sobania et al., 2023), guiding code editing with commits (Chakraborty & Ray, 2021;Zhang et al., 2022;Fakhoury et al., 2023). However, none of the existing datasets (Just et al., 2014;Karampatsis & Sutton, 2019) present code context at the scale of SWE-bench. Moreover, SWE-bench can be easily extended to new programming languages and repositories, and it provides a significantly more realistic and challenging arena to carry out experiments towards augmenting LMs with software engineering tools and practices.\n[RELATED WORK] Limitations and future directions. SWE-bench task instances are all in Python; we hope to apply SWE-bench's task instance collection procedure to expand its coverage to more programming languages and domains. Second, our experiments aim to establish a baseline of the simplest and most straight-forward approaches for this task; we do not intend to constrain future methodologies to the same type of approach and encourage future work to investigate different methods (e.g., agent-based approaches, tool augmented LMs).\n[RELATED WORK] Lastly, while this work evaluates models using execution-based code testing, relying solely on this method is insufficient to guarantee reliable performance of model generations, as we find automated code generations from LMs can frequently be less comprehensive, efficient, or readable compared to human-written solutions.\n[Conclusion.] The complexity of real-world software development processes extends far beyond just code completion. By drawing on the open-source collaborative pipeline, SWE-bench creates a faithful mirror of real world coding environments. This more realistic environment encourages creative solutions that can have immediate applicability in open-source software development. We hope that this benchmark and our other contributions can serve as valuable assets in the future development of LMs that are more practical, intelligent, and autonomous.\n[ETHICS STATEMENT] SWE-bench is collected entirely from public repositories with licenses that permit software usage that our contributions are in accordance with. Details of the licenses are included in Table 12. During the collection or evaluation processes, we do not collect information about GitHub users, and the SWE-bench task instances do not use GitHub data beyond what is offered via the public API and website. Our contributions do not involve any human subject participation; we do not perform crowdsourcing or recruit human task workers for any part of SWE-bench, including its collection and evaluation procedures along with the experiments. SWE-bench's filtering criteria for GitHub repositories based on popularity does not implicitly or explicitly rely on any discriminative or biased heuristics for repository selection. For the dataset release, we plan to open source the SWE-bench task instances, the collection and evaluation infrastructure, the experimental results, the training data used for fine-tuning SWE-Llama models, and the SWE-Llama model weights. Following best practice precedents, we will also put forth ample documentation to describe each component and its use, and we will also put in place convenient communication channels for soliciting feedback to improve SWE-bench. SWE-bench does not put forth any immediately harmful insights. We briefly discuss the potential impact of SWE-bench's usage in Section E.\n[REPRODUCIBILITY STATEMENT] For our submission, we have uploaded the entirety of the source code as a zipped file that has been properly anonymized. We have organized the codebase such that separate directories correspond to different contributions within the main paper (i.e. dataset collection, evaluation, open source model inference, SWE-Llama training, etc.). The source code contains inline documentation that details purpose and usage of different parts of the codebase. In addition, we also include the full set of 2294 SWE-bench task instances that contains all the components discussed in the main paper. Beyond the documentation in the source code, we include thorough technical details for the collection pipeline and evaluation procedures in Section A.2 and Section A.4 that complements the original details in Section 2 of the main paper. These sections fully cover the logic presented in the code and can be helpful for understanding it. Moving forward, as discussed in the ethics statement, we plan to more formally release SWE-bench to the public as an open source repository with thorough details that describes the benchmark, outlines the code, and details its usage. A major component of SWEbench is the collection framework, which will be part of the open sourced code. Because of its easily maintainable design, as discussed in the main paper, our hope and belief is that SWE-bench should be highly reproducible.\n[APPENDIX] In the appendix, we provide more thorough details regarding the dataset construction process, evaluation pipeline, and characterization of the SWE-bench benchmark.\n[A BENCHMARK DETAILS] This section complements Section 2 with a more technical and fine-grained summary of the data collection, execution-based validation, and evaluation procedures, along with a fuller characterization of the task instances.\n[A BENCHMARK DETAILS] A Task instance construction. We construct candidate task instances from PRs that satisfy three conditions. First, the PR's status must be Merged. A Merged status indicates that the PR's associated code changes were accepted and incorporated into its parent repository. Second, the PR resolves one or more issues in its repository. An issue is defined according to its canonical usage in GitHub as a digital ticket for tracking bugs, enhancements, or any general development goals for a software project. We scan a PR's title, body, and commit messages for linked issues (i.e. \"fixes #24\"). Third, the PR must introduce one or more new tests. A new test is counted when a PR's code changes edits a file path containing a testing-related keyword (e.g. \"test\", \"testing\").\n[A BENCHMARK DETAILS] A PR that satisfies these criteria is then converted into a candidate task instance such as the example in Figure 7. The codebase C is identified by the repository's owner/name moniker and the pull request's base commit. Recovering the actual codebase from this information is straightforward. We create mirrors of the original GitHub repositories, where each mirror is uniquely identified as owner name. Cloning a repository's corresponding mirror and checking out the base commit yields C in its pre-PR state. The problem statement P is an aggregate of all related issues' titles and descriptions along with any subsequent comments written before the timestamp of the PR's initial commit to avoid leakage of solution details. A PR's code changes are separated into a test patch and a gold patch δ. T consists of all tests from files edited in the test patch. As shown in Figure 7, both T and δ are stored as patch files. Further details about parsing PR and semantic data is in Appendix A.2.\n[A BENCHMARK DETAILS] Execution-based validation. We verify the usability of a task instance via execution. For each candidate, we first define a virtual environment to serve as an execution context, then install C before applying any patches, and finally run T once before and once after the solution δ is applied.\n[A BENCHMARK DETAILS] A candidate is removed from consideration for the final dataset if any step in the verification process fails. In addition, to ensure that a solution δ is non-trivial, we compare the pre-solution and postsolution validation logs to check for whether there are one or more tests in T where the status changes from fail to pass. Lastly, we exclude task instances with tests that invoke newly created functions or classes first introduced in the solution δ. Since naming such constructs is typically an arbitrary process and usually not explicitly specified in the problem statement, resolving tests such as these may be an impossible task even for human developers. Problem Statement. The problem statement P for each task instance is readily available as the problem statement field. The problem statement is an aggregate of all issues' first comments along with any comments attached to those issues that were created before the creation date of the PR's initial commit. We crawl for issues from PR's title, body, and commit messages. After concatenating these components' text data, we first remove any Markdown-style comments, then look through the remaining text for references to issue numbers (a pound # sign followed by a number) and check whether the word preceding the issue number reference is included in a set of keywords suggesting that the issue was resolved by the PR (e.g. \"closes\", \"fixes\", \"resolves\"). The found issues are recorded in the issue numbers field, then separate web requests are made to retrieve each issue's data. To form the problem statement, each issue's title and body are added together and then concatenated with the next issue's if there are multiple. It is also during this step that the hints text field is created and collected from the PR's comment section, where text from comments created before the PR's initial commit. The intuition for this collection methodology is that such PR comments would likely contain natural language and pseudo-code suggestions to the original human task worker regarding how to complete the problem at hand. The experiments presented in this work do not make use of hints text, but we believe this information may be interesting for future investigations.\n[A BENCHMARK DETAILS] Codebase. The codebase C content is not stored in plaintext for every task instance. Rather, the task instance contains a reference to the relevant codebase via the repo and base commit field.\n[A BENCHMARK DETAILS] Both fields are available in the original PR's data. To make retrieval of the codebase C from these two elements reproducible and reliable, we create mirrors of the original repository. Mirrors for the repository constituting both the evaluation and fine tuning data are collected and open-sourced under the SWE-bench GitHub organization. Because an original repository's code may be subject to changes in its commit and edit history outside of the authors' control, we choose to create a mirror repository to ensure that later modifications to the codebase do not potentially render a task instance unusable due to a corruption or removal of the associated base commit. Additionally, we create a mirror instead of cloning and storing the latest version of a repository. This is because a mirror retains the original commit hashes, history, branches, and tags, serving as a faithful and complete history of the technical details of the original repository. A mirror does not retain stars, watchers, issues, or pull requests from the original repository.\n[A BENCHMARK DETAILS] We create a mirror from a repository after and within the same day when task instances were collected. The mirror retains the original repository's \"owner/name\" moniker, except that the \"/\" character is converted to a \" \" to confirm to GitHub naming conventions. Given this infrastructure, retrieving a task instance's codebase is straightforward. First, the correct mirror can be cloned from the SWE-bench organization using repo. Next, within the local copy of the mirror, checking out the base commit will reset the repository to codebase C. To proceed to another task instance from the same repository, git version control is used to automatically remove any modifications associated with the current task instance before checking out the next task instance's base commit.\n[A BENCHMARK DETAILS] Solution, Test Patches. The solution δ and tests T are derived from the file changes data, or diff, of a PR. As mentioned in Section 2.1, the original diff along with solution δ and tests T are represented as a .patch file, a format for efficiently specifying transformations to line-based text files. Generally speaking, a .patch is structured as a list of blocks, where each block consists of a header and one or more hunks that collectively correspond to changes to a single file. The header contains metadata specifying a file path and line numbers, while the actual modifications to the target file are encoded as multiple lines prefixed by \"+\" and \"-\" to indicate additions and removals.\n[A BENCHMARK DETAILS] To create the tests T , we first identifying every unique block within the patch, then pick out and conglomerate blocks with file paths that contain testing-related keywords (e.g. \"tests\", \"testing\").\n[A BENCHMARK DETAILS] The remaining blocks are merged to form the solution δ. We validate the robustness of the script written to parse correctly T and δ by applying both patches to the corresponding codebase C and running the tests; we then check that the results reproduce the behavior of the base PR's diff data.\n[A BENCHMARK DETAILS] The solution δ is saved as the patch field while the tests T are saved as the test patch field.\n[A BENCHMARK DETAILS] Remaining Fields. The created at field is a timestamp that specifies when the base PR was created. We retain the created at field from the original data and use this field to perform temporal analysis of model performance. The version field is a string that corresponds to the release version, with respect to the repo, during which the PR was released. Depending on availability and the amount of effort required for each method, we create the version field by retrieving the information directly from the source code, building the repository locally and invoking code to display the version to standard output, or comparing the created at field with a timeline of release versions Documentation for creating a mirror repository using GitHub from a repository's webpage. We create executable contexts for every version of a repository, as discussed in greater detail in § A.3.\n[A.3 EXECUTION-BASED VALIDATION] After filtering through all the PRs from a repository and converting those that satisfy the aforementioned criteria into candidate task instances, the next step is to validate the usability of each task instance via execution. This procedure is broken down into three steps. First, we create executable contexts for each release version of a repository. Next, we check whether the solution δ and tests T can be applied, installed, and run successfully on top of codebase C. Finally, we examine each task instance's execution log to verify a specific set of behaviors to ensure that the task is usable and fair for model evaluation.\n[A.3 EXECUTION-BASED VALIDATION] Executable Contexts. We choose to create executable contexts per release version after experimenting with various degrees of granularity with regards to what definition level to define virtual environments for. Defining task instance-specific contexts is most conducive to ensuring end-to-end installation success, but comes at the cost of laborious manual handcrafting. On the other hand, a repository-specific context based on the latest version of a repository is typically too coarse of a definition that is not compatible with older versions' requirements. We find that release versions are a good proxy for capturing the dependency requirements across a subset of task instances, striking a manageable balance between installation success and manual effort. We manually create each executable context by examining the codebase of the latest task instance for each version. Based on the source code and documentation typically found in the repository's README and CONTRIBUTING guides, we find out the Python version, necessary dependencies, and installation command.\n[A.3 EXECUTION-BASED VALIDATION] Validation Engine. The purpose of the validation engine is to verify candidate task instances. Specifically, this step checks first, that the solution δ and tests T can be applied to codebase C, and second, that the codebase can be properly installed and run within the corresponding virtual environment. To do this, we perform validation repository-by-repository, where for each repository's set of task instances, we perform the following procedure:\n[A.3 EXECUTION-BASED VALIDATION] 1. Create executable contexts as conda envs. based on latest task instance per version.\n[Group task instances by version.] 3. Iterate across each task instances group, where for each task instance, we perform the following within the corresponding conda env. The testing command consists of the testing framework used by the repository (e.g. pytest, tox) with paths specified in T appended. The testing command would run any and all tests that are specified within the contents of each file path. If any of the steps (a) through (f ) fails, the candidate task instance is discarded from consideration. With moderate variation across repositories, we observe that this step generally removes half of the candidate task instances.\n[Group task instances by version.] Examining Validation Logs. Last but not least, we check the logs log pre and log post created by the validation engine for specific properties. First, to guard against arbitrary naming choices, we check log pre for ImportError and AttributeError occurrences, which are potentially indicative of dependency naming related errors that would trivial and near-impossible to address correctly. To this end, we remove all task instances with such errors in their log pre from consideration. Next, we compare the test results to check that the task instance is non-trivial, indicated by at least one or more tests having a fail status before the solution δ is applied, then a pass status after. To check this, we first define several repository-specific parsers to convert log pre and log post into mappings of test t i ∈ T to a status s ∈ [fail,pass]. Given these two data structures, we then check that there If a task instance fulfills these two criteria, then it is included in the evaluation dataset. Table 10 displays a summary of how many task instances were removed from consideration across the construction process and execution based validation steps. We save all finalized task instances to a single .json file that is open sourced and available for download.\n[Group task instances by version.] Alongside the task instances, we also create a corresponding folder containing the ground truth test results. For each task instance, from their respective log pre and log post test-to-status mappings, we create a test results data structure where the keys are FAIL TO FAIL, FAIL TO PASS, PASS TO FAIL, and PASS TO PASS, and the values are lists of tests. By \"caching\" these results, we remove the need to re-run the solution δ at evaluation time (although re-running is an available option). We use this data structure to verify task completion, as discussed in Section A.4.\n[A.4 EVALUATION PROCEDURE] Lang. Model  We provide a visualization of the evaluation procedure in Figure 8. The evaluation procedure scores the model's δ .patch generation with respect to the behavior of the solution δ. At a finer-grained level, the evaluation procedure can be broken down into four separate steps, highlighted by the numbered steps in Figure 8. First, the codebase and problem statement are visible and given to the LM; the LM then generates a .patch prediction δ. In the evaluation step, the following steps are performed per prediction on the target task instance:\n[A.4 EVALUATION PROCEDURE] 1. Remove any file changes and checkout the task instance's base commit. This sets the repository to codebase C.\n[A.4 EVALUATION PROCEDURE] 2. Activate the executable context corresponding to the task instance's version.\n[A.4 EVALUATION PROCEDURE] 3. Run installation command to instantiate codebase C.\n[A.4 EVALUATION PROCEDURE] 4. Apply test patch T to codebase C.\n[5.] Apply prediction patch δ to codebase C with tests T .\n[5.] 6. If the previous step fails, we attempt to fix prediction patch δ automatically and reapply it.\n[5.] 7. Run the testing script, determined from test patch T , to generate test result logs log δ .\n[5.] Steps 1 through 4 reliably do not fail due to verification during the task instance validation process.\n[5.] If applying the prediction patch (Step 5) fails, we attempt to repair the prediction patch file by removing unnecessary context lines and recalculating the header values (Step 6). If the remaining patch fails again or running the test command (Step 7) fails, then the prediction is automatically given a score of 0. Assuming these steps succeed, the output log log δ can then be converted to a test-to-status mapping, identical in structure to the via the appropriate, repository-specific parser introduced in § A.3.\n[5.] Evaluation Metrics Calculation. To determine task completion, we compare the test-to-status mapping parsed from log δ with the list of tests corresponding to the FAIL TO PASS and PASS TO PASS keys from the ground truth test results data structure. Determining task completion is straightforward; we check that all FAIL TO PASS and PASS TO PASS tests are found and have a pass status in the evaluation test-to-status mapping. If a test is missing or has a non-pass status, it is considered a fail status. As defined and used in the main paper, a task is considered solved if all tests across FAIL TO PASS and PASS TO PASS pass.\n[A.5 EVALUATION TEST SET CHARACTERIZATION] We include an expanded form of Table 1 that includes repository specific statistics in Table 11. Table 12 presents a brief description of each repository extracted from the repository's documentation along with the repository's associated open source license. The associated licenses all permit noncommercial usage of the original library source code as long as the permissions in the original licenses are upheld and retained. In addition to the original statistics presented in Table 1, we introduce three new values. The δ # Lines Added and δ # Lines Removed together sum up to δ Lines Edited. \"Added\" refers to the number of new lines that are introduced, while \"Removed\" are preexisting lines taken out by the solution. The |T | (Pass to Pass) statistic refers to the number of tests that were passing before the solution δ was applied during the validation pipeline. Unlike fail to pass tests that are intended to characterize the problem statement P and determine if a revision addresses the issue, pass to pass tests are included to ensure that the revision does not break or violate any existing expected behavior. These tests are extracted during the validation log examination phase as discussed in § A.3. We note that fail to fail tests and pass to fail tests are not considered during evaluation, and those statistics are not reflected in the above table.\n[A.5 EVALUATION TEST SET CHARACTERIZATION] Task Instance Issue Categories. To provide a better sense of the types of problems that SWE-bench task instances include, we perform simple analyses on the issues, identified by the issue numbers field, for each task instance. Per issue, we inspect metadata, specifically tags, to characterize the type of contribution put forth by the PR. Table 13 groups and shows several examples of the 2,289 tags we found across all issues. While the absolute majority of issues are associated with bug fixes, SWE-bench's task instances are associated with a diverse set of code changes with purposes beyond debugging and error correction.\n[A.5 EVALUATION TEST SET CHARACTERIZATION] Attribute Distributions. In Figure 9, we present plots of the cumulative distribution function for attributes introduced in Table 1. From these plots, we see that the median SWE-bench task instance has a problem description of 140 words, and will take place within a codebase containing just shy of 1900 files and 400K lines. The corresponding reference solution δ will usually edit a single function  within a file, changing ∼15 lines, and has a single fail to pass test to verify the correctness of the change along with 51 pass to pass tests to check whether existing behavior is preserved.\n[A.5 EVALUATION TEST SET CHARACTERIZATION] Patch Fix Rate. We present Table 14, which presents summary statistics of how many task instances each model generated patches for (out of 2294), how many of these patches applied successfully, and how many of the successfully applied patches required undergoing the patch fixing procedure introduced in Appendix A.4. We find that fixed patches tend to make up a smaller percentage of the SWE-Llama patches that successfully applied, suggesting that SWE-Llama's fine tuning procedure has a positive effect on generating well-formatted patches. For closed source models, fewer patches apply successfully, and of the ones that do, a greater percentage require the post-generation fix, suggesting that models still struggle with patch generation and structured outputs in general.\n[Category Count Examples] Bug 442 \"Bug\" (179); \"type:bug\" (114); \"bug\" (57); \"type: bug\" (48); \"Bug :beetle:\" (23); \"status: confirmed bug\" (20);; Feature 167 \"type:enhancement\" (47); \"Enhancement\" (25); \"New feature\" (24); \"Feature Request\" (22); \"type: enhancement\" (19); \"Enhancement :star:\" (15); \"New Feature\" (7); \"enhancement\" (6); Regression 39 \"type: regression\" (14); \"Regression\" (14); \"regression\" (8); Other 1641 \"help wanted\" (71); \"good first issue\" (66); \"printing\" (58); \"extensions:autodoc\" (58); \"Easy\" (57); \"Easy to Fix\" (54); \"domains:py\" (27); \"core\" (26); \"sets\" (23); \"Wrong Result\" (23); \"units\" ( 22); \"Good first issue\" (21); Table 14: Statistics for how many patches for 2,294 task instances were generated, applied successfully, and required a post-generation fix to apply successfully for each [model, retrieval setting] combination during evaluation. The GPT-4 BM25 27k and \"Oracle\" settings were ran on the 25% subset. The GPT-4 \"Oracle\"-collapsed setting was run on the full SWE-bench test set.\n[A.6 DEVELOPMENT SET CHARACTERIZATION] In addition to the evaluation test set, we also provide a development set for evaluating models and tuning hyperparameters before running on the final test set. Following the style of tables and graphs from before, we present similar statistics to characterize the 225 development task instances (slightly more than 10% of the main evaluation set) collected from 6 open source repositories with licenses permitting such usage. The development set was collected following the exact same set of methodologies and filters as the main evaluation set. In addition to the pre-existing steps, we also filter the development set to keep task instances that were created after January 1, 2019. Similar to Table 12, in Table 15, we briefly summarize the purpose and licenses of the 6 selected repositories.\n[A.6 DEVELOPMENT SET CHARACTERIZATION] Following Table 13, we also list the tags associated with the the development set tasks in Table 16, again showcasing the diversity and coverage of task types beyond fixing bugs. Compared to the main evaluation tasks, we can also see tags (e.g., \"Crash :collision:\", \"io\") that refer to issues presenting problems which are unique to the repositories in the development set.\n[A.6 DEVELOPMENT SET CHARACTERIZATION] Following Table 1, we present the same set of repository-specific average statistics for the 6 repositories in the development set in\n[Category Count Examples] Bug 127 \"bug\" (111); \"Bug :cockroach:\" (10); \"rule bug\" (6); Feature 55 \"enhancement\": 46; \"Enhancement :star:\": 5; \"feature-request\": 2; Regression 4 \"Regression\" (4); Other 95 \"api\": 11, \"documentation\": 7, \"help wanted\": 6, \"config options\": 5, \"io\": 5, \"jinja\": 4, \"good first issue\": 4, \"parser\" 3\n[C ADDITIONAL RESULTS] C.1 RESULTS WITH \"ORACLE\" RETRIEVAL Using the \"oracle\" retrieval method described in Section 4.1, we show the general performance results in Table 18. Naturally, providing only the files edited by the reference solution's pull request, model performance improves compared to the noisier BM25 retrieval setting.\n[C.2 EVALUATION TEST SET] We include a repository-by-repository breakdown of model performance in Table 18: We compare models against each other using the oracle retrieval settings as described in Section 4. The main results table, Table 5, presents the results for the different models when using BM25 only. * Due to budget constraints we evaluate GPT-4 on a 25% random subset of SWE-bench in the \"Oracle\" and BM25 27K retriever settings only.\n[C.3 GPT-4 EVALUATION SUBSET RESULTS] In this section, we present the statistics shown in Table 5 for the 25% random subset that GPT-4 was tested in Table 20. As the selection of the subset is random, we find that the % Resolved and % Apply rates are consistent with the main results, and not significantly skewed towards being simpler or more difficult than the general evaluation set.\n[C.4 EXTENDED TEMPORAL ANALYSIS] In this section, we present an extended temporal analysis of task instances solved by year that follows the analysis shown in Table 7 of the evaluation section in the main paper. In Table 21, we present the % Resolved statistic across models under the \"Oracle\" retrieval setting for 6 different temporal partitions that group tasks by the years in which the issues were created. It is evident from the table that there is no consistent correlation between model performance and year, supporting our conclusion that despite having potentially seen older versions of code within its pre-training datasets, understanding and implementing in fixes in SWE-bench is a difficult task that requires understanding and cannot be accomplished feasibly or consistently via memoization of observed data.\n[C.5 F2P, P2P RATE ANALYSIS] In the main paper results, we present the \"% Resolved\" statistic that indicates how many task instances were completely solved by the different models. In this section, we provide more finegrained insight into the gap of task instances where 1. The model's patch generation was applied successfully and 2. The task instance was not resolved. Assuming a patch is applied successfully, we define 6 cases in  20: We compare models against each other using the BM25 and oracle retrieval settings as described in Section 4 on a 25% random subset (574 instances) of SWE-bench in the \"oracle\" and BM25 27K retriever settings only. This is the same subset that GPT-4 is evaluated on, as mentioned in Table 5. The difference relative to percentages in Table 5 and Table 18 is included as a subscript. established, we introduce five new terms. The \"Breaking Resolved\" outcome refers to when the desired behavior of the issue has been accomplished (all F2P tests pass), but not all prior behavior is maintained (not all P2P tests pass). \"Partially Resolved\" refers to when prior behavior of a codebase was maintained (all P2P tests pass); however, the desired behavior is not fully accomplished (not all F2P tests pass). The \"Work in Progress\" case is when the desired behavior is not fully accomplished (not all F2P tests pass) and the prior behavior of the codebase is not maintained (not all P2P tests pass). A \"No-Op\" is when a code change does not have any effect on the original codebase; prior behavior is maintained (all P2P tests pass) but the issue remains completely unresolved (0 F2P tests pass). Finally, if the issue is unresolved (0 F2P tests pass) and prior working behavior is reverted (some P2P tests fail), the codebase is left in a worse state, which we define to be a \"Regression\".\n[C.5 F2P, P2P RATE ANALYSIS] In Table 23, we categorize patch generations that successfully applied according to these six cases. We find that of non-\"Resolved\" issues, the majority of patch generations proposed by the model do not solve a single F2P test case from the corresponding task instance (\"No-Op\" and \"Regression\"). Within the subset of these cases, the majority (60% to 70%) of cases are a No-Op, while the model breaks existing behavior for the remainder of these situations.\n[C.5 F2P, P2P RATE ANALYSIS] Generally, the cases where model generations pass some, but not all tests (\"Breaking Resolved\", \"Partially Resolved\", \"Work in Progress\") cumulatively represent a smaller subset of problems relative to the other three categories. From manual inspection of several of these cases, it is clear that the model demonstrates some understanding of the task requirements. However, due to the baseline methods' limited view of the codebase that does not include information such as inter-file dependencies and functions' relationships, for many of these task instances often fail because a change that correctly resolves the immediate issue does not account for other modules that use and are affected by the changed entity. We include several case studies that directly highlight these shortcomings in Section F Overall, these results highlight not just the difficulty of SWE-bench, but also point to the We include our exploratory work here that demonstrates how software engineering metrics can reliably capture characteristics of code quality, and how comparing these statistics across two patches can provide automatic observations about model capabilities. We use the Radon package, a library for computing different software engineering metrics directly from source code.\n[C.5 F2P, P2P RATE ANALYSIS] We look specifically at successfully applied Claude 2 patch predictions in the \"Oracle\" retrieval setting for the psf/requests repository, which several models perform best at as reflected in Figure 4. Per prediction, we apply the patch to the codebase, then calculate the Cyclomatic complexity and Halstead complexity scores for the modified functions. Cyclomatic complexity quantifies the control flow of a function, counting the number of independent execution paths through the source code (McCabe, 1976). A higher Cyclomatic complexity score suggests a more complex function that has higher likelihood of defects and usually suggests difficult maintainability. Halstead complexity counts the number of operators and operands in a program (Halstead, 1977). Per prediction, we also perform the same set of steps for the corresponding gold patch.\n[C.5 F2P, P2P RATE ANALYSIS] We find that software engineering metrics provides automatic qualitative insights into model performance. Consider the following simple case study in Figure 10. While the model patch prediction (left) is fewer lines (6 instead of 11) and modifies fewer files (1 instead of 2) compared to the gold reference solution (right), the model's edit places a conditional within a relatively complex and widely used HTTPAdapter class. This introduces two new potential execution outcomes, raising the Cyclomatic complexity of HTTPAdapter from 3 to 5. In contrast, while longer, the reference solution imports intra-module dependencies, modifies a logically simpler function in get connection, and defines a new error type InvalidProxyURL to capture the novel bug described by the issue.\n[C.5 F2P, P2P RATE ANALYSIS] Problem Statement: Misleading exception with invalid protocol in proxy variable. When the value of https proxy or HTTPS PROXY variable(s) accidentally miss one '/' in the protocol, a traceback is thrown to the user which doesn't pin point that the issue is with the proxy configuration... Sparse retrieval. During retrieval we make a slight augmentation to the documents by pre-pended files' contents with their file paths to better enable retrieval based on filenames that may be mentioned directly in the issue.\n[C.5 F2P, P2P RATE ANALYSIS] Oracle retrieval. Oracle retrieval file paths are simply extracted directly from the reference solution's patch file excluding test files.\n[D.2 INFERENCE SETTINGS] Since generations are relatively expensive, we only generate a single patch file per instance. Following precedent in code generation for evaluation in Pass@1 (Chen et al., 2021;Rozière et al., 2023), we simply use greedy decoding for all models.\n[D.3 PROMPT TEMPLATE EXAMPLE] Models are prompted with the following general template with slight variations depending on the model used. Published as a conference paper at ICLR 2024 </patch> I need you to solve the provded issue by generating a single patch file that I can apply directly to this repository using git apply. Please respond with a single patch file in the format shown above.\n[Respond below:] Experiments using slightly more or fewer lines of instructions or examples seemed to not affect overall performance substantially, except for the findings of experiments stated in Section 5.\n[E SOCIETAL IMPACT] As reasoning on code has emerged as a foundational skill underlying many LM's capability, a potential future of machine-automated software engineering raises many important questions and has important potential ramifications with regards to AI Safety (Gros et al., 2023). It is important to address questions on how to ensure AI-generated code is faithful to human intents and what guardrails might be in place when human objectives are misinterpreted by code agents that then carry out the task. To observe such problems in a controlled setting and manifest their solutions, we hope SWEbench might serve as a testbed for designing safe, robust measures towards aligned, verifiable, and safe AI-driven software engineering.\n[F IN-DEPTH ANALYSIS OF SWE-LLAMA GENERATIONS] In this section, we provide five additional qualitative analyses of generations from both Claude 2 and SWE-Llama generations (Oracle retrieval setting) following the style of Section 5.1.\n[F IN-DEPTH ANALYSIS OF SWE-LLAMA GENERATIONS] Claude 2 qualitative studies can be found in Tables 25 and26. Tables 27,28, and 29 are task instances that Claude 2 did not address correctly. SWE-Llama qualitative studies are covered across Tables 30,31,32,33,34. For Tables 30,31, and 32, we present task instances solved correctly by SWE-Llama 13b. In Table 33 and 34, we present two task instances where SWE-Llama 13b does not address the issue correctly, pointing out a subset of the reasoning and generation skills that models may not be adept at enough to accomplish the task at hand.\n[F IN-DEPTH ANALYSIS OF SWE-LLAMA GENERATIONS] The observations we make across these sections corroborate with the points stated in the main paper, which is that models tend to struggle with multi-line and multi-file changes, are more adept when the required fix is relatively short, and need help with understanding the codebase in an efficient manner.\n[F IN-DEPTH ANALYSIS OF SWE-LLAMA GENERATIONS] Table 25: In this example, Claude 2 correctly addresses an issue from scikit-learn/scikit-learn. However, as demonstrated in the discussion, while the solution is correct, it demonstrates models' tendency to write primitive Python and not employ existing methods within the codebase. ( so.Plot(tips, \"total_bill\") .add(so. Bars(alpha=.3,edgewidth=0), so.Hist(bins=4))\n[F IN-DEPTH ANALYSIS OF SWE-LLAMA GENERATIONS] .scale(x=\"log\") ) ( so.Plot(tips, \"total_bill\") .add(so.Bars(alpha=.3, edgewidth=0), so.Hist(bins=8))\n[F IN-DEPTH ANALYSIS OF SWE-LLAMA GENERATIONS] .scale(x=\"log\") ) ( so.Plot(tips, \"total_bill\") .add(so. Bar(alpha=.3,edgewidth=0,width=1), so.Hist(bins=4))\n[F IN-DEPTH ANALYSIS OF SWE-LLAMA GENERATIONS] .scale(x=\"log\") )\n[F IN-DEPTH ANALYSIS OF SWE-LLAMA GENERATIONS] ---a/seaborn/_core/plot.py +++ b/seaborn/_core/plot.py @@ -1327,9 +1327,7 @@ elif \"width\" in df: view_width = view_df   Discussion. In this problem, the model is asked to correct a trailing whitespace issue, and the issue shows a demonstration of the error that arises during usage, but does not explicitly point out the function to fix in the model. In the oracle retrieval setting, the model is given the xarray/core/groupby.py file to edit directly, but most locate the line to edit. In this situation, the model successfully reasons that in the interactive Python setting, the underlying function that is being invoked is actually the repr function. After locating the function, it must figure out where in the return statement the whitespace is located. At this point, the fix is quite evident, as there is an explicit space that the model removes. In this case, the model successfully passes all tests for verifying the correctness of this fix explicitly (10 fail to pass tests) while also maintaining the existing behavior of the file (16 pass to pass tests).\n[#### Expected Results] The same result.\n[#### Actual Results] The results are the same except for their signs:",
+  "chunks": [
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "text": "Language models have outpaced our ability to evaluate them effectively, but for their future development it is essential to study the frontier of their capabilities. We find real-world software engineering to be a rich, sustainable, and challenging testbed for evaluating the next generation of language models. To this end, we introduce SWE-bench, an evaluation framework consisting of 2,294 software engineering problems drawn from real GitHub issues and corresponding pull requests across 12 popular Python repositories. Given a codebase along with a description of an issue to be resolved, a language model is tasked with editing the codebase to address the issue. Resolving issues in SWE-bench frequently requires understanding and coordinating changes across multiple functions, classes, and even files simultaneously, calling for models to interact with execution environments, process extremely long contexts and perform complex reasoning that goes far beyond traditional code generation tasks. Our evaluations show that both state-ofthe-art proprietary models and our fine-tuned model SWE-Llama can resolve only the simplest issues. The best-performing model, Claude 2, is able to solve a mere 1.96% of the issues. Advances on SWE-bench represent steps towards LMs that are more practical, intelligent, and autonomous."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "INTRODUCTION",
+      "text": "Language models (LMs) are rapidly being deployed in commercial products such as chatbots and coding assistants. At the same time, existing benchmarks have become saturated (Kiela et al., 2021;Ott et al., 2022) and fail to capture the frontier of what state-of-the-art LMs can and cannot do. There is a need for challenging benchmarks that more accurately reflect real-world applications of LMs to help shape their future development and usage (Srivastava et al., 2023). Figure 1: SWE-bench sources task instances from real-world Python repositories by connecting GitHub issues to merged pull request solutions that resolve related tests. Provided with the issue text and a codebase snapshot, models generate a patch that is evaluated against real tests."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "INTRODUCTION",
+      "text": "Building a good benchmark is difficult since tasks must be challenging enough to stump existing models, but model predictions must also be easy to verify (Martínez-Plumed et al., 2021). Coding tasks are appealing as they pose challenging problems to LMs yet generated solutions can be easily verified by running unit tests. However, existing coding benchmarks, such as HumanEval (Chen et al., 2021), mostly involve self-contained problems that can be solved in a few lines of code."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "INTRODUCTION",
+      "text": "In the real world, software engineering is not as simple. Fixing a bug might involve navigating a large repository, understanding the interplay between functions in different files, or spotting a small error in convoluted code. Inspired by this, we introduce SWE-bench, a benchmark that evaluates LMs in a realistic software engineering setting. As shown in Figure 1, models are tasked to resolve issues (typically a bug report or a feature request) submitted to popular GitHub repositories. Each task requires generating a patch describing changes to apply to the existing codebase. The revised codebase is then evaluated using the repository's testing framework."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "INTRODUCTION",
+      "text": "SWE-bench offers several advantages over existing LM programming benchmarks. These include, a realistic setting that utilizes user-submitted issues and solutions, diverse inputs featuring unique code problems from 12 repositories, a robust framework for execution-based evaluation, and the ability to continuously update the benchmark with new instances, requiring minimal human intervention."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "INTRODUCTION",
+      "text": "We evaluate multiple state-of-the-art LMs on SWE-bench and find that they fail to solve all except the simplest issues. Using a BM25 retriever, Claude 2 is only able to resolve 1.96% of the issues."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "INTRODUCTION",
+      "text": "In addition to SWE-bench our contributions include the release of a training dataset, SWE-benchtrain, which is essential for advancing open model development in this challenging domain. This dataset comprises a collection of 19,000 non-testing task instances derived from 37 repositories."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "INTRODUCTION",
+      "text": "Utilizing SWE-bench-train, we release two fine-tuned models, SWE-Llama 7b and 13b, based on the CodeLlama (Rozière et al., 2023) model. We find that in some settings SWE-Llama 13b is competitive with Claude 2 and is capable of processing contexts exceeding 100,000 tokens."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "INTRODUCTION",
+      "text": "2 SWE-BENCH SWE-bench is a benchmark featuring GitHub issues from popular repositories that report bugs or request new features, and pull requests that make changes to the repository to resolve these issues."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "INTRODUCTION",
+      "text": "The task is to generate a pull request that addresses a given issue and passes tests related to the issue."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "BENCHMARK CONSTRUCTION",
+      "text": "GitHub is a rich data source for software development, but repositories, issues, and pull requests can be noisy, ad-hoc, or poorly documented or maintained. To find high-quality task instances at scale, we use a 3-stage pipeline as follows.  Stage I: Repo selection and data scraping. We start by collecting pull requests (PRs) from 12 popular open-source Python repositories on GitHub, producing about ∼ 90,000 PRs in total. We focus on popular repositories as they tend be better maintained, have clear contributor guidelines, and have better test coverage. Each PR has an associated codebase specified by it's base commit."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "Resolves an issue",
+      "text": "Stage II: Attribute-based filtering. We create candidate tasks by selecting the merged PRs that (1) resolve a GitHub issue and (2) make changes to the test files of the repository, which indicates that the user likely contributed tests to check whether the issue has been resolved."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "Resolves an issue",
+      "text": "Stage III: Execution-based filtering. For each candidate task, we apply the PR's test content, and log the associated test results before and after the PR's other content is applied. We filter out task instances without at least one test where its status changes from a fail to pass (henceforth referred to as fail-to-pass test). We also filter out instances that result in installation or runtime errors."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "Resolves an issue",
+      "text": "Through these stages of filtering, the original 90,000 PRs are filtered down to the 2,294 task instances which comprise SWE-bench. A final breakdown of these task instances across repositories is presented in Figure 3, and Table 1 highlights the key features of SWE-bench task instances. We highlight that the codebases are large with thousands of files, and the reference pull requests often make changes to multiple files at once. Technical details about SWE-bench's construction pipeline are discussed in Appendix A. Additional dataset statistics are in Appendix A.5."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "TASK FORMULATION",
+      "text": "Model input. A model is given an issue text description and a complete codebase. The model is then tasked to make an edit to the codebase to resolve the issue. In practice, we represent edits as patch files, which specify which lines in the codebase to modify in order to resolve the issue."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "TASK FORMULATION",
+      "text": "Evaluation metrics. To evaluate a proposed solution, we apply the generated patch, using unix's patch program, to the codebase and then execute the unit and system tests associated with the task instance. If the patch applies successfully and all of these tests pass we consider the proposed solution to have successfully resolved the issue. The metric for our benchmark is the percentage of task instances that are resolved. Additional technical details in Appendix A.4."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "FEATURES OF SWE-BENCH",
+      "text": "Traditional benchmarks in NLP typically involve only short input and output sequences and consider somewhat \"contrived\" problems created specifically for the benchmark. In contrast, SWE-bench's realistic construction setting imbues the dataset with unique properties, which we discuss below."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "FEATURES OF SWE-BENCH",
+      "text": "Real-world software engineering tasks. Since each task instance in SWE-bench consists of a large and complex codebase and a description of a relevant issue, solving SWE-bench requires demonstrating sophisticated skills and knowledge possessed by experienced software engineers but are not commonly evaluated in traditional code generation benchmarks."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "FEATURES OF SWE-BENCH",
+      "text": "Continually updatable. Our collection process can be easily applied to any Python repository on GitHub and requires minimal human intervention. Therefore, we can extend SWE-bench with a continual supply of new task instances and evaluate LMs on issues created after their training date, which ensures that the solution was not included in their training corpus."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "FEATURES OF SWE-BENCH",
+      "text": "Diverse long inputs. Issue descriptions are typically long and detailed (195 words on average), and codebases regularly contain many thousands of files. Solving SWE-bench requires identifying the relatively small number of lines that need to be edited to solve an issue amongst a sea of context."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "FEATURES OF SWE-BENCH",
+      "text": "Robust evaluation. For each task instance, there is at least one fail-to-pass test which was used to test the reference solution, and 40% of instances have at least two fail-to-pass tests. These tests evaluate whether the model addressed the problem in the issue. In addition, a median of 51 additional tests run to check whether prior functionality is properly maintained."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "FEATURES OF SWE-BENCH",
+      "text": "Cross-context code editing. Unlike prior settings that may constrain edit scope to an individual function or class (e.g., Chen et al., 2021;Cassano et al., 2022) or provide cloze-style fill-in blanks (e.g., Lu et al., 2021;Fried et al., 2023), SWE-bench does not provide such explicit guidance. Rather than merely having to produce a short code snippet, our benchmark challenges models to generate revisions in multiple locations of a large codebase. SWE-bench's reference solutions average editing 1.7 files, 3.0 functions, and 32.8 lines (added or removed)."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "FEATURES OF SWE-BENCH",
+      "text": "Wide scope for possible solutions. The task of repository-scale code editing can serve as a level playing field to compare approaches ranging from retrieval and long-context models to decisionmaking agents, which could reason and act in code. SWE-bench also allows creative freedom, as models can generate novel solutions that may deviate from the reference PR."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "SWE-BENCH LITE",
+      "text": "Evaluating LMs on SWE-bench can be time-consuming and, depending on the model, require a costly amount of compute or API credits. Given that initial performance returns as presented in Section 5 are quite low, SWE-bench's difficulty makes it useful for gauging LM progress in the long term, but potentially intimidating for initial systems that attempt to make progress in the short term. astropy ( 95) django ( 850) flask ( 11) matplotlib ( 184) pylint ( 57) pytest ( 119) requests ( 44) scikit-learn ( 229) seaborn ( 22) sphinx ( 187) sympy ( 386)"
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "SWE-BENCH LITE",
+      "text": "xarray ( 110)  To encourage adoption of SWE-bench, we create a Lite subset of 300 instances from SWE-bench that have been sampled to be more self-contained, with a focus on evaluating functional bug fixes."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "SWE-BENCH LITE",
+      "text": "The full filtering criteria and dataset information is included in SWE-bench Lite covers 11 of the original 12 repositories, with a similar diversity and distribution of task instances across repositories as the original. Full details of the Lite split and filtering details are included in Appendix A.7."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "SWE-LLAMA: FINE-TUNING CODELLAMA FOR SWE-BENCH",
+      "text": "It is important to benchmark the performance of open models on SWE-bench alongside proprietary models. At the time of writing, only the CodeLlama models (Rozière et al., 2023) are able to handle the very long contexts necessary. However, we observe that the off-the-shelf CodeLlama variants are not capable of following the detailed instructions to generate repository-wide code edits, and typically output placeholder responses or unrelated code. To better evaluate the capabilities of these models, we perform supervised fine-tuning on the 7 billion-and 13 billion-parameter CodeLlama-Python models. The resulting models are specialized repository editors that can run on consumer hardware and resolve GitHub issues."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "SWE-LLAMA: FINE-TUNING CODELLAMA FOR SWE-BENCH",
+      "text": "Training data. We follow our data collection procedure and collect 19,000 issue-PR pairs from an additional 37 popular Python package repositories. In contrast to Section 2.1, we do not require that pull requests contribute test changes. This allows us to create a much larger training set to use for supervised fine-tuning. To eliminate the risk of data contamination, the set of repositories in the training data is disjoint from those included in the evaluation benchmark."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "SWE-LLAMA: FINE-TUNING CODELLAMA FOR SWE-BENCH",
+      "text": "Training details. Given the instructions, an issue text from GitHub and the relevant code files as the prompt, we finetune SWE-Llama to generate the patch that solved the given issue (the \"gold patch\")."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "SWE-LLAMA: FINE-TUNING CODELLAMA FOR SWE-BENCH",
+      "text": "For memory efficiency, we fine-tune only the weights of the attention sublayer using LoRA Hu et al."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "SWE-LLAMA: FINE-TUNING CODELLAMA FOR SWE-BENCH",
+      "text": "(2022), and exclude training sequences with more than 30,000 tokens, reducing the effective size of the training corpus to 10,000 instances. More details are provided in Appendix B."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "EXPERIMENTAL SETUP",
+      "text": "In this section we explain how inputs are constructed to run SWE-bench evaluation. In addition, we review the models that we evaluate in this work."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "RETRIEVAL-BASED APPROACH",
+      "text": "SWE-bench instances provide an issue description and a codebase as input to the model. While issues descriptions are usually short (195 words on average as shown in Table 1), codebases consist of many more tokens (438K lines on average) than can typically be fit into an LMs context window."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "RETRIEVAL-BASED APPROACH",
+      "text": "Then the question remains of exactly how to choose the relevant context to provide to the model?"
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "RETRIEVAL-BASED APPROACH",
+      "text": "To address this issue for our baselines, we simply use a generic retrieval system to select the files to insert as context. In particular, we evaluate models under two relevant context settings: 1) sparse retrieval and 2) an oracle retrieval."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "RETRIEVAL-BASED APPROACH",
+      "text": "Sparse retrieval. Dense retrieval methods are ill-suited to our setting due to very long key and query lengths, and especially the unusual setting of retrieving code documents with natural language queries. Therefore, we choose to use BM25 retrieval (Robertson et al., 2009) to retrieve relevant files to provide as context for each task instance. We experiment with three different maximum context limits, and simply retrieve as many files as fits within the specified limit. We evaluate each model on all limits that fit within its context window and report the best performance. From observation, models perform best on the shortest context window, as shown in Table 2."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "RETRIEVAL-BASED APPROACH",
+      "text": "\"Oracle\" retrieval. For analysis purposes we also consider a setting where we \"retrieve\" the files edited by the reference patch that solved the issue on GitHub. This \"oracle\" setting is less realistic, since an engineer working on addressing an issue may not know a priori which files need to be modified. In addition, this setting is also not necessarily comprehensive since edited files alone may not include all the required context to understand exactly how software will behave when interacting with unseen parts of the code."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "RETRIEVAL-BASED APPROACH",
+      "text": "We compare the BM25 retrieval results with those of the \"oracle\" retrieval setting, as shown in Table 3. We observe that in approximately 40% of instances, BM25 retrieves a superset of the oracle files for the 27,000-token context limit. However, in almost half of the instances with the 27,000-token limit, it retrieves none of the files from the \"oracle\" context."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "INPUT FORMAT",
+      "text": "Once the retrieved files are selected using one of the two methods above, we construct the input to the model consisting of task instructions, the issue text, retrieved files and documentation, and finally an example patch file and prompt for generating the patch file. Examples of instances and further details on this formulation are provided in Appendix D."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "MODELS",
+      "text": "Due to the need to process long sequence lengths, there are only a few models that are currently suitable for SWE-bench. Thus we evaluate , , Claude 2, and SWE-Llama with their context limits shown in Table 4.  4: We compare the different context lengths and proportion of the \"oracle\" retrieval setting covered. Models with shorter context lengths are thus inherently disadvantaged. Note that descriptions of token-lengths is a relative non-standard measure (e.g. Llama-tokenized sequences are 42% longer on average than the equivalent sequence tokenized for GPT-4)."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "RESULTS",
+      "text": "We report results for models using different retrieval mechanisms and prompting styles, then provide some analysis and insight into model performance and difficulty. We summarize models' performance using BM25 retrieval in Table 5. Across the board, models struggle significantly to resolve issues. The best performing model, Claude 2, is only able to resolve 1.96% of the issues."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "RESULTS",
+      "text": "To analyze the importance of the retriever to the overall system results, we present the \"oracle\" retrieval results in Appendix Table 18. There, Claude 2 is able to resolve 4.8% of issues using the \"oracle\" retriever. We further analyze the importance of context in the discussion below."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "RESULTS",
+      "text": "Difficulty differs across repositories. When breaking performance down by repository, all models trend similarly across different repositories as show in Figure 4. Despite this, the issues resolved by each model do not necessarily overlap extensively. For example, in the \"oracle\" setting Claude 2 and SWE-Llama 13b perform comparably, with each model resolving 110 and 91 instances respectively. Yet of these instances, Claude 2 only solves 42% of the instances solved by SWE-Llama."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "RESULTS",
+      "text": "This may also be related to the presence of images in issues, which can be encoded into the issue markdown with embedded image links (i.e. ![image][https://...]). Some repositories naturally feature more instances with images; for example 32% of matplotlib and 10% of seaborn instances contain embedded images in their issue text compared to just 2% of all instances. Solving these instances may require multi-modal LMs or some kind of external tool use to process images."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "RESULTS",
+      "text": "Difficulty correlates with context length. Chat models may be pre-trained on long sequences of code but are typically asked to generate shorter coder snippets with limited context provided to frame the question. As shown in Figure 5, we see that as total context length increases, Claude 2's performance drops considerably; behavior that is also observed in other models. In our evaluation settings, models see a lot of code that may not be directly related to solving the issue at hand, and they seem to frequently struggle with localizing problematic code needing to be updated. This result corroborates other studies showing that models become distracted by additional context and may be sensitive to the relative location of target sequences (Liu et al., 2023b). Even when increasing the maximum context size for BM25 would increase recall with respect to the oracle files, performance drops, as shown in Table 2, as models are simply ineffective at localizing problematic code."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "RESULTS",
+      "text": "Further investigating this, we provide an input ablation on the \"oracle\" retrieval context, \"oracle\"collapsed, where retrieved files are collapsed entirely, except for the lines actually edited by the  true pull request (with ±15 lines of buffer) shown in Table 6. In this setting, we see increases in performance, with GPT-4 jumping from 1.3% to 3.4% and Claude 2 from 4.8% to 5.9%."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "RESULTS",
+      "text": "Difficulty does not correlate with issue resolution date. In Table 7 we show model results in the \"oracle\" retrieval setting, partitioned by date, for PRs created before or after 2023. We find that for most models there's little difference in performance before or after this date, with the exception of GPT-4. We consider this result to be largely promising as it suggests that despite models having been exposed to some version of an repository's codebase, they are unlikely to \"cheat\" to address issues simply by generating a more recent version of the repository. Finetuned models are sensitive to context distribution shifts. The finetuned models SWE-Llama 7b and 13b perform surprisingly poorly with BM25 retrieved context. As these models were finetuned using the \"oracle\" retrieval as context, we suspect this shift in context makes it difficult for the model to perform reliably. For instance, SWE-Llama was trained to edit every file included as context whereas in the BM25 setting many files provided in context are not expected to be changed."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "RESULTS",
+      "text": "Generating patches is easier than generating whole files. Models are often trained using standard code files and likely rarely see patch files. We generally formulate our task to have models generate patch files as opposed to recreating the entire file with their proposed change, since patch files will usually be a much more efficient representation of a file change. As shown in Table 5, we observe that models still struggle with generating well-formatted patch files. So we experiment with asking models to instead regenerate entire files with their proposed changes to resolve the issue. In this setting, we find that models generally perform worse at this task than when generating patch files; for instance, Claude 2 scores at 2.2% compared to 4.8% in the main table for \"oracle\" retrieval."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "RESULTS",
+      "text": "Even when controlling for instance length, generating on the shorter half of the task instances by input tokens yields 3.9% compared to 7.8% for generating patches with Claude 2."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "RESULTS",
+      "text": "Language models tend to generate shorter, simpler edits. Model generated patch files tend to add and remove fewer lines than their respective gold patch. As shown in Table 8, compared to an average gold patch, model generated patch files that apply correctly are less than half the total length (74.5 versus 30.1 lines) of gold edit patch files, and rarely edit more than a single file."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "A QUALITATIVE ANALYSIS OF SWE-LLAMA GENERATIONS",
+      "text": "We select 11 generations from SWE-Llama and Claude 2 to better understand the quality of the task and generated patches under the \"oracle\" retrieval setting. Here we discuss an example from SWE-Llama and our overall findings, with in-depth analyses for other examples shown in Appendix F.   We'll consider the task instance sphinx-doc sphinx-8713 from the Sphinx documentation generator, shown in Figure 6. The issue states that the napoleon extension of Sphinx is not properly formatting the documentation keyword \"Other Parameters\" when the config setting napoleon.use_param is set to True. The issue text further provides a detailed code snippet of where the problematic source code is suspected to be, as well as some code examples for reproducing the error and additional information related to package versions. For this particular instance, the model did not resolve the task, failing to pass some of the tests resolved by the gold solution."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "A QUALITATIVE ANALYSIS OF SWE-LLAMA GENERATIONS",
+      "text": "In the \"oracle\" retrieval setting, the model input provides this issue text along with some instructions, the full contents of files edited by the gold patch, and an example of the diff format we expect the answer to be in. The total model input consists of 1,558 lines of context or 20,882 tokens. When comparing the gold patch and the model's patch, we find an obvious mistake. While the model edits the correct function, _parse_other_parameters_section at line 684 in sphinx/ext/napoleon/docstring.py , it changes the function to behave as if napoleon. use_param were always True instead of checking the config setting first and copying what the _parse_parameters_section does, like the gold patch. In the tests, test_parameters _with_class_reference directly compares the documentation produced using a config where napoleon_use_param is set to False, which catches the model's error immediately."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "A QUALITATIVE ANALYSIS OF SWE-LLAMA GENERATIONS",
+      "text": "Comparing results across all the examples we consider, we notice a few prominent trends in behavior. Models tend to write primitive Python code and do not leverage existing third-party libraries or the rest of the codebase for their solutions. Models' generations also reflect a \"greedy\" approach of solving the problem exactly, with little regard for code style or logical constraints that might be reflected by the codebase (i.e. using relative instead of absolute imports). In contrast, we observe that many gold patches will make structural improvements that cover a much larger scope of the codebase; these edits not only resolve the issue, but also anticipate and solve potential future issues."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "RELATED WORK",
+      "text": "Evaluation of LMs. Several recent works for evaluating LMs have either proposed a collection of mutually distinct tasks spanning across multiple domains (Hendrycks et al., 2021;Liang et al., 2022;Srivastava et al., 2023) or turned to the web as an interactive setting featuring tasks that require multiple steps to solve (Yao et al., 2022;Zhou et al., 2023;Deng et al., 2023;Liu et al., 2023d). There are several drawbacks with such a \"potpourri\" style setup. First, each task tends to narrowly focus on one or a few skills, resulting in challenges that are typically too simple, pigeonhole the model into a reduced role, and do not provide models with the bandwidth to exercise their versatility or potentially demonstrate new abilities (Srivastava et al., 2023). Consequently, a model's performance on such task conglomerations may not yield actionable, deep insights regarding its capabilities and how to improve them (Schlangen, 2019;Martínez-Plumed et al., 2021;Bowman & Dahl, 2021). SWEbench addresses these shortcomings, as our work demonstrates that it is significantly challenging, presents a wide range of possibilities for improving LMs to solve this task, and is easy to refresh over time with new task instances, each of which introduce novel, nuanced, and practical challenges."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "RELATED WORK",
+      "text": "Code Generation Benchmarks. HumanEval (Chen et al., 2021) is the current standard in a longstanding pursuit of synthesizing code from natural language descriptions (Yu et al., 2018;Austin et al., 2021;Hendrycks et al., 2021;Li et al., 2022a;Zan et al., 2023). In the past year, subsequent benchmarks have sought to augment HumanEval with extensions to different languages (Cassano et al., 2022;Athiwaratkun et al., 2023;Orlanski et al., 2023), variations in edit scope (Yu et al., 2023;Du et al., 2023), similar but novel code completion tasks (Muennighoff et al., 2023), and more testing (Liu et al., 2023a). Simultaneously, separate works have sought to introduce new coding paradigms (Yin et al., 2022;Yang et al., 2023) or design library-specific problems (Lai et al., 2022;Zan et al., 2022). Instead of partitioning problems into siloed datasets and curtailing them for simplicity's sake, SWE-bench's collection procedure transforms the source code with minimal post-processing, preserving a much broader set of challenges grounded in real-world software engineering beyond closed form completion, such as patch generation, reasoning over long contexts, navigating a codebase directory, and capturing dependency-based relationships across modules."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "RELATED WORK",
+      "text": "ML for Software Engineering. To overcome traditional program analysis techniques that may not scale or incorporate natural language, one direction of current software engineering research is to use neural networks, including LMs, to automate real-world software development processes (Maniatis et al., 2023;Zheng et al., 2023;Hou et al., 2023). Use cases include automating commit generation (Jung, 2021;Liu et al., 2023c), PR review (Yang et al., 2016;Li et al., 2022b;Tufano et al., 2021), bug localization (Kim et al., 2019;Chakraborty et al., 2018), testing (Kang et al., 2023;Xia et al., 2023;Wang et al., 2023), and program repair (Gupta et al., 2017;Allamanis et al., 2017;Monperrus, 2018;Jiang et al., 2018;Goues et al., 2019;Gao et al., 2022;Dinh et al., 2023;Motwani & Brun, 2023). Most relevant to SWE-bench are works that have sought to apply LMs towards automated program repair (Xia & Zhang, 2022;2023;Fan et al., 2023;Sobania et al., 2023), guiding code editing with commits (Chakraborty & Ray, 2021;Zhang et al., 2022;Fakhoury et al., 2023). However, none of the existing datasets (Just et al., 2014;Karampatsis & Sutton, 2019) present code context at the scale of SWE-bench. Moreover, SWE-bench can be easily extended to new programming languages and repositories, and it provides a significantly more realistic and challenging arena to carry out experiments towards augmenting LMs with software engineering tools and practices."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "RELATED WORK",
+      "text": "Limitations and future directions. SWE-bench task instances are all in Python; we hope to apply SWE-bench's task instance collection procedure to expand its coverage to more programming languages and domains. Second, our experiments aim to establish a baseline of the simplest and most straight-forward approaches for this task; we do not intend to constrain future methodologies to the same type of approach and encourage future work to investigate different methods (e.g., agent-based approaches, tool augmented LMs)."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "RELATED WORK",
+      "text": "Lastly, while this work evaluates models using execution-based code testing, relying solely on this method is insufficient to guarantee reliable performance of model generations, as we find automated code generations from LMs can frequently be less comprehensive, efficient, or readable compared to human-written solutions."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "Conclusion.",
+      "text": "The complexity of real-world software development processes extends far beyond just code completion. By drawing on the open-source collaborative pipeline, SWE-bench creates a faithful mirror of real world coding environments. This more realistic environment encourages creative solutions that can have immediate applicability in open-source software development. We hope that this benchmark and our other contributions can serve as valuable assets in the future development of LMs that are more practical, intelligent, and autonomous."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "ETHICS STATEMENT",
+      "text": "SWE-bench is collected entirely from public repositories with licenses that permit software usage that our contributions are in accordance with. Details of the licenses are included in Table 12. During the collection or evaluation processes, we do not collect information about GitHub users, and the SWE-bench task instances do not use GitHub data beyond what is offered via the public API and website. Our contributions do not involve any human subject participation; we do not perform crowdsourcing or recruit human task workers for any part of SWE-bench, including its collection and evaluation procedures along with the experiments. SWE-bench's filtering criteria for GitHub repositories based on popularity does not implicitly or explicitly rely on any discriminative or biased heuristics for repository selection. For the dataset release, we plan to open source the SWE-bench task instances, the collection and evaluation infrastructure, the experimental results, the training data used for fine-tuning SWE-Llama models, and the SWE-Llama model weights. Following best practice precedents, we will also put forth ample documentation to describe each component and its use, and we will also put in place convenient communication channels for soliciting feedback to improve SWE-bench. SWE-bench does not put forth any immediately harmful insights. We briefly discuss the potential impact of SWE-bench's usage in Section E."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "REPRODUCIBILITY STATEMENT",
+      "text": "For our submission, we have uploaded the entirety of the source code as a zipped file that has been properly anonymized. We have organized the codebase such that separate directories correspond to different contributions within the main paper (i.e. dataset collection, evaluation, open source model inference, SWE-Llama training, etc.). The source code contains inline documentation that details purpose and usage of different parts of the codebase. In addition, we also include the full set of 2294 SWE-bench task instances that contains all the components discussed in the main paper. Beyond the documentation in the source code, we include thorough technical details for the collection pipeline and evaluation procedures in Section A.2 and Section A.4 that complements the original details in Section 2 of the main paper. These sections fully cover the logic presented in the code and can be helpful for understanding it. Moving forward, as discussed in the ethics statement, we plan to more formally release SWE-bench to the public as an open source repository with thorough details that describes the benchmark, outlines the code, and details its usage. A major component of SWEbench is the collection framework, which will be part of the open sourced code. Because of its easily maintainable design, as discussed in the main paper, our hope and belief is that SWE-bench should be highly reproducible."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "APPENDIX",
+      "text": "In the appendix, we provide more thorough details regarding the dataset construction process, evaluation pipeline, and characterization of the SWE-bench benchmark."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "A BENCHMARK DETAILS",
+      "text": "This section complements Section 2 with a more technical and fine-grained summary of the data collection, execution-based validation, and evaluation procedures, along with a fuller characterization of the task instances."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "A BENCHMARK DETAILS",
+      "text": "A Task instance construction. We construct candidate task instances from PRs that satisfy three conditions. First, the PR's status must be Merged. A Merged status indicates that the PR's associated code changes were accepted and incorporated into its parent repository. Second, the PR resolves one or more issues in its repository. An issue is defined according to its canonical usage in GitHub as a digital ticket for tracking bugs, enhancements, or any general development goals for a software project. We scan a PR's title, body, and commit messages for linked issues (i.e. \"fixes #24\"). Third, the PR must introduce one or more new tests. A new test is counted when a PR's code changes edits a file path containing a testing-related keyword (e.g. \"test\", \"testing\")."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "A BENCHMARK DETAILS",
+      "text": "A PR that satisfies these criteria is then converted into a candidate task instance such as the example in Figure 7. The codebase C is identified by the repository's owner/name moniker and the pull request's base commit. Recovering the actual codebase from this information is straightforward. We create mirrors of the original GitHub repositories, where each mirror is uniquely identified as owner name. Cloning a repository's corresponding mirror and checking out the base commit yields C in its pre-PR state. The problem statement P is an aggregate of all related issues' titles and descriptions along with any subsequent comments written before the timestamp of the PR's initial commit to avoid leakage of solution details. A PR's code changes are separated into a test patch and a gold patch δ. T consists of all tests from files edited in the test patch. As shown in Figure 7, both T and δ are stored as patch files. Further details about parsing PR and semantic data is in Appendix A.2."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "A BENCHMARK DETAILS",
+      "text": "Execution-based validation. We verify the usability of a task instance via execution. For each candidate, we first define a virtual environment to serve as an execution context, then install C before applying any patches, and finally run T once before and once after the solution δ is applied."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "A BENCHMARK DETAILS",
+      "text": "A candidate is removed from consideration for the final dataset if any step in the verification process fails. In addition, to ensure that a solution δ is non-trivial, we compare the pre-solution and postsolution validation logs to check for whether there are one or more tests in T where the status changes from fail to pass. Lastly, we exclude task instances with tests that invoke newly created functions or classes first introduced in the solution δ. Since naming such constructs is typically an arbitrary process and usually not explicitly specified in the problem statement, resolving tests such as these may be an impossible task even for human developers. Problem Statement. The problem statement P for each task instance is readily available as the problem statement field. The problem statement is an aggregate of all issues' first comments along with any comments attached to those issues that were created before the creation date of the PR's initial commit. We crawl for issues from PR's title, body, and commit messages. After concatenating these components' text data, we first remove any Markdown-style comments, then look through the remaining text for references to issue numbers (a pound # sign followed by a number) and check whether the word preceding the issue number reference is included in a set of keywords suggesting that the issue was resolved by the PR (e.g. \"closes\", \"fixes\", \"resolves\"). The found issues are recorded in the issue numbers field, then separate web requests are made to retrieve each issue's data. To form the problem statement, each issue's title and body are added together and then concatenated with the next issue's if there are multiple. It is also during this step that the hints text field is created and collected from the PR's comment section, where text from comments created before the PR's initial commit. The intuition for this collection methodology is that such PR comments would likely contain natural language and pseudo-code suggestions to the original human task worker regarding how to complete the problem at hand. The experiments presented in this work do not make use of hints text, but we believe this information may be interesting for future investigations."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "A BENCHMARK DETAILS",
+      "text": "Codebase. The codebase C content is not stored in plaintext for every task instance. Rather, the task instance contains a reference to the relevant codebase via the repo and base commit field."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "A BENCHMARK DETAILS",
+      "text": "Both fields are available in the original PR's data. To make retrieval of the codebase C from these two elements reproducible and reliable, we create mirrors of the original repository. Mirrors for the repository constituting both the evaluation and fine tuning data are collected and open-sourced under the SWE-bench GitHub organization. Because an original repository's code may be subject to changes in its commit and edit history outside of the authors' control, we choose to create a mirror repository to ensure that later modifications to the codebase do not potentially render a task instance unusable due to a corruption or removal of the associated base commit. Additionally, we create a mirror instead of cloning and storing the latest version of a repository. This is because a mirror retains the original commit hashes, history, branches, and tags, serving as a faithful and complete history of the technical details of the original repository. A mirror does not retain stars, watchers, issues, or pull requests from the original repository."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "A BENCHMARK DETAILS",
+      "text": "We create a mirror from a repository after and within the same day when task instances were collected. The mirror retains the original repository's \"owner/name\" moniker, except that the \"/\" character is converted to a \" \" to confirm to GitHub naming conventions. Given this infrastructure, retrieving a task instance's codebase is straightforward. First, the correct mirror can be cloned from the SWE-bench organization using repo. Next, within the local copy of the mirror, checking out the base commit will reset the repository to codebase C. To proceed to another task instance from the same repository, git version control is used to automatically remove any modifications associated with the current task instance before checking out the next task instance's base commit."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "A BENCHMARK DETAILS",
+      "text": "Solution, Test Patches. The solution δ and tests T are derived from the file changes data, or diff, of a PR. As mentioned in Section 2.1, the original diff along with solution δ and tests T are represented as a .patch file, a format for efficiently specifying transformations to line-based text files. Generally speaking, a .patch is structured as a list of blocks, where each block consists of a header and one or more hunks that collectively correspond to changes to a single file. The header contains metadata specifying a file path and line numbers, while the actual modifications to the target file are encoded as multiple lines prefixed by \"+\" and \"-\" to indicate additions and removals."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "A BENCHMARK DETAILS",
+      "text": "To create the tests T , we first identifying every unique block within the patch, then pick out and conglomerate blocks with file paths that contain testing-related keywords (e.g. \"tests\", \"testing\")."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "A BENCHMARK DETAILS",
+      "text": "The remaining blocks are merged to form the solution δ. We validate the robustness of the script written to parse correctly T and δ by applying both patches to the corresponding codebase C and running the tests; we then check that the results reproduce the behavior of the base PR's diff data."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "A BENCHMARK DETAILS",
+      "text": "The solution δ is saved as the patch field while the tests T are saved as the test patch field."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "A BENCHMARK DETAILS",
+      "text": "Remaining Fields. The created at field is a timestamp that specifies when the base PR was created. We retain the created at field from the original data and use this field to perform temporal analysis of model performance. The version field is a string that corresponds to the release version, with respect to the repo, during which the PR was released. Depending on availability and the amount of effort required for each method, we create the version field by retrieving the information directly from the source code, building the repository locally and invoking code to display the version to standard output, or comparing the created at field with a timeline of release versions Documentation for creating a mirror repository using GitHub from a repository's webpage. We create executable contexts for every version of a repository, as discussed in greater detail in § A.3."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "A.3 EXECUTION-BASED VALIDATION",
+      "text": "After filtering through all the PRs from a repository and converting those that satisfy the aforementioned criteria into candidate task instances, the next step is to validate the usability of each task instance via execution. This procedure is broken down into three steps. First, we create executable contexts for each release version of a repository. Next, we check whether the solution δ and tests T can be applied, installed, and run successfully on top of codebase C. Finally, we examine each task instance's execution log to verify a specific set of behaviors to ensure that the task is usable and fair for model evaluation."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "A.3 EXECUTION-BASED VALIDATION",
+      "text": "Executable Contexts. We choose to create executable contexts per release version after experimenting with various degrees of granularity with regards to what definition level to define virtual environments for. Defining task instance-specific contexts is most conducive to ensuring end-to-end installation success, but comes at the cost of laborious manual handcrafting. On the other hand, a repository-specific context based on the latest version of a repository is typically too coarse of a definition that is not compatible with older versions' requirements. We find that release versions are a good proxy for capturing the dependency requirements across a subset of task instances, striking a manageable balance between installation success and manual effort. We manually create each executable context by examining the codebase of the latest task instance for each version. Based on the source code and documentation typically found in the repository's README and CONTRIBUTING guides, we find out the Python version, necessary dependencies, and installation command."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "A.3 EXECUTION-BASED VALIDATION",
+      "text": "Validation Engine. The purpose of the validation engine is to verify candidate task instances. Specifically, this step checks first, that the solution δ and tests T can be applied to codebase C, and second, that the codebase can be properly installed and run within the corresponding virtual environment. To do this, we perform validation repository-by-repository, where for each repository's set of task instances, we perform the following procedure:"
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "A.3 EXECUTION-BASED VALIDATION",
+      "text": "1. Create executable contexts as conda envs. based on latest task instance per version."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "Group task instances by version.",
+      "text": "3. Iterate across each task instances group, where for each task instance, we perform the following within the corresponding conda env. The testing command consists of the testing framework used by the repository (e.g. pytest, tox) with paths specified in T appended. The testing command would run any and all tests that are specified within the contents of each file path. If any of the steps (a) through (f ) fails, the candidate task instance is discarded from consideration. With moderate variation across repositories, we observe that this step generally removes half of the candidate task instances."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "Group task instances by version.",
+      "text": "Examining Validation Logs. Last but not least, we check the logs log pre and log post created by the validation engine for specific properties. First, to guard against arbitrary naming choices, we check log pre for ImportError and AttributeError occurrences, which are potentially indicative of dependency naming related errors that would trivial and near-impossible to address correctly. To this end, we remove all task instances with such errors in their log pre from consideration. Next, we compare the test results to check that the task instance is non-trivial, indicated by at least one or more tests having a fail status before the solution δ is applied, then a pass status after. To check this, we first define several repository-specific parsers to convert log pre and log post into mappings of test t i ∈ T to a status s ∈ [fail,pass]. Given these two data structures, we then check that there If a task instance fulfills these two criteria, then it is included in the evaluation dataset. Table 10 displays a summary of how many task instances were removed from consideration across the construction process and execution based validation steps. We save all finalized task instances to a single .json file that is open sourced and available for download."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "Group task instances by version.",
+      "text": "Alongside the task instances, we also create a corresponding folder containing the ground truth test results. For each task instance, from their respective log pre and log post test-to-status mappings, we create a test results data structure where the keys are FAIL TO FAIL, FAIL TO PASS, PASS TO FAIL, and PASS TO PASS, and the values are lists of tests. By \"caching\" these results, we remove the need to re-run the solution δ at evaluation time (although re-running is an available option). We use this data structure to verify task completion, as discussed in Section A.4."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "A.4 EVALUATION PROCEDURE",
+      "text": "Lang. Model  We provide a visualization of the evaluation procedure in Figure 8. The evaluation procedure scores the model's δ .patch generation with respect to the behavior of the solution δ. At a finer-grained level, the evaluation procedure can be broken down into four separate steps, highlighted by the numbered steps in Figure 8. First, the codebase and problem statement are visible and given to the LM; the LM then generates a .patch prediction δ. In the evaluation step, the following steps are performed per prediction on the target task instance:"
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "A.4 EVALUATION PROCEDURE",
+      "text": "1. Remove any file changes and checkout the task instance's base commit. This sets the repository to codebase C."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "A.4 EVALUATION PROCEDURE",
+      "text": "2. Activate the executable context corresponding to the task instance's version."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "A.4 EVALUATION PROCEDURE",
+      "text": "3. Run installation command to instantiate codebase C."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "A.4 EVALUATION PROCEDURE",
+      "text": "4. Apply test patch T to codebase C."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "5.",
+      "text": "Apply prediction patch δ to codebase C with tests T ."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "5.",
+      "text": "6. If the previous step fails, we attempt to fix prediction patch δ automatically and reapply it."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "5.",
+      "text": "7. Run the testing script, determined from test patch T , to generate test result logs log δ ."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "5.",
+      "text": "Steps 1 through 4 reliably do not fail due to verification during the task instance validation process."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "5.",
+      "text": "If applying the prediction patch (Step 5) fails, we attempt to repair the prediction patch file by removing unnecessary context lines and recalculating the header values (Step 6). If the remaining patch fails again or running the test command (Step 7) fails, then the prediction is automatically given a score of 0. Assuming these steps succeed, the output log log δ can then be converted to a test-to-status mapping, identical in structure to the via the appropriate, repository-specific parser introduced in § A.3."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "5.",
+      "text": "Evaluation Metrics Calculation. To determine task completion, we compare the test-to-status mapping parsed from log δ with the list of tests corresponding to the FAIL TO PASS and PASS TO PASS keys from the ground truth test results data structure. Determining task completion is straightforward; we check that all FAIL TO PASS and PASS TO PASS tests are found and have a pass status in the evaluation test-to-status mapping. If a test is missing or has a non-pass status, it is considered a fail status. As defined and used in the main paper, a task is considered solved if all tests across FAIL TO PASS and PASS TO PASS pass."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "A.5 EVALUATION TEST SET CHARACTERIZATION",
+      "text": "We include an expanded form of Table 1 that includes repository specific statistics in Table 11. Table 12 presents a brief description of each repository extracted from the repository's documentation along with the repository's associated open source license. The associated licenses all permit noncommercial usage of the original library source code as long as the permissions in the original licenses are upheld and retained. In addition to the original statistics presented in Table 1, we introduce three new values. The δ # Lines Added and δ # Lines Removed together sum up to δ Lines Edited. \"Added\" refers to the number of new lines that are introduced, while \"Removed\" are preexisting lines taken out by the solution. The |T | (Pass to Pass) statistic refers to the number of tests that were passing before the solution δ was applied during the validation pipeline. Unlike fail to pass tests that are intended to characterize the problem statement P and determine if a revision addresses the issue, pass to pass tests are included to ensure that the revision does not break or violate any existing expected behavior. These tests are extracted during the validation log examination phase as discussed in § A.3. We note that fail to fail tests and pass to fail tests are not considered during evaluation, and those statistics are not reflected in the above table."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "A.5 EVALUATION TEST SET CHARACTERIZATION",
+      "text": "Task Instance Issue Categories. To provide a better sense of the types of problems that SWE-bench task instances include, we perform simple analyses on the issues, identified by the issue numbers field, for each task instance. Per issue, we inspect metadata, specifically tags, to characterize the type of contribution put forth by the PR. Table 13 groups and shows several examples of the 2,289 tags we found across all issues. While the absolute majority of issues are associated with bug fixes, SWE-bench's task instances are associated with a diverse set of code changes with purposes beyond debugging and error correction."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "A.5 EVALUATION TEST SET CHARACTERIZATION",
+      "text": "Attribute Distributions. In Figure 9, we present plots of the cumulative distribution function for attributes introduced in Table 1. From these plots, we see that the median SWE-bench task instance has a problem description of 140 words, and will take place within a codebase containing just shy of 1900 files and 400K lines. The corresponding reference solution δ will usually edit a single function  within a file, changing ∼15 lines, and has a single fail to pass test to verify the correctness of the change along with 51 pass to pass tests to check whether existing behavior is preserved."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "A.5 EVALUATION TEST SET CHARACTERIZATION",
+      "text": "Patch Fix Rate. We present Table 14, which presents summary statistics of how many task instances each model generated patches for (out of 2294), how many of these patches applied successfully, and how many of the successfully applied patches required undergoing the patch fixing procedure introduced in Appendix A.4. We find that fixed patches tend to make up a smaller percentage of the SWE-Llama patches that successfully applied, suggesting that SWE-Llama's fine tuning procedure has a positive effect on generating well-formatted patches. For closed source models, fewer patches apply successfully, and of the ones that do, a greater percentage require the post-generation fix, suggesting that models still struggle with patch generation and structured outputs in general."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "Category Count Examples",
+      "text": "Bug 442 \"Bug\" (179); \"type:bug\" (114); \"bug\" (57); \"type: bug\" (48); \"Bug :beetle:\" (23); \"status: confirmed bug\" (20);; Feature 167 \"type:enhancement\" (47); \"Enhancement\" (25); \"New feature\" (24); \"Feature Request\" (22); \"type: enhancement\" (19); \"Enhancement :star:\" (15); \"New Feature\" (7); \"enhancement\" (6); Regression 39 \"type: regression\" (14); \"Regression\" (14); \"regression\" (8); Other 1641 \"help wanted\" (71); \"good first issue\" (66); \"printing\" (58); \"extensions:autodoc\" (58); \"Easy\" (57); \"Easy to Fix\" (54); \"domains:py\" (27); \"core\" (26); \"sets\" (23); \"Wrong Result\" (23); \"units\" ( 22); \"Good first issue\" (21); Table 14: Statistics for how many patches for 2,294 task instances were generated, applied successfully, and required a post-generation fix to apply successfully for each [model, retrieval setting] combination during evaluation. The GPT-4 BM25 27k and \"Oracle\" settings were ran on the 25% subset. The GPT-4 \"Oracle\"-collapsed setting was run on the full SWE-bench test set."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "A.6 DEVELOPMENT SET CHARACTERIZATION",
+      "text": "In addition to the evaluation test set, we also provide a development set for evaluating models and tuning hyperparameters before running on the final test set. Following the style of tables and graphs from before, we present similar statistics to characterize the 225 development task instances (slightly more than 10% of the main evaluation set) collected from 6 open source repositories with licenses permitting such usage. The development set was collected following the exact same set of methodologies and filters as the main evaluation set. In addition to the pre-existing steps, we also filter the development set to keep task instances that were created after January 1, 2019. Similar to Table 12, in Table 15, we briefly summarize the purpose and licenses of the 6 selected repositories."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "A.6 DEVELOPMENT SET CHARACTERIZATION",
+      "text": "Following Table 13, we also list the tags associated with the the development set tasks in Table 16, again showcasing the diversity and coverage of task types beyond fixing bugs. Compared to the main evaluation tasks, we can also see tags (e.g., \"Crash :collision:\", \"io\") that refer to issues presenting problems which are unique to the repositories in the development set."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "A.6 DEVELOPMENT SET CHARACTERIZATION",
+      "text": "Following Table 1, we present the same set of repository-specific average statistics for the 6 repositories in the development set in"
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "Category Count Examples",
+      "text": "Bug 127 \"bug\" (111); \"Bug :cockroach:\" (10); \"rule bug\" (6); Feature 55 \"enhancement\": 46; \"Enhancement :star:\": 5; \"feature-request\": 2; Regression 4 \"Regression\" (4); Other 95 \"api\": 11, \"documentation\": 7, \"help wanted\": 6, \"config options\": 5, \"io\": 5, \"jinja\": 4, \"good first issue\": 4, \"parser\" 3"
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "C ADDITIONAL RESULTS",
+      "text": "C.1 RESULTS WITH \"ORACLE\" RETRIEVAL Using the \"oracle\" retrieval method described in Section 4.1, we show the general performance results in Table 18. Naturally, providing only the files edited by the reference solution's pull request, model performance improves compared to the noisier BM25 retrieval setting."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "C.2 EVALUATION TEST SET",
+      "text": "We include a repository-by-repository breakdown of model performance in Table 18: We compare models against each other using the oracle retrieval settings as described in Section 4. The main results table, Table 5, presents the results for the different models when using BM25 only. * Due to budget constraints we evaluate GPT-4 on a 25% random subset of SWE-bench in the \"Oracle\" and BM25 27K retriever settings only."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "C.3 GPT-4 EVALUATION SUBSET RESULTS",
+      "text": "In this section, we present the statistics shown in Table 5 for the 25% random subset that GPT-4 was tested in Table 20. As the selection of the subset is random, we find that the % Resolved and % Apply rates are consistent with the main results, and not significantly skewed towards being simpler or more difficult than the general evaluation set."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "C.4 EXTENDED TEMPORAL ANALYSIS",
+      "text": "In this section, we present an extended temporal analysis of task instances solved by year that follows the analysis shown in Table 7 of the evaluation section in the main paper. In Table 21, we present the % Resolved statistic across models under the \"Oracle\" retrieval setting for 6 different temporal partitions that group tasks by the years in which the issues were created. It is evident from the table that there is no consistent correlation between model performance and year, supporting our conclusion that despite having potentially seen older versions of code within its pre-training datasets, understanding and implementing in fixes in SWE-bench is a difficult task that requires understanding and cannot be accomplished feasibly or consistently via memoization of observed data."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "C.5 F2P, P2P RATE ANALYSIS",
+      "text": "In the main paper results, we present the \"% Resolved\" statistic that indicates how many task instances were completely solved by the different models. In this section, we provide more finegrained insight into the gap of task instances where 1. The model's patch generation was applied successfully and 2. The task instance was not resolved. Assuming a patch is applied successfully, we define 6 cases in  20: We compare models against each other using the BM25 and oracle retrieval settings as described in Section 4 on a 25% random subset (574 instances) of SWE-bench in the \"oracle\" and BM25 27K retriever settings only. This is the same subset that GPT-4 is evaluated on, as mentioned in Table 5. The difference relative to percentages in Table 5 and Table 18 is included as a subscript. established, we introduce five new terms. The \"Breaking Resolved\" outcome refers to when the desired behavior of the issue has been accomplished (all F2P tests pass), but not all prior behavior is maintained (not all P2P tests pass). \"Partially Resolved\" refers to when prior behavior of a codebase was maintained (all P2P tests pass); however, the desired behavior is not fully accomplished (not all F2P tests pass). The \"Work in Progress\" case is when the desired behavior is not fully accomplished (not all F2P tests pass) and the prior behavior of the codebase is not maintained (not all P2P tests pass). A \"No-Op\" is when a code change does not have any effect on the original codebase; prior behavior is maintained (all P2P tests pass) but the issue remains completely unresolved (0 F2P tests pass). Finally, if the issue is unresolved (0 F2P tests pass) and prior working behavior is reverted (some P2P tests fail), the codebase is left in a worse state, which we define to be a \"Regression\"."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "C.5 F2P, P2P RATE ANALYSIS",
+      "text": "In Table 23, we categorize patch generations that successfully applied according to these six cases. We find that of non-\"Resolved\" issues, the majority of patch generations proposed by the model do not solve a single F2P test case from the corresponding task instance (\"No-Op\" and \"Regression\"). Within the subset of these cases, the majority (60% to 70%) of cases are a No-Op, while the model breaks existing behavior for the remainder of these situations."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "C.5 F2P, P2P RATE ANALYSIS",
+      "text": "Generally, the cases where model generations pass some, but not all tests (\"Breaking Resolved\", \"Partially Resolved\", \"Work in Progress\") cumulatively represent a smaller subset of problems relative to the other three categories. From manual inspection of several of these cases, it is clear that the model demonstrates some understanding of the task requirements. However, due to the baseline methods' limited view of the codebase that does not include information such as inter-file dependencies and functions' relationships, for many of these task instances often fail because a change that correctly resolves the immediate issue does not account for other modules that use and are affected by the changed entity. We include several case studies that directly highlight these shortcomings in Section F Overall, these results highlight not just the difficulty of SWE-bench, but also point to the We include our exploratory work here that demonstrates how software engineering metrics can reliably capture characteristics of code quality, and how comparing these statistics across two patches can provide automatic observations about model capabilities. We use the Radon package, a library for computing different software engineering metrics directly from source code."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "C.5 F2P, P2P RATE ANALYSIS",
+      "text": "We look specifically at successfully applied Claude 2 patch predictions in the \"Oracle\" retrieval setting for the psf/requests repository, which several models perform best at as reflected in Figure 4. Per prediction, we apply the patch to the codebase, then calculate the Cyclomatic complexity and Halstead complexity scores for the modified functions. Cyclomatic complexity quantifies the control flow of a function, counting the number of independent execution paths through the source code (McCabe, 1976). A higher Cyclomatic complexity score suggests a more complex function that has higher likelihood of defects and usually suggests difficult maintainability. Halstead complexity counts the number of operators and operands in a program (Halstead, 1977). Per prediction, we also perform the same set of steps for the corresponding gold patch."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "C.5 F2P, P2P RATE ANALYSIS",
+      "text": "We find that software engineering metrics provides automatic qualitative insights into model performance. Consider the following simple case study in Figure 10. While the model patch prediction (left) is fewer lines (6 instead of 11) and modifies fewer files (1 instead of 2) compared to the gold reference solution (right), the model's edit places a conditional within a relatively complex and widely used HTTPAdapter class. This introduces two new potential execution outcomes, raising the Cyclomatic complexity of HTTPAdapter from 3 to 5. In contrast, while longer, the reference solution imports intra-module dependencies, modifies a logically simpler function in get connection, and defines a new error type InvalidProxyURL to capture the novel bug described by the issue."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "C.5 F2P, P2P RATE ANALYSIS",
+      "text": "Problem Statement: Misleading exception with invalid protocol in proxy variable. When the value of https proxy or HTTPS PROXY variable(s) accidentally miss one '/' in the protocol, a traceback is thrown to the user which doesn't pin point that the issue is with the proxy configuration... Sparse retrieval. During retrieval we make a slight augmentation to the documents by pre-pended files' contents with their file paths to better enable retrieval based on filenames that may be mentioned directly in the issue."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "C.5 F2P, P2P RATE ANALYSIS",
+      "text": "Oracle retrieval. Oracle retrieval file paths are simply extracted directly from the reference solution's patch file excluding test files."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "D.2 INFERENCE SETTINGS",
+      "text": "Since generations are relatively expensive, we only generate a single patch file per instance. Following precedent in code generation for evaluation in Pass@1 (Chen et al., 2021;Rozière et al., 2023), we simply use greedy decoding for all models."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "D.3 PROMPT TEMPLATE EXAMPLE",
+      "text": "Models are prompted with the following general template with slight variations depending on the model used. Published as a conference paper at ICLR 2024 </patch> I need you to solve the provded issue by generating a single patch file that I can apply directly to this repository using git apply. Please respond with a single patch file in the format shown above."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "Respond below:",
+      "text": "Experiments using slightly more or fewer lines of instructions or examples seemed to not affect overall performance substantially, except for the findings of experiments stated in Section 5."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "E SOCIETAL IMPACT",
+      "text": "As reasoning on code has emerged as a foundational skill underlying many LM's capability, a potential future of machine-automated software engineering raises many important questions and has important potential ramifications with regards to AI Safety (Gros et al., 2023). It is important to address questions on how to ensure AI-generated code is faithful to human intents and what guardrails might be in place when human objectives are misinterpreted by code agents that then carry out the task. To observe such problems in a controlled setting and manifest their solutions, we hope SWEbench might serve as a testbed for designing safe, robust measures towards aligned, verifiable, and safe AI-driven software engineering."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "F IN-DEPTH ANALYSIS OF SWE-LLAMA GENERATIONS",
+      "text": "In this section, we provide five additional qualitative analyses of generations from both Claude 2 and SWE-Llama generations (Oracle retrieval setting) following the style of Section 5.1."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "F IN-DEPTH ANALYSIS OF SWE-LLAMA GENERATIONS",
+      "text": "Claude 2 qualitative studies can be found in Tables 25 and26. Tables 27,28, and 29 are task instances that Claude 2 did not address correctly. SWE-Llama qualitative studies are covered across Tables 30,31,32,33,34. For Tables 30,31, and 32, we present task instances solved correctly by SWE-Llama 13b. In Table 33 and 34, we present two task instances where SWE-Llama 13b does not address the issue correctly, pointing out a subset of the reasoning and generation skills that models may not be adept at enough to accomplish the task at hand."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "F IN-DEPTH ANALYSIS OF SWE-LLAMA GENERATIONS",
+      "text": "The observations we make across these sections corroborate with the points stated in the main paper, which is that models tend to struggle with multi-line and multi-file changes, are more adept when the required fix is relatively short, and need help with understanding the codebase in an efficient manner."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "F IN-DEPTH ANALYSIS OF SWE-LLAMA GENERATIONS",
+      "text": "Table 25: In this example, Claude 2 correctly addresses an issue from scikit-learn/scikit-learn. However, as demonstrated in the discussion, while the solution is correct, it demonstrates models' tendency to write primitive Python and not employ existing methods within the codebase. ( so.Plot(tips, \"total_bill\") .add(so. Bars(alpha=.3,edgewidth=0), so.Hist(bins=4))"
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "F IN-DEPTH ANALYSIS OF SWE-LLAMA GENERATIONS",
+      "text": ".scale(x=\"log\") ) ( so.Plot(tips, \"total_bill\") .add(so.Bars(alpha=.3, edgewidth=0), so.Hist(bins=8))"
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "F IN-DEPTH ANALYSIS OF SWE-LLAMA GENERATIONS",
+      "text": ".scale(x=\"log\") ) ( so.Plot(tips, \"total_bill\") .add(so. Bar(alpha=.3,edgewidth=0,width=1), so.Hist(bins=4))"
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "F IN-DEPTH ANALYSIS OF SWE-LLAMA GENERATIONS",
+      "text": ".scale(x=\"log\") )"
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "F IN-DEPTH ANALYSIS OF SWE-LLAMA GENERATIONS",
+      "text": "---a/seaborn/_core/plot.py +++ b/seaborn/_core/plot.py @@ -1327,9 +1327,7 @@ elif \"width\" in df: view_width = view_df   Discussion. In this problem, the model is asked to correct a trailing whitespace issue, and the issue shows a demonstration of the error that arises during usage, but does not explicitly point out the function to fix in the model. In the oracle retrieval setting, the model is given the xarray/core/groupby.py file to edit directly, but most locate the line to edit. In this situation, the model successfully reasons that in the interactive Python setting, the underlying function that is being invoked is actually the repr function. After locating the function, it must figure out where in the return statement the whitespace is located. At this point, the fix is quite evident, as there is an explicit space that the model removes. In this case, the model successfully passes all tests for verifying the correctness of this fix explicitly (10 fail to pass tests) while also maintaining the existing behavior of the file (16 pass to pass tests)."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "#### Expected Results",
+      "text": "The same result."
+    },
+    {
+      "paper_id": "2310.06770",
+      "file_name": "2310.06770_SWE-bench_Can_Language_M.pdf",
+      "page_number": 1,
+      "section": "#### Actual Results",
+      "text": "The results are the same except for their signs:"
+    }
+  ],
+  "figures": [
+    {
+      "figure_id": "FIG-2310.06770-P22-1",
+      "page_number": 22,
+      "file_path": "data/figures\\2310.06770\\fig_p22_1.png",
+      "dimensions": "715x556",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2310.06770-P22-2",
+      "page_number": 22,
+      "file_path": "data/figures\\2310.06770\\fig_p22_2.png",
+      "dimensions": "691x556",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2310.06770-P22-3",
+      "page_number": 22,
+      "file_path": "data/figures\\2310.06770\\fig_p22_3.png",
+      "dimensions": "691x556",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2310.06770-P22-4",
+      "page_number": 22,
+      "file_path": "data/figures\\2310.06770\\fig_p22_4.png",
+      "dimensions": "691x556",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2310.06770-P22-5",
+      "page_number": 22,
+      "file_path": "data/figures\\2310.06770\\fig_p22_5.png",
+      "dimensions": "701x556",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2310.06770-P22-6",
+      "page_number": 22,
+      "file_path": "data/figures\\2310.06770\\fig_p22_6.png",
+      "dimensions": "691x556",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2310.06770-P22-7",
+      "page_number": 22,
+      "file_path": "data/figures\\2310.06770\\fig_p22_7.png",
+      "dimensions": "691x556",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2310.06770-P22-8",
+      "page_number": 22,
+      "file_path": "data/figures\\2310.06770\\fig_p22_8.png",
+      "dimensions": "691x556",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2310.06770-P30-1",
+      "page_number": 30,
+      "file_path": "data/figures\\2310.06770\\fig_p30_1.png",
+      "dimensions": "1360x500",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2310.06770-P30-2",
+      "page_number": 30,
+      "file_path": "data/figures\\2310.06770\\fig_p30_2.png",
+      "dimensions": "1360x1134",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2310.06770-P30-3",
+      "page_number": 30,
+      "file_path": "data/figures\\2310.06770\\fig_p30_3.png",
+      "dimensions": "1360x112",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2310.06770-P34-1",
+      "page_number": 34,
+      "file_path": "data/figures\\2310.06770\\fig_p34_1.png",
+      "dimensions": "512x512",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2310.06770-P36-1",
+      "page_number": 36,
+      "file_path": "data/figures\\2310.06770\\fig_p36_1.png",
+      "dimensions": "512x512",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2310.06770-P38-1",
+      "page_number": 38,
+      "file_path": "data/figures\\2310.06770\\fig_p38_1.png",
+      "dimensions": "512x512",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2310.06770-P38-2",
+      "page_number": 38,
+      "file_path": "data/figures\\2310.06770\\fig_p38_2.png",
+      "dimensions": "512x512",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2310.06770-P40-1",
+      "page_number": 40,
+      "file_path": "data/figures\\2310.06770\\fig_p40_1.png",
+      "dimensions": "512x512",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2310.06770-P42-1",
+      "page_number": 42,
+      "file_path": "data/figures\\2310.06770\\fig_p42_1.png",
+      "dimensions": "512x512",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2310.06770-P42-2",
+      "page_number": 42,
+      "file_path": "data/figures\\2310.06770\\fig_p42_2.png",
+      "dimensions": "512x512",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2310.06770-P44-1",
+      "page_number": 44,
+      "file_path": "data/figures\\2310.06770\\fig_p44_1.png",
+      "dimensions": "512x512",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2310.06770-P46-1",
+      "page_number": 46,
+      "file_path": "data/figures\\2310.06770\\fig_p46_1.png",
+      "dimensions": "512x512",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2310.06770-P48-1",
+      "page_number": 48,
+      "file_path": "data/figures\\2310.06770\\fig_p48_1.png",
+      "dimensions": "512x512",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2310.06770-P49-1",
+      "page_number": 49,
+      "file_path": "data/figures\\2310.06770\\fig_p49_1.png",
+      "dimensions": "512x512",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2310.06770-P49-2",
+      "page_number": 49,
+      "file_path": "data/figures\\2310.06770\\fig_p49_2.png",
+      "dimensions": "512x512",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2310.06770-P52-1",
+      "page_number": 52,
+      "file_path": "data/figures\\2310.06770\\fig_p52_1.png",
+      "dimensions": "512x512",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2310.06770-P52-2",
+      "page_number": 52,
+      "file_path": "data/figures\\2310.06770\\fig_p52_2.png",
+      "dimensions": "512x512",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    }
+  ],
+  "figures_count": 25,
+  "vector_graphs": [
+    {
+      "page_number": 1,
+      "drawing_path_count": 122,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 2,
+      "drawing_path_count": 30,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 4,
+      "drawing_path_count": 20,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 5,
+      "drawing_path_count": 17,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 6,
+      "drawing_path_count": 53,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 7,
+      "drawing_path_count": 32,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 8,
+      "drawing_path_count": 212,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 17,
+      "drawing_path_count": 112,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 20,
+      "drawing_path_count": 107,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 23,
+      "drawing_path_count": 46,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 24,
+      "drawing_path_count": 18,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 25,
+      "drawing_path_count": 21,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 26,
+      "drawing_path_count": 20,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 28,
+      "drawing_path_count": 21,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 29,
+      "drawing_path_count": 23,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 34,
+      "drawing_path_count": 50,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 35,
+      "drawing_path_count": 34,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 36,
+      "drawing_path_count": 62,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 37,
+      "drawing_path_count": 16,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 38,
+      "drawing_path_count": 17,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 43,
+      "drawing_path_count": 126,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 44,
+      "drawing_path_count": 24,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 45,
+      "drawing_path_count": 73,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 46,
+      "drawing_path_count": 18,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 49,
+      "drawing_path_count": 98,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 52,
+      "drawing_path_count": 22,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    }
+  ],
+  "vector_graphs_count": 26
+}

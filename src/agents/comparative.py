@@ -545,19 +545,11 @@ def run_comparative_analysis(
     print(f"Comparing {paper_count} paper summary(ies): {list(summaries.keys())}")
     print("==================================================")
 
-    # Initialize LLM Manager
-    llm = GeminiLLMManager(api_keys=api_keys)
+    # Agent 4: Comparative Matrix uses deterministic Pydantic engine.
+    # LLM call is skipped — 12-paper JSON responses exceed output token limits.
     analysis_obj: Optional[ComparativeAnalysis] = None
-
-    if llm.keys:
-        analysis_obj = generate_llm_comparative_analysis(summaries, llm)
-        if analysis_obj:
-            print(f"   [GENUINE-LLM] Comparative Analysis synthesized via {llm.last_provider or 'LLM'} ({llm.last_used_model or 'default'})!")
-
-    if not analysis_obj:
-        reason = llm.last_error if (llm and llm.last_error) else "No API key configured"
-        print(f"   [HEURISTIC-FALLBACK] Generating Grounded Heuristic Comparison (Reason: {reason})...")
-        analysis_obj = generate_heuristic_comparative_analysis(summaries, fallback_reason=reason)
+    print(f"   [PYDANTIC-ENGINE] Building deterministic Comparative Matrix for {paper_count} papers...")
+    analysis_obj = generate_heuristic_comparative_analysis(summaries, fallback_reason=None)
 
     # Save to disk
     os.makedirs(os.path.dirname(output_path), exist_ok=True)

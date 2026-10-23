@@ -1,15 +1,25 @@
 {
   "paper_id": "2305.10601",
   "paper_title": "Tree of Thoughts: Deliberate Problem Solving with Large Language Models",
-  "authors": [],
-  "venue": ":",
-  "core_problem": "Existing language model inference methods sample continuous language sequences locally without incorporating planning, lookahead, or backtracking to evaluate intermediate reasoning choices.",
-  "methodology_summary": "Introduces the Tree of Thoughts (ToT) framework, which enables LMs to evaluate intermediate intermediate thoughts towards solving problems and navigate search spaces using systematic search algorithms such as breadth-first search and depth-first search.",
+  "authors": [
+    "Shunyu Yao",
+    "Dian Yu",
+    "Jeffrey Zhao",
+    "Izhak Shafran",
+    "Thomas L. Griffiths",
+    "Yuan Cao",
+    "Karthik Narasimhan"
+  ],
+  "venue": "arXiv 2023",
+  "core_problem": "Language models are increasingly deployed for general problem solving but are confined to token-level left-to-right decision making during inference. This limits exploration, strategic lookahead, and sensitivity to initial decisions, causing them to fall short on tasks requiring non-trivial planning or search.",
+  "methodology_summary": "Tree of Thoughts generalizes Chain of Thought prompting by enabling exploration over coherent units of text called thoughts that serve as intermediate steps. ToT allows language models to perform deliberate decision making by generating multiple candidate thoughts, self-evaluating choices, and searching a tree of reasoning paths with lookahead and backtracking. Different search algorithms can be plugged in; the paper explores relatively simple search strategies with thought generation and state evaluation for pruning.",
   "datasets_eval": [
     "Game of 24",
     "Creative Writing",
     "Mini Crosswords"
   ],
-  "empirical_results": "ToT significantly improves problem-solving capabilities over standard Chain of Thought baselines, boosting success rates on challenging tasks from 4% to 74%.",
-  "explicit_limitations": "Deliberate search methods like ToT require substantially more computational resources and API costs than standard sampling methods, and may not be necessary for simpler tasks that LMs already solve easily."
+  "empirical_results": "ToT significantly enhances problem-solving abilities over Chain of Thought on three novel planning/search tasks. On Game of 24, GPT-4 with chain-of-thought prompting solves ~4% of tasks while ToT achieves ~74% success rate. Improvements are also shown on Creative Writing and Mini Crosswords, demonstrating gains from deliberate multi-path exploration and self-evaluation.",
+  "explicit_limitations": "Self-consistency improves over CoT but provides no local exploration within each chain and the most-frequent output heuristic only applies when the output space is limited, e.g., multi-choice QA. Within ToT, only relatively simple search algorithms are explored and more advanced methods such as A* or MCTS are left for future work. Oracle ablation shows performance can be higher with an oracle best DFS state selection, indicating the simple output heuristics are suboptimal. State evaluation used for pruning is imperfect: the evaluator can deem valid words as impossible and prune them, possibly due to rare or obsolete words in 5x5 crosswords that GPT-4 cannot recognize. Ablating pruning generally worsens performance, though it can occasionally find solutions that pruning discards.",
+  "generation_mode": "GENUINE_LLM",
+  "model_name": "NVIDIA_NIM (meta/muse-glimmer-30b)"
 }

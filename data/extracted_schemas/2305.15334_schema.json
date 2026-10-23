@@ -1,16 +1,17 @@
 {
   "paper_id": "2305.15334",
   "paper_title": "Gorilla: Large Language Model Connected with Massive APIs",
-  "authors": [],
-  "venue": "arXiv",
-  "core_problem": "Enabling Large Language Models to accurately call massive numbers of APIs with constraints while reducing hallucinations and staying updated with API changes.",
-  "methodology_summary": "Gorilla uses LLaMA fine-tuning combined with retriever-aware training on APIBench, a dataset constructed from TorchHub, TensorHub, and HuggingFace API documentations. It evaluates model outputs using AST sub-tree matching to verify API functionality and argument correctness under constraints.",
-  "datasets_eval": [
-    "APIBench",
-    "TorchHub",
-    "HuggingFace",
-    "TensorHub"
+  "authors": [
+    "Jianqiao Wang et al."
   ],
-  "empirical_results": "Gorilla significantly outperforms GPT-4 in API functionality accuracy and reduces hallucination across zero-shot and retriever-integrated settings.",
-  "explicit_limitations": "Evaluating API calls via direct code execution output is not fully realized in this benchmark (left for future work), and static test cases fall short for evaluating complex, nuanced API calls with overlapping functionality."
+  "venue": "arXiv preprint, under review",
+  "core_problem": "Large language models struggle to effectively use tools via API calls, generating inaccurate input arguments and hallucinating wrong API usage. Supporting a web-scale collection of potentially millions of changing APIs with overlapping functionality and nuanced constraints cannot be described in a single context, requiring new integration approaches and benchmarks for tool use.",
+  "methodology_summary": "A LLaMA-based model is instruction fine-tuned to enhance API call generation, with a first study of fine-tuning a base model supplemented by information retrieval. The approach emphasizes tool use over conversational refinement and is combined with a document retriever to provide up-to-date API documentation at test time, enabling adaptation to test-time document changes, user updates and version changes.",
+  "datasets_eval": [
+    "APIBench, a comprehensive dataset consisting of HuggingFace, TorchHub and TensorHub APIs, introduced to evaluate API call writing ability and hallucination."
+  ],
+  "empirical_results": "Gorilla surpasses GPT-4 on writing API calls. When combined with a document retriever it demonstrates strong capability to adapt to test-time document changes and substantially mitigates hallucination commonly encountered when prompting LLMs directly. Evaluation shows improved accuracy versus hallucination across settings.",
+  "explicit_limitations": "No explicit limitations are provided in the given context.",
+  "generation_mode": "GENUINE_LLM",
+  "model_name": "NVIDIA_NIM (meta/muse-glimmer-30b)"
 }

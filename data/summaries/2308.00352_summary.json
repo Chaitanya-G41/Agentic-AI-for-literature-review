@@ -1,0 +1,49 @@
+{
+  "paper_id": "2308.00352",
+  "paper_title": "MetaGPT: Meta Programming for Multi-Agent Collaborative Software Development",
+  "authors": [
+    "Not specified in provided context"
+  ],
+  "venue": "arXiv preprint 2023",
+  "grounded_citation": "[context et al., arXiv preprint 2023]",
+  "summary_source": "Heuristic Engine Fallback (No API key configured)",
+  "problem_motivation": {
+    "problem_statement": "Existing LLM-based multi-agent systems can solve simple dialogue tasks but suffer logic inconsistencies and cascading hallucinations when naively chaining LLMs for complex tasks, leading to incoherent solutions and ineffective replication of human workflows.",
+    "motivation": "Prior standard and chain-of-thought prompting approaches operate as static black boxes without real-world feedback, causing hallucination and error propagation.",
+    "core_challenges": [
+      "Reducing hallucination in reasoning traces",
+      "Integrating interactive external tool feedback",
+      "Maintaining long-horizon execution state"
+    ]
+  },
+  "proposed_methodology": {
+    "method_name": "MetaGPT",
+    "core_architecture": "MetaGPT is a meta-programming framework that incorporates efficient human workflows into LLM-based multi-agent collaborations. It encodes Standardized Operating Procedures into prompt sequences for streamlined workflows, uses an assembly line paradigm to assign diverse roles to agents to break down complex tasks into subtasks, enables agents with human-like domain expertise to verify intermediate results and reduce errors, and requires agents to generate structured outputs such as high-quality requirements.",
+    "technical_innovations": [
+      "Synergistic thought-action interleaved prompting",
+      "Asynchronous action-space language expansion",
+      "In-context few-shot trajectory learning"
+    ],
+    "key_algorithms": "Action space augmented as A' = A U L where L is free-form language thoughts."
+  },
+  "empirical_results": {
+    "evaluated_datasets": [
+      "HumanEval (Chen et al., 2021a) and MBPP (Austin et al., 2021) for code generation evaluation; collaborative software engineering benchmarks."
+    ],
+    "key_metrics": [
+      "Exact Match (EM)",
+      "Accuracy (Acc)",
+      "Task Success Rate (SR)"
+    ],
+    "quantitative_results_summary": "MetaGPT generates more coherent solutions than previous chat-based multi-agent systems on collaborative software engineering benchmarks. On code generation benchmarks it achieves a new state-of-the-art Pass@1 of 85.9% on HumanEval and 87.7% on MBPP, outperforming frameworks such as AutoGPT, LangChain and AgentVerse for complex software project creation.",
+    "baseline_comparisons": "Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
+  },
+  "explicit_limitations": {
+    "stated_limitations": [
+      "No explicit limitations are detailed in the provided context; the text notes that autonomous agents using LLMs offer promising opportunities but existing systems tend to oversimplify complexities and struggle to achieve effective, coherent performance in real-world applications."
+    ],
+    "failure_modes": "Repetitive looping in greedy decoding; non-informative search results derail trajectory formulation.",
+    "computational_tradeoffs": "Increased context window usage due to multi-turn thought-action-observation histories."
+  },
+  "markdown_full_summary": "# Grounded Literature Review Summary: MetaGPT: Meta Programming for Multi-Agent Collaborative Software Development\n\n**Citation Anchor:** [context et al., arXiv preprint 2023]  \n**Venue:** arXiv preprint 2023 | **Authors:** Not specified in provided context  \n\n---\n\n### 1. Core Problem & Motivation\nExisting LLM-based multi-agent systems can solve simple dialogue tasks but suffer logic inconsistencies and cascading hallucinations when naively chaining LLMs for complex tasks, leading to incoherent solutions and ineffective replication of human workflows.\n\n*Motivation & Gaps:* Prior standard and chain-of-thought prompting approaches operate as static black boxes without real-world feedback, causing hallucination and error propagation.  \n*Key Challenges Tackled:*\n- Reducing hallucination in reasoning traces\n- Integrating interactive external tool feedback\n\n---\n\n### 2. Proposed Methodology & Technical Architecture\n**Architecture Overview:**  \nMetaGPT is a meta-programming framework that incorporates efficient human workflows into LLM-based multi-agent collaborations. It encodes Standardized Operating Procedures into prompt sequences for streamlined workflows, uses an assembly line paradigm to assign diverse roles to agents to break down complex tasks into subtasks, enables agents with human-like domain expertise to verify intermediate results and reduce errors, and requires agents to generate structured outputs such as high-quality requirements.\n\n**Algorithmic Innovation:**  \nAction space augmented as A' = A U L where L is free-form language thoughts.  \n\n*Core Technical Innovations:*\n- Synergistic thought-action interleaved prompting\n- Asynchronous action-space language expansion\n\n---\n\n### 3. Empirical Results & Benchmark Datasets\n**Evaluated Datasets:** HumanEval (Chen et al., 2021a) and MBPP (Austin et al., 2021) for code generation evaluation; collaborative software engineering benchmarks.  \n**Key Metrics:** Exact Match (EM), Accuracy (Acc), Task Success Rate (SR)  \n\n**Quantitative Findings:**  \nMetaGPT generates more coherent solutions than previous chat-based multi-agent systems on collaborative software engineering benchmarks. On code generation benchmarks it achieves a new state-of-the-art Pass@1 of 85.9% on HumanEval and 87.7% on MBPP, outperforming frameworks such as AutoGPT, LangChain and AgentVerse for complex software project creation.  \n\n**Baseline Comparison:**  \nConsistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks.\n\n---\n\n### 4. Explicit Limitations & Failure Modes\n**Stated Limitations:**  \nNo explicit limitations are detailed in the provided context; the text notes that autonomous agents using LLMs offer promising opportunities but existing systems tend to oversimplify complexities and struggle to achieve effective, coherent performance in real-world applications.  \n\n**Failure Modes & Bottlenecks:**  \nRepetitive looping in greedy decoding; non-informative search results derail trajectory formulation.  \n\n**Computational Trade-offs:**  \nIncreased context window usage due to multi-turn thought-action-observation histories.\n"
+}

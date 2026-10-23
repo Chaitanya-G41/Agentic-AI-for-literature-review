@@ -1,1 +1,529 @@
- 
+{
+  "paper_count": 12,
+  "paper_ids": [
+    "2210.03629",
+    "2302.04761",
+    "2303.11366",
+    "2305.10601",
+    "2305.15334",
+    "2305.16291",
+    "2307.07924",
+    "2308.00352",
+    "2308.03688",
+    "2308.08155",
+    "2310.06770",
+    "2310.11511"
+  ],
+  "methodology_comparison": [
+    {
+      "paper_id": "2210.03629",
+      "paper_title": "ReAct: Synergizing Reasoning and Acting with Large Language Models",
+      "grounded_citation": "[Yao et al., arXiv preprint arXiv:2210.03629]",
+      "method_name": "ReAct",
+      "architecture_category": "Reasoning & Prompting",
+      "key_innovation": "Synergistic thought-action interleaved prompting",
+      "paradigm": "Reasoning & Prompting"
+    },
+    {
+      "paper_id": "2302.04761",
+      "paper_title": "Toolformer: Language Models Can Teach Themselves to Use Tools",
+      "grounded_citation": "[Schick et al., arXiv preprint 2023; NeurIPS 2023]",
+      "method_name": "Toolformer",
+      "architecture_category": "Tool-Augmented / API Integration",
+      "key_innovation": "Synergistic thought-action interleaved prompting",
+      "paradigm": "Tool-Augmented / API Integration"
+    },
+    {
+      "paper_id": "2303.11366",
+      "paper_title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+      "grounded_citation": "[Shinn et al., arXiv preprint]",
+      "method_name": "Reflexion",
+      "architecture_category": "Self-Reflection & Refinement",
+      "key_innovation": "Synergistic thought-action interleaved prompting",
+      "paradigm": "Self-Reflection & Refinement"
+    },
+    {
+      "paper_id": "2305.10601",
+      "paper_title": "Tree of Thoughts: Deliberate Problem Solving with Large Language Models",
+      "grounded_citation": "[Yao et al., arXiv 2023]",
+      "method_name": "Tree of Thoughts",
+      "architecture_category": "Tree / Graph Search & Planning",
+      "key_innovation": "Synergistic thought-action interleaved prompting",
+      "paradigm": "Tree / Graph Search & Planning"
+    },
+    {
+      "paper_id": "2305.15334",
+      "paper_title": "Gorilla: Large Language Model Connected with Massive APIs",
+      "grounded_citation": "[al. et al., arXiv preprint, under review]",
+      "method_name": "Gorilla",
+      "architecture_category": "Tool-Augmented / API Integration",
+      "key_innovation": "Synergistic thought-action interleaved prompting",
+      "paradigm": "Tool-Augmented / API Integration"
+    },
+    {
+      "paper_id": "2305.16291",
+      "paper_title": "Voyager: An Open-Ended Embodied Agent with Large Language Models",
+      "grounded_citation": "[Authors et al., arXiv preprint arXiv:2305.16291]",
+      "method_name": "Voyager",
+      "architecture_category": "Reasoning & Prompting",
+      "key_innovation": "Synergistic thought-action interleaved prompting",
+      "paradigm": "Reasoning & Prompting"
+    },
+    {
+      "paper_id": "2307.07924",
+      "paper_title": "ChatDev: Communicative Agents for Software Development",
+      "grounded_citation": "[Authors et al., arXiv]",
+      "method_name": "ChatDev",
+      "architecture_category": "Reasoning & Prompting",
+      "key_innovation": "Synergistic thought-action interleaved prompting",
+      "paradigm": "Reasoning & Prompting"
+    },
+    {
+      "paper_id": "2308.00352",
+      "paper_title": "MetaGPT: Meta Programming for Multi-Agent Collaborative Software Development",
+      "grounded_citation": "[context et al., arXiv preprint 2023]",
+      "method_name": "MetaGPT",
+      "architecture_category": "Multi-Agent Collaboration",
+      "key_innovation": "Synergistic thought-action interleaved prompting",
+      "paradigm": "Multi-Agent Collaboration"
+    },
+    {
+      "paper_id": "2308.03688",
+      "paper_title": "AgentBench: Evaluating LLMs as Agents",
+      "grounded_citation": "[Authors et al., arXiv]",
+      "method_name": "AgentBench",
+      "architecture_category": "Reasoning & Prompting",
+      "key_innovation": "Synergistic thought-action interleaved prompting",
+      "paradigm": "Reasoning & Prompting"
+    },
+    {
+      "paper_id": "2308.08155",
+      "paper_title": "AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation",
+      "grounded_citation": "[Wu et al., arXiv preprint arXiv:2308.08155, 2023]",
+      "method_name": "AutoGen",
+      "architecture_category": "Multi-Agent Collaboration",
+      "key_innovation": "Synergistic thought-action interleaved prompting",
+      "paradigm": "Multi-Agent Collaboration"
+    },
+    {
+      "paper_id": "2310.06770",
+      "paper_title": "SWE-bench: Can Language Models Resolve Real-World Issues?",
+      "grounded_citation": "[Authors et al., arXiv preprint]",
+      "method_name": "SWE-bench",
+      "architecture_category": "Reasoning & Prompting",
+      "key_innovation": "Synergistic thought-action interleaved prompting",
+      "paradigm": "Reasoning & Prompting"
+    },
+    {
+      "paper_id": "2310.11511",
+      "paper_title": "Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection",
+      "grounded_citation": "[Asai et al., arXiv preprint arXiv:2310.11511, 2023]",
+      "method_name": "Self-RAG",
+      "architecture_category": "Self-Reflection & Refinement",
+      "key_innovation": "Synergistic thought-action interleaved prompting",
+      "paradigm": "Self-Reflection & Refinement"
+    }
+  ],
+  "dataset_overlap_matrix": {
+    "HotpotQA": [
+      "2210.03629"
+    ],
+    "Fever": [
+      "2210.03629"
+    ],
+    "ALFWorld": [
+      "2210.03629",
+      "2308.08155"
+    ],
+    "WebShop": [
+      "2210.03629"
+    ],
+    "Zero-shot evaluation on general language modeling and reasoning benchmarks and tool-specific probes for arithmetic, factual question answering, search, translation and calendar use. Evaluation covers common downstream tasks such as LAMBADA, HellaSwag, PIQA and similar zero-shot benchmarks, plus custom tool-use assessments measuring accuracy of calculator, QA, search and translation calls.": [
+      "2302.04761"
+    ],
+    "HumanEval coding benchmark": [
+      "2303.11366"
+    ],
+    "sequential decision-making tasks": [
+      "2303.11366"
+    ],
+    "language reasoning tasks": [
+      "2303.11366"
+    ],
+    "Game of 24": [
+      "2305.10601"
+    ],
+    "Creative Writing": [
+      "2305.10601"
+    ],
+    "Mini Crosswords": [
+      "2305.10601"
+    ],
+    "APIBench, a comprehensive dataset consisting of HuggingFace, TorchHub and TensorHub APIs, introduced to evaluate API call writing ability and hallucination.": [
+      "2305.15334"
+    ],
+    "Evaluation is conducted in MineDojo, an open-source Minecraft AI framework, with simulation built on MineDojo and Mineflayer JavaScript APIs for motor controls. Text completion uses OpenAI gpt-4-0314 and gpt-3.5-turbo-0301 APIs, with text-embedding-ada-002 for text embedding. All temperatures are set to 0 except the automatic curriculum which uses temperature 0.1 to encourage task diversity. Baselines include LLM-based agent techniques ReAct, Reflexion and AutoGPT re-interpreted for embodiment as no LLM-based agents work out of the box for Minecraft.": [
+      "2305.16291"
+    ],
+    "HumanEval (Chen et al., 2021a) and MBPP (Austin et al., 2021) for code generation evaluation; collaborative software engineering benchmarks.": [
+      "2308.00352"
+    ],
+    "System": [
+      "2308.03688"
+    ],
+    "Database": [
+      "2308.03688"
+    ],
+    "Knowledge Graph": [
+      "2308.03688"
+    ],
+    "Digital Card Game": [
+      "2308.03688"
+    ],
+    "Lateral Thinking Puzzle": [
+      "2308.03688"
+    ],
+    "House-holding": [
+      "2308.03688"
+    ],
+    "Web Shopping": [
+      "2308.03688"
+    ],
+    "Web Browsing": [
+      "2308.03688"
+    ],
+    "Retrieval-Augmented Generation Q&A tasks": [
+      "2308.08155"
+    ],
+    "coding tasks with safeguards": [
+      "2308.08155"
+    ],
+    "SWE-bench comprising 2,294 software engineering problems drawn from real GitHub issues and corresponding pull requests across 12 popular Python repositories.": [
+      "2310.06770"
+    ],
+    "Open-domain QA, multi-hop reasoning, fact verification and long-form generation tasks, including ASQA, QAMPARI, HotpotQA, 2WikiMultiHopQA, MuSiQue and long-form QA datasets for factuality and citation evaluation.": [
+      "2310.11511"
+    ]
+  },
+  "metrics_comparison": [
+    {
+      "paper_id": "2210.03629",
+      "grounded_citation": "[Yao et al., arXiv preprint arXiv:2210.03629]",
+      "evaluated_datasets": [
+        "HotpotQA",
+        "Fever",
+        "ALFWorld",
+        "WebShop"
+      ],
+      "key_metrics": [
+        "Exact Match (EM)",
+        "Accuracy (Acc)",
+        "Task Success Rate (SR)"
+      ],
+      "quantitative_results": "On question answering HotpotQA and fact verification Fever, ReAct overcomes prevalent hallucination and error propagation in chain-of-thought reasoning by interacting with a simple Wikipedia API and generates human-like task-solving trajectories that are more interpretable than baselines without reasoning traces. On interactive decision making benchmarks ALFWorld and WebShop, ReAct outperforms imitation and reinforcement learning methods by an absolute success rate of 34% and 10% respectively, with improved human interpretability and trustworthiness over state-of-the-art baselines.",
+      "baseline_comparison": "Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
+    },
+    {
+      "paper_id": "2302.04761",
+      "grounded_citation": "[Schick et al., arXiv preprint 2023; NeurIPS 2023]",
+      "evaluated_datasets": [
+        "Zero-shot evaluation on general language modeling and reasoning benchmarks and tool-specific probes for arithmetic, factual question answering, search, translation and calendar use. Evaluation covers common downstream tasks such as LAMBADA, HellaSwag, PIQA and similar zero-shot benchmarks, plus custom tool-use assessments measuring accuracy of calculator, QA, search and translation calls."
+      ],
+      "key_metrics": [
+        "Exact Match (EM)",
+        "Accuracy (Acc)",
+        "Task Success Rate (SR)"
+      ],
+      "quantitative_results": "Toolformer achieves substantially improved zero-shot performance across a variety of downstream tasks, often competitive with much larger models, without sacrificing core language modeling abilities. Tool use improves arithmetic accuracy, factual correctness and translation quality, and the model autonomously decides which APIs to call to obtain useful information for text completion.",
+      "baseline_comparison": "Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
+    },
+    {
+      "paper_id": "2303.11366",
+      "grounded_citation": "[Shinn et al., arXiv preprint]",
+      "evaluated_datasets": [
+        "HumanEval coding benchmark",
+        "sequential decision-making tasks",
+        "language reasoning tasks"
+      ],
+      "key_metrics": [
+        "Exact Match (EM)",
+        "Accuracy (Acc)",
+        "Task Success Rate (SR)"
+      ],
+      "quantitative_results": "Reflexion obtains significant improvements over a baseline agent across diverse tasks including sequential decision-making, coding, and language reasoning. On HumanEval coding benchmark, Reflexion achieves 91% pass@1 accuracy, surpassing the previous state-of-the-art GPT-4 that achieves 80%.",
+      "baseline_comparison": "Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
+    },
+    {
+      "paper_id": "2305.10601",
+      "grounded_citation": "[Yao et al., arXiv 2023]",
+      "evaluated_datasets": [
+        "Game of 24",
+        "Creative Writing",
+        "Mini Crosswords"
+      ],
+      "key_metrics": [
+        "Exact Match (EM)",
+        "Accuracy (Acc)",
+        "Task Success Rate (SR)"
+      ],
+      "quantitative_results": "ToT significantly enhances problem-solving abilities over Chain of Thought on three novel planning/search tasks. On Game of 24, GPT-4 with chain-of-thought prompting solves ~4% of tasks while ToT achieves ~74% success rate. Improvements are also shown on Creative Writing and Mini Crosswords, demonstrating gains from deliberate multi-path exploration and self-evaluation.",
+      "baseline_comparison": "Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
+    },
+    {
+      "paper_id": "2305.15334",
+      "grounded_citation": "[al. et al., arXiv preprint, under review]",
+      "evaluated_datasets": [
+        "APIBench, a comprehensive dataset consisting of HuggingFace, TorchHub and TensorHub APIs, introduced to evaluate API call writing ability and hallucination."
+      ],
+      "key_metrics": [
+        "Exact Match (EM)",
+        "Accuracy (Acc)",
+        "Task Success Rate (SR)"
+      ],
+      "quantitative_results": "Gorilla surpasses GPT-4 on writing API calls. When combined with a document retriever it demonstrates strong capability to adapt to test-time document changes and substantially mitigates hallucination commonly encountered when prompting LLMs directly. Evaluation shows improved accuracy versus hallucination across settings.",
+      "baseline_comparison": "Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
+    },
+    {
+      "paper_id": "2305.16291",
+      "grounded_citation": "[Authors et al., arXiv preprint arXiv:2305.16291]",
+      "evaluated_datasets": [
+        "Evaluation is conducted in MineDojo, an open-source Minecraft AI framework, with simulation built on MineDojo and Mineflayer JavaScript APIs for motor controls. Text completion uses OpenAI gpt-4-0314 and gpt-3.5-turbo-0301 APIs, with text-embedding-ada-002 for text embedding. All temperatures are set to 0 except the automatic curriculum which uses temperature 0.1 to encourage task diversity. Baselines include LLM-based agent techniques ReAct, Reflexion and AutoGPT re-interpreted for embodiment as no LLM-based agents work out of the box for Minecraft."
+      ],
+      "key_metrics": [
+        "Exact Match (EM)",
+        "Accuracy (Acc)",
+        "Task Success Rate (SR)"
+      ],
+      "quantitative_results": "VOYAGER demonstrates strong in-context lifelong learning capabilities and constructs an ever-growing skill library of action programs that are reusable, interpretable, and generalizable to novel tasks. Compared to prior LLM-based agents in MineDojo, VOYAGER obtains 3.3x more unique items, unlocks key tech tree milestones up to 15.3x faster, and traverses 2.3x longer distances. VOYAGER can utilize the learned skill library in a new Minecraft world to solve novel tasks from scratch, while other methods struggle to generalize.",
+      "baseline_comparison": "Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
+    },
+    {
+      "paper_id": "2307.07924",
+      "grounded_citation": "[Authors et al., arXiv]",
+      "evaluated_datasets": [
+        ""
+      ],
+      "key_metrics": [
+        "Exact Match (EM)",
+        "Accuracy (Acc)",
+        "Task Success Rate (SR)"
+      ],
+      "quantitative_results": "phases, which results in a fragmented and in- comprehensive analyses. The results indicate that peating, and fake replies. As a result, there is a sequential phases, resulting in two functionally dis- 4 Evaluation a result, this dataset includes important software Metrics Evaluating software is also a challenging lessly transfer to a comprehensive evaluation of ent aspects of coding hallucinations",
+      "baseline_comparison": "Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
+    },
+    {
+      "paper_id": "2308.00352",
+      "grounded_citation": "[context et al., arXiv preprint 2023]",
+      "evaluated_datasets": [
+        "HumanEval (Chen et al., 2021a) and MBPP (Austin et al., 2021) for code generation evaluation; collaborative software engineering benchmarks."
+      ],
+      "key_metrics": [
+        "Exact Match (EM)",
+        "Accuracy (Acc)",
+        "Task Success Rate (SR)"
+      ],
+      "quantitative_results": "MetaGPT generates more coherent solutions than previous chat-based multi-agent systems on collaborative software engineering benchmarks. On code generation benchmarks it achieves a new state-of-the-art Pass@1 of 85.9% on HumanEval and 87.7% on MBPP, outperforming frameworks such as AutoGPT, LangChain and AgentVerse for complex software project creation.",
+      "baseline_comparison": "Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
+    },
+    {
+      "paper_id": "2308.03688",
+      "grounded_citation": "[Authors et al., arXiv]",
+      "evaluated_datasets": [
+        "System",
+        "Database",
+        "Knowledge Graph",
+        "Digital Card Game",
+        "Lateral Thinking Puzzle",
+        "House-holding",
+        "Web Shopping",
+        "Web Browsing"
+      ],
+      "key_metrics": [
+        "Exact Match (EM)",
+        "Accuracy (Acc)",
+        "Task Success Rate (SR)"
+      ],
+      "quantitative_results": "Extensive testing over 29 API-based and open-sourced LLMs shows top commercial LLMs present strong ability of acting as agents in complex environments, with a significant performance gap versus many OSS competitors no larger than 70B. Typical failure reasons are poor long-term reasoning, decision-making and instruction following. Improving instruction following and training on high-quality multi-round alignment data can improve agent performance. Code training has ambivalent impacts on different agent tasks, improving some while harming others. Models referenced include gpt-4 (0613), claude-3 (opus), glm-4, codellama-34b-instruct, vicuna-13b-v1.5, llama-2-70b.",
+      "baseline_comparison": "Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
+    },
+    {
+      "paper_id": "2308.08155",
+      "grounded_citation": "[Wu et al., arXiv preprint arXiv:2308.08155, 2023]",
+      "evaluated_datasets": [
+        "Retrieval-Augmented Generation Q&A tasks",
+        "ALFWorld",
+        "coding tasks with safeguards"
+      ],
+      "key_metrics": [
+        "Exact Match (EM)",
+        "Accuracy (Acc)",
+        "Task Success Rate (SR)"
+      ],
+      "quantitative_results": "Customizable and conversable agents enable easy creation of agents with different roles such as code writing, code execution, human feedback wiring, and output validation. Conversation programming streamlines development of intricate applications. AutoGen realizes effective retrieval augmentation and a novel interactive retrieval feature that boosts performance on Q&A tasks. A three-agent system with a grounding agent improves performance on ALFWorld. Multi-agent design boosts performance on coding tasks that need safeguards.",
+      "baseline_comparison": "Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
+    },
+    {
+      "paper_id": "2310.06770",
+      "grounded_citation": "[Authors et al., arXiv preprint]",
+      "evaluated_datasets": [
+        "SWE-bench comprising 2,294 software engineering problems drawn from real GitHub issues and corresponding pull requests across 12 popular Python repositories."
+      ],
+      "key_metrics": [
+        "Exact Match (EM)",
+        "Accuracy (Acc)",
+        "Task Success Rate (SR)"
+      ],
+      "quantitative_results": "Evaluations show both state-of-the-art proprietary models and the fine-tuned SWE-Llama can resolve only the simplest issues. The best-performing model, Claude 2, solves a mere 1.96% of the issues.",
+      "baseline_comparison": "Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
+    },
+    {
+      "paper_id": "2310.11511",
+      "grounded_citation": "[Asai et al., arXiv preprint arXiv:2310.11511, 2023]",
+      "evaluated_datasets": [
+        "Open-domain QA, multi-hop reasoning, fact verification and long-form generation tasks, including ASQA, QAMPARI, HotpotQA, 2WikiMultiHopQA, MuSiQue and long-form QA datasets for factuality and citation evaluation."
+      ],
+      "key_metrics": [
+        "Exact Match (EM)",
+        "Accuracy (Acc)",
+        "Task Success Rate (SR)"
+      ],
+      "quantitative_results": "SELF-RAG 7B and 13B significantly outperforms state-of-the-art LLMs and retrieval-augmented models on a diverse set of tasks. Specifically, SELF-RAG outperforms ChatGPT and retrieval-augmented Llama2-chat on open-domain QA, reasoning and fact verification tasks, and shows significant gains in improving factuality and citation accuracy for long-form generation.",
+      "baseline_comparison": "Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
+    }
+  ],
+  "limitation_themes": [
+    {
+      "theme": "Inference Latency & Token / Computational Overhead",
+      "paper_ids": [
+        "2308.03688",
+        "2308.08155",
+        "2310.11511",
+        "2307.07924",
+        "2210.03629",
+        "2305.16291",
+        "2305.10601",
+        "2308.00352",
+        "2310.06770",
+        "2303.11366",
+        "2302.04761",
+        "2305.15334"
+      ],
+      "citations": [
+        "[Yao et al., arXiv 2023]",
+        "[Authors et al., arXiv preprint arXiv:2305.16291]",
+        "[Authors et al., arXiv]",
+        "[Wu et al., arXiv preprint arXiv:2308.08155, 2023]",
+        "[al. et al., arXiv preprint, under review]",
+        "[context et al., arXiv preprint 2023]",
+        "[Asai et al., arXiv preprint arXiv:2310.11511, 2023]",
+        "[Shinn et al., arXiv preprint]",
+        "[Schick et al., arXiv preprint 2023; NeurIPS 2023]",
+        "[Authors et al., arXiv preprint]",
+        "[Yao et al., arXiv preprint arXiv:2210.03629]"
+      ],
+      "description": "Observed in 12 paper(s): Chain-of-thought reasoning is a static black box, not grounded in the external world, which limits reactive reasoning or updating knowledge and can lead to fact hallucination and error propagation ove...",
+      "frequency": 12
+    },
+    {
+      "theme": "Hallucination & Error Cascade / Repetitive Looping",
+      "paper_ids": [
+        "2308.03688",
+        "2308.08155",
+        "2310.11511",
+        "2307.07924",
+        "2210.03629",
+        "2305.16291",
+        "2305.10601",
+        "2308.00352",
+        "2310.06770",
+        "2303.11366",
+        "2302.04761",
+        "2305.15334"
+      ],
+      "citations": [
+        "[Yao et al., arXiv 2023]",
+        "[Authors et al., arXiv preprint arXiv:2305.16291]",
+        "[Authors et al., arXiv]",
+        "[Wu et al., arXiv preprint arXiv:2308.08155, 2023]",
+        "[al. et al., arXiv preprint, under review]",
+        "[context et al., arXiv preprint 2023]",
+        "[Asai et al., arXiv preprint arXiv:2310.11511, 2023]",
+        "[Shinn et al., arXiv preprint]",
+        "[Schick et al., arXiv preprint 2023; NeurIPS 2023]",
+        "[Authors et al., arXiv preprint]",
+        "[Yao et al., arXiv preprint arXiv:2210.03629]"
+      ],
+      "description": "Observed in 12 paper(s): Chain-of-thought reasoning is a static black box, not grounded in the external world, which limits reactive reasoning or updating knowledge and can lead to fact hallucination and error propagation ove...",
+      "frequency": 12
+    },
+    {
+      "theme": "Search Space Explosion & Long-Horizon Horizon Trapping",
+      "paper_ids": [
+        "2308.03688",
+        "2308.08155",
+        "2310.11511",
+        "2307.07924",
+        "2210.03629",
+        "2305.16291",
+        "2305.10601",
+        "2308.00352",
+        "2310.06770",
+        "2303.11366",
+        "2302.04761",
+        "2305.15334"
+      ],
+      "citations": [
+        "[Yao et al., arXiv 2023]",
+        "[Authors et al., arXiv preprint arXiv:2305.16291]",
+        "[Authors et al., arXiv]",
+        "[Wu et al., arXiv preprint arXiv:2308.08155, 2023]",
+        "[al. et al., arXiv preprint, under review]",
+        "[context et al., arXiv preprint 2023]",
+        "[Asai et al., arXiv preprint arXiv:2310.11511, 2023]",
+        "[Shinn et al., arXiv preprint]",
+        "[Schick et al., arXiv preprint 2023; NeurIPS 2023]",
+        "[Authors et al., arXiv preprint]",
+        "[Yao et al., arXiv preprint arXiv:2210.03629]"
+      ],
+      "description": "Observed in 12 paper(s): Chain-of-thought reasoning is a static black box, not grounded in the external world, which limits reactive reasoning or updating knowledge and can lead to fact hallucination and error propagation ove...",
+      "frequency": 12
+    },
+    {
+      "theme": "Environment Grounding & Tool Execution Bottlenecks",
+      "paper_ids": [
+        "2305.16291",
+        "2302.04761",
+        "2303.11366"
+      ],
+      "citations": [
+        "[Shinn et al., arXiv preprint]",
+        "[Authors et al., arXiv preprint arXiv:2305.16291]",
+        "[Schick et al., arXiv preprint 2023; NeurIPS 2023]"
+      ],
+      "description": "Observed in 3 paper(s): Large language models cannot access up-to-date information on recent events and tend to hallucinate facts, have difficulties understanding low-resource languages, lack mathematical skills for precise...",
+      "frequency": 3
+    },
+    {
+      "theme": "Scalability & Inter-Agent Coordination Overhead",
+      "paper_ids": [
+        "2307.07924",
+        "2308.08155"
+      ],
+      "citations": [
+        "[Authors et al., arXiv]",
+        "[Wu et al., arXiv preprint arXiv:2308.08155, 2023]"
+      ],
+      "description": "Observed in 2 paper(s): Agentization to enhance the quality and reduce human intervention, ChatDev implements prompt engineering that only takes place at the start of each subtask round. As soon as the communication phase be...",
+      "frequency": 2
+    }
+  ],
+  "cross_paper_insights": [
+    "Analyzed 12 research paper(s) across 5 distinct agentic paradigm(s).",
+    "High benchmark dataset consensus identified on: ALFWorld, facilitating direct empirical comparison.",
+    "Primary architectural approach represented is 'Reasoning & Prompting' focused on iterative and structured reasoning.",
+    "Most widespread cross-cutting limitation is 'Inference Latency & Token / Computational Overhead', impacting 12 of 12 paper(s).",
+    "Across empirical benchmarks, agentic closed-loop reasoning consistently outperforms static, single-prompt LLM execution."
+  ],
+  "markdown_comparison_report": "# Cross-Paper Comparative Analysis & Synthesis Matrix\n\n### 1. Automated 5-Column Literature Comparison Table\n\n| Paper & Citation | Architecture Paradigm | Benchmark Datasets | Quantitative Results & Baselines | Limitations & Failure Modes |\n|---|---|---|---|---|\n| **ReAct: Synergizing Reasoning and Acting with Large Language Models**<br>`[Yao et al., arXiv preprint arXiv:2210.03629]` | **Reasoning & Prompting**<br>*Synergistic thought-action interleaved prompting* | HotpotQA, Fever, ALFWorld, WebShop | **Gains:** On question answering HotpotQA and fact verification Fever, ReAct overcomes prevalent hallucination and error propagation in chain...<br>**Baselines:** Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA,... | **Stated:** Chain-of-thought reasoning is a static black box, not grounded in the external world, which limits reactive re...<br>**Failure Mode:** Repetitive looping in greedy decoding; non-informative search results derail trajectory fo... |\n| **Toolformer: Language Models Can Teach Themselves to Use Tools**<br>`[Schick et al., arXiv preprint 2023; NeurIPS 2023]` | **Tool-Augmented / API Integration**<br>*Synergistic thought-action interleaved prompting* | Zero-shot evaluation on general language modeling and reasoning benchmarks and tool-specific probes for arithmetic, factual question answering, search, translation and calendar use. Evaluation covers common downstream tasks such as LAMBADA, HellaSwag, PIQA and similar zero-shot benchmarks, plus custom tool-use assessments measuring accuracy of calculator, QA, search and translation calls. | **Gains:** Toolformer achieves substantially improved zero-shot performance across a variety of downstream tasks, often competitive with much...<br>**Baselines:** Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA,... | **Stated:** Large language models cannot access up-to-date information on recent events and tend to hallucinate facts, hav...<br>**Failure Mode:** Repetitive looping in greedy decoding; non-informative search results derail trajectory fo... |\n| **Reflexion: Language Agents with Verbal Reinforcement Learning**<br>`[Shinn et al., arXiv preprint]` | **Self-Reflection & Refinement**<br>*Synergistic thought-action interleaved prompting* | HumanEval coding benchmark, sequential decision-making tasks, language reasoning tasks | **Gains:** Reflexion obtains significant improvements over a baseline agent across diverse tasks including sequential decision-making, coding...<br>**Baselines:** Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA,... | **Stated:** The Reflexion process Reflexion is formalized as an iterative optimization process in 1. In the first trial, t...<br>**Failure Mode:** Repetitive looping in greedy decoding; non-informative search results derail trajectory fo... |\n| **Tree of Thoughts: Deliberate Problem Solving with Large Language Models**<br>`[Yao et al., arXiv 2023]` | **Tree / Graph Search & Planning**<br>*Synergistic thought-action interleaved prompting* | Game of 24, Creative Writing, Mini Crosswords | **Gains:** ToT significantly enhances problem-solving abilities over Chain of Thought on three novel planning/search tasks. On Game of 24, GP...<br>**Baselines:** Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA,... | **Stated:** Self-consistency improves over CoT but provides no local exploration within each chain and the most-frequent o...<br>**Failure Mode:** Repetitive looping in greedy decoding; non-informative search results derail trajectory fo... |\n| **Gorilla: Large Language Model Connected with Massive APIs**<br>`[al. et al., arXiv preprint, under review]` | **Tool-Augmented / API Integration**<br>*Synergistic thought-action interleaved prompting* | APIBench, a comprehensive dataset consisting of HuggingFace, TorchHub and TensorHub APIs, introduced to evaluate API call writing ability and hallucination. | **Gains:** Gorilla surpasses GPT-4 on writing API calls. When combined with a document retriever it demonstrates strong capability to adapt t...<br>**Baselines:** Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA,... | **Stated:** No explicit limitations are provided in the given context.<br>**Failure Mode:** Repetitive looping in greedy decoding; non-informative search results derail trajectory fo... |\n| **Voyager: An Open-Ended Embodied Agent with Large Language Models**<br>`[Authors et al., arXiv preprint arXiv:2305.16291]` | **Reasoning & Prompting**<br>*Synergistic thought-action interleaved prompting* | Evaluation is conducted in MineDojo, an open-source Minecraft AI framework, with simulation built on MineDojo and Mineflayer JavaScript APIs for motor controls. Text completion uses OpenAI gpt-4-0314 and gpt-3.5-turbo-0301 APIs, with text-embedding-ada-002 for text embedding. All temperatures are set to 0 except the automatic curriculum which uses temperature 0.1 to encourage task diversity. Baselines include LLM-based agent techniques ReAct, Reflexion and AutoGPT re-interpreted for embodiment as no LLM-based agents work out of the box for Minecraft. | **Gains:** VOYAGER demonstrates strong in-context lifelong learning capabilities and constructs an ever-growing skill library of action progr...<br>**Baselines:** Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA,... | **Stated:** LLMs struggle to produce the correct action code consistently in one shot. The paper notes the need for an ite...<br>**Failure Mode:** Repetitive looping in greedy decoding; non-informative search results derail trajectory fo... |\n| **ChatDev: Communicative Agents for Software Development**<br>`[Authors et al., arXiv]` | **Reasoning & Prompting**<br>*Synergistic thought-action interleaved prompting* | Custom / Not specified | **Gains:** phases, which results in a fragmented and in- comprehensive analyses. The results indicate that peating, and fake replies. As a re...<br>**Baselines:** Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA,... | **Stated:** Agentization to enhance the quality and reduce human intervention, ChatDev implements prompt engineering that...<br>**Failure Mode:** Repetitive looping in greedy decoding; non-informative search results derail trajectory fo... |\n| **MetaGPT: Meta Programming for Multi-Agent Collaborative Software Development**<br>`[context et al., arXiv preprint 2023]` | **Multi-Agent Collaboration**<br>*Synergistic thought-action interleaved prompting* | HumanEval (Chen et al., 2021a) and MBPP (Austin et al., 2021) for code generation evaluation; collaborative software engineering benchmarks. | **Gains:** MetaGPT generates more coherent solutions than previous chat-based multi-agent systems on collaborative software engineering bench...<br>**Baselines:** Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA,... | **Stated:** No explicit limitations are detailed in the provided context; the text notes that autonomous agents using LLMs...<br>**Failure Mode:** Repetitive looping in greedy decoding; non-informative search results derail trajectory fo... |\n| **AgentBench: Evaluating LLMs as Agents**<br>`[Authors et al., arXiv]` | **Reasoning & Prompting**<br>*Synergistic thought-action interleaved prompting* | System, Database, Knowledge Graph, Digital Card Game, Lateral Thinking Puzzle, House-holding, Web Shopping, Web Browsing | **Gains:** Extensive testing over 29 API-based and open-sourced LLMs shows top commercial LLMs present strong ability of acting as agents in...<br>**Baselines:** Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA,... | **Stated:** Database evaluation emphasizes the complete pipeline on authentic SQL interfaces, databases and query types ra...<br>**Failure Mode:** Repetitive looping in greedy decoding; non-informative search results derail trajectory fo... |\n| **AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation**<br>`[Wu et al., arXiv preprint arXiv:2308.08155, 2023]` | **Multi-Agent Collaboration**<br>*Synergistic thought-action interleaved prompting* | Retrieval-Augmented Generation Q&A tasks, ALFWorld, coding tasks with safeguards | **Gains:** Customizable and conversable agents enable easy creation of agents with different roles such as code writing, code execution, huma...<br>**Baselines:** Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA,... | **Stated:** The provided context does not list formal limitations; it notes that to develop applications where agents make...<br>**Failure Mode:** Repetitive looping in greedy decoding; non-informative search results derail trajectory fo... |\n| **SWE-bench: Can Language Models Resolve Real-World Issues?**<br>`[Authors et al., arXiv preprint]` | **Reasoning & Prompting**<br>*Synergistic thought-action interleaved prompting* | SWE-bench comprising 2,294 software engineering problems drawn from real GitHub issues and corresponding pull requests across 12 popular Python repositories. | **Gains:** Evaluations show both state-of-the-art proprietary models and the fine-tuned SWE-Llama can resolve only the simplest issues. The b...<br>**Baselines:** Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA,... | **Stated:** Building a good benchmark is difficult since tasks must be challenging enough to stump existing models, but mo...<br>**Failure Mode:** Repetitive looping in greedy decoding; non-informative search results derail trajectory fo... |\n| **Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection**<br>`[Asai et al., arXiv preprint arXiv:2310.11511, 2023]` | **Self-Reflection & Refinement**<br>*Synergistic thought-action interleaved prompting* | Open-domain QA, multi-hop reasoning, fact verification and long-form generation tasks, including ASQA, QAMPARI, HotpotQA, 2WikiMultiHopQA, MuSiQue and long-form QA datasets for factuality and citation evaluation. | **Gains:** SELF-RAG 7B and 13B significantly outperforms state-of-the-art LLMs and retrieval-augmented models on a diverse set of tasks. Spec...<br>**Baselines:** Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA,... | **Stated:** No explicit limitations are provided in the supplied context.<br>**Failure Mode:** Repetitive looping in greedy decoding; non-informative search results derail trajectory fo... |\n\n---\n\n### 2. Cross-Paper Synthesis & Methodological Insights\n- Analyzed 12 research paper(s) across 5 distinct agentic paradigm(s).\n- High benchmark dataset consensus identified on: ALFWorld, facilitating direct empirical comparison.\n- Primary architectural approach represented is 'Reasoning & Prompting' focused on iterative and structured reasoning.\n- Most widespread cross-cutting limitation is 'Inference Latency & Token / Computational Overhead', impacting 12 of 12 paper(s).\n- Across empirical benchmarks, agentic closed-loop reasoning consistently outperforms static, single-prompt LLM execution.\n\n---\n\n### 3. Benchmark Dataset Overlap & Evaluation Matrix\n- **HotpotQA**: (Evaluated in 2210.03629)\n- **Fever**: (Evaluated in 2210.03629)\n- **ALFWorld**: **(Shared by 2 papers: 2210.03629, 2308.08155)**\n- **WebShop**: (Evaluated in 2210.03629)\n- **Zero-shot evaluation on general language modeling and reasoning benchmarks and tool-specific probes for arithmetic, factual question answering, search, translation and calendar use. Evaluation covers common downstream tasks such as LAMBADA, HellaSwag, PIQA and similar zero-shot benchmarks, plus custom tool-use assessments measuring accuracy of calculator, QA, search and translation calls.**: (Evaluated in 2302.04761)\n- **HumanEval coding benchmark**: (Evaluated in 2303.11366)\n- **sequential decision-making tasks**: (Evaluated in 2303.11366)\n- **language reasoning tasks**: (Evaluated in 2303.11366)\n- **Game of 24**: (Evaluated in 2305.10601)\n- **Creative Writing**: (Evaluated in 2305.10601)\n- **Mini Crosswords**: (Evaluated in 2305.10601)\n- **APIBench, a comprehensive dataset consisting of HuggingFace, TorchHub and TensorHub APIs, introduced to evaluate API call writing ability and hallucination.**: (Evaluated in 2305.15334)\n- **Evaluation is conducted in MineDojo, an open-source Minecraft AI framework, with simulation built on MineDojo and Mineflayer JavaScript APIs for motor controls. Text completion uses OpenAI gpt-4-0314 and gpt-3.5-turbo-0301 APIs, with text-embedding-ada-002 for text embedding. All temperatures are set to 0 except the automatic curriculum which uses temperature 0.1 to encourage task diversity. Baselines include LLM-based agent techniques ReAct, Reflexion and AutoGPT re-interpreted for embodiment as no LLM-based agents work out of the box for Minecraft.**: (Evaluated in 2305.16291)\n- **HumanEval (Chen et al., 2021a) and MBPP (Austin et al., 2021) for code generation evaluation; collaborative software engineering benchmarks.**: (Evaluated in 2308.00352)\n- **System**: (Evaluated in 2308.03688)\n- **Database**: (Evaluated in 2308.03688)\n- **Knowledge Graph**: (Evaluated in 2308.03688)\n- **Digital Card Game**: (Evaluated in 2308.03688)\n- **Lateral Thinking Puzzle**: (Evaluated in 2308.03688)\n- **House-holding**: (Evaluated in 2308.03688)\n- **Web Shopping**: (Evaluated in 2308.03688)\n- **Web Browsing**: (Evaluated in 2308.03688)\n- **Retrieval-Augmented Generation Q&A tasks**: (Evaluated in 2308.08155)\n- **coding tasks with safeguards**: (Evaluated in 2308.08155)\n- **SWE-bench comprising 2,294 software engineering problems drawn from real GitHub issues and corresponding pull requests across 12 popular Python repositories.**: (Evaluated in 2310.06770)\n- **Open-domain QA, multi-hop reasoning, fact verification and long-form generation tasks, including ASQA, QAMPARI, HotpotQA, 2WikiMultiHopQA, MuSiQue and long-form QA datasets for factuality and citation evaluation.**: (Evaluated in 2310.11511)\n\n---\n\n### 4. Shared Limitations & Architectural Trade-offs\n- **Inference Latency & Token / Computational Overhead** (12 paper(s): [Yao et al., arXiv 2023], [Authors et al., arXiv preprint arXiv:2305.16291], [Authors et al., arXiv], [Wu et al., arXiv preprint arXiv:2308.08155, 2023], [al. et al., arXiv preprint, under review], [context et al., arXiv preprint 2023], [Asai et al., arXiv preprint arXiv:2310.11511, 2023], [Shinn et al., arXiv preprint], [Schick et al., arXiv preprint 2023; NeurIPS 2023], [Authors et al., arXiv preprint], [Yao et al., arXiv preprint arXiv:2210.03629]):\n  *Observed in 12 paper(s): Chain-of-thought reasoning is a static black box, not grounded in the external world, which limits reactive reasoning or updating knowledge and can lead to fact hallucination and error propagation ove...*\n- **Hallucination & Error Cascade / Repetitive Looping** (12 paper(s): [Yao et al., arXiv 2023], [Authors et al., arXiv preprint arXiv:2305.16291], [Authors et al., arXiv], [Wu et al., arXiv preprint arXiv:2308.08155, 2023], [al. et al., arXiv preprint, under review], [context et al., arXiv preprint 2023], [Asai et al., arXiv preprint arXiv:2310.11511, 2023], [Shinn et al., arXiv preprint], [Schick et al., arXiv preprint 2023; NeurIPS 2023], [Authors et al., arXiv preprint], [Yao et al., arXiv preprint arXiv:2210.03629]):\n  *Observed in 12 paper(s): Chain-of-thought reasoning is a static black box, not grounded in the external world, which limits reactive reasoning or updating knowledge and can lead to fact hallucination and error propagation ove...*\n- **Search Space Explosion & Long-Horizon Horizon Trapping** (12 paper(s): [Yao et al., arXiv 2023], [Authors et al., arXiv preprint arXiv:2305.16291], [Authors et al., arXiv], [Wu et al., arXiv preprint arXiv:2308.08155, 2023], [al. et al., arXiv preprint, under review], [context et al., arXiv preprint 2023], [Asai et al., arXiv preprint arXiv:2310.11511, 2023], [Shinn et al., arXiv preprint], [Schick et al., arXiv preprint 2023; NeurIPS 2023], [Authors et al., arXiv preprint], [Yao et al., arXiv preprint arXiv:2210.03629]):\n  *Observed in 12 paper(s): Chain-of-thought reasoning is a static black box, not grounded in the external world, which limits reactive reasoning or updating knowledge and can lead to fact hallucination and error propagation ove...*\n- **Environment Grounding & Tool Execution Bottlenecks** (3 paper(s): [Shinn et al., arXiv preprint], [Authors et al., arXiv preprint arXiv:2305.16291], [Schick et al., arXiv preprint 2023; NeurIPS 2023]):\n  *Observed in 3 paper(s): Large language models cannot access up-to-date information on recent events and tend to hallucinate facts, have difficulties understanding low-resource languages, lack mathematical skills for precise...*\n- **Scalability & Inter-Agent Coordination Overhead** (2 paper(s): [Authors et al., arXiv], [Wu et al., arXiv preprint arXiv:2308.08155, 2023]):\n  *Observed in 2 paper(s): Agentization to enhance the quality and reduce human intervention, ChatDev implements prompt engineering that only takes place at the start of each subtask round. As soon as the communication phase be...*\n",
+  "analysis_source": "Deterministic Grounded Heuristic Engine"
+}

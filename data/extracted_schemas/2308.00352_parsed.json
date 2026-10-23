@@ -1,0 +1,626 @@
+{
+  "paper_id": "2308.00352",
+  "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+  "title": "METAGPT: META PROGRAMMING FOR A MULTI-AGENT COLLABORATIVE FRAMEWORK",
+  "abstract": "Remarkable progress has been made on automated problem solving through societies of agents based on large language models (LLMs). Existing LLM-based multi-agent systems can already solve simple dialogue tasks. Solutions to more complex tasks, however, are complicated through logic inconsistencies due to cascading hallucinations caused by naively chaining LLMs. Here we introduce MetaGPT, an innovative meta-programming framework incorporating efficient human workflows into LLM-based multi-agent collaborations. MetaGPT encodes Standardized Operating Procedures (SOPs) into prompt sequences for more streamlined workflows, thus allowing agents with human-like domain expertise to verify intermediate results and reduce errors. MetaGPT utilizes an assembly line paradigm to assign diverse roles to various agents, efficiently breaking down complex tasks into subtasks involving many agents working together. On collaborative software engineering benchmarks, MetaGPT generates more coherent solutions than previous chat-based multi-agent systems. Our project can be found at",
+  "parser_used": "GROBID_TEI_XML_with_PyMuPDF_Visuals",
+  "total_pages": 1,
+  "full_text": "Abstract:\nRemarkable progress has been made on automated problem solving through societies of agents based on large language models (LLMs). Existing LLM-based multi-agent systems can already solve simple dialogue tasks. Solutions to more complex tasks, however, are complicated through logic inconsistencies due to cascading hallucinations caused by naively chaining LLMs. Here we introduce MetaGPT, an innovative meta-programming framework incorporating efficient human workflows into LLM-based multi-agent collaborations. MetaGPT encodes Standardized Operating Procedures (SOPs) into prompt sequences for more streamlined workflows, thus allowing agents with human-like domain expertise to verify intermediate results and reduce errors. MetaGPT utilizes an assembly line paradigm to assign diverse roles to various agents, efficiently breaking down complex tasks into subtasks involving many agents working together. On collaborative software engineering benchmarks, MetaGPT generates more coherent solutions than previous chat-based multi-agent systems. Our project can be found at\n[INTRODUCTION] Autonomous agents utilizing Large Language Models (LLMs) offer promising opportunities to enhance and replicate human workflows. In real-world applications, however, existing systems (Park et al., 2023;Zhuge et al., 2023;Cai et al., 2023;Wang et al., 2023c;Li et al., 2023;Du et al., 2023;Liang et al., 2023;Hao et al., 2023;Zhou et al., 2023b) tend to oversimplify the complexities. They struggle to achieve effective, coherent, and accurate problem-solving processes, particularly when there is a need for meaningful collaborative interaction (Chen et al., 2024;Zhang et al., 2023a;Dong et al., 2023;Zhou et al., 2023a;Qian et al., 2023;Tang et al., 2023b;Hong et al., 2024).\n[INTRODUCTION] Through extensive collaborative practice, humans have developed widely accepted Standardized Operating Procedures (SOPs) across various domains (Belbin, 2012;Manifesto, 2001;DeMarco & Lister, 2013). These SOPs play a critical role in supporting task decomposition and effective coordination. Furthermore, SOPs outline the responsibilities of each team member, while establishing standards for intermediate outputs. Well-defined SOPs improve the consistent and accurate execution of tasks that align with defined roles and quality standards (Belbin, 2012;Manifesto, 2001;DeMarco & Lister, 2013;Wooldridge & Jennings, 1998). For instance, in a software company, Product Managers analyze competition and user needs to create Product Requirements Documents (PRDs) using a standardized structure, to guide the developmental process.\n[INTRODUCTION] Inspired by such ideas, we design a promising GPT-based Meta-Programming framework called MetaGPT that significantly benefits from SOPs. Unlike other works (Li et al., 2023;Qian et al., 2023), MetaGPT requires agents to generate structured outputs, such as high-quality requirements In software engineering, SOPs promote collaboration among various roles. MetaGPT showcases its ability to decompose complex tasks into specific actionable procedures assigned to various roles (e.g., Product Manager, Architect, Engineer, etc.). documents, design artifacts, flowcharts, and interface specifications. The use of intermediate structured outputs significantly increases the success rate of target code generation. Because it helps maintain consistency in communication, minimizing ambiguities and errors during collaboration. More graphically, in a company simulated by MetaGPT, all employees follow a strict and streamlined workflow, and all their handovers must comply with certain established standards. This reduces the risk of hallucinations caused by idle chatter between LLMs, particularly in role-playing frameworks, like: \"Hi, hello and how are you?\" -Alice (Product Manager); \"Great! Have you had lunch?\" -Bob (Architect).\n[INTRODUCTION] Benefiting from SOPs, MetaGPT offers a promising approach to meta-programming. In this context, we adopt meta-programmingfoot_0 as \"programming to program\", in contrast to the broader fields of meta learning and \"learning to learn\" (Schmidhuber, 1987;1993a;Hochreiter et al., 2001;Schmidhuber, 2006;Finn et al., 2017). This notion of meta-programming also encompasses earlier efforts like CodeBERT (Feng et al., 2020) and recent projects such as CodeLlama (Rozière et al., 2023) and WizardCoder (Luo et al., 2023). However, MetaGPT stands out as a unique solution that allows for efficient metaprogramming through a well-organized group of specialized agents. Each agent has a specific role and expertise, following some established standards. This allows for automatic requirement analysis, system design, code generation, modification, execution, and debugging during runtime, highlighting how agent-based techniques can enhance meta-programming.\n[INTRODUCTION] To validate the design of MetaGPT, we use publicly available HumanEval (Chen et al., 2021a) and MBPP (Austin et al., 2021) for evaluations. Notably, in code generation benchmarks, MetaGPT achieves a new state-of-the-art (SoTA) with 85.9% and 87.7% in Pass@1. When compared to other popular frameworks for creating complex software projects, such as AutoGPT (Torantulino et al., 2023), LangChain (Chase, 2022), AgentVerse (Chen et al., 2023), and ChatDev (Qian et al., 2023). MetaGPT also stands out in handling higher levels of software complexity and offering extensive functionality. Remarkably, in our experimental evaluations, MetaGPT achieves a 100% task completion rate, demonstrating the robustness and efficiency (time and token costs) of our design.\n[INTRODUCTION] We summarize our contributions as follows:\n[INTRODUCTION] • We introduce MetaGPT, a meta-programming framework for multi-agent collaboration based on LLMs. It is highly convenient and flexible, with well-defined functions like role definition and message sharing, making it a useful platform for developing LLM-based multi-agent systems.\n[INTRODUCTION] • Our innovative integration of human-like SOPs throughout MetaGPT's design significantly enhances its robustness, reducing unproductive collaboration among LLM-based agents. Furthermore, we introduce a novel executive feedback mechanism that debugs and executes code during runtime, significantly elevating code generation quality (e.g., 5.4% absolute improvement on MBPP).\n[INTRODUCTION] • We achieve state-of-the-art performance on HumanEval (Chen et al., 2021a) and MBPP (Austin et al., 2021). Extensive results convincingly validate MetaGPT, suggesting that it is a promising meta-programming framework for developing LLM-based multi-agent systems.\n[RELATED WORK] Automatic Programming The roots of automatic programming reach back deep into the previous century. In 1969, Waldinger & Lee (1969) introduced \"PROW,\" a system designed to accept program specifications written in predicate calculus, generate algorithms, and create LISP implementations (McCarthy, 1978). Balzer (1985) and Soloway (1986) made efforts to advance automatic programming and identified potential methods to achieve it. Recent approaches use natural language processing (NLP) techniques (Ni et al., 2023;Skreta et al., 2023;Feng et al., 2020;Li et al., 2022;Chen et al., 2018;2021b;Zhang et al., 2023a;Liu et al., 2023b;Tang et al., 2023a;Muennighoff et al., 2023). Automatic programming has grown into an industry delivering paid functions such as Microsoft Copilot. Lately, LLMs-based agents (Yao et al., 2022;Shinn et al., 2023;Lin et al., 2023) have advanced automatic programming development. Among them, ReAct (Yao et al., 2022) and Reflexion (Shinn et al., 2023) utilize a chain of thought prompts (Wei et al., 2022) to generate reasoning trajectories and action plans with LLMs. Both works demonstrate the effectiveness of the ReAct style loop of reasoning as a design paradigm for empowering automatic programming. Additionally, ToolFormer (Schick et al., 2023) and ToolLLM (Qin et al., 2023) can learn how to use external tools through simple APIs. The research most closely aligned with our work by Li et al. (2023) proposes a straightforward role-play framework for programming that involves communication between agents playing different roles. Qian et al. (2023) utilizes multiple agents for software development. Although existing papers (Li et al., 2023;Qian et al., 2023) have improved productivity, they have not fully tapped into effective workflows with structured output formats. This makes it harder to deal with complex software engineering issues.\n[RELATED WORK] LLM-Based Multi-Agent Frameworks Recently, LLM-based autonomous agents have gained tremendous interest in both industry and academia (Wang et al., 2023b;Zhou et al., 2023b;Zhang et al., 2023b). Many works (Chen et al., 2024;Wang et al., 2023c;Du et al., 2023;Zhuge et al., 2023;Hao et al., 2023;Akata et al., 2023;Tang et al., 2023b) have improved the problem-solving abilities of LLMs by integrating discussions among multiple agents. Stable-Alignment (Liu et al., 2023a) creates instruction datasets by deriving consensus on value judgments through interactions across a sandbox with LLM agents. Other works focus on sociological phenomena. For example, Generative Agents (Park et al., 2023) creates a \"town\" of 25 agents to study language interaction, social understanding, and collective memory. In the Natural Language-Based Society of Mind (NL-SOM) (Zhuge et al., 2023), agents with different functions interact to solve complex tasks through multiple rounds of \"mindstorms.\" Cai et al. (2023) propose a model for cost reduction by combining large models as tool makers and small models as tool users. Some works emphasize cooperation and competition related to planning and strategy (Bakhtin et al., 2022); others propose LLM-based economies (Zhuge et al., 2023). These works focus on openworld human behavior simulation, while MetaGPT aims to introduce human practice into multiagents frameworks. Besides, LLM-based agents face the challenges of \"assistant repeated instruction\" or \"infinite loop of message\" (Talebirad & Nadiri, 2023;Li et al., 2023). These challenges become more urgent in task-oriented collaborations, which require consistent and mutually beneficial interactions (Elazar et al., 2021;Wang et al., 2022;Jiang et al., 2023). This motivates our focus on applying advanced concepts such as Standard Operating Procedures in software development to multi-agent frameworks. They can also subscribe to relevant messages based on their profiles. Right: After generating the initial code, the Engineer agent runs and checks for errors. If errors occur, the agent checks past messages stored in memory and compares them with the PRD, system design, and code files.\n[METAGPT: A META-PROGRAMMING FRAMEWORK] MetaGPT is a meta-programming framework for LLM-based multi-agent systems. Sec. 3.1 provides an explanation of role specialization, workflow and structured communication in this framework, and illustrates how to organize a multi-agent system within the context of SOPs. Sec. 3.2 presents a communication protocol that enhances role communication efficiency. We also implement structured communication interfaces and an effective publish-subscribe mechanism. These methods enable agents to obtain directional information from other roles and public information from the environment. Finally, we introduce executable feedback-a self-correction mechanism for further enhancing code generation quality during run-time in Sec. 3.3.\n[AGENTS IN STANDARD OPERATING PROCEDURES] Specialization of Roles Unambiguous role specialization enables the breakdown of complex work into smaller and more specific tasks. Solving complex tasks or problems often requires the collaboration of agents with diverse skills and expertise, each contributing specialized outputs tailored to specific issues.\n[AGENTS IN STANDARD OPERATING PROCEDURES] In a software company, a Product Manager typically conducts business-oriented analysis and derives insights, while a software engineer is responsible for programming. We define five roles in our software company: Product Manager, Architect, Project Manager, Engineer, and QA Engineer, as shown in Figure 1. In MetaGPT, we specify the agent's profile, which includes their name, profile, goal, and constraints for each role. We also initialize the specific context and skills for each role. For instance, a Product Manager can use web search tools, while an Engineer can execute code, as shown in Figure 2. All agents adhere to the React-style behavior as described in Yao et al. (2022).\n[AGENTS IN STANDARD OPERATING PROCEDURES] Every agent monitors the environment (i.e., the message pool in MetaGPT) to spot important observations (e.g.,, messages from other agents). These messages can either directly trigger actions or assist in finishing the job.\n[AGENTS IN STANDARD OPERATING PROCEDURES] Workflow across Agents By defining the agents' roles and operational skills, we can establish basic workflows. In our work, we follow SOP in software development, which enables all agents to work in a sequential manner. Specifically, as shown in Figure 1, upon obtaining user requirements, the Product Manager undertakes a thorough analysis, formulating a detailed PRD that includes User Stories and Requirement Pool. This serves as a preliminary functional breakdown. The structured PRD is then passed to the Architect, who translates the requirements into system design components, such as File Lists, Data Structures, and Interface Definitions. Once captured in the system design, the information is directed towards the Project Manager for task distribution. Engineers proceed to execute the designated classes and functions as outlined (detailed in Figure 2). In the following stage, the QA Engineer formulates test cases to enforce stringent code quality. In the final step, MetaGPT produces a meticulously crafted software solution. We provide a detailed schematic (Figure 3) and a concrete instance (Appendix B) of the SOP workflow in MetaGPT.\n[COMMUNICATION PROTOCOL] Structured Communication Interfaces Most current LLM-based multi-agent frameworks (Li et al., 2023;Zhuge et al., 2023;Zhang et al., 2023a;Park et al., 2023) utilize unconstrained natural language as a communication interface.\n[COMMUNICATION PROTOCOL] However, despite the versatility of natural language, a question arises: does pure natural language communication suffice for solving complex tasks? For example, in the telephone game (or Chinese whispers)foot_1 , after several rounds of communication, the original information may be quite distorted. Inspired by human social structures, we propose using structured communication to formulate the communication of agents. We establish a schema and format for each role and request that individuals provide the necessary outputs based on their specific role and context.\n[COMMUNICATION PROTOCOL] As shown in Figure 3, the Architect agent generates two outputs: the system interface design and a sequence flow diagram. These contain system module design and interaction sequences, which serve as important deliverables for Engineers. Unlike ChatDev (Zhao et al., 2023), agents in MetaGPT communicate through documents and diagrams (structured outputs) rather than dialogue. These documents contain all necessary information, preventing irrelevant or missing content.\n[COMMUNICATION PROTOCOL] Publish-Subscribe Mechanism Sharing information is critical in collaboration. For instance, Architects and Engineers often need to reference PRDs. However, communicating this information each time in a one-to-one manner, as indicated by previous work (Li et al., 2023;Zhao et al., 2023;Zhang et al., 2023a), can complicate the communication topology, resulting in inefficiencies.\n[COMMUNICATION PROTOCOL] To address this challenge, a viable approach is to store information in a global message pool. As shown in Figure 2 (left), we introduce a shared message pool that allows all agents to exchange messages directly. These agents not only publish their structured messages in the pool but also access messages from other entities transparently. Any agent can directly retrieve required information from the shared pool, eliminating the need to inquire about other agents and await their responses. This enhances communication efficiency. Sharing all information with every agent can lead to information overload. During task execution, an agent typically prefers to receive only task-related information and avoid distractions through irrelevant details. Effective management and dissemination of this information play a crucial role. We offer a simple and effective solution-subscription mechanism (in Figure 2 (left)). Instead of relying on dialogue, agents utilize role-specific interests to extract relevant information. They can select information to follow based on their role profiles. In practical implementations, an agent activates its action only after receiving all its prerequisite dependencies. As illustrated in Figure 3, the Architect mainly focuses on PRDs provided by the Product Manager, while documents from roles such as the QA Engineer might be of lesser concern.\n[ITERATIVE PROGRAMMING WITH EXECUTABLE FEEDBACK] In daily programming tasks, the processes of debugging and optimization play important roles. However, existing methods often lack a self-correction mechanism, which leads to unsuccessful code generation. Previous work introduced non-executable code review and self-reflection (Zhao et al., 2023;Yao et al., 2022;Shinn et al., 2023;Dong et al., 2023). However, they still face challenges in ensuring code executability and runtime correctness.\n[ITERATIVE PROGRAMMING WITH EXECUTABLE FEEDBACK] Our first MetaGPT implementations overlooked certain errors during the review process, due to LLM hallucinations (Manakul et al., 2023). To overcome this, after initial code generation, we introduce an executable feedback mechanism to improve the code iteratively. More specifically, as shown in Figure 2, the Engineer is asked to write code based on the original product requirements and design. This enables the Engineer to continuously improve code using its own historical execution and debugging memory. To obtain additional information, the Engineer writes and executes the corresponding unit test cases, and subsequently receives the test results. If satisfactory, additional development tasks are initiated. Otherwise the Engineer debugs the code before resuming programming. This iterative testing process continues until the test is passed or a maximum of 3 retries is reached.\n[EXPERIMENTAL SETTING] Datasets We use two public benchmarks, HumanEval (Chen et al., 2021a) and MBPP (Austin et al., 2021), and a self-generated, more challenging software development benchmark named Soft-wareDev: (1) HumanEval includes 164 handwritten programming tasks. These tasks encompass function specifications, descriptions, reference codes, and tests. (2) MBPP consists of 427 Python tasks. These tasks cover core concepts and standard library features and include descriptions, reference codes, and automated tests. (3) Our SoftwareDev dataset is a collection of 70 representative examples of software development tasks, each with its own task prompt (see Table 8). These tasks have diverse scopes (See Figure 5), such as mini-games, image processing algorithms, data visualization. They offer a robust testbed for authentic development tasks. Contrary to previous datasets (Chen et al., 2021a;Austin et al., 2021), SoftwareDev focuses on the engineering aspects. In the comparisons, we randomly select seven representative tasks for evaluation.\n[EXPERIMENTAL SETTING] Evaluation Metrics For HuamnEval and MBPP, we follow the unbiased version of Pass @k as presented by (Chen et al., 2021a;Dong et al., 2023), to evaluate the functional accuracy of the top-k generated codes:\n[EXPERIMENTAL SETTING] .\n[EXPERIMENTAL SETTING] For SoftwareDev, we prioritize practical use and evaluate performance through human evaluations (A, E) or statistical analysis (B, C, D): (A) Executability: this metric rates code from 1 (failure/nonfunctional) to 4 (flawless Baselines We compare our method with recent domain-specific LLMs in the code generation field, including AlphaCode (Li et al., 2022), Incoder (Fried et al., 2022), CodeGeeX (Zheng et al., 2023), CodeGen (Nijkamp et al., 2023), CodeX (Chen et al., 2021a), and CodeT (Chen et al., 2022) and general domain LLMs such as PaLM (Chowdhery et al., 2022), and GPT-4 (OpenAI, 2023). Several results of baselines (such as Incoder, CodeGeeX) are provided by Dong et al. (2023). In HumanEval and MBPP, we slightly modified the prompts to align with response format requirements. These modifications aim to address format-specific issues (i.e., Python problems). With the SoftwareDev benchmark, we provide a comprehensive comparison between MetaGPT, AutoGPT (Torantulino et al., 2023), LangChain (Chase, 2022) with Python Read-Eval-Print Loop (REPL) toolfoot_2 , Agent-Verse (Chen et al., 2023), and ChatDev (Qian et al., 2023). Performance Figure 4 demonstrates that MetaGPT outperforms all preceding approaches in both HumanEval and MBPP benchmarks. When MetaGPT collaborates with GPT-4, it significantly improves the Pass @k in the HumanEval benchmark compared to GPT-4. It achieves 85.9% and 87.7%  can easily integrate SOP-like designs to improve their performance, similar to injecting chain-ofthought (Wei et al., 2022) in LLMs.\n[ABLATION STUDY] The Effectiveness of Roles To understand the impact of different roles on the final results, we perform two tasks that involve generating effective code and calculating average statistics. When we exclude certain roles, unworkable codes are generated. As indicated by Table 3, the addition of roles different from just the Engineer consistently improves both revisions and executability. While more roles slightly increase the expenses, the overall performance improves noticeably, demonstrating the effectiveness of the various roles.\n[ABLATION STUDY] The Effectiveness of Executable Feedback Mechanism As shown in Figure 4, adding executable feedback into MetaGPT leads to a significant improvement of 4.2% and 5.4% in Pass @1 on Hu-manEval and MBPP, respectively. Besides, Table 1 shows that the feedback mechanism improves feasibility (3.67 to 3.75) and reduces the cost of human revisions (2.25 to 0.83). These results illustrate how our designed feedback mechanism can produce higher-quality code. Additional quantitative results of MetaGPT and MetaGPT without executable feedback are shown in Table 4 and Table 9.\n[CONCLUSION] This work introduces MetaGPT, a novel meta-programming framework that leverages SOPs to enhance the problem-solving capabilities of multi-agent systems based on Large Language Models (LLMs). MetaGPT models a group of agents as a simulated software company, analogous to simulated towns (Park et al., 2023) and the Minecraft Sandbox in Voyager (Wang et al., 2023a). MetaGPT leverages role specialization, workflow management, and efficient sharing mechanisms such as message pools and subscriptions, rendering it a flexible and portable platform for autonomous agents and multi-agent frameworks. It uses an executable feedback mechanism to enhance code generation quality during runtime. In extensive experiments, MetaGPT achieves state-of-the-art performance on multiple benchmarks. The successful integration of human-like SOPs inspires future research on human-inspired techniques for artificial multi-agent systems. We also view our work as an early attempt to regulate LLM-based multi-agent frameworks. See also the outlook (Appendix A).\n[A OUTLOOK] A.1 SELF-IMPROVEMENT MECHANISMS One limitation of the MetaGPT version in the main text of this paper is that each software project is executed independently. However, through active teamwork, a software development team should learn from the experience gained by developing each project, thus becoming more compatible and successful over time.\n[A OUTLOOK] This is somewhat related to the idea of recursive self-improvement, first informally proposed in 1965 (Good, 1965), with first concrete implementations since 1987 (Schmidhuber, 1987;1993b;Schmidhuber et al., 1998), culminating in the concept of mathematically optimal self-referential self-improvers (Schmidhuber, 2003;2009). Generally speaking, a system should learn from experience in the real world, and meta-learn better learning algorithms from experiences of learning, and meta-meta-learn better meta-learning algorithms from experiences of meta-learning, etc., without any limitations except those of computability and physics.\n[A OUTLOOK] More recent, somewhat related work leverages the reasoning ability of Large Language Models (LLMs) and recursively improves prompts of LLMs, to improve performance on certain downstream tasks (Fernando et al., 2023;Zelikman et al., 2023), analogous to the adaptive prompt engineer of 2015 (Schmidhuber, 2015) where one neural network learns to generate sequence of queries or prompts for another pre-trained neural network whose answers may help the first network to learn new tasks more quickly.\n[A OUTLOOK] In our present work, we also explore a self-referential mechanism that recursively modifies the constraint prompts of agents based on information they observe during software development. Our initial implementation works as follows. Prior to each project, every agent in the software company reviews previous feedback and makes necessary adjustments to their constraint prompts. This enables them to continuously learn from past project experiences and enhance the overall multi-agent system by improving each individual in the company. We first establish a handover feedback action for each agent. This action is responsible for critically summarizing the information received during the development of previous projects and integrating this information in an updated constraint prompt. The summarized information is stored in long-term memory such that it can be inherited by future constraint prompt updates. When initiating a new project, each agent starts with a react action. Each agent evaluates the received feedback and summarizes how they can improve in a constraint prompt.\n[A OUTLOOK] One current limitation is that these summary-based optimizations only modify constraints in the specialization of roles (Sec. 3.1) rather than structured communication interfaces in communication protocols (Sec. 3.2). Future advancements are yet to be explored.\n[A.2 MULTI-AGENT ECONOMIES] In real-world teamwork, the interaction processes are often not hardcoded. For example, in a software company, the collaboration SOP may change dynamically.\n[A.2 MULTI-AGENT ECONOMIES] One implementation of such self-organization is discussed in the paper on a \"Natural Language-Based Society of Mind\" (NLSOM) (Zhuge et al., 2023), which introduced the idea of an \"Economy of Minds\" (EOM), a Reinforcement Learning (RL) framework for societies of LLMs and other agents. Instead of using standard RL techniques to optimize the total reward of the system through modifications of neural network parameters, EOMs use the principles of supply and demand in free markets to assign credit (money) to those agents that contribute to economic success (reward).\n[A.2 MULTI-AGENT ECONOMIES] The recent agent-based platform of DeepWisdom (AgentStorefoot_3 ) is compatible with the credit assignment concept of EOMs. Each agent in AgentStore provides a list of services with corresponding costs. A convenient API is provided so that human users or agents in the platform can easily purchase services from other agents to accomplish their services. Figure 6 displays the User Interface (UI) of AgentStore, where various agents with different skills are showcased. Besides, individual developers can participate in building new agents and enable collaborative development within the community. Specifically, AgentStore allows users to subscribe to agents according to their demands and pay according to their usage. Moreover, users can purchase additional capabilities to expand the plug-and-play functions of their existing agents. This allows users to gradually upgrade their agents. Within the MetaGPT framework, AgentStore can support the collaboration of various agents. Users can collect several agents together to carry out more complex tasks or projects, and all the agents share and comply with development and communication protocols defined in MetaGPT.\n[A.2 MULTI-AGENT ECONOMIES] Figure 6: AgentStore is a platform dedicated to serving users in the creation and development of agents within the MetaGPT framework. This platform provides users with an operational interface, allowing users to easily manage a variety of agents with different emotions, personalities, and capabilities for specific tasks.\n[B A DEMO OF THE EXECUTION] In this section, we outline the complete process of software development using MetaGPT. It begins with a user's input command (as shown in Appendix B.1) and ends with software designed according to the user's specifications.\n[B.1 USER INPUT] Upon receiving an instruction from the user, MetaGPT collaborates with a professional development team to fulfill the task. Here is a demo of user input:\n[B.1 USER INPUT] User input 1 write a python3 GUI app such that you can draw an image with it\n[B.2 METAGPT DEVELOPMENT PROCESS] Now we provide a step-by-step explanation of the standardized output process for each agent.\n[Product Manager] The Product Manager generates a Product Requirement Document (PRD), as detailed in the specified documentation. This document encompasses goals, user stories, competitive analysis, requirement analysis and requirement pool. Additionally, a competitive quadrant chart is produced (see Figure 7). Subsequently, these documents and charts are handed over to the architect for system design.  (\"Design a user-friendly GUI for the color meter\", \"P0\"), 9\n[Product Manager] (\"Implement color selection functionality\", \"P0\"), 10\n[Product Manager] (\"Display RGB values of the selected color\", \"P0\"), 11\n[Product Manager] (\"Update RGB values in real-time as the color meter moves\", \"P0\"), 12\n[Product Manager] (\"Test the application for accuracy and performance\", \"P1\") 13 ] 14 ''' 15 16 ## UI Design draft 17 The UI should be minimalistic and intuitive. It should primarily consist of a color meter, which → could be a magnified area of the screen that the user can move around. The RGB values of → the currently selected color should be prominently displayed, updating in real-time as → the color meter moves. The layout should be clean and uncluttered, with a focus on → functionality and ease of use.  Architect Based on the requirements in PRD, the Architect agent devises technical specifications including system architecture diagrams and interface definitions. Initially, the Architect defines the overarching technical trajectory. Subsequently, the project's architecture, including files, classes (Figure 8) and the sequence flow chart (Figure 12), is designed. The Architect's documentation is then given to the project manager for task allocation and execution.\n[System design] 1 ## Implementation approach 2 We will use Python's Tkinter library to create the GUI for the color meter. Tkinter is a standard → Python interface to the Tk GUI toolkit and is included with most Python installations. It → is simple to use and powerful enough for our needs. 3 4 The color selection functionality will be implemented using the PIL (Pillow) library, which allows → us to capture the screen's pixel data. By moving the mouse, we can get the RGB values of → the pixel under the mouse cursor in real-time. 5 6 The RGB values will be displayed on the GUI using Tkinter's Label widget. We will use Python's → threading library to update the RGB values in real-time as the color meter moves. 7 8 The application will be tested for accuracy and performance using Python's unittest library. 9 10 ## Python package name 11 '''python 12 \"color_meter\" 13 '''  Project Manager The Project Manager breaks down the project into a task list. Furthermore, each code file is analyzed based on its intended functionality and then treated as a separate task assigned to Engineers.  Output Ultimately, as shown in Figure 10, MetaGPT generates a functional application named \"Drawing App\".\n[C.2 ADDITIONAL RESULTS] Quantitative results of MetaGPT As shown in Table 4, MetaGPT achieves an average score of 3.9, surpassing ChatDev's score of 2.1 Zhao et al. (2023), which is based on the Chat chain.\n[C.2 ADDITIONAL RESULTS] Compare the scores of general intelligent algorithms, including AutoGPT Torantulino et al. (2023), which all score 1.0, failing to generate executable code. We observe that the generated code is often short, lacks comprehensive logic, and tends to fail to handle cross-file dependencies correctly.\n[C.2 ADDITIONAL RESULTS] While models such as AutoGPT (Torantulino et al., 2023), Langchain (Chase, 2022), and Agent-Verse (Chen et al., 2023) display robust general problem-solving capabilities, they lack an essential element for developing complex systems: systematically deconstructing requirements. Conversely, MetaGPT simplifies the process of transforming abstract requirements into detailed class and function designs through a specialized division of labor and SOPs workflow. When compared to Chat-Dev (Zhao et al., 2023), MetaGPT's structured messaging and feedback mechanisms not only reduce loss of communication information but also improve the execution of code.\n[C.2 ADDITIONAL RESULTS] Quantitative results of MetaGPT w/o executable feedback Table 9 presents the performance of MetaGPT with GPT-4 32K on 11 tasks within the SoftwareDev dataset. It also shows the average performance across all 70 tasks (in the last line). Note that the version of MetaGPT used here is the basic version without the executable feedback mechanism.\n[Quantitative results of MetaGPT with different LLMs] To verify the performance of MetaGPT on different LLMs, we randomly selected 5 SoftwareDev tasks and conducted experiments using GPT-3.5 and Deepseek Coder 33Bfoot_4 as backends. As shown in Table 5, the results indicate that although MetaGPT can complete tasks with these LLMs, using GPT-4 as the backend yields superior performance.\n[Quantitative results of MetaGPT with different LLMs] be given a function signature and its docstring by the user. Write your full implementation (restate the function signature).\" As shown in Table 7, GPT-4 is more sensitive to prompt, code parser, and post-processing results on the HumanEval data set. It is difficult for GPT-3.5-Turbo to return the correct completion code without prompt words.  12 illustrate the outcomes of the Architect agent's efforts to design a complex recommender system. These figures showcase the comprehensive system interface design and program call flow. The latter is essential for creating a sophisticated automated system. It is crucial to emphasize the importance of this division of labor in developing an automated software framework.\n[D LIMITATION AND ETHICS CONCERNS D.1 LIMITATION] System side At present, our system cannot fully cater to specific scenarios, such as UI and frontend, as we have yet to incorporate such agents and multimodal tools. Furthermore, despite generating the most amount of code among comparable frameworks, it remains challenging to fulfill real-world applications' diverse and complex requirements.\n[D LIMITATION AND ETHICS CONCERNS D.1 LIMITATION] Human user side A key challenge for users is to interrupt the running process of each agent, or set the starting running point (checkpoint) for each agent.\n[D.2 ETHICS CONCERNS] Unemployment and Skill Obsolescence MetaGPT enables more people to program in natural languages, thereby making it easier for engineers to get started. Over the years, programming languages have evolved from punched cards to assembly, C, Java, Python, and now natural language. As a result, humans have become more proficient at programming, increasing the demand for programming-related positions. Furthermore, programming with natural language may offer a significantly easier learning curve, making programming more accessible to a broader audience.\n[Transparency and Accountability] MetaGPT is an open-source framework that facilitates interactive communication between multiple agents through natural language. Humans can initiate, observe, and stop running with the highest level of control. It provides real-time interpretation and operation of the natural language, displayed on the screen and logs, ensuring transparency. MetaGPT enhances \"natural language programming\" capabilities, and human engineers are the users and responsible for the outcomes.\n[Transparency and Accountability] Privacy and Data Security MetaGPT operates locally, ensuring user data privacy and security. It does not collect user data. For interactions with third-party LLMs, such as those by OpenAI, users are encouraged to refer to the respective privacy policies (e.g., OpenAI Privacy Policy). However, we provide the option of open-source LLMs as backends.\n[E MORE DISCUSSIONS E.1 DEEP-SEATED CHALLENGES] MetaGPT also alleviates or solves these challenges with its unique designs:\n[E MORE DISCUSSIONS E.1 DEEP-SEATED CHALLENGES] Use Context Efficiently Two sub-challenges are present. First, unfolding short natural language descriptions accurately to eliminate ambiguity. Second, maintaining information validity in lengthy contexts, enables LLMs to concentrate on relevant data without distraction.\n[E MORE DISCUSSIONS E.1 DEEP-SEATED CHALLENGES] Reduce Hallucinations Using LLMs to generate entire software programs faces code hallucination problems--including incomplete implementation of functions, missing dependencies, and potential undiscovered bugs, which may be more serious. LLMs often struggle with software generation due to vague task definitions. Focusing on granular tasks like requirement analysis and package selection offers guided thinking, which LLMs lack in broad task solving.\n[E.2 INFORMATION OVERLOAD] In MetaGPT, we use a global message pool and a subscription mechanism to address \"information overload,\" which refers to the problem of receiving excessive or irrelevant information. This issue is dependent on specific applications. MetaGPT employs a message pool to streamline communication, ensuring efficiency. Additionally, a subscription mechanism filters out irrelevant contexts, enhancing the relevance and utility of the information. This design is particularly crucial in soft- ware design scenarios and standard operating procedures (SOPs) where effective communication is essential.",
+  "chunks": [
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "text": "Remarkable progress has been made on automated problem solving through societies of agents based on large language models (LLMs). Existing LLM-based multi-agent systems can already solve simple dialogue tasks. Solutions to more complex tasks, however, are complicated through logic inconsistencies due to cascading hallucinations caused by naively chaining LLMs. Here we introduce MetaGPT, an innovative meta-programming framework incorporating efficient human workflows into LLM-based multi-agent collaborations. MetaGPT encodes Standardized Operating Procedures (SOPs) into prompt sequences for more streamlined workflows, thus allowing agents with human-like domain expertise to verify intermediate results and reduce errors. MetaGPT utilizes an assembly line paradigm to assign diverse roles to various agents, efficiently breaking down complex tasks into subtasks involving many agents working together. On collaborative software engineering benchmarks, MetaGPT generates more coherent solutions than previous chat-based multi-agent systems. Our project can be found at"
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "INTRODUCTION",
+      "text": "Autonomous agents utilizing Large Language Models (LLMs) offer promising opportunities to enhance and replicate human workflows. In real-world applications, however, existing systems (Park et al., 2023;Zhuge et al., 2023;Cai et al., 2023;Wang et al., 2023c;Li et al., 2023;Du et al., 2023;Liang et al., 2023;Hao et al., 2023;Zhou et al., 2023b) tend to oversimplify the complexities. They struggle to achieve effective, coherent, and accurate problem-solving processes, particularly when there is a need for meaningful collaborative interaction (Chen et al., 2024;Zhang et al., 2023a;Dong et al., 2023;Zhou et al., 2023a;Qian et al., 2023;Tang et al., 2023b;Hong et al., 2024)."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "INTRODUCTION",
+      "text": "Through extensive collaborative practice, humans have developed widely accepted Standardized Operating Procedures (SOPs) across various domains (Belbin, 2012;Manifesto, 2001;DeMarco & Lister, 2013). These SOPs play a critical role in supporting task decomposition and effective coordination. Furthermore, SOPs outline the responsibilities of each team member, while establishing standards for intermediate outputs. Well-defined SOPs improve the consistent and accurate execution of tasks that align with defined roles and quality standards (Belbin, 2012;Manifesto, 2001;DeMarco & Lister, 2013;Wooldridge & Jennings, 1998). For instance, in a software company, Product Managers analyze competition and user needs to create Product Requirements Documents (PRDs) using a standardized structure, to guide the developmental process."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "INTRODUCTION",
+      "text": "Inspired by such ideas, we design a promising GPT-based Meta-Programming framework called MetaGPT that significantly benefits from SOPs. Unlike other works (Li et al., 2023;Qian et al., 2023), MetaGPT requires agents to generate structured outputs, such as high-quality requirements In software engineering, SOPs promote collaboration among various roles. MetaGPT showcases its ability to decompose complex tasks into specific actionable procedures assigned to various roles (e.g., Product Manager, Architect, Engineer, etc.). documents, design artifacts, flowcharts, and interface specifications. The use of intermediate structured outputs significantly increases the success rate of target code generation. Because it helps maintain consistency in communication, minimizing ambiguities and errors during collaboration. More graphically, in a company simulated by MetaGPT, all employees follow a strict and streamlined workflow, and all their handovers must comply with certain established standards. This reduces the risk of hallucinations caused by idle chatter between LLMs, particularly in role-playing frameworks, like: \"Hi, hello and how are you?\" -Alice (Product Manager); \"Great! Have you had lunch?\" -Bob (Architect)."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "INTRODUCTION",
+      "text": "Benefiting from SOPs, MetaGPT offers a promising approach to meta-programming. In this context, we adopt meta-programmingfoot_0 as \"programming to program\", in contrast to the broader fields of meta learning and \"learning to learn\" (Schmidhuber, 1987;1993a;Hochreiter et al., 2001;Schmidhuber, 2006;Finn et al., 2017). This notion of meta-programming also encompasses earlier efforts like CodeBERT (Feng et al., 2020) and recent projects such as CodeLlama (Rozière et al., 2023) and WizardCoder (Luo et al., 2023). However, MetaGPT stands out as a unique solution that allows for efficient metaprogramming through a well-organized group of specialized agents. Each agent has a specific role and expertise, following some established standards. This allows for automatic requirement analysis, system design, code generation, modification, execution, and debugging during runtime, highlighting how agent-based techniques can enhance meta-programming."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "INTRODUCTION",
+      "text": "To validate the design of MetaGPT, we use publicly available HumanEval (Chen et al., 2021a) and MBPP (Austin et al., 2021) for evaluations. Notably, in code generation benchmarks, MetaGPT achieves a new state-of-the-art (SoTA) with 85.9% and 87.7% in Pass@1. When compared to other popular frameworks for creating complex software projects, such as AutoGPT (Torantulino et al., 2023), LangChain (Chase, 2022), AgentVerse (Chen et al., 2023), and ChatDev (Qian et al., 2023). MetaGPT also stands out in handling higher levels of software complexity and offering extensive functionality. Remarkably, in our experimental evaluations, MetaGPT achieves a 100% task completion rate, demonstrating the robustness and efficiency (time and token costs) of our design."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "INTRODUCTION",
+      "text": "We summarize our contributions as follows:"
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "INTRODUCTION",
+      "text": "• We introduce MetaGPT, a meta-programming framework for multi-agent collaboration based on LLMs. It is highly convenient and flexible, with well-defined functions like role definition and message sharing, making it a useful platform for developing LLM-based multi-agent systems."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "INTRODUCTION",
+      "text": "• Our innovative integration of human-like SOPs throughout MetaGPT's design significantly enhances its robustness, reducing unproductive collaboration among LLM-based agents. Furthermore, we introduce a novel executive feedback mechanism that debugs and executes code during runtime, significantly elevating code generation quality (e.g., 5.4% absolute improvement on MBPP)."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "INTRODUCTION",
+      "text": "• We achieve state-of-the-art performance on HumanEval (Chen et al., 2021a) and MBPP (Austin et al., 2021). Extensive results convincingly validate MetaGPT, suggesting that it is a promising meta-programming framework for developing LLM-based multi-agent systems."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "RELATED WORK",
+      "text": "Automatic Programming The roots of automatic programming reach back deep into the previous century. In 1969, Waldinger & Lee (1969) introduced \"PROW,\" a system designed to accept program specifications written in predicate calculus, generate algorithms, and create LISP implementations (McCarthy, 1978). Balzer (1985) and Soloway (1986) made efforts to advance automatic programming and identified potential methods to achieve it. Recent approaches use natural language processing (NLP) techniques (Ni et al., 2023;Skreta et al., 2023;Feng et al., 2020;Li et al., 2022;Chen et al., 2018;2021b;Zhang et al., 2023a;Liu et al., 2023b;Tang et al., 2023a;Muennighoff et al., 2023). Automatic programming has grown into an industry delivering paid functions such as Microsoft Copilot. Lately, LLMs-based agents (Yao et al., 2022;Shinn et al., 2023;Lin et al., 2023) have advanced automatic programming development. Among them, ReAct (Yao et al., 2022) and Reflexion (Shinn et al., 2023) utilize a chain of thought prompts (Wei et al., 2022) to generate reasoning trajectories and action plans with LLMs. Both works demonstrate the effectiveness of the ReAct style loop of reasoning as a design paradigm for empowering automatic programming. Additionally, ToolFormer (Schick et al., 2023) and ToolLLM (Qin et al., 2023) can learn how to use external tools through simple APIs. The research most closely aligned with our work by Li et al. (2023) proposes a straightforward role-play framework for programming that involves communication between agents playing different roles. Qian et al. (2023) utilizes multiple agents for software development. Although existing papers (Li et al., 2023;Qian et al., 2023) have improved productivity, they have not fully tapped into effective workflows with structured output formats. This makes it harder to deal with complex software engineering issues."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "RELATED WORK",
+      "text": "LLM-Based Multi-Agent Frameworks Recently, LLM-based autonomous agents have gained tremendous interest in both industry and academia (Wang et al., 2023b;Zhou et al., 2023b;Zhang et al., 2023b). Many works (Chen et al., 2024;Wang et al., 2023c;Du et al., 2023;Zhuge et al., 2023;Hao et al., 2023;Akata et al., 2023;Tang et al., 2023b) have improved the problem-solving abilities of LLMs by integrating discussions among multiple agents. Stable-Alignment (Liu et al., 2023a) creates instruction datasets by deriving consensus on value judgments through interactions across a sandbox with LLM agents. Other works focus on sociological phenomena. For example, Generative Agents (Park et al., 2023) creates a \"town\" of 25 agents to study language interaction, social understanding, and collective memory. In the Natural Language-Based Society of Mind (NL-SOM) (Zhuge et al., 2023), agents with different functions interact to solve complex tasks through multiple rounds of \"mindstorms.\" Cai et al. (2023) propose a model for cost reduction by combining large models as tool makers and small models as tool users. Some works emphasize cooperation and competition related to planning and strategy (Bakhtin et al., 2022); others propose LLM-based economies (Zhuge et al., 2023). These works focus on openworld human behavior simulation, while MetaGPT aims to introduce human practice into multiagents frameworks. Besides, LLM-based agents face the challenges of \"assistant repeated instruction\" or \"infinite loop of message\" (Talebirad & Nadiri, 2023;Li et al., 2023). These challenges become more urgent in task-oriented collaborations, which require consistent and mutually beneficial interactions (Elazar et al., 2021;Wang et al., 2022;Jiang et al., 2023). This motivates our focus on applying advanced concepts such as Standard Operating Procedures in software development to multi-agent frameworks. They can also subscribe to relevant messages based on their profiles. Right: After generating the initial code, the Engineer agent runs and checks for errors. If errors occur, the agent checks past messages stored in memory and compares them with the PRD, system design, and code files."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "METAGPT: A META-PROGRAMMING FRAMEWORK",
+      "text": "MetaGPT is a meta-programming framework for LLM-based multi-agent systems. Sec. 3.1 provides an explanation of role specialization, workflow and structured communication in this framework, and illustrates how to organize a multi-agent system within the context of SOPs. Sec. 3.2 presents a communication protocol that enhances role communication efficiency. We also implement structured communication interfaces and an effective publish-subscribe mechanism. These methods enable agents to obtain directional information from other roles and public information from the environment. Finally, we introduce executable feedback-a self-correction mechanism for further enhancing code generation quality during run-time in Sec. 3.3."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "AGENTS IN STANDARD OPERATING PROCEDURES",
+      "text": "Specialization of Roles Unambiguous role specialization enables the breakdown of complex work into smaller and more specific tasks. Solving complex tasks or problems often requires the collaboration of agents with diverse skills and expertise, each contributing specialized outputs tailored to specific issues."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "AGENTS IN STANDARD OPERATING PROCEDURES",
+      "text": "In a software company, a Product Manager typically conducts business-oriented analysis and derives insights, while a software engineer is responsible for programming. We define five roles in our software company: Product Manager, Architect, Project Manager, Engineer, and QA Engineer, as shown in Figure 1. In MetaGPT, we specify the agent's profile, which includes their name, profile, goal, and constraints for each role. We also initialize the specific context and skills for each role. For instance, a Product Manager can use web search tools, while an Engineer can execute code, as shown in Figure 2. All agents adhere to the React-style behavior as described in Yao et al. (2022)."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "AGENTS IN STANDARD OPERATING PROCEDURES",
+      "text": "Every agent monitors the environment (i.e., the message pool in MetaGPT) to spot important observations (e.g.,, messages from other agents). These messages can either directly trigger actions or assist in finishing the job."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "AGENTS IN STANDARD OPERATING PROCEDURES",
+      "text": "Workflow across Agents By defining the agents' roles and operational skills, we can establish basic workflows. In our work, we follow SOP in software development, which enables all agents to work in a sequential manner. Specifically, as shown in Figure 1, upon obtaining user requirements, the Product Manager undertakes a thorough analysis, formulating a detailed PRD that includes User Stories and Requirement Pool. This serves as a preliminary functional breakdown. The structured PRD is then passed to the Architect, who translates the requirements into system design components, such as File Lists, Data Structures, and Interface Definitions. Once captured in the system design, the information is directed towards the Project Manager for task distribution. Engineers proceed to execute the designated classes and functions as outlined (detailed in Figure 2). In the following stage, the QA Engineer formulates test cases to enforce stringent code quality. In the final step, MetaGPT produces a meticulously crafted software solution. We provide a detailed schematic (Figure 3) and a concrete instance (Appendix B) of the SOP workflow in MetaGPT."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "COMMUNICATION PROTOCOL",
+      "text": "Structured Communication Interfaces Most current LLM-based multi-agent frameworks (Li et al., 2023;Zhuge et al., 2023;Zhang et al., 2023a;Park et al., 2023) utilize unconstrained natural language as a communication interface."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "COMMUNICATION PROTOCOL",
+      "text": "However, despite the versatility of natural language, a question arises: does pure natural language communication suffice for solving complex tasks? For example, in the telephone game (or Chinese whispers)foot_1 , after several rounds of communication, the original information may be quite distorted. Inspired by human social structures, we propose using structured communication to formulate the communication of agents. We establish a schema and format for each role and request that individuals provide the necessary outputs based on their specific role and context."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "COMMUNICATION PROTOCOL",
+      "text": "As shown in Figure 3, the Architect agent generates two outputs: the system interface design and a sequence flow diagram. These contain system module design and interaction sequences, which serve as important deliverables for Engineers. Unlike ChatDev (Zhao et al., 2023), agents in MetaGPT communicate through documents and diagrams (structured outputs) rather than dialogue. These documents contain all necessary information, preventing irrelevant or missing content."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "COMMUNICATION PROTOCOL",
+      "text": "Publish-Subscribe Mechanism Sharing information is critical in collaboration. For instance, Architects and Engineers often need to reference PRDs. However, communicating this information each time in a one-to-one manner, as indicated by previous work (Li et al., 2023;Zhao et al., 2023;Zhang et al., 2023a), can complicate the communication topology, resulting in inefficiencies."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "COMMUNICATION PROTOCOL",
+      "text": "To address this challenge, a viable approach is to store information in a global message pool. As shown in Figure 2 (left), we introduce a shared message pool that allows all agents to exchange messages directly. These agents not only publish their structured messages in the pool but also access messages from other entities transparently. Any agent can directly retrieve required information from the shared pool, eliminating the need to inquire about other agents and await their responses. This enhances communication efficiency. Sharing all information with every agent can lead to information overload. During task execution, an agent typically prefers to receive only task-related information and avoid distractions through irrelevant details. Effective management and dissemination of this information play a crucial role. We offer a simple and effective solution-subscription mechanism (in Figure 2 (left)). Instead of relying on dialogue, agents utilize role-specific interests to extract relevant information. They can select information to follow based on their role profiles. In practical implementations, an agent activates its action only after receiving all its prerequisite dependencies. As illustrated in Figure 3, the Architect mainly focuses on PRDs provided by the Product Manager, while documents from roles such as the QA Engineer might be of lesser concern."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "ITERATIVE PROGRAMMING WITH EXECUTABLE FEEDBACK",
+      "text": "In daily programming tasks, the processes of debugging and optimization play important roles. However, existing methods often lack a self-correction mechanism, which leads to unsuccessful code generation. Previous work introduced non-executable code review and self-reflection (Zhao et al., 2023;Yao et al., 2022;Shinn et al., 2023;Dong et al., 2023). However, they still face challenges in ensuring code executability and runtime correctness."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "ITERATIVE PROGRAMMING WITH EXECUTABLE FEEDBACK",
+      "text": "Our first MetaGPT implementations overlooked certain errors during the review process, due to LLM hallucinations (Manakul et al., 2023). To overcome this, after initial code generation, we introduce an executable feedback mechanism to improve the code iteratively. More specifically, as shown in Figure 2, the Engineer is asked to write code based on the original product requirements and design. This enables the Engineer to continuously improve code using its own historical execution and debugging memory. To obtain additional information, the Engineer writes and executes the corresponding unit test cases, and subsequently receives the test results. If satisfactory, additional development tasks are initiated. Otherwise the Engineer debugs the code before resuming programming. This iterative testing process continues until the test is passed or a maximum of 3 retries is reached."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "EXPERIMENTAL SETTING",
+      "text": "Datasets We use two public benchmarks, HumanEval (Chen et al., 2021a) and MBPP (Austin et al., 2021), and a self-generated, more challenging software development benchmark named Soft-wareDev: (1) HumanEval includes 164 handwritten programming tasks. These tasks encompass function specifications, descriptions, reference codes, and tests. (2) MBPP consists of 427 Python tasks. These tasks cover core concepts and standard library features and include descriptions, reference codes, and automated tests. (3) Our SoftwareDev dataset is a collection of 70 representative examples of software development tasks, each with its own task prompt (see Table 8). These tasks have diverse scopes (See Figure 5), such as mini-games, image processing algorithms, data visualization. They offer a robust testbed for authentic development tasks. Contrary to previous datasets (Chen et al., 2021a;Austin et al., 2021), SoftwareDev focuses on the engineering aspects. In the comparisons, we randomly select seven representative tasks for evaluation."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "EXPERIMENTAL SETTING",
+      "text": "Evaluation Metrics For HuamnEval and MBPP, we follow the unbiased version of Pass @k as presented by (Chen et al., 2021a;Dong et al., 2023), to evaluate the functional accuracy of the top-k generated codes:"
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "EXPERIMENTAL SETTING",
+      "text": "."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "EXPERIMENTAL SETTING",
+      "text": "For SoftwareDev, we prioritize practical use and evaluate performance through human evaluations (A, E) or statistical analysis (B, C, D): (A) Executability: this metric rates code from 1 (failure/nonfunctional) to 4 (flawless Baselines We compare our method with recent domain-specific LLMs in the code generation field, including AlphaCode (Li et al., 2022), Incoder (Fried et al., 2022), CodeGeeX (Zheng et al., 2023), CodeGen (Nijkamp et al., 2023), CodeX (Chen et al., 2021a), and CodeT (Chen et al., 2022) and general domain LLMs such as PaLM (Chowdhery et al., 2022), and GPT-4 (OpenAI, 2023). Several results of baselines (such as Incoder, CodeGeeX) are provided by Dong et al. (2023). In HumanEval and MBPP, we slightly modified the prompts to align with response format requirements. These modifications aim to address format-specific issues (i.e., Python problems). With the SoftwareDev benchmark, we provide a comprehensive comparison between MetaGPT, AutoGPT (Torantulino et al., 2023), LangChain (Chase, 2022) with Python Read-Eval-Print Loop (REPL) toolfoot_2 , Agent-Verse (Chen et al., 2023), and ChatDev (Qian et al., 2023). Performance Figure 4 demonstrates that MetaGPT outperforms all preceding approaches in both HumanEval and MBPP benchmarks. When MetaGPT collaborates with GPT-4, it significantly improves the Pass @k in the HumanEval benchmark compared to GPT-4. It achieves 85.9% and 87.7%  can easily integrate SOP-like designs to improve their performance, similar to injecting chain-ofthought (Wei et al., 2022) in LLMs."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "ABLATION STUDY",
+      "text": "The Effectiveness of Roles To understand the impact of different roles on the final results, we perform two tasks that involve generating effective code and calculating average statistics. When we exclude certain roles, unworkable codes are generated. As indicated by Table 3, the addition of roles different from just the Engineer consistently improves both revisions and executability. While more roles slightly increase the expenses, the overall performance improves noticeably, demonstrating the effectiveness of the various roles."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "ABLATION STUDY",
+      "text": "The Effectiveness of Executable Feedback Mechanism As shown in Figure 4, adding executable feedback into MetaGPT leads to a significant improvement of 4.2% and 5.4% in Pass @1 on Hu-manEval and MBPP, respectively. Besides, Table 1 shows that the feedback mechanism improves feasibility (3.67 to 3.75) and reduces the cost of human revisions (2.25 to 0.83). These results illustrate how our designed feedback mechanism can produce higher-quality code. Additional quantitative results of MetaGPT and MetaGPT without executable feedback are shown in Table 4 and Table 9."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "CONCLUSION",
+      "text": "This work introduces MetaGPT, a novel meta-programming framework that leverages SOPs to enhance the problem-solving capabilities of multi-agent systems based on Large Language Models (LLMs). MetaGPT models a group of agents as a simulated software company, analogous to simulated towns (Park et al., 2023) and the Minecraft Sandbox in Voyager (Wang et al., 2023a). MetaGPT leverages role specialization, workflow management, and efficient sharing mechanisms such as message pools and subscriptions, rendering it a flexible and portable platform for autonomous agents and multi-agent frameworks. It uses an executable feedback mechanism to enhance code generation quality during runtime. In extensive experiments, MetaGPT achieves state-of-the-art performance on multiple benchmarks. The successful integration of human-like SOPs inspires future research on human-inspired techniques for artificial multi-agent systems. We also view our work as an early attempt to regulate LLM-based multi-agent frameworks. See also the outlook (Appendix A)."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "A OUTLOOK",
+      "text": "A.1 SELF-IMPROVEMENT MECHANISMS One limitation of the MetaGPT version in the main text of this paper is that each software project is executed independently. However, through active teamwork, a software development team should learn from the experience gained by developing each project, thus becoming more compatible and successful over time."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "A OUTLOOK",
+      "text": "This is somewhat related to the idea of recursive self-improvement, first informally proposed in 1965 (Good, 1965), with first concrete implementations since 1987 (Schmidhuber, 1987;1993b;Schmidhuber et al., 1998), culminating in the concept of mathematically optimal self-referential self-improvers (Schmidhuber, 2003;2009). Generally speaking, a system should learn from experience in the real world, and meta-learn better learning algorithms from experiences of learning, and meta-meta-learn better meta-learning algorithms from experiences of meta-learning, etc., without any limitations except those of computability and physics."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "A OUTLOOK",
+      "text": "More recent, somewhat related work leverages the reasoning ability of Large Language Models (LLMs) and recursively improves prompts of LLMs, to improve performance on certain downstream tasks (Fernando et al., 2023;Zelikman et al., 2023), analogous to the adaptive prompt engineer of 2015 (Schmidhuber, 2015) where one neural network learns to generate sequence of queries or prompts for another pre-trained neural network whose answers may help the first network to learn new tasks more quickly."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "A OUTLOOK",
+      "text": "In our present work, we also explore a self-referential mechanism that recursively modifies the constraint prompts of agents based on information they observe during software development. Our initial implementation works as follows. Prior to each project, every agent in the software company reviews previous feedback and makes necessary adjustments to their constraint prompts. This enables them to continuously learn from past project experiences and enhance the overall multi-agent system by improving each individual in the company. We first establish a handover feedback action for each agent. This action is responsible for critically summarizing the information received during the development of previous projects and integrating this information in an updated constraint prompt. The summarized information is stored in long-term memory such that it can be inherited by future constraint prompt updates. When initiating a new project, each agent starts with a react action. Each agent evaluates the received feedback and summarizes how they can improve in a constraint prompt."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "A OUTLOOK",
+      "text": "One current limitation is that these summary-based optimizations only modify constraints in the specialization of roles (Sec. 3.1) rather than structured communication interfaces in communication protocols (Sec. 3.2). Future advancements are yet to be explored."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "A.2 MULTI-AGENT ECONOMIES",
+      "text": "In real-world teamwork, the interaction processes are often not hardcoded. For example, in a software company, the collaboration SOP may change dynamically."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "A.2 MULTI-AGENT ECONOMIES",
+      "text": "One implementation of such self-organization is discussed in the paper on a \"Natural Language-Based Society of Mind\" (NLSOM) (Zhuge et al., 2023), which introduced the idea of an \"Economy of Minds\" (EOM), a Reinforcement Learning (RL) framework for societies of LLMs and other agents. Instead of using standard RL techniques to optimize the total reward of the system through modifications of neural network parameters, EOMs use the principles of supply and demand in free markets to assign credit (money) to those agents that contribute to economic success (reward)."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "A.2 MULTI-AGENT ECONOMIES",
+      "text": "The recent agent-based platform of DeepWisdom (AgentStorefoot_3 ) is compatible with the credit assignment concept of EOMs. Each agent in AgentStore provides a list of services with corresponding costs. A convenient API is provided so that human users or agents in the platform can easily purchase services from other agents to accomplish their services. Figure 6 displays the User Interface (UI) of AgentStore, where various agents with different skills are showcased. Besides, individual developers can participate in building new agents and enable collaborative development within the community. Specifically, AgentStore allows users to subscribe to agents according to their demands and pay according to their usage. Moreover, users can purchase additional capabilities to expand the plug-and-play functions of their existing agents. This allows users to gradually upgrade their agents. Within the MetaGPT framework, AgentStore can support the collaboration of various agents. Users can collect several agents together to carry out more complex tasks or projects, and all the agents share and comply with development and communication protocols defined in MetaGPT."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "A.2 MULTI-AGENT ECONOMIES",
+      "text": "Figure 6: AgentStore is a platform dedicated to serving users in the creation and development of agents within the MetaGPT framework. This platform provides users with an operational interface, allowing users to easily manage a variety of agents with different emotions, personalities, and capabilities for specific tasks."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "B A DEMO OF THE EXECUTION",
+      "text": "In this section, we outline the complete process of software development using MetaGPT. It begins with a user's input command (as shown in Appendix B.1) and ends with software designed according to the user's specifications."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "B.1 USER INPUT",
+      "text": "Upon receiving an instruction from the user, MetaGPT collaborates with a professional development team to fulfill the task. Here is a demo of user input:"
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "B.1 USER INPUT",
+      "text": "User input 1 write a python3 GUI app such that you can draw an image with it"
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "B.2 METAGPT DEVELOPMENT PROCESS",
+      "text": "Now we provide a step-by-step explanation of the standardized output process for each agent."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "Product Manager",
+      "text": "The Product Manager generates a Product Requirement Document (PRD), as detailed in the specified documentation. This document encompasses goals, user stories, competitive analysis, requirement analysis and requirement pool. Additionally, a competitive quadrant chart is produced (see Figure 7). Subsequently, these documents and charts are handed over to the architect for system design.  (\"Design a user-friendly GUI for the color meter\", \"P0\"), 9"
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "Product Manager",
+      "text": "(\"Implement color selection functionality\", \"P0\"), 10"
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "Product Manager",
+      "text": "(\"Display RGB values of the selected color\", \"P0\"), 11"
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "Product Manager",
+      "text": "(\"Update RGB values in real-time as the color meter moves\", \"P0\"), 12"
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "Product Manager",
+      "text": "(\"Test the application for accuracy and performance\", \"P1\") 13 ] 14 ''' 15 16 ## UI Design draft 17 The UI should be minimalistic and intuitive. It should primarily consist of a color meter, which → could be a magnified area of the screen that the user can move around. The RGB values of → the currently selected color should be prominently displayed, updating in real-time as → the color meter moves. The layout should be clean and uncluttered, with a focus on → functionality and ease of use.  Architect Based on the requirements in PRD, the Architect agent devises technical specifications including system architecture diagrams and interface definitions. Initially, the Architect defines the overarching technical trajectory. Subsequently, the project's architecture, including files, classes (Figure 8) and the sequence flow chart (Figure 12), is designed. The Architect's documentation is then given to the project manager for task allocation and execution."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "System design",
+      "text": "1 ## Implementation approach 2 We will use Python's Tkinter library to create the GUI for the color meter. Tkinter is a standard → Python interface to the Tk GUI toolkit and is included with most Python installations. It → is simple to use and powerful enough for our needs. 3 4 The color selection functionality will be implemented using the PIL (Pillow) library, which allows → us to capture the screen's pixel data. By moving the mouse, we can get the RGB values of → the pixel under the mouse cursor in real-time. 5 6 The RGB values will be displayed on the GUI using Tkinter's Label widget. We will use Python's → threading library to update the RGB values in real-time as the color meter moves. 7 8 The application will be tested for accuracy and performance using Python's unittest library. 9 10 ## Python package name 11 '''python 12 \"color_meter\" 13 '''  Project Manager The Project Manager breaks down the project into a task list. Furthermore, each code file is analyzed based on its intended functionality and then treated as a separate task assigned to Engineers.  Output Ultimately, as shown in Figure 10, MetaGPT generates a functional application named \"Drawing App\"."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "C.2 ADDITIONAL RESULTS",
+      "text": "Quantitative results of MetaGPT As shown in Table 4, MetaGPT achieves an average score of 3.9, surpassing ChatDev's score of 2.1 Zhao et al. (2023), which is based on the Chat chain."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "C.2 ADDITIONAL RESULTS",
+      "text": "Compare the scores of general intelligent algorithms, including AutoGPT Torantulino et al. (2023), which all score 1.0, failing to generate executable code. We observe that the generated code is often short, lacks comprehensive logic, and tends to fail to handle cross-file dependencies correctly."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "C.2 ADDITIONAL RESULTS",
+      "text": "While models such as AutoGPT (Torantulino et al., 2023), Langchain (Chase, 2022), and Agent-Verse (Chen et al., 2023) display robust general problem-solving capabilities, they lack an essential element for developing complex systems: systematically deconstructing requirements. Conversely, MetaGPT simplifies the process of transforming abstract requirements into detailed class and function designs through a specialized division of labor and SOPs workflow. When compared to Chat-Dev (Zhao et al., 2023), MetaGPT's structured messaging and feedback mechanisms not only reduce loss of communication information but also improve the execution of code."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "C.2 ADDITIONAL RESULTS",
+      "text": "Quantitative results of MetaGPT w/o executable feedback Table 9 presents the performance of MetaGPT with GPT-4 32K on 11 tasks within the SoftwareDev dataset. It also shows the average performance across all 70 tasks (in the last line). Note that the version of MetaGPT used here is the basic version without the executable feedback mechanism."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "Quantitative results of MetaGPT with different LLMs",
+      "text": "To verify the performance of MetaGPT on different LLMs, we randomly selected 5 SoftwareDev tasks and conducted experiments using GPT-3.5 and Deepseek Coder 33Bfoot_4 as backends. As shown in Table 5, the results indicate that although MetaGPT can complete tasks with these LLMs, using GPT-4 as the backend yields superior performance."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "Quantitative results of MetaGPT with different LLMs",
+      "text": "be given a function signature and its docstring by the user. Write your full implementation (restate the function signature).\" As shown in Table 7, GPT-4 is more sensitive to prompt, code parser, and post-processing results on the HumanEval data set. It is difficult for GPT-3.5-Turbo to return the correct completion code without prompt words.  12 illustrate the outcomes of the Architect agent's efforts to design a complex recommender system. These figures showcase the comprehensive system interface design and program call flow. The latter is essential for creating a sophisticated automated system. It is crucial to emphasize the importance of this division of labor in developing an automated software framework."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "D LIMITATION AND ETHICS CONCERNS D.1 LIMITATION",
+      "text": "System side At present, our system cannot fully cater to specific scenarios, such as UI and frontend, as we have yet to incorporate such agents and multimodal tools. Furthermore, despite generating the most amount of code among comparable frameworks, it remains challenging to fulfill real-world applications' diverse and complex requirements."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "D LIMITATION AND ETHICS CONCERNS D.1 LIMITATION",
+      "text": "Human user side A key challenge for users is to interrupt the running process of each agent, or set the starting running point (checkpoint) for each agent."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "D.2 ETHICS CONCERNS",
+      "text": "Unemployment and Skill Obsolescence MetaGPT enables more people to program in natural languages, thereby making it easier for engineers to get started. Over the years, programming languages have evolved from punched cards to assembly, C, Java, Python, and now natural language. As a result, humans have become more proficient at programming, increasing the demand for programming-related positions. Furthermore, programming with natural language may offer a significantly easier learning curve, making programming more accessible to a broader audience."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "Transparency and Accountability",
+      "text": "MetaGPT is an open-source framework that facilitates interactive communication between multiple agents through natural language. Humans can initiate, observe, and stop running with the highest level of control. It provides real-time interpretation and operation of the natural language, displayed on the screen and logs, ensuring transparency. MetaGPT enhances \"natural language programming\" capabilities, and human engineers are the users and responsible for the outcomes."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "Transparency and Accountability",
+      "text": "Privacy and Data Security MetaGPT operates locally, ensuring user data privacy and security. It does not collect user data. For interactions with third-party LLMs, such as those by OpenAI, users are encouraged to refer to the respective privacy policies (e.g., OpenAI Privacy Policy). However, we provide the option of open-source LLMs as backends."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "E MORE DISCUSSIONS E.1 DEEP-SEATED CHALLENGES",
+      "text": "MetaGPT also alleviates or solves these challenges with its unique designs:"
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "E MORE DISCUSSIONS E.1 DEEP-SEATED CHALLENGES",
+      "text": "Use Context Efficiently Two sub-challenges are present. First, unfolding short natural language descriptions accurately to eliminate ambiguity. Second, maintaining information validity in lengthy contexts, enables LLMs to concentrate on relevant data without distraction."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "E MORE DISCUSSIONS E.1 DEEP-SEATED CHALLENGES",
+      "text": "Reduce Hallucinations Using LLMs to generate entire software programs faces code hallucination problems--including incomplete implementation of functions, missing dependencies, and potential undiscovered bugs, which may be more serious. LLMs often struggle with software generation due to vague task definitions. Focusing on granular tasks like requirement analysis and package selection offers guided thinking, which LLMs lack in broad task solving."
+    },
+    {
+      "paper_id": "2308.00352",
+      "file_name": "2308.00352_MetaGPT_Meta_Programming.pdf",
+      "page_number": 1,
+      "section": "E.2 INFORMATION OVERLOAD",
+      "text": "In MetaGPT, we use a global message pool and a subscription mechanism to address \"information overload,\" which refers to the problem of receiving excessive or irrelevant information. This issue is dependent on specific applications. MetaGPT employs a message pool to streamline communication, ensuring efficiency. Additionally, a subscription mechanism filters out irrelevant contexts, enhancing the relevance and utility of the information. This design is particularly crucial in soft- ware design scenarios and standard operating procedures (SOPs) where effective communication is essential."
+    }
+  ],
+  "figures": [
+    {
+      "figure_id": "FIG-2308.00352-P2-1",
+      "page_number": 2,
+      "file_path": "data/figures\\2308.00352\\fig_p2_1.png",
+      "dimensions": "4320x2524",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2308.00352-P4-1",
+      "page_number": 4,
+      "file_path": "data/figures\\2308.00352\\fig_p4_1.jpeg",
+      "dimensions": "5276x2646",
+      "format": "jpeg",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2308.00352-P5-1",
+      "page_number": 5,
+      "file_path": "data/figures\\2308.00352\\fig_p5_1.jpeg",
+      "dimensions": "5466x5326",
+      "format": "jpeg",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2308.00352-P8-1",
+      "page_number": 8,
+      "file_path": "data/figures\\2308.00352\\fig_p8_1.png",
+      "dimensions": "6096x3663",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2308.00352-P16-1",
+      "page_number": 16,
+      "file_path": "data/figures\\2308.00352\\fig_p16_1.jpeg",
+      "dimensions": "3220x1728",
+      "format": "jpeg",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2308.00352-P18-1",
+      "page_number": 18,
+      "file_path": "data/figures\\2308.00352\\fig_p18_1.png",
+      "dimensions": "1040x1004",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2308.00352-P19-1",
+      "page_number": 19,
+      "file_path": "data/figures\\2308.00352\\fig_p19_1.png",
+      "dimensions": "704x648",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2308.00352-P20-1",
+      "page_number": 20,
+      "file_path": "data/figures\\2308.00352\\fig_p20_1.png",
+      "dimensions": "1200x1068",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2308.00352-P23-1",
+      "page_number": 23,
+      "file_path": "data/figures\\2308.00352\\fig_p23_1.png",
+      "dimensions": "1328x672",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2308.00352-P26-1",
+      "page_number": 26,
+      "file_path": "data/figures\\2308.00352\\fig_p26_1.png",
+      "dimensions": "6372x5336",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2308.00352-P27-1",
+      "page_number": 27,
+      "file_path": "data/figures\\2308.00352\\fig_p27_1.png",
+      "dimensions": "6372x3824",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    }
+  ],
+  "figures_count": 11,
+  "vector_graphs": [
+    {
+      "page_number": 7,
+      "drawing_path_count": 48,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 8,
+      "drawing_path_count": 33,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 9,
+      "drawing_path_count": 73,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 24,
+      "drawing_path_count": 85,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 25,
+      "drawing_path_count": 47,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 29,
+      "drawing_path_count": 31,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    }
+  ],
+  "vector_graphs_count": 6
+}

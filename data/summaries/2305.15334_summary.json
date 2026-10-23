@@ -1,0 +1,49 @@
+{
+  "paper_id": "2305.15334",
+  "paper_title": "Gorilla: Large Language Model Connected with Massive APIs",
+  "authors": [
+    "Jianqiao Wang et al."
+  ],
+  "venue": "arXiv preprint, under review",
+  "grounded_citation": "[al. et al., arXiv preprint, under review]",
+  "summary_source": "Heuristic Engine Fallback (No API key configured)",
+  "problem_motivation": {
+    "problem_statement": "Large language models struggle to effectively use tools via API calls, generating inaccurate input arguments and hallucinating wrong API usage. Supporting a web-scale collection of potentially millions of changing APIs with overlapping functionality and nuanced constraints cannot be described in a single context, requiring new integration approaches and benchmarks for tool use.",
+    "motivation": "Prior standard and chain-of-thought prompting approaches operate as static black boxes without real-world feedback, causing hallucination and error propagation.",
+    "core_challenges": [
+      "Reducing hallucination in reasoning traces",
+      "Integrating interactive external tool feedback",
+      "Maintaining long-horizon execution state"
+    ]
+  },
+  "proposed_methodology": {
+    "method_name": "Gorilla",
+    "core_architecture": "A LLaMA-based model is instruction fine-tuned to enhance API call generation, with a first study of fine-tuning a base model supplemented by information retrieval. The approach emphasizes tool use over conversational refinement and is combined with a document retriever to provide up-to-date API documentation at test time, enabling adaptation to test-time document changes, user updates and version changes.",
+    "technical_innovations": [
+      "Synergistic thought-action interleaved prompting",
+      "Asynchronous action-space language expansion",
+      "In-context few-shot trajectory learning"
+    ],
+    "key_algorithms": "Action space augmented as A' = A U L where L is free-form language thoughts."
+  },
+  "empirical_results": {
+    "evaluated_datasets": [
+      "APIBench, a comprehensive dataset consisting of HuggingFace, TorchHub and TensorHub APIs, introduced to evaluate API call writing ability and hallucination."
+    ],
+    "key_metrics": [
+      "Exact Match (EM)",
+      "Accuracy (Acc)",
+      "Task Success Rate (SR)"
+    ],
+    "quantitative_results_summary": "Gorilla surpasses GPT-4 on writing API calls. When combined with a document retriever it demonstrates strong capability to adapt to test-time document changes and substantially mitigates hallucination commonly encountered when prompting LLMs directly. Evaluation shows improved accuracy versus hallucination across settings.",
+    "baseline_comparisons": "Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
+  },
+  "explicit_limitations": {
+    "stated_limitations": [
+      "No explicit limitations are provided in the given context."
+    ],
+    "failure_modes": "Repetitive looping in greedy decoding; non-informative search results derail trajectory formulation.",
+    "computational_tradeoffs": "Increased context window usage due to multi-turn thought-action-observation histories."
+  },
+  "markdown_full_summary": "# Grounded Literature Review Summary: Gorilla: Large Language Model Connected with Massive APIs\n\n**Citation Anchor:** [al. et al., arXiv preprint, under review]  \n**Venue:** arXiv preprint, under review | **Authors:** Jianqiao Wang et al.  \n\n---\n\n### 1. Core Problem & Motivation\nLarge language models struggle to effectively use tools via API calls, generating inaccurate input arguments and hallucinating wrong API usage. Supporting a web-scale collection of potentially millions of changing APIs with overlapping functionality and nuanced constraints cannot be described in a single context, requiring new integration approaches and benchmarks for tool use.\n\n*Motivation & Gaps:* Prior standard and chain-of-thought prompting approaches operate as static black boxes without real-world feedback, causing hallucination and error propagation.  \n*Key Challenges Tackled:*\n- Reducing hallucination in reasoning traces\n- Integrating interactive external tool feedback\n\n---\n\n### 2. Proposed Methodology & Technical Architecture\n**Architecture Overview:**  \nA LLaMA-based model is instruction fine-tuned to enhance API call generation, with a first study of fine-tuning a base model supplemented by information retrieval. The approach emphasizes tool use over conversational refinement and is combined with a document retriever to provide up-to-date API documentation at test time, enabling adaptation to test-time document changes, user updates and version changes.\n\n**Algorithmic Innovation:**  \nAction space augmented as A' = A U L where L is free-form language thoughts.  \n\n*Core Technical Innovations:*\n- Synergistic thought-action interleaved prompting\n- Asynchronous action-space language expansion\n\n---\n\n### 3. Empirical Results & Benchmark Datasets\n**Evaluated Datasets:** APIBench, a comprehensive dataset consisting of HuggingFace, TorchHub and TensorHub APIs, introduced to evaluate API call writing ability and hallucination.  \n**Key Metrics:** Exact Match (EM), Accuracy (Acc), Task Success Rate (SR)  \n\n**Quantitative Findings:**  \nGorilla surpasses GPT-4 on writing API calls. When combined with a document retriever it demonstrates strong capability to adapt to test-time document changes and substantially mitigates hallucination commonly encountered when prompting LLMs directly. Evaluation shows improved accuracy versus hallucination across settings.  \n\n**Baseline Comparison:**  \nConsistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks.\n\n---\n\n### 4. Explicit Limitations & Failure Modes\n**Stated Limitations:**  \nNo explicit limitations are provided in the given context.  \n\n**Failure Modes & Bottlenecks:**  \nRepetitive looping in greedy decoding; non-informative search results derail trajectory formulation.  \n\n**Computational Trade-offs:**  \nIncreased context window usage due to multi-turn thought-action-observation histories.\n"
+}

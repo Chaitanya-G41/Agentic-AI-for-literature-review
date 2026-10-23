@@ -1,13 +1,15 @@
 {
   "paper_id": "2310.06770",
-  "paper_title": "SWE-bench: Can Language Models Resolve Real-World Software Engineering Problems?",
+  "paper_title": "SWE-bench: Can Language Models Resolve Real-World Issues?",
   "authors": [],
-  "venue": "arXiv / Conference",
-  "core_problem": "Evaluating language models on complex, real-world software engineering tasks that require editing entire codebases and resolving issue descriptions.",
-  "methodology_summary": "Introduces SWE-bench, an evaluation framework consisting of 2,294 software engineering problems from 12 Python repositories. The methodology constructs prompts via sparse or dense retrieval over codebases and evaluates model-generated code patches using repository unit testing frameworks.",
+  "venue": "arXiv preprint",
+  "core_problem": "Language models have outpaced our ability to evaluate them effectively, but for their future development it is essential to study the frontier of their capabilities. Real-world software engineering is identified as a rich, sustainable, and challenging testbed for evaluating next-generation language models, requiring understanding and coordinating changes across multiple functions, classes, and files, interaction with execution environments, processing extremely long contexts and complex reasoning beyond traditional code generation.",
+  "methodology_summary": "Introduce SWE-bench, an evaluation framework consisting of 2,294 software engineering problems drawn from real GitHub issues and corresponding pull requests across 12 popular Python repositories. Given a codebase along with a description of an issue to be resolved, a language model is tasked with editing the codebase to address the issue. Resolving issues requires understanding and coordinating changes across multiple functions, classes, and even files simultaneously, calling for models to interact with execution environments, process extremely long contexts and perform complex reasoning far beyond traditional code generation tasks. Fine-tuned SWE-Llama models are created via supervised fine-tuning on 7B and 13B CodeLlama-Python models to specialize as repository editors runnable on consumer hardware.",
   "datasets_eval": [
-    "SWE-bench"
+    "SWE-bench comprising 2,294 software engineering problems drawn from real GitHub issues and corresponding pull requests across 12 popular Python repositories."
   ],
-  "empirical_results": "Evaluated state-of-the-art language models fail to solve all except a small fraction of instances, demonstrating that real-world software engineering tasks remain extremely challenging for existing models.",
-  "explicit_limitations": "Task instances are strictly in Python; evaluations only establish simple baseline retrieval methods without agent-based or tool-augmented setups; relying solely on execution-based testing does not guarantee code readability, efficiency, or comprehensiveness."
+  "empirical_results": "Evaluations show both state-of-the-art proprietary models and the fine-tuned SWE-Llama can resolve only the simplest issues. The best-performing model, Claude 2, solves a mere 1.96% of the issues.",
+  "explicit_limitations": "Building a good benchmark is difficult since tasks must be challenging enough to stump existing models, but model predictions must also be easy to verify. Existing coding benchmarks such as HumanEval mostly involve self-contained problems solvable in a few lines of code. Benchmarking open models alongside proprietary models is important; at the time of writing only CodeLlama models can handle the very long contexts necessary, but off-the-shelf CodeLlama variants are not capable of following detailed instructions to generate repository-wide code edits and typically output placeholder responses or unrelated code. BM25 retrieval compared to oracle retrieval shows in approximately 40% of instances BM25 retrieves a superset of the oracle files for the 27,000-token context limit, however in almost half of the instances with the 27,000-token context limit the retrieval is incomplete.",
+  "generation_mode": "GENUINE_LLM",
+  "model_name": "NVIDIA_NIM (meta/muse-glimmer-30b)"
 }
