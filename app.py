@@ -1,379 +1,1466 @@
 """
+
 NLP-05: Agentic AI for Automated Research Paper Analysis and Literature Review
-Interactive Streamlit Web Dashboard (Step 1 & Step 2 Prototype)
+
+Interactive Streamlit Web Dashboard
+
 """
 
 import os
+
+import re
+
 import json
+
+import html
+
+from datetime import datetime
+
 import streamlit as st
 
+import streamlit.components.v1 as components
+
 # Configure Streamlit Page
+
 st.set_page_config(
-    page_title="NLP-05 Agentic AI Literature Review",
+
+    page_title="Agentic AI - Automated Literature Review",
+
     page_icon="📚",
+
     layout="wide",
+
     initial_sidebar_state="expanded"
+
 )
 
-# Custom Styling
+# Custom Styling for Academic Presentation
+
 st.markdown("""
-    <style>
-    .main-title { font-size: 26px; font-weight: bold; color: #1A365D; }
-    .sub-title { font-size: 16px; color: #0D9488; font-weight: bold; margin-bottom: 20px; }
-    .card-box { background-color: #F8FAFC; border-left: 4px solid #0D9488; padding: 15px; border-radius: 6px; margin-bottom: 15px; }
-    </style>
+
+<style>
+
+    .main-title { font-size: 30px; font-weight: 700; color: #1E3A8A; margin-bottom: 0px; }
+
+    .sub-title { font-size: 15px; color: #4B5563; margin-bottom: 20px; }
+
+    .agent-card { background-color: #F8FAFC; border-left: 4px solid #2563EB; padding: 15px; border-radius: 4px; margin-bottom: 15px; }
+
+    .metric-box { background-color: #EFF6FF; border: 1px solid #BFDBFE; padding: 10px; border-radius: 6px; text-align: center; }
+
+</style>
+
 """, unsafe_allow_html=True)
 
 # Title & Metadata Header
+
 st.markdown('<div class="main-title">📚 NLP-05: Agentic AI for Automated Research Paper Analysis</div>', unsafe_allow_html=True)
+
 st.markdown('<div class="sub-title">Department of CSE, R.V. College of Engineering | Mentors: Dr. Sagar B M, Prof. Kavi Narayana Murthy, Dr. Chethana R Murthy</div>', unsafe_allow_html=True)
 
 # Sidebar Options
+
 st.sidebar.title("🛠️ Project Controls")
-st.sidebar.info("**Current Phase:** Phase 2 Step 4 (Comparative Analysis Agent & Multi-Paper Synthesis) Active")
+
+st.sidebar.info("**Current Phase:** Phase 2 (Literature Review Pipeline & Structural Visualizations) Active")
 
 api_key = st.sidebar.text_input("Google Gemini API Key(s) (Optional, comma-separated)", type="password", key="gemini_api_key_input")
+
 cleaned_api_key = api_key.strip().strip('"').strip("'") if api_key else ""
+
 if cleaned_api_key:
+
     st.session_state["gemini_api_keys"] = cleaned_api_key
+
     os.environ["GEMINI_API_KEYS"] = cleaned_api_key
+
     os.environ["GEMINI_API_KEY"] = cleaned_api_key.split(",")[0].strip()
+
     keys_cnt = len([k for k in cleaned_api_key.split(",") if k.strip()])
+
     st.sidebar.success(f"Gemini API Key Pool Configured! ({keys_cnt} key(s))")
+
 else:
+
     try:
+
         from dotenv import load_dotenv, find_dotenv
+
         env_file = find_dotenv(usecwd=True)
+
         if env_file:
+
             load_dotenv(env_file, override=True)
+
     except Exception:
+
         pass
 
     env_keys = os.environ.get("GEMINI_API_KEYS", "") or os.environ.get("GEMINI_API_KEY", "") or os.environ.get("GOOGLE_API_KEY", "")
+
     if env_keys.strip():
+
         st.session_state["gemini_api_keys"] = env_keys.strip()
+
         st.sidebar.success(f"Gemini API Key loaded from .env file! (...{env_keys.strip()[-4:]})")
+
     else:
+
         st.sidebar.warning("⚠️ No API Key detected in `.env` or sidebar input.\n\nAdd `GEMINI_API_KEY=your_key` in `.env` or paste it above to run LLM summarization!")
 
-# Tabs Breakdown
-tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
-    "📥 Step 1: Paper Collection", 
-    "⚙️ Step 2: PDF Parsing & Schema Extraction", 
-    "📊 Extracted Paper Schemas", 
-    "📝 Step 3: Summarizer Agent & Global Memory",
-    "🔬 Step 4: Comparative Analysis Agent",
-    "🗺️ Pipeline Architecture Flowchart"
+def render_mermaid_component(mermaid_code: str, uid: str, timeout_ms: int = 12000, height: int = 520):
+    """
+    Renders an interactive Mermaid.js diagram in a Streamlit HTML component.
+    Implements:
+    - Independent initialization and instance caching for fast multi-tab rendering.
+    - Visibility-aware deferred execution: never times out while waiting in a background tab.
+    - Dual visibility detection: ResizeObserver + 250ms polling interval for instant tab-switch rendering.
+    - Specific, actionable error taxonomy: CDN network error, initialization error, grammar syntax error, layout error, timeout.
+    - CSS typography enforcement: clean dark background #0E1117, 12px body labels, balanced font sizes.
+    - Full raw code fallback expander.
+    """
+    json_code = json.dumps(mermaid_code)
+    escaped_code = html.escape(mermaid_code)
+
+    html_content = f"""
+    <div id="mermaid-root-{uid}" style="width: 100%; margin: 4px 0; background-color: #0E1117; font-family: Inter, system-ui, -apple-system, sans-serif;">
+      <style>
+        html, body {{
+          margin: 0 !important;
+          padding: 0 !important;
+          background-color: #0E1117 !important;
+          color: #E2E8F0 !important;
+          font-family: Inter, system-ui, -apple-system, sans-serif !important;
+          overflow-x: auto !important;
+          overflow-y: hidden !important;
+        }}
+        #mermaid-render-{uid} {{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          min-height: 120px;
+          background-color: #0E1117;
+        }}
+        #mermaid-render-{uid} svg {{
+          display: block !important;
+          margin: 0 auto !important;
+          height: auto !important;
+        }}
+        #mermaid-render-{uid} .cluster-label text,
+        #mermaid-render-{uid} .cluster text {{
+          font-family: Inter, system-ui, -apple-system, sans-serif !important;
+          font-weight: 700 !important;
+          fill: #1E293B !important;
+        }}
+        #mermaid-render-{uid} .edgeLabel {{
+          background-color: #1E293B !important;
+          padding: 2px 6px !important;
+          border-radius: 4px !important;
+          border: 1px solid #475569 !important;
+          font-size: 10px !important;
+          font-weight: 500 !important;
+          color: #CBD5E1 !important;
+          box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) !important;
+        }}
+        #mermaid-render-{uid} .edgeLabel rect {{
+          fill: #1E293B !important;
+          stroke: #475569 !important;
+          rx: 4px !important;
+        }}
+      </style>
+      <div id="mermaid-render-{uid}">
+        <div id="loading-{uid}" style="color: #64748B; font-size: 13px; padding: 20px; text-align: center;">
+          <div style="margin-bottom: 6px;">⏳ Rendering diagram...</div>
+          <div style="font-size: 11px; color: #94A3B8;">(Activates automatically when tab is selected)</div>
+        </div>
+      </div>
+      <div id="mermaid-fallback-{uid}" style="display: none; background: #0E1117; border: 1px solid #334155; border-radius: 6px; padding: 14px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+          <span style="font-size: 13px; font-weight: bold; color: #DC2626;" id="fallback-status-{uid}">
+            ⚠️ Rendering Issue Detected
+          </span>
+          <span style="font-size: 11px; color: #94A3B8; max-width: 60%; text-align: right;" id="fallback-reason-{uid}"></span>
+        </div>
+        <div style="font-size: 12px; color: #CBD5E1; margin-bottom: 8px;">
+          The visual layout could not be completed. Raw Mermaid diagram definition:
+        </div>
+        <pre style="margin: 0; padding: 12px; background: #0F172A; color: #F8FAFC; border-radius: 4px; overflow-x: auto; font-size: 12px; line-height: 1.45;"><code>{escaped_code}</code></pre>
+      </div>
+    </div>
+    <script type="module">
+      (async function() {{
+        const uid = "{uid}";
+        const code = {json_code};
+        let isTerminated = false;
+        let isRendered = false;
+        let observer = null;
+        let pollTimer = null;
+        let activeRenderTimeout = null;
+        const renderEl = document.getElementById(`mermaid-render-${{uid}}`);
+        const fallbackEl = document.getElementById(`mermaid-fallback-${{uid}}`);
+        const statusEl = document.getElementById(`fallback-status-${{uid}}`);
+        const reasonEl = document.getElementById(`fallback-reason-${{uid}}`);
+        const loadingEl = document.getElementById(`loading-${{uid}}`);
+
+        function activateFallback(status, reason) {{
+          if (isTerminated || isRendered) return;
+          isTerminated = true;
+          if (observer) observer.disconnect();
+          if (pollTimer) clearInterval(pollTimer);
+          if (activeRenderTimeout) clearTimeout(activeRenderTimeout);
+          if (loadingEl) loadingEl.remove();
+          if (renderEl) renderEl.style.display = 'none';
+          if (fallbackEl) {{
+            fallbackEl.style.display = 'block';
+            if (statusEl) statusEl.textContent = status;
+            if (reasonEl) reasonEl.textContent = reason ? reason : '';
+          }}
+        }}
+
+        // 1. Dynamic CDN import with window-level caching
+        let mermaid;
+        try {{
+          if (window.mermaid) {{
+            mermaid = window.mermaid;
+          }} else {{
+            const mermaidModule = await import('https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs');
+            mermaid = mermaidModule.default || mermaidModule;
+            window.mermaid = mermaid;
+          }}
+        }} catch (cdnErr) {{
+          activateFallback("🌐 CDN Network Error", "Failed to load Mermaid from CDN: " + (cdnErr.message || String(cdnErr)));
+          return;
+        }}
+        if (isTerminated) return;
+
+        // 2. Safe initialization with strict security and clean typography
+        try {{
+          mermaid.initialize({{
+            startOnLoad: false,
+            theme: 'base',
+            securityLevel: 'strict',
+            suppressErrorRendering: true,
+            fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
+            flowchart: {{ htmlLabels: true, curve: 'basis', padding: 14 }},
+            themeVariables: {{
+              fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
+              fontSize: '12px',
+              background: '#0E1117',
+              darkBkgColor: '#0E1117',
+              primaryColor: '#EFF6FF',
+              primaryTextColor: '#1E3A8A',
+              primaryBorderColor: '#2563EB',
+              lineColor: '#64748B',
+              secondaryColor: '#CCFBF1',
+              tertiaryColor: '#FEF3C7',
+              mindmapBranchColor0: '#1E3A8A',
+              mindmapBranchColor1: '#0F766E',
+              mindmapBranchColor2: '#D97706',
+              mindmapBranchColor3: '#7C3AED',
+              mindmapBranchColor4: '#DC2626'
+            }}
+          }});
+        }} catch (initErr) {{
+          activateFallback("⚙️ Initialization Error", initErr.message || String(initErr));
+          return;
+        }}
+        if (isTerminated) return;
+
+        // 3. Fast syntax parse check with descriptive line/column errors
+        try {{
+          await mermaid.parse(code);
+        }} catch (parseErr) {{
+          let errStr = parseErr.str || parseErr.message || "Grammar syntax error";
+          if (parseErr.hash && parseErr.hash.loc) {{
+            errStr += ` (Line ${{parseErr.hash.loc.first_line}}, Col ${{parseErr.hash.loc.first_column}})`;
+          }}
+          activateFallback("⚠️ Syntax Parse Error", errStr);
+          return;
+        }}
+        if (isTerminated) return;
+
+        // 4. Visibility-aware layout execution
+        async function tryRenderDiagram() {{
+          if (isRendered || isTerminated) return;
+          const containerWidth = document.documentElement.clientWidth || document.body.clientWidth;
+          if (containerWidth <= 50) {{
+            return;
+          }}
+          if (pollTimer) {{
+            clearInterval(pollTimer);
+            pollTimer = null;
+          }}
+          if (!activeRenderTimeout) {{
+            activeRenderTimeout = setTimeout(() => {{
+              if (!isRendered && !isTerminated) {{
+                activateFallback("⏱️ Diagram Rendering Timeout", "Render exceeded 12 seconds after tab became visible.");
+              }}
+            }}, 12000);
+          }}
+
+          try {{
+            const svgId = `svg_${{uid}}_${{Date.now()}}_${{Math.random().toString(36).substring(2, 7)}}`;
+            const {{ svg }} = await mermaid.render(svgId, code);
+            if (isTerminated) return;
+            isRendered = true;
+            if (activeRenderTimeout) clearTimeout(activeRenderTimeout);
+            if (observer) observer.disconnect();
+            if (loadingEl) loadingEl.remove();
+
+            renderEl.innerHTML = svg;
+            const renderedSvg = renderEl.querySelector('svg');
+            if (renderedSvg) {{
+              const vb = renderedSvg.viewBox ? renderedSvg.viewBox.baseVal : null;
+              const natW = (vb && vb.width > 0) ? vb.width : (parseFloat(renderedSvg.getAttribute('width')) || 850);
+              const maxW = Math.min(Math.max(natW, 600), 1080);
+              renderedSvg.style.maxWidth = `${{maxW}}px`;
+              renderedSvg.style.width = '100%';
+              renderedSvg.style.height = 'auto';
+              renderedSvg.style.display = 'block';
+              renderedSvg.style.margin = '0 auto';
+            }}
+            window.scrollTo(0, 0);
+          }} catch (renderErr) {{
+            if (activeRenderTimeout) clearTimeout(activeRenderTimeout);
+            activateFallback("📐 Layout / Rendering Error", renderErr.message || String(renderErr));
+          }}
+        }}
+
+        // Immediate attempt
+        await tryRenderDiagram();
+
+        // If inactive, monitor tab selection via ResizeObserver, resize events, and polling
+        if (!isRendered) {{
+          if (typeof ResizeObserver !== 'undefined') {{
+            observer = new ResizeObserver(() => tryRenderDiagram());
+            observer.observe(document.documentElement);
+            observer.observe(document.body);
+          }}
+          window.addEventListener('resize', () => tryRenderDiagram());
+          window.addEventListener('focus', () => tryRenderDiagram());
+          document.addEventListener('visibilitychange', () => tryRenderDiagram());
+          pollTimer = setInterval(() => {{
+            if (!isRendered && !isTerminated) {{
+              tryRenderDiagram();
+            }} else if (pollTimer) {{
+              clearInterval(pollTimer);
+            }}
+          }}, 250);
+        }}
+      }})();
+    </script>
+    """
+    components.html(html_content, height=height, scrolling=True)
+
+def render_report_markdown_with_diagrams(markdown_text: str, base_uid: str = "report_doc"):
+
+    """
+
+    Renders report markdown with interactive, perfectly aligned Mermaid diagrams inline.
+
+    Splits text by ```mermaid blocks: renders prose via st.markdown and diagrams via render_mermaid_component.
+
+    """
+
+    pattern = r"```mermaid\s*\n(.*?)\n```"
+
+    parts = re.split(pattern, markdown_text, flags=re.DOTALL)
+
+
+
+    diag_idx = 0
+
+    for i, part in enumerate(parts):
+
+        if i % 2 == 0:
+
+            if part.strip():
+
+                st.markdown(part, unsafe_allow_html=True)
+
+        else:
+
+            diag_idx += 1
+
+            code = part.strip()
+
+            m_id = re.search(r"%% diagram_id:\s*([a-zA-Z0-9_-]+)", code)
+
+            diag_uid = f"{base_uid}_{m_id.group(1)}" if m_id else f"{base_uid}_{diag_idx}"
+
+
+
+            num_lines = len(code.splitlines())
+
+            is_flowchart = bool(m_id and m_id.group(1) == "methodology_flowchart")
+
+            is_gaps = bool(m_id and m_id.group(1) == "research_gaps_flowchart")
+
+            h = 520 if is_flowchart else (460 if is_gaps else min(max(num_lines * 22, 360), 500))
+
+            render_mermaid_component(code, uid=diag_uid, height=h)
+
+            if not is_flowchart and not is_gaps:
+
+                with st.expander(f"🔍 View / Copy Raw Mermaid Code ({m_id.group(1) if m_id else f'Diagram {diag_idx}'})"):
+
+                    st.code(code, language="mermaid")
+
+def extract_mermaid_diagrams_by_id(markdown_text: str) -> dict:
+
+    """
+
+    Safely extracts Mermaid blocks keyed by their unique '%% diagram_id: <name>' marker,
+
+    with robust semantic signature fallback for order-independent retrieval.
+
+    """
+
+    diagrams = {}
+
+    pattern = r'```mermaid\s*\n(.*?)\n```'
+
+    blocks = re.findall(pattern, markdown_text, re.DOTALL)
+
+    for block in blocks:
+
+        id_match = re.search(r'%%\s*diagram_id:\s*([a-zA-Z0-9_\-]+)', block)
+
+        if id_match:
+
+            diagrams[id_match.group(1)] = block.strip()
+
+        else:
+
+            if 'mindmap' in block or 'paradigmMain' in block or 'benchmarkMain' in block:
+
+                diagrams.setdefault('themes_mindmap', block.strip())
+
+            elif 'Layer1' in block or 'Layer2' in block or 'limitationStyle' in block or 'research_gaps' in block:
+
+                diagrams.setdefault('research_gaps_flowchart', block.strip())
+
+            elif 'rootStyle' in block or 'paperCard' in block or 'paradigmStyle' in block:
+
+                diagrams.setdefault('methodology_flowchart', block.strip())
+
+    return diagrams
+
+# Workflow Tabs Configuration (Expanded to 7 Steps)
+
+tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs([
+
+    "📂 Corpus Selection",
+
+    "🔍 Document Grounding Engine",
+
+    "🧠 Structured Information Extraction",
+
+    "📊 Global Memory & Verification",
+
+    "📑 Step 3: Single-Paper Summaries",
+
+    "📈 Step 4: Comparative Matrix",
+
+    "📑 Step 5 & 6: Literature Review & Diagrams"
+
 ])
 
-# Tab 1: Step 1 Paper Collection
 with tab1:
-    st.header("Step 1: Automated Paper Collection & External API Ingestion")
-    st.write("Fetch benchmark research papers via **arXiv API**, **Semantic Scholar API**, or upload raw paper PDFs directly.")
+
+    st.header("Step 1: Research Paper Corpus Selection")
+
+    st.markdown("Select an existing benchmark paper or upload a new PDF to ground the multi-agent pipeline.")
+
+    # Discover benchmark papers across data/pdf_corpus and sample_papers
+
+    corpus_dirs = ["data/pdf_corpus", "sample_papers"]
+
+    pdf_map = {}
+
+    for c_dir in corpus_dirs:
+
+        if os.path.exists(c_dir):
+
+            for f in sorted(os.listdir(c_dir)):
+
+                if f.endswith(".pdf") and f not in pdf_map:
+
+                    pdf_map[f] = os.path.join(c_dir, f)
+
+    available_pdfs = list(pdf_map.keys())
 
     col1, col2 = st.columns([1, 1])
+
     with col1:
-        st.subheader("1. Download Benchmark Corpus (12 Papers)")
-        if st.button("🚀 Download 12 Agentic AI Papers via arXiv API"):
-            with st.spinner("Fetching papers from arXiv API..."):
-                from src.ingestion.downloader import download_benchmark_corpus
-                download_benchmark_corpus()
-                st.success("12 Benchmark Papers Downloaded Successfully into `data/pdf_corpus/`!")
+
+        st.subheader("Select Benchmark Paper")
+
+        selected_benchmark = st.selectbox(
+
+            f"Available Research Papers ({len(available_pdfs)} Benchmark Papers):",
+
+            available_pdfs,
+
+            key="benchmark_pdf_selector"
+
+        )
+
+        if selected_benchmark:
+
+            file_path = pdf_map[selected_benchmark]
+
+            file_size_kb = os.path.getsize(file_path) / 1024
+
+            st.info(f"**Selected Paper:** `{selected_benchmark}` ({file_size_kb:.1f} KB)")
+
+            st.session_state["current_pdf_path"] = file_path
+
+        elif available_pdfs and "current_pdf_path" not in st.session_state:
+
+            st.session_state["current_pdf_path"] = pdf_map[available_pdfs[0]]
 
     with col2:
-        st.subheader("2. Direct PDF File Upload")
-        uploaded_files = st.file_uploader("Upload Paper PDFs", type=["pdf"], accept_multiple_files=True)
-        if uploaded_files:
-            os.makedirs("data/pdf_corpus", exist_ok=True)
-            for file in uploaded_files:
-                filepath = os.path.join("data/pdf_corpus", file.name)
-                with open(filepath, "wb") as f:
-                    f.write(file.getbuffer())
-            st.success(f"Saved {len(uploaded_files)} custom PDF(s) into `data/pdf_corpus/`!")
 
-    st.subheader("📁 Corpus Files Currently in Local Storage")
-    corpus_dir = "data/pdf_corpus"
-    if os.path.exists(corpus_dir):
-        files = [f for f in os.listdir(corpus_dir) if f.endswith(".pdf")]
-        if files:
-            st.write(f"Total Papers Available: **{len(files)}**")
-            st.dataframe({"Filename": files}, use_container_width=True)
-        else:
-            st.info("No PDF files found yet. Click Download or Upload PDFs above.")
+        st.subheader("Upload Custom Research Paper")
 
-# Tab 2: Step 2 PDF Parser & Schema Extractor
+        uploaded_file = st.file_uploader("Upload PDF document (max 50MB):", type=["pdf"])
+
+        if uploaded_file is not None:
+
+            upload_dir = "data/pdf_corpus" if os.path.exists("data/pdf_corpus") else "sample_papers"
+
+            os.makedirs(upload_dir, exist_ok=True)
+
+            save_path = os.path.join(upload_dir, uploaded_file.name)
+
+            with open(save_path, "wb") as f:
+
+                f.write(uploaded_file.getbuffer())
+
+            st.success(f"Successfully uploaded: `{uploaded_file.name}`")
+
+            st.session_state["current_pdf_path"] = save_path
+
 with tab2:
-    st.header("Step 2: 2-Stage PDF Ingestion Pipeline (GROBID + Gemini Schema Mapper)")
-    st.write("Converts 2-column PDFs into clean structural TEI XML/JSON chunks, pre-filters methodology/limitation candidates, and maps them into validated Pydantic `PaperSchema` JSON files.")
 
-    c1, c2 = st.columns([1, 1])
-    with c1:
-        if st.button("⚙️ Run Stage 1 PDF Layout Parser"):
-            with st.spinner("Parsing PDF layouts into structural JSON..."):
-                from src.ingestion.parser import process_pdf_directory
-                process_pdf_directory()
-                st.success("Stage 1 Parsing Complete! Parsed JSONs written to `data/extracted_schemas/`")
+    st.header("Step 1: Document Grounding & Verification Engine")
 
-    with c2:
-        if st.button("🧠 Run Stage 2 Semantic Extraction Agent"):
-            with st.spinner("Extracting PaperSchemas via Gemini / Heuristics..."):
-                ui_api_keys = st.session_state.get("gemini_api_keys", None)
-                from src.agents.extraction import process_all_parsed_json
-                process_all_parsed_json(api_keys=ui_api_keys)
-                st.success("Stage 2 Extraction Complete! PaperSchema JSONs updated!")
+    st.markdown("Verifies extracted text coverage, layout boundaries, and visual page rendering.")
 
-# Tab 3: Extracted Schemas Preview
+    if "current_pdf_path" in st.session_state and os.path.exists(st.session_state["current_pdf_path"]):
+
+        pdf_path = st.session_state["current_pdf_path"]
+
+        pdf_filename = os.path.basename(pdf_path)
+
+        from src.agents.parser import PDFParserAgent
+
+        parser = PDFParserAgent()
+
+        col_run, col_status = st.columns([1, 2])
+
+        with col_run:
+
+            run_parse = st.button("🚀 Run Layout & Text Extraction", key="btn_run_parser")
+
+        parsed_data = parser.load_parsed_data(pdf_filename)
+
+        if run_parse:
+
+            with st.spinner(f"Extracting layout and text from `{pdf_filename}`..."):
+
+                parsed_data = parser.parse(pdf_path)
+
+                st.success(f"Extraction Complete! Extracted {parsed_data.total_pages} pages using `{parsed_data.parser_used}`.")
+
+        if parsed_data:
+
+            st.subheader(f"Extracted Grounding Data: `{pdf_filename}`")
+
+            m1, m2, m3, m4 = st.columns(4)
+
+            m1.metric("Total Pages", parsed_data.total_pages)
+
+            m2.metric("Parser Engine", parsed_data.parser_used)
+
+            m3.metric("Extracted Sections", len(parsed_data.sections))
+
+            m4.metric("Total Text Length", f"{len(parsed_data.full_text):,} chars")
+
+            st.divider()
+
+            col_pages, col_raw = st.columns([1, 1])
+
+            with col_pages:
+
+                st.markdown("### 📄 Page-by-Page Grounded Content")
+
+                if parsed_data.total_pages > 1:
+
+                    selected_page_idx = st.slider("Select Page to Inspect:", 1, parsed_data.total_pages, 1)
+
+                else:
+
+                    selected_page_idx = 1
+
+                    st.info("Document has 1 page.")
+
+                page_text = parsed_data.pages.get(selected_page_idx, "No text extracted for this page.")
+
+                st.text_area(f"Raw Text Content - Page {selected_page_idx}:", page_text, height=350)
+
+            with col_raw:
+
+                st.markdown("### 📑 Section Boundaries")
+
+                if parsed_data.sections:
+
+                    for sec in parsed_data.sections[:8]:
+
+                        with st.expander(f"📍 {sec.title} (Page {sec.page_number})"):
+
+                            st.write(sec.content[:400] + ("..." if len(sec.content) > 400 else ""))
+
+                else:
+
+                    st.info("No section boundaries detected. Full-text mode active.")
+
+    else:
+
+        st.warning("Please select or upload a PDF in the '📂 Corpus Selection' tab to begin.")
+
 with tab3:
-    st.header("Extracted Pydantic Paper Schemas")
-    schema_dir = "data/extracted_schemas"
-    if os.path.exists(schema_dir):
-        schema_files = [f for f in os.listdir(schema_dir) if f.endswith("_schema.json")]
-        if schema_files:
-            selected_file = st.selectbox("Select Paper Schema to View:", schema_files)
-            filepath = os.path.join(schema_dir, selected_file)
-            with open(filepath, "r", encoding="utf-8") as f:
-                data = json.load(f)
 
-            st.markdown(f'<div class="card-box"><b>Paper Title:</b> {data.get("paper_title")}<br><b>Venue:</b> {data.get("venue")} | <b>Authors:</b> {", ".join(data.get("authors", []))}</div>', unsafe_allow_html=True)
-            
-            sc1, sc2 = st.columns(2)
-            with sc1:
-                st.subheader("Core Problem & Methodology")
-                st.write(f"**Problem:** {data.get('core_problem')}")
-                st.write(f"**Methodology:** {data.get('methodology_summary')}")
-                st.write(f"**Datasets:** {', '.join(data.get('datasets_eval', []))}")
+    st.header("Step 2: Structured Information Extraction")
 
-            with sc2:
-                st.subheader("Results & Explicit Limitations")
-                st.write(f"**Results:** {data.get('empirical_results')}")
-                st.warning(f"**Limitations:** {data.get('explicit_limitations')}")
+    st.markdown("Pydantic Schema Validation for verifiable academic extraction.")
 
-            with st.expander("View Full Raw JSON Schema"):
-                st.json(data)
-        else:
-            st.info("No schema JSON files found. Run Step 2 Stage 1 & Stage 2 above.")
+    if "current_pdf_path" in st.session_state and os.path.exists(st.session_state["current_pdf_path"]):
+
+        pdf_path = st.session_state["current_pdf_path"]
+
+        pdf_filename = os.path.basename(pdf_path)
+
+        paper_id = pdf_filename.split("_")[0] if "_" in pdf_filename else os.path.splitext(pdf_filename)[0]
+
+        from src.agents.parser import PDFParserAgent
+
+        from src.agents.extraction import SchemaExtractionAgent
+
+        from src.agents.llm import LLMManager, GeminiLLMManager
+
+        llm = LLMManager()
+
+        extractor = SchemaExtractionAgent(llm_manager=llm)
+
+        col_ext_btn, col_ext_stat = st.columns([1, 2])
+
+        with col_ext_btn:
+
+            run_ext = st.button("⚡ Extract Pydantic Schema", key="btn_run_extraction")
+
+        existing_schema = extractor.load_schema(paper_id)
+
+        if run_ext:
+
+            with st.spinner(f"Extracting structured schema for `{paper_id}`..."):
+
+                parser = PDFParserAgent()
+
+                parsed_data = parser.load_parsed_data(pdf_filename)
+
+                if not parsed_data:
+
+                    parsed_data = parser.parse(pdf_path)
+
+                existing_schema = extractor.extract(parsed_data)
+
+                st.success(f"Structured schema generated successfully for `{existing_schema.paper_title}`!")
+
+        if existing_schema:
+
+            st.subheader(f"📌 {existing_schema.paper_title}")
+
+            st.markdown(f"**Authors:** {', '.join(existing_schema.authors)} | **Year:** {existing_schema.year} | **Venue:** {existing_schema.venue}")
+
+            tab_prob, tab_meth, tab_eval, tab_gaps = st.tabs([
+
+                "🎯 Problem Statement",
+
+                "🔬 Proposed Method",
+
+                "📊 Evaluation & Benchmarks",
+
+                "⚠️ Limitations & Stated Gaps"
+
+            ])
+
+            with tab_prob:
+
+                st.markdown(f"**Primary Problem:** {existing_schema.problem_statement}")
+
+            with tab_meth:
+
+                st.markdown(f"**Architecture / Framework:** `{existing_schema.proposed_method.architecture}`")
+
+                st.markdown(f"**Description:** {existing_schema.proposed_method.description}")
+
+                if existing_schema.proposed_method.key_innovations:
+
+                    st.markdown("**Key Innovations:**")
+
+                    for inn in existing_schema.proposed_method.key_innovations:
+
+                        st.markdown(f"- {inn}")
+
+            with tab_eval:
+
+                st.markdown(f"**Datasets Used:** {', '.join(existing_schema.evaluation.datasets)}")
+
+                st.markdown(f"**Baselines Compared:** {', '.join(existing_schema.evaluation.baselines)}")
+
+                if existing_schema.evaluation.quantitative_results:
+
+                    st.markdown("**Quantitative Results:**")
+
+                    for k, v in existing_schema.evaluation.quantitative_results.items():
+
+                        st.markdown(f"- **{k}:** {v}")
+
+            with tab_gaps:
+
+                st.markdown("**Limitations & Constraints:**")
+
+                for lim in existing_schema.limitations:
+
+                    st.markdown(f"- {lim}")
+
+                st.markdown("**Stated Future Work & Gaps:**")
+
+                for gap in existing_schema.future_work:
+
+                    st.markdown(f"- {gap}")
+
+            with st.expander("🔍 View Raw JSON Schema"):
+
+                st.json(existing_schema.model_dump())
+
     else:
-        st.info("No extracted schemas directory found.")
 
-# Tab 4: Step 3 Grounded Summarizer Agent & Global Memory Store
+        st.warning("Please select or upload a PDF in the '📂 Corpus Selection' tab to begin.")
+
 with tab4:
-    st.header("Step 3: Grounded Summarizer Agent & Global Memory Store")
-    st.write("Generates multi-pillar grounded summaries (~600–1000 words) anchored in source paper text, registered into Global Memory Store for downstream agents.")
 
-    schema_dir = "data/extracted_schemas"
-    available_schemas = [f for f in os.listdir(schema_dir) if f.endswith("_schema.json")] if os.path.exists(schema_dir) else []
-    paper_id_map = {f.replace("_schema.json", ""): f for f in available_schemas}
+    st.header("Step 2 Verification: Global Memory & Benchmark Corpus")
 
-    st.subheader("🎯 Selective Summarization Controls (Save API Quota)")
-    selected_pids = st.multiselect(
-        "Select Specific Paper(s) to Summarize:",
-        options=list(paper_id_map.keys()),
-        default=[list(paper_id_map.keys())[0]] if paper_id_map else [],
-        help="Select 1 or 2 papers to test without exhausting API keys!"
-    )
-
-    sm_col1, sm_col2, sm_col3 = st.columns([1.2, 1.2, 1])
-    with sm_col1:
-        if st.button("🎯 Summarize Selected Paper(s) Only"):
-            if not selected_pids:
-                st.warning("Please select at least one paper above.")
-            else:
-                ui_api_keys = st.session_state.get("gemini_api_keys", None)
-                if not ui_api_keys:
-                    st.warning("⚠️ No API key entered in sidebar! Summaries will use Heuristic Engine only.")
-                with st.spinner(f"Generating grounded summary for {len(selected_pids)} selected paper(s)..."):
-                    from src.agents.summarizer import process_all_schemas
-                    process_all_schemas(target_paper_ids=selected_pids, api_keys=ui_api_keys)
-                    st.success(f"Summarizer Agent Complete for {len(selected_pids)} paper(s)!")
-
-    with sm_col2:
-        if st.button("🚀 Summarize ALL Papers in Corpus"):
-            ui_api_keys = st.session_state.get("gemini_api_keys", None)
-            if not ui_api_keys:
-                st.warning("⚠️ No API key entered in sidebar! Summaries will use Heuristic Engine only.")
-            with st.spinner("Generating grounded summaries for all papers..."):
-                from src.agents.summarizer import process_all_schemas
-                process_all_schemas(api_keys=ui_api_keys)
-                st.success("Summarizer Agent Finished for all papers!")
-
-    with sm_col3:
-        from src.agents.memory_store import get_global_memory_store
-        mem_store = get_global_memory_store()
-        all_ids = mem_store.get_all_paper_ids()
-        st.metric("Papers in Memory Store", len(all_ids))
-
-    summary_dir = "data/summaries"
-    if os.path.exists(summary_dir):
-        sum_files = [f for f in os.listdir(summary_dir) if f.endswith("_summary.json")]
-        if sum_files:
-            st.subheader("📄 Grounded Multi-Pillar Summary Inspector")
-            selected_sum_file = st.selectbox("Select Paper Summary:", sum_files)
-            sum_filepath = os.path.join(summary_dir, selected_sum_file)
-            with open(sum_filepath, "r", encoding="utf-8") as f:
-                sum_data = json.load(f)
-
-            src_tag = sum_data.get("summary_source", "Unknown Engine")
-            if "LLM" in src_tag or "Gemini" in src_tag:
-                st.success(f"🤖 **Generated by LLM Engine**: {src_tag}")
-            else:
-                st.warning(f"⚡ **Generated by Heuristic Engine Fallback**: {src_tag}")
-
-            st.markdown(f'<div class="card-box"><b>Paper Title:</b> {sum_data.get("paper_title")}<br><b>Citation Anchor:</b> <code>{sum_data.get("grounded_citation")}</code> | <b>Venue:</b> {sum_data.get("venue")}</div>', unsafe_allow_html=True)
-
-            m_tab1, m_tab2 = st.tabs(["📖 Rendered Markdown Summary", "🧩 Reusable Structured Components (For Downstream Agents)"])
-            with m_tab1:
-                st.markdown(sum_data.get("markdown_full_summary", "No summary available."))
-            with m_tab2:
-                st.json(sum_data)
-        else:
-            st.info("No summary JSON files found. Click 'Run Summarizer Agent' above.")
-    else:
-        st.info("No summaries directory found.")
-
-# Tab 5: Step 4 Comparative Analysis Agent
-with tab5:
-    st.header("Step 4: Comparative Analysis Agent & Cross-Paper Synthesis")
-    st.write("Generates structured cross-paper comparison matrices, benchmark dataset overlap analysis, paradigm classification, and limitation cluster synthesis from grounded summaries in Global Memory.")
+    st.markdown("Verifies the global state of extracted schemas across the entire literature review corpus.")
 
     from src.agents.memory_store import get_global_memory_store
+
     mem_store = get_global_memory_store()
-    all_summaries = mem_store.get_all_summaries()
 
-    num_summaries = len(all_summaries)
+    all_schemas = mem_store.get_all_schemas()
 
-    if num_summaries == 0:
-        st.warning("⚠️ No paper summaries found in Global Memory. Please run **Step 3: Grounded Summarizer Agent** in the previous tab first.")
-    elif num_summaries == 1:
-        st.info("ℹ️ Exactly 1 paper summary currently available in Global Memory. The Comparative Analysis Agent will generate a single-paper baseline matrix. To see multi-paper cross-comparison and dataset overlap, summarize additional papers in Step 3.")
+    col_sync, col_status = st.columns([1, 2])
+
+    with col_sync:
+
+        if st.button("🔄 Sync with Disk Schemas", key="btn_sync_memory"):
+
+            mem_store.reload_from_disk()
+
+            all_schemas = mem_store.get_all_schemas()
+
+            st.success(f"Synced! Memory Store now holds {len(all_schemas)} papers.")
+
+    st.subheader(f"📚 Registered Papers in Memory: {len(all_schemas)}")
+
+    if all_schemas:
+
+        import pandas as pd
+
+        rows = []
+
+        for pid, s in all_schemas.items():
+
+            rows.append({
+
+                "Paper ID": pid,
+
+                "Title": s.get("paper_title", "N/A"),
+
+                "Year": s.get("year", "N/A"),
+
+                "Architecture": s.get("proposed_method", {}).get("architecture", "N/A") if isinstance(s.get("proposed_method"), dict) else getattr(s.get("proposed_method"), "architecture", "N/A"),
+
+                "Limitations Tracked": len(s.get("limitations", [])),
+
+                "Future Gaps Tracked": len(s.get("future_work", []))
+
+            })
+
+        df = pd.DataFrame(rows)
+
+        st.dataframe(df, use_container_width=True)
+
+        selected_pid = st.selectbox("Inspect Full Grounded Extraction from Store:", list(all_schemas.keys()))
+
+        if selected_pid:
+
+            st.json(all_schemas[selected_pid])
+
     else:
-        st.success(f"✅ **{num_summaries} Paper Summaries Available** in Global Memory for cross-paper comparative analysis.")
 
-    if num_summaries > 0:
-        st.subheader("🎯 Comparative Analysis Selection")
-        col_c1, col_c2 = st.columns([2, 1])
-        with col_c1:
-            selected_comp_ids = st.multiselect(
-                "Select Summarized Paper(s) to Compare:",
-                options=list(all_summaries.keys()),
-                default=list(all_summaries.keys()),
-                help="Select 2 or more papers to generate cross-paper matrix, or select 1 for single-paper baseline."
-            )
-        with col_c2:
-            st.write("")
-            st.write("")
-            run_comp_btn = st.button("🔬 Run Comparative Analysis Agent", type="primary", use_container_width=True)
+        st.info("No schemas currently registered in Global Memory. Run extraction in Step 2 or click 'Sync with Disk Schemas'.")
 
-        if run_comp_btn:
-            if not selected_comp_ids:
-                st.warning("Please select at least one paper to analyze.")
+with tab5:
+
+    st.header("Step 3: Grounded Single-Paper Summaries")
+
+    st.markdown("Single-paper multi-section structured summaries with grounded citations and failure mode analysis.")
+
+    from src.agents.memory_store import get_global_memory_store
+
+    from src.agents.summarizer import SinglePaperSummarizerAgent, run_summarizer_agent
+
+    from src.agents.llm import LLMManager
+
+    mem_store = get_global_memory_store()
+
+    summaries = mem_store.get_all_summaries()
+
+    col_sum_actions, _ = st.columns([1, 1])
+
+    with col_sum_actions:
+
+        if st.button("🚀 Summarize Current Selected Paper", key="btn_summarize_current"):
+
+            if "current_pdf_path" in st.session_state and os.path.exists(st.session_state["current_pdf_path"]):
+
+                p_path = st.session_state["current_pdf_path"]
+
+                p_filename = os.path.basename(p_path)
+
+                p_id = p_filename.split("_")[0] if "_" in p_filename else os.path.splitext(p_filename)[0]
+
+                schema_dir = "data/extracted_schemas"
+
+                schema_path = os.path.join(schema_dir, f"{p_id}_schema.json")
+
+                if not os.path.exists(schema_path) and os.path.exists(schema_dir):
+
+                    candidates = [os.path.join(schema_dir, f) for f in os.listdir(schema_dir) if f.startswith(p_id) and f.endswith("_schema.json")]
+
+                    if candidates:
+
+                        schema_path = candidates[0]
+
+                if not os.path.exists(schema_path):
+
+                    st.error(f"No extracted schema found for paper '{p_id}' in '{schema_dir}'. Please run Step 2 (Structured Information Extraction) first.")
+
+                else:
+
+                    llm = LLMManager()
+
+                    with st.spinner(f"Generating Grounded Summary for {p_id}..."):
+
+                        s_agent = SinglePaperSummarizerAgent(llm_manager=llm)
+
+                        sum_obj = s_agent.summarize_paper(p_id)
+
+                        st.success(f"Summary Generated and Saved for {p_id}!")
+
+                        st.rerun()
+
             else:
-                ui_api_keys = st.session_state.get("gemini_api_keys", None)
-                with st.spinner(f"Synthesizing comparative analysis across {len(selected_comp_ids)} paper(s)..."):
-                    from src.agents.comparative import run_comparative_analysis
-                    comp_result = run_comparative_analysis(target_paper_ids=selected_comp_ids, api_keys=ui_api_keys)
-                    st.success(f"Comparative Analysis Complete for {len(selected_comp_ids)} paper(s)!")
 
-    # Check for existing analysis data in memory or disk
-    comp_data = mem_store.get_comparative_analysis()
-    if not comp_data and os.path.exists("data/comparative_analysis.json"):
-        try:
-            with open("data/comparative_analysis.json", "r", encoding="utf-8") as cf:
-                comp_data = json.load(cf)
-        except Exception:
-            pass
+                st.warning("Please select a paper first.")
 
-    if comp_data:
-        st.subheader("📑 Cross-Paper Comparative Analysis Dashboard")
-        src_engine = comp_data.get("analysis_source", "Unknown Engine")
-        if "LLM" in src_engine or "Gemini" in src_engine:
-            st.success(f"🤖 **Generated by LLM Engine**: {src_engine}")
-        else:
-            st.info(f"⚡ **Generated by Grounded Heuristic Engine**: {src_engine}")
+    st.subheader(f"📑 Stored Single-Paper Summaries: {len(summaries)}")
 
-        c_tab1, c_tab2, c_tab3, c_tab4, c_tab5 = st.tabs([
-            "📊 5-Column Comparison Table",
-            "📖 Narrative Synthesis Report",
-            "🧩 Dataset Overlap Matrix",
-            "⚠️ Limitation Clusters",
-            "🔍 Raw JSON Output"
+    if summaries:
+
+        selected_sum_id = st.selectbox("Select Paper Summary to View:", list(summaries.keys()), key="select_sum_id")
+
+        if selected_sum_id:
+
+            s_data = summaries[selected_sum_id]
+
+            st.markdown(f"### 📖 {s_data.get('paper_title', selected_sum_id)}")
+
+            st.caption(f"Citation: `{s_data.get('grounded_citation', 'N/A')}` | Paper ID: `{selected_sum_id}`")
+
+            t_tldr, t_meth, t_results, t_fail = st.tabs([
+
+                "📌 Executive TL;DR",
+
+                "🔬 Detailed Methodology",
+
+                "📊 Empirical Results",
+
+                "⚠️ Failure Modes & Limitations"
+
+            ])
+
+            with t_tldr:
+
+                st.write(s_data.get("executive_summary", "No summary available."))
+
+            with t_meth:
+
+                st.write(s_data.get("methodology_deep_dive", "No methodology available."))
+
+            with t_results:
+
+                st.write(s_data.get("empirical_results", "No results available."))
+
+            with t_fail:
+
+                st.write(s_data.get("limitations_and_failures", "No limitations available."))
+
+            with st.expander("🔍 View Raw Summary JSON"):
+
+                st.json(s_data)
+
+    else:
+
+        st.info("No summaries found. Run Step 3 from the demo CLI or generate one above.")
+
+with tab6:
+
+    st.header("Step 4: Cross-Paper Comparative Analysis Matrix")
+
+    st.markdown("Pydantic-grounded comparative matrix cross-referencing benchmarks, methods, and limitations.")
+
+    from src.agents.memory_store import get_global_memory_store
+
+    from src.agents.comparative import run_comparative_analysis
+
+    mem_store = get_global_memory_store()
+
+    comp_analysis = mem_store.get_comparative_analysis()
+
+    if st.button("🚀 Re-Run Comparative Analysis Agent", key="btn_run_comp"):
+
+        with st.spinner("Executing Cross-Paper Comparative Agent across all summaries..."):
+
+            run_comparative_analysis()
+
+            st.success("Comparative Analysis Matrix updated successfully!")
+
+            st.rerun()
+
+    if comp_analysis:
+
+        m_rows = comp_analysis.get("methodology_comparison", [])
+
+        m1, m2, m3 = st.columns(3)
+
+        m1.metric("Total Papers Analyzed", len(m_rows))
+
+        m2.metric("Cross-Cutting Limitation Themes", len(comp_analysis.get("limitation_themes", [])))
+
+        m3.metric("Shared Benchmark Datasets", len(comp_analysis.get("dataset_overlap_matrix", {})))
+
+        st.divider()
+
+        tab_matrix, tab_themes, tab_datasets, tab_md = st.tabs([
+
+            "📋 5-Column Comparative Matrix",
+
+            "🧩 Limitation Themes & Trade-offs",
+
+            "📊 Benchmark Dataset Consensus",
+
+            "📑 Full Markdown Report"
+
         ])
 
-        with c_tab1:
-            st.subheader("Automated 5-Column Literature Comparison Table")
-            meth_rows = comp_data.get("methodology_comparison", [])
-            met_rows = comp_data.get("metrics_comparison", [])
-            
-            records = []
-            for m_item, met_item in zip(meth_rows, met_rows):
-                records.append({
-                    "Paper & Citation": f"{m_item.get('paper_title')} ({m_item.get('grounded_citation')})",
-                    "Architecture Paradigm": f"{m_item.get('paradigm')} — {m_item.get('key_innovation')[:80]}",
-                    "Benchmark Datasets": ", ".join(met_item.get("evaluated_datasets", [])) if met_item.get("evaluated_datasets") else "N/A",
-                    "Quantitative Results & Baselines": f"{met_item.get('quantitative_results')[:140]}... | Baseline: {met_item.get('baseline_comparison')[:80]}...",
-                    "Method Name / ID": m_item.get("method_name")
-                })
-            if records:
-                st.dataframe(records, use_container_width=True)
-            
-            st.markdown("#### Rendered Academic Markdown Table")
-            rep = comp_data.get("markdown_comparison_report", "")
-            table_lines = [line for line in rep.splitlines() if line.strip().startswith("|")]
-            if table_lines:
-                table_md = "\n".join(table_lines)
-                st.markdown(table_md, unsafe_allow_html=True)
-            elif rep:
-                st.markdown(rep, unsafe_allow_html=True)
+        with tab_matrix:
 
-        with c_tab2:
-            st.subheader("Full Cross-Paper Synthesis & Methodological Narrative")
-            st.markdown(comp_data.get("markdown_comparison_report", "No report available."), unsafe_allow_html=True)
+            if m_rows:
 
-        with c_tab3:
-            st.subheader("Benchmark Dataset Overlap & Cross-Evaluation Matrix")
-            ds_matrix = comp_data.get("dataset_overlap_matrix", {})
+                import pandas as pd
+
+                matrix_data = []
+
+                for r in m_rows:
+
+                    matrix_data.append({
+
+                        "Paper ID": r.get("paper_id"),
+
+                        "Method": r.get("method_name"),
+
+                        "Paradigm": r.get("paradigm"),
+
+                        "Citation": r.get("grounded_citation"),
+
+                        "Strengths / Gains": r.get("primary_strengths")[:150] + "..." if len(r.get("primary_strengths", "")) > 150 else r.get("primary_strengths"),
+
+                        "Failure Modes": r.get("failure_modes")[:150] + "..." if len(r.get("failure_modes", "")) > 150 else r.get("failure_modes")
+
+                    })
+
+                st.dataframe(pd.DataFrame(matrix_data), use_container_width=True)
+
+        with tab_themes:
+
+            for theme in comp_analysis.get("limitation_themes", []):
+
+                with st.expander(f"⚠️ {theme.get('theme')} ({theme.get('frequency')} papers affected)"):
+
+                    st.markdown(f"**Impacted Papers:** {', '.join(theme.get('paper_ids', []))}")
+
+                    st.markdown(f"**Synthesized Architectural Bottleneck:**\n{theme.get('synthesized_observation')}")
+
+        with tab_datasets:
+
+            ds_matrix = comp_analysis.get("dataset_overlap_matrix", {})
+
             if ds_matrix:
-                shared = {ds: pids for ds, pids in ds_matrix.items() if len(pids) > 1}
 
-                if shared:
-                    st.markdown("##### 🤝 High-Consensus Shared Datasets (Evaluated across multiple papers)")
-                    for ds, pids in shared.items():
-                        st.markdown(f"- **{ds}**: Evaluated in `{len(pids)}` papers (`{', '.join(pids)}`)")
-                
-                st.markdown("##### 📌 All Evaluated Benchmark Datasets")
-                ds_records = [{"Dataset": ds, "Evaluated in Papers": ", ".join(pids), "Paper Count": len(pids)} for ds, pids in ds_matrix.items()]
-                st.dataframe(ds_records, use_container_width=True)
+                import pandas as pd
+
+                ds_rows = [{"Dataset": k, "Evaluating Papers Count": len(v), "Paper IDs": ", ".join(v)} for k, v in ds_matrix.items()]
+
+                st.dataframe(pd.DataFrame(ds_rows).sort_values("Evaluating Papers Count", ascending=False), use_container_width=True)
+
+        with tab_md:
+
+            st.markdown(comp_analysis.get("markdown_comparison_report", "No markdown report generated."))
+
+    else:
+
+        st.info("No comparative analysis matrix on disk. Click the button above to execute Agent 4.")
+
+# -----------------------------------------------------------------------------
+
+# Tab 7: Literature Review Synthesis & Structural Diagrams
+
+# -----------------------------------------------------------------------------
+
+with tab7:
+
+    st.header("Step 5 & 6: Literature Review Synthesis & Structural Diagrams")
+
+    st.markdown("Publication-grade Literature Review Report enriched with verified, interactive Mermaid.js diagrams.")
+
+    from src.agents.memory_store import get_global_memory_store
+
+    from src.agents.research_gap import run_research_gap_agent
+
+    from src.agents.report_generator import generate_literature_review
+
+    from src.agents.comparative import run_comparative_analysis
+
+    from src.agents.llm_manager import GeminiLLMManager, LLMManager
+
+    from src.agents.schemas import PaperSchema, ComprehensivePaperSummary, ComparativeAnalysis
+
+    schema_dir = "data/extracted_schemas"
+
+    comp_path = "data/comparative_analysis.json"
+
+    # Identify current selected paper and all available schemas
+
+    current_pdf = st.session_state.get("current_pdf_path", "")
+
+    current_pid = ""
+
+    if current_pdf:
+
+        base = os.path.basename(current_pdf)
+
+        current_pid = base.split("_")[0] if "_" in base else os.path.splitext(base)[0]
+
+    available_schema_files = [f for f in os.listdir(schema_dir) if f.endswith("_schema.json")] if os.path.exists(schema_dir) else []
+
+    all_available_pids = sorted(list(set([sf.replace("_schema.json", "").split("_")[0] for sf in available_schema_files])))
+
+    # 1. Literature Review Scope Selection
+
+    scope_options = []
+
+    if current_pid:
+
+        scope_options.append(f"Current Selected Paper ({current_pid})")
+
+    scope_options.append("Full Benchmark Corpus (All Papers)")
+
+    scope_options.append("Custom Multi-Paper Selection")
+
+    col_scope, _ = st.columns([2, 1])
+
+    with col_scope:
+
+        selected_scope = st.radio(
+
+            "Literature Review Synthesis Scope:",
+
+            scope_options,
+
+            index=0,
+
+            horizontal=True,
+
+            key="review_scope_choice",
+
+            help="Choose whether to generate a deep-dive review for the selected paper or an aggregated review across multiple papers."
+
+        )
+
+    if selected_scope.startswith("Current Selected Paper"):
+
+        target_pids = [current_pid]
+
+        scope_key = current_pid
+
+        report_path = f"data/reports/literature_review_{current_pid}.md"
+
+    elif selected_scope == "Full Benchmark Corpus (All Papers)":
+
+        target_pids = all_available_pids
+
+        scope_key = "corpus"
+
+        report_path = "data/reports/literature_review_report.md"
+
+    else:
+
+        mult_pids = st.multiselect("Select Papers to Include in Synthesis:", all_available_pids, default=[current_pid] if current_pid in all_available_pids else all_available_pids[:3])
+
+        target_pids = mult_pids or ([current_pid] if current_pid else all_available_pids)
+
+        scope_key = "_".join(sorted(target_pids)[:3])
+
+        report_path = "data/reports/literature_review_custom.md"
+
+    # 2. Staleness Detection & Validation Check
+
+    report_is_stale = False
+
+    staleness_reasons = []
+
+    if os.path.exists(report_path):
+
+        report_mtime = os.path.getmtime(report_path)
+
+        with open(report_path, "r", encoding="utf-8") as rf:
+
+            first_lines = "".join([rf.readline() for _ in range(6)])
+
+            match = re.search(r"Corpus Coverage:\s*(\d+)", first_lines)
+
+            if match:
+
+                report_paper_count = int(match.group(1))
+
+                if report_paper_count != len(target_pids):
+
+                    report_is_stale = True
+
+                    staleness_reasons.append(f"Report covers {report_paper_count} papers, but {len(target_pids)} papers are selected.")
+
+    else:
+
+        # Check if legacy report exists and matches
+
+        legacy_path = "data/reports/literature_review_report.md"
+
+        if len(target_pids) == len(all_available_pids) and os.path.exists(legacy_path):
+
+            report_path = legacy_path
+
+    if report_is_stale:
+
+        st.warning("⚠️ **Report Staleness Warning:**\n" + "\n".join([f"- {r}" for r in staleness_reasons]) + "\n\n*Click 'Synthesize Fresh Literature Review' below to update the report and diagrams.*")
+
+    # 3. Synthesis Action Controls
+
+    col_synth_btn, col_synth_status = st.columns([1, 2])
+
+    with col_synth_btn:
+
+        trigger_synth = st.button("🚀 Synthesize Fresh Literature Review", key="btn_trigger_synthesis", help="Executes Agent 5 (Research Gaps) and Agent 6 (Report Generator) atomically for the selected scope.")
+
+    if trigger_synth:
+
+        llm = LLMManager()
+
+        with st.status(f"Executing Report & Diagram Synthesis for {len(target_pids)} Paper(s)...", expanded=True) as status_box:
+
+            st.write(f"Target Papers: {', '.join(target_pids)}")
+
+            mem_store = get_global_memory_store()
+
+            # Retrieve schemas for target_pids
+
+            raw_schemas = mem_store.get_all_schemas()
+
+            if not raw_schemas and os.path.exists(schema_dir):
+
+                for sf in available_schema_files:
+
+                    with open(os.path.join(schema_dir, sf), "r", encoding="utf-8") as f_s:
+
+                        s_data = json.load(f_s)
+
+                        raw_schemas[s_data.get("paper_id", sf)] = s_data
+
+            typed_schemas = []
+
+            for s_dict in raw_schemas.values():
+
+                s_obj = PaperSchema(**s_dict) if isinstance(s_dict, dict) else s_dict
+
+                if any(p in s_obj.paper_id for p in target_pids):
+
+                    typed_schemas.append(s_obj)
+
+            # Retrieve summaries for target_pids
+
+            raw_summaries = mem_store.get_all_summaries()
+
+            sum_dir = "data/summaries"
+
+            if not raw_summaries and os.path.exists(sum_dir):
+
+                for sum_f in os.listdir(sum_dir):
+
+                    if sum_f.endswith("_summary.json"):
+
+                        with open(os.path.join(sum_dir, sum_f), "r", encoding="utf-8") as f_sum:
+
+                            sm_data = json.load(f_sum)
+
+                            raw_summaries[sm_data.get("paper_id", sum_f)] = sm_data
+
+            typed_summaries = []
+
+            for sm_dict in raw_summaries.values():
+
+                sm_pid = getattr(sm_dict, "paper_id", "") or (sm_dict.get("paper_id", "") if isinstance(sm_dict, dict) else "")
+
+                if any(p in sm_pid for p in target_pids):
+
+                    try:
+
+                        typed_summaries.append(ComprehensivePaperSummary(**sm_dict) if isinstance(sm_dict, dict) else sm_dict)
+
+                    except Exception:
+
+                        typed_summaries.append(sm_dict)
+
+            # Execute comparative analysis for target papers
+
+            typed_comp = run_comparative_analysis(target_paper_ids=target_pids)
+
+            # Synthesize matching research gaps
+
+            typed_gaps = run_research_gap_agent(typed_schemas, llm_manager=llm)
+
+            # Synthesize final literature review
+
+            final_report = generate_literature_review(typed_schemas, typed_summaries, typed_comp, typed_gaps, llm_manager=llm, output_filepath=report_path)
+
+            st.success("✅ Literature Review Report & Diagrams Synthesized Successfully!")
+
+            st.rerun()
+
+    # 4. Report & Diagrams Display
+
+    if os.path.exists(report_path):
+
+        with open(report_path, "r", encoding="utf-8") as rf:
+
+            report_content = rf.read()
+
+        d_tab1, d_tab2, d_tab3, d_tab4 = st.tabs([
+
+            "📊 Interactive Diagrams (Mermaid.js)",
+
+            "📈 Empirical Charts & Graphs",
+
+            "🗺️ Geographical & Spatial Maps",
+
+            "📖 Full Markdown Literature Review"
+
+        ])
+
+        with d_tab1:
+
+            st.subheader("Structural Knowledge & Methodology Diagrams")
+
+            extracted_diags = extract_mermaid_diagrams_by_id(report_content)
+
+            from src.agents.report_generator import (
+                generate_methodology_flowchart,
+                generate_themes_mindmap,
+                generate_research_gaps_flowchart
+            )
+
+            # Guarantee all three diagrams are available even if the report markdown was partial
+            if "methodology_flowchart" not in extracted_diags or "themes_mindmap" not in extracted_diags or "research_gaps_flowchart" not in extracted_diags:
+                mem_store = get_global_memory_store()
+                comp_data = mem_store.get_comparative_analysis()
+                if not comp_data:
+                    comp_data = run_comparative_analysis(target_paper_ids=target_pids)
+                cur_schemas = [mem_store.get_schema(p) for p in target_pids if mem_store.get_schema(p)]
+
+                if "methodology_flowchart" not in extracted_diags:
+                    d1_code = generate_methodology_flowchart(comp_data)
+                    if d1_code:
+                        extracted_diags["methodology_flowchart"] = d1_code
+                if "themes_mindmap" not in extracted_diags:
+                    d2_code = generate_themes_mindmap(comp_data)
+                    if d2_code:
+                        extracted_diags["themes_mindmap"] = d2_code
+                if "research_gaps_flowchart" not in extracted_diags:
+                    d3_code = generate_research_gaps_flowchart(comp_data, None, schemas=cur_schemas)
+                    if d3_code:
+                        extracted_diags["research_gaps_flowchart"] = d3_code
+
+            titles = {
+                "methodology_flowchart": "Diagram 1: Architectural Paradigms & Methodology Flowchart",
+                "themes_mindmap": "Diagram 2: Research Themes Mind Map",
+                "research_gaps_flowchart": "Diagram 3: Empirical Constraints & Research Gaps Lineage"
+            }
+            main_diagram_order = ["methodology_flowchart", "themes_mindmap", "research_gaps_flowchart"]
+
+            # Guarantee all three tabs are always rendered and selectable
+            sub_tabs = st.tabs([titles[k] for k in main_diagram_order])
+            for idx, k in enumerate(main_diagram_order):
+                with sub_tabs[idx]:
+                    st.markdown(f"**{titles[k]}**")
+                    code = extracted_diags.get(k, "")
+                    if k == "methodology_flowchart":
+                        render_mermaid_component(code, uid=f"diag_{k}", timeout_ms=10000, height=520)
+                    elif k == "themes_mindmap":
+                        render_mermaid_component(code, uid=f"diag_{k}", timeout_ms=10000, height=480)
+                        with st.expander("🔍 View / Copy Raw Mermaid Code"):
+                            st.code(code, language="mermaid")
+                    elif k == "research_gaps_flowchart":
+                        render_mermaid_component(code, uid=f"diag_{k}", timeout_ms=10000, height=460)
+                    else:
+                        render_mermaid_component(code, uid=f"diag_{k}", timeout_ms=10000, height=580)
+                        with st.expander("🔍 View / Copy Raw Mermaid Code"):
+                            st.code(code, language="mermaid")
+
+        with d_tab2:
+
+            st.subheader("Empirical Quantitative Benchmarks & Baseline Comparisons")
+
+            figures_dir = "data/figures"
+
+            chart_files = []
+
+            if os.path.exists(figures_dir):
+
+                for root, _, files in os.walk(figures_dir):
+
+                    for f in files:
+
+                        if f.startswith("chart_") and f.endswith(".png"):
+
+                            chart_files.append(os.path.join(root, f).replace("\\", "/"))
+
+            # Filter strictly to target paper(s)
+
+            active_charts = [c for c in chart_files if any(p in c for p in target_pids)]
+
+            if active_charts:
+
+                for c_path in sorted(active_charts):
+
+                    p_name = os.path.basename(os.path.dirname(c_path)) or "Paper"
+
+                    st.markdown(f"#### Quantitative Results: {p_name}")
+
+                    st.image(c_path, use_container_width=True)
+
+                    st.caption(f"Figure: Quantitative Benchmark Comparison for {p_name}")
+
+                    st.markdown("---")
+
             else:
-                st.info("No evaluated datasets registered in comparative analysis.")
 
-        with c_tab4:
-            st.subheader("Grouped Limitation Clusters Across Papers")
-            lim_themes = comp_data.get("limitation_themes", [])
-            if lim_themes:
-                for theme in lim_themes:
-                    with st.expander(f"⚠️ {theme.get('theme')} (Frequency: {theme.get('frequency')} paper(s))", expanded=True):
-                        st.write(f"**Impacted Papers:** {', '.join(theme.get('citations', []))} (`{', '.join(theme.get('paper_ids', []))}`)")
-                        st.write(f"**Grounded Pattern:** {theme.get('description')}")
+                st.info(f"ℹ️ No quantitative benchmark chart found for the active target ({', '.join(target_pids)}). The paper did not report structured numerical evaluation tables.")
+
+        with d_tab3:
+
+            st.subheader("Geographical & Regional Spatial Projections")
+
+            figures_dir = "data/figures"
+
+            map_files = []
+
+            if os.path.exists(figures_dir):
+
+                for root, _, files in os.walk(figures_dir):
+
+                    for f in files:
+
+                        if f.startswith("spatial_map_") and f.endswith(".png"):
+
+                            map_files.append(os.path.join(root, f).replace("\\", "/"))
+
+            # Filter strictly to target paper(s)
+
+            active_maps = [m for m in map_files if any(p in m for p in target_pids)]
+
+            if active_maps:
+
+                for m_path in sorted(active_maps):
+
+                    p_name = os.path.basename(os.path.dirname(m_path)) or "Paper"
+
+                    st.markdown(f"#### Spatial Climate & Regional Analysis: {p_name}")
+
+                    st.image(m_path, use_container_width=True)
+
+                    st.caption(f"Figure: Regional Spatial Distribution & Projections ({p_name})")
+
+                    st.markdown("---")
+
             else:
-                st.info("No limitation themes identified.")
 
-        with c_tab5:
-            st.subheader("Raw Comparative Analysis JSON Object")
-            st.json(comp_data)
+                st.info("ℹ️ **No Geographical / Spatial Distribution Data for Selected Paper(s)**\n\n"
 
-# Tab 6: Architecture Flowchart
-with tab6:
-    st.header("Phase 2 Multi-Agent Architecture Flowchart")
-    st.markdown("""
-    ```mermaid
-    flowchart TD
-        A[Paper PDFs] --> B[Stage 1: Layout & Chunk Parser]
-        B --> C[Stage 2: Semantic Extraction Agent]
-        C --> D[PaperSchema JSON]
-        D --> E[Step 3: Grounded Summarizer Agent]
-        E --> F[Global LangGraph Memory Store]
-        F --> G[Comparative Analysis Agent]
-        F --> H[Research Gap Agent]
-        F --> I[Report Generation Agent]
-    ```
-    """)
+                        "Spatial maps are dynamically generated exclusively for research papers with genuine "
+
+                        "geographic, meteorological, or regional dimensions (e.g., regional climate projections, "
+
+                        "epidemiological surveys across geographic zones).\n\n"
+
+                        "For purely computational, algorithmic, or mathematical papers, geographical maps are "
+
+                        "deliberately omitted to preserve academic integrity and prevent hallucinated spatial associations.")
+
+        with d_tab4:
+
+            st.subheader("Publication-Ready Literature Review Draft")
+
+            render_report_markdown_with_diagrams(report_content, base_uid=f"report_{scope_key}")
+
+            st.download_button(
+
+                label="📥 Download Literature Review Report (Markdown)",
+
+                data=report_content,
+
+                file_name=os.path.basename(report_path),
+
+                mime="text/markdown",
+
+                use_container_width=True
+
+            )
+
+    else:
+
+        st.info(f"ℹ️ No literature review report found on disk for {target_pids} yet. Click 'Synthesize Fresh Literature Review' above to run Agent 5 and Agent 6.")
 
