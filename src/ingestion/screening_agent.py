@@ -29,25 +29,26 @@ class RelevanceScreeningAgent:
     def __init__(self, recency_weight: float = 0.15):
         """
         Args:
-            recency_weight: Weight (0.0 to 0.3) given to publication recency bonus.
+            recency_weight: Weight (0.0 to 0.35) given to publication recency bonus.
                            Default 0.15 gives recent papers an intentional boost
                            without completely overriding semantic relevance.
         """
         self.recency_weight = recency_weight
         self.client = arxiv.Client()
 
-    def search_arxiv(self, query: str, max_candidates: int = 25) -> List[Dict[str, Any]]:
+    def search_arxiv(self, query: str, max_candidates: int = 25, **kwargs) -> List[Dict[str, Any]]:
         """
         Queries arXiv for candidate papers using the provided query string.
         Returns parsed lightweight metadata dictionaries.
         """
+        limit = kwargs.get("max_results", max_candidates)
         clean_query = query.strip()
         if not clean_query:
             return []
 
         search = arxiv.Search(
             query=clean_query,
-            max_results=max_candidates,
+            max_results=limit,
             sort_by=arxiv.SortCriterion.Relevance
         )
 
@@ -55,7 +56,6 @@ class RelevanceScreeningAgent:
         try:
             for result in self.client.results(search):
                 arxiv_id = result.get_short_id()
-                # Clean arxiv_id (remove version suffix e.g. v1, v2 for standard IDs)
                 clean_id = re.sub(r'v\d+$', '', arxiv_id)
 
                 pub_year = result.published.year if result.published else datetime.datetime.now().year
@@ -80,18 +80,36 @@ class RelevanceScreeningAgent:
 
         return candidates
 
-    def score_and_rank(self, user_query: str, candidates: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    def score_and_rank(
+        self,
+        arg1: Any,
+        arg2: Any = None,
+        recency_weight: Optional[float] = None,
+        **kwargs
+    ) -> List[Dict[str, Any]]:
         """
         Calculates composite semantic relevance + recency bonus scores (0-100%).
         Ranks candidates descending by composite score.
+        Accepts (user_query, candidates) or (candidates, user_query).
         """
+        if isinstance(arg1, str):
+            user_query = arg1
+            candidates = arg2 or []
+        elif isinstance(arg2, str):
+            user_query = arg2
+            candidates = arg1 or []
+        else:
+            user_query = kwargs.get("user_query") or kwargs.get("query") or ""
+            candidates = arg1 if isinstance(arg1, list) else (arg2 if isinstance(arg2, list) else [])
+
         if not candidates:
             return []
+
+        active_weight = recency_weight if recency_weight is not None else kwargs.get("recency_weight", self.recency_weight)
 
         # 1. Build text corpus for vectorization: query + (title * 2 + abstract) for each paper
         corpus = [user_query]
         for c in candidates:
-            # Emphasize title matches by duplicating title in composite string
             paper_text = f"{c['title']} {c['title']} {c['abstract']}"
             corpus.append(paper_text)
 
@@ -104,7 +122,6 @@ class RelevanceScreeningAgent:
             )
             tfidf_matrix = vectorizer.fit_transform(corpus)
             
-            # Cosine similarity of user query (row 0) against all candidate papers (rows 1..)
             query_vec = tfidf_matrix[0:1]
             paper_vecs = tfidf_matrix[1:]
             sim_scores = cosine_similarity(query_vec, paper_vecs)[0]
@@ -119,19 +136,18 @@ class RelevanceScreeningAgent:
         for idx, c in enumerate(candidates):
             raw_semantic_score = float(sim_scores[idx])
 
-            # Recency factor: papers from current year get 1.0, decreasing by 0.15 per year older, floor at 0.0
             years_old = max(0, current_year - c["published_year"])
             recency_factor = max(0.0, 1.0 - (years_old * 0.15))
 
-            # Composite formula: (1 - weight) * semantic + (weight * recency)
-            # Scaled to 0-100%
-            composite_score = ((1.0 - self.recency_weight) * raw_semantic_score) + (self.recency_weight * recency_factor)
+            composite_score = ((1.0 - active_weight) * raw_semantic_score) + (active_weight * recency_factor)
             pct_score = round(composite_score * 100, 1)
 
             c_scored = dict(c)
             c_scored["semantic_score"] = round(raw_semantic_score * 100, 1)
             c_scored["recency_factor"] = round(recency_factor * 100, 1)
             c_scored["relevance_score"] = pct_score
+            c_scored["composite_score"] = composite_score
+            c_scored["year"] = c["published_year"]
             scored_candidates.append(c_scored)
 
         # 4. Sort descending by composite relevance score
@@ -148,57 +164,82 @@ class RelevanceScreeningAgent:
 
         print("==================================================")
         print("Relevance Screening Agent: Downloading Approved Papers")
-        print(f"Saving {len(selected_candidates)} papers to {output_dir}")
-        print("==================================================\n")
+        print(f"Target Directory: {output_dir}")
+        print("==================================================")
 
-        for idx, paper in enumerate(selected_candidates, start=1):
-            arxiv_id = paper.get("arxiv_id") or "paper"
-            safe_title = re.sub(r'[^a-zA-Z0-9_\-]', '_', paper.get("title", "")[:35]).strip('_')
-            filename = f"{arxiv_id}_{safe_title}.pdf"
+        headers = {
+            "User-Agent": "AgenticAI-LiteratureReview/1.0 (RVCE NLP-05 Project)"
+        }
+
+        for idx, paper in enumerate(selected_candidates, 1):
+            arxiv_id = paper.get("arxiv_id", "")
+            title = paper.get("title", "paper")
+            # Normalize title for safe filename: alphanumeric + underscore
+            clean_title = re.sub(r'[^a-zA-Z0-9_\- ]', '', title)
+            clean_title = re.sub(r'\s+', '_', clean_title)[:40]
+
+            filename = f"{arxiv_id}_{clean_title}.pdf" if arxiv_id else f"{clean_title}.pdf"
             filepath = os.path.join(output_dir, filename)
 
-            if os.path.exists(filepath) and os.path.getsize(filepath) > 1000:
+            if os.path.exists(filepath):
                 print(f"[{idx}/{len(selected_candidates)}] Already exists: {filename}")
                 saved_paths.append(filepath)
                 continue
 
-            print(f"[{idx}/{len(selected_candidates)}] Downloading: {paper.get('title')}...")
             pdf_url = paper.get("pdf_url")
-            if not pdf_url:
-                pdf_url = f"https://arxiv.org/pdf/{paper['arxiv_id']}.pdf"
+            if not pdf_url and arxiv_id:
+                pdf_url = f"https://arxiv.org/pdf/{arxiv_id}.pdf"
 
+            print(f"[{idx}/{len(selected_candidates)}] Downloading: {arxiv_id} - {title[:50]}...")
             try:
-                res = requests.get(pdf_url, headers={"User-Agent": "AgenticAI-LitReview/1.0"}, timeout=25)
-                if res.status_code == 200 and len(res.content) > 1000:
+                resp = requests.get(pdf_url, headers=headers, timeout=45)
+                if resp.status_code == 200:
                     with open(filepath, "wb") as f:
-                        f.write(res.content)
-                    print(f"   Saved: {filename} ({len(res.content) // 1024} KB)")
+                        f.write(resp.content)
+                    print(f"   Saved to: {filepath} ({len(resp.content)//1024} KB)")
                     saved_paths.append(filepath)
                 else:
-                    print(f"   [WARN] Direct URL returned status {res.status_code}. Attempting arxiv package download...")
-                    search = arxiv.Search(id_list=[paper['arxiv_id']])
-                    paper_obj = next(self.client.results(search))
-                    paper_obj.download_pdf(dirpath=output_dir, filename=filename)
-                    saved_paths.append(filepath)
-                    print(f"   Saved via arXiv client: {filename}")
+                    print(f"   [FAIL] HTTP {resp.status_code} for {pdf_url}")
             except Exception as e:
-                print(f"   [ERROR] Failed to download {arxiv_id}: {e}")
+                print(f"   [ERROR] Failed to download {pdf_url}: {e}")
 
+        print("==================================================")
+        print(f"Completed: Downloaded {len(saved_paths)}/{len(selected_candidates)} papers.")
+        print("==================================================")
         return saved_paths
 
 
 def screen_and_download_topic_papers(
-    topic_query: str,
+    topic: str,
     top_k: int = 5,
-    max_search_candidates: int = 25,
-    output_dir: str = "data/pdf_corpus",
-    recency_weight: float = 0.15
+    max_candidates: int = 20,
+    recency_weight: float = 0.20,
+    output_dir: str = "data/pdf_corpus"
 ) -> List[Dict[str, Any]]:
     """
-    Convenience end-to-end function:
-    Searches arXiv -> scores & ranks with recency bias -> returns top_k candidate metadata.
+    Convenience function: Given a topic, queries arXiv, screens candidates,
+    ranks them by semantic similarity + recency bonus, and downloads top-k.
     """
     agent = RelevanceScreeningAgent(recency_weight=recency_weight)
-    candidates = agent.search_arxiv(topic_query, max_candidates=max_search_candidates)
-    ranked = agent.score_and_rank(topic_query, candidates)
-    return ranked[:top_k]
+    print(f"\n[Screening Agent] Fetching candidates for topic: '{topic}'...")
+    candidates = agent.search_arxiv(topic, max_candidates=max_candidates)
+    if not candidates:
+        print("[Screening Agent] No candidates found on arXiv.")
+        return []
+
+    print(f"[Screening Agent] Scoring {len(candidates)} candidates against '{topic}'...")
+    ranked = agent.score_and_rank(topic, candidates)
+    selected = ranked[:top_k]
+
+    print(f"[Screening Agent] Top {len(selected)} Selected Papers:")
+    for idx, p in enumerate(selected, 1):
+        print(f"   {idx}. [{p['relevance_score']}% Match, {p['published_year']}] {p['title'][:70]}")
+
+    agent.download_papers(selected, output_dir=output_dir)
+    return selected
+
+
+if __name__ == "__main__":
+    test_topic = "Multi-Agent LLM Coordination and Memory"
+    print(f"Testing RelevanceScreeningAgent with topic: '{test_topic}'")
+    screen_and_download_topic_papers(test_topic, top_k=2, max_candidates=5)

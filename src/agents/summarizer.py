@@ -127,37 +127,51 @@ def generate_grounded_heuristic_summary(schema_dict: Dict[str, Any], context: Di
     first_author = authors[0].split()[-1] if authors and authors[0] else "Authors"
     citation_tag = f"[{first_author} et al., {venue}]"
 
-    prob_text = schema_dict.get("core_problem", "") or context.get("intro", "")[:300] or "Multi-step reasoning and tool integration limitations in language agents."
-    meth_text = schema_dict.get("methodology_summary", "") or context.get("methods", "")[:400] or "Interleaves reasoning traces with tool interaction steps."
-    res_text = schema_dict.get("empirical_results", "") or context.get("results", "")[:400] or "Outperforms single-prompt baselines on multi-step benchmarks."
-    lim_text = schema_dict.get("explicit_limitations", "") or context.get("limitations", "")[:300] or "High API token overhead in iterative interaction loops."
+    prob_text = schema_dict.get("core_problem", "") or context.get("intro", "")[:300] or f"Core research questions and investigative focus in {title}."
+    meth_text = schema_dict.get("methodology_summary", "") or context.get("methods", "")[:400] or f"Proposed technical methodology and framework architecture for {title}."
+    res_text = schema_dict.get("empirical_results", "") or context.get("results", "")[:400] or f"Empirical benchmark findings and experimental metrics reported in {title}."
+    lim_text = schema_dict.get("explicit_limitations", "") or context.get("limitations", "")[:300] or f"Methodological constraints and evaluation bounds identified in {title}."
 
-    datasets = schema_dict.get("datasets_eval", ["HotpotQA", "ALFWorld", "WebShop"])
+    datasets = schema_dict.get("datasets_eval") or [f"{title} Evaluation Data"]
+    pipeline_steps = schema_dict.get("pipeline_steps") or ["Problem Ingestion", "Method Execution", "Empirical Evaluation"]
+
+    # Deduce domain-grounded motivation and challenges
+    motivation_str = f"Overcoming empirical and methodological bottlenecks in existing approaches to achieve validated outcomes in {title}."
+    core_challenges = [
+        f"Accurate representation and modeling within {title}",
+        f"Empirical validation across benchmarks: {', '.join(datasets[:2])}",
+        f"Addressing explicit constraints: {lim_text[:80]}..."
+    ]
 
     prob_obj = ProblemMotivation(
         problem_statement=prob_text,
-        motivation="Prior standard and chain-of-thought prompting approaches operate as static black boxes without real-world feedback, causing hallucination and error propagation.",
-        core_challenges=["Reducing hallucination in reasoning traces", "Integrating interactive external tool feedback", "Maintaining long-horizon execution state"]
+        motivation=motivation_str,
+        core_challenges=core_challenges
     )
 
     meth_obj = ProposedMethodology(
         method_name=title.split(":")[0] if ":" in title else title.split()[0],
         core_architecture=meth_text,
-        technical_innovations=["Synergistic thought-action interleaved prompting", "Asynchronous action-space language expansion", "In-context few-shot trajectory learning"],
-        key_algorithms="Action space augmented as A' = A U L where L is free-form language thoughts."
+        technical_innovations=pipeline_steps[:3] if len(pipeline_steps) >= 2 else [f"Novel architecture for {title}", "Systematic empirical evaluation pipeline"],
+        key_algorithms=f"Core pipeline execution parameterized across {len(pipeline_steps)} methodological phases."
     )
+
+    # Derive metrics from results or default
+    metrics_list = ["Reported Metric", "Benchmark Score"]
+    if any("%" in res_text for _ in [1]):
+        metrics_list = ["Accuracy / Success Rate (%)", "Normalized Metric"]
 
     res_obj = EmpiricalResults(
         evaluated_datasets=datasets,
-        key_metrics=["Exact Match (EM)", "Accuracy (Acc)", "Task Success Rate (SR)"],
+        key_metrics=metrics_list,
         quantitative_results_summary=res_text,
-        baseline_comparisons="Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
+        baseline_comparisons=f"Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in {title}."
     )
 
     lim_obj = ExplicitLimitations(
         stated_limitations=[lim_text],
-        failure_modes="Repetitive looping in greedy decoding; non-informative search results derail trajectory formulation.",
-        computational_tradeoffs="Increased context window usage due to multi-turn thought-action-observation histories."
+        failure_modes=f"Failure boundaries and error cases associated with {lim_text[:120]}.",
+        computational_tradeoffs=f"Computational requirements, runtime complexity, and data scaling constraints discussed in {title}."
     )
 
     md_summary = f"""# Grounded Literature Review Summary: {title}
@@ -338,6 +352,31 @@ def process_all_schemas(schema_dir: str = "data/extracted_schemas", output_dir: 
     print("\n==================================================")
     print("Step 3 Complete: Paper summaries generated & stored in Global Memory!")
     print("==================================================")
+
+
+
+class SinglePaperSummarizerAgent:
+    """Class-based agent interface for single-paper summarization."""
+    def __init__(self, llm_manager=None, output_dir: str = "data/summaries"):
+        self.llm_manager = llm_manager
+        self.output_dir = output_dir
+
+    def summarize_paper(self, paper_id_or_path: str, use_llm=None) -> ComprehensivePaperSummary:
+        if os.path.exists(paper_id_or_path) and paper_id_or_path.endswith(".json"):
+            schema_path = paper_id_or_path
+        else:
+            p_id = os.path.basename(paper_id_or_path).split("_")[0].replace(".pdf", "")
+            schema_dir = "data/extracted_schemas"
+            schema_path = os.path.join(schema_dir, f"{p_id}_schema.json")
+            if not os.path.exists(schema_path) and os.path.exists(schema_dir):
+                candidates = [os.path.join(schema_dir, f) for f in os.listdir(schema_dir) if f.startswith(p_id) and f.endswith("_schema.json")]
+                if candidates:
+                    schema_path = candidates[0]
+            if not os.path.exists(schema_path):
+                raise FileNotFoundError(f"No schema JSON found for paper ID '{p_id}' in '{schema_dir}'")
+
+        should_use_llm = use_llm if use_llm is not None else (bool(self.llm_manager.keys) if (self.llm_manager and hasattr(self.llm_manager, "keys")) else False)
+        return run_summarizer_agent(schema_path=schema_path, output_dir=self.output_dir, llm_manager=self.llm_manager, use_llm=should_use_llm)
 
 if __name__ == "__main__":
     process_all_schemas()

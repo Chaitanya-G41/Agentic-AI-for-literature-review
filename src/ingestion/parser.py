@@ -26,7 +26,7 @@ def extract_visuals_with_pymupdf(doc: pymupdf.Document, paper_id: str, save_imag
     """
     figures_info = []
     vector_graphs_info = []
-    
+
     paper_fig_dir = os.path.join(FIGURES_BASE_DIR, paper_id)
     if save_images:
         os.makedirs(paper_fig_dir, exist_ok=True)
@@ -89,7 +89,7 @@ def parse_pdf_file(filepath: str, use_grobid_if_available: bool = True) -> Dict[
 
     filename = os.path.basename(filepath)
     paper_id = filename.split("_")[0]
-    
+
     # Open with PyMuPDF for visual assets (figures, graphs, layout)
     doc = pymupdf.open(filepath)
     visuals = extract_visuals_with_pymupdf(doc, paper_id=paper_id, save_images=True)
@@ -109,10 +109,30 @@ def parse_pdf_file(filepath: str, use_grobid_if_available: bool = True) -> Dict[
 
     # 2. PyMuPDF Native Layout Parsing Engine
     extracted_chunks = []
+    extracted_tables = []
     full_text_list = []
     current_section = "Abstract / Introduction"
 
     for page_num, page in enumerate(doc, start=1):
+        # Extract structured tables
+        try:
+            tabs = page.find_tables()
+            if tabs.tables:
+                for t_idx, tab in enumerate(tabs.tables, start=1):
+                    raw_rows = tab.extract()
+                    if raw_rows and len(raw_rows) >= 2:
+                        clean_rows = [[str(cell).strip() if cell is not None else "" for cell in r] for r in raw_rows]
+                        if any(any(c for c in r) for r in clean_rows):
+                            extracted_tables.append({
+                                "table_id": f"TAB-{paper_id}-P{page_num}-{t_idx}",
+                                "page_number": page_num,
+                                "rows_count": len(clean_rows),
+                                "cols_count": len(clean_rows[0]),
+                                "data": clean_rows[:20]
+                            })
+        except Exception:
+            pass
+
         # Extract reading-order blocks (x0, y0, x1, y1, text, block_no, block_type)
         blocks = page.get_text("blocks")
         for b in blocks:
@@ -153,6 +173,8 @@ def parse_pdf_file(filepath: str, use_grobid_if_available: bool = True) -> Dict[
         "figures": visuals["figures"],
         "vector_graphs_count": visuals["vector_graphs_count"],
         "vector_graphs": visuals["vector_graphs"],
+        "tables_count": len(extracted_tables),
+        "tables": extracted_tables,
         "full_text": "\n\n".join(full_text_list),
         "chunks": extracted_chunks
     }
