@@ -174,7 +174,9 @@ def process_pdf_directory(input_dir: str = "data/pdf_corpus", output_dir: str = 
     parsed_count = 0
     for idx, filename in enumerate(pdf_files, start=1):
         filepath = os.path.join(input_dir, filename)
-        out_filename = filename.replace(".pdf", "_parsed.json")
+        pid_match = re.match(r"^(\\d{4}\\.\\d{4,5})", filename)
+        paper_id = pid_match.group(1) if pid_match else filename.replace(".pdf", "")
+        out_filename = f"{paper_id}_parsed.json"
         out_filepath = os.path.join(output_dir, out_filename)
 
         print(f"[{idx}/{len(pdf_files)}] Parsing: {filename}...")

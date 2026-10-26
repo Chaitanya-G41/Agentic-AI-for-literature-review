@@ -8,6 +8,7 @@ import sys
 import glob
 import json
 import time
+import argparse
 
 # Ensure pythonpath resolves src package
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -18,24 +19,60 @@ from src.agents.summarizer import run_summarizer_agent
 from src.agents.comparative import run_comparative_analysis
 from src.agents.research_gap import run_research_gap_agent
 from src.agents.report_generator import generate_literature_review
+from src.ingestion.screening_agent import RelevanceScreeningAgent
 
 def main():
+    parser = argparse.ArgumentParser(description="Agentic AI Literature Review Pipeline")
+    parser.add_argument("--topic", type=str, default=None, help="Research topic/title to screen and download papers for")
+    parser.add_argument("--top_k", type=int, default=5, help="Number of top papers to select when topic is provided")
+    parser.add_argument("--max_candidates", type=int, default=20, help="Max candidates to fetch from arXiv")
+    parser.add_argument("--recency_weight", type=float, default=0.20, help="Weight given to recent papers (0.0 to 0.35)")
+    parser.add_argument("--clear_corpus", action="store_true", help="Clear existing corpus before downloading for new topic")
+    args = parser.parse_args()
+
     print("=" * 80)
     print("  NLP-05: AGENTIC AI FOR AUTOMATED RESEARCH PAPER ANALYSIS")
     print("  Live Multi-Agent Pipeline CLI Demonstration")
     print("=" * 80)
     print()
 
+    # Step 0: Relevance Screening (if topic provided)
+    if args.topic:
+        print(f"[Agent 1] Relevance Screening Agent Active for Topic: '{args.topic}'")
+        if args.clear_corpus:
+            print("   [!] Clearing existing data/pdf_corpus/...")
+            for f in glob.glob("data/pdf_corpus/*.pdf"):
+                try:
+                    os.remove(f)
+                except Exception:
+                    pass
+        
+        agent = RelevanceScreeningAgent()
+        print(f"   Fetching up to {args.max_candidates} candidate papers from arXiv...")
+        candidates = agent.search_arxiv(args.topic, max_results=args.max_candidates)
+        print(f"   Found {len(candidates)} candidates. Scoring and ranking with recency bias ({args.recency_weight})...")
+        ranked = agent.score_and_rank(candidates, args.topic, recency_weight=args.recency_weight)
+        
+        selected = ranked[:args.top_k]
+        print(f"   Selected Top {len(selected)} Papers:")
+        for i, p in enumerate(selected, 1):
+            print(f"      {i}. [{p['composite_score']*100:.1f}% Match] ({p['year']}) {p['title'][:65]}...")
+        
+        print(f"   Downloading {len(selected)} papers to data/pdf_corpus/...")
+        downloaded = agent.download_papers(selected, output_dir="data/pdf_corpus")
+        print(f"   Successfully downloaded {len(downloaded)} papers.")
+        print()
+
     # Find papers in data/pdf_corpus
     pdf_files = sorted(glob.glob("data/pdf_corpus/*.pdf"))
     if not pdf_files:
-        print("[Error] No PDF files found in data/pdf_corpus/. Running downloader...")
+        print("[Error] No PDF files found in data/pdf_corpus/. Running benchmark downloader...")
         from src.ingestion.downloader import download_benchmark_corpus
         download_benchmark_corpus()
         pdf_files = sorted(glob.glob("data/pdf_corpus/*.pdf"))
 
     demo_papers = pdf_files
-    print(f"[+] Selected {len(demo_papers)} Benchmark Papers for Live Execution:")
+    print(f"[+] Selected {len(demo_papers)} Papers for Live Execution:")
     for path in demo_papers:
         print(f"   - {os.path.basename(path)}")
     print()
@@ -83,16 +120,16 @@ def main():
     except Exception as e:
         print(f"   Comparative Agent note: {e}")
 
-    # 4. Research Gap Agent (User authored!)
+    # 4. Research Gap Agent
     print("\n[Agent 5] Running Research Gap Identification Agent...")
     gap_analysis = None
     try:
         gap_analysis = run_research_gap_agent(schemas)
-        print(f"   Research Gaps synthesized successfully.")
+        print("   Research Gaps synthesized successfully.")
     except Exception as e:
         print(f"   Research Gap Agent note: {e}")
 
-    # 5. Report Generator Agent (User authored!)
+    # 5. Report Generator Agent
     print("\n[Agent 6] Compiling Final Literature Review Report...")
     if gap_analysis:
         report = generate_literature_review(schemas, summaries, comp_analysis, gap_analysis)

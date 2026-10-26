@@ -32,29 +32,40 @@ st.markdown('<div class="sub-title">Department of CSE, R.V. College of Engineeri
 st.sidebar.title("🛠️ Project Controls")
 st.sidebar.info("**Current Phase:** Phase 2 Step 4 (Comparative Analysis Agent & Multi-Paper Synthesis) Active")
 
-api_key = st.sidebar.text_input("Google Gemini API Key(s) (Optional, comma-separated)", type="password", key="gemini_api_key_input")
-cleaned_api_key = api_key.strip().strip('"').strip("'") if api_key else ""
-if cleaned_api_key:
-    st.session_state["gemini_api_keys"] = cleaned_api_key
-    os.environ["GEMINI_API_KEYS"] = cleaned_api_key
-    os.environ["GEMINI_API_KEY"] = cleaned_api_key.split(",")[0].strip()
-    keys_cnt = len([k for k in cleaned_api_key.split(",") if k.strip()])
-    st.sidebar.success(f"Gemini API Key Pool Configured! ({keys_cnt} key(s))")
-else:
-    try:
-        from dotenv import load_dotenv, find_dotenv
-        env_file = find_dotenv(usecwd=True)
-        if env_file:
-            load_dotenv(env_file, override=True)
-    except Exception:
-        pass
+# Load environment variables early
+try:
+    from dotenv import load_dotenv, find_dotenv
+    env_file = find_dotenv(usecwd=True)
+    if env_file:
+        load_dotenv(env_file, override=True)
+except Exception:
+    pass
 
-    env_keys = os.environ.get("GEMINI_API_KEYS", "") or os.environ.get("GEMINI_API_KEY", "") or os.environ.get("GOOGLE_API_KEY", "")
-    if env_keys.strip():
-        st.session_state["gemini_api_keys"] = env_keys.strip()
-        st.sidebar.success(f"Gemini API Key loaded from .env file! (...{env_keys.strip()[-4:]})")
+# 1. NVIDIA API Key Input (Primary)
+nv_key_input = st.sidebar.text_input("NVIDIA API Key (Primary - build.nvidia.com)", type="password", key="nvidia_api_key_input")
+cleaned_nv_key = nv_key_input.strip().strip('"').strip("'") if nv_key_input else ""
+if cleaned_nv_key:
+    os.environ["NVIDIA_API_KEY"] = cleaned_nv_key
+    st.sidebar.success(f"NVIDIA NIM Active! (...{cleaned_nv_key[-4:]})")
+else:
+    env_nv = os.environ.get("NVIDIA_API_KEY", "") or os.environ.get("NVAPI_KEY", "")
+    if env_nv.strip():
+        st.sidebar.success(f"NVIDIA API Key loaded from .env! (...{env_nv.strip()[-4:]})")
     else:
-        st.sidebar.warning("⚠️ No API Key detected in `.env` or sidebar input.\n\nAdd `GEMINI_API_KEY=your_key` in `.env` or paste it above to run LLM summarization!")
+        st.sidebar.warning("⚠️ No NVIDIA API Key detected in `.env` or sidebar.")
+
+# 2. Gemini API Key Input (Secondary Fallback)
+with st.sidebar.expander("Google Gemini Fallback Key (Optional)"):
+    api_key = st.text_input("Gemini API Key", type="password", key="gemini_api_key_input")
+    cleaned_api_key = api_key.strip().strip('"').strip("'") if api_key else ""
+    if cleaned_api_key:
+        st.session_state["gemini_api_keys"] = cleaned_api_key
+        os.environ["GEMINI_API_KEY"] = cleaned_api_key
+        st.success(f"Gemini Fallback Configured! (...{cleaned_api_key[-4:]})")
+    else:
+        env_gemini = os.environ.get("GEMINI_API_KEY", "") or os.environ.get("GOOGLE_API_KEY", "")
+        if env_gemini.strip():
+            st.info(f"Gemini Key loaded from .env (...{env_gemini.strip()[-4:]})")
 
 # Tabs Breakdown
 tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
@@ -66,23 +77,141 @@ tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
     "🗺️ Pipeline Architecture Flowchart"
 ])
 
-# Tab 1: Step 1 Paper Collection
+# Tab 1: Step 1 Paper Collection & Relevance Screening
 with tab1:
-    st.header("Step 1: Automated Paper Collection & External API Ingestion")
-    st.write("Fetch benchmark research papers via **arXiv API**, **Semantic Scholar API**, or upload raw paper PDFs directly.")
+    st.header("Step 1: Research Topic Ingestion & Relevance Screening Agent")
+    st.write(
+        "Define your research project title/topic to autonomously discover, rank, and download "
+        "the most relevant and recent research papers from arXiv via **Relevance Screening Agent**."
+    )
 
-    col1, col2 = st.columns([1, 1])
-    with col1:
-        st.subheader("1. Download Benchmark Corpus (12 Papers)")
-        if st.button("🚀 Download 12 Agentic AI Papers via arXiv API"):
-            with st.spinner("Fetching papers from arXiv API..."):
+    # 1. Topic Definition & Screening Controls
+    st.subheader("🎯 Research Project Title / Topic Query")
+    t_col1, t_col2 = st.columns([3, 1])
+    with t_col1:
+        project_title = st.text_input(
+            "Enter your Research Topic / Project Title:",
+            value=st.session_state.get("project_title", "Agentic AI with Multi-Agent Systems and Tool Use"),
+            placeholder="e.g. Multi-Modal Vision-Language Agents for Autonomous Web Navigation",
+            help="The Relevance Screening Agent calculates semantic similarity between this title and candidate papers."
+        )
+    with t_col2:
+        top_k = st.number_input("Target Papers (Top X):", min_value=1, max_value=20, value=6, step=1)
+
+    s_col1, s_col2 = st.columns([1, 1])
+    with s_col1:
+        recency_pref = st.slider(
+            "Recency Preference Bonus:",
+            min_value=0.0,
+            max_value=0.35,
+            value=0.20,
+            step=0.05,
+            help="Higher value gives newer (2024-2026) papers a boost in ranking alongside semantic similarity."
+        )
+    with s_col2:
+        max_search = st.slider(
+            "Candidates to Screen from arXiv:",
+            min_value=10,
+            max_value=40,
+            value=25,
+            step=5,
+            help="Number of initial candidates fetched from arXiv before vector screening."
+        )
+
+    # Screening Action Button
+    if st.button("🔍 Run Relevance Screening Agent", type="primary"):
+        if not project_title.strip():
+            st.warning("Please enter a research topic or project title.")
+        else:
+            with st.spinner(f"Querying arXiv and screening candidates against '{project_title}'..."):
+                from src.ingestion.screening_agent import RelevanceScreeningAgent
+                screener = RelevanceScreeningAgent(recency_weight=recency_pref)
+                candidates = screener.search_arxiv(project_title, max_candidates=max_search)
+                if not candidates:
+                    st.error("No papers found on arXiv matching your query. Try broadening your keywords.")
+                else:
+                    ranked = screener.score_and_rank(project_title, candidates)
+                    st.session_state["screened_candidates"] = ranked
+                    st.session_state["project_title"] = project_title
+                    st.success(f"Screened and ranked {len(ranked)} candidate papers! Review the top matches below.")
+
+    # 2. Display Candidate Screening Results Table
+    if "screened_candidates" in st.session_state and st.session_state["screened_candidates"]:
+        ranked_papers = st.session_state["screened_candidates"]
+        st.markdown("---")
+        st.subheader("📋 Screened Papers Ranked by Relevance & Recency")
+        st.info("The top papers are pre-selected based on your Target Count. Adjust selections as needed and click Download.")
+
+        # Selection checkboxes using a multi-select or data_editor
+        default_selected_ids = [p["arxiv_id"] for p in ranked_papers[:top_k]]
+        
+        selected_paper_ids = st.multiselect(
+            "Select Papers to Download into Corpus:",
+            options=[p["arxiv_id"] for p in ranked_papers],
+            default=default_selected_ids,
+            format_func=lambda x: next((f"[{p['relevance_score']}% match, {p['published_year']}] {p['title'][:80]}" for p in ranked_papers if p["arxiv_id"] == x), x)
+        )
+
+        # Show detailed table
+        table_rows = []
+        for p in ranked_papers:
+            table_rows.append({
+                "Selected": "✅ Yes" if p["arxiv_id"] in selected_paper_ids else "No",
+                "Overall Score": f"{p['relevance_score']}%",
+                "Semantic Match": f"{p['semantic_score']}%",
+                "Year": p["published_year"],
+                "Paper Title": p["title"],
+                "Authors": ", ".join(p["authors"][:3]) + ("..." if len(p["authors"]) > 3 else ""),
+                "arXiv ID": p["arxiv_id"],
+                "Published": p["published_date"]
+            })
+        st.dataframe(table_rows, width="stretch")
+
+        with st.expander("📖 Inspect Abstracts of Screened Papers"):
+            for p in ranked_papers:
+                st.markdown(f"**[{p['relevance_score']}% Match | {p['published_year']}] {p['title']}** (`{p['arxiv_id']}`)")
+                st.write(p["abstract"])
+                st.markdown("---")
+
+        d_col1, d_col2 = st.columns([1.5, 1])
+        with d_col1:
+            if st.button(f"📥 Download & Ingest Selected ({len(selected_paper_ids)} Papers)", type="primary"):
+                if not selected_paper_ids:
+                    st.warning("Please select at least one paper to download.")
+                else:
+                    papers_to_download = [p for p in ranked_papers if p["arxiv_id"] in selected_paper_ids]
+                    with st.spinner(f"Downloading {len(papers_to_download)} selected PDF(s) into data/pdf_corpus/..."):
+                        from src.ingestion.screening_agent import RelevanceScreeningAgent
+                        screener = RelevanceScreeningAgent()
+                        saved = screener.download_papers(papers_to_download)
+                        st.success(f"Successfully downloaded {len(saved)} paper(s) into `data/pdf_corpus/`!")
+
+        with d_col2:
+            if st.button("🧹 Clear Corpus Directory"):
+                corpus_dir = "data/pdf_corpus"
+                if os.path.exists(corpus_dir):
+                    for f in os.listdir(corpus_dir):
+                        if f.endswith(".pdf"):
+                            try:
+                                os.remove(os.path.join(corpus_dir, f))
+                            except Exception:
+                                pass
+                    st.info("Cleared `data/pdf_corpus/`. Ready for fresh topic ingestion!")
+
+    # 3. Existing Local Corpus Preview & Benchmark Ingestion
+    st.markdown("---")
+    c_col1, c_col2 = st.columns([1, 1])
+    with c_col1:
+        st.subheader("📚 Benchmark Corpus Fallback")
+        if st.button("🚀 Download 12 Default Agentic AI Benchmark Papers"):
+            with st.spinner("Fetching benchmark papers..."):
                 from src.ingestion.downloader import download_benchmark_corpus
                 download_benchmark_corpus()
                 st.success("12 Benchmark Papers Downloaded Successfully into `data/pdf_corpus/`!")
 
-    with col2:
-        st.subheader("2. Direct PDF File Upload")
-        uploaded_files = st.file_uploader("Upload Paper PDFs", type=["pdf"], accept_multiple_files=True)
+    with c_col2:
+        st.subheader("📤 Manual PDF Upload")
+        uploaded_files = st.file_uploader("Upload Custom PDFs", type=["pdf"], accept_multiple_files=True)
         if uploaded_files:
             os.makedirs("data/pdf_corpus", exist_ok=True)
             for file in uploaded_files:
@@ -96,10 +225,10 @@ with tab1:
     if os.path.exists(corpus_dir):
         files = [f for f in os.listdir(corpus_dir) if f.endswith(".pdf")]
         if files:
-            st.write(f"Total Papers Available: **{len(files)}**")
-            st.dataframe({"Filename": files}, use_container_width=True)
+            st.write(f"Total Papers Available in `data/pdf_corpus/`: **{len(files)}**")
+            st.dataframe({"Filename": files}, width="stretch")
         else:
-            st.info("No PDF files found yet. Click Download or Upload PDFs above.")
+            st.info("No PDF files found yet in `data/pdf_corpus/`.")
 
 # Tab 2: Step 2 PDF Parser & Schema Extractor
 with tab2:
@@ -261,7 +390,7 @@ with tab5:
         with col_c2:
             st.write("")
             st.write("")
-            run_comp_btn = st.button("🔬 Run Comparative Analysis Agent", type="primary", use_container_width=True)
+            run_comp_btn = st.button("🔬 Run Comparative Analysis Agent", type="primary", width="stretch")
 
         if run_comp_btn:
             if not selected_comp_ids:
@@ -313,7 +442,7 @@ with tab5:
                     "Method Name / ID": m_item.get("method_name")
                 })
             if records:
-                st.dataframe(records, use_container_width=True)
+                st.dataframe(records, width="stretch")
             
             st.markdown("#### Rendered Academic Markdown Table")
             rep = comp_data.get("markdown_comparison_report", "")
@@ -341,7 +470,7 @@ with tab5:
                 
                 st.markdown("##### 📌 All Evaluated Benchmark Datasets")
                 ds_records = [{"Dataset": ds, "Evaluated in Papers": ", ".join(pids), "Paper Count": len(pids)} for ds, pids in ds_matrix.items()]
-                st.dataframe(ds_records, use_container_width=True)
+                st.dataframe(ds_records, width="stretch")
             else:
                 st.info("No evaluated datasets registered in comparative analysis.")
 

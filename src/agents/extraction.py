@@ -97,7 +97,8 @@ def run_extraction_agent(parsed_json_path, output_dir="data/extracted_schemas", 
     extracted_schema = None
 
     if llm.keys:
-        print(f"   Running Gemini LLM Extraction for {paper_id}...")
+        provider_name = llm.last_provider or ("NVIDIA NIM" if llm.nvidia_keys else "Gemini")
+        print(f"   Running {provider_name} Extraction for {paper_id}...")
         prompt = f"""
         You are an expert NLP Research Extraction Agent.
         Extract structured schema fields for this research paper:
