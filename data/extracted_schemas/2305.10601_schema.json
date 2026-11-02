@@ -1,0 +1,32 @@
+{
+  "paper_id": "2305.10601",
+  "paper_title": "Tree of Thoughts: Deliberate Problem Solving with Large Language Models",
+  "authors": [
+    "Shunyu Yao",
+    "Dian Yu",
+    "Jeffrey Zhao",
+    "Izhak Shafran",
+    "Thomas L. Griffiths",
+    "Yuan Cao",
+    "Karthik Narasimhan"
+  ],
+  "venue": "arXiv preprint arXiv:2305.10601 (2023)",
+  "core_problem": "Large language models are increasingly used for general problem solving but are confined to token-level left-to-right decision making during inference, which limits performance on tasks requiring exploration, strategic lookahead, or where initial decisions are pivotal.",
+  "methodology_summary": "Tree of Thoughts generalizes Chain of Thought prompting by enabling exploration over coherent units of text called thoughts as intermediate steps. ToT allows language models to perform deliberate decision making by generating multiple candidate thoughts, self-evaluating choices, and selecting next actions with lookahead and backtracking. The framework supports plug-and-play search algorithms over a thought tree with state evaluation and pruning; the paper explores simple search variants such as oracle-guided DFS and heuristic best-state selection.",
+  "datasets_eval": [
+    "Game of 24",
+    "Creative Writing",
+    "Mini Crosswords"
+  ],
+  "empirical_results": "ToT significantly enhances problem solving on three novel tasks requiring non-trivial planning or search. On Game of 24, GPT-4 with chain-of-thought prompting solves 4% of tasks while ToT achieves 74% success rate. Oracle best DFS state selection further improves performance, solving 7/20 games in the evaluated set. Improvements are also reported for Creative Writing and Mini Crosswords.",
+  "explicit_limitations": "Within Chain-of-Thought Self-Consistency there is no local exploration of different thought steps per chain and the most frequent output heuristic only applies when the output space is limited e.g., multi-choice QA. Within ToT, only relatively simple search algorithms are explored and more advanced methods such as A* and Monte Carlo Tree Search are left for future work. State evaluation used for pruning is imperfect; the evaluator can deem valid crossword words as impossible and prune correct branches, and ablating pruning generally worsens performance.",
+  "numerical_metrics": [],
+  "geographical_data": {},
+  "pipeline_steps": [
+    "Problem Formulation & Data Ingestion",
+    "Method Execution & Architecture",
+    "Empirical Evaluation & Benchmarking"
+  ],
+  "generation_mode": "GENUINE_LLM",
+  "model_name": "NVIDIA_NIM (meta/muse-glimmer-30b)"
+}

@@ -458,7 +458,7 @@ def generate_methodology_flowchart(comp_analysis, report_title: str = "") -> str
         cards = _get_single_paper_cards(row, pid)
 
         # Column 0: Problem Formulation & Ingestion (under P_0)
-        lines.append('    subgraph Col_0 ["<b>Problem Formulation & Ingestion</b>"]')
+        lines.append('    subgraph Col_0 ["Problem Formulation & Ingestion"]')
         lines.append('        direction TB')
         c0_lbl1 = escape_mermaid_label(f"<b>{cards[0][0]}</b><br/><span style='font-size:11px;color:#64748B;'>{cards[0][1]}</span>", wrap_len=24)
         c0_lbl2 = escape_mermaid_label(f"<b>{cards[1][0]}</b><br/><span style='font-size:11px;color:#64748B;'>{cards[1][1]}</span>", wrap_len=24)
@@ -468,7 +468,7 @@ def generate_methodology_flowchart(comp_analysis, report_title: str = "") -> str
         lines.append('    end')
 
         # Column 1: Core Architecture & Method (under P_0)
-        lines.append('    subgraph Col_1 ["<b>Core Architecture & Method</b>"]')
+        lines.append('    subgraph Col_1 ["Core Architecture & Method"]')
         lines.append('        direction TB')
         c1_lbl1 = escape_mermaid_label(f"<b>{cards[2][0]}</b><br/><span style='font-size:11px;color:#64748B;'>{cards[2][1]}</span>", wrap_len=24)
         c1_lbl2 = escape_mermaid_label(f"<b>{cards[3][0]}</b><br/><span style='font-size:11px;color:#64748B;'>{cards[3][1]}</span>", wrap_len=24)
@@ -478,7 +478,7 @@ def generate_methodology_flowchart(comp_analysis, report_title: str = "") -> str
         lines.append('    end')
 
         # Column 2: Empirical Evaluation & Baselines (under P_1)
-        lines.append('    subgraph Col_2 ["<b>Empirical Evaluation & Baselines</b>"]')
+        lines.append('    subgraph Col_2 ["Empirical Evaluation & Baselines"]')
         lines.append('        direction TB')
         c2_lbl1 = escape_mermaid_label(f"<b>{cards[4][0]}</b><br/><span style='font-size:11px;color:#64748B;'>{cards[4][1]}</span>", wrap_len=24)
         c2_lbl2 = escape_mermaid_label(f"<b>{cards[5][0]}</b><br/><span style='font-size:11px;color:#64748B;'>{cards[5][1]}</span>", wrap_len=24)
@@ -554,7 +554,7 @@ def generate_methodology_flowchart(comp_analysis, report_title: str = "") -> str
             for col_id, col_title, p_parent, papers in col_specs:
                 if not papers:
                     continue
-                lines.append(f'    subgraph {col_id} ["<b>{col_title}</b>"]')
+                lines.append(f'    subgraph {col_id} ["{col_title}"]')
                 lines.append('        direction TB')
                 card_ids = []
                 for r in papers:
@@ -594,7 +594,7 @@ def generate_methodology_flowchart(comp_analysis, report_title: str = "") -> str
 
                 col_id = f"Col_{p_idx}"
                 clean_col_title = escape_mermaid_label(f"{p_name.split('&')[0].strip()} Approaches", wrap_len=22)
-                lines.append(f'    subgraph {col_id} ["<b>{clean_col_title}</b>"]')
+                lines.append(f'    subgraph {col_id} ["{clean_col_title}"]')
                 lines.append('        direction TB')
                 card_ids = []
                 for r in p_rows:
@@ -620,9 +620,9 @@ def generate_methodology_flowchart(comp_analysis, report_title: str = "") -> str
                 p_idx += 1
 
     lines.append("")
-    lines.append("    classDef rootStyle fill:#1E3A8A,stroke:#3B82F6,stroke-width:2px,color:#FFFFFF,rx:8,ry:8,font-size:15px;")
-    lines.append("    classDef paradigmStyle fill:#1E3A8A,stroke:#3B82F6,stroke-width:1.5px,color:#FFFFFF,font-weight:600,rx:6,ry:6,font-size:13px;")
-    lines.append("    classDef paperCard fill:#FFFFFF,stroke:#CBD5E1,stroke-width:1.2px,color:#1E293B,rx:6,ry:6,font-size:12px;")
+    lines.append("    classDef rootStyle fill:#1E3A8A,stroke:#3B82F6,stroke-width:2px,color:#FFFFFF,font-size:15px;")
+    lines.append("    classDef paradigmStyle fill:#1E3A8A,stroke:#3B82F6,stroke-width:1.5px,color:#FFFFFF,font-weight:600,font-size:13px;")
+    lines.append("    classDef paperCard fill:#FFFFFF,stroke:#CBD5E1,stroke-width:1.2px,color:#1E293B,font-size:12px;")
     lines.append("    linkStyle default stroke:#3B82F6,stroke-width:1.5px;")
     lines.append("```")
 
@@ -945,16 +945,16 @@ def generate_themes_mindmap(comp_analysis, report_title: str = "") -> str:
 
     # Visual Styles strictly matching reference palette
     lines.append("")
-    lines.append("    classDef centerRoot fill:#3B82F6,stroke:#1D4ED8,stroke-width:2.5px,color:#FFFFFF,font-size:13px,font-weight:bold,rx:20,ry:20;")
-    lines.append("    classDef paradigmMain fill:#2DD4BF,stroke:#0D9488,stroke-width:2px,color:#0F172A,font-size:12px,font-weight:bold,rx:6,ry:6;")
-    lines.append("    classDef paradigmSub fill:#5EEAD4,stroke:#14B8A6,stroke-width:1.5px,color:#0F172A,font-size:11px,font-weight:600,rx:14,ry:14;")
-    lines.append("    classDef paradigmLeaf fill:#CCFBF1,stroke:#2DD4BF,stroke-width:1.2px,color:#0F172A,font-size:11px,rx:5,ry:5;")
-    lines.append("    classDef benchmarkMain fill:#FBBF24,stroke:#D97706,stroke-width:2px,color:#0F172A,font-size:12px,font-weight:bold,rx:6,ry:6;")
-    lines.append("    classDef benchmarkSub fill:#FDE68A,stroke:#F59E0B,stroke-width:1.5px,color:#78350F,font-size:11px,font-weight:600,rx:14,ry:14;")
-    lines.append("    classDef benchmarkLeaf fill:#FEF3C7,stroke:#FBBF24,stroke-width:1.2px,color:#78350F,font-size:11px,rx:5,ry:5;")
-    lines.append("    classDef bottleneckMain fill:#A78BFA,stroke:#7C3AED,stroke-width:2px,color:#FFFFFF,font-size:12px,font-weight:bold,rx:6,ry:6;")
-    lines.append("    classDef bottleneckSub fill:#DDD6FE,stroke:#8B5CF6,stroke-width:1.5px,color:#4C1D95,font-size:11px,font-weight:600,rx:14,ry:14;")
-    lines.append("    classDef bottleneckLeaf fill:#EDE9FE,stroke:#A78BFA,stroke-width:1.2px,color:#4C1D95,font-size:11px,rx:5,ry:5;")
+    lines.append("    classDef centerRoot fill:#3B82F6,stroke:#1D4ED8,stroke-width:2.5px,color:#FFFFFF,font-size:13px,font-weight:bold;")
+    lines.append("    classDef paradigmMain fill:#2DD4BF,stroke:#0D9488,stroke-width:2px,color:#0F172A,font-size:12px,font-weight:bold;")
+    lines.append("    classDef paradigmSub fill:#5EEAD4,stroke:#14B8A6,stroke-width:1.5px,color:#0F172A,font-size:11px,font-weight:600;")
+    lines.append("    classDef paradigmLeaf fill:#CCFBF1,stroke:#2DD4BF,stroke-width:1.2px,color:#0F172A,font-size:11px;")
+    lines.append("    classDef benchmarkMain fill:#FBBF24,stroke:#D97706,stroke-width:2px,color:#0F172A,font-size:12px,font-weight:bold;")
+    lines.append("    classDef benchmarkSub fill:#FDE68A,stroke:#F59E0B,stroke-width:1.5px,color:#78350F,font-size:11px,font-weight:600;")
+    lines.append("    classDef benchmarkLeaf fill:#FEF3C7,stroke:#FBBF24,stroke-width:1.2px,color:#78350F,font-size:11px;")
+    lines.append("    classDef bottleneckMain fill:#A78BFA,stroke:#7C3AED,stroke-width:2px,color:#FFFFFF,font-size:12px,font-weight:bold;")
+    lines.append("    classDef bottleneckSub fill:#DDD6FE,stroke:#8B5CF6,stroke-width:1.5px,color:#4C1D95,font-size:11px,font-weight:600;")
+    lines.append("    classDef bottleneckLeaf fill:#EDE9FE,stroke:#A78BFA,stroke-width:1.2px,color:#4C1D95,font-size:11px;")
 
     # Branch-specific connector colors via linkStyle
     bot_range = ",".join(str(i) for i in range(bot_link_count))
@@ -1056,7 +1056,7 @@ def generate_research_gaps_flowchart(comp_analysis, gap_analysis=None, schemas=N
         ]
 
     # Layer 1: Observed Empirical Constraints & Limitations
-    lines.append('    subgraph Layer1 ["<b>Layer 1: Observed Empirical Constraints & Limitations</b>"]')
+    lines.append('    subgraph Layer1 ["Layer 1: Observed Empirical Constraints & Limitations"]')
     lines.append("        direction LR")
     lt_ids = []
     for idx, (theme_title, meta) in enumerate(lt_items):
@@ -1069,7 +1069,7 @@ def generate_research_gaps_flowchart(comp_analysis, gap_analysis=None, schemas=N
 
     # Layer 2A: Author-Stated Research Gaps
     lines.append("")
-    lines.append('    subgraph Layer2_Author ["<b>Layer 2: Author-Stated Research Gaps</b>"]')
+    lines.append('    subgraph Layer2_Author ["Layer 2: Author-Stated Research Gaps"]')
     lines.append("        direction LR")
     eg_ids = []
     for idx, (gid, gtitle, gmeta) in enumerate(eg_items):
@@ -1083,7 +1083,7 @@ def generate_research_gaps_flowchart(comp_analysis, gap_analysis=None, schemas=N
 
     # Layer 2B: Cross-Paper Synthesized Frontier Gaps
     lines.append("")
-    lines.append('    subgraph Layer2_Synth ["<b>Layer 2: Synthesized Frontier Gaps</b>"]')
+    lines.append('    subgraph Layer2_Synth ["Layer 2: Synthesized Frontier Gaps"]')
     lines.append("        direction LR")
     sg_ids = []
     for idx, (gid, gtitle, gmeta) in enumerate(sg_items):
@@ -1114,9 +1114,9 @@ def generate_research_gaps_flowchart(comp_analysis, gap_analysis=None, schemas=N
 
     # Visual Styles matching academic palette
     lines.append("")
-    lines.append("    classDef limitationStyle fill:#FFFFFF,stroke:#DC2626,stroke-width:1.4px,color:#991B1B,rx:6,ry:6,font-size:11px;")
-    lines.append("    classDef explicitStyle fill:#FFFFFF,stroke:#0D9488,stroke-width:1.4px,color:#115E59,rx:6,ry:6,font-size:11px;")
-    lines.append("    classDef synthStyle fill:#FFFFFF,stroke:#7C3AED,stroke-width:1.4px,color:#5B21B6,rx:6,ry:6,font-size:11px;")
+    lines.append("    classDef limitationStyle fill:#FFFFFF,stroke:#DC2626,stroke-width:1.4px,color:#991B1B,font-size:11px;")
+    lines.append("    classDef explicitStyle fill:#FFFFFF,stroke:#0D9488,stroke-width:1.4px,color:#115E59,font-size:11px;")
+    lines.append("    classDef synthStyle fill:#FFFFFF,stroke:#7C3AED,stroke-width:1.4px,color:#5B21B6,font-size:11px;")
     lines.append("    style Layer1 fill:#FEF2F2,stroke:#FECACA,stroke-width:1.5px;")
     lines.append("    style Layer2_Author fill:#F0FDF4,stroke:#A7F3D0,stroke-width:1.5px;")
     lines.append("    style Layer2_Synth fill:#FAF5FF,stroke:#DDD6FE,stroke-width:1.5px;")

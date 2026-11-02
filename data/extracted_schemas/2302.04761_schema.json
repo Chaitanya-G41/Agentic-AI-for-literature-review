@@ -1,0 +1,24 @@
+{
+  "paper_id": "2302.04761",
+  "paper_title": "Toolformer: Language Models Can Teach Themselves to Use Tools",
+  "authors": [
+    "Timo Schick et al."
+  ],
+  "venue": "arXiv preprint",
+  "core_problem": "Language models exhibit remarkable abilities to solve new tasks from few examples or textual instructions, especially at scale, but paradoxically struggle with basic functionality such as arithmetic or factual lookup where much simpler and smaller models excel. Inherent limitations include inability to access up-to-date information on recent events, tendency to hallucinate facts, difficulties in understanding low-resource languages, lack of mathematical skills to perform precise calculations, and unawareness of the progression of time.",
+  "methodology_summary": "Toolformer is trained to decide which APIs to call, when to call them, what arguments to pass, and how to best incorporate the results into future token prediction. Training is self-supervised and requires nothing more than a handful of demonstrations for each API. A range of tools is incorporated including a calculator, a Q&A system, a search engine, a translation system, and a calendar.",
+  "datasets_eval": [
+    "Not specified in provided context"
+  ],
+  "empirical_results": "Toolformer achieves substantially improved zero-shot performance across a variety of downstream tasks, often competitive with much larger models, without sacrificing its core language modeling abilities. Toolformer still lags behind the much larger GPT-3 175B model.",
+  "explicit_limitations": "Toolformer still lags behind the much larger GPT-3 175B model, likely due to the simplicity of the search component. More generally, large language models have inherent limitations that can at best be partially addressed by scaling, including inability to access up-to-date information, tendency to hallucinate facts, difficulties with low-resource languages, lack of precise mathematical skills, and unawareness of time progression. Existing tool-use approaches either rely on large amounts of human annotations or limit tool use to task-specific settings.",
+  "numerical_metrics": [],
+  "geographical_data": {},
+  "pipeline_steps": [
+    "Problem Formulation & Data Ingestion",
+    "Method Execution & Architecture",
+    "Empirical Evaluation & Benchmarking"
+  ],
+  "generation_mode": "GENUINE_LLM",
+  "model_name": "NVIDIA_NIM (meta/muse-glimmer-30b)"
+}

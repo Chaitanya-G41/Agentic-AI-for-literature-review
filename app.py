@@ -111,8 +111,18 @@ def render_mermaid_component(mermaid_code: str, uid: str, timeout_ms: int = 1200
     - CSS typography enforcement: clean dark background #0E1117, 12px body labels, balanced font sizes.
     - Full raw code fallback expander.
     """
-    json_code = json.dumps(mermaid_code)
-    escaped_code = html.escape(mermaid_code)
+    cleaned_code = mermaid_code.strip() if mermaid_code else ""
+    fence_match = re.search(r"```(?:mermaid)?\s*\n(.*?)\n```", cleaned_code, re.DOTALL)
+    if fence_match:
+        cleaned_code = fence_match.group(1).strip()
+    elif cleaned_code.startswith("```"):
+        lines = cleaned_code.splitlines()
+        first_idx = 1 if lines and lines[0].startswith("```") else 0
+        last_idx = len(lines) - 1 if lines and lines[-1].strip() == "```" else len(lines)
+        cleaned_code = "\n".join(lines[first_idx:last_idx]).strip()
+
+    json_code = json.dumps(cleaned_code)
+    escaped_code = html.escape(cleaned_code)
 
     html_content = f"""
     <div id="mermaid-root-{uid}" style="width: 100%; margin: 4px 0; background-color: #0E1117; font-family: Inter, system-ui, -apple-system, sans-serif;">

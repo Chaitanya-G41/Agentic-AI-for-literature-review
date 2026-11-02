@@ -5,51 +5,50 @@
     "Noah Shinn",
     "Federico Cassano",
     "Ashwin Gopinath",
-    "Karthik R. Narasimhan",
-    "Shunyu Yao"
+    "Karthik R. Narasimhan"
   ],
-  "venue": "arXiv preprint",
-  "grounded_citation": "[Shinn et al., arXiv preprint]",
-  "summary_source": "Heuristic Engine Fallback (No API key configured)",
+  "venue": "arXiv preprint 2023",
+  "grounded_citation": "[Shinn et al., arXiv preprint 2023]",
+  "summary_source": "Heuristic Engine Fallback (Grounded Vector RAG Engine (Design Rule: 0 LLM calls))",
   "problem_motivation": {
-    "problem_statement": "Large language models have been increasingly used to interact with external environments as goal-driven agents, but it remains challenging for these language agents to quickly and efficiently learn from trial-and-error as traditional reinforcement learning methods require extensive training samples and expensive model fine-tuning.",
-    "motivation": "Prior standard and chain-of-thought prompting approaches operate as static black boxes without real-world feedback, causing hallucination and error propagation.",
+    "problem_statement": "Large language models are increasingly used to interact with external environments as goal-driven agents, but it remains challenging for these language agents to quickly and efficiently learn from trial-and-error as traditional reinforcement learning methods require extensive training samples and expensive model fine-tuning.",
+    "motivation": "Overcoming empirical and methodological bottlenecks in existing approaches to achieve validated outcomes in Reflexion: Language Agents with Verbal Reinforcement Learning.",
     "core_challenges": [
-      "Reducing hallucination in reasoning traces",
-      "Integrating interactive external tool feedback",
-      "Maintaining long-horizon execution state"
+      "Accurate representation and modeling within Reflexion: Language Agents with Verbal Reinforcement Learning",
+      "Empirical validation across benchmarks: HumanEval, sequential decision-making tasks",
+      "Addressing explicit constraints: Generating useful reflective feedback is challenging; provided context is trunca..."
     ]
   },
   "proposed_methodology": {
     "method_name": "Reflexion",
-    "core_architecture": "Reflexion is a framework to reinforce language agents not by updating weights but through linguistic feedback. Reflexion agents verbally reflect on task feedback signals and maintain their own reflective text in an episodic memory buffer to induce better decision-making in subsequent trials. The framework is flexible enough to incorporate various types, e.g., scalar values or free-form language, and sources, e.g., external or internally simulated, of feedback signals.",
+    "core_architecture": "Reflexion reinforces language agents not by updating weights but through linguistic feedback. Agents verbally reflect on task feedback signals and maintain their own reflective text in an episodic memory buffer to induce better decision-making in subsequent trials. The framework is flexible enough to incorporate various types, e.g., scalar values or free-form language, and sources, e.g., external or internally simulated, of feedback signals.",
     "technical_innovations": [
-      "Synergistic thought-action interleaved prompting",
-      "Asynchronous action-space language expansion",
-      "In-context few-shot trajectory learning"
+      "Problem Formulation & Data Ingestion",
+      "Method Execution & Architecture",
+      "Empirical Evaluation & Benchmarking"
     ],
-    "key_algorithms": "Action space augmented as A' = A U L where L is free-form language thoughts."
+    "key_algorithms": "Core pipeline execution parameterized across 3 methodological phases."
   },
   "empirical_results": {
     "evaluated_datasets": [
-      "HumanEval coding benchmark",
+      "HumanEval",
       "sequential decision-making tasks",
+      "coding tasks",
       "language reasoning tasks"
     ],
     "key_metrics": [
-      "Exact Match (EM)",
-      "Accuracy (Acc)",
-      "Task Success Rate (SR)"
+      "Accuracy / Success Rate (%)",
+      "Normalized Metric"
     ],
-    "quantitative_results_summary": "Reflexion obtains significant improvements over a baseline agent across diverse tasks including sequential decision-making, coding, and language reasoning. On HumanEval coding benchmark, Reflexion achieves 91% pass@1 accuracy, surpassing the previous state-of-the-art GPT-4 that achieves 80%.",
-    "baseline_comparisons": "Consistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks."
+    "quantitative_results_summary": "Reflexion obtains significant improvements over a baseline agent across diverse tasks including sequential decision-making, coding, and language reasoning. On the HumanEval coding benchmark, Reflexion achieves 91% pass@1 accuracy, surpassing the previous state-of-the-art GPT-4 that achieves 80%.",
+    "baseline_comparisons": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in Reflexion: Language Agents with Verbal Reinforcement Learning."
   },
   "explicit_limitations": {
     "stated_limitations": [
-      "The Reflexion process Reflexion is formalized as an iterative optimization process in 1. In the first trial, the Actor produces a trajectory τ 0 by interacting with the environment. The Evaluator then produces a score r 0 which is computed as r t = M e (τ 0 ). r t is only a scalar reward for trial t"
+      "Generating useful reflective feedback is challenging; provided context is truncated and does not contain a complete explicit limitations statement."
     ],
-    "failure_modes": "Repetitive looping in greedy decoding; non-informative search results derail trajectory formulation.",
-    "computational_tradeoffs": "Increased context window usage due to multi-turn thought-action-observation histories."
+    "failure_modes": "Failure boundaries and error cases associated with Generating useful reflective feedback is challenging; provided context is truncated and does not contain a complete expl.",
+    "computational_tradeoffs": "Computational requirements, runtime complexity, and data scaling constraints discussed in Reflexion: Language Agents with Verbal Reinforcement Learning."
   },
-  "markdown_full_summary": "# Grounded Literature Review Summary: Reflexion: Language Agents with Verbal Reinforcement Learning\n\n**Citation Anchor:** [Shinn et al., arXiv preprint]  \n**Venue:** arXiv preprint | **Authors:** Noah Shinn, Federico Cassano, Ashwin Gopinath, Karthik R. Narasimhan, Shunyu Yao  \n\n---\n\n### 1. Core Problem & Motivation\nLarge language models have been increasingly used to interact with external environments as goal-driven agents, but it remains challenging for these language agents to quickly and efficiently learn from trial-and-error as traditional reinforcement learning methods require extensive training samples and expensive model fine-tuning.\n\n*Motivation & Gaps:* Prior standard and chain-of-thought prompting approaches operate as static black boxes without real-world feedback, causing hallucination and error propagation.  \n*Key Challenges Tackled:*\n- Reducing hallucination in reasoning traces\n- Integrating interactive external tool feedback\n\n---\n\n### 2. Proposed Methodology & Technical Architecture\n**Architecture Overview:**  \nReflexion is a framework to reinforce language agents not by updating weights but through linguistic feedback. Reflexion agents verbally reflect on task feedback signals and maintain their own reflective text in an episodic memory buffer to induce better decision-making in subsequent trials. The framework is flexible enough to incorporate various types, e.g., scalar values or free-form language, and sources, e.g., external or internally simulated, of feedback signals.\n\n**Algorithmic Innovation:**  \nAction space augmented as A' = A U L where L is free-form language thoughts.  \n\n*Core Technical Innovations:*\n- Synergistic thought-action interleaved prompting\n- Asynchronous action-space language expansion\n\n---\n\n### 3. Empirical Results & Benchmark Datasets\n**Evaluated Datasets:** HumanEval coding benchmark, sequential decision-making tasks, language reasoning tasks  \n**Key Metrics:** Exact Match (EM), Accuracy (Acc), Task Success Rate (SR)  \n\n**Quantitative Findings:**  \nReflexion obtains significant improvements over a baseline agent across diverse tasks including sequential decision-making, coding, and language reasoning. On HumanEval coding benchmark, Reflexion achieves 91% pass@1 accuracy, surpassing the previous state-of-the-art GPT-4 that achieves 80%.  \n\n**Baseline Comparison:**  \nConsistently outperforms Act-only and standard Chain-of-Thought (CoT) baselines across QA, fact verification, and interactive decision tasks.\n\n---\n\n### 4. Explicit Limitations & Failure Modes\n**Stated Limitations:**  \nThe Reflexion process Reflexion is formalized as an iterative optimization process in 1. In the first trial, the Actor produces a trajectory τ 0 by interacting with the environment. The Evaluator then produces a score r 0 which is computed as r t = M e (τ 0 ). r t is only a scalar reward for trial t  \n\n**Failure Modes & Bottlenecks:**  \nRepetitive looping in greedy decoding; non-informative search results derail trajectory formulation.  \n\n**Computational Trade-offs:**  \nIncreased context window usage due to multi-turn thought-action-observation histories.\n"
+  "markdown_full_summary": "# Grounded Literature Review Summary: Reflexion: Language Agents with Verbal Reinforcement Learning\n\n**Citation Anchor:** [Shinn et al., arXiv preprint 2023]  \n**Venue:** arXiv preprint 2023 | **Authors:** Noah Shinn, Federico Cassano, Ashwin Gopinath, Karthik R. Narasimhan  \n\n---\n\n### 1. Core Problem & Motivation\nLarge language models are increasingly used to interact with external environments as goal-driven agents, but it remains challenging for these language agents to quickly and efficiently learn from trial-and-error as traditional reinforcement learning methods require extensive training samples and expensive model fine-tuning.\n\n*Motivation & Gaps:* Overcoming empirical and methodological bottlenecks in existing approaches to achieve validated outcomes in Reflexion: Language Agents with Verbal Reinforcement Learning.  \n*Key Challenges Tackled:*\n- Accurate representation and modeling within Reflexion: Language Agents with Verbal Reinforcement Learning\n- Empirical validation across benchmarks: HumanEval, sequential decision-making tasks\n\n---\n\n### 2. Proposed Methodology & Technical Architecture\n**Architecture Overview:**  \nReflexion reinforces language agents not by updating weights but through linguistic feedback. Agents verbally reflect on task feedback signals and maintain their own reflective text in an episodic memory buffer to induce better decision-making in subsequent trials. The framework is flexible enough to incorporate various types, e.g., scalar values or free-form language, and sources, e.g., external or internally simulated, of feedback signals.\n\n**Algorithmic Innovation:**  \nCore pipeline execution parameterized across 3 methodological phases.  \n\n*Core Technical Innovations:*\n- Problem Formulation & Data Ingestion\n- Method Execution & Architecture\n\n---\n\n### 3. Empirical Results & Benchmark Datasets\n**Evaluated Datasets:** HumanEval, sequential decision-making tasks, coding tasks, language reasoning tasks  \n**Key Metrics:** Accuracy / Success Rate (%), Normalized Metric  \n\n**Quantitative Findings:**  \nReflexion obtains significant improvements over a baseline agent across diverse tasks including sequential decision-making, coding, and language reasoning. On the HumanEval coding benchmark, Reflexion achieves 91% pass@1 accuracy, surpassing the previous state-of-the-art GPT-4 that achieves 80%.  \n\n**Baseline Comparison:**  \nDemonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in Reflexion: Language Agents with Verbal Reinforcement Learning.\n\n---\n\n### 4. Explicit Limitations & Failure Modes\n**Stated Limitations:**  \nGenerating useful reflective feedback is challenging; provided context is truncated and does not contain a complete explicit limitations statement.  \n\n**Failure Modes & Bottlenecks:**  \nFailure boundaries and error cases associated with Generating useful reflective feedback is challenging; provided context is truncated and does not contain a complete expl.  \n\n**Computational Trade-offs:**  \nComputational requirements, runtime complexity, and data scaling constraints discussed in Reflexion: Language Agents with Verbal Reinforcement Learning.\n"
 }

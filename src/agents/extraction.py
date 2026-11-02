@@ -220,9 +220,13 @@ def run_extraction_agent(parsed_json_path, output_dir="data/extracted_schemas", 
             except Exception as e:
                 print(f"   Schema validation failed ({e}). Using Heuristic Fallback...")
 
-    from src.agents.visual_engine import extract_numerical_benchmarks_from_paper, detect_geographical_relevance
-    bench_data = extract_numerical_benchmarks_from_paper(parsed_json, None)
-    geo_data = detect_geographical_relevance(parsed_json.get("full_text", ""), paper_id=paper_id)
+    try:
+        from src.agents.visual_engine import extract_numerical_benchmarks_from_paper, detect_geographical_relevance
+        bench_data = extract_numerical_benchmarks_from_paper(parsed_json, None)
+        geo_data = detect_geographical_relevance(parsed_json.get("full_text", ""), paper_id=paper_id)
+    except (ImportError, ModuleNotFoundError):
+        bench_data = {}
+        geo_data = {}
 
     # Derive pipeline steps dynamically
     pipeline_steps = []
