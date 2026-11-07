@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23818CF8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z'/><path d='M6 6h10'/><path d='M6 10h10'/></svg>" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Scholar's Digital Binder | NLP-05</title>
+    
+    <!-- Editorial Serif & Monospace Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS with custom configuration matching The Scholar's Digital Binder theme -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              parchment: {
+                50: '#FAF9F6',
+                100: '#F5F2EB',
+                200: '#EAE5D9',
+                300: '#DDD5C4',
+                800: '#2A2927',
+                900: '#18191B',
+              },
+              canvas: {
+                light: '#F9F8F6',
+                card: '#FFFFFF',
+              },
+              // Pastel Accent Coding
+              binder: {
+                lavender: '#E0E7FF',
+                lavenderText: '#4338CA',
+                lavenderBorder: '#818CF8',
+                sage: '#DCFCE7',
+                sageText: '#065F46',
+                sageBorder: '#34D399',
+                peach: '#FEF3C7',
+                peachText: '#92400E',
+                peachBorder: '#F59E0B',
+                coral: '#FFE4E6',
+                coralText: '#9F1239',
+                coralBorder: '#FB7185',
+              }
+            },
+            fontFamily: {
+              serif: ['Fraunces', 'Newsreader', 'Georgia', 'serif'],
+              sans: ['Inter', 'system-ui', 'sans-serif'],
+              mono: ['JetBrains Mono', 'monospace'],
+            },
+            boxShadow: {
+              'slip': '0 2px 10px -2px rgba(0,0,0,0.04), 0 1px 3px 0 rgba(0,0,0,0.02)',
+              'binder': '0 10px 25px -3px rgba(0,0,0,0.05), 0 4px 6px -2px rgba(0,0,0,0.02)',
+              'lifted': '0 14px 28px rgba(0,0,0,0.08), 0 10px 10px rgba(0,0,0,0.04)',
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      /* Micro-subtle dot-matrix background pattern on the canvas */
+      .dot-matrix-bg {
+        background-color: #F9F8F6;
+        background-image: radial-gradient(#E2E8F0 1.25px, transparent 1.25px);
+        background-size: 20px 20px;
+      }
+
+      /* Tactile Highlighter Sweep Effect */
+      .highlighter-sweep {
+        background: linear-gradient(120deg, rgba(254, 240, 138, 0.6) 0%, rgba(253, 224, 71, 0.7) 100%);
+        border-radius: 3px;
+        padding: 1px 4px;
+        animation: sweepIn 0.4s ease-out forwards;
+      }
+      @keyframes sweepIn {
+        from {
+          clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+        }
+        to {
+          clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        }
+      }
+
+      /* Custom scrollbars matching index card aesthetics */
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #CBD5E1;
+        border-radius: 9999px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #94A3B8;
+      }
+    </style>
+  </head>
+  <body class="antialiased text-stone-800 selection:bg-amber-100 selection:text-amber-900 overflow-hidden bg-[#F9F8F6] m-0 p-0">
+    <div id="root" class="w-full h-full m-0 p-0"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

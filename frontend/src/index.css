@@ -1,0 +1,13 @@
+/* Clean base stylesheet for The Scholar's Digital Binder */
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #F9F8F6;
+}
+
+* {
+  box-sizing: border-box;
+}
