@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   BookOpen, 
@@ -19,9 +19,20 @@ export default function WorkingDossier({
   comparative,
   selectedPaper,
   onCitationClick,
-  onViewDiagram
+  onViewDiagram,
+  requestedTab,
+  onTabChange
 }) {
   const [dossierTab, setDossierTab] = useState('synthesis'); // 'synthesis' | 'matrix' | 'gaps' | 'paper'
+
+  useEffect(() => {
+    if (requestedTab) setDossierTab(requestedTab);
+  }, [requestedTab, selectedPaper]);
+
+  const selectTab = (tab) => {
+    setDossierTab(tab);
+    onTabChange?.(tab);
+  };
 
   // If a paper is selected from the cabinet, allow switching to paper slip view
   const activeTab = selectedPaper ? dossierTab : (dossierTab === 'paper' ? 'synthesis' : dossierTab);
@@ -59,7 +70,7 @@ export default function WorkingDossier({
           {/* Dossier Sub-Tabs */}
           <div className="flex items-center gap-1 bg-stone-100 p-1 rounded-xl border border-stone-200 text-xs">
             <button
-              onClick={() => setDossierTab('synthesis')}
+              onClick={() => selectTab('synthesis')}
               className={`px-3 py-1.5 rounded-lg transition-all font-medium ${
                 activeTab === 'synthesis' ? 'bg-white shadow-sm text-stone-900 font-semibold' : 'text-stone-600 hover:text-stone-900'
               }`}
@@ -67,7 +78,7 @@ export default function WorkingDossier({
               Synthesis Monograph
             </button>
             <button
-              onClick={() => setDossierTab('matrix')}
+              onClick={() => selectTab('matrix')}
               className={`px-3 py-1.5 rounded-lg transition-all font-medium flex items-center gap-1 ${
                 activeTab === 'matrix' ? 'bg-white shadow-sm text-stone-900 font-semibold' : 'text-stone-600 hover:text-stone-900'
               }`}
@@ -76,7 +87,7 @@ export default function WorkingDossier({
               Comparative Matrix
             </button>
             <button
-              onClick={() => setDossierTab('gaps')}
+              onClick={() => selectTab('gaps')}
               className={`px-3 py-1.5 rounded-lg transition-all font-medium flex items-center gap-1 ${
                 activeTab === 'gaps' ? 'bg-white shadow-sm text-stone-900 font-semibold' : 'text-stone-600 hover:text-stone-900'
               }`}
@@ -86,7 +97,7 @@ export default function WorkingDossier({
             </button>
             {selectedPaper && (
               <button
-                onClick={() => setDossierTab('paper')}
+                onClick={() => selectTab('paper')}
                 className={`px-3 py-1.5 rounded-lg transition-all font-medium flex items-center gap-1 ${
                   activeTab === 'paper' ? 'bg-amber-100/80 text-amber-900 font-semibold border border-amber-300' : 'text-amber-800 hover:bg-amber-50'
                 }`}
@@ -168,7 +179,7 @@ export default function WorkingDossier({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 my-3">
                 <div className="p-3.5 rounded-xl bg-indigo-50/70 border border-indigo-200">
                   <h4 className="font-serif font-bold text-xs text-indigo-900 mb-1">
-                    🪻 Reasoning & Reflection
+                    Reasoning & Reflection
                   </h4>
                   <p className="text-xs text-indigo-950/80 leading-normal">
                     ReAct and Reflexion introduce thought-action-observation cycles. Agents maintain self-evaluative working memory to revise failing plans dynamically.
@@ -177,7 +188,7 @@ export default function WorkingDossier({
                 
                 <div className="p-3.5 rounded-xl bg-emerald-50/70 border border-emerald-200">
                   <h4 className="font-serif font-bold text-xs text-emerald-900 mb-1">
-                    🍵 Tool & API Grounding
+                    Tool & API Grounding
                   </h4>
                   <p className="text-xs text-emerald-950/80 leading-normal">
                     Toolformer and Gorilla delegate arithmetic, fact-checking, and REST execution to external compilers and API registries to neutralize hallucination.
@@ -186,7 +197,7 @@ export default function WorkingDossier({
 
                 <div className="p-3.5 rounded-xl bg-amber-50/70 border border-amber-200">
                   <h4 className="font-serif font-bold text-xs text-amber-900 mb-1">
-                    🍑 Multi-Agent Coordination
+                    Multi-Agent Coordination
                   </h4>
                   <p className="text-xs text-amber-950/80 leading-normal">
                     ChatDev, MetaGPT, and AutoGen decompose complex workflows into specialized communicative roles with structured documents (PRDs, code reviews).
@@ -195,7 +206,7 @@ export default function WorkingDossier({
 
                 <div className="p-3.5 rounded-xl bg-rose-50/70 border border-rose-200">
                   <h4 className="font-serif font-bold text-xs text-rose-900 mb-1">
-                    🪸 Interactive Benchmarking
+                    Interactive Benchmarking
                   </h4>
                   <p className="text-xs text-rose-950/80 leading-normal">
                     AgentBench and SWE-bench evaluate agents on non-stationary, repository-scale environments rather than multiple-choice synthetic benchmarks.

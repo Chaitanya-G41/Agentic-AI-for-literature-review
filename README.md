@@ -119,9 +119,38 @@ Outputs generated:
 - Cross-paper comparison: `data/comparative_analysis.json`
 - Final Literature Review: `data/reports/literature_review_report.md`
 
-### Web Dashboard (Streamlit)
+### React Dashboard (Recommended)
+
+From the project root, install dependencies and build the frontend once:
+
+```powershell
+python -m pip install -r requirements.txt
+npm.cmd --prefix frontend install
+npm.cmd --prefix frontend run build
+```
+
+Start the dashboard and API together:
+
+```powershell
+python server.py
+```
+
+Open **http://127.0.0.1:8000**. The server loads API keys from the root `.env` file.
+Rebuild the frontend after changing its source files.
+
+For frontend development with automatic refresh, keep `python server.py` running
+and use a second terminal at the project root:
+
+```powershell
+npm.cmd --prefix frontend run dev
+```
+
+Open **http://localhost:5173**. Vite forwards API and figure requests to port 8000.
+Both servers must stay running in development mode. Stop them with Ctrl+C.
+
+### Streamlit Dashboard (Alternative)
 ```bash
-streamlit run app.py
+python -m streamlit run app.py
 ```
 
 ---

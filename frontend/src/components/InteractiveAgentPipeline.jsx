@@ -64,7 +64,7 @@ export default function InteractiveAgentPipeline({
   const handleRunScreening = async () => {
     if (!topic.trim()) return;
     setScreeningLoading(true);
-    addLog(`🔍 Agent 1 (Relevance Screener): Querying arXiv for "${topic}"...`);
+    addLog(`Agent 1 (Relevance Screener): Querying arXiv for "${topic}"...`);
 
     try {
       const res = await fetch('/api/screen', {
@@ -80,9 +80,9 @@ export default function InteractiveAgentPipeline({
       const list = data.candidates || [];
       setCandidates(list);
       setSelectedArxivIds(list.slice(0, targetCount).map(c => c.arxiv_id));
-      addLog(`✅ Agent 1: Screened ${list.length} candidates with TF-IDF cosine similarity and ${Math.round(recencyWeight*100)}% recency bias.`);
+      addLog(`Agent 1: Screened ${list.length} candidates with TF-IDF cosine similarity and ${Math.round(recencyWeight*100)}% recency bias.`);
     } catch (err) {
-      addLog(`❌ Agent 1 Error: ${err.message}`);
+      addLog(`Agent 1 Error: ${err.message}`);
     } finally {
       setScreeningLoading(false);
     }
@@ -92,7 +92,7 @@ export default function InteractiveAgentPipeline({
   const handleDownloadSelected = async () => {
     if (selectedArxivIds.length === 0) return;
     setDownloading(true);
-    addLog(`📥 Agent 1: Downloading ${selectedArxivIds.length} approved PDFs into data/pdf_corpus...`);
+    addLog(`Agent 1: Downloading ${selectedArxivIds.length} approved PDFs into data/pdf_corpus...`);
 
     try {
       const selected = candidates.filter(c => selectedArxivIds.includes(c.arxiv_id));
@@ -102,12 +102,12 @@ export default function InteractiveAgentPipeline({
         body: JSON.stringify({ papers: selected })
       });
       const data = await res.json();
-      addLog(`✅ Agent 1: Download complete! ${data.count || selected.length} papers ingested into corpus.`);
+      addLog(`Agent 1: Download complete. ${data.count || selected.length} papers ingested into corpus.`);
       setStepCompleted(prev => ({ ...prev, 1: true }));
       await onRefreshCorpus();
       setCurrentStep(2);
     } catch (err) {
-      addLog(`❌ Download Error: ${err.message}`);
+      addLog(`Download Error: ${err.message}`);
     } finally {
       setDownloading(false);
     }
@@ -115,21 +115,21 @@ export default function InteractiveAgentPipeline({
 
   // Fallback: Load 12 Default Benchmark Papers
   const handleLoadBenchmark = async () => {
-    addLog("📚 Loading 12 standard Agentic AI benchmark preprints...");
+    addLog("Loading 12 standard Agentic AI benchmark preprints...");
     try {
       await fetch('/api/load-benchmark', { method: 'POST' });
       await onRefreshCorpus();
       setStepCompleted(prev => ({ ...prev, 1: true }));
-      addLog("✅ 12 Benchmark papers ready in corpus!");
+      addLog("12 benchmark papers ready in corpus.");
       setCurrentStep(2);
     } catch (err) {
-      addLog(`❌ Error loading benchmark: ${err.message}`);
+      addLog(`Error loading benchmark: ${err.message}`);
     }
   };
 
   // Clear Corpus / Reset
   const handleResetCorpus = async () => {
-    addLog("🧹 Resetting corpus and working memory for fresh research topic...");
+    addLog("Resetting corpus and working memory for fresh research topic...");
     try {
       await fetch('/api/clear-corpus', { method: 'POST' });
       setCandidates([]);
@@ -137,25 +137,25 @@ export default function InteractiveAgentPipeline({
       setStepCompleted({ 1: false, 2: false, 3: false, 4: false, 5: false, 6: false });
       setCurrentStep(1);
       await onRefreshCorpus();
-      addLog("✅ Ready for fresh topic exploration!");
+      addLog("Ready for fresh topic exploration.");
     } catch (err) {
-      addLog(`❌ Reset error: ${err.message}`);
+      addLog(`Reset error: ${err.message}`);
     }
   };
 
   // Step 2: Run Extraction Agent
   const handleRunExtraction = async () => {
     setExtracting(true);
-    addLog("🧠 Agent 2 (Schema Extractor): Parsing layouts and extracting schemas...");
+    addLog("Agent 2 (Schema Extractor): Parsing layouts and extracting schemas...");
     try {
       const res = await fetch('/api/run-agent/extraction', { method: 'POST' });
       const data = await res.json();
-      addLog(`✅ Agent 2: Extracted schemas for ${data.count} papers.`);
+      addLog(`Agent 2: Extracted schemas for ${data.count} papers.`);
       setStepCompleted(prev => ({ ...prev, 2: true }));
       await onRefreshCorpus();
       setCurrentStep(3);
     } catch (err) {
-      addLog(`❌ Extraction Error: ${err.message}`);
+      addLog(`Extraction Error: ${err.message}`);
     } finally {
       setExtracting(false);
     }
@@ -164,16 +164,16 @@ export default function InteractiveAgentPipeline({
   // Step 3: Run Summarizer Agent
   const handleRunSummarizer = async () => {
     setSummarizing(true);
-    addLog("📑 Agent 3 (Summarizer): Constructing structured 4-part paper summaries...");
+    addLog("Agent 3 (Summarizer): Constructing structured 4-part paper summaries...");
     try {
       const res = await fetch('/api/run-agent/summarizer', { method: 'POST' });
       const data = await res.json();
-      addLog(`✅ Agent 3: Generated summaries for ${data.count} papers.`);
+      addLog(`Agent 3: Generated summaries for ${data.count} papers.`);
       setStepCompleted(prev => ({ ...prev, 3: true }));
       await onRefreshCorpus();
       setCurrentStep(4);
     } catch (err) {
-      addLog(`❌ Summarizer Error: ${err.message}`);
+      addLog(`Summarizer Error: ${err.message}`);
     } finally {
       setSummarizing(false);
     }
@@ -182,15 +182,15 @@ export default function InteractiveAgentPipeline({
   // Step 4: Run Comparative Matrix Agent
   const handleRunComparative = async () => {
     setComparing(true);
-    addLog("📈 Agent 4 (Comparative Analysis): Synthesizing architectural feature matrix...");
+    addLog("Agent 4 (Comparative Analysis): Synthesizing architectural feature matrix...");
     try {
       const res = await fetch('/api/run-agent/comparative', { method: 'POST' });
       const data = await res.json();
-      addLog("✅ Agent 4: Cross-paper comparative matrix constructed successfully.");
+      addLog("Agent 4: Cross-paper comparative matrix constructed successfully.");
       setStepCompleted(prev => ({ ...prev, 4: true }));
       setCurrentStep(5);
     } catch (err) {
-      addLog(`❌ Comparative Agent Error: ${err.message}`);
+      addLog(`Comparative Agent Error: ${err.message}`);
     } finally {
       setComparing(false);
     }
@@ -199,15 +199,15 @@ export default function InteractiveAgentPipeline({
   // Step 5: Run Research Gap Agent
   const handleRunResearchGap = async () => {
     setGapping(true);
-    addLog("🔬 Agent 5 (Research Gap Agent): Synthesizing author limitations & systemic bottlenecks...");
+    addLog("Agent 5 (Research Gap Agent): Synthesizing author limitations and systemic bottlenecks...");
     try {
       const res = await fetch('/api/run-agent/research-gap', { method: 'POST' });
       const data = await res.json();
-      addLog("✅ Agent 5: Synthesized explicit and cross-paper research gap taxonomy.");
+      addLog("Agent 5: Synthesized explicit and cross-paper research gap taxonomy.");
       setStepCompleted(prev => ({ ...prev, 5: true }));
       setCurrentStep(6);
     } catch (err) {
-      addLog(`❌ Research Gap Agent Error: ${err.message}`);
+      addLog(`Research Gap Agent Error: ${err.message}`);
     } finally {
       setGapping(false);
     }
@@ -216,17 +216,17 @@ export default function InteractiveAgentPipeline({
   // Step 6: Run Report Generator Agent
   const handleRunReport = async () => {
     setReporting(true);
-    addLog("📑 Agent 6 (Report Generator): Synthesizing One-Prompt literature review & Mermaid diagrams...");
+    addLog("Agent 6 (Report Generator): Synthesizing One-Prompt literature review and Mermaid diagrams...");
     try {
       const res = await fetch('/api/run-agent/report', { method: 'POST' });
       const data = await res.json();
-      addLog("✅ Agent 6: Final literature review report compiled with verified structural diagrams!");
+      addLog("Agent 6: Final literature review report compiled with verified structural diagrams.");
       setStepCompleted(prev => ({ ...prev, 6: true }));
       await onRefreshCorpus();
       // Prompt switch to desk view
       onSwitchToDeskView();
     } catch (err) {
-      addLog(`❌ Report Generator Error: ${err.message}`);
+      addLog(`Report Generator Error: ${err.message}`);
     } finally {
       setReporting(false);
     }
@@ -342,7 +342,7 @@ export default function InteractiveAgentPipeline({
                 onClick={handleLoadBenchmark}
                 className="text-xs font-mono font-medium text-stone-600 hover:text-stone-900 bg-stone-100 hover:bg-stone-200 px-3 py-1.5 rounded-lg border border-stone-300 transition"
               >
-                📚 Load 12 Default Benchmark Papers
+                Load 12 Default Benchmark Papers
               </button>
             </div>
 

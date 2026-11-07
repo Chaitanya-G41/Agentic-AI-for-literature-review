@@ -24,10 +24,10 @@ export default function TopMonographBar({
 
   const paradigms = [
     { id: 'all', label: `All (${totalPapers})`, color: 'bg-stone-100 text-stone-700 border-stone-300' },
-    { id: 'reasoning', label: '🪻 Reasoning (4)', color: 'bg-indigo-50 text-indigo-700 border-indigo-200' },
-    { id: 'tools', label: '🍵 Tools (2)', color: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
-    { id: 'multi-agent', label: '🍑 Multi-Agent (3)', color: 'bg-amber-50 text-amber-800 border-amber-200' },
-    { id: 'benchmarks', label: '🪸 Benchmarks (2)', color: 'bg-rose-50 text-rose-700 border-rose-200' },
+    { id: 'reasoning', label: 'Reasoning (4)', color: 'bg-indigo-50 text-indigo-700 border-indigo-200' },
+    { id: 'tools', label: 'Tools (2)', color: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
+    { id: 'multi-agent', label: 'Multi-Agent (3)', color: 'bg-amber-50 text-amber-800 border-amber-200' },
+    { id: 'benchmarks', label: 'Benchmarks (2)', color: 'bg-rose-50 text-rose-700 border-rose-200' },
   ];
 
   return (

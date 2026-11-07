@@ -1,4 +1,27 @@
-# React + Vite
+# Scholar's Digital Binder frontend
+
+Run commands from the project root (one directory above this file).
+
+```powershell
+python -m pip install -r requirements.txt
+npm.cmd --prefix frontend install
+npm.cmd --prefix frontend run build
+python server.py
+```
+
+Open http://127.0.0.1:8000. FastAPI serves the built dashboard and its API together.
+Configure API keys in the root `.env` file. Rebuild after editing frontend files.
+
+For automatic refresh, keep the backend running and use a second terminal:
+
+```powershell
+npm.cmd --prefix frontend run dev
+```
+
+Open http://localhost:5173. Vite forwards API and figure requests to port 8000.
+Stop each server with Ctrl+C.
+
+## Original template notes
 
 This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
 

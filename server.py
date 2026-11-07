@@ -15,6 +15,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
+from dotenv import load_dotenv
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+load_dotenv(os.path.join(BASE_DIR, ".env"))
 
 app = FastAPI(title="Scholar's Digital Binder API", version="1.0.0")
 
@@ -27,7 +31,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(BASE_DIR, "data")
 PDF_DIR = os.path.join(DATA_DIR, "pdf_corpus")
 SCHEMAS_DIR = os.path.join(DATA_DIR, "extracted_schemas")

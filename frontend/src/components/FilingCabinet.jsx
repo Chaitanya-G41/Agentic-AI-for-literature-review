@@ -18,7 +18,8 @@ export default function FilingCabinet({
   onSelectPaper,
   searchQuery,
   setSearchQuery,
-  paradigmFilter
+  paradigmFilter,
+  workspace = false
 }) {
   // Filter papers based on search query & paradigm filter
   const filteredPapers = papers.filter(p => {
@@ -32,7 +33,7 @@ export default function FilingCabinet({
   });
 
   return (
-    <aside className="w-80 lg:w-96 flex-shrink-0 border-r border-stone-200 bg-[#F5F2EB]/60 flex flex-col h-[calc(100vh-61px)]">
+    <aside className={`${workspace ? 'w-full h-full' : 'w-80 lg:w-96 h-[calc(100vh-61px)] border-r'} flex-shrink-0 border-stone-200 bg-[#F5F2EB]/60 flex flex-col`}>
       
       {/* Filing Cabinet Manila Folder Header */}
       <div className="p-4 border-b border-stone-200 bg-[#F5F2EB] relative">
@@ -65,7 +66,7 @@ export default function FilingCabinet({
       </div>
 
       {/* Laboratory Slips & Paper Cards List */}
-      <div className="flex-1 overflow-y-auto p-3 space-y-2.5">
+      <div className={`flex-1 overflow-y-auto p-4 ${workspace ? 'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 content-start max-w-7xl mx-auto w-full' : 'space-y-2.5'}`}>
         {filteredPapers.length === 0 ? (
           <div className="text-center py-12 px-4">
             <Layers className="w-8 h-8 mx-auto text-stone-300 mb-2" />

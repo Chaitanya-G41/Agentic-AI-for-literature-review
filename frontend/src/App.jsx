@@ -5,9 +5,12 @@ import WorkingDossier from './components/WorkingDossier';
 import EvidenceInspector from './components/EvidenceInspector';
 import InteractiveAgentPipeline from './components/InteractiveAgentPipeline';
 import ScreeningModal from './components/ScreeningModal';
+import { BookOpen, FileSearch, Library } from 'lucide-react';
 
 export default function App() {
   const [viewMode, setViewMode] = useState('pipeline'); // 'pipeline' | 'desk'
+  const [deskSection, setDeskSection] = useState('library');
+  const [requestedDossierTab, setRequestedDossierTab] = useState('synthesis');
   const [papers, setPapers] = useState([]);
   const [selectedPaper, setSelectedPaper] = useState(null);
   const [paradigmFilter, setParadigmFilter] = useState('all');
@@ -22,8 +25,8 @@ export default function App() {
   const [screeningModalOpen, setScreeningModalOpen] = useState(false);
 
   const [fieldLogs, setFieldLogs] = useState([
-    "[READY] 🔬 Multi-Agent Literature Review Environment Initialized.",
-    "[READY] ⚡ NVIDIA NIM Provider Active (meta/muse-glimmer-30b).",
+    "[READY] Multi-Agent Literature Review Environment Initialized.",
+    "[READY] NVIDIA NIM Provider Active (meta/muse-glimmer-30b).",
     "[STEP 1] Awaiting research topic query from user to trigger Relevance Screening Agent..."
   ]);
 
@@ -57,7 +60,7 @@ export default function App() {
   const handleCitationClick = (citation) => {
     setActiveProvenance(citation);
     setFieldLogs(prev => [
-      `[${new Date().toLocaleTimeString()}] 🔍 Provenance: Inspected claim [${citation.label}] & jumping to Page ${citation.page || 1}...`,
+      `[${new Date().toLocaleTimeString()}] Provenance: Inspected claim [${citation.label}] and jumping to Page ${citation.page || 1}...`,
       ...prev.slice(0, 20)
     ]);
   };
@@ -72,7 +75,7 @@ export default function App() {
       await loadData();
       setViewMode('pipeline');
       setFieldLogs(prev => [
-        `[${new Date().toLocaleTimeString()}] 🧹 Working memory and corpus cleared. Ready for fresh research topic!`,
+        `[${new Date().toLocaleTimeString()}] Working memory and corpus cleared. Ready for fresh research topic!`,
         ...prev.slice(0, 20)
       ]);
     } catch (err) {
@@ -137,35 +140,89 @@ Synthesizes arXiv preprints spanning reasoning-action synergy, tool use, and mul
           setFieldLogs={setFieldLogs}
         />
       ) : (
-        <div className="flex-1 flex overflow-hidden w-full">
-          {/* Pane 1: The Filing Cabinet */}
-          <FilingCabinet
-            papers={papers}
-            selectedPaper={selectedPaper}
-            onSelectPaper={(p) => setSelectedPaper(p)}
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-            paradigmFilter={paradigmFilter}
-          />
+        <div className="flex-1 flex flex-col overflow-hidden w-full bg-stone-50/70">
+          <nav className="shrink-0 border-b border-stone-200 bg-white px-6 py-3" aria-label="Binder desk sections">
+            <div className="max-w-6xl mx-auto flex items-center justify-between gap-5">
+              <div>
+                <h2 className="font-serif text-base font-bold text-stone-900">Binder's Desk</h2>
+                <p className="text-[11px] text-stone-500 mt-0.5">Choose one workspace at a time to keep your research focused.</p>
+              </div>
+              <div className="grid grid-cols-3 gap-1.5 rounded-xl bg-stone-100 border border-stone-200 p-1.5" role="tablist">
+                {[
+                  { id: 'library', label: 'Paper Library', hint: `${papers.length} papers`, icon: Library },
+                  { id: 'review', label: 'Review Workspace', hint: 'Synthesis and analysis', icon: BookOpen },
+                  { id: 'evidence', label: 'Evidence Lab', hint: 'PDFs, maps and logs', icon: FileSearch },
+                ].map(({ id, label, hint, icon: Icon }) => (
+                  <button
+                    key={id}
+                    type="button"
+                    role="tab"
+                    aria-selected={deskSection === id}
+                    onClick={() => setDeskSection(id)}
+                    className={`min-w-40 rounded-lg px-4 py-2 text-left transition-all flex items-center gap-2.5 ${
+                      deskSection === id
+                        ? 'bg-white text-stone-900 shadow-sm ring-1 ring-stone-200'
+                        : 'text-stone-500 hover:text-stone-800 hover:bg-white/60'
+                    }`}
+                  >
+                    <Icon className={`w-4 h-4 shrink-0 ${deskSection === id ? 'text-amber-700' : 'text-stone-400'}`} />
+                    <span>
+                      <span className="block text-xs font-semibold">{label}</span>
+                      <span className="block text-[10px] mt-0.5 font-normal">{hint}</span>
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </nav>
 
-          {/* Pane 2: The Working Dossier */}
-          <WorkingDossier
-            report={report}
-            comparative={comparative}
-            selectedPaper={selectedPaper}
-            onCitationClick={handleCitationClick}
-            onViewDiagram={handleViewDiagram}
-          />
+          <div className="flex-1 overflow-hidden" role="tabpanel">
+            {deskSection === 'library' && (
+              <FilingCabinet
+                workspace
+                papers={papers}
+                selectedPaper={selectedPaper}
+                onSelectPaper={(paper) => {
+                  setSelectedPaper(paper);
+                  setRequestedDossierTab('paper');
+                  setDeskSection('review');
+                }}
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
+                paradigmFilter={paradigmFilter}
+              />
+            )}
 
-          {/* Pane 3: Deep Provenance & Graph */}
-          <EvidenceInspector
-            activeProvenance={activeProvenance}
-            diagrams={report.diagrams || {}}
-            activeDiagramKey={activeDiagramKey}
-            setActiveDiagramKey={setActiveDiagramKey}
-            selectedPaper={selectedPaper}
-            fieldLogs={fieldLogs}
-          />
+            {deskSection === 'review' && (
+              <WorkingDossier
+                report={report}
+                comparative={comparative}
+                selectedPaper={selectedPaper}
+                requestedTab={requestedDossierTab}
+                onTabChange={setRequestedDossierTab}
+                onCitationClick={(citation) => {
+                  handleCitationClick(citation);
+                  setDeskSection('evidence');
+                }}
+                onViewDiagram={(diagramKey) => {
+                  handleViewDiagram(diagramKey);
+                  setDeskSection('evidence');
+                }}
+              />
+            )}
+
+            {deskSection === 'evidence' && (
+              <EvidenceInspector
+                workspace
+                activeProvenance={activeProvenance}
+                diagrams={report.diagrams || {}}
+                activeDiagramKey={activeDiagramKey}
+                setActiveDiagramKey={setActiveDiagramKey}
+                selectedPaper={selectedPaper}
+                fieldLogs={fieldLogs}
+              />
+            )}
+          </div>
         </div>
       )}
 

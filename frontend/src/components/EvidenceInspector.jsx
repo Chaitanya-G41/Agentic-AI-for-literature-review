@@ -20,7 +20,8 @@ export default function EvidenceInspector({
   activeDiagramKey,
   setActiveDiagramKey,
   selectedPaper,
-  fieldLogs
+  fieldLogs,
+  workspace = false
 }) {
   const [inspectorTab, setInspectorTab] = useState('provenance'); // 'provenance' | 'graphs' | 'logs'
 
@@ -53,7 +54,7 @@ export default function EvidenceInspector({
   };
 
   return (
-    <aside className="w-80 lg:w-96 flex-shrink-0 border-l border-stone-200 bg-[#F5F2EB]/60 flex flex-col h-[calc(100vh-61px)]">
+    <aside className={`${workspace ? 'w-full h-full max-w-6xl mx-auto' : 'w-80 lg:w-96 h-[calc(100vh-61px)] border-l'} flex-shrink-0 border-stone-200 bg-[#F5F2EB]/60 flex flex-col`}>
       
       {/* Right Header: Evidence Inspector Tabs */}
       <div className="p-3.5 border-b border-stone-200 bg-[#F5F2EB]">
@@ -123,7 +124,7 @@ export default function EvidenceInspector({
 
               {/* The Tactile Highlighter Sweep Quote */}
               <div className="my-2.5 p-3 rounded-lg bg-amber-50/50 border border-amber-200/60 font-serif text-xs leading-relaxed text-stone-900">
-                ❝ <span className="highlighter-sweep font-medium">{activeProvenance.quote}</span> ❞
+                <span className="highlighter-sweep font-medium">{activeProvenance.quote}</span>
               </div>
 
               <div className="flex items-center justify-between text-[11px] font-mono text-stone-500 pt-2 border-t border-stone-100">
@@ -226,19 +227,19 @@ export default function EvidenceInspector({
         <div className="flex-1 overflow-y-auto p-3.5">
           <div className="bg-[#18191B] rounded-xl p-4 text-[#E2E8F0] font-mono text-[11px] leading-relaxed border border-stone-800 shadow-lifted">
             <div className="flex items-center justify-between pb-2 mb-2 border-b border-stone-800 text-[10px] text-stone-400 uppercase tracking-widest">
-              <span>🔬 Laboratory Field Receipt</span>
+              <span>Laboratory Field Receipt</span>
               <span>LIVE LOG</span>
             </div>
 
             <div className="space-y-1.5">
               {(fieldLogs && fieldLogs.length > 0 ? fieldLogs : [
-                "[14:22:01] 🔬 PyMuPDF: Found 46 figures across 12 preprints in pdf_corpus...",
-                "[14:22:02] 📄 Agent 2: Parsing schemas for ReAct, Toolformer, Gorilla...",
-                "[14:22:03] ⚡ NVIDIA NIM: Active provider (meta/muse-glimmer-30b)...",
-                "[14:22:04] 🧠 Agent 5: Synthesizing cross-paper limitations & systemic gaps...",
-                "[14:22:07] 📊 Agent 4: Constructed comparative matrix with 10 framework columns...",
-                "[14:22:09] 📑 Agent 6: One-Prompt literature review synthesis generated (26.8 KB)...",
-                "[14:22:10] ✅ Provenance Verification: 100% grounded against local arXiv source texts."
+                "[14:22:01] PyMuPDF: Found 46 figures across 12 preprints in pdf_corpus...",
+                "[14:22:02] Agent 2: Parsing schemas for ReAct, Toolformer, Gorilla...",
+                "[14:22:03] NVIDIA NIM: Active provider (meta/muse-glimmer-30b)...",
+                "[14:22:04] Agent 5: Synthesizing cross-paper limitations and systemic gaps...",
+                "[14:22:07] Agent 4: Constructed comparative matrix with 10 framework columns...",
+                "[14:22:09] Agent 6: One-Prompt literature review synthesis generated (26.8 KB)...",
+                "[14:22:10] Provenance Verification: 100% grounded against local arXiv source texts."
               ]).map((log, i) => (
                 <div key={i} className="text-emerald-400/90 hover:text-emerald-300">
                   {log}
