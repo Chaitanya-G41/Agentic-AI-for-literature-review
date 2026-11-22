@@ -135,7 +135,7 @@ class LLMManager:
                                 messages=messages,
                                 temperature=0.2,
                                 top_p=0.7,
-                                max_tokens=4096
+                                max_tokens=8192
                             )
                             if completion and completion.choices:
                                 msg = completion.choices[0].message
