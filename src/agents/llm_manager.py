@@ -119,7 +119,8 @@ class LLMManager:
             for key in self.nvidia_keys:
                 client = OpenAI(
                     base_url="https://integrate.api.nvidia.com/v1",
-                    api_key=key
+                    api_key=key,
+                    timeout=60.0
                 )
                 messages = []
                 if system_instruction:

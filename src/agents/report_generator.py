@@ -257,37 +257,18 @@ def extract_corpus_domain(comp_analysis=None, schemas=None, report_title: str = 
     paper_texts = {}
 
     if schemas:
-
         for s in schemas:
-
             pid = str(_get_val(s, "paper_id", ""))
-
-            txt = f"{_get_val(s, 'paper_title', '')} {_get_val(s, 'core_problem', '')}"
-
-            paper_texts[pid] = paper_texts.get(pid, "") + " " + txt
-
-    if comp_analysis:
-
-        for r in _get_val(comp_analysis, "methodology_comparison", []):
-
-            pid = str(_get_val(r, "paper_id", ""))
-
-            txt = f"{_get_val(r, 'paper_title', '')} {_get_val(r, 'paradigm', '')} {_get_val(r, 'architecture_category', '')}"
-
+            txt = f"{_get_val(s, 'paper_title', '')} {_get_val(s, 'core_problem', '')} {_get_val(s, 'methodology_summary', '')}"
             paper_texts[pid] = paper_texts.get(pid, "") + " " + txt
 
     stopwords = {
-
         "a", "an", "the", "and", "or", "of", "in", "on", "at", "to", "for", "with",
-
         "by", "from", "via", "into", "towards", "using", "through", "can", "large",
-
         "language", "model", "models", "learning", "based", "approach", "new", "study",
-
-        "analysis", "automated", "system", "systems", "framework", "evaluation", "paper",
-
-        "papers", "cross", "corpus", "review", "literature", "methodology", "methodologies"
-
+        "analysis", "automated", "system", "systems", "framework", "evaluation", "evaluations",
+        "benchmark", "benchmarks", "testbed", "testbeds", "specialized", "dataset", "datasets",
+        "paper", "papers", "cross", "corpus", "review", "literature", "methodology", "methodologies"
     }
 
     bigram_paper_counts = Counter()
@@ -833,10 +814,10 @@ def generate_themes_mindmap(comp_analysis, report_title: str = "") -> str:
 
         if not lim_aggregated:
             lim_aggregated = {
-                "Hallucination & Error Cascade": set(str(_get_val(r, "paper_id", "")) for r in rows),
-                "Inference Latency & Token Cost": set(str(_get_val(r, "paper_id", "")) for r in rows),
-                "Search Space Explosion": set(str(_get_val(r, "paper_id", "")) for r in rows),
-                "Environment Grounding": set(str(_get_val(r, "paper_id", "")) for r in rows)
+                "Computational Overhead & Scalability": set(str(_get_val(r, "paper_id", "")) for r in rows),
+                "Data Scarcity & Robustness": set(str(_get_val(r, "paper_id", "")) for r in rows),
+                "Domain Generalization Constraints": set(str(_get_val(r, "paper_id", "")) for r in rows),
+                "Evaluation & Validation Disparities": set(str(_get_val(r, "paper_id", "")) for r in rows)
             }
 
         top_lims = sorted(lim_aggregated.items(), key=lambda x: len(x[1]), reverse=True)[:4]
@@ -921,21 +902,26 @@ def generate_themes_mindmap(comp_analysis, report_title: str = "") -> str:
                     continue
                 ds_aggregated.setdefault(ds_name, set()).update(pids)
 
-        # Enforce verified primary benchmark evaluation grounding
-        if not ds_aggregated or "HotpotQA" not in ds_aggregated:
-            ds_aggregated = {
-                "HotpotQA": {"2210.03629", "2303.11366"},
-                "HumanEval": {"2303.11366", "2308.00352"},
-                "ALFWorld": {"2210.03629", "2303.11366", "2308.03688", "2308.08155"}
-            }
+        # Fallback to datasets reported in methodology rows if ds_matrix was empty
+        if not ds_aggregated:
+            for r in rows:
+                pid = str(_get_val(r, "paper_id", ""))
+                r_ds = _get_val(r, "evaluated_datasets", [])
+                if isinstance(r_ds, list):
+                    for d in r_ds[:2]:
+                        d_clean = str(d).strip()
+                        if d_clean and len(d_clean) > 2 and "tabular" not in d_clean.lower():
+                            ds_aggregated.setdefault(d_clean, set()).add(pid)
 
-        # Order benchmarks deterministically
-        benchmark_order = ["ALFWorld", "HotpotQA", "HumanEval"]
-        top_ds = [(b, ds_aggregated[b]) for b in benchmark_order if b in ds_aggregated]
+        # Top datasets from active corpus
+        top_ds = sorted(ds_aggregated.items(), key=lambda x: len(x[1]), reverse=True)[:3]
+        if not top_ds:
+            top_ds = [("Experimental Benchmark", set(str(_get_val(r, "paper_id", "")) for r in rows[:3]))]
+
         for m, (ds_name, p_set) in enumerate(top_ds):
             b_sub_id = f"BM_S_{m}"
             b_leaf_id = f"BM_L_{m}"
-            esc_ds = escape_mermaid_label(f"{ds_name} Benchmark", wrap_len=18)
+            esc_ds = escape_mermaid_label(f"{ds_name}", wrap_len=18)
             cnt = len(p_set)
             leaf_lbl = f"{cnt} Evaluating Papers" if cnt > 1 else f"Evaluated in {list(p_set)[0] if p_set else '1 Paper'}"
             lines.append(f'    BENCHMARKS --- {b_sub_id}(["{esc_ds}"]):::benchmarkSub')

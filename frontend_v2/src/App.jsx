@@ -41,11 +41,12 @@ export default function App() {
 
       // Set default inspector to first paper if none selected
       if (!inspectorState && papers.length > 0) {
+        const first = papers[0]
         setInspectorState({
-          paperId: papers[0].paper_id,
-          quote: 'Interleaved reasoning traces with discrete tool executions.',
-          loc: 'Section 3.1, Page 3',
-          similarity: 0.94,
+          paperId: first.paper_id,
+          quote: first.core_problem || first.methodology || first.title || 'Core research methodology extract.',
+          loc: 'Abstract / Section 1',
+          similarity: 0.95,
         })
       }
     } catch (e) {

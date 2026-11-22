@@ -1,0 +1,22 @@
+{
+  "paper_id": "2009.12188",
+  "paper_title": "Brain Tumor Segmentation using 3D-CNNs",
+  "authors": [
+    "N/A"
+  ],
+  "venue": "N/A",
+  "core_problem": "High memory consumption in 3D-CNNs for brain tumor segmentation in 3D MRIs, and the lack of uncertainty information in most existing methods, which is critical for medical diagnosis.",
+  "methodology_summary": "Proposes a 3D encoder-decoder architecture based on V-Net [6], trained with patching techniques to reduce memory consumption and handle unbalanced data. Introduces voxel-wise uncertainty (epistemic and aleatoric) using test-time dropout and data-augmentation, respectively.",
+  "datasets_eval": [
+    "Brain Tumor Segmentation (BraTS) challenge (started in 2012), specifically mentioning BraTS 2020 training."
+  ],
+  "empirical_results": "Best results obtained with the V-Net model directly when post-processing is applied. Dice score and Hausdorff distance showed lower performance on the validation set, especially in the ET region.",
+  "explicit_limitations": "Entropy provides a global measure instead of a map for sub-regions, necessitating the use of voxel-wise uncertainty.",
+  "numerical_metrics": [],
+  "geographical_data": {},
+  "pipeline_steps": [
+    "used to assess the diagnosis, treatment and evaluation of the disease."
+  ],
+  "generation_mode": "GENUINE_LLM",
+  "model_name": "NVIDIA_NIM (nvidia/nemotron-3.5-bolt-e4b)"
+}

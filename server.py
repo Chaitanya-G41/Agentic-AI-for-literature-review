@@ -334,10 +334,18 @@ def load_benchmark_corpus_api():
         raise HTTPException(status_code=500, detail=str(e))
 
 
+def _get_active_corpus_ids() -> List[str]:
+    """Returns the paper IDs for PDFs currently present in PDF_DIR."""
+    if not os.path.exists(PDF_DIR):
+        return []
+    pdf_files = sorted(glob.glob(os.path.join(PDF_DIR, "*.pdf")))
+    return [os.path.basename(p).split("_")[0] for p in pdf_files]
+
+
 @app.post("/api/clear-corpus")
 def clear_corpus_api():
     """Clears local PDF corpus and generated schemas for fresh topic exploration."""
-    for folder in [PDF_DIR, SCHEMAS_DIR, SUMMARIES_DIR]:
+    for folder in [PDF_DIR, SCHEMAS_DIR, SUMMARIES_DIR, REPORTS_DIR]:
         if os.path.exists(folder):
             for f in glob.glob(os.path.join(folder, "*")):
                 try:
@@ -345,7 +353,24 @@ def clear_corpus_api():
                         os.remove(f)
                 except Exception:
                     pass
-    return {"status": "cleared", "message": "Corpus and schemas cleared for fresh topic run"}
+
+    # Clear comparative analysis and reset memory store
+    comp_file = os.path.join(DATA_DIR, "comparative_analysis.json")
+    if os.path.exists(comp_file):
+        try:
+            os.remove(comp_file)
+        except Exception:
+            pass
+
+    mem_file = os.path.join(DATA_DIR, "global_memory_store.json")
+    if os.path.exists(mem_file):
+        try:
+            with open(mem_file, "w", encoding="utf-8") as f:
+                json.dump({"papers": {}, "last_updated": time.time(), "comparative_analysis": None}, f)
+        except Exception:
+            pass
+
+    return {"status": "cleared", "message": "Corpus, schemas, and reports cleared for fresh topic run"}
 
 
 @app.post("/api/run-agent/extraction")
@@ -399,10 +424,19 @@ def run_extraction_agent_api():
 
 @app.post("/api/run-agent/summarizer")
 def run_summarizer_agent_api():
-    """Runs Single-Paper Summarizer Agent on all extracted schemas."""
+    """Runs Single-Paper Summarizer Agent on active corpus papers."""
     from src.agents.summarizer import run_summarizer_agent
 
-    schema_files = sorted(glob.glob(os.path.join(SCHEMAS_DIR, "*_schema.json")))
+    active_ids = _get_active_corpus_ids()
+    schema_files = [
+        os.path.join(SCHEMAS_DIR, f"{pid}_schema.json")
+        for pid in active_ids
+        if os.path.exists(os.path.join(SCHEMAS_DIR, f"{pid}_schema.json"))
+    ]
+    if not schema_files:
+        # Fallback to all schemas if no PDFs in corpus
+        schema_files = sorted(glob.glob(os.path.join(SCHEMAS_DIR, "*_schema.json")))
+
     if not schema_files:
         raise HTTPException(status_code=400, detail="No schemas found. Run extraction first.")
 
@@ -421,10 +455,11 @@ def run_summarizer_agent_api():
 
 @app.post("/api/run-agent/comparative")
 def run_comparative_agent_api():
-    """Runs Cross-Paper Comparative Analysis Agent."""
+    """Runs Cross-Paper Comparative Analysis Agent for active corpus papers."""
     from src.agents.comparative import run_comparative_analysis
     try:
-        comp_analysis = run_comparative_analysis()
+        active_ids = _get_active_corpus_ids()
+        comp_analysis = run_comparative_analysis(target_paper_ids=active_ids if active_ids else None)
         return {"status": "completed", "comparative": comp_analysis.dict() if hasattr(comp_analysis, "dict") else comp_analysis}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -432,11 +467,20 @@ def run_comparative_agent_api():
 
 @app.post("/api/run-agent/research-gap")
 def run_research_gap_agent_api():
-    """Runs Research Gap Identification Agent."""
+    """Runs Research Gap Identification Agent on active corpus papers."""
     from src.agents.research_gap import run_research_gap_agent
     from src.agents.extraction import PaperSchema
 
-    schema_files = sorted(glob.glob(os.path.join(SCHEMAS_DIR, "*_schema.json")))
+    active_ids = _get_active_corpus_ids()
+    if active_ids:
+        schema_files = [
+            os.path.join(SCHEMAS_DIR, f"{pid}_schema.json")
+            for pid in active_ids
+            if os.path.exists(os.path.join(SCHEMAS_DIR, f"{pid}_schema.json"))
+        ]
+    else:
+        schema_files = sorted(glob.glob(os.path.join(SCHEMAS_DIR, "*_schema.json")))
+
     schemas = []
     for s_file in schema_files:
         with open(s_file, "r", encoding="utf-8") as f:
@@ -451,26 +495,40 @@ def run_research_gap_agent_api():
 
 @app.post("/api/run-agent/report")
 def run_report_agent_api():
-    """Compiles Final Literature Review Report & Diagrams."""
+    """Compiles Final Literature Review Report & Diagrams strictly for active corpus papers."""
     from src.agents.report_generator import generate_literature_review
     from src.agents.extraction import PaperSchema
     from src.agents.summarizer import ComprehensivePaperSummary
     from src.agents.comparative import run_comparative_analysis
     from src.agents.research_gap import run_research_gap_agent
 
-    schema_files = sorted(glob.glob(os.path.join(SCHEMAS_DIR, "*_schema.json")))
+    active_ids = _get_active_corpus_ids()
+    if active_ids:
+        schema_files = [
+            os.path.join(SCHEMAS_DIR, f"{pid}_schema.json")
+            for pid in active_ids
+            if os.path.exists(os.path.join(SCHEMAS_DIR, f"{pid}_schema.json"))
+        ]
+        summary_files = [
+            os.path.join(SUMMARIES_DIR, f"{pid}_summary.json")
+            for pid in active_ids
+            if os.path.exists(os.path.join(SUMMARIES_DIR, f"{pid}_summary.json"))
+        ]
+    else:
+        schema_files = sorted(glob.glob(os.path.join(SCHEMAS_DIR, "*_schema.json")))
+        summary_files = sorted(glob.glob(os.path.join(SUMMARIES_DIR, "*_summary.json")))
+
     schemas = []
     for s_file in schema_files:
         with open(s_file, "r", encoding="utf-8") as f:
             schemas.append(PaperSchema(**json.load(f)))
 
-    summary_files = sorted(glob.glob(os.path.join(SUMMARIES_DIR, "*_summary.json")))
     summaries = []
     for sum_file in summary_files:
         with open(sum_file, "r", encoding="utf-8") as f:
             summaries.append(ComprehensivePaperSummary(**json.load(f)))
 
-    comp = run_comparative_analysis()
+    comp = run_comparative_analysis(target_paper_ids=active_ids if active_ids else None)
     gaps = run_research_gap_agent(schemas)
 
     report = generate_literature_review(schemas, summaries, comp, gaps)

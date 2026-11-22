@@ -1,0 +1,1543 @@
+{
+  "paper_id": "2011.02840",
+  "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+  "parser_used": "PyMuPDF_Layout_Engine",
+  "total_pages": 9,
+  "figures_count": 4,
+  "figures": [
+    {
+      "figure_id": "FIG-2011.02840-P3-1",
+      "page_number": 3,
+      "file_path": "data/figures\\2011.02840\\fig_p3_1.png",
+      "dimensions": "1080x603",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2011.02840-P4-1",
+      "page_number": 4,
+      "file_path": "data/figures\\2011.02840\\fig_p4_1.png",
+      "dimensions": "1065x418",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2011.02840-P5-2",
+      "page_number": 5,
+      "file_path": "data/figures\\2011.02840\\fig_p5_2.png",
+      "dimensions": "895x1052",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2011.02840-P6-1",
+      "page_number": 6,
+      "file_path": "data/figures\\2011.02840\\fig_p6_1.jpeg",
+      "dimensions": "1085x841",
+      "format": "jpeg",
+      "type": "raster_figure_or_diagram"
+    }
+  ],
+  "vector_graphs_count": 2,
+  "vector_graphs": [
+    {
+      "page_number": 7,
+      "drawing_path_count": 184,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9199829101562
+      ]
+    },
+    {
+      "page_number": 8,
+      "drawing_path_count": 92,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9199829101562
+      ]
+    }
+  ],
+  "tables_count": 2,
+  "tables": [
+    {
+      "table_id": "TAB-2011.02840-P7-1",
+      "page_number": 7,
+      "rows_count": 11,
+      "cols_count": 15,
+      "data": [
+        [
+          "",
+          "",
+          "",
+          "Validation Results",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "DSC",
+          "",
+          "",
+          "",
+          "",
+          "HD95",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "Architecture",
+          "",
+          "WT (SD)",
+          "",
+          "ET (SD)",
+          "",
+          "TC (SD)",
+          "",
+          "WT (SD)",
+          "",
+          "ET (SD)",
+          "",
+          "TC (SD)",
+          ""
+        ],
+        [
+          "",
+          "DR-UNET104",
+          "",
+          "0.8763\n(0.0859)",
+          "",
+          "0.6549",
+          "",
+          "0.6693\n(0.3357)",
+          "",
+          "18.39",
+          "",
+          "53.61\n(115.9)",
+          "",
+          "16.19",
+          ""
+        ],
+        [
+          "",
+          "dropout (0)",
+          "",
+          "",
+          "",
+          "(0.3256)",
+          "",
+          "",
+          "",
+          "(24.87)",
+          "",
+          "",
+          "",
+          "(20.88)",
+          ""
+        ],
+        [
+          "",
+          "DR-UNET104",
+          "",
+          "0.8862\n(0.0886)",
+          "",
+          "0.6756",
+          "",
+          "0.6721\n(0.3462)",
+          "",
+          "12.11",
+          "",
+          "47.62\n(112.7)",
+          "",
+          "15.74",
+          ""
+        ],
+        [
+          "",
+          "dropout (0.2)",
+          "",
+          "",
+          "",
+          "(0.3171)",
+          "",
+          "",
+          "",
+          "(20.82)",
+          "",
+          "",
+          "",
+          "(36.04)",
+          ""
+        ],
+        [
+          "",
+          "DR-UNET104",
+          "",
+          "0.8723\n(0.0977)",
+          "",
+          "0.6701",
+          "",
+          "0.6489\n(0.3651)",
+          "",
+          "23.80",
+          "",
+          "51.53\n(108.5)",
+          "",
+          "28.56",
+          ""
+        ],
+        [
+          "",
+          "dropout (0.5)",
+          "",
+          "",
+          "",
+          "(0.3245)",
+          "",
+          "",
+          "",
+          "(27.58)",
+          "",
+          "",
+          "",
+          "(51.69)",
+          ""
+        ],
+        [
+          "DeepLabV3+",
+          "DeepLabV3+",
+          "",
+          "0.8771\n(0.0853)",
+          "",
+          "0.6524",
+          "",
+          "0.6813\n(0.3213)",
+          "",
+          "14.87",
+          "",
+          "49.10\n(112.6)",
+          "",
+          "17.96",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "(0.3101)",
+          "",
+          "",
+          "",
+          "(23.20)",
+          "",
+          "",
+          "",
+          "(37.54)",
+          ""
+        ]
+      ]
+    },
+    {
+      "table_id": "TAB-2011.02840-P8-1",
+      "page_number": 8,
+      "rows_count": 5,
+      "cols_count": 15,
+      "data": [
+        [
+          "",
+          "",
+          "",
+          "Testing Data",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "DSC",
+          "",
+          "",
+          "",
+          "",
+          "HD95",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "Architecture",
+          "",
+          "WT (SD)",
+          "",
+          "ET (SD)",
+          "",
+          "TC (SD)",
+          "",
+          "WT (SD)",
+          "",
+          "ET (SD)",
+          "",
+          "TC (SD)",
+          ""
+        ],
+        [
+          "",
+          "DR-UNET104",
+          "",
+          "0.8673\n(0.1279)",
+          "",
+          "0.7514",
+          "",
+          "0.7983\n(0.2757)",
+          "",
+          "10.41",
+          "",
+          "24.68\n(83.99)",
+          "",
+          "21.84",
+          ""
+        ],
+        [
+          "",
+          "dropout (0.2)",
+          "",
+          "",
+          "",
+          "(0.2478)",
+          "",
+          "",
+          "",
+          "(16.59)",
+          "",
+          "",
+          "",
+          "(74.35)",
+          ""
+        ]
+      ]
+    }
+  ],
+  "full_text": "DR-Unet104 for Multimodal MRI brain tumor\n\nsegmentation\n\nJordan Colman1,2, Lei Zhang2, Wenting Duan2, Xujiong Ye2\n\n1Ashford and St Peter’s Hospitals NHS Foundation Trust, Surrey, UK \njordan.colman@nhs.net,  \n2 School of Computer Science, University of Lincoln, Lincoln, UK LZhang@lincoln.ac.uk, \nwduan@lincoln.ac.uk, XYe@lincoln.ac.uk\n\nAbstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for \nlesion segmentation in brain MRIs. We make multiple additions to the Unet architecture, including adding the \n‘bottleneck’ residual block to the Unet encoder and adding dropout after each convolution block stack. We \nverified the effect of including the regularization of dropout with small rate (e.g. 0.2) on the architecture, and \nfound a dropout of 0.2 improved the overall performance compared to no dropout, or a dropout of 0.5. We \nevaluated the proposed architecture as part of the Multimodal Brain Tumor Segmentation (BraTS) 2020 \nChallenge and compared our method to DeepLabV3+ with a ResNet-V2-152 backbone. We found the DR-\nUnet104 achieved a mean dice score coefficient of 0.8862, 0.6756 and 0.6721 for validation data, whole tumor, \nenhancing tumor and tumor core respectively, an overall improvement on 0.8770, 0.65242 and 0.68134 \nachieved by DeepLabV3+. Our method produced a final mean DSC of 0.8673, 0.7514 and 0.7983 on whole \ntumor, enhancing tumor and tumor core on the challenge’s testing data. We produce a competitive lesion \nsegmentation architecture, despite only using 2D convolutions, having the added benefit that it can be used on \nlower power computers than a 3D architecture. The source code and trained model for this work is openly \navailable at https://github.com/jordan-colman/DR-Unet104.\n\nKeywords: Deep learning, Brain Tumor Segmentation, BraTS, ResNet, Unet, Dropout\n\nFinal authenticated publication is available online at https://doi.org/10.1007/978-3-030-72087-2_36\n\nCite this paper as: \nColman J., Zhang L., Duan W., Ye X. (2021) DR-Unet104 for Multi-modal MRI Brain Tumor Segmentation. \nIn: Crimi A., Bakas S. (eds) Brainlesion: Glioma, Multiple Sclerosis, Stroke and Trau-matic Brain Injuries. \nBrainLes 2020. Lecture Notes in Computer Science, vol 12659. Springer, Cham. https://doi.org/10.1007/978-\n3-030-72087-2_36\n\n2             Colman et al. \n \n1 \nIntroduction\n\nLesion segmentation is an important area of research necessary to progress the field of radiomics, using imaging \nto infer biomarkers, that can be used to aid prognosis prediction and treatment of patients [1]. Segmentation of \ngliomas, the most common form of primary brain malignancy [2], is a highly useful application of lesion segmen-\ntation. Accurate brain tumor segmentation in MRI produces useful volumetric information, and in the future may \nbe used to derive biomarkers to grade gliomas and predict prognosis. Manual brain tumor segmentation, however, \nis a skilled and time-consuming task. Therefore, automated brain tumor segmentation would be of great benefit \nto progress this area. However, accurate segmentation remains a challenging task due to the high variation of brain \ntumor size, shape, position and inconsistent intensity and contrast in various image modalities. This has contrib-\nuted to the development of automatic segmentation methods, for which several methods have been proposed. The \nMultimodal Brain Tumor Segmentation (BraTS) challenge is an annual challenge set to act as a benchmark of the \ncurrent state-of-the-art brain tumor segmentation algorithms. \n \nIn the recent years deep neural networks have achieved the top performance in the BraTS challenge. Many existing \nmethods consider the Unet [3] as a base architecture, a basic but effective form of the encoder-decoder network \ndesign, with at least two winners of the BraTS challenge utilising a variation of the Unet in 2017 and 2019 [4,5]. \nOther current state-of-the-art segmentation algorithms use the ResNet [6,7] as an encoder in such architecture, \nsuch as the DeepLabV3+, which uses ResNet-101 as the initial encoder and spatial pyramid pooling module in \nthe final layer [8]. The ResNet uses identity mapping, a residual connection which skips multiple network layers \nto aid back propagation and allows deeper networks to be made. Additionally, the ResNet uses a ‘bottleneck’ \nresidual block which uses a 1x1 convolution to reduce the number of image features prior to a spatial, or 3x3 \nconvolution, and then uses another 1x1 convolution to increase the number of features. This is done to increase \ncomputational efficiency and at the same time increase the number of image features represented in the network. \nThe ResNet and DeeplabV3+ do not use random dropout, a commonly used regularizer, which randomly removes \nthe signal of a given proportion of neurons in a layer in order to reduce overfitting of training data [9].  \n \nA common approach of improving the performance of current architectures in medical image segmentation is by \nextending 2D image segmentation to 3D, using 3D convolutional networks on whole images as opposed to a \nsingle 2D MRI slice. An example is the BraTS 2019 1st place solution for the brain tumor segmentation task, \nwhich used a two-staged cascaded 3D Unet [4]. The paper used a 3D Unet architecture with the addition of residual \nconnections in convolutional blocks, in stacks of 1, 2 or 4. The first cascade has fewer total feature channels and \ndetects ‘coarse’ features, the second cascade detects finer details as it has more total feature channels. This archi-\ntecture achieved a mean dice score coefficient (DSC) of 0.8880 for whole tumor segmentation of the testing data, \n0.8370 for tumor core and 0.8327 for enhancing tumor. However, this architecture required cropping 3D images \nto run in a batch size of 1 on a graphics card with 12Gb of memory due to the high memory usages of 3D pro-\ncessing and the large image size. \n   \nIn this paper, given the success of the Unet in BraST challenge [4,5] and inspired by the ‘bottleneck’ residual \nblock from the ResNet [6,7] we proposed a new architecture to couple the strengths of the ‘bottleneck’ residual \nblock and the Unet for brain tumor segmentation in the BraTS 2020 challenge. The proposed network has a total \nof 104 convolutional layers, so is named, deep residual Unet 104 (DR-Unet104). We additionally include dropout \nand investigate if this improves architecture performance, as we mimic the ResNet in our encoder and it is sug-\ngested by its creators additional regularization may improve performance [7].\n\nDR-Unet104 for Multimodal MRI brain tumor segmentation             3\n\n2 \nMethods\n\n2.1 \nArchitecture\n\nThe proposed architecture DR-Unet104 overview is shown below in Figure 1 and 2. The detailed architecture \ndescription is shown in Figure 3, in order to display the number of image feature channels in each layer. It com-\nprises of three main components: encoder, decoder and bridge that forms a typical U-shape network. In this design, \nfive stacked residual block levels with convolution layers and identify mapping are deployed in both encoder and \ndecoder components, which are connected by the bridge component. The feature representations are encoded by \nthe encoder path, which are recovered in the decoder path to a pixel-wise classification. Figure 2 shows the outline \nof the residual blocks in the encoder and decoder path. In the encoder path and bridge connection, the bottleneck \ndesign is applied, which consists of a 1×1 convolution layer for reducing the depth of feature channel, a 3×3 \nconvolution layer, and then a 1×1 convolution layer for restoring dimension [6]. In the decoder path, the typical \nresidual block consists of two stacked 3x3 2D convolutions. The batch normalisation (BN) and rectified linear \nunit (ReLU) activation are used in all residual blocks (Figure 2), we use ‘pre-activation’ residual connections as \nused in ResNet-V2 and described in He et al. 2016 [7]. \n \nGiven a deep architecture has many layers, the issues regarding overfitting and dead neurons in activation need to \nbe considered for training the network. In our method, following the work [9], we employ a regularization using \ndropout with a small rate (e.g. dropout rate of 0.2) after each level. In our method, the input of each level (after \nupsampling) of the decoder is added with a concatenation connection from the output of the encoder to aid feature \nmapping. Downsampling is performed with a stride of 2 in the first convolution of each level (except for level 1). \nUpsampling is performed with 2D transposed convolution with a kernel of 2x2 and stride of 2. The final layer is \nconvoluted with a 1x1 kernel and generating pixel-wise classification scores to represent the 3 tumor classes, and \nbackground class, the class of the pixel is decided by the channel with the largest output (argmax), softmax is used \nduring training. The input is a 2D image slice with 4 channels representing each MRI modality. The proposed \nnetwork code is publicly available at https://github.com/jordan-colman/DR-Unet104.\n\nFigure 1. Overview of the DR-Unet104 architecture showing the bottleneck residual block in the encoder and typical residual \nblock in the decoder. The number of stacks of the bottleneck block is also shown. The downsampling is performed by a step \nof 2 in the initial 1x1 convolution in the first bottleneck block of the level.\n\n4             Colman et al.\n\nFigure 2. The outline of the typical residual blocks in the decoder and the bottleneck residual block of the encoder path. The \ntypical residual block can be seen to be formed of two 3x3 2D convolutions with batch normalization and rectified linear unit \n(Relu) activation before each convolution. The Bottleneck residual block has a 1x1 2D convolution, which reduces the number \nof image feature channels (F) to ¼ of the number. This is followed by a 3x3 2D convolution then a 1x1 convolution which \nincreases the feature channel number by 4 times to the input number. Both blocks input is added to the output for the identity \nmapping to aid backpropagation [6,7].\n\nDR-Unet104 for Multimodal MRI brain tumor segmentation             5\n\nFigure 3. Our Proposed architecture for the DR-Unet104. The [] brackets denote the typical or bottleneck residual block with \n3x3,64 representing a 2D convolution with a 3x3 kernel and 64 layers. 𝑥𝑁 denotes the number, N, of stacked residual blocks \nin that layer. ↓ denotes reduction in spatial resolution performed by a stride of 2 in the first 1x1 2D convolution of the initial \nbottleneck residual block of that level. ↑ denotes upsampling via the 2D transposed convolution with a kernel of 3x3 and stride \nof 2. → denotes a skip connection between the output of the encoder with the input of the decoder at the same level, joined \nvia concatenation to the unsampled output of the previous level.\n\n2.2 \nLoss function\n\nThe loss function used was sparse categorical cross entropy (CE), which is calculated with Eq (1). This was \nchosen for simplicity, however, better performance may have been produced using other loss functions such as \n‘soft Dice loss’ [4].\n\n𝐶𝐸= −\n\n1\n\n𝑁∑∑𝑌𝑡𝑟𝑢𝑒𝑐\n\n𝑛 × log (𝑌𝑝𝑟𝑒𝑑𝑐\n\n𝑛)\n𝐶\n𝑐\n𝑁\n𝑛\n \n(1)\n\nWhere 𝑁 is number of examples and 𝐶 represents the classes, 𝑌𝑡𝑟𝑢𝑒 is the truth label and 𝑌𝑝𝑟𝑒𝑑 the softmax of the \nprediction [10].\n\nDR-Unet104\n\n6             Colman et al. \n \n3 \nExperiment\n\n3.1 \nDataset, Pre-processing and data augmentation\n\nThe data used for training and evaluation of our model consisted of the BraTS 2020 dataset including training \ndata with 369 subjects, validation data with 125 subjects and testing data with 166 subjects, all contained low and \nhigh grade gliomas [11-15]. Each subject has a T2 weighted FLAIR, T1 weighted, T1 weighted post contrast, and \na T2 weighted MRI. Each image is interpolated to a 1x1x1 mm voxel sized giving images sized 240x240x155 \nvoxels. All subject images are aligned into a common space and skull stripped prior to data sharing. The training \ndata additionally contains manually drawn tumor segmentation mask, annotated by experts and checked by a \nneuroradiologist, the segmentation is labelled with numbers denoting edema, tumor core and enhancing tumor. \nFigure 4 shows an example of a subjects imaging modalities and tumor mask.\n\nFigure 4. Shows the different MRI modalities provided on one subject with a glioma, a) shows a T2 weighted MRI, b) a T2 \nweighted FLAIR MRI, d) a T1 weighted MRI, e) a T1 weighted MRI post contrast. c) and f) show the manual tumor segmen-\ntation in an axial and coronal slice respectively on a T2 weighted FLAIR MRI. Green is edema, red tumor core and yellow \nenhancing tumor. \n \nWe pre-processed the images using data standardisation on a whole 3D MRI modality wise basis, normalised \nusing Eq (2) where 𝑣 is a given voxel and the 𝑚𝑒𝑎𝑛 and standard deviation (𝑆𝐷) are of the image of voxels > 0. \nThis is so the image was rescaled prior to conversion to 2D image.\n\n𝑣= {\n\n254                           𝑣> 𝑚𝑒𝑎𝑛+ 3 ∗𝑆𝐷\n\n(𝑣−𝑚𝑒𝑎𝑛)+127\n\n3∗𝑆𝐷128\n⁄\n                  𝑜𝑡ℎ𝑒𝑟𝑤𝑖𝑠𝑒\n\n0                             𝑣< 𝑚𝑒𝑎𝑛−3 ∗𝑆𝐷\n\n} \n(2)\n\nDR-Unet104 for Multimodal MRI brain tumor segmentation             7\n\nEach slice of the image is then saved as individual png image, with each channel representing an MRI modality. \nThe only image augmentation applied was randomly flipping the images in the left-right and anterior-posterior \norientation with a 50% probability.\n\n3.2 \nSetup and training\n\nFor training, we used ADAM optimiser [16] with a learning rate of 1e-4 and He initialization [17]. We used a \nbatch sizes of 10 and ran the training for 50 epochs. All subjects’ images were converted to single RGBA images \nfor each slice as described in the methods and inputted to the model in a random order. We evaluated our method \nwith varying dropout rates and compared our proposed architecture to DeeplabV3+ as the architecture is openly \navailable online and a current state-of-the-art segmentation architecture. We use a ResNet-V2-152 backbone for \nthe BraTS evaluation and not the originally suggested ResNet-V1-101 in order to improve the performance and \nmake the architecture more analogous to our proposed method [6]. The architectures are implemented in Keras \nwith a tensorflow backend [18-19]. This was performed using a NVIDIA GTX 2080Ti graphics card with 12 GB \nof memory.\n\n4 \nResults\n\nWe initially evaluated our proposed DR-Unet104 architecture on the 125 validation subjects, pre-processed in the \nsame way as the training data, however, without data augmentation. The resulting 2D masks are reconstructed \ninto 3D nii images and evaluated on the IPP website [https://ipp.cbica.upenn.edu/], which computed and evaluated \nthe lesion masks outputting the metrics, DSC, sensitivity, specificity and Hausdorff distance 95% (HD95). We \nevaluated our proposed architecture with varying random dropout rate after each level, the rate we trailed being \n0.2, 0.5 and no dropout. We can observe from the Table 1, the architecture applying the dropout of rate 0.2 has \nsuperior performance than the architecture with a rate of 0.5 or without dropout, with all tumor components’ DSC \nand HD95 being greater. These observations verify that dropout in our architecture allows the network to learn \ninformative features from the data, but only with the small rate (e.g. 0.2), as the network with a large (0.5) rate \nperforms poor and even worse than the setting without dropout. Comparing our proposed architecture with a \ndroupout of 0.2 to DeepLabV3+ shows improvement of segmentation results in all areas except the mean tumor \ncore DSC.\n\nTable 1. Table showing \nthe mean results of the \nDice \nScore \ncoefficient \n(DSC) and Hausdorff dis-\ntance 95% (HD95) with \nthe Standard deviation \n(SD) in brackets results on \nthe BraTS20 validation \ndata. We show results for \nthe whole tumor (WT), \nenhancing tumor (ET) and \ntumor core (TC). We compare the results of our own architecture, the deep residual Unet 104 (DR-Unet104) with no dropout, \na dropout of 0.2 and of 0.5 after each level. We additionally compare our model to DeepLabV3+ with a ResNet101 backbone. \nWe show the best results in bold.\n\nWe finally evaluated our model on the 166 BraTS testing subjects as part of the 2020 challenge with the final \nresults shown in Table 2. Our mean whole tumor DSC is lower than the validation results at 0.8673, however the \nenhancing tumor and tumor core DSC are much higher than validation results achieving 0.7514 and 0.7983 re-\nspectively. The proposed methods overall better performance on the testing data shows it generalizability aided \nby random dropout. Our model’s performance is additionally competitive with 3D models.\n\nValidation Results \n \nDSC \nHD95 \nArchitecture \nWT (SD) \nET (SD) \nTC (SD) \nWT (SD) \nET (SD) \nTC (SD) \nDR-UNET104\n\ndropout (0)\n\n0.8763 \n(0.0859)\n\n0.6549 \n(0.3256)\n\n0.6693 \n(0.3357)\n\n18.39 \n(24.87)\n\n53.61 \n(115.9)\n\n16.19 \n(20.88) \nDR-UNET104\n\ndropout (0.2)\n\n0.8862 \n(0.0886)\n\n0.6756 \n(0.3171)\n\n0.6721 \n(0.3462)\n\n12.11 \n(20.82)\n\n47.62 \n(112.7)\n\n15.74 \n(36.04) \nDR-UNET104\n\ndropout (0.5)\n\n0.8723 \n(0.0977)\n\n0.6701 \n(0.3245)\n\n0.6489 \n(0.3651)\n\n23.80 \n(27.58)\n\n51.53 \n(108.5)\n\n28.56 \n(51.69) \nDeepLabV3+ \n0.8771 \n(0.0853)\n\n0.6524 \n(0.3101)\n\n0.6813 \n(0.3213)\n\n14.87 \n(23.20)\n\n49.10 \n(112.6)\n\n17.96 \n(37.54)\n\n8             Colman et al.\n\nTable 2. Table show-\ning the mean results of \nthe Dice Score coeffi-\ncient \n(DSC) \nand \nHausdorff \ndistance \n95% (HD95) with the \nStandard deviation (SD) in brackets results on the BraTS20 Testing data. We show results for the whole tumor (WT), enhanc-\ning tumor (ET) and tumor core (TC) evaluated using the deep residual Unet 104 (DR-Unet104) with dropout of 0.2.\n\n5 \nDiscussion\n\nIn this paper, we present a 2D deep residual Unet with 104 convolution layers for automated brain tumor segmen-\ntation in multimodal MRI. The proposed network couples the strengths of deep residual blocks and the Unet with \nencoder-decoder structure. The regularization of dropout is included into the network, allowing it to learn more \nrepresentative features than the plain architectures without regularization, producing improved validation results \nas shown in table 1.  \n \nThe results show that our method achieves promising performance when comparing to a state-of-the-art method \n(i.e. DeeplabV3+), and performs reasonably well despite being a 2D architecture, having minimal training data \naugmentation and being trained for only 50 epochs without any complex learning rate scheduling. The 2D archi-\ntecture has the added benefit of meaning the model can be evaluated on lower powered computers/GPUs, only \nneeding a GPU with 1-2 GBs of memory (when evaluated with a batch size of 1), unlike many other 3D architec-\ntures [4]. A limitation is that for simplicity we used the commonly used cross-entropy loss function, but would \nlikely have received a better performance using a ‘soft Dice loss’ function, as used by the BraTS 2019 1st place \nmethod [4], due to DSC being used for the evaluation, and this could be included in future work. \n \nUnusually, on the testing data set our architecture performed worse on whole tumor segmentation, but much better \non enhancing tumor and tumor core labelling, compared to the validation data set. This is likely due a greater \nnumber of difficult to segment enhancing areas in the validation data set, which would also affect the tumor core \nDSC if mislabelled as one another. A greater number of difficult to label enhancing tumor areas in the validation \ndata set is supported by a larger standard deviation of the mean DSC, 0.25 in testing vs. 0.32 on validation data.\n\n6 \nConclusion\n\nWe propose a variant of the Unet taking advantage of bottleneck residual block to produce a deeply stacked \nencoder. We additionally show the benefit of using dropout in our architecture. Our method has a competitive \nperformance despite being a 2D architecture and having simple and limited training.\n\nReferences\n\n1. Lambin, P., Leijenaar, R., Deist, T., et al. Radiomics: the bridge between medical imaging and personalized medicine. \nNat Rev Clin Oncol 14, 749–762 (2017). DOI: 10.1038/nrclinonc.2017.141 \n2. Ricard, D., Idbaih, A., Ducray, F., et al. Primary brain tumours in adults. The Lancet 379:9830, 1984-1996 (2012). DOI: \n10.1016/S0140-6736(11)61346-9 \n3. Ronneberger, O., Fischer, P., Brox, T. U-Net: Convolutional Networks for Biomedical Image Segmentation. In: Navab, \nN., Hornegger, J., Wells, W., Frangi, A. (eds) Medical Image Computing and Computer-Assisted Intervention – MICCAI \n2015. MICCAI 2015. Lecture Notes in Computer Science, vol 9351. Springer, Cham. DOI: 10.1007/978-3-319-24574-\n4_28 \n4. Jiang Z., Ding C., Liu M., Tao D. Two-Stage Cascaded U-Net: 1st Place Solution to BraTS Challenge 2019 Segmentation \nTask. In: Crimi A., Bakas S. (eds) Brainlesion: Glioma, Multiple Sclerosis, Stroke and Traumatic Brain Injuries. BrainLes \n2019. Lecture Notes in Computer Science, vol 11992. Springer, Cham. DOI: 10.1007/978-3-030-46640-4_22 \n5. Kamnitsas K. et al. (2018) Ensembles of Multiple Models and Architectures for Robust Brain Tumour Segmentation. In: \nCrimi A., Bakas S., Kuijf H., Menze B., Reyes M. (eds) Brainlesion: Glioma, Multiple Sclerosis, Stroke and Traumatic\n\nTesting Data \n \nDSC \nHD95 \nArchitecture \nWT (SD) \nET (SD) \nTC (SD) \nWT (SD) \nET (SD) \nTC (SD) \nDR-UNET104\n\ndropout (0.2)\n\n0.8673 \n(0.1279)\n\n0.7514 \n(0.2478)\n\n0.7983 \n(0.2757)\n\n10.41 \n(16.59)\n\n24.68 \n(83.99)\n\n21.84 \n(74.35)\n\nDR-Unet104 for Multimodal MRI brain tumor segmentation             9\n\nBrain Injuries. BrainLes 2017. Lecture Notes in Computer Science, vol 10670. Springer, Cham. DOI: 10.1007/978-3-\n319-75238-9_38 \n6. He K., Zhang X., Ren S., Sun J. (2016) Identity Mappings in Deep Residual Networks. In: Leibe B., Matas J., Sebe N., \nWelling M. (eds) Computer Vision – ECCV 2016. ECCV 2016. Lecture Notes in Computer Science, vol 9908. Springer, \nCham. DOI: 10.1007/978-3-319-46493-0_38 \n7. He. K., Zhang. X., Ren. S., Sun. J., Deep Residual Learning for Image Recognition, Proceedings of the IEEE Conference \non Computer Vision and Pattern Recognition (CVPR), 770-778 (2016). DOI: 10.1109/CVPR.2016.90 \n8. Chen, L-C., Zhu, Y., Papandreou, G., Schroff, F., Adam, H., Encoder-Decoder with Atrous Separable Convolution for \nSemantic Image Segmentation. Proceedings of the European Conference on Computer Vision (ECCV), 801-818 (2018). \nDOI: 10.1007/978-3-030-01234-2_49 \n9. Park S., Kwak N. Analysis on the Dropout Effect in Convolutional Neural Networks. In: Lai SH., Lepetit V., Nishino K., \nSato Y. (eds) Computer Vision – ACCV 2016. ACCV 2016. Lecture Notes in Computer Science, vol 10112. Springer, \nCham. DOI: 10.1007/978-3-319-54184-6_12 \n10. Ho, Y. and Wookey, S. The Real-World-Weight Cross-Entropy Loss Function: Modeling the Costs of Mislabeling. in \nIEEE Access, vol. 8, pp. 4806-4813, (2020). DOI: 10.1109/ACCESS.2019.2962617 \n11. Menze, B.H., Jakab, A., Bauer, S., Kalpathy-Cramer, J., Farahani, K., Kirby, J., et al. The Multimodal Brain Tumor Image \nSegmentation Benchmark (BRATS). IEEE Transactions on Medical Imaging 34(10), 1993-2024 (2015). DOI: \n10.1109/TMI.2014.2377694 \n12. Bakas, S., Akbari, H., Sotiras, A., Bilello, M., Rozycki, M., Kirby, J.S., et al. Advancing The Cancer Genome Atlas \nglioma MRI collections with expert segmentation labels and radiomic features. Nature Scientific Data, 4:170117 (2017). \nDOI: 10.1038/sdata.2017.117 \n13. Bakas, S., Reyes, M., Jakab, A., Bauer, S., Rempfler, M., Crimi, A., et al. Identifying the Best Machine Learning Algo-\nrithms for Brain Tumor Segmentation, Progression Assessment, and Overall Survival Prediction in the BRATS Challenge. \narXiv preprint arXiv:1811.02629 (2018). \n14. Bakas, S., Akbari, H., Sotiras, A., Bilello, M., Rozycki, M., Kirby, J., et al. Segmentation Labels and Radiomic Features \nfor the Pre-operative Scans of the TCGA-GBM collection. The Cancer Imaging Archive (2017). DOI: \n10.7937/K9/TCIA.2017.KLXWJJ1Q \n15. Bakas, S., Akbari, H., Sotiras, A., Bilello, M., Rozycki, M., Kirby, J., et al. Segmentation Labels and Radiomic Features \nfor the Pre-operative Scans of the TCGA-LGG collection.  The Cancer Imaging Archive, (2017). DOI: \n10.7937/K9/TCIA.2017.GJQ7R0EF \n16. Kingma, D., Ba, J. Adam: A method for stochastic optimization. arXiv 1412.6980 (2014). \n17. He, K., Zhang, X., Ren, S. and Sun, J. Delving deep into rectifiers: Surpassing human-level performance on ImageNet \nclassification.  In International Conference on Computer Vision, (2015). DOI: 10.1109/ICCV.2015.123 \n18. Chollet, F., et al. (2015). Keras. GitHub. Retrieved from https://github.com/fchollet/keras \n19. Abadi et al. TensorFlow: Large-scale machine learning on heterogeneous systems. (2015). Software available from \nhttps://tensorflow.org",
+  "chunks": [
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        157.8,
+        150.8,
+        444.5,
+        166.4
+      ],
+      "text": "DR-Unet104 for Multimodal MRI brain tumor"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        257.9,
+        177.0,
+        344.3,
+        192.5
+      ],
+      "text": "segmentation"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        177.4,
+        202.6,
+        420.5,
+        214.0
+      ],
+      "text": "Jordan Colman1,2, Lei Zhang2, Wenting Duan2, Xujiong Ye2"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        119.3,
+        224.7,
+        481.4,
+        267.3
+      ],
+      "text": "1Ashford and St Peter’s Hospitals NHS Foundation Trust, Surrey, UK \njordan.colman@nhs.net,  \n2 School of Computer Science, University of Lincoln, Lincoln, UK LZhang@lincoln.ac.uk, \nwduan@lincoln.ac.uk, XYe@lincoln.ac.uk"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 1,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        100.3,
+        299.1,
+        497.4,
+        463.9
+      ],
+      "text": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for \nlesion segmentation in brain MRIs. We make multiple additions to the Unet architecture, including adding the \n‘bottleneck’ residual block to the Unet encoder and adding dropout after each convolution block stack. We \nverified the effect of including the regularization of dropout with small rate (e.g. 0.2) on the architecture, and \nfound a dropout of 0.2 improved the overall performance compared to no dropout, or a dropout of 0.5. We \nevaluated the proposed architecture as part of the Multimodal Brain Tumor Segmentation (BraTS) 2020 \nChallenge and compared our method to DeepLabV3+ with a ResNet-V2-152 backbone. We found the DR-\nUnet104 achieved a mean dice score coefficient of 0.8862, 0.6756 and 0.6721 for validation data, whole tumor, \nenhancing tumor and tumor core respectively, an overall improvement on 0.8770, 0.65242 and 0.68134 \nachieved by DeepLabV3+. Our method produced a final mean DSC of 0.8673, 0.7514 and 0.7983 on whole \ntumor, enhancing tumor and tumor core on the challenge’s testing data. We produce a competitive lesion \nsegmentation architecture, despite only using 2D convolutions, having the added benefit that it can be used on \nlower power computers than a 3D architecture. The source code and trained model for this work is openly \navailable at https://github.com/jordan-colman/DR-Unet104."
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 1,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        100.3,
+        483.0,
+        416.1,
+        492.9
+      ],
+      "text": "Keywords: Deep learning, Brain Tumor Segmentation, BraTS, ResNet, Unet, Dropout"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 1,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        72.0,
+        611.9,
+        461.8,
+        654.8
+      ],
+      "text": "Final authenticated publication is available online at https://doi.org/10.1007/978-3-030-72087-2_36"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 1,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        100.3,
+        655.9,
+        497.3,
+        709.9
+      ],
+      "text": "Cite this paper as: \nColman J., Zhang L., Duan W., Ye X. (2021) DR-Unet104 for Multi-modal MRI Brain Tumor Segmentation. \nIn: Crimi A., Bakas S. (eds) Brainlesion: Glioma, Multiple Sclerosis, Stroke and Trau-matic Brain Injuries. \nBrainLes 2020. Lecture Notes in Computer Science, vol 12659. Springer, Cham. https://doi.org/10.1007/978-\n3-030-72087-2_36"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 2,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        72.0,
+        87.2,
+        168.7,
+        124.1
+      ],
+      "text": "2             Colman et al. \n \n1 \nIntroduction"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 2,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        72.0,
+        137.1,
+        525.9,
+        688.2
+      ],
+      "text": "Lesion segmentation is an important area of research necessary to progress the field of radiomics, using imaging \nto infer biomarkers, that can be used to aid prognosis prediction and treatment of patients [1]. Segmentation of \ngliomas, the most common form of primary brain malignancy [2], is a highly useful application of lesion segmen-\ntation. Accurate brain tumor segmentation in MRI produces useful volumetric information, and in the future may \nbe used to derive biomarkers to grade gliomas and predict prognosis. Manual brain tumor segmentation, however, \nis a skilled and time-consuming task. Therefore, automated brain tumor segmentation would be of great benefit \nto progress this area. However, accurate segmentation remains a challenging task due to the high variation of brain \ntumor size, shape, position and inconsistent intensity and contrast in various image modalities. This has contrib-\nuted to the development of automatic segmentation methods, for which several methods have been proposed. The \nMultimodal Brain Tumor Segmentation (BraTS) challenge is an annual challenge set to act as a benchmark of the \ncurrent state-of-the-art brain tumor segmentation algorithms. \n \nIn the recent years deep neural networks have achieved the top performance in the BraTS challenge. Many existing \nmethods consider the Unet [3] as a base architecture, a basic but effective form of the encoder-decoder network \ndesign, with at least two winners of the BraTS challenge utilising a variation of the Unet in 2017 and 2019 [4,5]. \nOther current state-of-the-art segmentation algorithms use the ResNet [6,7] as an encoder in such architecture, \nsuch as the DeepLabV3+, which uses ResNet-101 as the initial encoder and spatial pyramid pooling module in \nthe final layer [8]. The ResNet uses identity mapping, a residual connection which skips multiple network layers \nto aid back propagation and allows deeper networks to be made. Additionally, the ResNet uses a ‘bottleneck’ \nresidual block which uses a 1x1 convolution to reduce the number of image features prior to a spatial, or 3x3 \nconvolution, and then uses another 1x1 convolution to increase the number of features. This is done to increase \ncomputational efficiency and at the same time increase the number of image features represented in the network. \nThe ResNet and DeeplabV3+ do not use random dropout, a commonly used regularizer, which randomly removes \nthe signal of a given proportion of neurons in a layer in order to reduce overfitting of training data [9].  \n \nA common approach of improving the performance of current architectures in medical image segmentation is by \nextending 2D image segmentation to 3D, using 3D convolutional networks on whole images as opposed to a \nsingle 2D MRI slice. An example is the BraTS 2019 1st place solution for the brain tumor segmentation task, \nwhich used a two-staged cascaded 3D Unet [4]. The paper used a 3D Unet architecture with the addition of residual \nconnections in convolutional blocks, in stacks of 1, 2 or 4. The first cascade has fewer total feature channels and \ndetects ‘coarse’ features, the second cascade detects finer details as it has more total feature channels. This archi-\ntecture achieved a mean dice score coefficient (DSC) of 0.8880 for whole tumor segmentation of the testing data, \n0.8370 for tumor core and 0.8327 for enhancing tumor. However, this architecture required cropping 3D images \nto run in a batch size of 1 on a graphics card with 12Gb of memory due to the high memory usages of 3D pro-\ncessing and the large image size. \n   \nIn this paper, given the success of the Unet in BraST challenge [4,5] and inspired by the ‘bottleneck’ residual \nblock from the ResNet [6,7] we proposed a new architecture to couple the strengths of the ‘bottleneck’ residual \nblock and the Unet for brain tumor segmentation in the BraTS 2020 challenge. The proposed network has a total \nof 104 convolutional layers, so is named, deep residual Unet 104 (DR-Unet104). We additionally include dropout \nand investigate if this improves architecture performance, as we mimic the ResNet in our encoder and it is sug-\ngested by its creators additional regularization may improve performance [7]."
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 3,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        271.6,
+        87.2,
+        525.7,
+        97.1
+      ],
+      "text": "DR-Unet104 for Multimodal MRI brain tumor segmentation             3"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 3,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        72.0,
+        99.2,
+        525.7,
+        124.1
+      ],
+      "text": "2 \nMethods"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 3,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        72.0,
+        142.9,
+        157.2,
+        154.1
+      ],
+      "text": "2.1 \nArchitecture"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 3,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        72.0,
+        163.0,
+        525.9,
+        462.1
+      ],
+      "text": "The proposed architecture DR-Unet104 overview is shown below in Figure 1 and 2. The detailed architecture \ndescription is shown in Figure 3, in order to display the number of image feature channels in each layer. It com-\nprises of three main components: encoder, decoder and bridge that forms a typical U-shape network. In this design, \nfive stacked residual block levels with convolution layers and identify mapping are deployed in both encoder and \ndecoder components, which are connected by the bridge component. The feature representations are encoded by \nthe encoder path, which are recovered in the decoder path to a pixel-wise classification. Figure 2 shows the outline \nof the residual blocks in the encoder and decoder path. In the encoder path and bridge connection, the bottleneck \ndesign is applied, which consists of a 1×1 convolution layer for reducing the depth of feature channel, a 3×3 \nconvolution layer, and then a 1×1 convolution layer for restoring dimension [6]. In the decoder path, the typical \nresidual block consists of two stacked 3x3 2D convolutions. The batch normalisation (BN) and rectified linear \nunit (ReLU) activation are used in all residual blocks (Figure 2), we use ‘pre-activation’ residual connections as \nused in ResNet-V2 and described in He et al. 2016 [7]. \n \nGiven a deep architecture has many layers, the issues regarding overfitting and dead neurons in activation need to \nbe considered for training the network. In our method, following the work [9], we employ a regularization using \ndropout with a small rate (e.g. dropout rate of 0.2) after each level. In our method, the input of each level (after \nupsampling) of the decoder is added with a concatenation connection from the output of the encoder to aid feature \nmapping. Downsampling is performed with a stride of 2 in the first convolution of each level (except for level 1). \nUpsampling is performed with 2D transposed convolution with a kernel of 2x2 and stride of 2. The final layer is \nconvoluted with a 1x1 kernel and generating pixel-wise classification scores to represent the 3 tumor classes, and \nbackground class, the class of the pixel is decided by the channel with the largest output (argmax), softmax is used \nduring training. The input is a 2D image slice with 4 channels representing each MRI modality. The proposed \nnetwork code is publicly available at https://github.com/jordan-colman/DR-Unet104."
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 3,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        72.0,
+        651.2,
+        525.7,
+        720.1
+      ],
+      "text": "Figure 1. Overview of the DR-Unet104 architecture showing the bottleneck residual block in the encoder and typical residual \nblock in the decoder. The number of stacks of the bottleneck block is also shown. The downsampling is performed by a step \nof 2 in the initial 1x1 convolution in the first bottleneck block of the level."
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 4,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        72.0,
+        87.2,
+        156.2,
+        109.1
+      ],
+      "text": "4             Colman et al."
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 4,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        72.0,
+        252.9,
+        525.7,
+        318.0
+      ],
+      "text": "Figure 2. The outline of the typical residual blocks in the decoder and the bottleneck residual block of the encoder path. The \ntypical residual block can be seen to be formed of two 3x3 2D convolutions with batch normalization and rectified linear unit \n(Relu) activation before each convolution. The Bottleneck residual block has a 1x1 2D convolution, which reduces the number \nof image feature channels (F) to ¼ of the number. This is followed by a 3x3 2D convolution then a 1x1 convolution which \nincreases the feature channel number by 4 times to the input number. Both blocks input is added to the output for the identity \nmapping to aid backpropagation [6,7]."
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 5,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        271.6,
+        87.2,
+        525.7,
+        97.1
+      ],
+      "text": "DR-Unet104 for Multimodal MRI brain tumor segmentation             5"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 5,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        72.0,
+        521.1,
+        525.7,
+        586.2
+      ],
+      "text": "Figure 3. Our Proposed architecture for the DR-Unet104. The [] brackets denote the typical or bottleneck residual block with \n3x3,64 representing a 2D convolution with a 3x3 kernel and 64 layers. 𝑥𝑁 denotes the number, N, of stacked residual blocks \nin that layer. ↓ denotes reduction in spatial resolution performed by a stride of 2 in the first 1x1 2D convolution of the initial \nbottleneck residual block of that level. ↑ denotes upsampling via the 2D transposed convolution with a kernel of 3x3 and stride \nof 2. → denotes a skip connection between the output of the encoder with the input of the decoder at the same level, joined \nvia concatenation to the unsampled output of the previous level."
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 5,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        72.0,
+        605.0,
+        160.3,
+        616.1
+      ],
+      "text": "2.2 \nLoss function"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 5,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        72.0,
+        625.1,
+        525.9,
+        660.1
+      ],
+      "text": "The loss function used was sparse categorical cross entropy (CE), which is calculated with Eq (1). This was \nchosen for simplicity, however, better performance may have been produced using other loss functions such as \n‘soft Dice loss’ [4]."
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 5,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        72.0,
+        671.9,
+        192.9,
+        683.0
+      ],
+      "text": "𝐶𝐸= −"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 5,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        194.3,
+        669.4,
+        198.4,
+        676.4
+      ],
+      "text": "1"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 5,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        193.7,
+        672.6,
+        252.1,
+        687.3
+      ],
+      "text": "𝑁∑∑𝑌𝑡𝑟𝑢𝑒𝑐"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 5,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        248.6,
+        671.0,
+        311.8,
+        687.2
+      ],
+      "text": "𝑛 × log (𝑌𝑝𝑟𝑒𝑑𝑐"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 5,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        208.0,
+        671.0,
+        420.4,
+        684.3
+      ],
+      "text": "𝑛)\n𝐶\n𝑐\n𝑁\n𝑛\n \n(1)"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 5,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        72.0,
+        695.0,
+        525.8,
+        731.0
+      ],
+      "text": "Where 𝑁 is number of examples and 𝐶 represents the classes, 𝑌𝑡𝑟𝑢𝑒 is the truth label and 𝑌𝑝𝑟𝑒𝑑 the softmax of the \nprediction [10]."
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 5,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        216.8,
+        113.6,
+        283.7,
+        126.9
+      ],
+      "text": "DR-Unet104"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 6,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        72.0,
+        87.2,
+        164.1,
+        124.1
+      ],
+      "text": "6             Colman et al. \n \n3 \nExperiment"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 6,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        72.0,
+        142.9,
+        304.8,
+        154.1
+      ],
+      "text": "3.1 \nDataset, Pre-processing and data augmentation"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 6,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        72.0,
+        163.0,
+        525.9,
+        258.0
+      ],
+      "text": "The data used for training and evaluation of our model consisted of the BraTS 2020 dataset including training \ndata with 369 subjects, validation data with 125 subjects and testing data with 166 subjects, all contained low and \nhigh grade gliomas [11-15]. Each subject has a T2 weighted FLAIR, T1 weighted, T1 weighted post contrast, and \na T2 weighted MRI. Each image is interpolated to a 1x1x1 mm voxel sized giving images sized 240x240x155 \nvoxels. All subject images are aligned into a common space and skull stripped prior to data sharing. The training \ndata additionally contains manually drawn tumor segmentation mask, annotated by experts and checked by a \nneuroradiologist, the segmentation is labelled with numbers denoting edema, tumor core and enhancing tumor. \nFigure 4 shows an example of a subjects imaging modalities and tumor mask."
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 6,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        72.0,
+        548.5,
+        525.7,
+        665.5
+      ],
+      "text": "Figure 4. Shows the different MRI modalities provided on one subject with a glioma, a) shows a T2 weighted MRI, b) a T2 \nweighted FLAIR MRI, d) a T1 weighted MRI, e) a T1 weighted MRI post contrast. c) and f) show the manual tumor segmen-\ntation in an axial and coronal slice respectively on a T2 weighted FLAIR MRI. Green is edema, red tumor core and yellow \nenhancing tumor. \n \nWe pre-processed the images using data standardisation on a whole 3D MRI modality wise basis, normalised \nusing Eq (2) where 𝑣 is a given voxel and the 𝑚𝑒𝑎𝑛 and standard deviation (𝑆𝐷) are of the image of voxels > 0. \nThis is so the image was rescaled prior to conversion to 2D image."
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 6,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        72.0,
+        688.7,
+        153.2,
+        699.8
+      ],
+      "text": "𝑣= {"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 6,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        153.1,
+        674.2,
+        340.8,
+        684.2
+      ],
+      "text": "254                           𝑣> 𝑚𝑒𝑎𝑛+ 3 ∗𝑆𝐷"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 6,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        165.9,
+        684.9,
+        217.7,
+        692.2
+      ],
+      "text": "(𝑣−𝑚𝑒𝑎𝑛)+127"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 6,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        176.1,
+        688.8,
+        328.1,
+        705.8
+      ],
+      "text": "3∗𝑆𝐷128\n⁄\n                  𝑜𝑡ℎ𝑒𝑟𝑤𝑖𝑠𝑒"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 6,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        155.4,
+        706.5,
+        338.2,
+        716.4
+      ],
+      "text": "0                             𝑣< 𝑚𝑒𝑎𝑛−3 ∗𝑆𝐷"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 6,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        340.8,
+        688.7,
+        420.4,
+        699.8
+      ],
+      "text": "} \n(2)"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 7,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        271.6,
+        87.2,
+        525.7,
+        97.1
+      ],
+      "text": "DR-Unet104 for Multimodal MRI brain tumor segmentation             7"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 7,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        72.0,
+        99.2,
+        525.9,
+        145.1
+      ],
+      "text": "Each slice of the image is then saved as individual png image, with each channel representing an MRI modality. \nThe only image augmentation applied was randomly flipping the images in the left-right and anterior-posterior \norientation with a 50% probability."
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 7,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        72.0,
+        163.9,
+        185.4,
+        175.1
+      ],
+      "text": "3.2 \nSetup and training"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 7,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        72.0,
+        184.0,
+        525.9,
+        291.0
+      ],
+      "text": "For training, we used ADAM optimiser [16] with a learning rate of 1e-4 and He initialization [17]. We used a \nbatch sizes of 10 and ran the training for 50 epochs. All subjects’ images were converted to single RGBA images \nfor each slice as described in the methods and inputted to the model in a random order. We evaluated our method \nwith varying dropout rates and compared our proposed architecture to DeeplabV3+ as the architecture is openly \navailable online and a current state-of-the-art segmentation architecture. We use a ResNet-V2-152 backbone for \nthe BraTS evaluation and not the originally suggested ResNet-V1-101 in order to improve the performance and \nmake the architecture more analogous to our proposed method [6]. The architectures are implemented in Keras \nwith a tensorflow backend [18-19]. This was performed using a NVIDIA GTX 2080Ti graphics card with 12 GB \nof memory."
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 7,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        72.0,
+        310.5,
+        140.7,
+        324.0
+      ],
+      "text": "4 \nResults"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 7,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        72.0,
+        337.0,
+        525.9,
+        504.1
+      ],
+      "text": "We initially evaluated our proposed DR-Unet104 architecture on the 125 validation subjects, pre-processed in the \nsame way as the training data, however, without data augmentation. The resulting 2D masks are reconstructed \ninto 3D nii images and evaluated on the IPP website [https://ipp.cbica.upenn.edu/], which computed and evaluated \nthe lesion masks outputting the metrics, DSC, sensitivity, specificity and Hausdorff distance 95% (HD95). We \nevaluated our proposed architecture with varying random dropout rate after each level, the rate we trailed being \n0.2, 0.5 and no dropout. We can observe from the Table 1, the architecture applying the dropout of rate 0.2 has \nsuperior performance than the architecture with a rate of 0.5 or without dropout, with all tumor components’ DSC \nand HD95 being greater. These observations verify that dropout in our architecture allows the network to learn \ninformative features from the data, but only with the small rate (e.g. 0.2), as the network with a large (0.5) rate \nperforms poor and even worse than the setting without dropout. Comparing our proposed architecture with a \ndroupout of 0.2 to DeepLabV3+ shows improvement of segmentation results in all areas except the mean tumor \ncore DSC."
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 7,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        72.0,
+        511.2,
+        525.7,
+        664.2
+      ],
+      "text": "Table 1. Table showing \nthe mean results of the \nDice \nScore \ncoefficient \n(DSC) and Hausdorff dis-\ntance 95% (HD95) with \nthe Standard deviation \n(SD) in brackets results on \nthe BraTS20 validation \ndata. We show results for \nthe whole tumor (WT), \nenhancing tumor (ET) and \ntumor core (TC). We compare the results of our own architecture, the deep residual Unet 104 (DR-Unet104) with no dropout, \na dropout of 0.2 and of 0.5 after each level. We additionally compare our model to DeepLabV3+ with a ResNet101 backbone. \nWe show the best results in bold."
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 7,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        72.0,
+        677.1,
+        525.8,
+        760.2
+      ],
+      "text": "We finally evaluated our model on the 166 BraTS testing subjects as part of the 2020 challenge with the final \nresults shown in Table 2. Our mean whole tumor DSC is lower than the validation results at 0.8673, however the \nenhancing tumor and tumor core DSC are much higher than validation results achieving 0.7514 and 0.7983 re-\nspectively. The proposed methods overall better performance on the testing data shows it generalizability aided \nby random dropout. Our model’s performance is additionally competitive with 3D models."
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 7,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        84.5,
+        506.5,
+        416.0,
+        549.0
+      ],
+      "text": "Validation Results \n \nDSC \nHD95 \nArchitecture \nWT (SD) \nET (SD) \nTC (SD) \nWT (SD) \nET (SD) \nTC (SD) \nDR-UNET104"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 7,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        90.6,
+        549.5,
+        133.7,
+        559.4
+      ],
+      "text": "dropout (0)"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 7,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        159.4,
+        539.0,
+        192.4,
+        559.4
+      ],
+      "text": "0.8763 \n(0.0859)"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 7,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        205.5,
+        539.0,
+        238.5,
+        559.4
+      ],
+      "text": "0.6549 \n(0.3256)"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 7,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        248.1,
+        539.0,
+        281.1,
+        559.4
+      ],
+      "text": "0.6693 \n(0.3357)"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 7,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        296.3,
+        539.0,
+        324.9,
+        559.4
+      ],
+      "text": "18.39 \n(24.87)"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 7,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        342.4,
+        539.0,
+        371.0,
+        559.4
+      ],
+      "text": "53.61 \n(115.9)"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 7,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        84.5,
+        539.0,
+        413.4,
+        570.0
+      ],
+      "text": "16.19 \n(20.88) \nDR-UNET104"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 7,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        87.3,
+        570.3,
+        137.0,
+        580.3
+      ],
+      "text": "dropout (0.2)"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 7,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        159.4,
+        560.0,
+        192.4,
+        580.3
+      ],
+      "text": "0.8862 \n(0.0886)"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 7,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        205.5,
+        560.0,
+        238.5,
+        580.3
+      ],
+      "text": "0.6756 \n(0.3171)"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 7,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        248.1,
+        560.0,
+        281.1,
+        580.3
+      ],
+      "text": "0.6721 \n(0.3462)"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 7,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        296.3,
+        560.0,
+        324.9,
+        580.3
+      ],
+      "text": "12.11 \n(20.82)"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 7,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        342.4,
+        560.0,
+        371.0,
+        580.3
+      ],
+      "text": "47.62 \n(112.7)"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 7,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        84.5,
+        560.0,
+        413.4,
+        590.9
+      ],
+      "text": "15.74 \n(36.04) \nDR-UNET104"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 7,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        87.3,
+        591.3,
+        137.0,
+        601.3
+      ],
+      "text": "dropout (0.5)"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 7,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        159.4,
+        580.9,
+        192.4,
+        601.3
+      ],
+      "text": "0.8723 \n(0.0977)"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 7,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        205.5,
+        580.9,
+        238.5,
+        601.3
+      ],
+      "text": "0.6701 \n(0.3245)"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 7,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        248.1,
+        580.9,
+        281.1,
+        601.3
+      ],
+      "text": "0.6489 \n(0.3651)"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 7,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        296.3,
+        580.9,
+        324.9,
+        601.3
+      ],
+      "text": "23.80 \n(27.58)"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 7,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        342.4,
+        580.9,
+        371.0,
+        601.3
+      ],
+      "text": "51.53 \n(108.5)"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 7,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        86.4,
+        580.9,
+        413.4,
+        622.2
+      ],
+      "text": "28.56 \n(51.69) \nDeepLabV3+ \n0.8771 \n(0.0853)"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 7,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        205.5,
+        601.9,
+        238.5,
+        622.2
+      ],
+      "text": "0.6524 \n(0.3101)"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 7,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        248.1,
+        601.9,
+        281.1,
+        622.2
+      ],
+      "text": "0.6813 \n(0.3213)"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 7,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        296.3,
+        601.9,
+        324.9,
+        622.2
+      ],
+      "text": "14.87 \n(23.20)"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 7,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        342.4,
+        601.9,
+        371.0,
+        622.2
+      ],
+      "text": "49.10 \n(112.6)"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 7,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        384.9,
+        601.9,
+        413.4,
+        622.2
+      ],
+      "text": "17.96 \n(37.54)"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 8,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        72.0,
+        87.2,
+        156.2,
+        109.1
+      ],
+      "text": "8             Colman et al."
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 8,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        72.0,
+        110.1,
+        525.7,
+        197.1
+      ],
+      "text": "Table 2. Table show-\ning the mean results of \nthe Dice Score coeffi-\ncient \n(DSC) \nand \nHausdorff \ndistance \n95% (HD95) with the \nStandard deviation (SD) in brackets results on the BraTS20 Testing data. We show results for the whole tumor (WT), enhanc-\ning tumor (ET) and tumor core (TC) evaluated using the deep residual Unet 104 (DR-Unet104) with dropout of 0.2."
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 8,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        72.0,
+        216.6,
+        157.3,
+        230.0
+      ],
+      "text": "5 \nDiscussion"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 8,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        72.0,
+        243.0,
+        525.9,
+        494.1
+      ],
+      "text": "In this paper, we present a 2D deep residual Unet with 104 convolution layers for automated brain tumor segmen-\ntation in multimodal MRI. The proposed network couples the strengths of deep residual blocks and the Unet with \nencoder-decoder structure. The regularization of dropout is included into the network, allowing it to learn more \nrepresentative features than the plain architectures without regularization, producing improved validation results \nas shown in table 1.  \n \nThe results show that our method achieves promising performance when comparing to a state-of-the-art method \n(i.e. DeeplabV3+), and performs reasonably well despite being a 2D architecture, having minimal training data \naugmentation and being trained for only 50 epochs without any complex learning rate scheduling. The 2D archi-\ntecture has the added benefit of meaning the model can be evaluated on lower powered computers/GPUs, only \nneeding a GPU with 1-2 GBs of memory (when evaluated with a batch size of 1), unlike many other 3D architec-\ntures [4]. A limitation is that for simplicity we used the commonly used cross-entropy loss function, but would \nlikely have received a better performance using a ‘soft Dice loss’ function, as used by the BraTS 2019 1st place \nmethod [4], due to DSC being used for the evaluation, and this could be included in future work. \n \nUnusually, on the testing data set our architecture performed worse on whole tumor segmentation, but much better \non enhancing tumor and tumor core labelling, compared to the validation data set. This is likely due a greater \nnumber of difficult to segment enhancing areas in the validation data set, which would also affect the tumor core \nDSC if mislabelled as one another. A greater number of difficult to label enhancing tumor areas in the validation \ndata set is supported by a larger standard deviation of the mean DSC, 0.25 in testing vs. 0.32 on validation data."
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 8,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        72.0,
+        513.6,
+        160.7,
+        527.1
+      ],
+      "text": "6 \nConclusion"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 8,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        72.0,
+        540.1,
+        525.7,
+        575.1
+      ],
+      "text": "We propose a variant of the Unet taking advantage of bottleneck residual block to produce a deeply stacked \nencoder. We additionally show the benefit of using dropout in our architecture. Our method has a competitive \nperformance despite being a 2D architecture and having simple and limited training."
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 8,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        72.0,
+        594.8,
+        130.9,
+        608.1
+      ],
+      "text": "References"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 8,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        76.6,
+        621.1,
+        525.7,
+        763.2
+      ],
+      "text": "1. Lambin, P., Leijenaar, R., Deist, T., et al. Radiomics: the bridge between medical imaging and personalized medicine. \nNat Rev Clin Oncol 14, 749–762 (2017). DOI: 10.1038/nrclinonc.2017.141 \n2. Ricard, D., Idbaih, A., Ducray, F., et al. Primary brain tumours in adults. The Lancet 379:9830, 1984-1996 (2012). DOI: \n10.1016/S0140-6736(11)61346-9 \n3. Ronneberger, O., Fischer, P., Brox, T. U-Net: Convolutional Networks for Biomedical Image Segmentation. In: Navab, \nN., Hornegger, J., Wells, W., Frangi, A. (eds) Medical Image Computing and Computer-Assisted Intervention – MICCAI \n2015. MICCAI 2015. Lecture Notes in Computer Science, vol 9351. Springer, Cham. DOI: 10.1007/978-3-319-24574-\n4_28 \n4. Jiang Z., Ding C., Liu M., Tao D. Two-Stage Cascaded U-Net: 1st Place Solution to BraTS Challenge 2019 Segmentation \nTask. In: Crimi A., Bakas S. (eds) Brainlesion: Glioma, Multiple Sclerosis, Stroke and Traumatic Brain Injuries. BrainLes \n2019. Lecture Notes in Computer Science, vol 11992. Springer, Cham. DOI: 10.1007/978-3-030-46640-4_22 \n5. Kamnitsas K. et al. (2018) Ensembles of Multiple Models and Architectures for Robust Brain Tumour Segmentation. In: \nCrimi A., Bakas S., Kuijf H., Menze B., Reyes M. (eds) Brainlesion: Glioma, Multiple Sclerosis, Stroke and Traumatic"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 8,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        77.4,
+        111.4,
+        426.6,
+        154.0
+      ],
+      "text": "Testing Data \n \nDSC \nHD95 \nArchitecture \nWT (SD) \nET (SD) \nTC (SD) \nWT (SD) \nET (SD) \nTC (SD) \nDR-UNET104"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 8,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        80.2,
+        154.4,
+        129.9,
+        164.3
+      ],
+      "text": "dropout (0.2)"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 8,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        145.2,
+        144.0,
+        178.2,
+        164.3
+      ],
+      "text": "0.8673 \n(0.1279)"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 8,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        194.9,
+        144.0,
+        227.9,
+        164.3
+      ],
+      "text": "0.7514 \n(0.2478)"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 8,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        244.5,
+        144.0,
+        277.5,
+        164.3
+      ],
+      "text": "0.7983 \n(0.2757)"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 8,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        296.3,
+        144.0,
+        324.9,
+        164.3
+      ],
+      "text": "10.41 \n(16.59)"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 8,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        345.9,
+        144.0,
+        374.4,
+        164.3
+      ],
+      "text": "24.68 \n(83.99)"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 8,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        395.6,
+        144.0,
+        424.1,
+        164.3
+      ],
+      "text": "21.84 \n(74.35)"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 9,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        271.6,
+        87.2,
+        525.7,
+        97.1
+      ],
+      "text": "DR-Unet104 for Multimodal MRI brain tumor segmentation             9"
+    },
+    {
+      "paper_id": "2011.02840",
+      "file_name": "2011.02840_DR-Unet104_for_Multimodal_MRI_brain_tumo.pdf",
+      "page_number": 9,
+      "section": "Abstract. In this paper we propose a 2D deep residual Unet with 104 convolutional layers (DR-Unet104) for",
+      "bbox": [
+        72.1,
+        99.2,
+        525.7,
+        505.2
+      ],
+      "text": "Brain Injuries. BrainLes 2017. Lecture Notes in Computer Science, vol 10670. Springer, Cham. DOI: 10.1007/978-3-\n319-75238-9_38 \n6. He K., Zhang X., Ren S., Sun J. (2016) Identity Mappings in Deep Residual Networks. In: Leibe B., Matas J., Sebe N., \nWelling M. (eds) Computer Vision – ECCV 2016. ECCV 2016. Lecture Notes in Computer Science, vol 9908. Springer, \nCham. DOI: 10.1007/978-3-319-46493-0_38 \n7. He. K., Zhang. X., Ren. S., Sun. J., Deep Residual Learning for Image Recognition, Proceedings of the IEEE Conference \non Computer Vision and Pattern Recognition (CVPR), 770-778 (2016). DOI: 10.1109/CVPR.2016.90 \n8. Chen, L-C., Zhu, Y., Papandreou, G., Schroff, F., Adam, H., Encoder-Decoder with Atrous Separable Convolution for \nSemantic Image Segmentation. Proceedings of the European Conference on Computer Vision (ECCV), 801-818 (2018). \nDOI: 10.1007/978-3-030-01234-2_49 \n9. Park S., Kwak N. Analysis on the Dropout Effect in Convolutional Neural Networks. In: Lai SH., Lepetit V., Nishino K., \nSato Y. (eds) Computer Vision – ACCV 2016. ACCV 2016. Lecture Notes in Computer Science, vol 10112. Springer, \nCham. DOI: 10.1007/978-3-319-54184-6_12 \n10. Ho, Y. and Wookey, S. The Real-World-Weight Cross-Entropy Loss Function: Modeling the Costs of Mislabeling. in \nIEEE Access, vol. 8, pp. 4806-4813, (2020). DOI: 10.1109/ACCESS.2019.2962617 \n11. Menze, B.H., Jakab, A., Bauer, S., Kalpathy-Cramer, J., Farahani, K., Kirby, J., et al. The Multimodal Brain Tumor Image \nSegmentation Benchmark (BRATS). IEEE Transactions on Medical Imaging 34(10), 1993-2024 (2015). DOI: \n10.1109/TMI.2014.2377694 \n12. Bakas, S., Akbari, H., Sotiras, A., Bilello, M., Rozycki, M., Kirby, J.S., et al. Advancing The Cancer Genome Atlas \nglioma MRI collections with expert segmentation labels and radiomic features. Nature Scientific Data, 4:170117 (2017). \nDOI: 10.1038/sdata.2017.117 \n13. Bakas, S., Reyes, M., Jakab, A., Bauer, S., Rempfler, M., Crimi, A., et al. Identifying the Best Machine Learning Algo-\nrithms for Brain Tumor Segmentation, Progression Assessment, and Overall Survival Prediction in the BRATS Challenge. \narXiv preprint arXiv:1811.02629 (2018). \n14. Bakas, S., Akbari, H., Sotiras, A., Bilello, M., Rozycki, M., Kirby, J., et al. Segmentation Labels and Radiomic Features \nfor the Pre-operative Scans of the TCGA-GBM collection. The Cancer Imaging Archive (2017). DOI: \n10.7937/K9/TCIA.2017.KLXWJJ1Q \n15. Bakas, S., Akbari, H., Sotiras, A., Bilello, M., Rozycki, M., Kirby, J., et al. Segmentation Labels and Radiomic Features \nfor the Pre-operative Scans of the TCGA-LGG collection.  The Cancer Imaging Archive, (2017). DOI: \n10.7937/K9/TCIA.2017.GJQ7R0EF \n16. Kingma, D., Ba, J. Adam: A method for stochastic optimization. arXiv 1412.6980 (2014). \n17. He, K., Zhang, X., Ren, S. and Sun, J. Delving deep into rectifiers: Surpassing human-level performance on ImageNet \nclassification.  In International Conference on Computer Vision, (2015). DOI: 10.1109/ICCV.2015.123 \n18. Chollet, F., et al. (2015). Keras. GitHub. Retrieved from https://github.com/fchollet/keras \n19. Abadi et al. TensorFlow: Large-scale machine learning on heterogeneous systems. (2015). Software available from \nhttps://tensorflow.org"
+    }
+  ]
+}

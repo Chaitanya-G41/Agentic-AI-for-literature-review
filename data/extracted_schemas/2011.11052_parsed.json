@@ -1,0 +1,1651 @@
+{
+  "paper_id": "2011.11052",
+  "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+  "parser_used": "PyMuPDF_Layout_Engine",
+  "total_pages": 12,
+  "figures_count": 29,
+  "figures": [
+    {
+      "figure_id": "FIG-2011.11052-P8-1",
+      "page_number": 8,
+      "file_path": "data/figures\\2011.11052\\fig_p8_1.png",
+      "dimensions": "137x165",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2011.11052-P8-2",
+      "page_number": 8,
+      "file_path": "data/figures\\2011.11052\\fig_p8_2.png",
+      "dimensions": "131x132",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2011.11052-P8-3",
+      "page_number": 8,
+      "file_path": "data/figures\\2011.11052\\fig_p8_3.png",
+      "dimensions": "166x133",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2011.11052-P8-4",
+      "page_number": 8,
+      "file_path": "data/figures\\2011.11052\\fig_p8_4.png",
+      "dimensions": "177x214",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2011.11052-P8-5",
+      "page_number": 8,
+      "file_path": "data/figures\\2011.11052\\fig_p8_5.png",
+      "dimensions": "170x171",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2011.11052-P8-6",
+      "page_number": 8,
+      "file_path": "data/figures\\2011.11052\\fig_p8_6.png",
+      "dimensions": "215x172",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2011.11052-P9-1",
+      "page_number": 9,
+      "file_path": "data/figures\\2011.11052\\fig_p9_1.png",
+      "dimensions": "337x442",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2011.11052-P9-2",
+      "page_number": 9,
+      "file_path": "data/figures\\2011.11052\\fig_p9_2.png",
+      "dimensions": "337x432",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2011.11052-P9-3",
+      "page_number": 9,
+      "file_path": "data/figures\\2011.11052\\fig_p9_3.png",
+      "dimensions": "337x432",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2011.11052-P9-4",
+      "page_number": 9,
+      "file_path": "data/figures\\2011.11052\\fig_p9_4.png",
+      "dimensions": "337x432",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2011.11052-P9-5",
+      "page_number": 9,
+      "file_path": "data/figures\\2011.11052\\fig_p9_5.png",
+      "dimensions": "337x432",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2011.11052-P9-6",
+      "page_number": 9,
+      "file_path": "data/figures\\2011.11052\\fig_p9_6.png",
+      "dimensions": "337x432",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2011.11052-P9-7",
+      "page_number": 9,
+      "file_path": "data/figures\\2011.11052\\fig_p9_7.png",
+      "dimensions": "337x432",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2011.11052-P9-8",
+      "page_number": 9,
+      "file_path": "data/figures\\2011.11052\\fig_p9_8.png",
+      "dimensions": "337x442",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2011.11052-P9-9",
+      "page_number": 9,
+      "file_path": "data/figures\\2011.11052\\fig_p9_9.png",
+      "dimensions": "337x442",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2011.11052-P9-10",
+      "page_number": 9,
+      "file_path": "data/figures\\2011.11052\\fig_p9_10.png",
+      "dimensions": "337x442",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2011.11052-P9-11",
+      "page_number": 9,
+      "file_path": "data/figures\\2011.11052\\fig_p9_11.png",
+      "dimensions": "337x442",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2011.11052-P9-12",
+      "page_number": 9,
+      "file_path": "data/figures\\2011.11052\\fig_p9_12.png",
+      "dimensions": "337x442",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2011.11052-P10-1",
+      "page_number": 10,
+      "file_path": "data/figures\\2011.11052\\fig_p10_1.png",
+      "dimensions": "337x442",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2011.11052-P10-2",
+      "page_number": 10,
+      "file_path": "data/figures\\2011.11052\\fig_p10_2.png",
+      "dimensions": "337x442",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2011.11052-P10-3",
+      "page_number": 10,
+      "file_path": "data/figures\\2011.11052\\fig_p10_3.png",
+      "dimensions": "337x442",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2011.11052-P10-4",
+      "page_number": 10,
+      "file_path": "data/figures\\2011.11052\\fig_p10_4.png",
+      "dimensions": "337x432",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2011.11052-P10-5",
+      "page_number": 10,
+      "file_path": "data/figures\\2011.11052\\fig_p10_5.png",
+      "dimensions": "337x432",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2011.11052-P10-6",
+      "page_number": 10,
+      "file_path": "data/figures\\2011.11052\\fig_p10_6.png",
+      "dimensions": "337x432",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2011.11052-P10-7",
+      "page_number": 10,
+      "file_path": "data/figures\\2011.11052\\fig_p10_7.png",
+      "dimensions": "337x432",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2011.11052-P10-8",
+      "page_number": 10,
+      "file_path": "data/figures\\2011.11052\\fig_p10_8.png",
+      "dimensions": "337x432",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2011.11052-P10-9",
+      "page_number": 10,
+      "file_path": "data/figures\\2011.11052\\fig_p10_9.png",
+      "dimensions": "337x432",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2011.11052-P10-10",
+      "page_number": 10,
+      "file_path": "data/figures\\2011.11052\\fig_p10_10.png",
+      "dimensions": "337x442",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2011.11052-P10-11",
+      "page_number": 10,
+      "file_path": "data/figures\\2011.11052\\fig_p10_11.png",
+      "dimensions": "337x442",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    }
+  ],
+  "vector_graphs_count": 1,
+  "vector_graphs": [
+    {
+      "page_number": 4,
+      "drawing_path_count": 105,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    }
+  ],
+  "tables_count": 0,
+  "tables": [],
+  "full_text": "Eﬃcient embedding network for 3D brain tumor\n\nsegmentation\n\nHicham Messaoudi1, Ahror Belaid1, Mohamed Lamine Allaoui1, Ahcene\nZetout1, Mohand Said Allili2, Souhil Tliba1,3, Douraied Ben Salem4,5, and\n\nPierre-Henri Conze4,6\n\n1 Medical Computing Laboratory (LIMED), University of Abderrahmane Mira,\n06000, Bejaia, Algeria, http://http://www.univ-bejaia.dz/limed/\nahror.belaid@univ-bejaia.dz\n2 Universit´e du Qu´ebec en Outaouais, Gatineau, Qu´ebec, J8X 3X7\n3 Neurosurgery Department, University Hospital Center,\nBiological Engineering of Cancers, 06000 Bejaia, Algeria\n4 Laboratory of Medical Information Processing (LaTIM)\nUMR 1101, Inserm, 22 avenue Camille Desmoulins, 29238 Brest, France\n\n5 Neuroradiology Department, CHRU la cavale blanche,\nBoulevard Tanguy-Prigent, 29609 Brest, France\n6 IMT Atlantique, Technopˆole Brest Iroise, 29238 Brest , France\n\nAbstract. 3D medical image processing with deep learning greatly suf-\nfers from a lack of data. Thus, studies carried out in this ﬁeld are limited\ncompared to works related to 2D natural image analysis, where very large\ndatasets exist. As a result, powerful and eﬃcient 2D convolutional neural\nnetworks have been developed and trained. In this paper, we investigate\na way to transfer the performance of a two-dimensional classiﬁcation\nnetwork for the purpose of three-dimensional semantic segmentation of\nbrain tumors. We propose an asymmetric U-Net network by incorporat-\ning the EﬃcientNet model as part of the encoding branch. As the input\ndata is in 3D, the ﬁrst layers of the encoder are devoted to the reduction\nof the third dimension in order to ﬁt the input of the EﬃcientNet net-\nwork. Experimental results on validation and test data from the BraTS\n2020 challenge demonstrate that the proposed method achieve promising\nperformance.\n\nKeywords: Convolutional encoder-decoders · Embedding networks ·\nTransfer learning · 3D image segmentation · EﬃcientNet\n\n1\nIntroduction\n\nGliomas are the most common type of primary brain tumors of the central ner-\nvous system. They can be of low-grade or high-grade type. High-Grade Gliomas\n(HGG) are an aggressive type of malignant brain tumors that grow rapidly.\nFurthermore, Low-Grade Gliomas (LGG) are classiﬁed into grade I and grade\nII. These tumors represent less than 50% of glial tumors and are considered as\nisolated tumor cells within the nervous parenchyma, with slow initial growth.\n\narXiv:2011.11052v1  [cs.CV]  22 Nov 2020\n\n2\nA. Belaid et al.\n\nGliomas are also characterized by their inﬁltrating character resulting in am-\nbiguous and fuzzy boundaries.\n\nHowever, the treatment of LGG remains diﬃcult due to the variability of\ntumor size, location, histology and biological behavior. Furthermore, because\nof the pressure that the tumor exhibits, normal tissues get deformed, making\nit even harder to distinguish normal tissues from tumoral areas. The diagnosis\nof these tumors followed by early treatments are critical for patient survival.\nIndeed, in most cases, patients who are suﬀering from LGG die in the next ten\nyears of the initial diagnosis. For all these reasons, accurate and reproducible\nsegmentation of gliomas is a pre-requisite step for investigating brain MRI data.\n\nMagnetic Resonance Imaging (MRI) has been quickly imposed as being an\nessential medical imaging modality for disease diagnosis. MRI is particularly\nuseful for brain tumor diagnosis, patient follow-up, therapy evaluation and hu-\nman brain mapping [5, 15, 11]. The main advantage related to the use of MRI\nis its ability of acquiring non-invasive and non-irradiant medical images. It is\nalso very sensitive to the contrast and provides an excellent spatial resolution\nwhich is entirely appropriate for the exploration of the brain tissues nature. In\naddition, the imaging easily derives 3D volumes according to brain tissues.\n\nThe multimodal Brain Tumor Segmentation (BraTS) challenge [8, 3, 1, 2, 4]\naims at encouraging the development of state-of-the-art methods for the segmen-\ntation of brain tumors by providing a large 3D MRI dataset of annotated LGG\nand HGG. The BraTS 2020 training dataset include 369 cases (293 HGG and 76\nLGG), each with 4 modalities describing: native (T1), post-contrast T1-weighted\n(T1Gd), T2-weighted (T2), and T2 Fluid Attenuated Inversion Recovery (T2-\nFLAIR) volumes, which were acquired with diﬀerent clinical protocols and vari-\nous MRI scanners from multiple (n=19) institutions. Each tumor was segmented\ninto edema, necrosis and non-enhancing tumor, and active/enhancing tumor. An-\nnotations were combined into 3 nested sub-regions: Whole Tumor (WT), Tumor\nCore (TC) and Enhancing Tumor (ET).\n\nIn the last decade, Convolutional Neural Networks (CNNs) have outper-\nformed all others traditional methodologies in biomedical image segmentation.\nParticularly, the U-Net architecture [10] is currently experiencing a huge success,\nas most winning contributions to recent medical image segmentation challenges\nwere exclusively build around U-Net.\n\nThe aim of this work is to investigate how to re-use powerful deep con-\nvolutional networks that exist in the literature for 2D image analysis purposes.\nIndeed, a lot of powerful 2D classiﬁcation networks are well trained on very large\ndatasets. Through transfer learning, these pre-trained networks can be easily re-\nused for other classiﬁcation problems. However, transferring both learning and\nfeature detection power of classiﬁcation networks to another types of problem\nis not obvious. Especially, in problems using convolutional encoder-decoder ar-\nchitectures such as U-Net, this consists in integrating the pre-trained model as\npart of the encoder branch. When the dimensions of the classiﬁer and the pro-\ncessed network are the same (i.e. when they processed data having the same\ndimensions), the integration of the classiﬁer is almost immediate. Otherwise, an\n\nEﬃcient embedding network for 3D brain tumor segmentation\n3\n\nadaptation process is necessary to be able to adapt the classiﬁer to deal with\nthe dimensions of the images under study.\n\nRelated works can be found in the literature where the segmentation of 3D\nmedical images are based on 2D networks whose encoder has been pre-trained on\nImageNet [6, 7, 13]. Although taking advantage of a pre-trained encoder, these\nnetworks do not integrate the spatial coherence in 3D, since they process data\nslice by slice. In our case, we aim at studying how to transfer the skills of a\npowerful and pre-trained network on 2D images to a convolutional encoder-\ndecoder processing 3D images without loosing the consistency across the third\ndimension. It is known that the ﬁeld of 2D image classiﬁcation is well studied\nand well developed, generally because of the availability of large annotated 2D\nnatural image datasets. The public availability of such large 3D databases is\nnon-existent, and even less so in the medical ﬁeld. Taking advantage of such\npowerful and well-studied networks by re-using them in a 3D problem is an idea\nworth investigating.\n\nIn summary, the main proposed contributions are :\n\n– Proposal of an eﬃcient way to transfer any 2D classiﬁcation architecture to\n\n3D segmentation purposes without losing the 3D consistency.\n– The proposed idea is generalizable in order to integrate any low-dimensional\n\nclassiﬁcation architecture into another high-dimensional architecture with-\nout losing spatial coherence.\n\nIn particular, we are interested in the recently published EﬃcientNet net-\nwork [12] which achieves state-of-the-art top-1 and top-5 accuracy on ImageNet,\nwhile being widely more smaller and faster on inference than the best existing\ndeep architectures. This paper is organized as follow: the proposed architecture is\ndetailed in the next section (2), the results are summarized in section 3, followed\nby a conclusion in section 4.\n\n2\nMethod\n\nThe proposed segmentation approach follows a convolutional encoder-decoder\narchitecture. It is built from an asymmetrically large encoder to extract image\nfeatures and a smaller decoder to reconstruct segmentation masks. We embed as\npart of the encoder branch the recently proposed network called EﬃcientNet [12].\n\n2.1\nData pre-processing\n\nBecause of the limitations in GPU memory and time-consuming computation,\nwe were forced to take some precautions. We process each modality separately,\nand resize the images dimensions by reducing the background using the largest\ncrop size of 192 × 160 × 108, and compromise the batch size to be 1. We do not\nuse any additional training data and employ the provided training set only. We\nnormalize all input images to have zero mean and unit variance.\n\n4\nA. Belaid et al.\n\nBlock 1\n\nBlock 2\n\nBlock 3\n\nBlock 4\n\nBlock 5\n\nHxW\n\n#channels\n\nD\n\n192x160x108\n\n192x160x3\n\nconv 3x3x3 stride (1,1,4)\n\nconv 1x1x1, 3D bilinear upsizing  (1,1,4)\n\nconv 1x1x1,  reshape\n\n2D bilinear upsizing\n\nInter-slice encoding \nInter-slice decoding\n\n96x80x96\n\n6x5x1280\n\n12x10x672\n\n24x20x240\n\n48x40x144\n\nGroup Norm + ReLu + Conv \nGroup Norm + ReLu + Conv \n+ \n=\n\nFig. 1. Schematic illustration of the proposed network architecture. Input is a one-\nchannel cropped 3D MRI. The inter-slice encoder as well as the decoder consist of a\nsuccession of residual blocks with GroupNorm normalization. The output of the decoder\nhas three channels with the same spatial size as the input. Under each EﬃcientNet block\nare shown corresponding output feature dimensions.\n\nSince the EﬃcientNet models range from 0 to 7, we restricted our experimen-\ntations in this preliminary work only by testing the baseline EﬃcientNet-B0 [12].\nIndeed, this model presents a compromise between performance and complexity.\nUsing EﬃcientNet-B7 at this stage requires more resources, a choice which may\nstrongly complexify our model. In any case, if the proposed architecture works\nwell with this baseline model, its generalization towards EﬃcientNet-B7, will be\nstraightforward and will deﬁnitely improve the performances.\n\n2.2\nEncoder branch\n\nThe encoding process goes through two steps. First, we encode three-dimensional\ndata into two-dimensional data, while keeping the height and width at their\noriginal size and compressing only the depth to 3 channels. Second, the data\nis now ready to start the second encoding step, which is none other than the\nEﬃcientNet network without its fully connected layers.\n\nAs shown in Fig. 1, EﬃcientNet is represented as blocks as in its original\nversion. However, only the blocks involved in skip connection layers are repre-\nsented. The inter-slices encoding part uses convolutional blocks which consists\nof two convolutional layers with normalization and ReLU, followed by skip con-\nnection. Following the works of [9], we choose to use Group Normalization [14],\nwhich divides the channels into groups before normalizing them by using mean\nand variance of each group. It seems to perform better than traditional batch\nnormalization, especially when the batch size is small.\n\nLet us assume that the input volume is of width W, height H, depth D,\nwith C channels. The data passes through a 3D-2D shrinking step. Thus, the\ndepth is reduced by factors 3, 3 and 4 to reach a ﬁnal depth size of 3, which\n\nEﬃcient embedding network for 3D brain tumor segmentation\n5\n\ncorresponds to the required number of channels of EﬃcientNet. In this shrinking\nprocedure, the width and height of the single 3D batch are not modiﬁed. The\ndiﬀerent depth reduction factors can be changed and adapted according to the\nthird dimension of the data. In our study, dimensions change as shown in Tab. 1.\nAfter this process, the reduced data reached through the 2D shrinking process\nare given as inputs of the EﬃcientNet model.\n\nLayer\nDimension\nInput\nW × H × D × C\nblock 1\nW × H × D\n\nf1 × C1\nblock 2\nW × H × D\n\nf2 × C2\n...\n\n...\nblock n\nW × H × 3 × Cn\nblock n+1 W × H × 3 × 1\noutput\nW × H × 3\n\nTable 1. Dimension shrinking.\n\n2.3\nDecoder branch\n\nAsymmetrically to the encoding part, the decoder is composed entirely of ho-\nmogeneous blocks as shown in Fig. 1. Obviously, the decoding part linked to the\nEﬃcientNet is a 2D decoder whereas the inter-slice decoding is a 3D decoder.\nEach decoder level begins by upsampling the spatial dimension, doubling the\nnumber of features by a factor of 2 followed by skip connections. A sigmoid\nfunction is used as an activation for the output of the decoder which has three\nchannels corresponding to the number of classes with the same spatial size as\ninputs.\n\n2.4\nLoss\n\nMany networks are trained with a cross-entropy loss function, however the re-\nsulting delineations may not be ideal in terms of Dice score. As an alternative,\none can employ a soft Dice loss function to train the proposed network. While\nseveral formulations of the dice loss exist in the literature, we prefer to use a soft\nDice loss which has given good results in segmentation challenges in the past [9].\nThe soft Dice loss function is diﬀerentiable and is given by:\n\nLDice =\n2 P PtruePpred\nP P 2\n\ntrue + P P 2\n\npred + ϵ ,\n(1)\n\n6\nA. Belaid et al.\n\nwere Ptrue and Ppred represent respectively the ground truth and the predicted\nlabels. Brain MRI segmentation is a challenging task partly due to severe class\nimbalance. Tackling this issue by only using a ﬁxed loss function, cross entropy or\nDice, for the entire training process is not an optimal strategy. Therefore, a linear\ncombination of the two loss functions is often considered as the best practice,\nand leads to more robust and optimal segmentation models. In practice, the ﬁnal\nloss function is as follows:\n\nL = LCross −LDice .\n(2)\n\n2.5\nTraining\n\nThe proposed network architecture is trained with centered cropped data of size\n192 × 160 × 108 voxels, ensuring that the useful content of each slice remains\nwithin the boundaries of the cropped area, training was made on BraTS2020 [8]\ndataset. Constrained by the poor performance of the material, we set the batch\nsize to 1. Training has been done using the Adam optimizer known for little\nmemory requirements, with an initial learning rate of 10−4 reduced by a factor\nof 10 whenever the loss has not improved for 50 epochs.\n\n3\nResults\n\nWe designed the proposed network on Tensorﬂow and run it on the 368 training\ncases of BraTS 2020. We process the four modalities separately and average the\nsigmoid outputs. The validation dataset was provided to test the performance of\nthe models on unseen data. It consists of 125 cases with 4 modalities and with-\nout their corresponding segmentation. The results of the segmentation of the\nWhole Tumor (WT), Tumor Core (TC) and Enhancing Tumor (ET) are sum-\nmarized in Tab. 2. All reported values were computed by the online evaluation\nplatform (https://ipp.cbica.upenn.edu/). Fig. 2 shows a typical segmentation\nresults extracted from the validation dataset.\n\nWith an average Dice score of 84.13 for the WT class, on the validation set,\nthe proposed model seems eﬃcient and accurate enough to handle the training\nand inference over a 3D dataset. On the other hand, results on enhanced and\ncore tumors are less eﬃcient. This may be due to the fact that we process each\nMRI modality separately.\n\nAfter the compression on the depth, the network retains the shape of the\nbrain and its structure, even if they appear slightly blurred and degraded. The\nnetwork learns to extract three axial sections at more or less regular levels. We\nnotice the presence of the tumor on the three learned sections, the axial sections\ngenerally involved in 3-channel compression are the sections that denote the\npresence of tumor information. The high intensity on the tumor parts indicates\nthat the features of the network are focused on the detection of the tumor. These\ndetails are reported in Fig. 3 and Fig. 4.\n\nThe results on the test set are reported on Tab. 3. We can notice a large\nimprovement on ET and TC scores and a slight decrease on WT compared\n\nEﬃcient embedding network for 3D brain tumor segmentation\n7\n\nto the validation set. From Fig. 3, we can see that the images resulting from\nthe 3D compression of the axial slices are well oriented on the learning of the\ncharacteristics of the whole tumor, thus the visible region on FLAIR. In Fig. 4 we\nﬁnd that the compressed data are much more oriented in learning the structural\ncharacteristics of enhanced and necrotic tumor components, which are the visible\nregions in T1CE.\n\nDice\n\nET\nWT\nTC\n\nMean\n65.37 84.13 68.04\nStdDev 31.93 10.67 31.29\nMedian 81.23 87.08 78.30\n\nTable 2. Results on BraTS 2020 validation data. Metrics were computed by the online\nevaluation platform.\n\nDice\n\nET\nWT\nTC\n\nMean\n69.59 80.68 75.20\nStdDev 26.10 14.93 28.94\nMedian 78.81 86.38 87.28\n\nTable 3. Results on BraTS 2020 test data. Metrics were computed by the online\nevaluation platform.\n\n4\nConclusion\n\nIn this paper, we introduced a generic 3D U-Net architecture that allows per-\nformance transfer by re-using and embedding any 2D classiﬁer network. The\nencoder as well as the decoder are composed of two stages. The 3D input data\ngoes through a process of depth shrinking in order to transform the 3D data\ninto 2D data. This process is a succession of blocks of 3D convolutions and max-\npooling reducing the third dimension only. The transformed output data can be\nthen encoded by any 2D classiﬁcation network. Moreover, decoding also goes\nthrough a 2D decoding phase followed by a 3D decoding procedure. Because of\nthe limited computational resources, we resized the images and trained sepa-\nrately the fourth modalities using four modality-speciﬁc networks. Nevertheless,\nthe preliminary results seem to be promising.\n\n8\nA. Belaid et al.\n\nFig. 2. Typical result on the BraTS validation set (2020). From left to right: axial,\ncoronal end sagittal views in T1ce. Enhancing tumor is shown in yellow, necrosis in\nred and edema in green.\n\nEﬃcient embedding network for 3D brain tumor segmentation\n9\n\nFig. 3. Result visualization from the BraTS training set (2020). From up to down :\nthree axial slices of an unique sample in Flair, corresponding channels output of the\n3D encoder, corresponding channels input of the 3D decoder and corresponding labels.\nWith Necrotic and Non-Enhancing Tumor core in red, Gadolinium-enhancing tumor\nin blue and peritumoral edema in green\n\n10\nA. Belaid et al.\n\nFig. 4. Result visualization from the BraTS training set (2020). Three axial slices of an\nunique sample in T1ce, corresponding channels output of the 3D encoder, corresponding\nchannels input of the 3D decoder and corresponding labels. With Necrotic and Non-\nEnhancing Tumor core in red, Gadolinium-enhancing tumor in blue and peritumoral\nedema in green\n\nEﬃcient embedding network for 3D brain tumor segmentation\n11\n\nOur goal was not to surpass all the BraTS sophisticated segmentation tech-\nniques, but to provide a functional way to re-use 2D classiﬁcation architectures\nfor 3D medical image segmentation purposes. As can be seen, the learning trans-\nfer from weights trained on 2D natural images can be exploited for processing 3D\nmedical images. We are convinced that we can signiﬁcantly improve the results\nby robustifying the learning technique, keeping the original size of the data and\nstacking the 4 modalities together.\n\nAcknowledgements This work has been sponsored by the General Directorate\nfor Scientiﬁc Research and Technological Development, Ministry of Higher Ed-\nucation and Scientiﬁc Research (DGRSDT), Algeria.\n\nReferences\n\n1. S.\nBakas,\nH.\nAkbari,\nA.\nSotiras,\nM.\nBilello,\nM.\nRozycki,\nand\nJ.\nKirby\net al.\nSegmentation labels and radiomic features for the pre-operative scans\nof the tcga-gbm collection.\nThe Cancer Imaging Archive, 2017.\nDOI:\n10.7937/K9/TCIA.2017.KLXWJJ1Q.\n2. S.\nBakas,\nH.\nAkbari,\nA.\nSotiras,\nM.\nBilello,\nM.\nRozycki,\nand\nJ.\nKirby\net al.\nSegmentation labels and radiomic features for the pre-operative scans\nof the tcga-gbm collection.\nThe Cancer Imaging Archive, 2017.\nDOI:\n10.7937/K9/TCIA.2017.GJQ7R0EF.\n3. S. Bakas, H. Akbari, A. Sotiras, M. Bilello, M. Rozycki, and J.S. Kirby et al. Ad-\nvancing the cancer genome atlas glioma mri collections with expert segmentation\nlabels and radiomic features. Nature Scientiﬁc Data, page 4:170117, 2017. DOI:\n10.1038/sdata.2017.117.\n4. S. Bakas, M. Reyes, A. Jakab, S. Bauer, M. Rempﬂer, and A. Crimi et al. Identify-\ning the best machine learning algorithms for brain tumor segmentation, progression\nassessment, and overall survival prediction in the brats challenge. arXiv preprint\narXiv:1811.02629, 2018.\n5. Stefan Bauer, Roland Wiest, Lutz-P Nolte, and Mauricio Reyes. A survey of mri-\nbased medical image analysis for brain tumor studies. Phys Med Biol., 58(13):R97–\nR129, 2013. DOI: 10.1088/0031-9155/58/13/R97.\n6. Pierre-Henri Conze, Sylvain Brochard, Val´erie Burdin, Frances T.Sheehan,\nand\nChristelle\nPons.\nHealthy\nversus\npathological\nlearning\ntransferability\nin\nshoulder\nmuscle\nMRI\nsegmentation\nusing\ndeep\nconvolutional\nencoder-\ndecoders.\nComput.\nMed.\nImaging\nGraph.,\n83:101733,\n2020.\nDOI:\n10.1016/j.compmedimag.2020.101733.\n7. Pierre-Henri Conze, Ali Emre Kavur, Emilie Cornec-Le Gall, Naciye Sinem Gezer,\nYannick Le Meur, M. Alper Selver, and Fran¸cois Rousseau. Abdominal multi-organ\nsegmentation with cascaded convolutional and adversarial deep networks. arXiv\npreprint arXiv:2001.09521, 2020.\n8. B. H. Menze, A. Jakab, S. Bauer, J. Kalpathy-Cramer, K. Farahani, and\nJ. Kirby et al.\nThe multimodal brain tumor image segmentation benchmark\n(BRATS). IEEE Transactions on Medical Imaging, 34(10):1993–2024, 2015. DOI:\n10.1109/TMI.2014.2377694.\n9. Andriy Myronenko. 3D MRI brain tumor segmentation using autoencoder regu-\nlarization. BrainLes@MICCAI, 2:311–320, 2018. DOI:10.1007/978-3-030-11726-9\n28.\n\n12\nA. Belaid et al.\n\n10. O. Ronneberger, P. Fischer, and T. Brox.\nU-net: Convolutional networks\nfor biomedical image segmentation.\nIn International Conference on Medical\nImage Computing and Computer-Assisted Intervention, pages 234–241, 2015.\n10.1007/978-3-319-24574-4 28.\n11. K. Souadih, A. Belaid, D. Ben Salem, and P. H. Conze. Automatic forensic iden-\ntiﬁcation using 3D sphenoid sinus segmentation and deep characterization. Med.\nBiol. Eng. Comput., 58:291–306, 2020. DOI: 10.1007/s11517-019-02050-6.\n12. Mingxing Tan and Quoc V. Le. Eﬃcientnet: Rethinking model scaling for convo-\nlutional neural networks. In Proceedings of Machine Learning Research, editor,\n36th International Conference on Machine Learning (ICML), volume 97, pages\n10691–10700, Long Beach, California, USA, 2019.\n13. Minh H. Vu, Guus Grimbergen, Tufve Nyholm, and Tommy L¨ofstedt. Evaluation of\nmulti-slice inputs to convolutional neural networks for medical image segmentation.\narXiv preprint arXiv:1912.09287, 2019.\n14. Y. Wu and K. He. Group normalization. In In: European Conference on Computer\nVision (ECCV), 2018. DOI: 10.1007/s11263-019-01198-w.\n15. R. Zaouche, A. Belaid, S. Aloui, B. Solaiman, L. Lecornu, D. Ben Salem, and\nS. Tliba. Semi-automatic method for low-grade gliomas segmentation in magnetic\nresonance imaging. IRBM, 39(2):116–128, 2018. DOI: 10.1016/j.irbm.2018.01.004.",
+  "chunks": [
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        135.9,
+        114.6,
+        479.6,
+        128.9
+      ],
+      "text": "Eﬃcient embedding network for 3D brain tumor"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        261.2,
+        132.5,
+        354.2,
+        146.9
+      ],
+      "text": "segmentation"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        145.0,
+        169.3,
+        470.3,
+        192.5
+      ],
+      "text": "Hicham Messaoudi1, Ahror Belaid1, Mohamed Lamine Allaoui1, Ahcene\nZetout1, Mohand Said Allili2, Souhil Tliba1,3, Douraied Ben Salem4,5, and"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        260.5,
+        193.2,
+        354.3,
+        204.5
+      ],
+      "text": "Pierre-Henri Conze4,6"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        146.2,
+        212.3,
+        469.2,
+        301.8
+      ],
+      "text": "1 Medical Computing Laboratory (LIMED), University of Abderrahmane Mira,\n06000, Bejaia, Algeria, http://http://www.univ-bejaia.dz/limed/\nahror.belaid@univ-bejaia.dz\n2 Universit´e du Qu´ebec en Outaouais, Gatineau, Qu´ebec, J8X 3X7\n3 Neurosurgery Department, University Hospital Center,\nBiological Engineering of Cancers, 06000 Bejaia, Algeria\n4 Laboratory of Medical Information Processing (LaTIM)\nUMR 1101, Inserm, 22 avenue Camille Desmoulins, 29238 Brest, France"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        176.9,
+        300.0,
+        438.5,
+        334.7
+      ],
+      "text": "5 Neuroradiology Department, CHRU la cavale blanche,\nBoulevard Tanguy-Prigent, 29609 Brest, France\n6 IMT Atlantique, Technopˆole Brest Iroise, 29238 Brest , France"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 1,
+      "section": "Abstract. 3D medical image processing with deep learning greatly suf-",
+      "bbox": [
+        163.1,
+        364.7,
+        452.3,
+        516.1
+      ],
+      "text": "Abstract. 3D medical image processing with deep learning greatly suf-\nfers from a lack of data. Thus, studies carried out in this ﬁeld are limited\ncompared to works related to 2D natural image analysis, where very large\ndatasets exist. As a result, powerful and eﬃcient 2D convolutional neural\nnetworks have been developed and trained. In this paper, we investigate\na way to transfer the performance of a two-dimensional classiﬁcation\nnetwork for the purpose of three-dimensional semantic segmentation of\nbrain tumors. We propose an asymmetric U-Net network by incorporat-\ning the EﬃcientNet model as part of the encoding branch. As the input\ndata is in 3D, the ﬁrst layers of the encoder are devoted to the reduction\nof the third dimension in order to ﬁt the input of the EﬃcientNet net-\nwork. Experimental results on validation and test data from the BraTS\n2020 challenge demonstrate that the proposed method achieve promising\nperformance."
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 1,
+      "section": "Abstract. 3D medical image processing with deep learning greatly suf-",
+      "bbox": [
+        163.1,
+        528.8,
+        452.2,
+        548.9
+      ],
+      "text": "Keywords: Convolutional encoder-decoders · Embedding networks ·\nTransfer learning · 3D image segmentation · EﬃcientNet"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 1,
+      "section": "Abstract. 3D medical image processing with deep learning greatly suf-",
+      "bbox": [
+        134.8,
+        570.6,
+        229.0,
+        582.5
+      ],
+      "text": "1\nIntroduction"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 1,
+      "section": "Abstract. 3D medical image processing with deep learning greatly suf-",
+      "bbox": [
+        134.8,
+        595.4,
+        480.6,
+        665.1
+      ],
+      "text": "Gliomas are the most common type of primary brain tumors of the central ner-\nvous system. They can be of low-grade or high-grade type. High-Grade Gliomas\n(HGG) are an aggressive type of malignant brain tumors that grow rapidly.\nFurthermore, Low-Grade Gliomas (LGG) are classiﬁed into grade I and grade\nII. These tumors represent less than 50% of glial tumors and are considered as\nisolated tumor cells within the nervous parenchyma, with slow initial growth."
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 1,
+      "section": "Abstract. 3D medical image processing with deep learning greatly suf-",
+      "bbox": [
+        10.9,
+        206.7,
+        37.6,
+        560.0
+      ],
+      "text": "arXiv:2011.11052v1  [cs.CV]  22 Nov 2020"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 2,
+      "section": "Abstract. 3D medical image processing with deep learning greatly suf-",
+      "bbox": [
+        134.8,
+        92.9,
+        229.4,
+        101.9
+      ],
+      "text": "2\nA. Belaid et al."
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 2,
+      "section": "Abstract. 3D medical image processing with deep learning greatly suf-",
+      "bbox": [
+        134.8,
+        118.0,
+        480.6,
+        139.9
+      ],
+      "text": "Gliomas are also characterized by their inﬁltrating character resulting in am-\nbiguous and fuzzy boundaries."
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 2,
+      "section": "Abstract. 3D medical image processing with deep learning greatly suf-",
+      "bbox": [
+        134.8,
+        144.1,
+        480.6,
+        237.8
+      ],
+      "text": "However, the treatment of LGG remains diﬃcult due to the variability of\ntumor size, location, histology and biological behavior. Furthermore, because\nof the pressure that the tumor exhibits, normal tissues get deformed, making\nit even harder to distinguish normal tissues from tumoral areas. The diagnosis\nof these tumors followed by early treatments are critical for patient survival.\nIndeed, in most cases, patients who are suﬀering from LGG die in the next ten\nyears of the initial diagnosis. For all these reasons, accurate and reproducible\nsegmentation of gliomas is a pre-requisite step for investigating brain MRI data."
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 2,
+      "section": "Abstract. 3D medical image processing with deep learning greatly suf-",
+      "bbox": [
+        134.8,
+        242.0,
+        480.7,
+        335.7
+      ],
+      "text": "Magnetic Resonance Imaging (MRI) has been quickly imposed as being an\nessential medical imaging modality for disease diagnosis. MRI is particularly\nuseful for brain tumor diagnosis, patient follow-up, therapy evaluation and hu-\nman brain mapping [5, 15, 11]. The main advantage related to the use of MRI\nis its ability of acquiring non-invasive and non-irradiant medical images. It is\nalso very sensitive to the contrast and provides an excellent spatial resolution\nwhich is entirely appropriate for the exploration of the brain tissues nature. In\naddition, the imaging easily derives 3D volumes according to brain tissues."
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 2,
+      "section": "Abstract. 3D medical image processing with deep learning greatly suf-",
+      "bbox": [
+        134.8,
+        339.9,
+        480.7,
+        469.4
+      ],
+      "text": "The multimodal Brain Tumor Segmentation (BraTS) challenge [8, 3, 1, 2, 4]\naims at encouraging the development of state-of-the-art methods for the segmen-\ntation of brain tumors by providing a large 3D MRI dataset of annotated LGG\nand HGG. The BraTS 2020 training dataset include 369 cases (293 HGG and 76\nLGG), each with 4 modalities describing: native (T1), post-contrast T1-weighted\n(T1Gd), T2-weighted (T2), and T2 Fluid Attenuated Inversion Recovery (T2-\nFLAIR) volumes, which were acquired with diﬀerent clinical protocols and vari-\nous MRI scanners from multiple (n=19) institutions. Each tumor was segmented\ninto edema, necrosis and non-enhancing tumor, and active/enhancing tumor. An-\nnotations were combined into 3 nested sub-regions: Whole Tumor (WT), Tumor\nCore (TC) and Enhancing Tumor (ET)."
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 2,
+      "section": "Abstract. 3D medical image processing with deep learning greatly suf-",
+      "bbox": [
+        134.8,
+        473.6,
+        480.6,
+        531.4
+      ],
+      "text": "In the last decade, Convolutional Neural Networks (CNNs) have outper-\nformed all others traditional methodologies in biomedical image segmentation.\nParticularly, the U-Net architecture [10] is currently experiencing a huge success,\nas most winning contributions to recent medical image segmentation challenges\nwere exclusively build around U-Net."
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 2,
+      "section": "Abstract. 3D medical image processing with deep learning greatly suf-",
+      "bbox": [
+        134.8,
+        535.6,
+        480.6,
+        665.1
+      ],
+      "text": "The aim of this work is to investigate how to re-use powerful deep con-\nvolutional networks that exist in the literature for 2D image analysis purposes.\nIndeed, a lot of powerful 2D classiﬁcation networks are well trained on very large\ndatasets. Through transfer learning, these pre-trained networks can be easily re-\nused for other classiﬁcation problems. However, transferring both learning and\nfeature detection power of classiﬁcation networks to another types of problem\nis not obvious. Especially, in problems using convolutional encoder-decoder ar-\nchitectures such as U-Net, this consists in integrating the pre-trained model as\npart of the encoder branch. When the dimensions of the classiﬁer and the pro-\ncessed network are the same (i.e. when they processed data having the same\ndimensions), the integration of the classiﬁer is almost immediate. Otherwise, an"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 3,
+      "section": "Abstract. 3D medical image processing with deep learning greatly suf-",
+      "bbox": [
+        196.0,
+        92.9,
+        480.6,
+        101.9
+      ],
+      "text": "Eﬃcient embedding network for 3D brain tumor segmentation\n3"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 3,
+      "section": "Abstract. 3D medical image processing with deep learning greatly suf-",
+      "bbox": [
+        134.8,
+        118.0,
+        480.6,
+        139.9
+      ],
+      "text": "adaptation process is necessary to be able to adapt the classiﬁer to deal with\nthe dimensions of the images under study."
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 3,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        134.8,
+        142.2,
+        480.6,
+        295.7
+      ],
+      "text": "Related works can be found in the literature where the segmentation of 3D\nmedical images are based on 2D networks whose encoder has been pre-trained on\nImageNet [6, 7, 13]. Although taking advantage of a pre-trained encoder, these\nnetworks do not integrate the spatial coherence in 3D, since they process data\nslice by slice. In our case, we aim at studying how to transfer the skills of a\npowerful and pre-trained network on 2D images to a convolutional encoder-\ndecoder processing 3D images without loosing the consistency across the third\ndimension. It is known that the ﬁeld of 2D image classiﬁcation is well studied\nand well developed, generally because of the availability of large annotated 2D\nnatural image datasets. The public availability of such large 3D databases is\nnon-existent, and even less so in the medical ﬁeld. Taking advantage of such\npowerful and well-studied networks by re-using them in a 3D problem is an idea\nworth investigating."
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 3,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        149.7,
+        297.9,
+        372.2,
+        307.9
+      ],
+      "text": "In summary, the main proposed contributions are :"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 3,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        141.0,
+        319.1,
+        480.6,
+        329.0
+      ],
+      "text": "– Proposal of an eﬃcient way to transfer any 2D classiﬁcation architecture to"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 3,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        141.0,
+        331.0,
+        480.6,
+        353.3
+      ],
+      "text": "3D segmentation purposes without losing the 3D consistency.\n– The proposed idea is generalizable in order to integrate any low-dimensional"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 3,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        151.7,
+        355.3,
+        480.6,
+        377.2
+      ],
+      "text": "classiﬁcation architecture into another high-dimensional architecture with-\nout losing spatial coherence."
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 3,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        134.8,
+        388.0,
+        480.6,
+        457.8
+      ],
+      "text": "In particular, we are interested in the recently published EﬃcientNet net-\nwork [12] which achieves state-of-the-art top-1 and top-5 accuracy on ImageNet,\nwhile being widely more smaller and faster on inference than the best existing\ndeep architectures. This paper is organized as follow: the proposed architecture is\ndetailed in the next section (2), the results are summarized in section 3, followed\nby a conclusion in section 4."
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 3,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        134.8,
+        479.7,
+        201.1,
+        491.6
+      ],
+      "text": "2\nMethod"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 3,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        134.8,
+        506.6,
+        480.6,
+        552.5
+      ],
+      "text": "The proposed segmentation approach follows a convolutional encoder-decoder\narchitecture. It is built from an asymmetrically large encoder to extract image\nfeatures and a smaller decoder to reconstruct segmentation masks. We embed as\npart of the encoder branch the recently proposed network called EﬃcientNet [12]."
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 3,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        134.8,
+        573.9,
+        261.0,
+        583.9
+      ],
+      "text": "2.1\nData pre-processing"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 3,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        134.8,
+        595.4,
+        480.7,
+        665.1
+      ],
+      "text": "Because of the limitations in GPU memory and time-consuming computation,\nwe were forced to take some precautions. We process each modality separately,\nand resize the images dimensions by reducing the background using the largest\ncrop size of 192 × 160 × 108, and compromise the batch size to be 1. We do not\nuse any additional training data and employ the provided training set only. We\nnormalize all input images to have zero mean and unit variance."
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 4,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        134.8,
+        92.9,
+        229.4,
+        101.9
+      ],
+      "text": "4\nA. Belaid et al."
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 4,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        272.0,
+        187.1,
+        285.6,
+        191.5
+      ],
+      "text": "Block 1"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 4,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        279.6,
+        209.4,
+        293.2,
+        213.8
+      ],
+      "text": "Block 2"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 4,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        287.3,
+        227.9,
+        300.9,
+        232.3
+      ],
+      "text": "Block 3"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 4,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        294.0,
+        241.6,
+        307.6,
+        245.9
+      ],
+      "text": "Block 4"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 4,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        311.9,
+        254.1,
+        325.5,
+        258.5
+      ],
+      "text": "Block 5"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 4,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        143.5,
+        200.0,
+        151.8,
+        203.8
+      ],
+      "text": "HxW"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 4,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        151.3,
+        208.5,
+        167.7,
+        212.3
+      ],
+      "text": "#channels"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 4,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        156.2,
+        199.1,
+        159.4,
+        202.9
+      ],
+      "text": "D"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 4,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        135.2,
+        151.3,
+        139.1,
+        172.7
+      ],
+      "text": "192x160x108"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 4,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        265.1,
+        155.2,
+        268.9,
+        172.8
+      ],
+      "text": "192x160x3"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 4,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        397.4,
+        206.2,
+        446.9,
+        211.0
+      ],
+      "text": "conv 3x3x3 stride (1,1,4)"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 4,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        397.4,
+        214.9,
+        476.7,
+        219.8
+      ],
+      "text": "conv 1x1x1, 3D bilinear upsizing  (1,1,4)"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 4,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        397.4,
+        223.7,
+        440.0,
+        228.6
+      ],
+      "text": "conv 1x1x1,  reshape"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 4,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        397.4,
+        232.5,
+        438.4,
+        244.1
+      ],
+      "text": "2D bilinear upsizing"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 4,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        166.0,
+        180.5,
+        423.6,
+        185.5
+      ],
+      "text": "Inter-slice encoding \nInter-slice decoding"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 4,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        269.2,
+        193.0,
+        282.7,
+        196.2
+      ],
+      "text": "96x80x96"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 4,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        303.5,
+        260.1,
+        317.0,
+        263.3
+      ],
+      "text": "6x5x1280"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 4,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        291.2,
+        247.5,
+        306.3,
+        250.8
+      ],
+      "text": "12x10x672"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 4,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        284.5,
+        233.7,
+        299.7,
+        237.0
+      ],
+      "text": "24x20x240"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 4,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        276.5,
+        215.2,
+        291.7,
+        218.5
+      ],
+      "text": "48x40x144"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 4,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        372.9,
+        253.8,
+        481.6,
+        262.8
+      ],
+      "text": "Group Norm + ReLu + Conv \nGroup Norm + ReLu + Conv \n+ \n="
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 4,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        134.8,
+        276.6,
+        480.6,
+        329.4
+      ],
+      "text": "Fig. 1. Schematic illustration of the proposed network architecture. Input is a one-\nchannel cropped 3D MRI. The inter-slice encoder as well as the decoder consist of a\nsuccession of residual blocks with GroupNorm normalization. The output of the decoder\nhas three channels with the same spatial size as the input. Under each EﬃcientNet block\nare shown corresponding output feature dimensions."
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 4,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        134.8,
+        354.0,
+        480.6,
+        435.7
+      ],
+      "text": "Since the EﬃcientNet models range from 0 to 7, we restricted our experimen-\ntations in this preliminary work only by testing the baseline EﬃcientNet-B0 [12].\nIndeed, this model presents a compromise between performance and complexity.\nUsing EﬃcientNet-B7 at this stage requires more resources, a choice which may\nstrongly complexify our model. In any case, if the proposed architecture works\nwell with this baseline model, its generalization towards EﬃcientNet-B7, will be\nstraightforward and will deﬁnitely improve the performances."
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 4,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        134.8,
+        455.7,
+        240.2,
+        465.7
+      ],
+      "text": "2.2\nEncoder branch"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 4,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        134.8,
+        475.8,
+        480.6,
+        533.6
+      ],
+      "text": "The encoding process goes through two steps. First, we encode three-dimensional\ndata into two-dimensional data, while keeping the height and width at their\noriginal size and compressing only the depth to 3 channels. Second, the data\nis now ready to start the second encoding step, which is none other than the\nEﬃcientNet network without its fully connected layers."
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 4,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        134.8,
+        535.6,
+        480.6,
+        629.2
+      ],
+      "text": "As shown in Fig. 1, EﬃcientNet is represented as blocks as in its original\nversion. However, only the blocks involved in skip connection layers are repre-\nsented. The inter-slices encoding part uses convolutional blocks which consists\nof two convolutional layers with normalization and ReLU, followed by skip con-\nnection. Following the works of [9], we choose to use Group Normalization [14],\nwhich divides the channels into groups before normalizing them by using mean\nand variance of each group. It seems to perform better than traditional batch\nnormalization, especially when the batch size is small."
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 4,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        134.8,
+        631.2,
+        480.6,
+        665.1
+      ],
+      "text": "Let us assume that the input volume is of width W, height H, depth D,\nwith C channels. The data passes through a 3D-2D shrinking step. Thus, the\ndepth is reduced by factors 3, 3 and 4 to reach a ﬁnal depth size of 3, which"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 5,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        196.0,
+        92.9,
+        480.6,
+        101.9
+      ],
+      "text": "Eﬃcient embedding network for 3D brain tumor segmentation\n5"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 5,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        134.8,
+        118.0,
+        480.7,
+        187.8
+      ],
+      "text": "corresponds to the required number of channels of EﬃcientNet. In this shrinking\nprocedure, the width and height of the single 3D batch are not modiﬁed. The\ndiﬀerent depth reduction factors can be changed and adapted according to the\nthird dimension of the data. In our study, dimensions change as shown in Tab. 1.\nAfter this process, the reduced data reached through the 2D shrinking process\nare given as inputs of the EﬃcientNet model."
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 5,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        249.3,
+        218.6,
+        359.9,
+        250.0
+      ],
+      "text": "Layer\nDimension\nInput\nW × H × D × C\nblock 1\nW × H × D"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 5,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        249.3,
+        240.9,
+        365.5,
+        261.9
+      ],
+      "text": "f1 × C1\nblock 2\nW × H × D"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 5,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        249.3,
+        252.8,
+        365.5,
+        281.0
+      ],
+      "text": "f2 × C2\n..."
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 5,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        249.3,
+        264.1,
+        361.2,
+        313.9
+      ],
+      "text": "...\nblock n\nW × H × 3 × Cn\nblock n+1 W × H × 3 × 1\noutput\nW × H × 3"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 5,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        244.9,
+        326.8,
+        370.4,
+        335.8
+      ],
+      "text": "Table 1. Dimension shrinking."
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 5,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        134.8,
+        398.1,
+        240.3,
+        408.0
+      ],
+      "text": "2.3\nDecoder branch"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 5,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        134.8,
+        416.5,
+        480.6,
+        510.1
+      ],
+      "text": "Asymmetrically to the encoding part, the decoder is composed entirely of ho-\nmogeneous blocks as shown in Fig. 1. Obviously, the decoding part linked to the\nEﬃcientNet is a 2D decoder whereas the inter-slice decoding is a 3D decoder.\nEach decoder level begins by upsampling the spatial dimension, doubling the\nnumber of features by a factor of 2 followed by skip connections. A sigmoid\nfunction is used as an activation for the output of the decoder which has three\nchannels corresponding to the number of classes with the same spatial size as\ninputs."
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 5,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        134.8,
+        540.5,
+        182.5,
+        550.5
+      ],
+      "text": "2.4\nLoss"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 5,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        134.8,
+        558.9,
+        480.6,
+        628.7
+      ],
+      "text": "Many networks are trained with a cross-entropy loss function, however the re-\nsulting delineations may not be ideal in terms of Dice score. As an alternative,\none can employ a soft Dice loss function to train the proposed network. While\nseveral formulations of the dice loss exist in the literature, we prefer to use a soft\nDice loss which has given good results in segmentation challenges in the past [9].\nThe soft Dice loss function is diﬀerentiable and is given by:"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 5,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        234.9,
+        629.7,
+        354.1,
+        660.7
+      ],
+      "text": "LDice =\n2 P PtruePpred\nP P 2"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 5,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        292.2,
+        643.3,
+        344.2,
+        667.9
+      ],
+      "text": "true + P P 2"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 5,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        338.9,
+        643.9,
+        480.6,
+        663.7
+      ],
+      "text": "pred + ϵ ,\n(1)"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 6,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        134.8,
+        92.9,
+        229.4,
+        101.9
+      ],
+      "text": "6\nA. Belaid et al."
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 6,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        134.8,
+        118.0,
+        480.6,
+        199.7
+      ],
+      "text": "were Ptrue and Ppred represent respectively the ground truth and the predicted\nlabels. Brain MRI segmentation is a challenging task partly due to severe class\nimbalance. Tackling this issue by only using a ﬁxed loss function, cross entropy or\nDice, for the entire training process is not an optimal strategy. Therefore, a linear\ncombination of the two loss functions is often considered as the best practice,\nand leads to more robust and optimal segmentation models. In practice, the ﬁnal\nloss function is as follows:"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 6,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        261.0,
+        209.4,
+        480.6,
+        221.0
+      ],
+      "text": "L = LCross −LDice .\n(2)"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 6,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        134.8,
+        237.8,
+        203.0,
+        247.7
+      ],
+      "text": "2.5\nTraining"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 6,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        134.8,
+        256.0,
+        480.6,
+        337.7
+      ],
+      "text": "The proposed network architecture is trained with centered cropped data of size\n192 × 160 × 108 voxels, ensuring that the useful content of each slice remains\nwithin the boundaries of the cropped area, training was made on BraTS2020 [8]\ndataset. Constrained by the poor performance of the material, we set the batch\nsize to 1. Training has been done using the Adam optimizer known for little\nmemory requirements, with an initial learning rate of 10−4 reduced by a factor\nof 10 whenever the loss has not improved for 50 epochs."
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 6,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        134.8,
+        356.4,
+        198.2,
+        368.3
+      ],
+      "text": "3\nResults"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 6,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        134.8,
+        380.2,
+        480.6,
+        485.8
+      ],
+      "text": "We designed the proposed network on Tensorﬂow and run it on the 368 training\ncases of BraTS 2020. We process the four modalities separately and average the\nsigmoid outputs. The validation dataset was provided to test the performance of\nthe models on unseen data. It consists of 125 cases with 4 modalities and with-\nout their corresponding segmentation. The results of the segmentation of the\nWhole Tumor (WT), Tumor Core (TC) and Enhancing Tumor (ET) are sum-\nmarized in Tab. 2. All reported values were computed by the online evaluation\nplatform (https://ipp.cbica.upenn.edu/). Fig. 2 shows a typical segmentation\nresults extracted from the validation dataset."
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 6,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        134.8,
+        487.8,
+        480.6,
+        545.5
+      ],
+      "text": "With an average Dice score of 84.13 for the WT class, on the validation set,\nthe proposed model seems eﬃcient and accurate enough to handle the training\nand inference over a 3D dataset. On the other hand, results on enhanced and\ncore tumors are less eﬃcient. This may be due to the fact that we process each\nMRI modality separately."
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 6,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        134.8,
+        547.5,
+        480.7,
+        641.2
+      ],
+      "text": "After the compression on the depth, the network retains the shape of the\nbrain and its structure, even if they appear slightly blurred and degraded. The\nnetwork learns to extract three axial sections at more or less regular levels. We\nnotice the presence of the tumor on the three learned sections, the axial sections\ngenerally involved in 3-channel compression are the sections that denote the\npresence of tumor information. The high intensity on the tumor parts indicates\nthat the features of the network are focused on the detection of the tumor. These\ndetails are reported in Fig. 3 and Fig. 4."
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 6,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        134.8,
+        643.2,
+        480.6,
+        665.1
+      ],
+      "text": "The results on the test set are reported on Tab. 3. We can notice a large\nimprovement on ET and TC scores and a slight decrease on WT compared"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 7,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        196.0,
+        92.9,
+        480.6,
+        101.9
+      ],
+      "text": "Eﬃcient embedding network for 3D brain tumor segmentation\n7"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 7,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        134.8,
+        118.0,
+        480.6,
+        187.8
+      ],
+      "text": "to the validation set. From Fig. 3, we can see that the images resulting from\nthe 3D compression of the axial slices are well oriented on the learning of the\ncharacteristics of the whole tumor, thus the visible region on FLAIR. In Fig. 4 we\nﬁnd that the compressed data are much more oriented in learning the structural\ncharacteristics of enhanced and necrotic tumor components, which are the visible\nregions in T1CE."
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 7,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        316.5,
+        214.5,
+        334.3,
+        223.4
+      ],
+      "text": "Dice"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 7,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        295.2,
+        230.2,
+        355.9,
+        239.2
+      ],
+      "text": "ET\nWT\nTC"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 7,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        255.6,
+        246.0,
+        359.7,
+        276.9
+      ],
+      "text": "Mean\n65.37 84.13 68.04\nStdDev 31.93 10.67 31.29\nMedian 81.23 87.08 78.30"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 7,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        134.8,
+        289.8,
+        480.6,
+        309.7
+      ],
+      "text": "Table 2. Results on BraTS 2020 validation data. Metrics were computed by the online\nevaluation platform."
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 7,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        316.5,
+        367.9,
+        334.3,
+        376.8
+      ],
+      "text": "Dice"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 7,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        295.2,
+        383.6,
+        355.9,
+        392.6
+      ],
+      "text": "ET\nWT\nTC"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 7,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        255.6,
+        399.4,
+        359.7,
+        430.3
+      ],
+      "text": "Mean\n69.59 80.68 75.20\nStdDev 26.10 14.93 28.94\nMedian 78.81 86.38 87.28"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 7,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        134.8,
+        443.2,
+        480.6,
+        463.1
+      ],
+      "text": "Table 3. Results on BraTS 2020 test data. Metrics were computed by the online\nevaluation platform."
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 7,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        134.8,
+        512.5,
+        219.3,
+        524.5
+      ],
+      "text": "4\nConclusion"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 7,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        134.8,
+        535.6,
+        480.7,
+        665.1
+      ],
+      "text": "In this paper, we introduced a generic 3D U-Net architecture that allows per-\nformance transfer by re-using and embedding any 2D classiﬁer network. The\nencoder as well as the decoder are composed of two stages. The 3D input data\ngoes through a process of depth shrinking in order to transform the 3D data\ninto 2D data. This process is a succession of blocks of 3D convolutions and max-\npooling reducing the third dimension only. The transformed output data can be\nthen encoded by any 2D classiﬁcation network. Moreover, decoding also goes\nthrough a 2D decoding phase followed by a 3D decoding procedure. Because of\nthe limited computational resources, we resized the images and trained sepa-\nrately the fourth modalities using four modality-speciﬁc networks. Nevertheless,\nthe preliminary results seem to be promising."
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 8,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        134.8,
+        92.9,
+        229.4,
+        101.9
+      ],
+      "text": "8\nA. Belaid et al."
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 8,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        134.8,
+        521.7,
+        480.7,
+        552.6
+      ],
+      "text": "Fig. 2. Typical result on the BraTS validation set (2020). From left to right: axial,\ncoronal end sagittal views in T1ce. Enhancing tumor is shown in yellow, necrosis in\nred and edema in green."
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 9,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        196.0,
+        92.9,
+        480.6,
+        101.9
+      ],
+      "text": "Eﬃcient embedding network for 3D brain tumor segmentation\n9"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 9,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        134.8,
+        596.7,
+        480.7,
+        649.5
+      ],
+      "text": "Fig. 3. Result visualization from the BraTS training set (2020). From up to down :\nthree axial slices of an unique sample in Flair, corresponding channels output of the\n3D encoder, corresponding channels input of the 3D decoder and corresponding labels.\nWith Necrotic and Non-Enhancing Tumor core in red, Gadolinium-enhancing tumor\nin blue and peritumoral edema in green"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 10,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        134.8,
+        92.9,
+        229.4,
+        101.9
+      ],
+      "text": "10\nA. Belaid et al."
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 10,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        134.8,
+        596.7,
+        480.7,
+        649.5
+      ],
+      "text": "Fig. 4. Result visualization from the BraTS training set (2020). Three axial slices of an\nunique sample in T1ce, corresponding channels output of the 3D encoder, corresponding\nchannels input of the 3D decoder and corresponding labels. With Necrotic and Non-\nEnhancing Tumor core in red, Gadolinium-enhancing tumor in blue and peritumoral\nedema in green"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 11,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        196.0,
+        92.9,
+        480.6,
+        101.9
+      ],
+      "text": "Eﬃcient embedding network for 3D brain tumor segmentation\n11"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 11,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        134.8,
+        118.0,
+        480.7,
+        199.7
+      ],
+      "text": "Our goal was not to surpass all the BraTS sophisticated segmentation tech-\nniques, but to provide a functional way to re-use 2D classiﬁcation architectures\nfor 3D medical image segmentation purposes. As can be seen, the learning trans-\nfer from weights trained on 2D natural images can be exploited for processing 3D\nmedical images. We are convinced that we can signiﬁcantly improve the results\nby robustifying the learning technique, keeping the original size of the data and\nstacking the 4 modalities together."
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 11,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        134.8,
+        216.6,
+        480.6,
+        250.5
+      ],
+      "text": "Acknowledgements This work has been sponsored by the General Directorate\nfor Scientiﬁc Research and Technological Development, Ministry of Higher Ed-\nucation and Scientiﬁc Research (DGRSDT), Algeria."
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 11,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        134.8,
+        267.8,
+        197.7,
+        279.8
+      ],
+      "text": "References"
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 11,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        139.4,
+        289.3,
+        480.7,
+        664.9
+      ],
+      "text": "1. S.\nBakas,\nH.\nAkbari,\nA.\nSotiras,\nM.\nBilello,\nM.\nRozycki,\nand\nJ.\nKirby\net al.\nSegmentation labels and radiomic features for the pre-operative scans\nof the tcga-gbm collection.\nThe Cancer Imaging Archive, 2017.\nDOI:\n10.7937/K9/TCIA.2017.KLXWJJ1Q.\n2. S.\nBakas,\nH.\nAkbari,\nA.\nSotiras,\nM.\nBilello,\nM.\nRozycki,\nand\nJ.\nKirby\net al.\nSegmentation labels and radiomic features for the pre-operative scans\nof the tcga-gbm collection.\nThe Cancer Imaging Archive, 2017.\nDOI:\n10.7937/K9/TCIA.2017.GJQ7R0EF.\n3. S. Bakas, H. Akbari, A. Sotiras, M. Bilello, M. Rozycki, and J.S. Kirby et al. Ad-\nvancing the cancer genome atlas glioma mri collections with expert segmentation\nlabels and radiomic features. Nature Scientiﬁc Data, page 4:170117, 2017. DOI:\n10.1038/sdata.2017.117.\n4. S. Bakas, M. Reyes, A. Jakab, S. Bauer, M. Rempﬂer, and A. Crimi et al. Identify-\ning the best machine learning algorithms for brain tumor segmentation, progression\nassessment, and overall survival prediction in the brats challenge. arXiv preprint\narXiv:1811.02629, 2018.\n5. Stefan Bauer, Roland Wiest, Lutz-P Nolte, and Mauricio Reyes. A survey of mri-\nbased medical image analysis for brain tumor studies. Phys Med Biol., 58(13):R97–\nR129, 2013. DOI: 10.1088/0031-9155/58/13/R97.\n6. Pierre-Henri Conze, Sylvain Brochard, Val´erie Burdin, Frances T.Sheehan,\nand\nChristelle\nPons.\nHealthy\nversus\npathological\nlearning\ntransferability\nin\nshoulder\nmuscle\nMRI\nsegmentation\nusing\ndeep\nconvolutional\nencoder-\ndecoders.\nComput.\nMed.\nImaging\nGraph.,\n83:101733,\n2020.\nDOI:\n10.1016/j.compmedimag.2020.101733.\n7. Pierre-Henri Conze, Ali Emre Kavur, Emilie Cornec-Le Gall, Naciye Sinem Gezer,\nYannick Le Meur, M. Alper Selver, and Fran¸cois Rousseau. Abdominal multi-organ\nsegmentation with cascaded convolutional and adversarial deep networks. arXiv\npreprint arXiv:2001.09521, 2020.\n8. B. H. Menze, A. Jakab, S. Bauer, J. Kalpathy-Cramer, K. Farahani, and\nJ. Kirby et al.\nThe multimodal brain tumor image segmentation benchmark\n(BRATS). IEEE Transactions on Medical Imaging, 34(10):1993–2024, 2015. DOI:\n10.1109/TMI.2014.2377694.\n9. Andriy Myronenko. 3D MRI brain tumor segmentation using autoencoder regu-\nlarization. BrainLes@MICCAI, 2:311–320, 2018. DOI:10.1007/978-3-030-11726-9\n28."
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 12,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        134.8,
+        92.9,
+        229.4,
+        101.9
+      ],
+      "text": "12\nA. Belaid et al."
+    },
+    {
+      "paper_id": "2011.11052",
+      "file_name": "2011.11052_Efficient_embedding_network_for_3D_brain.pdf",
+      "page_number": 12,
+      "section": "Related works can be found in the literature where the segmentation of 3D",
+      "bbox": [
+        134.8,
+        118.8,
+        480.7,
+        325.0
+      ],
+      "text": "10. O. Ronneberger, P. Fischer, and T. Brox.\nU-net: Convolutional networks\nfor biomedical image segmentation.\nIn International Conference on Medical\nImage Computing and Computer-Assisted Intervention, pages 234–241, 2015.\n10.1007/978-3-319-24574-4 28.\n11. K. Souadih, A. Belaid, D. Ben Salem, and P. H. Conze. Automatic forensic iden-\ntiﬁcation using 3D sphenoid sinus segmentation and deep characterization. Med.\nBiol. Eng. Comput., 58:291–306, 2020. DOI: 10.1007/s11517-019-02050-6.\n12. Mingxing Tan and Quoc V. Le. Eﬃcientnet: Rethinking model scaling for convo-\nlutional neural networks. In Proceedings of Machine Learning Research, editor,\n36th International Conference on Machine Learning (ICML), volume 97, pages\n10691–10700, Long Beach, California, USA, 2019.\n13. Minh H. Vu, Guus Grimbergen, Tufve Nyholm, and Tommy L¨ofstedt. Evaluation of\nmulti-slice inputs to convolutional neural networks for medical image segmentation.\narXiv preprint arXiv:1912.09287, 2019.\n14. Y. Wu and K. He. Group normalization. In In: European Conference on Computer\nVision (ECCV), 2018. DOI: 10.1007/s11263-019-01198-w.\n15. R. Zaouche, A. Belaid, S. Aloui, B. Solaiman, L. Lecornu, D. Ben Salem, and\nS. Tliba. Semi-automatic method for low-grade gliomas segmentation in magnetic\nresonance imaging. IRBM, 39(2):116–128, 2018. DOI: 10.1016/j.irbm.2018.01.004."
+    }
+  ]
+}

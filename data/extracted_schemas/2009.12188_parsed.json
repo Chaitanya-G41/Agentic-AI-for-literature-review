@@ -1,0 +1,1925 @@
+{
+  "paper_id": "2009.12188",
+  "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+  "parser_used": "PyMuPDF_Layout_Engine",
+  "total_pages": 11,
+  "figures_count": 5,
+  "figures": [
+    {
+      "figure_id": "FIG-2009.12188-P4-1",
+      "page_number": 4,
+      "file_path": "data/figures\\2009.12188\\fig_p4_1.png",
+      "dimensions": "4440x1680",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2009.12188-P8-1",
+      "page_number": 8,
+      "file_path": "data/figures\\2009.12188\\fig_p8_1.jpeg",
+      "dimensions": "1440x252",
+      "format": "jpeg",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2009.12188-P8-2",
+      "page_number": 8,
+      "file_path": "data/figures\\2009.12188\\fig_p8_2.jpeg",
+      "dimensions": "1440x252",
+      "format": "jpeg",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2009.12188-P8-3",
+      "page_number": 8,
+      "file_path": "data/figures\\2009.12188\\fig_p8_3.jpeg",
+      "dimensions": "1440x252",
+      "format": "jpeg",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2009.12188-P8-4",
+      "page_number": 8,
+      "file_path": "data/figures\\2009.12188\\fig_p8_4.jpeg",
+      "dimensions": "1440x252",
+      "format": "jpeg",
+      "type": "raster_figure_or_diagram"
+    }
+  ],
+  "vector_graphs_count": 1,
+  "vector_graphs": [
+    {
+      "page_number": 7,
+      "drawing_path_count": 117,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    }
+  ],
+  "tables_count": 3,
+  "tables": [
+    {
+      "table_id": "TAB-2009.12188-P7-1",
+      "page_number": 7,
+      "rows_count": 3,
+      "cols_count": 7,
+      "data": [
+        [
+          "Method",
+          "Dice",
+          "",
+          "",
+          "Hausdorff (mm)",
+          "",
+          ""
+        ],
+        [
+          "",
+          "WT",
+          "TC",
+          "ET",
+          "WT",
+          "TC",
+          "ET"
+        ],
+        [
+          "V-Net\nV-Net+post\nV-Net (avg)\nV-Net+post (avg)",
+          "0.8421\n0.8513\n0.8414\n0.8342",
+          "0.7837\n0.7852\n0.7727\n0.7860",
+          "0.6752\n0.6765\n0.6482\n0.6635",
+          "21.9354\n16.8425\n22.7816\n19.2272",
+          "11.7565\n10.8923\n11.8985\n11.3911",
+          "31.1815\n30.6484\n34.0967\n34.2888"
+        ]
+      ]
+    },
+    {
+      "table_id": "TAB-2009.12188-P7-2",
+      "page_number": 7,
+      "rows_count": 3,
+      "cols_count": 7,
+      "data": [
+        [
+          "Method",
+          "Dice",
+          "",
+          "",
+          "Hausdorff (mm)",
+          "",
+          ""
+        ],
+        [
+          "",
+          "WT",
+          "TC",
+          "ET",
+          "WT",
+          "TC",
+          "ET"
+        ],
+        [
+          "V-Net\nV-Net+post\nV-Net (avg)\nV-Net+post (avg)",
+          "0.8368\n0.8463\n0.8335\n0.8421",
+          "0.7499\n0.7526\n0.7547\n0.7503",
+          "0.6159\n0.6179\n0.6215\n0.6175",
+          "26.4085\n20.4073\n26.1902\n20.4005",
+          "13.3398\n12.1752\n13.1222\n12.9294",
+          "49.7425\n47.7020\n50.1156\n48.7698"
+        ]
+      ]
+    },
+    {
+      "table_id": "TAB-2009.12188-P7-3",
+      "page_number": 7,
+      "rows_count": 3,
+      "cols_count": 10,
+      "data": [
+        [
+          "Method",
+          "DICE AUC",
+          "",
+          "",
+          "FTP RATIO AUC",
+          "",
+          "",
+          "FTN RATIO AUC",
+          "",
+          ""
+        ],
+        [
+          "",
+          "WT",
+          "TC",
+          "ET",
+          "WT",
+          "TC",
+          "ET",
+          "WT",
+          "TC",
+          "ET"
+        ],
+        [
+          "(train) V-Net+post\n(valid) V-Net+post",
+          "0.8506\n0.8505",
+          "0.7890\n0.7583",
+          "0.6779\n0.6274",
+          "0.0029\n0.0118",
+          "0.0104\n0.0515",
+          "0.0179\n0.0815",
+          "0.0008\n0.0027",
+          "0.0002\n0.0008",
+          "0.0002\n0.0005"
+        ]
+      ]
+    }
+  ],
+  "full_text": "Brain Tumor Segmentation using 3D-CNNs with\n\nUncertainty Estimation\n\nLaura Mora Ballestar and Veronica Vilaplana ⋆\n\nSignal Theory and Communications Department, Universitat Politcnica de\n\nCatalunya. BarcelonaTech, Spain\nlmoraballestar@gmail.com, veronica.vilaplana@upc.edu\n\nAbstract. Automation of brain tumors in 3D magnetic resonance im-\nages (MRIs) is key to assess the diagnostic and treatment of the disease.\nIn recent years, convolutional neural networks (CNNs) have shown im-\nproved results in the task. However, high memory consumption is still\na problem in 3D-CNNs. Moreover, most methods do not include uncer-\ntainty information, which is specially critical in medical diagnosis. This\nwork proposes a 3D encoder-decoder architecture, based on V-Net [6]\nwhich is trained with patching techniques to reduce memory consump-\ntion and decrease the eﬀect of unbalanced data. We also introduce voxel-\nwise uncertainty, both epistemic and aleatoric using test-time dropout\nand data-augmentation respectively. Uncertainty maps can provide extra\ninformation to expert neurologists, useful for detecting when the model is\nnot conﬁdent on the provided segmentation.\n\nKeywords: brain tumor segmentation · deep learning · uncertainty ·\nconvolutional neural networks\n\n1\nIntroduction\n\nBrain tumors are categorized into primary, brain originated; and secondary, tu-\nmors that have spread from elsewhere and are known as brain metastasis tumors.\nAmong malignant primary tumors, gliomas are the most common in adults, rep-\nresenting 81% of brain tumors [7]. The World Health Organization (WHO) cat-\negorizes gliomas into grades I-IV which can be simpliﬁed into two types (1) low\ngrade gliomas (LGG), grades I-II, which are less common and are characterized\nby low blood concentration and slow growth and (2) high grade gliomas (HGG),\ngrades III-IV, which have a faster growth rate and aggressiveness.\n\nThe extend of the disease is composed of four heterogeneous histological\nsub-regions, i.e. the peritumoral edematous/invaded tissue, the necrotic core\n(ﬂuid-ﬁlled), the enhancing and no-enhancing tumor (solid) core. Each region is\ndescribed by varying intensity proﬁles across MRI modalities (T1-weighted, post-\ncontrast T1-weighted, T2-weighted, and Fluid-Attenuated Inversion Recovery-\nFLAIR), which reﬂect the diverse tumor biological properties and are commonly\n\n⋆This work has been partially supported by the project MALEGRA TEC2016-75976-\n\nR ﬁnanced by the Spanish Ministerio de Econom´ıa y Competitividad.\n\narXiv:2009.12188v1  [eess.IV]  24 Sep 2020\n\n2\nL. Mora et al.\n\nused to assess the diagnosis, treatment and evaluation of the disease. These MRI\nmodalities facilitate tumor analysis, but at the expense of performing manual\ndelineation of the tumor regions which is a challenging and time-consuming\nprocess. For this reason, automatic mechanisms for region tumor segmentation\nhave appeared in the last decade thanks to the advancement of deep learning\nmodels in computer vision tasks.\n\nThe Brain Tumor Segmentation (BraTS) [1–5] challenge started in 2012 with\na focus on evaluating state-of-the-art methods for glioma segmentation in multi-\nmodal MRI scans. BraTS 2020 training dataset includes 369 cases (293 HGG and\n76 LGG), each with four 3D MRI modalities rigidly aligned, re-sampled to 1mm3\n\nisotropic resolution and skull-stripped with size 240x240x155. Each provides\na manual segmentation approved by experienced neuro-radiologists. Training\nannotations comprise the enhancing tumor (ET, label 4), the peritumoral edema\n(ED, label 2), and the necrotic and non-enhancing tumor core (NCR/NET,\nlabel 1). The nested sub-regions considered for evaluation are: whole tumor WT\n(label 1, 2, 4), tumor core TC (label 1, 4) and enhancing tumor ET (label 4).\nThe validation set includes 125 cases, with unknown grade nor ground truth\nannotation.\n\nThis work describes a semantic segmentation approach for 3D brain tumor\nsegmentation and uncertainty estimation. We use the V-Net [6] architecture\nto segment the three sub-regions and we estimate both epistemic and aleatory\n[8] uncertainties using test-time dropout (TTD) [9] and data augmentations,\nrespectively.\n\n2\nRelated Work\n\n2.1\nSemantic Segmentation\n\nBrain tumor segmentation methods include generative and discriminative ap-\nproaches. Generative methods try to incorporate prior knowledge and model\nprobabilistic distributions whereas discriminative methods extract features from\nimage representations. This latter approach has thrived in recent years thanks\nto the advancement in CNNs, as demonstrated in the winners of the previous\nBraTS. The biggest break through in this area was introduced by DeepMedic [10]\na 3D CNN that exploits multi-scale features using parallel pathways and incor-\nporates a fully connected conditional random ﬁeld (CRF) to remove false pos-\nitives. [11] compares the performances of three 3D CNN architectures showing\nthe importance of the multi-resolution connections to obtain ﬁne details in the\nsegmentation of tumor sub-regions. More recently, EMMA [12] creates and en-\nsemble at inference time which reduces overﬁtting but at high computational\ncost, and [13] proposes a cascade of two CNNs, where the ﬁrst network produces\nraw tumor masks and the second network is trained on the vecinity of the tumor\nto predict tumor regions. BraTS 2018 winner [14] proposed an asymmetrically\nencoder-decoder architecture with a variational autoencoder to reconstruct the\nimage during training, which is used as a regularizer. Isensee, F [15] uses a regu-\nlar 3D-U-Net optimized on the evaluation metrics and co-trained with external\n\nBrain Tumor Segmentation using 3D-CNNs with Uncertainty Estimation\n3\n\ndata. BraTS 2019 winners [16] use a two-stage cascade U-Net trained end-to-\nend. Finally, [17] applies several tricks in three categories: data processing, model\ndevising and optimization process to boost the model performance.\n\n2.2\nUncertainty\n\nUncertainty information of segmentation results is important, specially in medi-\ncal imaging, to guide the clinical decisions and help understand the reliability of\nthe provided segmentation, hence being able to identify more challenging cases\nwhich may require expert review. Segmentation models for brain tumor MRIs\ntend to label voxels with less conﬁdence in the surrounding tissues of the segmen-\ntation targets [19], thus indicating regions that may have been miss-segmented.\n\nLast year’s BraTS challenge already started introducing uncertainty measure-\nments. [18] computes epistemic uncertainty using TTD. They obtain a posterior\ndistribution generated after running several epochs for each image at test-time.\nThen, mean and variance are used to evaluate the model uncertainty. A diﬀerent\napproach is proposed by Wang G [19], who uses TTD and data augmentation to\nestimate the voxel-wise uncertainty by computing the entropy instead of the vari-\nance. Finally, [20] proposes to incorporate uncertainty measures during training\nas they deﬁne a loss function that models label noise and uncertainty.\n\n3\nMethod\n\nThe following section details the network architecture as well as the training\nschemes and data processing techniques used to train our model.\n\n3.1\nData Pre-processing and Augmentation\n\nMRI intensity values are not standardized as the data is obtained from diﬀerent\ninstitutions, scanners and protocols. When training a neural network it is par-\nticularly important to use normalized data, even more as MRI modalities are\ntreated like color channels. For this reason, we normalize each modality of each\npatient independently to have zero mean and unit std based on non-zero voxels\nonly, which represent the brain region.\n\nWe also apply data augmentation techniques to prevent over-ﬁtting by trying\nto disrupt minimally the data. For this, we apply Random Flip (for all 3 axes)\nwith a 50% probability, Random Intensity Shift between (−0.1..0.1 of data std)\nand Random Intensity Scale on all input channels at range (0.9..1.1).\n\n3.2\nNetwork Architecture\n\nV-Net [6] and U-Net [25] architectures have proven to be successful and reli-\nable encoder-decoder architectures for medical image segmentation, as they are\nable to segment ﬁne image structures. Moreover, may past years participants\nachieve great results using this architectures as baselines. With this in mind,\n\n4\nL. Mora et al.\n\nour work uses a V-Net architecture with four output channels and some minor\nmodiﬁcations, such as the usage of Instance Normalization [21] in contrast of\nBatch Normalization, which normalizes across each channel for each training\nexample. Moreover we have doubled the number of features maps at each level\nof the network as proposed in [15], having 32 feature channels at the highest\nresolution.\n\nThe network follows a common approach that progressively downsizes the\nimage and feature dimensions by a factor of 2 using strided convolutions instead\nof pooling layers, see Figure 1.\n\nFig. 1: We use the V-Net [6] architecture with instance normalization, ELU non-\nlinearities and doubled number of feature channels. Feature dimensionality is\ndenoted at each block. The network outputs the segmentation in four channels\nusing a Softmax.\n\n3.3\nTraining\n\nThe network is trained end-to-end with randomly selected patches which have a\n50% probability being centered on healthy tissue and 50% probability on tumor\n[22]. Due to memory constraints, we need to make a trade-oﬀbetween the size\nof each patch and the batch size. With this, we found that the best results\nare achieved with patches of size 64x64x64 and a batch size of 8. In our case,\nbigger patch sizes required smaller batches and were more likely to overﬁt, thus\nachieving worst results on the validation set.\n\nAs optimization, we use SGD with 0.99 momentum and a learning rate of\n1e −2. We use the Pytorch learning scheduler ReduceLROnPlateau, which will\ndecrease by a factor of 0.1 whenever the validation loss has not improved in the\npassed 10 epochs.\n\nFor the loss function we use the dice loss as deﬁned in [6] which can be written\nas\n\nBrain Tumor Segmentation using 3D-CNNs with Uncertainty Estimation\n5\n\nLdice =\n2 ∗PN\ni pigi\nPN\n\ni p2\n\ni + PN\n\ni g2\n\ni + ϵ\n\nwhere N is the number of voxels, pi and gi correspond to the predicted and\nground truth labels per voxel respectively, and ϵ is added to avoid zero division.\n\nWe also train a version of the model where the loss is optimized on the three\nnested regions, whole tumor, tumor core and enhancing tumor together with the\nprevious dice loss.\n\n3.4\nPost-Processing\n\nThe proposed model shows several false positives in the form of small and sepa-\nrated connected components. Therefore, we keep the two biggest connected com-\nponents if their proportion is bigger than some threshold (obtained by analysing\nthe training set), as some of the subjects may have several regions with unhealthy\ntissue.\n\n3.5\nUncertainty\n\nThis year’s BraTS includes a third task to evaluate the model uncertainty and\nreward methods with predictions that are: (a) conﬁdent when correct and (b)\nuncertain when incorrect. In this work, we model the voxel-wise uncertainty of\nour method at test time, using test time dropout (TTD) and test-time data\naugmentation for epistemic and aleatoric uncertainty respectively.\n\nWe compute epistemic uncertainty as proposed in Gal et.al [23], who uses\ndropout as a Bayesian Approximation in order to simplify the task. Therefore,\nthe idea is to use dropout both at training and testing time. The paper suggests\nto repeat the prediction a few hundred times with random dropout. Then, the\nﬁnal prediction is the average of all estimations and the uncertainty is modelled\nby computing the variance of the predictions. In this work we perform B = 50\niterations and use dropout with a 50% probability to zero out a channel. As\nsaid, the uncertainty map is estimated with the variance for each sub-region\nindependently. Let Y i =\n\n\b\n\nyi\n\n1, yi\n2...yi\nB\n\nbe the vector that represents the i-th\nvoxel’s predicted labels, the voxel-wise uncertainty map, for each evaluation\nregion, is obtained as the variance:\n\nvar = 1\n\nB\n\nB\nX\n\nb=1\n\n(yi\n\nb −yi\n\nmean)2\n\nUncertainty can also be estimated with the entropy, as [19] showed. However,\nthe entropy will provide a global measure instead of map for sub-region. In this\ncase, the voxel-wise uncertainty is calculated as:\n\nH(Y i|X) ≈−\n\nM\nX\n\nm=1\n\nˆpi\n\nm ln(ˆpi\n\nm)\n\n6\nL. Mora et al.\n\nwhere ˆpi\n\nm is the frequency of the m-th unique value in Y i and X represents\nthe input image.\n\nFinally, we model aleatoric uncertainty by applying the same augmentation\ntechniques from training plus random Gaussian noise. The ﬁnal prediction and\nuncertainty maps are computed following the same strategy as in the epistemic\nuncertainty.\n\n4\nResults\n\nThe model has been implemented in Pytorch [24] and trained on the GPI1\n\nservers, based on 2 Intel(R) Xeon(R) @ 2.40GHz CPUs using 16GB RAM and\na 12GB NVIDIA GPU, using BraTS 2020 training dataset. We report results\non both training (369 cases) and validation (125 cases) datasets. All results,\nprediction and uncertainty maps, are uploaded to the CBICAs Image Processing\nPortal (IPP)2 for evaluation of Dice score, Hausdorﬀdistance (95th percentile),\nsensitivity and speciﬁcity per each class. Speciﬁc uncertainty evaluation metrics\nare the ratio of ﬁltered TN (FTN) and the ratio of ﬁltered TP.\n\n4.1\nSegmentation\n\nThe principal metrics to evaluate the segmentation performance are the Dice\nScore, which is an overlap measure for pairwise comparison of segmentation\nmask X and ground truth Y:\n\nDSC = 2 ∗|X ∩Y |\n\n|X| + |Y |\n\nand the Hausdorﬀdistance, which is the maximum distance of a set to the\nnearest point in the other set, deﬁned as:\n\nDH(X, Y ) = max\n\n\u001a\n\nsupxϵX inf\n\nyϵY d(x, y)), supyϵY inf\n\nxϵX d(x, y))\n\n\u001b\n\nwhere sup represents the supremum and inf the inﬁmum. In order to have\nmore robust results and to avoid issues with noisy segmentation, the evaluation\nscheme uses the 95th percentile.\n\nTable 1 and Table 2 show results for training and validation sets respectively.\nWe show the segmentation maps obtain directly from our model and the ones\nobtained from averaging the predictions from uncertainty estimation, annotated\nwith (avg).\n\nIn both sets, the best results are obtained with the V-Net model directly when\npost-processing is applied. However, both Dice score and Hausdorﬀdistance have\nlower performance on the validation set, being more noticeable in the ET region,\n\n1 The UPC Image and Video Processing Group (GPI) is a research group of the Signal\nTheory and Communications department.\n2 BraTS20 leaderboard: https://www.cbica.upenn.edu/BraTS20/\n\nBrain Tumor Segmentation using 3D-CNNs with Uncertainty Estimation\n7\n\nTable 1: Segmentation Results on Training Dataset (369 cases).\n\nMethod\nDice\nHausdorﬀ(mm)\n\nWT\nTC\nET\nWT\nTC\nET\n\nV-Net\n0.8421 0.7837 0.6752\n21.9354\n11.7565\n31.1815\n\nV-Net+post\n0.8513 0.7852 0.6765 16.8425 10.8923 30.6484\n\nV-Net (avg)\n0.8414 0.7727 0.6482\n22.7816\n11.8985\n34.0967\n\nV-Net+post (avg) 0.8342 0.7860 0.6635\n19.2272\n11.3911\n34.2888\n\nTable 2: Segmentation Results on Validation Dataset (125 cases)\n\nMethod\nDice\nHausdorﬀ(mm)\n\nWT\nTC\nET\nWT\nTC\nET\n\nV-Net\n0.8368 0.7499 0.6159 26.4085\n13.3398\n49.7425\n\nV-Net+post\n0.8463 0.7526 0.6179 20.4073 12.1752 47.7020\n\nV-Net (avg)\n0.8335 0.7547 0.6215 26.1902\n13.1222\n50.1156\n\nV-Net+post (avg) 0.8421 0.7503 0.6175 20.4005 12.9294\n48.7698\n\nwere it increments from 31 to 47. This high distance is caused because we obtain\n13 predictions with the highest Hausdorﬀdistance and 0 dice, indicating we are\npredicting ET in tumors that should not have it.\n\n4.2\nUncertainty\n\nBraTS requires to upload three uncertainty maps, one for each subregion (WT,\nTC, ET) together with the prediction map. Moreover, uncertainty maps must be\nnormalized from 0-100 such that ”0” represents the most certain prediction and\n”100” represents the most uncertain. Moreover they measure the FTP deﬁned\nas FTP = (TP100 −TPT )/TP100, where T represents the threshold used to\nﬁlter the more uncertain values. The ratio of ﬁltered true negatives (FTN) is\ncalculated in a similar manner.\n\nTable 3: Uncertainty Results on Training and Validation Dataset\n\nMethod\nDICE AUC\nFTP RATIO AUC FTN RATIO AUC\n\nWT\nTC\nET\nWT\nTC\nET\nWT\nTC\nET\n\n(train) V-Net+post 0.8506 0.7890 0.6779 0.0029 0.0104 0.0179 0.0008 0.0002 0.0002\n\n(valid) V-Net+post 0.8505 0.7583 0.6274 0.0118 0.0515 0.0815 0.0027 0.0008 0.0005\n\n8\nL. Mora et al.\n\nFig. 2: Training results on patients: 223 and 325 (top-bottom). Image order: (1)\nFlair (2) GT (3) Prediction (4) Average Prediction from uncertainty (5) WT\nuncertainty map (6) TC uncertainty map (7) ET uncertainty map\n\nFig. 3: Validation results on patients: 007 and 035 (top-bottom). Image order: (1)\nFlair (2) Prediction (3) Average Prediction from uncertainty (4) WT uncertainty\nmap (5) TC uncertainty map (5) ET uncertainty map\n\nResults on Table 3 show that our model has low FTP and FTN, meaning\nthat it is certain of those predictions.\n\n4.3\nVisual Analysis\n\nFigure 2 and ﬁgure 3 show some visual results from the training and validation\nsets respectively. As it can be seen, in some of the subjects we obtain a fairly\ngood segmentation, whereas in others we have too many false positives in the\nWT and ET regions. However, the uncertainty values show that the model is\nmore uncertain in the tumor surroundings and areas where the prediction has\nbeen miss-classiﬁed.\n\n5\nDiscussion and Conclusions\n\nIn this paper we use a V-Net architecture with minor modiﬁcations: number of\nfeature maps and instance normalization instead of using batch normalization.\n\nBrain Tumor Segmentation using 3D-CNNs with Uncertainty Estimation\n9\n\nResults, on both training and validation sets, prove that our model has severe\nproblems to correctly segment whole tumor and, specially enchancing tumor.\nIn both cases, we have a large number of false positives, as can be seen in the\nHaurdorﬀdistance results. In the case of ET, the distance is much bigger as a\nsingle false positive voxel in a patient where no enhancing tumor is present in\nthe ground truth results in a Dice score of 0 and a Hausdorﬀdistance of approx-\nimately 373, which is the case for some of the subjects which has a dramatically\neﬀect on the mean value.\n\nIn order to improve the results, we plan on adding ResNet blocks to the\nnetwork baseline as well as using the Generalised Dice Loss [26], more suited\nfor unbalanced data. Moreover, we believe that some post-processing techniques\nshould also improve the results.\n\nReferences\n\n1. B. H. Menze, A. Jakab, S. Bauer, J. Kalpathy-Cramer, K. Farahani, J. Kirby, et\nal.: ”The Multimodal Brain Tumor Image Segmentation Benchmark (BRATS)”,\nIEEE Transactions on Medical Imaging 34(10), 1993-2024 (2015) https://doi.org/\n10.1109/TMI.2014.2377694\n2. S. Bakas, H. Akbari, A. Sotiras, M. Bilello, M. Rozycki, J.S. Kirby, et al.: ”Ad-\nvancing The Cancer Genome Atlas glioma MRI collections with expert segmen-\ntation labels and radiomic features”, Nature Scientiﬁc Data, 4:170117 (2017)\nhttps://doi.org/10.1038/sdata.2017.117\n3. S. Bakas, M. Reyes, A. Jakab, S. Bauer, M. Rempﬂer, A. Crimi, et al.: ”Identifying\nthe Best Machine Learning Algorithms for Brain Tumor Segmentation, Progres-\nsion Assessment, and Overall Survival Prediction in the BRATS Challenge”, arXiv\npreprint arXiv:1811.02629 (2018)\n4. S. Bakas, H. Akbari, A. Sotiras, M. Bilello, M. Rozycki, J. Kirby, et al.,\n”Segmentation\nLabels\nand\nRadiomic\nFeatures\nfor\nthe\nPre-operative\nScans\nof\nthe\nTCGA-GBM\ncollection”,\nThe\nCancer\nImaging\nArchive,\n2017.\nDOI:\n10.7937/K9/TCIA.2017.KLXWJJ1Q\n5. S. Bakas, H. Akbari, A. Sotiras, M. Bilello, M. Rozycki, J. Kirby, et al.,\n”Segmentation\nLabels\nand\nRadiomic\nFeatures\nfor\nthe\nPre-operative\nScans\nof\nthe\nTCGA-LGG\ncollection”,\nThe\nCancer\nImaging\nArchive,\n2017.\nDOI:\n10.7937/K9/TCIA.2017.GJQ7R0EF\n6. Milletari, Fausto, Nassir Navab, and Seyed-Ahmad Ahmadi. V-net: Fully convo- lu-\ntional neural networks for volumetric medical image segmentation. 3D Vision (3DV),\n2016 Fourth International Conference on. IEEE, 2016.\n7. Morgan, L Lloyd: The epidemiology of glioma in adults: A ”state of the science”\nreview. Neuro-oncology vol.17 01-2015 https://doi.org/10.1093/neuonc/nou358\n8. Armen Der Kiureghian and Ove Ditlevsen: Aleatory or epistemic? does it matter?\nStructural safety, 31(2):105112, 2009.\n9. Yarin Gal and Zoubin Ghahramani: Dropout as a bayesian approximation: Repre-\nsenting model uncertainty in deep learning. arXiv preprint arXiv:1506.02142, 2015\n10. Konstantinos Kamnitsas, Christian Ledig, Virginia F.J. Newcombe, Joanna P.\nSimpson, Andrew D. Kane, David K. Menon, Daniel Rueckert, Ben Glocker:\nEﬃcient multi-scale 3D CNN with fully connected CRF for accurate brain\nlesion segmentation, Medical Image Analysis, Volume 36, 2017, pages 61-78,\nhttps://doi.org/10.1016/j.media.2016.10.004\n\n10\nL. Mora et al.\n\n11. Casamitjana, A., Puch, S., Aduriz, A., Vilaplana, V., ”3D Convolutional Neural\nNetworks for Brain Tumor Segmentation: a comparison of multi-resolution archi-\ntectures”. In: Brainlesion: Glioma, Multiple Sclerosis, Stroke and Traumatic Brain\nInjuries. BrainLes 2016. Lecture Notes in Computer Science, vol 10154. Springer,\n2017.\n12. Kamnitsas, K., Bai, W., Ferrante, E., McDonagh, S., Sinclair, M., Pawlowski, N:\nEnsembles of Multiple Models and Architectures for Robust Brain Tumour Segmen-\ntation in International MICCAI Brainlesion Workshop (Quebec, QC), 450462 arXiv\npreprint arXiv:1711.01468, 2017\n13. Casamitjana, A., Cat, M., Snchez, I., Combalia, M., Vilaplana, V., ”Cascaded V-\nNet Using ROI Masks for Brain Tumor Segmentation”. In: Brainlesion: Glioma,\nMultiple Sclerosis, Stroke and Traumatic Brain Injuries. BrainLes 2017. Lecture\nNotes in Computer Science, vol 10670. Springer, 2018.\n14. Andriy Myronenko: 3D MRI brain tumor segmentation using autoencoder regu-\nlarization. arXiv preprint arXiv:1810.11654, 2016\n15. Isensee, F., et al.: No new-net. International MICCAI Brainlesion Workshop, pp.\n234244. Springer (2018)\n16. Jiang Z., Ding C., Liu M., Tao D. (2020) Two-Stage Cascaded U-Net: 1st Place\nSolution to BraTS Challenge 2019 Segmentation Task. In: Crimi A., Bakas S. (eds)\nBrainlesion: Glioma, Multiple Sclerosis, Stroke and Traumatic Brain Injuries. Brain-\nLes 2019. Lecture Notes in Computer Science, vol 11992. Springer, Cham\n17. Zhao YX., Zhang YM., Liu CL. (2020) Bag of Tricks for 3D MRI Brain Tumor\nSegmentation. In: Crimi A., Bakas S. (eds) Brainlesion: Glioma, Multiple Sclerosis,\nStroke and Traumatic Brain Injuries. BrainLes 2019. Lecture Notes in Computer\nScience, vol 11992. Springer, Cham\n18. Natekar Parth, Kori Avinash, Krishnamurthi Ganapathy AUTHOR=Natekar\nParth, Kori Avinash, Krishnamurthi Ganapathy: Demystifying Brain Tumor Seg-\nmentation Networks: Interpretability and Uncertainty Analysis. Frontiers in Com-\nputational Neuroscience vol.14 page 6 https://doi.org/10.3389/fncom.2020.00006,\n2020\n19. Wang G., Li W., Ourselin S. and Vercauteren T. Automatic Brain Tumor\nSegmentation Based on Cascaded Convolutional Neural Networks With Un-\ncertainty Estimation. Frontiers in Computational Neuroscience vol.13 pages 56\nhttps://doi.org/10.3389/fncom.2019.00056, 2019\n20. McKinley R., Meier R., Wiest R. (2019) Ensembles of Densely-Connected CNNs\nwith Label-Uncertainty for Brain Tumor Segmentation. In: Crimi A., Bakas S.,\nKuijf H., Keyvan F., Reyes M., van Walsum T. (eds) Brainlesion: Glioma, Multiple\nSclerosis, Stroke and Traumatic Brain Injuries. BrainLes 2018. Lecture Notes in\nComputer Science, vol 11384. Springer\n21. Dmitry Ulyanov and Andrea Vedaldi and Victor Lempitsky. Instance Normaliza-\ntion: The Missing Ingredient for Fast Stylization. arXiv preprint arXiv:1607.08022,\n2016\n22. Kamnitsas, K., Ledig, C., Newcombe, V.F., Simpson, J.P., Kane, A.D., Menon,\nD.K., Rueckert, D., Glocker, B.: Eﬃcient multi-scale 3D CNN with fully connected\nCRF for accurate brain lesion segmentation. Med. Image Anal. 36 (2017) 6178\n23. Yarin Gal and Zoubin Ghahraman.Dropout as a Bayesian Approximation: Rep-\nresenting Model Uncertainty in Deep Learning. arXiv preprint arXiv:1506.02142,\n2015\n24. Paszke, Adam and Gross, Sam and Chintala, Soumith and Chanan, Gregory and\nYang, Edward and DeVito, Zachary and Lin, Zeming and Desmaison, Alban and\nAntiga, Luca and Lerer, Adam. Automatic diﬀerentiation in PyTorch, NIPS-W 2017\n\nBrain Tumor Segmentation using 3D-CNNs with Uncertainty Estimation\n11\n\n25. Ronneberger,\nOlaf,\nPhilipp\nFischer,\nand\nThomas\nBrox.\nU-net:\nConvolu-\ntional net- works for biomedical image segmentation. MICCAI. Springer, 2015.\nhttps://doi.org/10.1007/978-3-319-24574-4 28\n26. Sudre, C.H., Li, W., Vercauteren, T., Ourselin, S., Jorge Cardoso, M.Generalised\nDice Overlap as a Deep Learning Loss Function for Highly Unbalanced Segmenta-\ntions. Lecture Notes in Computer Science 240-248, Springer International Publishing\n2017. https://doi.org/10.1007/978-3-319-67558-9 28",
+  "chunks": [
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        134.8,
+        114.6,
+        480.7,
+        128.9
+      ],
+      "text": "Brain Tumor Segmentation using 3D-CNNs with"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        224.6,
+        132.5,
+        390.8,
+        146.9
+      ],
+      "text": "Uncertainty Estimation"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        204.0,
+        169.3,
+        410.8,
+        180.5
+      ],
+      "text": "Laura Mora Ballestar and Veronica Vilaplana ⋆"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        156.7,
+        192.2,
+        458.7,
+        201.2
+      ],
+      "text": "Signal Theory and Communications Department, Universitat Politcnica de"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        185.3,
+        203.2,
+        430.1,
+        223.6
+      ],
+      "text": "Catalunya. BarcelonaTech, Spain\nlmoraballestar@gmail.com, veronica.vilaplana@upc.edu"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 1,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        163.1,
+        251.8,
+        452.3,
+        392.2
+      ],
+      "text": "Abstract. Automation of brain tumors in 3D magnetic resonance im-\nages (MRIs) is key to assess the diagnostic and treatment of the disease.\nIn recent years, convolutional neural networks (CNNs) have shown im-\nproved results in the task. However, high memory consumption is still\na problem in 3D-CNNs. Moreover, most methods do not include uncer-\ntainty information, which is specially critical in medical diagnosis. This\nwork proposes a 3D encoder-decoder architecture, based on V-Net [6]\nwhich is trained with patching techniques to reduce memory consump-\ntion and decrease the eﬀect of unbalanced data. We also introduce voxel-\nwise uncertainty, both epistemic and aleatoric using test-time dropout\nand data-augmentation respectively. Uncertainty maps can provide extra\ninformation to expert neurologists, useful for detecting when the model is\nnot conﬁdent on the provided segmentation."
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 1,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        163.1,
+        404.8,
+        452.2,
+        424.8
+      ],
+      "text": "Keywords: brain tumor segmentation · deep learning · uncertainty ·\nconvolutional neural networks"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 1,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        445.9,
+        229.0,
+        457.9
+      ],
+      "text": "1\nIntroduction"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 1,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        470.2,
+        480.7,
+        563.9
+      ],
+      "text": "Brain tumors are categorized into primary, brain originated; and secondary, tu-\nmors that have spread from elsewhere and are known as brain metastasis tumors.\nAmong malignant primary tumors, gliomas are the most common in adults, rep-\nresenting 81% of brain tumors [7]. The World Health Organization (WHO) cat-\negorizes gliomas into grades I-IV which can be simpliﬁed into two types (1) low\ngrade gliomas (LGG), grades I-II, which are less common and are characterized\nby low blood concentration and slow growth and (2) high grade gliomas (HGG),\ngrades III-IV, which have a faster growth rate and aggressiveness."
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 1,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        565.9,
+        480.7,
+        635.6
+      ],
+      "text": "The extend of the disease is composed of four heterogeneous histological\nsub-regions, i.e. the peritumoral edematous/invaded tissue, the necrotic core\n(ﬂuid-ﬁlled), the enhancing and no-enhancing tumor (solid) core. Each region is\ndescribed by varying intensity proﬁles across MRI modalities (T1-weighted, post-\ncontrast T1-weighted, T2-weighted, and Fluid-Attenuated Inversion Recovery-\nFLAIR), which reﬂect the diverse tumor biological properties and are commonly"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 1,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        137.3,
+        643.5,
+        480.6,
+        653.9
+      ],
+      "text": "⋆This work has been partially supported by the project MALEGRA TEC2016-75976-"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 1,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        144.7,
+        655.9,
+        426.2,
+        664.9
+      ],
+      "text": "R ﬁnanced by the Spanish Ministerio de Econom´ıa y Competitividad."
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 1,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        10.9,
+        211.2,
+        37.6,
+        570.0
+      ],
+      "text": "arXiv:2009.12188v1  [eess.IV]  24 Sep 2020"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 2,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        92.9,
+        224.0,
+        101.9
+      ],
+      "text": "2\nL. Mora et al."
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 2,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        118.0,
+        480.6,
+        187.8
+      ],
+      "text": "used to assess the diagnosis, treatment and evaluation of the disease. These MRI\nmodalities facilitate tumor analysis, but at the expense of performing manual\ndelineation of the tumor regions which is a challenging and time-consuming\nprocess. For this reason, automatic mechanisms for region tumor segmentation\nhave appeared in the last decade thanks to the advancement of deep learning\nmodels in computer vision tasks."
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 2,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        189.7,
+        480.6,
+        235.6
+      ],
+      "text": "The Brain Tumor Segmentation (BraTS) [1–5] challenge started in 2012 with\na focus on evaluating state-of-the-art methods for glioma segmentation in multi-\nmodal MRI scans. BraTS 2020 training dataset includes 369 cases (293 HGG and\n76 LGG), each with four 3D MRI modalities rigidly aligned, re-sampled to 1mm3"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 2,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        237.6,
+        480.6,
+        331.2
+      ],
+      "text": "isotropic resolution and skull-stripped with size 240x240x155. Each provides\na manual segmentation approved by experienced neuro-radiologists. Training\nannotations comprise the enhancing tumor (ET, label 4), the peritumoral edema\n(ED, label 2), and the necrotic and non-enhancing tumor core (NCR/NET,\nlabel 1). The nested sub-regions considered for evaluation are: whole tumor WT\n(label 1, 2, 4), tumor core TC (label 1, 4) and enhancing tumor ET (label 4).\nThe validation set includes 125 cases, with unknown grade nor ground truth\nannotation."
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 2,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        333.2,
+        480.6,
+        391.0
+      ],
+      "text": "This work describes a semantic segmentation approach for 3D brain tumor\nsegmentation and uncertainty estimation. We use the V-Net [6] architecture\nto segment the three sub-regions and we estimate both epistemic and aleatory\n[8] uncertainties using test-time dropout (TTD) [9] and data augmentations,\nrespectively."
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 2,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        409.7,
+        236.8,
+        421.7
+      ],
+      "text": "2\nRelated Work"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 2,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        433.6,
+        278.1,
+        443.6
+      ],
+      "text": "2.1\nSemantic Segmentation"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 2,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        451.9,
+        480.6,
+        665.1
+      ],
+      "text": "Brain tumor segmentation methods include generative and discriminative ap-\nproaches. Generative methods try to incorporate prior knowledge and model\nprobabilistic distributions whereas discriminative methods extract features from\nimage representations. This latter approach has thrived in recent years thanks\nto the advancement in CNNs, as demonstrated in the winners of the previous\nBraTS. The biggest break through in this area was introduced by DeepMedic [10]\na 3D CNN that exploits multi-scale features using parallel pathways and incor-\nporates a fully connected conditional random ﬁeld (CRF) to remove false pos-\nitives. [11] compares the performances of three 3D CNN architectures showing\nthe importance of the multi-resolution connections to obtain ﬁne details in the\nsegmentation of tumor sub-regions. More recently, EMMA [12] creates and en-\nsemble at inference time which reduces overﬁtting but at high computational\ncost, and [13] proposes a cascade of two CNNs, where the ﬁrst network produces\nraw tumor masks and the second network is trained on the vecinity of the tumor\nto predict tumor regions. BraTS 2018 winner [14] proposed an asymmetrically\nencoder-decoder architecture with a variational autoencoder to reconstruct the\nimage during training, which is used as a regularizer. Isensee, F [15] uses a regu-\nlar 3D-U-Net optimized on the evaluation metrics and co-trained with external"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 3,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        152.6,
+        92.9,
+        480.6,
+        101.9
+      ],
+      "text": "Brain Tumor Segmentation using 3D-CNNs with Uncertainty Estimation\n3"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 3,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        118.0,
+        480.6,
+        151.9
+      ],
+      "text": "data. BraTS 2019 winners [16] use a two-stage cascade U-Net trained end-to-\nend. Finally, [17] applies several tricks in three categories: data processing, model\ndevising and optimization process to boost the model performance."
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 3,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        171.5,
+        220.5,
+        181.4
+      ],
+      "text": "2.2\nUncertainty"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 3,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        191.0,
+        480.7,
+        260.8
+      ],
+      "text": "Uncertainty information of segmentation results is important, specially in medi-\ncal imaging, to guide the clinical decisions and help understand the reliability of\nthe provided segmentation, hence being able to identify more challenging cases\nwhich may require expert review. Segmentation models for brain tumor MRIs\ntend to label voxels with less conﬁdence in the surrounding tissues of the segmen-\ntation targets [19], thus indicating regions that may have been miss-segmented."
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 3,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        262.8,
+        480.7,
+        356.4
+      ],
+      "text": "Last year’s BraTS challenge already started introducing uncertainty measure-\nments. [18] computes epistemic uncertainty using TTD. They obtain a posterior\ndistribution generated after running several epochs for each image at test-time.\nThen, mean and variance are used to evaluate the model uncertainty. A diﬀerent\napproach is proposed by Wang G [19], who uses TTD and data augmentation to\nestimate the voxel-wise uncertainty by computing the entropy instead of the vari-\nance. Finally, [20] proposes to incorporate uncertainty measures during training\nas they deﬁne a loss function that models label noise and uncertainty."
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 3,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        376.4,
+        201.1,
+        388.4
+      ],
+      "text": "3\nMethod"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 3,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        401.5,
+        480.6,
+        423.4
+      ],
+      "text": "The following section details the network architecture as well as the training\nschemes and data processing techniques used to train our model."
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 3,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        443.0,
+        359.8,
+        453.0
+      ],
+      "text": "3.1\nData Pre-processing and Augmentation"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 3,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        462.6,
+        480.7,
+        532.3
+      ],
+      "text": "MRI intensity values are not standardized as the data is obtained from diﬀerent\ninstitutions, scanners and protocols. When training a neural network it is par-\nticularly important to use normalized data, even more as MRI modalities are\ntreated like color channels. For this reason, we normalize each modality of each\npatient independently to have zero mean and unit std based on non-zero voxels\nonly, which represent the brain region."
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 3,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        534.3,
+        480.7,
+        580.1
+      ],
+      "text": "We also apply data augmentation techniques to prevent over-ﬁtting by trying\nto disrupt minimally the data. For this, we apply Random Flip (for all 3 axes)\nwith a 50% probability, Random Intensity Shift between (−0.1..0.1 of data std)\nand Random Intensity Scale on all input channels at range (0.9..1.1)."
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 3,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        599.7,
+        270.8,
+        609.7
+      ],
+      "text": "3.2\nNetwork Architecture"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 3,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        619.3,
+        480.6,
+        665.1
+      ],
+      "text": "V-Net [6] and U-Net [25] architectures have proven to be successful and reli-\nable encoder-decoder architectures for medical image segmentation, as they are\nable to segment ﬁne image structures. Moreover, may past years participants\nachieve great results using this architectures as baselines. With this in mind,"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 4,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        92.9,
+        224.0,
+        101.9
+      ],
+      "text": "4\nL. Mora et al."
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 4,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        118.0,
+        480.6,
+        187.8
+      ],
+      "text": "our work uses a V-Net architecture with four output channels and some minor\nmodiﬁcations, such as the usage of Instance Normalization [21] in contrast of\nBatch Normalization, which normalizes across each channel for each training\nexample. Moreover we have doubled the number of features maps at each level\nof the network as proposed in [15], having 32 feature channels at the highest\nresolution."
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 4,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        190.6,
+        480.6,
+        224.5
+      ],
+      "text": "The network follows a common approach that progressively downsizes the\nimage and feature dimensions by a factor of 2 using strided convolutions instead\nof pooling layers, see Figure 1."
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 4,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        390.1,
+        480.6,
+        435.9
+      ],
+      "text": "Fig. 1: We use the V-Net [6] architecture with instance normalization, ELU non-\nlinearities and doubled number of feature channels. Feature dimensionality is\ndenoted at each block. The network outputs the segmentation in four channels\nusing a Softmax."
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 4,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        485.5,
+        203.0,
+        495.5
+      ],
+      "text": "3.3\nTraining"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 4,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        509.9,
+        480.7,
+        591.6
+      ],
+      "text": "The network is trained end-to-end with randomly selected patches which have a\n50% probability being centered on healthy tissue and 50% probability on tumor\n[22]. Due to memory constraints, we need to make a trade-oﬀbetween the size\nof each patch and the batch size. With this, we found that the best results\nare achieved with patches of size 64x64x64 and a batch size of 8. In our case,\nbigger patch sizes required smaller batches and were more likely to overﬁt, thus\nachieving worst results on the validation set."
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 4,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        594.5,
+        480.6,
+        640.3
+      ],
+      "text": "As optimization, we use SGD with 0.99 momentum and a learning rate of\n1e −2. We use the Pytorch learning scheduler ReduceLROnPlateau, which will\ndecrease by a factor of 0.1 whenever the validation loss has not improved in the\npassed 10 epochs."
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 4,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        643.2,
+        480.6,
+        665.1
+      ],
+      "text": "For the loss function we use the dice loss as deﬁned in [6] which can be written\nas"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 5,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        152.6,
+        92.9,
+        480.6,
+        101.9
+      ],
+      "text": "Brain Tumor Segmentation using 3D-CNNs with Uncertainty Estimation\n5"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 5,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        245.6,
+        133.7,
+        349.9,
+        161.5
+      ],
+      "text": "Ldice =\n2 ∗PN\ni pigi\nPN"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 5,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        292.2,
+        150.8,
+        310.4,
+        164.8
+      ],
+      "text": "i p2"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 5,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        306.4,
+        149.2,
+        339.9,
+        169.0
+      ],
+      "text": "i + PN"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 5,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        333.6,
+        150.8,
+        351.9,
+        164.8
+      ],
+      "text": "i g2"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 5,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        347.5,
+        151.9,
+        368.6,
+        164.6
+      ],
+      "text": "i + ϵ"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 5,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        170.3,
+        480.6,
+        192.2
+      ],
+      "text": "where N is the number of voxels, pi and gi correspond to the predicted and\nground truth labels per voxel respectively, and ϵ is added to avoid zero division."
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 5,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        194.2,
+        480.6,
+        228.1
+      ],
+      "text": "We also train a version of the model where the loss is optimized on the three\nnested regions, whole tumor, tumor core and enhancing tumor together with the\nprevious dice loss."
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 5,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        246.1,
+        240.1,
+        256.1
+      ],
+      "text": "3.4\nPost-Processing"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 5,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        264.1,
+        480.7,
+        321.9
+      ],
+      "text": "The proposed model shows several false positives in the form of small and sepa-\nrated connected components. Therefore, we keep the two biggest connected com-\nponents if their proportion is bigger than some threshold (obtained by analysing\nthe training set), as some of the subjects may have several regions with unhealthy\ntissue."
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 5,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        339.9,
+        220.5,
+        349.8
+      ],
+      "text": "3.5\nUncertainty"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 5,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        357.9,
+        480.6,
+        415.6
+      ],
+      "text": "This year’s BraTS includes a third task to evaluate the model uncertainty and\nreward methods with predictions that are: (a) conﬁdent when correct and (b)\nuncertain when incorrect. In this work, we model the voxel-wise uncertainty of\nour method at test time, using test time dropout (TTD) and test-time data\naugmentation for epistemic and aleatoric uncertainty respectively."
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 5,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        417.6,
+        480.6,
+        523.2
+      ],
+      "text": "We compute epistemic uncertainty as proposed in Gal et.al [23], who uses\ndropout as a Bayesian Approximation in order to simplify the task. Therefore,\nthe idea is to use dropout both at training and testing time. The paper suggests\nto repeat the prediction a few hundred times with random dropout. Then, the\nﬁnal prediction is the average of all estimations and the uncertainty is modelled\nby computing the variance of the predictions. In this work we perform B = 50\niterations and use dropout with a 50% probability to zero out a channel. As\nsaid, the uncertainty map is estimated with the variance for each sub-region\nindependently. Let Y i ="
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 5,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        251.0,
+        512.4,
+        256.8,
+        522.3
+      ],
+      "text": "\b"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 5,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        256.8,
+        512.0,
+        264.9,
+        523.2
+      ],
+      "text": "yi"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 5,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        261.7,
+        512.0,
+        299.1,
+        525.3
+      ],
+      "text": "1, yi\n2...yi\nB"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 5,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        513.3,
+        480.6,
+        547.2
+      ],
+      "text": "be the vector that represents the i-th\nvoxel’s predicted labels, the voxel-wise uncertainty map, for each evaluation\nregion, is obtained as the variance:"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 5,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        250.8,
+        559.1,
+        287.0,
+        575.9
+      ],
+      "text": "var = 1"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 5,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        280.5,
+        572.7,
+        288.1,
+        582.7
+      ],
+      "text": "B"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 5,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        291.4,
+        555.8,
+        305.8,
+        573.5
+      ],
+      "text": "B\nX"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 5,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        291.8,
+        580.2,
+        305.4,
+        587.2
+      ],
+      "text": "b=1"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 5,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        305.8,
+        564.1,
+        317.7,
+        575.9
+      ],
+      "text": "(yi"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 5,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        314.6,
+        564.1,
+        338.8,
+        578.2
+      ],
+      "text": "b −yi"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 5,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        335.6,
+        564.1,
+        364.1,
+        577.7
+      ],
+      "text": "mean)2"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 5,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        594.9,
+        480.6,
+        628.8
+      ],
+      "text": "Uncertainty can also be estimated with the entropy, as [19] showed. However,\nthe entropy will provide a global measure instead of map for sub-region. In this\ncase, the voxel-wise uncertainty is calculated as:"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 5,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        245.5,
+        645.7,
+        306.5,
+        657.4
+      ],
+      "text": "H(Y i|X) ≈−"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 5,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        309.5,
+        637.4,
+        323.9,
+        655.1
+      ],
+      "text": "M\nX"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 5,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        308.2,
+        661.5,
+        325.3,
+        668.4
+      ],
+      "text": "m=1"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 5,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        327.0,
+        645.7,
+        334.8,
+        657.4
+      ],
+      "text": "ˆpi"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 5,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        332.0,
+        645.7,
+        361.2,
+        659.9
+      ],
+      "text": "m ln(ˆpi"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 5,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        358.4,
+        647.5,
+        369.8,
+        659.3
+      ],
+      "text": "m)"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 6,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        92.9,
+        224.0,
+        101.9
+      ],
+      "text": "6\nL. Mora et al."
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 6,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        149.7,
+        116.7,
+        186.4,
+        128.0
+      ],
+      "text": "where ˆpi"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 6,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        114.4,
+        480.6,
+        139.9
+      ],
+      "text": "m is the frequency of the m-th unique value in Y i and X represents\nthe input image."
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 6,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        141.9,
+        480.7,
+        187.8
+      ],
+      "text": "Finally, we model aleatoric uncertainty by applying the same augmentation\ntechniques from training plus random Gaussian noise. The ﬁnal prediction and\nuncertainty maps are computed following the same strategy as in the epistemic\nuncertainty."
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 6,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        207.6,
+        198.2,
+        219.6
+      ],
+      "text": "4\nResults"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 6,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        231.3,
+        480.1,
+        242.5
+      ],
+      "text": "The model has been implemented in Pytorch [24] and trained on the GPI1"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 6,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        244.5,
+        480.6,
+        326.2
+      ],
+      "text": "servers, based on 2 Intel(R) Xeon(R) @ 2.40GHz CPUs using 16GB RAM and\na 12GB NVIDIA GPU, using BraTS 2020 training dataset. We report results\non both training (369 cases) and validation (125 cases) datasets. All results,\nprediction and uncertainty maps, are uploaded to the CBICAs Image Processing\nPortal (IPP)2 for evaluation of Dice score, Hausdorﬀdistance (95th percentile),\nsensitivity and speciﬁcity per each class. Speciﬁc uncertainty evaluation metrics\nare the ratio of ﬁltered TN (FTN) and the ratio of ﬁltered TP."
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 6,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        345.6,
+        228.8,
+        355.6
+      ],
+      "text": "4.1\nSegmentation"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 6,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        365.0,
+        480.6,
+        398.9
+      ],
+      "text": "The principal metrics to evaluate the segmentation performance are the Dice\nScore, which is an overlap measure for pairwise comparison of segmentation\nmask X and ground truth Y:"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 6,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        261.0,
+        408.5,
+        349.9,
+        425.4
+      ],
+      "text": "DSC = 2 ∗|X ∩Y |"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 6,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        312.9,
+        422.1,
+        353.2,
+        432.2
+      ],
+      "text": "|X| + |Y |"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 6,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        442.0,
+        480.6,
+        463.9
+      ],
+      "text": "and the Hausdorﬀdistance, which is the maximum distance of a set to the\nnearest point in the other set, deﬁned as:"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 6,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        178.1,
+        480.6,
+        255.6,
+        491.4
+      ],
+      "text": "DH(X, Y ) = max"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 6,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        257.2,
+        473.7,
+        264.7,
+        483.7
+      ],
+      "text": "\u001a"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 6,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        264.7,
+        480.6,
+        309.5,
+        492.1
+      ],
+      "text": "supxϵX inf"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 6,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        297.2,
+        480.6,
+        393.8,
+        497.0
+      ],
+      "text": "yϵY d(x, y)), supyϵY inf"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 6,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        381.0,
+        480.6,
+        429.8,
+        497.0
+      ],
+      "text": "xϵX d(x, y))"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 6,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        429.7,
+        473.7,
+        437.2,
+        483.7
+      ],
+      "text": "\u001b"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 6,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        507.3,
+        480.6,
+        541.2
+      ],
+      "text": "where sup represents the supremum and inf the inﬁmum. In order to have\nmore robust results and to avoid issues with noisy segmentation, the evaluation\nscheme uses the 95th percentile."
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 6,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        543.2,
+        480.6,
+        589.0
+      ],
+      "text": "Table 1 and Table 2 show results for training and validation sets respectively.\nWe show the segmentation maps obtain directly from our model and the ones\nobtained from averaging the predictions from uncertainty estimation, annotated\nwith (avg)."
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 6,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        591.0,
+        480.6,
+        624.9
+      ],
+      "text": "In both sets, the best results are obtained with the V-Net model directly when\npost-processing is applied. However, both Dice score and Hausdorﬀdistance have\nlower performance on the validation set, being more noticeable in the ET region,"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 6,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        137.5,
+        630.2,
+        480.6,
+        664.9
+      ],
+      "text": "1 The UPC Image and Video Processing Group (GPI) is a research group of the Signal\nTheory and Communications department.\n2 BraTS20 leaderboard: https://www.cbica.upenn.edu/BraTS20/"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 7,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        152.6,
+        92.9,
+        480.6,
+        101.9
+      ],
+      "text": "Brain Tumor Segmentation using 3D-CNNs with Uncertainty Estimation\n7"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 7,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        169.0,
+        126.4,
+        446.3,
+        136.3
+      ],
+      "text": "Table 1: Segmentation Results on Training Dataset (369 cases)."
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 7,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        165.2,
+        138.8,
+        414.2,
+        153.3
+      ],
+      "text": "Method\nDice\nHausdorﬀ(mm)"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 7,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        248.1,
+        153.6,
+        439.2,
+        162.6
+      ],
+      "text": "WT\nTC\nET\nWT\nTC\nET"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 7,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        165.2,
+        167.4,
+        447.8,
+        176.3
+      ],
+      "text": "V-Net\n0.8421 0.7837 0.6752\n21.9354\n11.7565\n31.1815"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 7,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        165.2,
+        182.2,
+        450.1,
+        191.2
+      ],
+      "text": "V-Net+post\n0.8513 0.7852 0.6765 16.8425 10.8923 30.6484"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 7,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        165.2,
+        197.0,
+        447.8,
+        206.0
+      ],
+      "text": "V-Net (avg)\n0.8414 0.7727 0.6482\n22.7816\n11.8985\n34.0967"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 7,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        165.2,
+        211.8,
+        447.8,
+        220.8
+      ],
+      "text": "V-Net+post (avg) 0.8342 0.7860 0.6635\n19.2272\n11.3911\n34.2888"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 7,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        166.4,
+        252.9,
+        449.0,
+        262.9
+      ],
+      "text": "Table 2: Segmentation Results on Validation Dataset (125 cases)"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 7,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        165.6,
+        265.4,
+        414.5,
+        279.8
+      ],
+      "text": "Method\nDice\nHausdorﬀ(mm)"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 7,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        248.5,
+        280.2,
+        438.8,
+        289.2
+      ],
+      "text": "WT\nTC\nET\nWT\nTC\nET"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 7,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        165.6,
+        293.9,
+        447.5,
+        302.9
+      ],
+      "text": "V-Net\n0.8368 0.7499 0.6159 26.4085\n13.3398\n49.7425"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 7,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        165.6,
+        308.8,
+        449.8,
+        317.7
+      ],
+      "text": "V-Net+post\n0.8463 0.7526 0.6179 20.4073 12.1752 47.7020"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 7,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        165.6,
+        323.6,
+        447.5,
+        332.5
+      ],
+      "text": "V-Net (avg)\n0.8335 0.7547 0.6215 26.1902\n13.1222\n50.1156"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 7,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        165.6,
+        338.4,
+        447.5,
+        347.4
+      ],
+      "text": "V-Net+post (avg) 0.8421 0.7503 0.6175 20.4005 12.9294\n48.7698"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 7,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        381.8,
+        480.6,
+        415.7
+      ],
+      "text": "were it increments from 31 to 47. This high distance is caused because we obtain\n13 predictions with the highest Hausdorﬀdistance and 0 dice, indicating we are\npredicting ET in tumors that should not have it."
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 7,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        445.7,
+        220.5,
+        455.7
+      ],
+      "text": "4.2\nUncertainty"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 7,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        475.8,
+        480.6,
+        557.5
+      ],
+      "text": "BraTS requires to upload three uncertainty maps, one for each subregion (WT,\nTC, ET) together with the prediction map. Moreover, uncertainty maps must be\nnormalized from 0-100 such that ”0” represents the most certain prediction and\n”100” represents the most uncertain. Moreover they measure the FTP deﬁned\nas FTP = (TP100 −TPT )/TP100, where T represents the threshold used to\nﬁlter the more uncertain values. The ratio of ﬁltered true negatives (FTN) is\ncalculated in a similar manner."
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 7,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        165.9,
+        592.5,
+        449.5,
+        602.5
+      ],
+      "text": "Table 3: Uncertainty Results on Training and Validation Dataset"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 7,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        136.2,
+        605.0,
+        486.0,
+        619.4
+      ],
+      "text": "Method\nDICE AUC\nFTP RATIO AUC FTN RATIO AUC"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 7,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        222.7,
+        619.8,
+        477.6,
+        628.8
+      ],
+      "text": "WT\nTC\nET\nWT\nTC\nET\nWT\nTC\nET"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 7,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        136.2,
+        633.5,
+        483.9,
+        642.5
+      ],
+      "text": "(train) V-Net+post 0.8506 0.7890 0.6779 0.0029 0.0104 0.0179 0.0008 0.0002 0.0002"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 7,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        136.2,
+        648.4,
+        483.9,
+        657.3
+      ],
+      "text": "(valid) V-Net+post 0.8505 0.7583 0.6274 0.0118 0.0515 0.0815 0.0027 0.0008 0.0005"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 8,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        92.9,
+        224.0,
+        101.9
+      ],
+      "text": "8\nL. Mora et al."
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 8,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        248.4,
+        480.6,
+        282.3
+      ],
+      "text": "Fig. 2: Training results on patients: 223 and 325 (top-bottom). Image order: (1)\nFlair (2) GT (3) Prediction (4) Average Prediction from uncertainty (5) WT\nuncertainty map (6) TC uncertainty map (7) ET uncertainty map"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 8,
+      "section": "Abstract. Automation of brain tumors in 3D magnetic resonance im-",
+      "bbox": [
+        134.8,
+        417.3,
+        480.7,
+        451.1
+      ],
+      "text": "Fig. 3: Validation results on patients: 007 and 035 (top-bottom). Image order: (1)\nFlair (2) Prediction (3) Average Prediction from uncertainty (4) WT uncertainty\nmap (5) TC uncertainty map (5) ET uncertainty map"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 8,
+      "section": "Results on Table 3 show that our model has low FTP and FTN, meaning",
+      "bbox": [
+        134.8,
+        475.1,
+        480.6,
+        497.0
+      ],
+      "text": "Results on Table 3 show that our model has low FTP and FTN, meaning\nthat it is certain of those predictions."
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 8,
+      "section": "Results on Table 3 show that our model has low FTP and FTN, meaning",
+      "bbox": [
+        134.8,
+        514.6,
+        238.2,
+        524.6
+      ],
+      "text": "4.3\nVisual Analysis"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 8,
+      "section": "Results on Table 3 show that our model has low FTP and FTN, meaning",
+      "bbox": [
+        134.8,
+        532.2,
+        480.6,
+        602.0
+      ],
+      "text": "Figure 2 and ﬁgure 3 show some visual results from the training and validation\nsets respectively. As it can be seen, in some of the subjects we obtain a fairly\ngood segmentation, whereas in others we have too many false positives in the\nWT and ET regions. However, the uncertainty values show that the model is\nmore uncertain in the tumor surroundings and areas where the prediction has\nbeen miss-classiﬁed."
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 8,
+      "section": "Results on Table 3 show that our model has low FTP and FTN, meaning",
+      "bbox": [
+        134.8,
+        620.0,
+        316.4,
+        632.0
+      ],
+      "text": "5\nDiscussion and Conclusions"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 8,
+      "section": "Results on Table 3 show that our model has low FTP and FTN, meaning",
+      "bbox": [
+        134.8,
+        643.2,
+        480.6,
+        665.1
+      ],
+      "text": "In this paper we use a V-Net architecture with minor modiﬁcations: number of\nfeature maps and instance normalization instead of using batch normalization."
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 9,
+      "section": "Results on Table 3 show that our model has low FTP and FTN, meaning",
+      "bbox": [
+        152.6,
+        92.9,
+        480.6,
+        101.9
+      ],
+      "text": "Brain Tumor Segmentation using 3D-CNNs with Uncertainty Estimation\n9"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 9,
+      "section": "Results, on both training and validation sets, prove that our model has severe",
+      "bbox": [
+        134.8,
+        118.0,
+        480.6,
+        211.7
+      ],
+      "text": "Results, on both training and validation sets, prove that our model has severe\nproblems to correctly segment whole tumor and, specially enchancing tumor.\nIn both cases, we have a large number of false positives, as can be seen in the\nHaurdorﬀdistance results. In the case of ET, the distance is much bigger as a\nsingle false positive voxel in a patient where no enhancing tumor is present in\nthe ground truth results in a Dice score of 0 and a Hausdorﬀdistance of approx-\nimately 373, which is the case for some of the subjects which has a dramatically\neﬀect on the mean value."
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 9,
+      "section": "Results, on both training and validation sets, prove that our model has severe",
+      "bbox": [
+        134.8,
+        213.7,
+        480.6,
+        259.5
+      ],
+      "text": "In order to improve the results, we plan on adding ResNet blocks to the\nnetwork baseline as well as using the Generalised Dice Loss [26], more suited\nfor unbalanced data. Moreover, we believe that some post-processing techniques\nshould also improve the results."
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 9,
+      "section": "Results, on both training and validation sets, prove that our model has severe",
+      "bbox": [
+        134.8,
+        277.4,
+        197.7,
+        289.4
+      ],
+      "text": "References"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 9,
+      "section": "Results, on both training and validation sets, prove that our model has severe",
+      "bbox": [
+        134.8,
+        299.7,
+        480.7,
+        664.9
+      ],
+      "text": "1. B. H. Menze, A. Jakab, S. Bauer, J. Kalpathy-Cramer, K. Farahani, J. Kirby, et\nal.: ”The Multimodal Brain Tumor Image Segmentation Benchmark (BRATS)”,\nIEEE Transactions on Medical Imaging 34(10), 1993-2024 (2015) https://doi.org/\n10.1109/TMI.2014.2377694\n2. S. Bakas, H. Akbari, A. Sotiras, M. Bilello, M. Rozycki, J.S. Kirby, et al.: ”Ad-\nvancing The Cancer Genome Atlas glioma MRI collections with expert segmen-\ntation labels and radiomic features”, Nature Scientiﬁc Data, 4:170117 (2017)\nhttps://doi.org/10.1038/sdata.2017.117\n3. S. Bakas, M. Reyes, A. Jakab, S. Bauer, M. Rempﬂer, A. Crimi, et al.: ”Identifying\nthe Best Machine Learning Algorithms for Brain Tumor Segmentation, Progres-\nsion Assessment, and Overall Survival Prediction in the BRATS Challenge”, arXiv\npreprint arXiv:1811.02629 (2018)\n4. S. Bakas, H. Akbari, A. Sotiras, M. Bilello, M. Rozycki, J. Kirby, et al.,\n”Segmentation\nLabels\nand\nRadiomic\nFeatures\nfor\nthe\nPre-operative\nScans\nof\nthe\nTCGA-GBM\ncollection”,\nThe\nCancer\nImaging\nArchive,\n2017.\nDOI:\n10.7937/K9/TCIA.2017.KLXWJJ1Q\n5. S. Bakas, H. Akbari, A. Sotiras, M. Bilello, M. Rozycki, J. Kirby, et al.,\n”Segmentation\nLabels\nand\nRadiomic\nFeatures\nfor\nthe\nPre-operative\nScans\nof\nthe\nTCGA-LGG\ncollection”,\nThe\nCancer\nImaging\nArchive,\n2017.\nDOI:\n10.7937/K9/TCIA.2017.GJQ7R0EF\n6. Milletari, Fausto, Nassir Navab, and Seyed-Ahmad Ahmadi. V-net: Fully convo- lu-\ntional neural networks for volumetric medical image segmentation. 3D Vision (3DV),\n2016 Fourth International Conference on. IEEE, 2016.\n7. Morgan, L Lloyd: The epidemiology of glioma in adults: A ”state of the science”\nreview. Neuro-oncology vol.17 01-2015 https://doi.org/10.1093/neuonc/nou358\n8. Armen Der Kiureghian and Ove Ditlevsen: Aleatory or epistemic? does it matter?\nStructural safety, 31(2):105112, 2009.\n9. Yarin Gal and Zoubin Ghahramani: Dropout as a bayesian approximation: Repre-\nsenting model uncertainty in deep learning. arXiv preprint arXiv:1506.02142, 2015\n10. Konstantinos Kamnitsas, Christian Ledig, Virginia F.J. Newcombe, Joanna P.\nSimpson, Andrew D. Kane, David K. Menon, Daniel Rueckert, Ben Glocker:\nEﬃcient multi-scale 3D CNN with fully connected CRF for accurate brain\nlesion segmentation, Medical Image Analysis, Volume 36, 2017, pages 61-78,\nhttps://doi.org/10.1016/j.media.2016.10.004"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 10,
+      "section": "Results, on both training and validation sets, prove that our model has severe",
+      "bbox": [
+        134.8,
+        92.9,
+        224.0,
+        101.9
+      ],
+      "text": "10\nL. Mora et al."
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 10,
+      "section": "Results, on both training and validation sets, prove that our model has severe",
+      "bbox": [
+        134.8,
+        118.8,
+        480.7,
+        664.9
+      ],
+      "text": "11. Casamitjana, A., Puch, S., Aduriz, A., Vilaplana, V., ”3D Convolutional Neural\nNetworks for Brain Tumor Segmentation: a comparison of multi-resolution archi-\ntectures”. In: Brainlesion: Glioma, Multiple Sclerosis, Stroke and Traumatic Brain\nInjuries. BrainLes 2016. Lecture Notes in Computer Science, vol 10154. Springer,\n2017.\n12. Kamnitsas, K., Bai, W., Ferrante, E., McDonagh, S., Sinclair, M., Pawlowski, N:\nEnsembles of Multiple Models and Architectures for Robust Brain Tumour Segmen-\ntation in International MICCAI Brainlesion Workshop (Quebec, QC), 450462 arXiv\npreprint arXiv:1711.01468, 2017\n13. Casamitjana, A., Cat, M., Snchez, I., Combalia, M., Vilaplana, V., ”Cascaded V-\nNet Using ROI Masks for Brain Tumor Segmentation”. In: Brainlesion: Glioma,\nMultiple Sclerosis, Stroke and Traumatic Brain Injuries. BrainLes 2017. Lecture\nNotes in Computer Science, vol 10670. Springer, 2018.\n14. Andriy Myronenko: 3D MRI brain tumor segmentation using autoencoder regu-\nlarization. arXiv preprint arXiv:1810.11654, 2016\n15. Isensee, F., et al.: No new-net. International MICCAI Brainlesion Workshop, pp.\n234244. Springer (2018)\n16. Jiang Z., Ding C., Liu M., Tao D. (2020) Two-Stage Cascaded U-Net: 1st Place\nSolution to BraTS Challenge 2019 Segmentation Task. In: Crimi A., Bakas S. (eds)\nBrainlesion: Glioma, Multiple Sclerosis, Stroke and Traumatic Brain Injuries. Brain-\nLes 2019. Lecture Notes in Computer Science, vol 11992. Springer, Cham\n17. Zhao YX., Zhang YM., Liu CL. (2020) Bag of Tricks for 3D MRI Brain Tumor\nSegmentation. In: Crimi A., Bakas S. (eds) Brainlesion: Glioma, Multiple Sclerosis,\nStroke and Traumatic Brain Injuries. BrainLes 2019. Lecture Notes in Computer\nScience, vol 11992. Springer, Cham\n18. Natekar Parth, Kori Avinash, Krishnamurthi Ganapathy AUTHOR=Natekar\nParth, Kori Avinash, Krishnamurthi Ganapathy: Demystifying Brain Tumor Seg-\nmentation Networks: Interpretability and Uncertainty Analysis. Frontiers in Com-\nputational Neuroscience vol.14 page 6 https://doi.org/10.3389/fncom.2020.00006,\n2020\n19. Wang G., Li W., Ourselin S. and Vercauteren T. Automatic Brain Tumor\nSegmentation Based on Cascaded Convolutional Neural Networks With Un-\ncertainty Estimation. Frontiers in Computational Neuroscience vol.13 pages 56\nhttps://doi.org/10.3389/fncom.2019.00056, 2019\n20. McKinley R., Meier R., Wiest R. (2019) Ensembles of Densely-Connected CNNs\nwith Label-Uncertainty for Brain Tumor Segmentation. In: Crimi A., Bakas S.,\nKuijf H., Keyvan F., Reyes M., van Walsum T. (eds) Brainlesion: Glioma, Multiple\nSclerosis, Stroke and Traumatic Brain Injuries. BrainLes 2018. Lecture Notes in\nComputer Science, vol 11384. Springer\n21. Dmitry Ulyanov and Andrea Vedaldi and Victor Lempitsky. Instance Normaliza-\ntion: The Missing Ingredient for Fast Stylization. arXiv preprint arXiv:1607.08022,\n2016\n22. Kamnitsas, K., Ledig, C., Newcombe, V.F., Simpson, J.P., Kane, A.D., Menon,\nD.K., Rueckert, D., Glocker, B.: Eﬃcient multi-scale 3D CNN with fully connected\nCRF for accurate brain lesion segmentation. Med. Image Anal. 36 (2017) 6178\n23. Yarin Gal and Zoubin Ghahraman.Dropout as a Bayesian Approximation: Rep-\nresenting Model Uncertainty in Deep Learning. arXiv preprint arXiv:1506.02142,\n2015\n24. Paszke, Adam and Gross, Sam and Chintala, Soumith and Chanan, Gregory and\nYang, Edward and DeVito, Zachary and Lin, Zeming and Desmaison, Alban and\nAntiga, Luca and Lerer, Adam. Automatic diﬀerentiation in PyTorch, NIPS-W 2017"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 11,
+      "section": "Results, on both training and validation sets, prove that our model has severe",
+      "bbox": [
+        152.6,
+        92.9,
+        480.7,
+        101.9
+      ],
+      "text": "Brain Tumor Segmentation using 3D-CNNs with Uncertainty Estimation\n11"
+    },
+    {
+      "paper_id": "2009.12188",
+      "file_name": "2009.12188_Brain_Tumor_Segmentation_using_3D-CNNs_w.pdf",
+      "page_number": 11,
+      "section": "Results, on both training and validation sets, prove that our model has severe",
+      "bbox": [
+        134.8,
+        118.8,
+        480.7,
+        193.5
+      ],
+      "text": "25. Ronneberger,\nOlaf,\nPhilipp\nFischer,\nand\nThomas\nBrox.\nU-net:\nConvolu-\ntional net- works for biomedical image segmentation. MICCAI. Springer, 2015.\nhttps://doi.org/10.1007/978-3-319-24574-4 28\n26. Sudre, C.H., Li, W., Vercauteren, T., Ourselin, S., Jorge Cardoso, M.Generalised\nDice Overlap as a Deep Learning Loss Function for Highly Unbalanced Segmenta-\ntions. Lecture Notes in Computer Science 240-248, Springer International Publishing\n2017. https://doi.org/10.1007/978-3-319-67558-9 28"
+    }
+  ]
+}

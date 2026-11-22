@@ -1,0 +1,24 @@
+{
+  "paper_id": "1909.06684",
+  "paper_title": "3D Kidneys and Kidney Tumor Semantic Segmentation",
+  "authors": [
+    "N/A"
+  ],
+  "venue": "N/A",
+  "core_problem": "Tedious, error-prone, and expert-dependent manual delineation of kidneys and kidney tumors in 3D CT scans for monitoring disease progression and treatment planning.",
+  "methodology_summary": "An end-to-end boundary aware fully Convolutional Neural Network (CNN) with an encoder-decoder architecture, featuring a dedicated boundary branch supervised by edge-aware loss terms.",
+  "datasets_eval": [
+    "2019 MICCAI KiTS Kidney Tumor Segmentation Challenge dataset"
+  ],
+  "empirical_results": "Dice scores of 0.9742 for kidney and 0.8103 for tumor, with an overall composite dice score of 0.8923.",
+  "explicit_limitations": "N/A",
+  "numerical_metrics": [],
+  "geographical_data": {},
+  "pipeline_steps": [
+    "Problem Formulation & Data Ingestion",
+    "Method Execution & Architecture",
+    "Empirical Evaluation & Benchmarking"
+  ],
+  "generation_mode": "GENUINE_LLM",
+  "model_name": "NVIDIA_NIM (nvidia/nemotron-3.5-bolt-e4b)"
+}

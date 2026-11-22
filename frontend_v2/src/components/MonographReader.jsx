@@ -110,6 +110,21 @@ export default function MonographReader({
   const [showDiagrams, setShowDiagrams] = useState(false)
   const proseRef = useRef(null)
 
+  const cleanTitle = reportData?.title
+    ? reportData.title.replace(/^#*\s*Automated Literature Review:\s*Synthesis of\s*/i, '').trim()
+    : 'Autonomous Research Synthesis'
+
+  let dynamicLede = 'A structured, critical synthesis across primary scientific works, contrasting paradigms, benchmarks, and unresolved frontiers.'
+  if (content) {
+    const execMatch = content.match(/##\s*Executive Summary\s*\n+([\s\S]*?)(?=\n##|\n#|$)/i)
+    if (execMatch) {
+      const firstPara = execMatch[1].trim().split('\n')[0]
+      if (firstPara.length > 20) {
+        dynamicLede = firstPara.slice(0, 240) + (firstPara.length > 240 ? '…' : '')
+      }
+    }
+  }
+
   useEffect(() => {
     if (content) setToc(extractTOC(content))
   }, [content])
@@ -227,11 +242,10 @@ export default function MonographReader({
             <span className={styles.heroTagText}>PEER-REVIEWED ARCHIVE 2022–2025</span>
           </div>
 
-          <h1 className={styles.heroTitle}>The Autonomous<br />Mind.</h1>
+          <h1 className={styles.heroTitle}>{cleanTitle}</h1>
 
           <p className={styles.heroLede}>
-            "A critical survey tracing the structural migration from feed-forward language prediction
-            to self-reflective, tool-augmented multi-agent deliberation."
+            "{dynamicLede}"
           </p>
 
           <div className={styles.statsRow}>
