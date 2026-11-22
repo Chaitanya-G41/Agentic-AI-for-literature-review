@@ -1,0 +1,25 @@
+{
+  "paper_id": "2310.06770",
+  "paper_title": "2310.06770 SWE-bench Can Language M",
+  "authors": [
+    "Research Authors"
+  ],
+  "venue": "arXiv / Peer-Reviewed Venue",
+  "core_problem": "Published as a conference paper at ICLR 2024",
+  "methodology_summary": "SWE-BENCH:\nCAN LANGUAGE MODELS RESOLVE\nREAL-WORLD GITHUB ISSUES? Language models have outpaced our ability to evaluate them effectively, but for\ntheir future development it is essential to study the frontier of their capabilities.\nWe find real-world software engineering to be a rich, sustainable, and challenging\ntestbed for evaluating the next gene",
+  "datasets_eval": [
+    "Tabular Data (TAB-2310.06770-P9-1)",
+    "Tabular Data (TAB-2310.06770-P17-1)",
+    "Tabular Data (TAB-2310.06770-P20-1)",
+    "Tabular Data (TAB-2310.06770-P36-1)"
+  ],
+  "empirical_results": "Language models have outpaced our ability to evaluate them effectively, but for\ntheir future development it is essential to study the frontier of their capabilities.\nWe find real-world software engineering to be a rich, sustainable, and challenging\ntestbed for evaluating the next generation of langu",
+  "explicit_limitations": "tasks are appealing as they pose challenging problems to LMs yet generated solutions can be easily\nverified by running unit tests. However, existing coding benchmarks, such as HumanEval (Chen\net al., 2021), mostly involve self-contained problems that can be solved in a few lines of code. It is impor",
+  "numerical_metrics": [],
+  "geographical_data": {},
+  "pipeline_steps": [
+    "SWE-BENCH:\nCAN LANGUAGE MODELS RESOLVE\nREAL-WORLD GITHUB ISSUES?"
+  ],
+  "generation_mode": "HEURISTIC_FALLBACK",
+  "model_name": "Rule-Based Heuristic Engine"
+}

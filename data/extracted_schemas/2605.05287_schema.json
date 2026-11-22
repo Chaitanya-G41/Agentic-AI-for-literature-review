@@ -1,0 +1,27 @@
+{
+  "paper_id": "2605.05287",
+  "paper_title": "2605.05287 Securing the Agent Vendor-Neutral Multit",
+  "authors": [
+    "Research Authors"
+  ],
+  "venue": "arXiv / Peer-Reviewed Venue",
+  "core_problem": "Securing the Agent: Vendor-Neutral, Multitenant Enterprise",
+  "methodology_summary": "A fundamental problem underlies existing RAG architec-\ntures in these settings: retrieval systems rank documents\nby relevance—whether through semantic similarity, keyword\nmatching, or hybrid approaches—not by authorization, so\na query from one tenant can surface another tenant’s confi-\ndential data simply because it scores highest. We formalize\nthi",
+  "datasets_eval": [
+    "Tabular Data (TAB-2605.05287-P4-1)",
+    "Tabular Data (TAB-2605.05287-P6-1)",
+    "Tabular Data (TAB-2605.05287-P7-1)",
+    "Tabular Data (TAB-2605.05287-P7-3)"
+  ],
+  "empirical_results": "We validate the proposed architecture through an open-\nsource implementation in OGX1 [25], a vendor-neutral frame-\nwork that implements an OpenAI-compatible, open-source\nResponses API with server-side multi-turn orchestration. We\nevaluate it empirically and show that ABAC gating eliminates\ncross-ten",
+  "explicit_limitations": "Retrieval-Augmented Generation (RAG) and agentic AI sys-\ntems are increasingly prevalent in enterprise AI deployments.\nHowever, real enterprise environments introduce challenges\nlargely absent from academic treatments and consumer-facing\nAPIs: multiple tenants with heterogeneous data, strict access-",
+  "numerical_metrics": [],
+  "geographical_data": {},
+  "pipeline_steps": [
+    "Problem Formulation & Data Ingestion",
+    "Method Execution & Architecture",
+    "Empirical Evaluation & Benchmarking"
+  ],
+  "generation_mode": "HEURISTIC_FALLBACK",
+  "model_name": "Rule-Based Heuristic Engine"
+}

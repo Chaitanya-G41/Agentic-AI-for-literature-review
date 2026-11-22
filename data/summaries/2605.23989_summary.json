@@ -1,0 +1,51 @@
+{
+  "paper_id": "2605.23989",
+  "paper_title": "2605.23989 Towards trustworthy agentic AI a compreh",
+  "authors": [
+    "Research Authors"
+  ],
+  "venue": "arXiv / Peer-Reviewed Venue",
+  "grounded_citation": "[Authors et al., arXiv / Peer-Reviewed Venue]",
+  "summary_source": "Heuristic Engine Fallback (Grounded Vector RAG Engine (Design Rule: 0 LLM calls))",
+  "problem_motivation": {
+    "problem_statement": "\b\f\b\u000b\n\u000e\u0007\t\n\b\u0007\u0006\u0004\u0006\b\r\r\u0003\u0007\f\b\u0005\u0007\u0002\u0001\u0000",
+    "motivation": "Overcoming empirical and methodological bottlenecks in existing approaches to achieve validated outcomes in 2605.23989 Towards trustworthy agentic AI a compreh.",
+    "core_challenges": [
+      "Accurate representation and modeling within 2605.23989 Towards trustworthy agentic AI a compreh",
+      "Empirical validation across benchmarks: Tabular Data (TAB-2605.23989-P2-1), Tabular Data (TAB-2605.23989-P5-1)",
+      "Addressing explicit constraints: However, as LLM-based assistants are increasingly connected to\nenterprise data a..."
+    ]
+  },
+  "proposed_methodology": {
+    "method_name": "2605.23989",
+    "core_architecture": "Agentic AI systems—Large Language Models (LLMs) augmented with planning, tool use, memory, and long-horizon interactions—can\nexecute complex tasks autonomously, but their multi-step trajectories introduce new failure modes that challenge trustworthiness. This\nsurvey provides a focused examination of trustworthy agentic AI through two core dimension",
+    "technical_innovations": [
+      "Problem Formulation & Data Ingestion",
+      "Method Execution & Architecture",
+      "Empirical Evaluation & Benchmarking"
+    ],
+    "key_algorithms": "Core pipeline execution parameterized across 3 methodological phases."
+  },
+  "empirical_results": {
+    "evaluated_datasets": [
+      "Tabular Data (TAB-2605.23989-P2-1)",
+      "Tabular Data (TAB-2605.23989-P5-1)",
+      "Tabular Data (TAB-2605.23989-P5-2)",
+      "Tabular Data (TAB-2605.23989-P11-1)"
+    ],
+    "key_metrics": [
+      "Reported Metric",
+      "Benchmark Score"
+    ],
+    "quantitative_results_summary": "Agentic AI systems—Large Language Models (LLMs) augmented with planning, tool use, memory, and long-horizon interactions—can\nexecute complex tasks autonomously, but their multi-step trajectories introduce new failure modes that challenge trustworthiness. This\nsurvey provides a focused examination of",
+    "baseline_comparisons": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in 2605.23989 Towards trustworthy agentic AI a compreh."
+  },
+  "explicit_limitations": {
+    "stated_limitations": [
+      "However, as LLM-based assistants are increasingly connected to\nenterprise data and tools, failures can translate into direct real-\nworld impact. For example, a “zero-click” prompt injection vulner-\nability in Microsoft 365 Copilot (CVE-2025-32711, “EchoLeak”)\nwas publicly reported and patched, highl"
+    ],
+    "failure_modes": "Failure boundaries and error cases associated with However, as LLM-based assistants are increasingly connected to\nenterprise data and tools, failures can translate into di.",
+    "computational_tradeoffs": "Computational requirements, runtime complexity, and data scaling constraints discussed in 2605.23989 Towards trustworthy agentic AI a compreh."
+  },
+  "markdown_full_summary": "# Grounded Literature Review Summary: 2605.23989 Towards trustworthy agentic AI a compreh\n\n**Citation Anchor:** [Authors et al., arXiv / Peer-Reviewed Venue]  \n**Venue:** arXiv / Peer-Reviewed Venue | **Authors:** Research Authors  \n\n---\n\n### 1. Core Problem & Motivation\n\b\f\b\u000b\n\u000e\u0007\t\n\b\u0007\u0006\u0004\u0006\b\r\r\u0003\u0007\f\b\u0005\u0007\u0002\u0001\u0000\n\n*Motivation & Gaps:* Overcoming empirical and methodological bottlenecks in existing approaches to achieve validated outcomes in 2605.23989 Towards trustworthy agentic AI a compreh.  \n*Key Challenges Tackled:*\n- Accurate representation and modeling within 2605.23989 Towards trustworthy agentic AI a compreh\n- Empirical validation across benchmarks: Tabular Data (TAB-2605.23989-P2-1), Tabular Data (TAB-2605.23989-P5-1)\n\n---\n\n### 2. Proposed Methodology & Technical Architecture\n**Architecture Overview:**  \nAgentic AI systems—Large Language Models (LLMs) augmented with planning, tool use, memory, and long-horizon interactions—can\nexecute complex tasks autonomously, but their multi-step trajectories introduce new failure modes that challenge trustworthiness. This\nsurvey provides a focused examination of trustworthy agentic AI through two core dimension\n\n**Algorithmic Innovation:**  \nCore pipeline execution parameterized across 3 methodological phases.  \n\n*Core Technical Innovations:*\n- Problem Formulation & Data Ingestion\n- Method Execution & Architecture\n\n---\n\n### 3. Empirical Results & Benchmark Datasets\n**Evaluated Datasets:** Tabular Data (TAB-2605.23989-P2-1), Tabular Data (TAB-2605.23989-P5-1), Tabular Data (TAB-2605.23989-P5-2), Tabular Data (TAB-2605.23989-P11-1)  \n**Key Metrics:** Reported Metric, Benchmark Score  \n\n**Quantitative Findings:**  \nAgentic AI systems—Large Language Models (LLMs) augmented with planning, tool use, memory, and long-horizon interactions—can\nexecute complex tasks autonomously, but their multi-step trajectories introduce new failure modes that challenge trustworthiness. This\nsurvey provides a focused examination of  \n\n**Baseline Comparison:**  \nDemonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in 2605.23989 Towards trustworthy agentic AI a compreh.\n\n---\n\n### 4. Explicit Limitations & Failure Modes\n**Stated Limitations:**  \nHowever, as LLM-based assistants are increasingly connected to\nenterprise data and tools, failures can translate into direct real-\nworld impact. For example, a “zero-click” prompt injection vulner-\nability in Microsoft 365 Copilot (CVE-2025-32711, “EchoLeak”)\nwas publicly reported and patched, highl  \n\n**Failure Modes & Bottlenecks:**  \nFailure boundaries and error cases associated with However, as LLM-based assistants are increasingly connected to\nenterprise data and tools, failures can translate into di.  \n\n**Computational Trade-offs:**  \nComputational requirements, runtime complexity, and data scaling constraints discussed in 2605.23989 Towards trustworthy agentic AI a compreh.\n"
+}

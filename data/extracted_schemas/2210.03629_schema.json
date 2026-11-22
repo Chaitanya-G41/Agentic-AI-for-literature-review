@@ -1,0 +1,25 @@
+{
+  "paper_id": "2210.03629",
+  "paper_title": "ReAct: Synergizing Reasoning and Acting in Language Models",
+  "authors": [
+    "Not specified in text"
+  ],
+  "venue": "Not specified in text",
+  "core_problem": "LLMs' abilities for reasoning (e.g., chain-of-thought) and acting (e.g., action plan generation) have been studied separately, lacking synergy for general task solving.",
+  "methodology_summary": "ReAct interleaves reasoning traces and task-specific actions, allowing reasoning traces to track/update action plans and handle exceptions, while actions interface with external sources (e.g., Wikipedia API, knowledge bases).",
+  "datasets_eval": [
+    "HotpotQA (Question Answering)",
+    "Fever (Fact Verification)",
+    "ALFWorld (Interactive Decision Making)",
+    "WebShop (Interactive Decision Making)"
+  ],
+  "empirical_results": "On HotpotQA and Fever, ReAct overcomes hallucination/error propagation by using a Wikipedia API. On ALFWorld and WebShop, ReAct outperforms imitation and reinforcement learning methods by an absolute success rate of 34% and 10% respectively.",
+  "explicit_limitations": "Traditional 'chain-of-thought' reasoning is a static black box, not grounded in the external world, limiting reactive reasoning. Previous acting approaches often convert observations to text and lack abstract high-level goal reasoning or working memory.",
+  "numerical_metrics": [],
+  "geographical_data": {},
+  "pipeline_steps": [
+    "action\nplan generation) have primarily been studied as separate topics."
+  ],
+  "generation_mode": "GENUINE_LLM",
+  "model_name": "NVIDIA_NIM (nvidia/nemotron-3.5-bolt-e4b)"
+}

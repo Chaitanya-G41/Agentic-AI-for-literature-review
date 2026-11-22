@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Exam Clipboard • Literature Review Dossier (NLP-05)</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap');
+
+    body {
+      font-family: 'Newsreader', Georgia, serif;
+      background-color: #2F3336; /* Dark desk surface */
+      background-image: 
+        radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(to right, rgba(0, 0, 0, 0.15) 1px, transparent 1px);
+      background-size: 24px 24px, 100% 100%;
+      color: #1F2428;
+    }
+
+    .font-mono-tag {
+      font-family: 'IBM Plex Mono', monospace;
+    }
+
+    .font-typewriter {
+      font-family: 'Courier Prime', Courier, monospace;
+    }
+
+    .font-sans-ui {
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    }
+
+    /* Wooden/Hardboard Exam Pad Texture */
+    .clipboard-board {
+      background: #735338;
+      background-image: 
+        repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 2px, transparent 2px, transparent 8px),
+        linear-gradient(180deg, #8A6444 0%, #63452B 100%);
+      box-shadow: 
+        0 25px 50px -12px rgba(0, 0, 0, 0.7),
+        0 4px 12px rgba(0, 0, 0, 0.4),
+        inset 0 1px 1px rgba(255, 255, 255, 0.2),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.4);
+      border-radius: 18px;
+      border: 1px solid #4D331E;
+    }
+
+    /* Heavy Brushed Metal Clip at Top */
+    .metal-clip {
+      background: linear-gradient(180deg, #E2E8F0 0%, #94A3B8 35%, #475569 50%, #94A3B8 65%, #CBD5E1 100%);
+      box-shadow: 
+        0 6px 14px rgba(0, 0, 0, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8),
+        inset 0 -1px 2px rgba(0, 0, 0, 0.5);
+      border: 1px solid #334155;
+    }
+
+    .clip-hole {
+      background: #23272A;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.8), 0 1px 0 rgba(255,255,255,0.2);
+    }
+
+    /* Stacked Paper Sheets */
+    .sheet-paper {
+      background-color: #FAF8F3;
+      background-image: linear-gradient(#F0EBE0 1px, transparent 1px);
+      background-size: 100% 28px;
+      line-height: 28px;
+      box-shadow: 
+        0 2px 6px rgba(0, 0, 0, 0.15),
+        0 15px 30px -5px rgba(0, 0, 0, 0.25),
+        -4px 2px 0px #F3EFE6,
+        4px 3px 0px #EBE5D8;
+    }
+
+    /* Red Margin Line (Classic Exam Sheet) */
+    .margin-rule {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 72px;
+      width: 1.5px;
+      background-color: #E89A9A;
+      pointer-events: none;
+    }
+
+    /* Paperclip Attachment on Notes */
+    .paperclip-wire {
+      position: absolute;
+      top: -12px;
+      right: 28px;
+      width: 14px;
+      height: 38px;
+      border: 2.5px solid #64748B;
+      border-radius: 8px;
+      box-shadow: 2px 3px 4px rgba(0,0,0,0.25);
+      z-index: 20;
+      background: transparent;
+    }
+
+    /* Authentic Ink Stamp */
+    .ink-stamp {
+      border: 2px dashed #991B1B;
+      color: #991B1B;
+      transform: rotate(-4deg);
+      text-transform: uppercase;
+      font-family: 'IBM Plex Mono', monospace;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      opacity: 0.82;
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    /* Provenance Amber Highlighter */
+    .highlighter-pen {
+      background: rgba(253, 224, 71, 0.55);
+      border-bottom: 2px solid #EAB308;
+      padding: 0 4px;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: background 0.15s ease;
+    }
+
+    .highlighter-pen:hover {
+      background: rgba(250, 204, 21, 0.85);
+    }
+  </style>
+</head>
+<body class="p-3 md:p-8 min-h-screen flex justify-center items-start">
+
+  <!-- Main Wooden Clipboard Container -->
+  <div class="clipboard-board w-full max-w-5xl pt-16 pb-12 px-4 md:px-10 relative">
+
+    <!-- Top Heavy Metallic Clip Anchor -->
+    <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-64 md:w-80 h-16 metal-clip rounded-t-lg rounded-b-md flex items-center justify-between px-6 z-30">
+      <!-- Clip Rivet Left -->
+      <div class="w-3.5 h-3.5 rounded-full clip-hole border border-slate-600"></div>
+      
+      <!-- Central Gripper Plate & Hanging Hole -->
+      <div class="flex flex-col items-center">
+        <div class="w-8 h-8 rounded-full clip-hole border border-slate-700 flex items-center justify-center">
+          <div class="w-4 h-4 rounded-full bg-neutral-900 border border-slate-500"></div>
+        </div>
+        <span class="font-mono-tag text-[9px] uppercase tracking-widest text-slate-800 font-bold mt-1">NLP-05 • ARCHIVE</span>
+      </div>
+
+      <!-- Clip Rivet Right -->
+      <div class="w-3.5 h-3.5 rounded-full clip-hole border border-slate-600"></div>
+    </div>
+
+    <!-- Pinned Marginal Docket Note (Paperclipped to the top-right) -->
+    <div class="absolute -top-4 right-6 md:right-14 w-44 bg-amber-50 border border-amber-200 rounded p-2.5 shadow-md transform rotate-2 z-20 font-typewriter text-[11px] leading-snug">
+      <div class="paperclip-wire"></div>
+      <div class="text-[9px] font-mono-tag text-amber-800 font-bold uppercase tracking-wider mb-0.5">DOCKET: AY-2026</div>
+      <div>Exam Pad Ref: <span class="font-bold">NLP-05</span></div>
+      <div>Faculty: <span class="font-bold">Dr. Sagar B M</span></div>
+      <div class="mt-1 text-[10px] text-emerald-800 font-bold">✓ 3-Point Budget Verified</div>
+    </div>
+
+    <!-- Active Paper Sheet Stack -->
+    <div class="sheet-paper rounded-sm p-6 md:p-12 relative min-h-[920px]">
+      
+      <!-- Classic Vertical Red Margin Rule Line -->
+      <div class="margin-rule hidden md:block"></div>
+
+      <!-- Sheet Header / Identification Block -->
+      <div class="border-b-2 border-neutral-800 pb-4 mb-6 md:pl-10">
+        
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+          <div class="flex items-center gap-3">
+            <span class="ink-stamp text-xs">OFFICIAL EVALUATION SHEET</span>
+            <span class="font-mono-tag text-xs text-neutral-600 font-semibold">CANDIDATE: 12-PAPER CORPUS (2022–2023)</span>
+          </div>
+
+          <!-- Quick Navigation Tabs (Like Stamped Page Index) -->
+          <div class="flex items-center gap-1 font-sans-ui text-xs font-semibold">
+            <button class="px-2.5 py-1 bg-neutral-800 text-white rounded-t">1. Synthesis Report</button>
+            <button class="px-2.5 py-1 bg-neutral-200 text-neutral-700 hover:bg-neutral-300 rounded-t">2. Comparative Table</button>
+            <button class="px-2.5 py-1 bg-neutral-200 text-neutral-700 hover:bg-neutral-300 rounded-t">3. Research Gaps</button>
+          </div>
+        </div>
+
+        <h1 class="text-3xl md:text-4xl font-bold tracking-tight text-neutral-950 leading-tight">
+          Literature Survey: Synthesis of Autonomous Agentic Architectures
+        </h1>
+
+        <div class="flex flex-wrap items-center gap-4 text-xs font-mono-tag text-neutral-600 mt-2">
+          <span>Date: November 2026</span>
+          <span>•</span>
+          <span>Engine: NVIDIA NIM (meta/muse-glimmer-30b)</span>
+          <span>•</span>
+          <span>Mode: [ONE PROMPT ONLY]</span>
+        </div>
+
+      </div>
+
+      <!-- Two-Column Body: Margin Notes (Left) + Primary Report Prose (Right) -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-6 relative">
+        
+        <!-- Left Margin Column: Teacher/Reviewer Marginalia Notes -->
+        <aside class="md:col-span-2 hidden md:block space-y-8 font-typewriter text-[11px] leading-tight text-neutral-600 pt-2">
+          
+          <div class="border-l-2 border-blue-600 pl-2">
+            <span class="text-[10px] font-mono-tag text-blue-800 font-bold block uppercase">Note §1.1</span>
+            Compare ReAct's reasoning traces directly against Toolformer's API loss.
+          </div>
+
+          <div class="border-l-2 border-amber-600 pl-2">
+            <span class="text-[10px] font-mono-tag text-amber-800 font-bold block uppercase">Grounding Check</span>
+            All citations confirmed via GROBID TEI-XML parser.
+          </div>
+
+          <div class="border-l-2 border-red-600 pl-2">
+            <span class="text-[10px] font-mono-tag text-red-800 font-bold block uppercase">Bottleneck</span>
+            Context window saturation flagged in 10 of 12 papers.
+          </div>
+
+        </aside>
+
+        <!-- Right Column: The Main Written Literature Review -->
+        <main class="md:col-span-10 md:pl-6 space-y-6 text-neutral-900 text-base">
+
+          <!-- Section 1: Executive Summary -->
+          <section>
+            <h2 class="text-xl font-bold tracking-tight text-neutral-950 mb-2 flex items-center gap-2">
+              <span class="font-mono-tag text-sm bg-neutral-200 px-1.5 py-0.5 rounded text-neutral-800">1.0</span>
+              Executive Synthesis & Paradigm Transitions
+            </h2>
+
+            <p class="text-[17px] leading-relaxed mb-3">
+              The benchmark corpus marks a decisive departure from monolithic chain-of-thought prompting toward closed-loop agentic reasoning. As detailed in 
+              <span class="highlighter-pen font-semibold" onclick="showCitation('2210.03629', 'ReAct: Synergizing Reasoning and Acting in Language Models', 'Page 3, Section 3.1', 'ReAct prompts the model to generate both verbal reasoning traces and actions in an interleaved manner...')">
+                ReAct [Yao et al., arXiv:2210.03629]
+              </span>,
+              interleaving internal deliberation with external environment observation reduces task hallucination rates by 34% across HotpotQA and ALFWorld.
+            </p>
+
+            <p class="text-[17px] leading-relaxed mb-3">
+              Parallel investigations into self-supervised tool augmentation, notably
+              <span class="highlighter-pen font-semibold" onclick="showCitation('2302.04761', 'Toolformer: Language Models Can Teach Themselves to Use Tools', 'Page 2, Section 2', 'Toolformer learns in a self-supervised way to call a variety of tools through discrete API tokens...')">
+                Toolformer [Schick et al., NeurIPS '23]
+              </span>,
+              demonstrate that language models can autonomously annotate plain-text corpora with executable API calling tokens without human demonstration data.
+            </p>
+          </section>
+
+          <!-- Section 2: Pinned Comparative Table (Lined Notebook Style) -->
+          <section class="border-2 border-neutral-800 rounded bg-white p-4 shadow-sm my-4">
+            
+            <div class="flex items-center justify-between border-b border-neutral-300 pb-2 mb-3">
+              <span class="font-mono-tag text-xs font-bold uppercase tracking-wider text-neutral-800">TABLE 1: DETERMINISTIC ARCHITECTURAL MATRIX (AGENT 4)</span>
+              <span class="text-[10px] font-mono-tag bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold">0 LLM Token Quota</span>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full text-left font-mono-tag text-xs border-collapse">
+                <thead>
+                  <tr class="border-b-2 border-neutral-800 bg-neutral-100">
+                    <th class="p-2 font-bold">Paper Ref</th>
+                    <th class="p-2 font-bold">Paradigm</th>
+                    <th class="p-2 font-bold">Methodological Innovation</th>
+                    <th class="p-2 font-bold">Observed Limitation</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-neutral-200">
+                  <tr class="hover:bg-amber-50 cursor-pointer" onclick="showCitation('2210.03629', 'ReAct', 'Page 3', 'Context length limits prompt length...')">
+                    <td class="p-2 font-bold">2210.03629</td>
+                    <td class="p-2">Reasoning & Prompting</td>
+                    <td class="p-2">Interleaved Thought/Action/Observation Loop</td>
+                    <td class="p-2 text-neutral-600">Trajectory context explosion</td>
+                  </tr>
+                  <tr class="hover:bg-amber-50 cursor-pointer" onclick="showCitation('2302.04761', 'Toolformer', 'Page 2', 'Tool chaining remains unsupported...')">
+                    <td class="p-2 font-bold">2302.04761</td>
+                    <td class="p-2">Tool Augmentation</td>
+                    <td class="p-2">Self-Supervised API Loss Perturbation</td>
+                    <td class="p-2 text-neutral-600">No multi-tool dependency chaining</td>
+                  </tr>
+                  <tr class="hover:bg-amber-50 cursor-pointer" onclick="showCitation('2305.16291', 'Voyager', 'Page 4', 'Requires black-box LLM queries...')">
+                    <td class="p-2 font-bold">2305.16291</td>
+                    <td class="p-2">Embodied Agent</td>
+                    <td class="p-2">Lifelong JavaScript Skill Library Accumulation</td>
+                    <td class="p-2 text-neutral-600">High API latency during curriculum expansion</td>
+                  </tr>
+                  <tr class="hover:bg-amber-50 cursor-pointer" onclick="showCitation('2308.08155', 'AutoGen', 'Page 3', 'Message loops can diverge...')">
+                    <td class="p-2 font-bold">2308.08155</td>
+                    <td class="p-2">Multi-Agent System</td>
+                    <td class="p-2">Conversable Agent Channel Abstraction</td>
+                    <td class="p-2 text-neutral-600">Cascading conversational hallucination drift</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </section>
+
+          <!-- Section 3: Grounded Evidence Inspector Box -->
+          <section id="evidence-slip" class="bg-amber-50 border border-amber-300 rounded p-4 shadow-inner text-sm font-typewriter">
+            
+            <div class="flex items-center justify-between mb-2 pb-1 border-b border-amber-200">
+              <span class="font-mono-tag text-xs font-bold text-amber-900" id="ev-paper-title">ReAct [Yao et al., arXiv:2210.03629]</span>
+              <span class="font-mono-tag text-[11px] bg-amber-200 text-amber-900 px-2 py-0.5 rounded font-bold" id="ev-location">Page 3, Section 3.1</span>
+            </div>
+
+            <p class="text-neutral-800 leading-normal italic text-[14px]" id="ev-quote">
+              "ReAct prompts the model to generate both verbal reasoning traces and task-specific actions in an interleaved manner, creating synergy between internal deliberation and external tool observation."
+            </p>
+
+            <div class="mt-3 flex items-center justify-between text-xs font-mono-tag">
+              <span class="text-emerald-700 font-bold">✓ Zero-Hallucination Provenance Verified (Cosine Sim: 0.94)</span>
+              <span class="text-blue-800 underline cursor-pointer font-bold">Open Original PDF Source ↗</span>
+            </div>
+
+          </section>
+
+        </main>
+
+      </div>
+
+      <!-- Bottom Sheet Footer -->
+      <div class="border-t border-neutral-300 mt-8 pt-3 flex flex-wrap items-center justify-between text-xs font-mono-tag text-neutral-500 md:pl-10">
+        <span>Sheet 1 of 4 • RVCE CSE NLP-05</span>
+        <span>Generated: Nov 2026 • Grounded Multi-Agent Review</span>
+        <span>Page Stamp: [CONFIDENTIAL ARCHIVE]</span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    function showCitation(paperId, title, loc, quote) {
+      const slip = document.getElementById('evidence-slip');
+      document.getElementById('ev-paper-title').textContent = `${title} [arXiv:${paperId}]`;
+      document.getElementById('ev-location').textContent = loc;
+      document.getElementById('ev-quote').textContent = `"${quote}"`;
+
+      slip.style.transform = 'scale(0.99)';
+      setTimeout(() => {
+        slip.style.transform = 'scale(1)';
+      }, 100);
+    }
+  </script>
+
+</body>
+</html>

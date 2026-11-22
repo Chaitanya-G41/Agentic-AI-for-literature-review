@@ -1,0 +1,230 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #1E2229;
+  border-left: 2px solid var(--ink);
+  overflow: hidden;
+}
+
+.topBar {
+  height: 44px;
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.metaLeft {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  flex: 1;
+}
+
+.badge {
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 3px 7px;
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: 2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.paperId {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.paperTitle {
+  font-family: var(--font-serif);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.controlsRight {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.toolBtn {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  padding: 4px 8px;
+  border: 1px solid var(--rule-strong);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--ink-2);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.14s;
+}
+
+.toolBtn:hover {
+  border-color: var(--ink);
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.toolBtnLabel {
+  display: inline;
+}
+
+.closeBtn {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  padding: 4px 10px;
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  transition: background 0.14s;
+}
+
+.closeBtn:hover {
+  background: #DC2626;
+}
+
+.closeLabel {
+  display: inline;
+}
+
+.frameWrapper {
+  flex: 1;
+  position: relative;
+  background: #2D3139;
+}
+
+.pdfFrame {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: #2D3139;
+}
+
+/* Provenance Evidence Dock at bottom of PDF */
+.provenanceDock {
+  background: var(--paper);
+  border-top: 2px solid var(--ink);
+  max-height: 220px;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.dockHeader {
+  padding: 8px 14px;
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.dockHeader:hover {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.dockTitleGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dockCheck {
+  color: var(--success);
+}
+
+.dockTitle {
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+}
+
+.dockSim {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.dockToggleBtn {
+  background: none;
+  border: none;
+  color: var(--ink-3);
+  cursor: pointer;
+  padding: 2px;
+}
+
+.dockBody {
+  padding: 12px 16px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: white;
+}
+
+.dockField {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.dockLabel {
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+  letter-spacing: 0.1em;
+  color: var(--ink-3);
+  text-transform: uppercase;
+}
+
+.dockQuote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--ink);
+  border-left: 2px solid var(--ink);
+  padding-left: 8px;
+  background: rgba(0, 0, 0, 0.02);
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.dockText {
+  font-family: var(--font-sans);
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: var(--ink-2);
+}

@@ -1,0 +1,1015 @@
+{
+  "paper_id": "2306.14753",
+  "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+  "title": "THE DEEP ARBITRARY POLYNOMIAL CHAOS NEURAL NETWORK OR HOW DEEP ARTIFICIAL NEURAL NETWORKS COULD BENEFIT FROM DATA-DRIVEN HOMOGENEOUS CHAOS THEORY A PREPRINT",
+  "abstract": "Artificial Intelligence and Machine learning have been widely used in various fields of mathematical computing, physical modeling, computational science, communication science, and stochastic analysis. Approaches based on Deep Artificial Neural Networks (DANN) are very popular in our days. Depending on the learning task, the exact form of DANNs is determined via their multi-layer architecture, activation functions and the so-called loss function. However, for a majority of deep learning approaches based on DANNs, the kernel structure of neural signal processing remains the",
+  "parser_used": "GROBID_TEI_XML_with_PyMuPDF_Visuals",
+  "total_pages": 1,
+  "full_text": "Abstract:\nArtificial Intelligence and Machine learning have been widely used in various fields of mathematical computing, physical modeling, computational science, communication science, and stochastic analysis. Approaches based on Deep Artificial Neural Networks (DANN) are very popular in our days. Depending on the learning task, the exact form of DANNs is determined via their multi-layer architecture, activation functions and the so-called loss function. However, for a majority of deep learning approaches based on DANNs, the kernel structure of neural signal processing remains the\n[Introduction] During the last decades, Artificial Intelligence (AI) and Machine learning (ML) have been widely used in various fields of mathematical computing, physical modeling, computer science, geosciences, communication science, and stochastic analysis. The terminology AI has been suggested by John McCarthy in 1956 as a neutral title of a Dartmouth workshop [63] to distinguish the research field from cybernetics and also to escape the influence of its originator Norbert Wiener [114]. The closely related term ML has been introduced later in 1959 by Arthur Samuel, where the author explored the logical rules of the game of checkers [90]. Originally, AI and ML have been focused on learning strategies employing logical rules, which were often formalized using an apparatus of discrete mathematics and graph theory. However, with increasing computational power [67] and data availability [69], the fields of AI and ML today employ a much broader spectrum of approaches that originate from stochastic analysis, cybernetics, geosciences, information theory and other disciplines.\n[Introduction] In particular, approaches based on Deep Artificial Neural Networks (DANN) introduced in cybernetics by Alexey Ivakhnenko and Valentin Lapa in 1967 [43] are currently very popular in AI and ML (see e.g. [91] for a detailed historical recapitulation). DANNs generalize the concept of Artificial Neural Networks (ANN) suggested by Warren McCulloch and Walter Pitts in 1943 [64] to multi-layer structures , i.e. deep ANN. This form of deep learning also gained a strong visibility in society, providing solutions for a broad variety of tasks including recognition of images [105], videos [24], voice [8] and text [95].\n[Introduction] Depending on the modelling task, the exact form of the so-called loss function [35] is usually specified to determine the final DANN representation. Various loss functions can be found in literature, suitable for classification tasks [13,56], Bayesian interpolation [60] or physical regularization [47,84]. In addition, multiple DANN layers and corresponding neural connections can be customized in various ways, turning DANN into convolutional [19,85], recurrent [38,117] or other desired architectures [48]. Due to the magnificent number of works based on the DANN representation, the corresponding literature can hardly be covered in a research paper, and the authors refer to literature [37,36] and reviews [18,92] for further information.\n[Introduction] The keystone of DANNs can be seen as a certain type of non-linear function that maps from input in R n to output in R.\n[Introduction] To construct such a function, DANNs use a multi-layered approach, where each node of a layer is a linear combination of non-linear univariate functions, known as activation functions. Overall, this yields a chain-rule interaction of neurons in multi-layered architecture [7]. However, there is an alternative branch of approaches that also maps R n to R using linear combinations of non-linear kernel functions or vectors and, hence, could be seen as one-layer approaches. This alternative ML branch consists of polynomial chaos expansions (PCE) introduced in 1938 [113], Kriging introduced in 1951 [55] that is also known as Gaussian process emulator/regression (GPE: [115]) or Wiener-Kolmogorov prediction [27], Support vector regression (SVR) introduced in 1974 [108] and Relevance vector machines (RVM) introduced in 2000 [107]. The common fundamental between PCE, GPE, SVR and RVM can be found in [22].\n[Introduction] Regardless of the different mathematical definitions and structures, both one-and multi-layered ML approaches construct the final non-linear representation by determining all their unknown constants. These constants are known as coefficients (terminology for PCE, GPE, SVR and RVN) or weights (terminology for ANN and DANN). For one-layer approaches, the response is established by solving a linear system of equations that encodes the linear combination of non-linear basis functions (polynomials, kernels, vectors, etc.). For multi-layer approaches, the response is constructed by solving a non-linear system of equations that reflects the so-called neural signal processing.\n[Introduction] The current paper does not aim at discussing the pros and contras behind various approaches to map R n to R. We will rather pay attention to how one-layer findings could be helpful for the multi-layered structure of DANNs. Indeed, let us have a close look into the kernel structure of conventional DANNs. It considers the processing of the neural signal in one node as displayed in Figure 1a. The response of each node (i.e. arrows leaving the central circle) contains linear weighted superposition of single neuron responses (i.e. the arrows entering the central circle) coming from the previous layer. In the figure, the weighting is represented by w and the superposition by Σ. To obtain the final neuronal response, the superposition is passed through an activation function A that is usually non-linear. The corresponding weights w of the linear superposition for the input to the featured neurons are to be found by training. However, such a linear weighted superposition of incoming neuron outputs on each node could lead to a redundant representation, as it is not necessarily satisfying orthogonality in signal processing. This aspect has been addressed in the literature on Support Vector Networks in 1995 [26] employing the SVR concept [108]. Also imposing orthogonality within the DANNs has been explored in the context of Recurrent Neural Networks [65] assuring the efficiency of the training procedure. The paper [111] highlights the benefit of using orthogonal weight matrices in Recurrent Neural Networks, as they preserve gradient norm during backpropagation making them highly desirable for optimization purposes. However, the imposition of hard constraints on orthogonality within Recurrent Neural Networks may negatively affect convergence speed [111] as applying Gaussian prior regularization may not be appropriate for many applications. Additionally, in order to overcome the difficulty of training Recurrent Neural Networks caused by vanishing and exploding gradients, a new approach have been addressed that learns a unitary weight matrix with eigenvalues [116,9], enabling optimization in the complex domain. Nevertheless, accounting for orthogonality seems to be very promising, as it could mitigate redundancy in DANN representation [112] and potentially could provide a better ability for generalization [46].\n[Introduction] Additionally, the actual non-linearity of DANNs is triggered by the non-linearity of the choosen activation functions. However, the choice of the activation functions is an extremely non-trivial task itself [66] and can be very subjective [94], posing additional challenges for DANN users. Very recently, the work [23] suggested to replace non-linear activation functions via non-linear polynomial representations, introducing co-called Π-Nets. The introduced Π-Nets consider high-order polynomial terms, which consistently improves the performance in discriminative and generative tasks for images and audio processing [23]. Nevertheless, similar to conventional DANNs, Π-Nets do not yet consider orthogonality in processing the neural signal and, hence, could also lead to redundancy in representation. We argue that employing orthogonal (or even better orthonormal) decompositions for processing neural signals could be extremely relevant, especially for data-poor applications.\n[Introduction] In the current work, we will take the reader on a journey to the early stages of ML. We will pay special attention to the PCE, introduced via the homogeneous chaos theory by Norbert Wiener in 1938 [113] as already mentioned above. The so-called non-intrusive version of the PCE [33,59] and its advanced extensions towards sparse quadrature [50], sparse regression [4,16] or multi-element approaches [6,57] gained popularity for surrogate building in computationally demanding modelling tasks [31,73]. They all employ the idea of multi-variate polynomial representation. The Using the DANN vocabulary, the PCE could be seen as a one-layer ML approach, where the response is approximated as a linear combination of non-linear multivariate orthonormal polynomial basis functions. At the same time, employing the PCE vocabulary, the response of one node in a DANN could be seen as a 1 st degree multi-variate polynomial of single neurons from the previous layer, i.e. linear weighted superposition, then passed through an activation function. To be more specific, the 1 st degree multi-variate polynomial representation in one node of a DANN consists of 1 st degree monomials that reflect the incoming neural signals and the 0 th degree term that is known as bias. Obviously, this representation via linear weighted superposition of monomials does not necessarily fulfill the orthogonality or orthonormality condition that is targeted by PCE approach for the majority of applications. Such a non-orthogonal linear weighted superposition of incoming neuron outputs is a possibly redundant representation of the overall signal flow: any neural signal could contain some partial information from other neural signals.\n[Introduction] Similarly, the non-linear polynomial representation in Π-Nets [23] could also profit from orthonormal decomposition of neural signals. Therefore, employing multi-variate orthonormal polynomial bases to process the neural signal on each node, as in the PCE approach, could be beneficial for both conventional DANN structures and for advanced Π-Nets. Another approach that combines variational autoencoder and PCE methods is expected to appear soon in the literature forming the PCE-Net model [97].\n[Introduction] Unfortunately, due to the data-driven nature of all these networks, a direct transfer of classical PCE theory or its generalized extension [120] for constructing orthonormal representations on each node is not possible. The reason is that PCE requires knowledge of probability density functions for all inputs, and this knowledge is not available in the context of DANNs, where the probability density function for all inputs to all nodes in all layers would have to be known.\n[Introduction] Therefore, the current paper suggests to account for the data-driven nature of neural signals in DANNs and thus uses the data-driven generalization of PCE known as arbitrary polynomial chaos (aPC: [75]) to construct corresponding multivariate orthonormal representations on each node of DANNs. Doing so, we generalize the conventional structure of DANNs to Deep arbitrary polynomial chaos neural networks (DaPC NN) 1 . They decompose the neural signals traveling through the multi-layer structure through an adaptive construction of data-driven multi-variate orthonormal bases for each layer. Doing so, we provide an opportunity to go beyond the linear weighted superposition of single (univariate) neurons on each node that is traditionally employed in various DANN architectures.\n[Introduction] Inheriting fundamentals of the PCE, the DaPC NN offers an additional possibility to account for high-order neural effects that reflect simultaneous interaction of neurons in the multi-layer network. Thus, the modeler is prompted to specify the DaPCE NN architecture through not only the number of layers, the number of nodes per layer and the activation function as in conventional DANNs, but also through the desired polynomial degree of non-linearity per layer. Figure 1b schematically illustrates the neural processing in the DaPC NN through a multi-variate orthonormal basis Ψ and a corresponding high-order weighted superposition In this sense, the paper does not aim to contribute to the DANN architecture, to any particular definition of loss functions, or to optimal training schemes. Instead, we offer a mathematical reformulation of the kernel DANN structure in terms of homogeneous chaos theory. Moreover, introducing the high-order weighted superposition on each node may remove the necessity to introduce non-linearity via activation functions if desired. Hence, one can reduce the room for potential subjectivity in the modeling procedure. We expect that joining the multi-layered structure of neural networks together with the theory of polynomial chaos expansion could be beneficial for ML tasks and also creates a foundation for further investigations.\n[Introduction] The rest of the paper is structured as follows: Section 2 summarizes the necessary background on the data-driven aPC in Section 2.1 and the conventional DANN structure in Section 2.2. Section 2.2 also points out the implicit Gaussian assumptions of neural signal processing in conventional DANN structures from the view point of PCE theory. Section 2.3 offers our novel DaPC NN formulation. It introduces the adaptive, deep, multi-variate orthonormal polynomial representation via a multi-layered structure. Section 2.3 also provides relevant properties that the DaPC NN inherits from aPC. Section 2.4 briefly outlines an example of the conventional training procedure to compute the weights by providing the required partial derivatives. Section 3 illustrates the performance of DaPC NN together with a conventional DANN and the aPC. In this comparison, we use exactly the same training data and loss function for DANN, DaPC NN and aPC in a total of three different test cases. Additionally, Section 3 shows evidence of convergence against reference validation data sets, comparing how the size of the training data sets affects the performance of the considered ML approaches.\n[Introduction] 2 Machine learning with non-redundant decomposition\n[Arbitrary Polynomial Chaos Expansion] Theory of polynomial chaos expansion (PCE) was originally introduced by Norbert Wiener [113] in 1938. In PCE, the dependence of the model response (output) on all inputs is expressed using projection onto an orthogonal or orthonormal multi-variate polynomial basis [33,104]. For the current paper, we will employ a purely data-driven generalization of the PCE introduced in 2012 by Oladyshkin and Nowak [75] that will open the pathway for a datadriven deep ML structure.\n[Homogeneus chaos theory] Let us consider a model response R(ω) that depends on some multi-dimensional input ω = {ω 1 , . . . , ω n } from the input space Ω, where n is the number of inputs. Let L 2 (Ω) denote the L 2 -space on Ω, weighted by the assumed probability distribution. According to PCE theory [21,113], the model response R(ω) ∈ L 2 (Ω) can be expanded in ω in the following manner to map R n to R:\n[Homogeneus chaos theory] where Ψ i (ω) are basis functions from a multi-variate orthonormal (w.r.t. the assumed probability distribution) polynomial basis Ψ 0 (ω), . . . , Ψ M (ω) defined on the input space Ω, and w i are corresponding coefficients that determine the form of the expansion in equation (1). The total number of expansion terms M depends on the number of inputs N and on the desired degree d of the polynomial representation as M = (n + d)!/(n!d!). This formulation of M is based on a total-degree truncation, and other alternatives exist [104]. For a comprehensive discussion of the requirements for existence and completeness of an orthonormal polynomial basis Ψ 0 (ω), . . . , Ψ M (ω) of L 2 (Ω), we refer to [30,32,104].\n[Homogeneus chaos theory] The multi-variate polynomial basis Ψ 0 (ω), . . . , Ψ M (ω) is comprised of the tensor product of univariate orthonormal polynomials ϕ\n[Homogeneus chaos theory] of degree d for the inputs ω j , assuming that the inputs are statistically independent:\n[Homogeneus chaos theory] Here α = (α 1 , . . . , α N ) ∈ N N 0 is a multivariate index describing polynomial degree that contains the combinatoric information how to enumerate all possible products of individual univariate basis functions and contains the corresponding polynomial degree for input ω j within the univariate polynomials ϕ (αj ) j (ω j ). The set of polynomials ϕ (αj ) j | α j = 0, . . . , d forms an orthonormal basis of polynomial degree at most d for each input ω j :\n[Homogeneus chaos theory] where δ αj ,α ′ j represents the Kronecker delta ∀α j , α ′ j = 0, . . . , d.\n[Data-driven orthonormal representation] The original theory of homogeneous chaos [113] is based on orthonormal Hermite polynomials ϕ (αj ) j\n[Data-driven orthonormal representation] (ω j ) satisfying eq. ( 3), which are optimal [75,104] for Gaussian distributed inputs ω. Further extensions to a number of parametric statistical distributions (Gamma, Beta, Uniform, etc.) have been suggested in [119] and [118], based on the Askey scheme [10] of orthonormal polynomials.\n[Data-driven orthonormal representation] Such approaches assume an exact knowledge of the involved probability density functions [104], which is not available in various applications or often requires additional assumptions [86]. To assure a purely data-driven representation for ML, in the current paper we will consider the data-driven generalization of the polynomial chaos expansion known as the arbitrary polynomial chaos (aPC) introduced in [75]. The necessity to adapt to arbitrary distributions in practical tasks is discussed in more detail in [72].\n[Data-driven orthonormal representation] The aPC technique adapts to arbitrary probability distribution shapes of the inputs and can be inferred from limited input data through a few statistical moments [75]. Formally, univariate orthonormal polynomials bases ϕ (αj ) j (ω j ) of polynomial degree α j can be written as a sum of the following monomials:\n[Data-driven orthonormal representation] where\n[Data-driven orthonormal representation] αj is a constant representing the norm of the univariate polynomial. The corresponding monomial coefficients m (αj ) i can be defined according to the (empirical or theoretical) raw moments of the inputs ω j as follows [75,79]:\n[Data-driven orthonormal representation] µ 1 (ω j ) . . . µ αj (ω j ) . . . . . . . . . . . .\n[Data-driven orthonormal representation] where µ k (ω j ) denotes the k-th raw stochastic moment of the input ω j .\n[Data-driven orthonormal representation] Therefore, constructing the multi-variate orthonormal polynomial basis Ψ 0 (ω), . . . , Ψ M (ω) of degree d for an aPC representation R(ω) in equation ( 1) is based on the data-driven formulation in equations ( 2), ( 4) and (5). In particular, the aPC approach is based on 2d raw stochastic moments only. These moments can be evaluated directly from an available data set of limited size. Matrix on the left-hand side of equation ( 5) is known as the Hankel matrix of moments [49] and its properties have been analysed in [98]. The resulting polynomials are real if, and only if, the Hankel matrix of moments is positive definite, see also the related Hamburger moment problem, e.g. [5,30,96,104]. From the practical point of view, the solution of the linear system of equations in (5) can be obtained directly numerically, via lower-order moments representation [75], via recursive relations [1], via Gram-Schmidt orthogonalization [45] or via the Stieltjes procedure [102].\n[Data-driven orthonormal representation] Overall, the polynomial representation in equation ( 1) is one of the oldest ML approaches to map R n to R . It quantifies the response R to the inputs ω through an orthonormal basis Ψ 0 (ω), . . . , Ψ M (ω) and computes the expansion coefficients w ifoot_1 . Each coefficient w i for i > 0 indicates how much variance one or another term brings into the overall composition (see also relation to global sensitivity analysis in [74,122]). The unknown expansion coefficients w i can be determined using Galerkin projection [54,75], numerical integration, regression or collocation approaches [58,73,109].\n[Deep Artificial Neural Networks] Let us shortly summarize the key aspects of conventional DANN structures. They all rely on the multi-layer concept introduced by Alexey Ivakhnenko and Valentin Lapa in 1967 [43]. Similar to the method introduced in Section 2.1, DANNs maps R n to R by providing an approximation of the response (output). In DANNs, information flows from input nodes, through co-called hidden layers, and then to output [35]. The term hidden refers to the fact that the computations that occur within the hidden layer are not visible from the outside of the network. Each hidden layer in a neural network contains several hidden nodes, also known as hidden neurons. These nodes are responsible for performing computations on the input data and transmitting the results to other nodes in the network, ultimately leading to the output. It has gained significant popularity recently because it is a universal approximator [39] and due to technological advances in computing power.\n[Conventional DANN structure] We will consider a conventional Deep Artificial Neural Network (DANN) with L hidden layers and corresponding numbers N (L) of hidden neurons for each layer L (L = 1, . . . , L). Similar to the ML approach in Section 2.1, DANNs provide the response R(ω) as a non-linear dependence [7] on the same multidimensional input ω = {ω 1 , . . . , ω n } from the input space Ω, where n is the number of inputs. We will denote the response on each hidden layer L as a vector R (L) = R (L,1) , . . . , R (L,N L ) . This vector represents the responses (outputs) from the corresponding hidden node 1, . . . , N L on the current layer L. Then, the response of the DANN representation R(ω) could be seen [35] as recursive encapsulation of responses from hidden layers that contains N (L) hidden neurons for each layer L. Formally, representation R(ω) could be written in the following form:\n[Conventional DANN structure] where the input for each hidden layer R (L) is the response from the previous layer R (L-1) (L = 2, . . . , L). The input for the first layer R (1) is the overall input ω = {ω 1 , . . . , ω n } Each response R (L,N ) of the node N in the hidden layer L is defined according to the ANN representation [35] as follows:\n[Conventional DANN structure] Here, R (L-1) = R (L-1,1) , . . . , R (L-1,N L-1 ) is the response from the previous layer L -1 (where R (1) = ω), ) is the number of weights for node N (L-1) , A (L) is the activation function 3 for the layer L , w\n[Conventional DANN structure] is the bias in the node N of the layer L and w (L,N ) i (i = 1, . . . , M (L) ) are the weights in the node N of layer L. The notation R (L,N ) in equation ( 7) represents the non-activated response in the current paper and, hence, A (L) (R (L,N ) ) corresponds to the activated response. We would like to clarify to the reader, that there are two common ways [7] to write the equation for the response on a hidden node of a DANN using post and pre-activation function. The postactivation function applies directly to the inputs from the previous layer before computing the weighted sum (as in equation ( 7)), while the pre-activation function applies to the weighted sum of inputs from the previous layer. However, once the pre-activation formulation is utilized, the output of DANN is generated without use of an activation function. Despite these two different ways of writing the equation, they ultimately lead to the same formal representation of the response as a function of the inputs. This is because the two formulations are mathematically equivalent and can be transformed into each other using simple algebraic manipulations.\n[Conventional DANN structure] There is a variety of non-linear (and also linear) functions that are commonly applied as activation functions A (L) for an arbitrary input I. The most popular activation functions choice are the sigmoid in equation ( 8), the hyperbolic tangent in equation ( 9) and the rectified linear unit in equation (10):\n[Conventional DANN structure] A (L)\n[Conventional DANN structure] The decision to choose a specific function depends heavily on the prediction task and the data type [94]. Furthermore, care has to be taken when choosing the activation functions, as it can lead to the so-called vanishing or exploding gradient problems during DANN training [3].\n[Conventional DANN structure] The weights can be seen as a vector w = w (L,N ) i\n[Conventional DANN structure] , i = 1, . . . , N w with the total number of weights N w that depends on the number of layers L, the number of hidden neurons N (L) per layer L (L = 1, . . . , L) and the number of weights M (L) per hidden neurons N (L) of the layer L. The weights w (L,N ) i of the DANN define the final form of the representation R(ω) in equation ( 6), and they are determined via a training procedure. More details of the training procedure are discussed in Section 2.4.\n[Connection between DANN and aPC] According to equation ( 7), the conventional structure of DANNs propagates the signal from inputs to the response through deep layers, where each node of the layer employs a linear combination of zeroth and first-order monomials. The monomials represent the activated output from the nodes of the previous layer. Considering the definitions in Section 2.1, the linear representation via monomials is a particular case of the PCE theory, where the polynomial basis of 0 th degree ϕ (0) j and 1 st degree ϕ (1) j is defined explicitly as:\n[Connection between DANN and aPC] where ω i is some input of a hidden node N in a layer L.\n[Connection between DANN and aPC] As it have been stated in Section 2.1.1, the PCE theory requires that the set of polynomials (as well in equation 11)) forms an orthonormal basis for each input ω j in the input space Ω, i.e. satisfying equation (3). For example, the original theory of homogeneous chaos [113] is based on Hermite polynomials that are orthonormal for Gaussian distributed inputs. The use of any other basses for Gaussian distributed inputs will result in an erroneous non-orthogonal decomposition and considered to be not optimal [75,104]. The aPC theory [75] generalizes the original PCE theory by allowing for arbitrary input distributions and constructs the orthonormal polynomial basis from the available datadriven input distribution that is encoded in raw moments. However, the conventional DANN imposes the basis via a particular form of 0 th and 1 st order polynomial in equation ( 11), but we do not know for which underlying distribution that polynomial basis would satisfy the orthonormality conditions, i.e. whether it is optimal. To find out the underlying orthonormal distribution for the conventional DANN that satisfies equation ( 3), we will explore equations ( 18) and ( 22) from the paper [79], that are written as following:\n[Connection between DANN and aPC] Solving the system of linear equations presented above, we can reconstruct the first two raw moments behind the polynomial basis in equation ( 11) that are used in the conventional DANN. This process entails:\n[Connection between DANN and aPC] Therefore, we can conclude that conventional DANN structures implicitly assume a Gaussian distribution with zero mean and unit variance (i.e. standard Gaussian distribution) for propagating the signal through hidden layers. In other words, the conventional DANN representation optimally preserves orthonormality, if and only if, all neural inputs of all hidden layers were standard Gaussian. However, if the inputs of all hidden layers do not follow a standard Gaussian distribution, then the conventional DANN structure commonly used in machine learning may not be the most optimal way to propagate the signals through the hidden layers. Applied ML tasks could often be used in situations where the propagation of neural signals from layer to layer is not necessarily Gaussian, let alone standardized to unit variance. Therefore, based on results presented in [75] and [79], we conclude that the linear representation via non-orthonormal monomials is not optimal. Not even batch normalization [41] of each node's input could mitigate the mentioned effect due to its linear nature. Theoretically, some general non-linear transformation could map the distributions of all neural inputs onto the Gaussian, but this is not feasible due to the data-driven nature of such neural inputs.\n[Deep Arbitrary Polynomial Chaos Neural Network] Let us generalize the structure of conventional DANNs in Section 2.2 to overcome their redundancy caused by the non-orthonormal representation of neural signals. To do so, we will employ the orthogonal representation via the data-driven theory of polynomial chaos expansion introduced in Section 2.1. This also introduces the possibility to consider additional high-order interactions between neurons through the non-linear multivariate terms from the PCE representation in the conventional DANN structure in equation ( 7).\n[Deep orthonormal polynomial representation] We will consider the number of deep layers L and the corresponding number of neurons N (L) for each layer L as in Section 2.2. Similar to Section 2.1 and Section 2.2, we will map the multi-dimensional input ω = {ω 1 , . . . , ω n } to a response R(ω). Combining the deep ML representation in equation ( 6) with the orthonormal expansion in equation ( 1), we will construct a generalized representation denoted as Deep Arbitrary Polynomial Chaos Neural Network (DaPC NN). Here, the response R (L,N ) of the node N in the hidden layer L forms a vector of layer responses\n[Deep orthonormal polynomial representation] as follows:\n[Deep orthonormal polynomial representation] where R (L-1) = R (L-1,1) , . . . , R (L-1,N L-1 ) is the neural response from the previous layer L -1 (again with\n[Deep orthonormal polynomial representation] is the total number of terms for each node on the layer L, A (L) is an activation function for the layer L, Ψ (L) i is a multivariate orthonormal (w.r.t. the probability distribution given by response of the previous layer) polynomial from the basis Ψ represents bias as in the conventional DANN definition in equation (7).\n[Deep orthonormal polynomial representation] The DaPC NN representation in equation ( 13) reflects the non-linear interaction between the neurons using high-order multivariate terms and orthonormal representation in contrast to DANNs in equation (7). According to Section 2.1, the total number of weights M (L) on each node N of the layer L depends on the number of layer inputs N (L-1) from the previous layer and on the desired degree d (L) of the polynomial representation for the layer L as:\n[Deep orthonormal polynomial representation] To ensure the optimal transfer of neural signals from layer to layer and to mitigate redundancy within each node by the DaPC NN representation, we will construct the multivariate orthonormal polynomial basis\n[Deep orthonormal polynomial representation] M (L) of degree d (L) for each layer L depending on the layer input, i.e. depending on the activated response from the previous layer A (L) (R (L-1) ).\n[Deep orthonormal polynomial representation] As the input layer (L = 1) directly corresponds to the inputs ω (i.e. R (1) = ω) and the inputs ω follow some arbitrary (but given by each specific application) data-driven distribution, the response R (1) follows the exactly same distribution. For example, the input training data set could be employed in a purely data-driven way to serve as empirical distribution. After that, the responses R (L) (L = 2, .., L) on the all nodes of the multi-layered structure will follow distributions that result from all previous weights, biases, polynomials and activation functions. That means, the procedure of orthonormalization proceeds sequentially (forward) through the layers. To maintain the data-driven approach of the orthonormalization procedure, we will utilize the aPC representation for computing the data-driven multi-variate orthonormal basis. This basis is introduced in equations ( 2), ( 4) and ( 5), which will be used to construct the corresponding orthonormal bases Ψ (L) 0 , . . . , Ψ (L) M (L) in each layer. Automatically, by ensuring the orthogonal decomposition, the weights w (L,N ) i of a particular node N and a layer L gain a meaning according to global sensitivity analysis [74]: the weights reflects the partial contribution of each single neuron (linear univariate terms) or simultaneous combination of neurons (non-linear multivariate terms) to the total variance of the response R (L,N ) for the node N and the layer L.\n[Deep orthonormal polynomial representation] The training procedure itself will be discussed in Section 2.4, where the weights w = w (L,N ) i , i = 1, . . . , N w in equation ( 13) will be obtained via a similar training procedure as for DANNs. However, independent from any particular training procedure, the weights w determine uniquely the corresponding data-driven orthonormal bases\n[Deep orthonormal polynomial representation] for each layer L (L = 1, . . . , L) of DaPC NNs. Indeed, the orthonormal basis on a particular layers L depends on the neural response from the previous layer R (L-1) only. Remarking that R (1) = ω, the corresponding data-driven orthonormal bases\n[Deep orthonormal polynomial representation] M (2) for the second layer (i.e. L = 2) can be constructed via equations ( 2), ( 4) and (5). The neural response R (2) on the second layer itself is again fully determined by the corresponding weights through equation (13). Taking into consideration the recursive encapsulation of neural responses in equation ( 6), it is easy to see that orthonormal bases on all layers are dictated by the weights only. Therefore, all trained weights w determine uniquely the corresponding data-driven orthonormal bases Ψ  M (L) .Basically, neural signals traveling from layer to layer should pass through a sort of data-driven filter that constructs an optimal orthonormal representation for each layer as illustrated in Figure 2. Such an orthonormal basis is the same for all nodes N (1, . . . , N (L) ) of a given layer L and employs the neural signal coming as response R (L-1,N ) from the previous layer L -1. Moreover, the suggested DaPC NN structure offers flexibility to specify the degree of non-linearity d (L) for each particular layer L (L = 1, . . . , L) in order to go beyond a linear representation of univariate neurons, if desired.\n[Properties of the DaPC NN] Let us introduce relevant properties of the DaPC NN that could be useful for practical applications.\n[Properties of the DaPC NN] Property 1: Due to the orthonormal DaPC NN representation, the expected value µ R (L,N ) and total variance σ 2 R (L,N ) of the response R (L,N ) on each particular node N of any layer L (including the last layer forming the total response R) can be quantified analytically [75] using the following explicit form:\n[Properties of the DaPC NN] where the explicit analytical relations in equation ( 15) are written with respect to the response R (L-1) from the previous layer L and not with respect to the inputs ω. of a particular node N and layer L can be explicitly computed as follows according to global sensitivity analysis [74,103]:\n[Properties of the DaPC NN] where the Sobol index S (L,N ) I reflects the relative partial contribution of each single neuron (linear univariate terms) or simultaneous combination of neurons (non-linear multivariate terms) to the total variance of the response R (L,N ) for that particular node N in a layer L.\n[L-1] . . . 2)   . . .\n[L-1] M (L) of the polynomial degree d (L) .\n[L-1] Property 3: An analytical form for the partial derivatives of the DaPC NN representation with respect to each particular weight can be obtained by applying the chain rule of differentiation [35]. Considering the recursive encapsulation in equation ( 6) and the orthonormal representation in equation ( 13), we obtain the following analytical form for the partial derivative 4 of the response R (L,N ) in the node N of the layer L with respect to a weight w\n[L-1] ) in the node N * of the layer L * when L > L * :\n[L-1] and the following simplified analytical form when L = L * :\n[L-1] where, similar to above, the same analytical relations for partial derivatives hold for the DaPC NN response R as the response of the last layer R (L) .\n[L-1] Remark 1: The data-driven aPC representation R aPC (ω) in Section 2.1 is a particular case of a DaPC NN representation R DaPCNN (ω) when the number of hidden layers is equal to one:\n[L-1] Remark 2: The conventional DANN representation R DANN (ω) in Section 2.2 is a particular case of the DaPC NN representation R DaPCNN (ω) when the degree of expansion in each layer is equal to one and the basis is defined according to equation (11) for a standard Gaussian distribution of neuronal signals in each hidden node:\n[L-1] Remark 3: The DaPC NN offers a possibility to reflect non-linearities of neural responses both by introducing the high-order expansion d (L) for the responses R (L,N ) of the hidden nodes and by introducing non-linearity in the activation functions A (L) . Theoretically, there are no restrictions on the use of activation functions within the current DaPC NN framework according to equation (7). The modeler has the freedom to determine an activation function if it would be advantageous for a specific modeling procedure since equations ( 18) and ( 19) provide the analytical form of the partial derivatives that include the activation function. However, simultaneously introducing non-linearities both in expansion degrees and in activation functions could lead to difficulties in network training caused by strong numerical round-off errors. We would rather suggest to employ linear activation functions while shifting the representation of non-linear dependence to the orthonormal decomposition. Especially, any linear normalization (similar to batch normalization [41]) will mitigate potential numerical challenges during the training procedure. Therefore, in the current paper we suggest to employ the analytical relations introduced in Property 1 to have a handle on total (explained) variances for the overall network. This can be achieved via the following normalized activation function: . . , T N }. Such data could be obtained from runs of an original physical model for surrogate modelling [75,15], or directly from a given database for other learning tasks [28,56,40]. In order to assure transparency in the current paper, we will consider a fixed training set of size T N , avoiding any data mining procedure such as active learning [78,93]. Thus, the data set D T N is the complete training set for the discussed ML approaches.\n[Training procedure] Deep structures like conventional DANNs in Section 2.2 or the newly introduced DaPC NN in Section 2.3 require solving a non-linear system of equations to obtain the unknown weights w (L,N ) i\n[Training procedure] . There are two possible ways to solve the corresponding system of non-linear equations. The first way is based on deterministic approaches, such as gradient-based search [88] or the Levenberg-Marquardt algorithm [61] that have been widely used in deep learning. In the current paper, we will follow such a popular way for training of DaPC NN to ensure that the training process is comparable to the traditional practices for conventional DANN structures. However, for the sake of completeness we would like to mention, that the underlying problem is ill-posed, so that a unique deterministic solution to the training problem may not exist [2,121]. Therefore, the second way helps to solve the challenges related to illposedness of the problem. It is based on stochastic inference [51] by seeing the weights as random variables, and then conditioning the weights w (L,N ) i on the available training data [83]. However, straightforward stochastic approaches such as Monte Carlo [99] or even Markov chain Monte Carlo [34] are computationally very expensive, and they suffer in cases with high non-linearity and high-dimensionality [81]. Recently, there are some works trying to overcome the computational problem of stochastic inference assuming Gaussianity and mutual independence of weights [17]. Alternatively, combinations of deterministic approaches with a regularization helping to deal with overfitting [35] have been very popular in the last decades for DANNs.\n[Training procedure] Therefore, in the current paper, we will adopt the widely used approach, and extend the optimization procedure by Tikhonov or ridge regularization [106], to ensure that the DaPC NN training is consistent with the current practice for conventional DANN structures. o ensure that the training of the DaPC NN is consistent with the current methodology used for conventional DANN structures. Thus, we consider the following optimization problem regarding the unknown weights forming the vector w = w (L,N ) i , i = 1, . . . , N w for all neurons distributed within the all layers :\n[Training procedure] where the weights should be optimized simultaneously to minimize the so-called loss function [35] in equation (23). The first term in equation ( 23) reflects the deviation of the response R from the training data via the mean squared error (MSE). The second term corresponds to a regularization known as mean square weights (MSW) 5 . Other loss functions are also known in the literature, depending on the overall objective such as a Bayesian interpolation [60], physical regularization [47,84] or classification tasks [13,56] . Moreover, the scalability to larger datasets relies on the chosen architecture and training methods. The effective model complexity proposed in [70] identifies specific regimes where increasing the number of training samples may negatively impact performance.\n[Training procedure] In order to directly compare the DaPC NN structure with the conventional DANN under identical conditions, we choose the Levenberg-Marquardt algorithm [61] to solvefoot_5 equation ( 23) for all structures due to its robustness. We also use the exact same training procedure for all structures using the exactly same loss-function in equation ( 23) and the exactly same training data sets D T N . To provide gradients to the Levenberg-Marquardt algorithm, we use the analytical derivatives for DaPC NN introduced in Property 3 of Section 2.3.2, whereas we use typical backpropagation to provide gradients. Thus, the orthogonal bases in DaPC NNs are updated simultaneously with the weights during the training procedure (see also Figure 2). Moreover, as pointed out in Section 2.3.1, the weights determine uniquely the corresponding data-driven orthonormal bases in equations ( 2) and ( 2) for each layer of DaPC NNs by solving the linear system of equations ( 5) introduced in Section 2.1. Consequently, the DaPC NN can be seen as a black box, where only the unknown weights need to be determined using one or another training procedure. This makes it easy for users to operate the DaPC NN in a similar way to the conventional DANN, without requiring them to have any special knowledge of its internal workings.\n[Training procedure] The training procedure of ML approaches with single-layer ML representations [29] like the PCE usually determines the unknown weights by solving a linear system of equations. Therefore, the unknown weights w i of the aPC representation in Section 2.1 are directly obtained by solving a linear system of equations ( 5) (see details in [73,12,11]).\n[Training procedure] For numerical robustness, we use Moore-Penrose inversion [68,82,14] (also known as pseudoinverse) to solve the regularized [106] least-squares problem of equation (23) as in the original aPC work [75] that is available in Matlab file exchange [76].\n[Training procedure] In the current paper, we focus on fundamental issues of deep neuronal network structures exploring the concept of orthonormal decomposition and the possibility to introduce high-order neural interaction, rather than delving into specifications of the loss function or training algorithm. Therefore, the reader is invited to adopt the introduced DaPC NN structure for own needs, introducing any own specific loss function or training procedure. The DaPC NN is available online for the reader through Matlab file exchange [77].\n[Technical remark on DaPC NN bases] Technically, the training procedure specified in equation ( 23) remains the same for the DaPC NN as well as for the DANN and the aPC, and the authors of the current paper do not aim at any novelty here. However, we would like to underline that the DaPC NN constructs its data-driven orthonormal bases implicitly during the training procedure, based on the input distribution and upon the responses of hidden nodes that react to adjustments of the weights during the training procedure. This means, the orthonormal bases on all layers are adaptively recomputed during the iterative training procedure while searching for the optimal weights. It could be seen as re-adjusting of orthonormal bases simultaneously within the iteration procedure over the weights.\n[Illustration of Performance and Comparison] In the previous Section 2, we have introduced the DaPC NN using the data-driven orthonormal decomposition from aPC theory. The current section will illustrate the performance of the suggested DaPC NN, comparing it with the performance of a conventional DANN structure and also with an aPC expansion. To do so, we will employ exactly the same training data set D T N = (ω T i , R T i ), i = 1, . . . , T N of the size T N for all three ML approaches. The quality of the training itself (e.g. MSE) will not be strongly discussed as the training procedure provides only a small discrepancy between the ML model response R(ω T ) and the training data R T N . 7 Such a discrepancy partially indicates whether the chosen architecture, loss function and training algorithm are appropriate for analysed problem. Instead, we rather focus on the prediction ability for a separate data set that has not been used during the training procedure. Therefore, we will employ a validation data set [44]\n[Illustration of Performance and Comparison] Because the quality of the prediction is strongly dependent on the size T N of the available training data set [75,39], we will assess the prediction quality for validation data sets D V N under various sizes of the training data set T N . To measure the prediction ability, we will assess the mean square error, which is usually used in ML, as well as a weighted error that will be defined below in eq. ( 24),( 25), (26), which is used in the uncertainty quantification community. The mean square error could be also normalized by the variance, converting it to the coefficient of determination if desired.\n[Illustration of Performance and Comparison] The corresponding estimates of the mean square error\n[Illustration of Performance and Comparison] ] are defined as: Because we are interested in the overall reliability of the ML response and to guarantee fairness in comparison, we omit the powerful property of aPC in computing the mean and variance without additional evaluations of the response. Instead, we will estimate them numerically using the final aPC response constructed on the validation data set, similarly to DANN and DaPC NN.\n[Illustration of Performance and Comparison] As test cases, we use examples of functional approximation as in surrogate modeling. To test different aspects, we consider an Ishigami problem with three inputs [42] in Section 3.2, an ON-10 problem with ten inputs [80] in Section 3.3 and also a carbon dioxide benchmark problem with non-linear shock propagation [52] in Section 3.4.\n[Architecture and technical specification of ML models] Architectures of the considered ML models used in the current and upcoming test cases are specified via the total number of layers L, corresponding numbers of nodes N (L) for each layer L as [N (1) , . . . , N (L) ], degrees of non-linearity d (L) for on each layer L as [d (1) , . . . , d (L) ], activation functions A (L) (same for all layers L) and loss function (LF).\n[Architecture and technical specification of ML models] For the sake of transparency, we will also provide the total number of unknown weights or coefficients as N w in upcoming Sections. This is particularly useful for aPC and DaPC NN, as the number of unknown weights may not be as intuitive as for conventional DANN. We will adopt the architectures of the analyzed ML models taking into consideration the size T N of the training data sets. Nevertheless, we would like to emphasize that the setup of the corresponding architectures are the responsibility of the ML modeler. For our study, we selected the architectures with equal care and effort for all three compared approaches, trying to achieve the most reliable results. Nevertheless, the degrees of freedom in choosing the number of layers, the number of nodes per layer, the degree of non-linearity (if allowed) and the activation function pose strong challenges onto the modeling procedure, requiring a deep understanding of each underlying ML approach. For instance, in addition to the standard settings for the conventional DANN architecture, the DaPC NN architecture incorporates additional degrees of freedom by choosing the non-linearity degree on specific layers, which introduces unknown weights associated with the number of input neurons from the previous layer, as discussed in Section 2.2. Exploring all possible configurations of deep architectures using a trial-and-error approach is not feasible due to the vast number of combinations. Consequently, developing an adaptive strategy for setting up the architecture could significantly improve the performance of deep multi-layer representations. This approach would require further research to minimize the potential for subjectivity in the modeling procedure. The authors of the current paper recognize the potential of the Bayesian framework for optimizing hyper-parameters such as the number of layers, number of nodes, and degree of non-linearity. However, direct Bayesian analysis seems to be computationally intensive, and it may be necessary to rely on approximate indicators that involve certain assumptions [80]. However, this topic goes beyond the scope of the current paper but could be the subject of future research.\n[Architecture and technical specification of ML models] We encourage the reader to test the suggested DaPC NN approach and also known aPC and DANN approaches for own needs. The conventional DANN approach used here can be found under Matlab software [62] using the fitnet functionality. The aPC and DaPC NN approaches are available online for the reader through Matlab file exchange [76] and [77], correspondingly. eq. ( 22) 130 MSE+MSW\n[Problem set up] As the first test case, we will employ the widely used Ishigami function [42], as it shows strong non-linearity accompanied with non-monotonicity:\n[Problem set up] where we will use the particular case with a = 7 and b = 0.1. The distribution of the three input random variables ω is given by mutually independent uniform distributions with ω i ∼ U(-π, π).\n[Training and Validation] Figures However, flexibility alone is not sufficient to make reliable prediction outside of the training data sample and only shows quality of the training approach . Therefore, we pay stronger attention to the right plots in Figures 345, reflecting the validation performance. All three approaches are powerless in case of the very small data set used for training (right plot in Figure 3). As expected, increasing the size of training data set to 100 (right plot in Figure 4) or even 1000 (right plot in Figure 5) helps to overcome these issues during the validation phase. In particular, the DaPC NN demonstrates the best performance in the validation phase as well, even with a moderate sample size of training data. Figures 345indicate that the flexibility of DANN tends to have over-fitting issues regarding the regularisation as specified in equation (23). Opposite to theDANN, the DaPC NN shows less issues with over-fitting, inhering the orthonormality from the aPC representation and also the required flexibility from DANN. Due to its definition, the aPC itself seems to have not enough of flexibility to capture the validation data set as well as the DaPC NN. We also have observed in the current and upcoming test cases, that omitting regularization in loss function only slightly degrades the results of DaPC NN and aPC, whereas the conventional DANN shows extremely poor prediction. Hence, pure comparison focusing on least-square solution without regularization seems to be not attractive.\n[Evidence of Convergence] It Figures 345, it appears that DANNs have a stronger spreading of the point clouds and also higher density of spreading in comparison to DaPC NN and aPC models. However, determining the density of spreading based on visual inspection alone can be challenging. Therefore, we will pay closer attention the metrics introduced in the beginning of Section, which provides more clarity on this matter. Figure 6 shows the convergence in terms of mean square error, relative error of the mean value and relative error of the standard deviation as a function of the training data size T N , applied to the validation data set D V N for aPC expansion, conventional DANN and DaPC NN. The figure reveals that a faster convergence has been reached for DaPC NN in terms of all investigated convergence metrics, summarising the observations made in the previous section. The relative errors of mean and the standard deviation are smaller with the aPC than with the conventional DANN.  22) 946 MSE+MSW\n[Problem set up] As second test case, we will consider a non-linear analytical function M(ω) of ten (n = 10) uncertain inputs ω = {ω 1 , . . . , ω n } from the paper [80]:\n[Problem set up] where the inputs ω in equation ( 28) are considered to be independent uniformly distributed with ω i ∼ U(-5, 5) for i = 1 . . . 10.\n[Problem set up] For the current test case, we will consider training data sets D T N of the sizes T N equal to 100, 500 and 1000. Similar to the previous test case, we will generate our training data according to the Sobol sequence [100] based on the underlying distributions of inputs ω. As before, we employ a validation data set {(ω V i , R V i ), i = 1, . . . , V N } of the size V N = 10 3 generated by Monte Carlo sampling [99] from the distribution of inputs ω. During validation, however, all methods fail to produce consistent results when the small set is used as shown in Figure 7. When trained with more data (Figure 8 and Figure 9), DaPC NN produces predictions with relatively high accuracy compared to aPC and DANN even during validation; where aPC and DANN do not benefit significantly from the increase of training data. Moreover, the orthonormal structure of the DaPC NN representation handles the overfitting issues extremely well. Table 2 presents the technical specifications for the ON-10 test case, including the total number of unknown weights/coefficients denoted by N w for all ML models. Again, when selecting an appropriate ML model architecture, it is important to consider the size of the training data set T N that can influence the flexibility of the training process and the predictive power of the model. For example, the number of unknown weights in the DaPC NN can be two times higher than the size of the training data.\n[Prediction and Validation] It seems that the high non-linearity of the considered test case strongly limits the aPC to obtain the necessary polynomial representation. A high degree of freedom is very helpful in this case. Opposite to that, the DANN seems to suffer significantly from over-fitting, regardless of the regularization in that scenario. Overall, the DaPC NN predictions are more consistent, with lower scatter compared to the other methods for the considered test case.\n[Benchmark set up] As third test case, we will consider a carbon dioxide (CO 2 ) benchmark model that has already been used to compare different ML approaches in the earlier paper [52]. The particularity of that problem consists in a strong shock propagation, where various ML approaches relying on smooth functions could suffer a lot. The problem refers to a multi-phase flow in porous media, where CO 2 is injected into a deep aquifer and then spreads in a geological formation. This yields a pressure build-up and a plume evolution. CO 2 injection into the subsurface could be a possible practice to mitigate the CO 2 emission into the atmosphere. The CO 2 benchmark model proposed by Köppel et al. [54] is a reduced version of the model in a benchmark problem defined in the paper [25]. This reduction consists of a radial flow in the vicinity of the injection well, and is made primarily due to the high computational demand of the original CO 2 model. It is assumed that the fluid properties such as the density and the viscosity are constant, and all processes are isothermal. The CO 2 and the brine build two separate and immiscible phases, and mutual dissolution is neglected. Additionally, the formation is isotropically rigid and chemically inert, and capillary pressure is negligible. We consider the CO 2 saturation to be the quantity of interest as a model response that is a function of the coordinates for space x and time t as introduced in [54]. Overall, the considered CO 2 benchmark problem is strongly non-linear because the CO 2 saturation spreads as a strongly non-linear front that could be challenging to capture via surrogates. For detailed information on the governing equations, the modeling assumptions and numerical approaches, the reader is referred to the original publication [54].\n[Benchmark set up] Following the comparison study [54], we consider the combined effects of three sources of uncertainty. We take into account the uncertainty of boundary conditions via the injection rate, the uncertainty of constitutive relation introduced via in the relative permeability definitions and the uncertainty of material properties represented by the porosity of the geological formation. Figure 11 shows the distribution of these three inputs taken from the original data set [53].\n[Benchmark set up] Similar to the previous test cases, we will train the aPC, DANN and DaPC NN employing the exactly same training data sets D T N while varying the size T N . However, the final trained ML representation could depend not only on the size T N of the training data, but also on how the training data have been constructed. Indeed, at least for the polynomial representation, the training points must be selected with dedicated strategies in order to avoid additional oscillations known as the Runge phenomenon [89]. In particular, wrong training points could lead to a very strong oscillations near the discontinuities (Gibbs effect) of the considered CO 2 benchmark. Therefore, it will be also interesting to see how the Runge phenomenon may affect the quality of DANN and DaPC NN training.\n[Benchmark set up] In order to address that question, we will consider two training strategies. In the first training strategy, we will use the Sobol sequence [100] to construct the training sets of sizes T N equals to 100, 500 and 1000 similarly to the previous test cases. In the second training strategy, we will employ Gaussian integration points [110,32] to generate the training data sets of sizes T N equal to 27, 216 and 1331 according to the available distribution [75] of inputs displayed in Figure 11. In short, the optimal choice [110] of training points (i.e. Gaussian quadrature rule) corresponds to the roots of the polynomial of one degree higher than the order used in the polynomial representation. The Gaussian integration points form a full tensor (FT) grid in the space of inputs. This is what leads to sizes of the training data sets equal to 27, 216 and 1331 related to the polynomial representation of 3 rd , 5 th and 10 th degrees correspondingly. Strictly, this training rule can be fully satisfied for aPC representation following the Gaussian quadrature rule [110], but there is no proof for multi-layered structures such as DANN or DaPC NN indicating that the corresponding Gaussian training strategy could mitigate the Runge phenomenon. To assess the quality of prediction, we will employ the validation data set D V N of the size V N = 10 4 [53] generated according to the variability of the inputs (Monte Carlo approach) shown in Figure 11.\n[Prediction and Validation] We will reproduce the CO 2 saturation along the radial distance from the injection well for the fixed time instance of 100 days in accordance with the CO 2 benchmark scenario [54]. To do so, we will train aPC expansion, conventional DANN and DaPC NN for each numerical discretion cell (i.e. 250 times). In this sense, we will construct 250 networks/expansions that seek to capture features of CO 2 displacement in the subsurface. The related ML architectures are presented in Table 3 . Figure 12 demonstrates the performance of the considered ML models during validation, using the Sobol sequence training data with T N = 1000. All three approaches are far away in capturing the reference values of mean and standard deviation for CO 2 saturation even considering a sufficiently large size of the training data. All three ML models suffer strongly from the Gibbs effect (i.e oscillations) caused by the strong non-linearity of shock propagation (see examples in [54]). The regularization in equation ( 23) seems to show the most significant effect for the aPC. Opposite to that, using Gaussian integration points as training data helps to mitigate the Runge phenomenon and to reduce the Gibbs effect substantially not only for the aPC as expected, but also for the DaPC NN.\n[Prediction and Validation] Corresponding numbers of training points and technical specifications of the considered ML models are presented in\n[Evidence of convergence] We will assess the convergence in terms of mean square error, mean value and standard deviation of CO 2 saturation over the training data size T N for both previously mentioned training strategies. In order to make the quantities of interest in correspondence with the original benchmark study [52] and its follow-up [87], we will consider the   following space-averaged quantities:\n[Evidence of convergence] Figure 16 shows convergence in terms of the absolute averaged mean square error in equation ( 29), absolute averaged error of mean value in equation ( 30) and absolute averaged error of standard deviation in equation ( 31) over the training data size T N for aPC, conventional DANN and DaPC NN. Figure 16 displays the convergence of the analyzed ML approaches trained on the Sobol sequences and as well on the Gaussian integration points (marked by superscript FT).\n[Evidence of convergence] We observe that the performance of DANN does not profit from an increasing training data size. Also, it does not benefit from the considered choices of training points and seems to be affected by oscillations caused by the strong non-linearity of the underlying problem. Additionally, increasing the training data size does not help the aPC expansion if the training points are not optimally distributed (see more details in [75]), but it is clearly visible how the use of Gaussian integration points help overcome the Runge phenomenon. Moreover, the Gaussian integration points strongly help in DaPC NN training and also reduce the Gibbs effect, rendering the results more reliable. We also would like to remark, that turning the DaPC NN architecture into a one-layer structure reproduces the aPC results under the same technical specification. However, we have selected the multi-layered DaPC NN architecture as specified in Table 4 for illustration of performance in order to provide the broader picture. Overall, we conclude that all considered ML approaches suffer a lot in capturing the strong shock propagation in the CO 2 benchmark model, as all three rely on smooth functions.\n[Final Remarks] In the current paper, we offer a view on neural signal processing in deep artificial neural networks from the PCE perspective, introducing in that way the DaPC NN. By employing PCE fundamentals, we demonstrate that orthonormality conditions in each node of the conventional DANN structure are fulfilled if the neural signal propagating through the multi-layer architecture was normally distributed with zero mean and unit variance. This situation is not necessarily satisfied for the majority of data-driven applications and, hence, could lead to redundant representation, where one neural signal could contain partial information that is also coming from other neurons. Moreover, introducing the PCE into the DANN structure provides an opportunity to go beyond the linear weighted superposition of single univariate neurons on each node.\n[Final Remarks] From the modelling perspective, the user is prompted to specify the DaPC NN architecture through the number of layers, number of nodes per layer, activation function and loss function similar as in a conventional DANNs. Additionally, the novel DaPC NN requires specification of the desired degree of non-linearity for each hidden layer. The latter aspect leads to high-order weighted superposition on each node of the network, so that non-linear activation functions become optional. This reduces the potential for subjectivity in the modeling procedure. However, it also introduces a new responsibility of choosing the degree of non-linearity, which in turn raises new research questions.\n[Final Remarks] Technically, the DaPC NN requires a similar training procedure as any conventional DANN, and all trained weights determine automatically the corresponding multi-variate data-driven orthonormal bases for all layers of DaPC NN. The DaPC NN Matlab Toolbox is available online and users are invited to adopt it for own needs [77].\n[Final Remarks] To illustrate the performance of the DaPC NN, we have investigated three test cases, comparing the DaPC NN with the conventional DANN and also with aPC expansion. To do so, we have employed identical training procedures for DANN, DaPC NN and aPC, minimizing the mean squared error, regularized via ridge regression. In the training procedure, we employ exactly the same training and validation data sets for all three ML approaches. Additionally, we vary the size of the training data set and assess the convergence of the different ML approaches on a validation data set by evaluating the mean square error, error of mean and error of standard deviation.\n[Final Remarks] In the first and second test cases, we observe that the DaPC NN reaches superior results in comparison to the aPC and DANN, even considering that we use only a moderate training data size. In the third CO 2 benchmark test case, we observe that all considered ML approaches suffer a lot in capturing the strong CO 2 shock propagation, as they all rely on smooth functions. However, using Gaussian integration points as training dataset helps to mitigate the Runge phenomenon and reduce the Gibbs effect substantially not only for the aPC but also for the DaPC NN. This emphasizes that the DaPC NN inherits partially the aPC properties that help to overcome the Runge phenomenon. Therefore, an optimal training strategy relying on the distribution of the inputs helps to construct an acceptable ML model at low computational costs. Unfortunately, the performance of the DANN does not profit from the considered choices of training points. Increasing the training data size does not seem to be helpful against oscillations caused by the strong non-linearity of the underlying problem. The latter point can be explained by the derivations in the current paper, where the conventional DANN structure is shown to be optimal for Gaussian distribution of inputs (and also Gaussian signal processing on each node) that is hardly fulfilled in the considered CO 2 benchmark.\n[Summary and Conclusions] The current paper analyzes the neural signal processing in deep artificial neural networks from the point of view of polynomial chaos (PCE) theory. The response on each node of a deep network has been seen from the PCE perspective, making use of orthonormal polynomial basis functions. The proposed generalization of the conventional structure of DANNs towards the DaPC NN decomposes the neural signals, employing an adaptive construction of data-driven multi-variate orthonormal bases on each node in the multi-layer structure. Moreover, by introducing PCE theory to represent the response of each node, it offers an additional opportunity to go beyond the linear weighted superposition of single univariate neurons as in conventional DANN structures. In that sense, the introduced DaPC NN structure can be seen as a generalization of the conventional DANN with incorporation of aPC theory. The newly introduced DaPC NN assures orthonormal decomposition on each node and also offers an additional possibility to account for high-order neural effects. Doing so, the weights gain a clear meaning according to global sensitivity analysis and they reflect the partial contribution of each single neuron (linear univariate terms) or simultaneous combination of neurons (non-linear multivariate terms) to the total variance of the response on each node.\n[Summary and Conclusions] Concluding the analysis of the current paper, we anticipate that avoiding the redundant representation and accounting for high-order neural effects could increase the performance of the neural network. Following the observation in the current paper, we stress that the high non-linearity of the underlying problems could limit the ability of the plain aPC with only one-layer polynomial representation. As opposed to that, the encoded flexibility of DANNs seems to suffer significantly from over-fitting, regardless of the regularization of weights. Overall, the DaPC NN shows the ability to predict quantities of interest more consistently with lower variance in comparison to DANNs. Furthermore, we also observe that omitting the regularization in the loss function only slightly degrades the results of DaPC NN and aPC, whereas the conventional DANN is significantly more affected by it.\n[Summary and Conclusions] Remarking that aspect, we accentuate that joining the fundamentals of homogeneous chaos theory with the deep representation of neural networks requires additional research, where various architectures accompanied by specific loss functions and training algorithms could be investigated. In particular, concepts employed in recurrent neural networks, neural ordinary differential equations, physical regularization or Bayesian regularization could be adopted directly to the DaPC NN structure. Moreover, the introduced DaPC NN structure opens a pathway to use analytical properties quantifying the importance of neural signal on each node . In particular, implementing an explicit analytical form of data-driven orthonormal polynomial bases in equations ( 17)-( 23) from [75] could significantly accelerate the training process of DaPC NN. Additionally, since the weights of DaPC NN reflect the meaning according to global sensitivity analysis, they could be partially omitted [20] to offer a sparse DaPC NN representation. The latter is highly beneficial in mitigating issues related to overfitting. Additionally, state-of-the-art findings in the PCE community can further be included, such as various sparse learning techniques, multi-element decomposition, Bayesian learning, etc.\n[Summary and Conclusions] From a technical perspective, we would like to clarify that the primary goal of the current paper is not to achieve high computational efficiency in the training procedure. Instead, we offer a unique perspective on the DANN structure. Indeed, the computational time of the current version of DaPC NN is significantly higher than that of DANN, since it requires adaptive computation of the orthonormal basis during the training process. The procedure could be accelerated using explicit analytic relations for a moderate degree of expansion from [75]. Moreover, further speed up could be achieved when employing parallel and GPU-based computing.",
+  "chunks": [
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "text": "Artificial Intelligence and Machine learning have been widely used in various fields of mathematical computing, physical modeling, computational science, communication science, and stochastic analysis. Approaches based on Deep Artificial Neural Networks (DANN) are very popular in our days. Depending on the learning task, the exact form of DANNs is determined via their multi-layer architecture, activation functions and the so-called loss function. However, for a majority of deep learning approaches based on DANNs, the kernel structure of neural signal processing remains the"
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Introduction",
+      "text": "During the last decades, Artificial Intelligence (AI) and Machine learning (ML) have been widely used in various fields of mathematical computing, physical modeling, computer science, geosciences, communication science, and stochastic analysis. The terminology AI has been suggested by John McCarthy in 1956 as a neutral title of a Dartmouth workshop [63] to distinguish the research field from cybernetics and also to escape the influence of its originator Norbert Wiener [114]. The closely related term ML has been introduced later in 1959 by Arthur Samuel, where the author explored the logical rules of the game of checkers [90]. Originally, AI and ML have been focused on learning strategies employing logical rules, which were often formalized using an apparatus of discrete mathematics and graph theory. However, with increasing computational power [67] and data availability [69], the fields of AI and ML today employ a much broader spectrum of approaches that originate from stochastic analysis, cybernetics, geosciences, information theory and other disciplines."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Introduction",
+      "text": "In particular, approaches based on Deep Artificial Neural Networks (DANN) introduced in cybernetics by Alexey Ivakhnenko and Valentin Lapa in 1967 [43] are currently very popular in AI and ML (see e.g. [91] for a detailed historical recapitulation). DANNs generalize the concept of Artificial Neural Networks (ANN) suggested by Warren McCulloch and Walter Pitts in 1943 [64] to multi-layer structures , i.e. deep ANN. This form of deep learning also gained a strong visibility in society, providing solutions for a broad variety of tasks including recognition of images [105], videos [24], voice [8] and text [95]."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Introduction",
+      "text": "Depending on the modelling task, the exact form of the so-called loss function [35] is usually specified to determine the final DANN representation. Various loss functions can be found in literature, suitable for classification tasks [13,56], Bayesian interpolation [60] or physical regularization [47,84]. In addition, multiple DANN layers and corresponding neural connections can be customized in various ways, turning DANN into convolutional [19,85], recurrent [38,117] or other desired architectures [48]. Due to the magnificent number of works based on the DANN representation, the corresponding literature can hardly be covered in a research paper, and the authors refer to literature [37,36] and reviews [18,92] for further information."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Introduction",
+      "text": "The keystone of DANNs can be seen as a certain type of non-linear function that maps from input in R n to output in R."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Introduction",
+      "text": "To construct such a function, DANNs use a multi-layered approach, where each node of a layer is a linear combination of non-linear univariate functions, known as activation functions. Overall, this yields a chain-rule interaction of neurons in multi-layered architecture [7]. However, there is an alternative branch of approaches that also maps R n to R using linear combinations of non-linear kernel functions or vectors and, hence, could be seen as one-layer approaches. This alternative ML branch consists of polynomial chaos expansions (PCE) introduced in 1938 [113], Kriging introduced in 1951 [55] that is also known as Gaussian process emulator/regression (GPE: [115]) or Wiener-Kolmogorov prediction [27], Support vector regression (SVR) introduced in 1974 [108] and Relevance vector machines (RVM) introduced in 2000 [107]. The common fundamental between PCE, GPE, SVR and RVM can be found in [22]."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Introduction",
+      "text": "Regardless of the different mathematical definitions and structures, both one-and multi-layered ML approaches construct the final non-linear representation by determining all their unknown constants. These constants are known as coefficients (terminology for PCE, GPE, SVR and RVN) or weights (terminology for ANN and DANN). For one-layer approaches, the response is established by solving a linear system of equations that encodes the linear combination of non-linear basis functions (polynomials, kernels, vectors, etc.). For multi-layer approaches, the response is constructed by solving a non-linear system of equations that reflects the so-called neural signal processing."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Introduction",
+      "text": "The current paper does not aim at discussing the pros and contras behind various approaches to map R n to R. We will rather pay attention to how one-layer findings could be helpful for the multi-layered structure of DANNs. Indeed, let us have a close look into the kernel structure of conventional DANNs. It considers the processing of the neural signal in one node as displayed in Figure 1a. The response of each node (i.e. arrows leaving the central circle) contains linear weighted superposition of single neuron responses (i.e. the arrows entering the central circle) coming from the previous layer. In the figure, the weighting is represented by w and the superposition by Σ. To obtain the final neuronal response, the superposition is passed through an activation function A that is usually non-linear. The corresponding weights w of the linear superposition for the input to the featured neurons are to be found by training. However, such a linear weighted superposition of incoming neuron outputs on each node could lead to a redundant representation, as it is not necessarily satisfying orthogonality in signal processing. This aspect has been addressed in the literature on Support Vector Networks in 1995 [26] employing the SVR concept [108]. Also imposing orthogonality within the DANNs has been explored in the context of Recurrent Neural Networks [65] assuring the efficiency of the training procedure. The paper [111] highlights the benefit of using orthogonal weight matrices in Recurrent Neural Networks, as they preserve gradient norm during backpropagation making them highly desirable for optimization purposes. However, the imposition of hard constraints on orthogonality within Recurrent Neural Networks may negatively affect convergence speed [111] as applying Gaussian prior regularization may not be appropriate for many applications. Additionally, in order to overcome the difficulty of training Recurrent Neural Networks caused by vanishing and exploding gradients, a new approach have been addressed that learns a unitary weight matrix with eigenvalues [116,9], enabling optimization in the complex domain. Nevertheless, accounting for orthogonality seems to be very promising, as it could mitigate redundancy in DANN representation [112] and potentially could provide a better ability for generalization [46]."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Introduction",
+      "text": "Additionally, the actual non-linearity of DANNs is triggered by the non-linearity of the choosen activation functions. However, the choice of the activation functions is an extremely non-trivial task itself [66] and can be very subjective [94], posing additional challenges for DANN users. Very recently, the work [23] suggested to replace non-linear activation functions via non-linear polynomial representations, introducing co-called Π-Nets. The introduced Π-Nets consider high-order polynomial terms, which consistently improves the performance in discriminative and generative tasks for images and audio processing [23]. Nevertheless, similar to conventional DANNs, Π-Nets do not yet consider orthogonality in processing the neural signal and, hence, could also lead to redundancy in representation. We argue that employing orthogonal (or even better orthonormal) decompositions for processing neural signals could be extremely relevant, especially for data-poor applications."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Introduction",
+      "text": "In the current work, we will take the reader on a journey to the early stages of ML. We will pay special attention to the PCE, introduced via the homogeneous chaos theory by Norbert Wiener in 1938 [113] as already mentioned above. The so-called non-intrusive version of the PCE [33,59] and its advanced extensions towards sparse quadrature [50], sparse regression [4,16] or multi-element approaches [6,57] gained popularity for surrogate building in computationally demanding modelling tasks [31,73]. They all employ the idea of multi-variate polynomial representation. The Using the DANN vocabulary, the PCE could be seen as a one-layer ML approach, where the response is approximated as a linear combination of non-linear multivariate orthonormal polynomial basis functions. At the same time, employing the PCE vocabulary, the response of one node in a DANN could be seen as a 1 st degree multi-variate polynomial of single neurons from the previous layer, i.e. linear weighted superposition, then passed through an activation function. To be more specific, the 1 st degree multi-variate polynomial representation in one node of a DANN consists of 1 st degree monomials that reflect the incoming neural signals and the 0 th degree term that is known as bias. Obviously, this representation via linear weighted superposition of monomials does not necessarily fulfill the orthogonality or orthonormality condition that is targeted by PCE approach for the majority of applications. Such a non-orthogonal linear weighted superposition of incoming neuron outputs is a possibly redundant representation of the overall signal flow: any neural signal could contain some partial information from other neural signals."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Introduction",
+      "text": "Similarly, the non-linear polynomial representation in Π-Nets [23] could also profit from orthonormal decomposition of neural signals. Therefore, employing multi-variate orthonormal polynomial bases to process the neural signal on each node, as in the PCE approach, could be beneficial for both conventional DANN structures and for advanced Π-Nets. Another approach that combines variational autoencoder and PCE methods is expected to appear soon in the literature forming the PCE-Net model [97]."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Introduction",
+      "text": "Unfortunately, due to the data-driven nature of all these networks, a direct transfer of classical PCE theory or its generalized extension [120] for constructing orthonormal representations on each node is not possible. The reason is that PCE requires knowledge of probability density functions for all inputs, and this knowledge is not available in the context of DANNs, where the probability density function for all inputs to all nodes in all layers would have to be known."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Introduction",
+      "text": "Therefore, the current paper suggests to account for the data-driven nature of neural signals in DANNs and thus uses the data-driven generalization of PCE known as arbitrary polynomial chaos (aPC: [75]) to construct corresponding multivariate orthonormal representations on each node of DANNs. Doing so, we generalize the conventional structure of DANNs to Deep arbitrary polynomial chaos neural networks (DaPC NN) 1 . They decompose the neural signals traveling through the multi-layer structure through an adaptive construction of data-driven multi-variate orthonormal bases for each layer. Doing so, we provide an opportunity to go beyond the linear weighted superposition of single (univariate) neurons on each node that is traditionally employed in various DANN architectures."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Introduction",
+      "text": "Inheriting fundamentals of the PCE, the DaPC NN offers an additional possibility to account for high-order neural effects that reflect simultaneous interaction of neurons in the multi-layer network. Thus, the modeler is prompted to specify the DaPCE NN architecture through not only the number of layers, the number of nodes per layer and the activation function as in conventional DANNs, but also through the desired polynomial degree of non-linearity per layer. Figure 1b schematically illustrates the neural processing in the DaPC NN through a multi-variate orthonormal basis Ψ and a corresponding high-order weighted superposition In this sense, the paper does not aim to contribute to the DANN architecture, to any particular definition of loss functions, or to optimal training schemes. Instead, we offer a mathematical reformulation of the kernel DANN structure in terms of homogeneous chaos theory. Moreover, introducing the high-order weighted superposition on each node may remove the necessity to introduce non-linearity via activation functions if desired. Hence, one can reduce the room for potential subjectivity in the modeling procedure. We expect that joining the multi-layered structure of neural networks together with the theory of polynomial chaos expansion could be beneficial for ML tasks and also creates a foundation for further investigations."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Introduction",
+      "text": "The rest of the paper is structured as follows: Section 2 summarizes the necessary background on the data-driven aPC in Section 2.1 and the conventional DANN structure in Section 2.2. Section 2.2 also points out the implicit Gaussian assumptions of neural signal processing in conventional DANN structures from the view point of PCE theory. Section 2.3 offers our novel DaPC NN formulation. It introduces the adaptive, deep, multi-variate orthonormal polynomial representation via a multi-layered structure. Section 2.3 also provides relevant properties that the DaPC NN inherits from aPC. Section 2.4 briefly outlines an example of the conventional training procedure to compute the weights by providing the required partial derivatives. Section 3 illustrates the performance of DaPC NN together with a conventional DANN and the aPC. In this comparison, we use exactly the same training data and loss function for DANN, DaPC NN and aPC in a total of three different test cases. Additionally, Section 3 shows evidence of convergence against reference validation data sets, comparing how the size of the training data sets affects the performance of the considered ML approaches."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Introduction",
+      "text": "2 Machine learning with non-redundant decomposition"
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Arbitrary Polynomial Chaos Expansion",
+      "text": "Theory of polynomial chaos expansion (PCE) was originally introduced by Norbert Wiener [113] in 1938. In PCE, the dependence of the model response (output) on all inputs is expressed using projection onto an orthogonal or orthonormal multi-variate polynomial basis [33,104]. For the current paper, we will employ a purely data-driven generalization of the PCE introduced in 2012 by Oladyshkin and Nowak [75] that will open the pathway for a datadriven deep ML structure."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Homogeneus chaos theory",
+      "text": "Let us consider a model response R(ω) that depends on some multi-dimensional input ω = {ω 1 , . . . , ω n } from the input space Ω, where n is the number of inputs. Let L 2 (Ω) denote the L 2 -space on Ω, weighted by the assumed probability distribution. According to PCE theory [21,113], the model response R(ω) ∈ L 2 (Ω) can be expanded in ω in the following manner to map R n to R:"
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Homogeneus chaos theory",
+      "text": "where Ψ i (ω) are basis functions from a multi-variate orthonormal (w.r.t. the assumed probability distribution) polynomial basis Ψ 0 (ω), . . . , Ψ M (ω) defined on the input space Ω, and w i are corresponding coefficients that determine the form of the expansion in equation (1). The total number of expansion terms M depends on the number of inputs N and on the desired degree d of the polynomial representation as M = (n + d)!/(n!d!). This formulation of M is based on a total-degree truncation, and other alternatives exist [104]. For a comprehensive discussion of the requirements for existence and completeness of an orthonormal polynomial basis Ψ 0 (ω), . . . , Ψ M (ω) of L 2 (Ω), we refer to [30,32,104]."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Homogeneus chaos theory",
+      "text": "The multi-variate polynomial basis Ψ 0 (ω), . . . , Ψ M (ω) is comprised of the tensor product of univariate orthonormal polynomials ϕ"
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Homogeneus chaos theory",
+      "text": "of degree d for the inputs ω j , assuming that the inputs are statistically independent:"
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Homogeneus chaos theory",
+      "text": "Here α = (α 1 , . . . , α N ) ∈ N N 0 is a multivariate index describing polynomial degree that contains the combinatoric information how to enumerate all possible products of individual univariate basis functions and contains the corresponding polynomial degree for input ω j within the univariate polynomials ϕ (αj ) j (ω j ). The set of polynomials ϕ (αj ) j | α j = 0, . . . , d forms an orthonormal basis of polynomial degree at most d for each input ω j :"
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Homogeneus chaos theory",
+      "text": "where δ αj ,α ′ j represents the Kronecker delta ∀α j , α ′ j = 0, . . . , d."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Data-driven orthonormal representation",
+      "text": "The original theory of homogeneous chaos [113] is based on orthonormal Hermite polynomials ϕ (αj ) j"
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Data-driven orthonormal representation",
+      "text": "(ω j ) satisfying eq. ( 3), which are optimal [75,104] for Gaussian distributed inputs ω. Further extensions to a number of parametric statistical distributions (Gamma, Beta, Uniform, etc.) have been suggested in [119] and [118], based on the Askey scheme [10] of orthonormal polynomials."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Data-driven orthonormal representation",
+      "text": "Such approaches assume an exact knowledge of the involved probability density functions [104], which is not available in various applications or often requires additional assumptions [86]. To assure a purely data-driven representation for ML, in the current paper we will consider the data-driven generalization of the polynomial chaos expansion known as the arbitrary polynomial chaos (aPC) introduced in [75]. The necessity to adapt to arbitrary distributions in practical tasks is discussed in more detail in [72]."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Data-driven orthonormal representation",
+      "text": "The aPC technique adapts to arbitrary probability distribution shapes of the inputs and can be inferred from limited input data through a few statistical moments [75]. Formally, univariate orthonormal polynomials bases ϕ (αj ) j (ω j ) of polynomial degree α j can be written as a sum of the following monomials:"
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Data-driven orthonormal representation",
+      "text": "where"
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Data-driven orthonormal representation",
+      "text": "αj is a constant representing the norm of the univariate polynomial. The corresponding monomial coefficients m (αj ) i can be defined according to the (empirical or theoretical) raw moments of the inputs ω j as follows [75,79]:"
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Data-driven orthonormal representation",
+      "text": "µ 1 (ω j ) . . . µ αj (ω j ) . . . . . . . . . . . ."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Data-driven orthonormal representation",
+      "text": "where µ k (ω j ) denotes the k-th raw stochastic moment of the input ω j ."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Data-driven orthonormal representation",
+      "text": "Therefore, constructing the multi-variate orthonormal polynomial basis Ψ 0 (ω), . . . , Ψ M (ω) of degree d for an aPC representation R(ω) in equation ( 1) is based on the data-driven formulation in equations ( 2), ( 4) and (5). In particular, the aPC approach is based on 2d raw stochastic moments only. These moments can be evaluated directly from an available data set of limited size. Matrix on the left-hand side of equation ( 5) is known as the Hankel matrix of moments [49] and its properties have been analysed in [98]. The resulting polynomials are real if, and only if, the Hankel matrix of moments is positive definite, see also the related Hamburger moment problem, e.g. [5,30,96,104]. From the practical point of view, the solution of the linear system of equations in (5) can be obtained directly numerically, via lower-order moments representation [75], via recursive relations [1], via Gram-Schmidt orthogonalization [45] or via the Stieltjes procedure [102]."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Data-driven orthonormal representation",
+      "text": "Overall, the polynomial representation in equation ( 1) is one of the oldest ML approaches to map R n to R . It quantifies the response R to the inputs ω through an orthonormal basis Ψ 0 (ω), . . . , Ψ M (ω) and computes the expansion coefficients w ifoot_1 . Each coefficient w i for i > 0 indicates how much variance one or another term brings into the overall composition (see also relation to global sensitivity analysis in [74,122]). The unknown expansion coefficients w i can be determined using Galerkin projection [54,75], numerical integration, regression or collocation approaches [58,73,109]."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Deep Artificial Neural Networks",
+      "text": "Let us shortly summarize the key aspects of conventional DANN structures. They all rely on the multi-layer concept introduced by Alexey Ivakhnenko and Valentin Lapa in 1967 [43]. Similar to the method introduced in Section 2.1, DANNs maps R n to R by providing an approximation of the response (output). In DANNs, information flows from input nodes, through co-called hidden layers, and then to output [35]. The term hidden refers to the fact that the computations that occur within the hidden layer are not visible from the outside of the network. Each hidden layer in a neural network contains several hidden nodes, also known as hidden neurons. These nodes are responsible for performing computations on the input data and transmitting the results to other nodes in the network, ultimately leading to the output. It has gained significant popularity recently because it is a universal approximator [39] and due to technological advances in computing power."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Conventional DANN structure",
+      "text": "We will consider a conventional Deep Artificial Neural Network (DANN) with L hidden layers and corresponding numbers N (L) of hidden neurons for each layer L (L = 1, . . . , L). Similar to the ML approach in Section 2.1, DANNs provide the response R(ω) as a non-linear dependence [7] on the same multidimensional input ω = {ω 1 , . . . , ω n } from the input space Ω, where n is the number of inputs. We will denote the response on each hidden layer L as a vector R (L) = R (L,1) , . . . , R (L,N L ) . This vector represents the responses (outputs) from the corresponding hidden node 1, . . . , N L on the current layer L. Then, the response of the DANN representation R(ω) could be seen [35] as recursive encapsulation of responses from hidden layers that contains N (L) hidden neurons for each layer L. Formally, representation R(ω) could be written in the following form:"
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Conventional DANN structure",
+      "text": "where the input for each hidden layer R (L) is the response from the previous layer R (L-1) (L = 2, . . . , L). The input for the first layer R (1) is the overall input ω = {ω 1 , . . . , ω n } Each response R (L,N ) of the node N in the hidden layer L is defined according to the ANN representation [35] as follows:"
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Conventional DANN structure",
+      "text": "Here, R (L-1) = R (L-1,1) , . . . , R (L-1,N L-1 ) is the response from the previous layer L -1 (where R (1) = ω), ) is the number of weights for node N (L-1) , A (L) is the activation function 3 for the layer L , w"
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Conventional DANN structure",
+      "text": "is the bias in the node N of the layer L and w (L,N ) i (i = 1, . . . , M (L) ) are the weights in the node N of layer L. The notation R (L,N ) in equation ( 7) represents the non-activated response in the current paper and, hence, A (L) (R (L,N ) ) corresponds to the activated response. We would like to clarify to the reader, that there are two common ways [7] to write the equation for the response on a hidden node of a DANN using post and pre-activation function. The postactivation function applies directly to the inputs from the previous layer before computing the weighted sum (as in equation ( 7)), while the pre-activation function applies to the weighted sum of inputs from the previous layer. However, once the pre-activation formulation is utilized, the output of DANN is generated without use of an activation function. Despite these two different ways of writing the equation, they ultimately lead to the same formal representation of the response as a function of the inputs. This is because the two formulations are mathematically equivalent and can be transformed into each other using simple algebraic manipulations."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Conventional DANN structure",
+      "text": "There is a variety of non-linear (and also linear) functions that are commonly applied as activation functions A (L) for an arbitrary input I. The most popular activation functions choice are the sigmoid in equation ( 8), the hyperbolic tangent in equation ( 9) and the rectified linear unit in equation (10):"
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Conventional DANN structure",
+      "text": "A (L)"
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Conventional DANN structure",
+      "text": "The decision to choose a specific function depends heavily on the prediction task and the data type [94]. Furthermore, care has to be taken when choosing the activation functions, as it can lead to the so-called vanishing or exploding gradient problems during DANN training [3]."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Conventional DANN structure",
+      "text": "The weights can be seen as a vector w = w (L,N ) i"
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Conventional DANN structure",
+      "text": ", i = 1, . . . , N w with the total number of weights N w that depends on the number of layers L, the number of hidden neurons N (L) per layer L (L = 1, . . . , L) and the number of weights M (L) per hidden neurons N (L) of the layer L. The weights w (L,N ) i of the DANN define the final form of the representation R(ω) in equation ( 6), and they are determined via a training procedure. More details of the training procedure are discussed in Section 2.4."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Connection between DANN and aPC",
+      "text": "According to equation ( 7), the conventional structure of DANNs propagates the signal from inputs to the response through deep layers, where each node of the layer employs a linear combination of zeroth and first-order monomials. The monomials represent the activated output from the nodes of the previous layer. Considering the definitions in Section 2.1, the linear representation via monomials is a particular case of the PCE theory, where the polynomial basis of 0 th degree ϕ (0) j and 1 st degree ϕ (1) j is defined explicitly as:"
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Connection between DANN and aPC",
+      "text": "where ω i is some input of a hidden node N in a layer L."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Connection between DANN and aPC",
+      "text": "As it have been stated in Section 2.1.1, the PCE theory requires that the set of polynomials (as well in equation 11)) forms an orthonormal basis for each input ω j in the input space Ω, i.e. satisfying equation (3). For example, the original theory of homogeneous chaos [113] is based on Hermite polynomials that are orthonormal for Gaussian distributed inputs. The use of any other basses for Gaussian distributed inputs will result in an erroneous non-orthogonal decomposition and considered to be not optimal [75,104]. The aPC theory [75] generalizes the original PCE theory by allowing for arbitrary input distributions and constructs the orthonormal polynomial basis from the available datadriven input distribution that is encoded in raw moments. However, the conventional DANN imposes the basis via a particular form of 0 th and 1 st order polynomial in equation ( 11), but we do not know for which underlying distribution that polynomial basis would satisfy the orthonormality conditions, i.e. whether it is optimal. To find out the underlying orthonormal distribution for the conventional DANN that satisfies equation ( 3), we will explore equations ( 18) and ( 22) from the paper [79], that are written as following:"
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Connection between DANN and aPC",
+      "text": "Solving the system of linear equations presented above, we can reconstruct the first two raw moments behind the polynomial basis in equation ( 11) that are used in the conventional DANN. This process entails:"
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Connection between DANN and aPC",
+      "text": "Therefore, we can conclude that conventional DANN structures implicitly assume a Gaussian distribution with zero mean and unit variance (i.e. standard Gaussian distribution) for propagating the signal through hidden layers. In other words, the conventional DANN representation optimally preserves orthonormality, if and only if, all neural inputs of all hidden layers were standard Gaussian. However, if the inputs of all hidden layers do not follow a standard Gaussian distribution, then the conventional DANN structure commonly used in machine learning may not be the most optimal way to propagate the signals through the hidden layers. Applied ML tasks could often be used in situations where the propagation of neural signals from layer to layer is not necessarily Gaussian, let alone standardized to unit variance. Therefore, based on results presented in [75] and [79], we conclude that the linear representation via non-orthonormal monomials is not optimal. Not even batch normalization [41] of each node's input could mitigate the mentioned effect due to its linear nature. Theoretically, some general non-linear transformation could map the distributions of all neural inputs onto the Gaussian, but this is not feasible due to the data-driven nature of such neural inputs."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Deep Arbitrary Polynomial Chaos Neural Network",
+      "text": "Let us generalize the structure of conventional DANNs in Section 2.2 to overcome their redundancy caused by the non-orthonormal representation of neural signals. To do so, we will employ the orthogonal representation via the data-driven theory of polynomial chaos expansion introduced in Section 2.1. This also introduces the possibility to consider additional high-order interactions between neurons through the non-linear multivariate terms from the PCE representation in the conventional DANN structure in equation ( 7)."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Deep orthonormal polynomial representation",
+      "text": "We will consider the number of deep layers L and the corresponding number of neurons N (L) for each layer L as in Section 2.2. Similar to Section 2.1 and Section 2.2, we will map the multi-dimensional input ω = {ω 1 , . . . , ω n } to a response R(ω). Combining the deep ML representation in equation ( 6) with the orthonormal expansion in equation ( 1), we will construct a generalized representation denoted as Deep Arbitrary Polynomial Chaos Neural Network (DaPC NN). Here, the response R (L,N ) of the node N in the hidden layer L forms a vector of layer responses"
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Deep orthonormal polynomial representation",
+      "text": "as follows:"
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Deep orthonormal polynomial representation",
+      "text": "where R (L-1) = R (L-1,1) , . . . , R (L-1,N L-1 ) is the neural response from the previous layer L -1 (again with"
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Deep orthonormal polynomial representation",
+      "text": "is the total number of terms for each node on the layer L, A (L) is an activation function for the layer L, Ψ (L) i is a multivariate orthonormal (w.r.t. the probability distribution given by response of the previous layer) polynomial from the basis Ψ represents bias as in the conventional DANN definition in equation (7)."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Deep orthonormal polynomial representation",
+      "text": "The DaPC NN representation in equation ( 13) reflects the non-linear interaction between the neurons using high-order multivariate terms and orthonormal representation in contrast to DANNs in equation (7). According to Section 2.1, the total number of weights M (L) on each node N of the layer L depends on the number of layer inputs N (L-1) from the previous layer and on the desired degree d (L) of the polynomial representation for the layer L as:"
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Deep orthonormal polynomial representation",
+      "text": "To ensure the optimal transfer of neural signals from layer to layer and to mitigate redundancy within each node by the DaPC NN representation, we will construct the multivariate orthonormal polynomial basis"
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Deep orthonormal polynomial representation",
+      "text": "M (L) of degree d (L) for each layer L depending on the layer input, i.e. depending on the activated response from the previous layer A (L) (R (L-1) )."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Deep orthonormal polynomial representation",
+      "text": "As the input layer (L = 1) directly corresponds to the inputs ω (i.e. R (1) = ω) and the inputs ω follow some arbitrary (but given by each specific application) data-driven distribution, the response R (1) follows the exactly same distribution. For example, the input training data set could be employed in a purely data-driven way to serve as empirical distribution. After that, the responses R (L) (L = 2, .., L) on the all nodes of the multi-layered structure will follow distributions that result from all previous weights, biases, polynomials and activation functions. That means, the procedure of orthonormalization proceeds sequentially (forward) through the layers. To maintain the data-driven approach of the orthonormalization procedure, we will utilize the aPC representation for computing the data-driven multi-variate orthonormal basis. This basis is introduced in equations ( 2), ( 4) and ( 5), which will be used to construct the corresponding orthonormal bases Ψ (L) 0 , . . . , Ψ (L) M (L) in each layer. Automatically, by ensuring the orthogonal decomposition, the weights w (L,N ) i of a particular node N and a layer L gain a meaning according to global sensitivity analysis [74]: the weights reflects the partial contribution of each single neuron (linear univariate terms) or simultaneous combination of neurons (non-linear multivariate terms) to the total variance of the response R (L,N ) for the node N and the layer L."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Deep orthonormal polynomial representation",
+      "text": "The training procedure itself will be discussed in Section 2.4, where the weights w = w (L,N ) i , i = 1, . . . , N w in equation ( 13) will be obtained via a similar training procedure as for DANNs. However, independent from any particular training procedure, the weights w determine uniquely the corresponding data-driven orthonormal bases"
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Deep orthonormal polynomial representation",
+      "text": "for each layer L (L = 1, . . . , L) of DaPC NNs. Indeed, the orthonormal basis on a particular layers L depends on the neural response from the previous layer R (L-1) only. Remarking that R (1) = ω, the corresponding data-driven orthonormal bases"
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Deep orthonormal polynomial representation",
+      "text": "M (2) for the second layer (i.e. L = 2) can be constructed via equations ( 2), ( 4) and (5). The neural response R (2) on the second layer itself is again fully determined by the corresponding weights through equation (13). Taking into consideration the recursive encapsulation of neural responses in equation ( 6), it is easy to see that orthonormal bases on all layers are dictated by the weights only. Therefore, all trained weights w determine uniquely the corresponding data-driven orthonormal bases Ψ  M (L) .Basically, neural signals traveling from layer to layer should pass through a sort of data-driven filter that constructs an optimal orthonormal representation for each layer as illustrated in Figure 2. Such an orthonormal basis is the same for all nodes N (1, . . . , N (L) ) of a given layer L and employs the neural signal coming as response R (L-1,N ) from the previous layer L -1. Moreover, the suggested DaPC NN structure offers flexibility to specify the degree of non-linearity d (L) for each particular layer L (L = 1, . . . , L) in order to go beyond a linear representation of univariate neurons, if desired."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Properties of the DaPC NN",
+      "text": "Let us introduce relevant properties of the DaPC NN that could be useful for practical applications."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Properties of the DaPC NN",
+      "text": "Property 1: Due to the orthonormal DaPC NN representation, the expected value µ R (L,N ) and total variance σ 2 R (L,N ) of the response R (L,N ) on each particular node N of any layer L (including the last layer forming the total response R) can be quantified analytically [75] using the following explicit form:"
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Properties of the DaPC NN",
+      "text": "where the explicit analytical relations in equation ( 15) are written with respect to the response R (L-1) from the previous layer L and not with respect to the inputs ω. of a particular node N and layer L can be explicitly computed as follows according to global sensitivity analysis [74,103]:"
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Properties of the DaPC NN",
+      "text": "where the Sobol index S (L,N ) I reflects the relative partial contribution of each single neuron (linear univariate terms) or simultaneous combination of neurons (non-linear multivariate terms) to the total variance of the response R (L,N ) for that particular node N in a layer L."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "L-1",
+      "text": ". . . 2)   . . ."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "L-1",
+      "text": "M (L) of the polynomial degree d (L) ."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "L-1",
+      "text": "Property 3: An analytical form for the partial derivatives of the DaPC NN representation with respect to each particular weight can be obtained by applying the chain rule of differentiation [35]. Considering the recursive encapsulation in equation ( 6) and the orthonormal representation in equation ( 13), we obtain the following analytical form for the partial derivative 4 of the response R (L,N ) in the node N of the layer L with respect to a weight w"
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "L-1",
+      "text": ") in the node N * of the layer L * when L > L * :"
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "L-1",
+      "text": "and the following simplified analytical form when L = L * :"
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "L-1",
+      "text": "where, similar to above, the same analytical relations for partial derivatives hold for the DaPC NN response R as the response of the last layer R (L) ."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "L-1",
+      "text": "Remark 1: The data-driven aPC representation R aPC (ω) in Section 2.1 is a particular case of a DaPC NN representation R DaPCNN (ω) when the number of hidden layers is equal to one:"
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "L-1",
+      "text": "Remark 2: The conventional DANN representation R DANN (ω) in Section 2.2 is a particular case of the DaPC NN representation R DaPCNN (ω) when the degree of expansion in each layer is equal to one and the basis is defined according to equation (11) for a standard Gaussian distribution of neuronal signals in each hidden node:"
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "L-1",
+      "text": "Remark 3: The DaPC NN offers a possibility to reflect non-linearities of neural responses both by introducing the high-order expansion d (L) for the responses R (L,N ) of the hidden nodes and by introducing non-linearity in the activation functions A (L) . Theoretically, there are no restrictions on the use of activation functions within the current DaPC NN framework according to equation (7). The modeler has the freedom to determine an activation function if it would be advantageous for a specific modeling procedure since equations ( 18) and ( 19) provide the analytical form of the partial derivatives that include the activation function. However, simultaneously introducing non-linearities both in expansion degrees and in activation functions could lead to difficulties in network training caused by strong numerical round-off errors. We would rather suggest to employ linear activation functions while shifting the representation of non-linear dependence to the orthonormal decomposition. Especially, any linear normalization (similar to batch normalization [41]) will mitigate potential numerical challenges during the training procedure. Therefore, in the current paper we suggest to employ the analytical relations introduced in Property 1 to have a handle on total (explained) variances for the overall network. This can be achieved via the following normalized activation function: . . , T N }. Such data could be obtained from runs of an original physical model for surrogate modelling [75,15], or directly from a given database for other learning tasks [28,56,40]. In order to assure transparency in the current paper, we will consider a fixed training set of size T N , avoiding any data mining procedure such as active learning [78,93]. Thus, the data set D T N is the complete training set for the discussed ML approaches."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Training procedure",
+      "text": "Deep structures like conventional DANNs in Section 2.2 or the newly introduced DaPC NN in Section 2.3 require solving a non-linear system of equations to obtain the unknown weights w (L,N ) i"
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Training procedure",
+      "text": ". There are two possible ways to solve the corresponding system of non-linear equations. The first way is based on deterministic approaches, such as gradient-based search [88] or the Levenberg-Marquardt algorithm [61] that have been widely used in deep learning. In the current paper, we will follow such a popular way for training of DaPC NN to ensure that the training process is comparable to the traditional practices for conventional DANN structures. However, for the sake of completeness we would like to mention, that the underlying problem is ill-posed, so that a unique deterministic solution to the training problem may not exist [2,121]. Therefore, the second way helps to solve the challenges related to illposedness of the problem. It is based on stochastic inference [51] by seeing the weights as random variables, and then conditioning the weights w (L,N ) i on the available training data [83]. However, straightforward stochastic approaches such as Monte Carlo [99] or even Markov chain Monte Carlo [34] are computationally very expensive, and they suffer in cases with high non-linearity and high-dimensionality [81]. Recently, there are some works trying to overcome the computational problem of stochastic inference assuming Gaussianity and mutual independence of weights [17]. Alternatively, combinations of deterministic approaches with a regularization helping to deal with overfitting [35] have been very popular in the last decades for DANNs."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Training procedure",
+      "text": "Therefore, in the current paper, we will adopt the widely used approach, and extend the optimization procedure by Tikhonov or ridge regularization [106], to ensure that the DaPC NN training is consistent with the current practice for conventional DANN structures. o ensure that the training of the DaPC NN is consistent with the current methodology used for conventional DANN structures. Thus, we consider the following optimization problem regarding the unknown weights forming the vector w = w (L,N ) i , i = 1, . . . , N w for all neurons distributed within the all layers :"
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Training procedure",
+      "text": "where the weights should be optimized simultaneously to minimize the so-called loss function [35] in equation (23). The first term in equation ( 23) reflects the deviation of the response R from the training data via the mean squared error (MSE). The second term corresponds to a regularization known as mean square weights (MSW) 5 . Other loss functions are also known in the literature, depending on the overall objective such as a Bayesian interpolation [60], physical regularization [47,84] or classification tasks [13,56] . Moreover, the scalability to larger datasets relies on the chosen architecture and training methods. The effective model complexity proposed in [70] identifies specific regimes where increasing the number of training samples may negatively impact performance."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Training procedure",
+      "text": "In order to directly compare the DaPC NN structure with the conventional DANN under identical conditions, we choose the Levenberg-Marquardt algorithm [61] to solvefoot_5 equation ( 23) for all structures due to its robustness. We also use the exact same training procedure for all structures using the exactly same loss-function in equation ( 23) and the exactly same training data sets D T N . To provide gradients to the Levenberg-Marquardt algorithm, we use the analytical derivatives for DaPC NN introduced in Property 3 of Section 2.3.2, whereas we use typical backpropagation to provide gradients. Thus, the orthogonal bases in DaPC NNs are updated simultaneously with the weights during the training procedure (see also Figure 2). Moreover, as pointed out in Section 2.3.1, the weights determine uniquely the corresponding data-driven orthonormal bases in equations ( 2) and ( 2) for each layer of DaPC NNs by solving the linear system of equations ( 5) introduced in Section 2.1. Consequently, the DaPC NN can be seen as a black box, where only the unknown weights need to be determined using one or another training procedure. This makes it easy for users to operate the DaPC NN in a similar way to the conventional DANN, without requiring them to have any special knowledge of its internal workings."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Training procedure",
+      "text": "The training procedure of ML approaches with single-layer ML representations [29] like the PCE usually determines the unknown weights by solving a linear system of equations. Therefore, the unknown weights w i of the aPC representation in Section 2.1 are directly obtained by solving a linear system of equations ( 5) (see details in [73,12,11])."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Training procedure",
+      "text": "For numerical robustness, we use Moore-Penrose inversion [68,82,14] (also known as pseudoinverse) to solve the regularized [106] least-squares problem of equation (23) as in the original aPC work [75] that is available in Matlab file exchange [76]."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Training procedure",
+      "text": "In the current paper, we focus on fundamental issues of deep neuronal network structures exploring the concept of orthonormal decomposition and the possibility to introduce high-order neural interaction, rather than delving into specifications of the loss function or training algorithm. Therefore, the reader is invited to adopt the introduced DaPC NN structure for own needs, introducing any own specific loss function or training procedure. The DaPC NN is available online for the reader through Matlab file exchange [77]."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Technical remark on DaPC NN bases",
+      "text": "Technically, the training procedure specified in equation ( 23) remains the same for the DaPC NN as well as for the DANN and the aPC, and the authors of the current paper do not aim at any novelty here. However, we would like to underline that the DaPC NN constructs its data-driven orthonormal bases implicitly during the training procedure, based on the input distribution and upon the responses of hidden nodes that react to adjustments of the weights during the training procedure. This means, the orthonormal bases on all layers are adaptively recomputed during the iterative training procedure while searching for the optimal weights. It could be seen as re-adjusting of orthonormal bases simultaneously within the iteration procedure over the weights."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Illustration of Performance and Comparison",
+      "text": "In the previous Section 2, we have introduced the DaPC NN using the data-driven orthonormal decomposition from aPC theory. The current section will illustrate the performance of the suggested DaPC NN, comparing it with the performance of a conventional DANN structure and also with an aPC expansion. To do so, we will employ exactly the same training data set D T N = (ω T i , R T i ), i = 1, . . . , T N of the size T N for all three ML approaches. The quality of the training itself (e.g. MSE) will not be strongly discussed as the training procedure provides only a small discrepancy between the ML model response R(ω T ) and the training data R T N . 7 Such a discrepancy partially indicates whether the chosen architecture, loss function and training algorithm are appropriate for analysed problem. Instead, we rather focus on the prediction ability for a separate data set that has not been used during the training procedure. Therefore, we will employ a validation data set [44]"
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Illustration of Performance and Comparison",
+      "text": "Because the quality of the prediction is strongly dependent on the size T N of the available training data set [75,39], we will assess the prediction quality for validation data sets D V N under various sizes of the training data set T N . To measure the prediction ability, we will assess the mean square error, which is usually used in ML, as well as a weighted error that will be defined below in eq. ( 24),( 25), (26), which is used in the uncertainty quantification community. The mean square error could be also normalized by the variance, converting it to the coefficient of determination if desired."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Illustration of Performance and Comparison",
+      "text": "The corresponding estimates of the mean square error"
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Illustration of Performance and Comparison",
+      "text": "] are defined as: Because we are interested in the overall reliability of the ML response and to guarantee fairness in comparison, we omit the powerful property of aPC in computing the mean and variance without additional evaluations of the response. Instead, we will estimate them numerically using the final aPC response constructed on the validation data set, similarly to DANN and DaPC NN."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Illustration of Performance and Comparison",
+      "text": "As test cases, we use examples of functional approximation as in surrogate modeling. To test different aspects, we consider an Ishigami problem with three inputs [42] in Section 3.2, an ON-10 problem with ten inputs [80] in Section 3.3 and also a carbon dioxide benchmark problem with non-linear shock propagation [52] in Section 3.4."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Architecture and technical specification of ML models",
+      "text": "Architectures of the considered ML models used in the current and upcoming test cases are specified via the total number of layers L, corresponding numbers of nodes N (L) for each layer L as [N (1) , . . . , N (L) ], degrees of non-linearity d (L) for on each layer L as [d (1) , . . . , d (L) ], activation functions A (L) (same for all layers L) and loss function (LF)."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Architecture and technical specification of ML models",
+      "text": "For the sake of transparency, we will also provide the total number of unknown weights or coefficients as N w in upcoming Sections. This is particularly useful for aPC and DaPC NN, as the number of unknown weights may not be as intuitive as for conventional DANN. We will adopt the architectures of the analyzed ML models taking into consideration the size T N of the training data sets. Nevertheless, we would like to emphasize that the setup of the corresponding architectures are the responsibility of the ML modeler. For our study, we selected the architectures with equal care and effort for all three compared approaches, trying to achieve the most reliable results. Nevertheless, the degrees of freedom in choosing the number of layers, the number of nodes per layer, the degree of non-linearity (if allowed) and the activation function pose strong challenges onto the modeling procedure, requiring a deep understanding of each underlying ML approach. For instance, in addition to the standard settings for the conventional DANN architecture, the DaPC NN architecture incorporates additional degrees of freedom by choosing the non-linearity degree on specific layers, which introduces unknown weights associated with the number of input neurons from the previous layer, as discussed in Section 2.2. Exploring all possible configurations of deep architectures using a trial-and-error approach is not feasible due to the vast number of combinations. Consequently, developing an adaptive strategy for setting up the architecture could significantly improve the performance of deep multi-layer representations. This approach would require further research to minimize the potential for subjectivity in the modeling procedure. The authors of the current paper recognize the potential of the Bayesian framework for optimizing hyper-parameters such as the number of layers, number of nodes, and degree of non-linearity. However, direct Bayesian analysis seems to be computationally intensive, and it may be necessary to rely on approximate indicators that involve certain assumptions [80]. However, this topic goes beyond the scope of the current paper but could be the subject of future research."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Architecture and technical specification of ML models",
+      "text": "We encourage the reader to test the suggested DaPC NN approach and also known aPC and DANN approaches for own needs. The conventional DANN approach used here can be found under Matlab software [62] using the fitnet functionality. The aPC and DaPC NN approaches are available online for the reader through Matlab file exchange [76] and [77], correspondingly. eq. ( 22) 130 MSE+MSW"
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Problem set up",
+      "text": "As the first test case, we will employ the widely used Ishigami function [42], as it shows strong non-linearity accompanied with non-monotonicity:"
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Problem set up",
+      "text": "where we will use the particular case with a = 7 and b = 0.1. The distribution of the three input random variables ω is given by mutually independent uniform distributions with ω i ∼ U(-π, π)."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Training and Validation",
+      "text": "Figures However, flexibility alone is not sufficient to make reliable prediction outside of the training data sample and only shows quality of the training approach . Therefore, we pay stronger attention to the right plots in Figures 345, reflecting the validation performance. All three approaches are powerless in case of the very small data set used for training (right plot in Figure 3). As expected, increasing the size of training data set to 100 (right plot in Figure 4) or even 1000 (right plot in Figure 5) helps to overcome these issues during the validation phase. In particular, the DaPC NN demonstrates the best performance in the validation phase as well, even with a moderate sample size of training data. Figures 345indicate that the flexibility of DANN tends to have over-fitting issues regarding the regularisation as specified in equation (23). Opposite to theDANN, the DaPC NN shows less issues with over-fitting, inhering the orthonormality from the aPC representation and also the required flexibility from DANN. Due to its definition, the aPC itself seems to have not enough of flexibility to capture the validation data set as well as the DaPC NN. We also have observed in the current and upcoming test cases, that omitting regularization in loss function only slightly degrades the results of DaPC NN and aPC, whereas the conventional DANN shows extremely poor prediction. Hence, pure comparison focusing on least-square solution without regularization seems to be not attractive."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Evidence of Convergence",
+      "text": "It Figures 345, it appears that DANNs have a stronger spreading of the point clouds and also higher density of spreading in comparison to DaPC NN and aPC models. However, determining the density of spreading based on visual inspection alone can be challenging. Therefore, we will pay closer attention the metrics introduced in the beginning of Section, which provides more clarity on this matter. Figure 6 shows the convergence in terms of mean square error, relative error of the mean value and relative error of the standard deviation as a function of the training data size T N , applied to the validation data set D V N for aPC expansion, conventional DANN and DaPC NN. The figure reveals that a faster convergence has been reached for DaPC NN in terms of all investigated convergence metrics, summarising the observations made in the previous section. The relative errors of mean and the standard deviation are smaller with the aPC than with the conventional DANN.  22) 946 MSE+MSW"
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Problem set up",
+      "text": "As second test case, we will consider a non-linear analytical function M(ω) of ten (n = 10) uncertain inputs ω = {ω 1 , . . . , ω n } from the paper [80]:"
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Problem set up",
+      "text": "where the inputs ω in equation ( 28) are considered to be independent uniformly distributed with ω i ∼ U(-5, 5) for i = 1 . . . 10."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Problem set up",
+      "text": "For the current test case, we will consider training data sets D T N of the sizes T N equal to 100, 500 and 1000. Similar to the previous test case, we will generate our training data according to the Sobol sequence [100] based on the underlying distributions of inputs ω. As before, we employ a validation data set {(ω V i , R V i ), i = 1, . . . , V N } of the size V N = 10 3 generated by Monte Carlo sampling [99] from the distribution of inputs ω. During validation, however, all methods fail to produce consistent results when the small set is used as shown in Figure 7. When trained with more data (Figure 8 and Figure 9), DaPC NN produces predictions with relatively high accuracy compared to aPC and DANN even during validation; where aPC and DANN do not benefit significantly from the increase of training data. Moreover, the orthonormal structure of the DaPC NN representation handles the overfitting issues extremely well. Table 2 presents the technical specifications for the ON-10 test case, including the total number of unknown weights/coefficients denoted by N w for all ML models. Again, when selecting an appropriate ML model architecture, it is important to consider the size of the training data set T N that can influence the flexibility of the training process and the predictive power of the model. For example, the number of unknown weights in the DaPC NN can be two times higher than the size of the training data."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Prediction and Validation",
+      "text": "It seems that the high non-linearity of the considered test case strongly limits the aPC to obtain the necessary polynomial representation. A high degree of freedom is very helpful in this case. Opposite to that, the DANN seems to suffer significantly from over-fitting, regardless of the regularization in that scenario. Overall, the DaPC NN predictions are more consistent, with lower scatter compared to the other methods for the considered test case."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Benchmark set up",
+      "text": "As third test case, we will consider a carbon dioxide (CO 2 ) benchmark model that has already been used to compare different ML approaches in the earlier paper [52]. The particularity of that problem consists in a strong shock propagation, where various ML approaches relying on smooth functions could suffer a lot. The problem refers to a multi-phase flow in porous media, where CO 2 is injected into a deep aquifer and then spreads in a geological formation. This yields a pressure build-up and a plume evolution. CO 2 injection into the subsurface could be a possible practice to mitigate the CO 2 emission into the atmosphere. The CO 2 benchmark model proposed by Köppel et al. [54] is a reduced version of the model in a benchmark problem defined in the paper [25]. This reduction consists of a radial flow in the vicinity of the injection well, and is made primarily due to the high computational demand of the original CO 2 model. It is assumed that the fluid properties such as the density and the viscosity are constant, and all processes are isothermal. The CO 2 and the brine build two separate and immiscible phases, and mutual dissolution is neglected. Additionally, the formation is isotropically rigid and chemically inert, and capillary pressure is negligible. We consider the CO 2 saturation to be the quantity of interest as a model response that is a function of the coordinates for space x and time t as introduced in [54]. Overall, the considered CO 2 benchmark problem is strongly non-linear because the CO 2 saturation spreads as a strongly non-linear front that could be challenging to capture via surrogates. For detailed information on the governing equations, the modeling assumptions and numerical approaches, the reader is referred to the original publication [54]."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Benchmark set up",
+      "text": "Following the comparison study [54], we consider the combined effects of three sources of uncertainty. We take into account the uncertainty of boundary conditions via the injection rate, the uncertainty of constitutive relation introduced via in the relative permeability definitions and the uncertainty of material properties represented by the porosity of the geological formation. Figure 11 shows the distribution of these three inputs taken from the original data set [53]."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Benchmark set up",
+      "text": "Similar to the previous test cases, we will train the aPC, DANN and DaPC NN employing the exactly same training data sets D T N while varying the size T N . However, the final trained ML representation could depend not only on the size T N of the training data, but also on how the training data have been constructed. Indeed, at least for the polynomial representation, the training points must be selected with dedicated strategies in order to avoid additional oscillations known as the Runge phenomenon [89]. In particular, wrong training points could lead to a very strong oscillations near the discontinuities (Gibbs effect) of the considered CO 2 benchmark. Therefore, it will be also interesting to see how the Runge phenomenon may affect the quality of DANN and DaPC NN training."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Benchmark set up",
+      "text": "In order to address that question, we will consider two training strategies. In the first training strategy, we will use the Sobol sequence [100] to construct the training sets of sizes T N equals to 100, 500 and 1000 similarly to the previous test cases. In the second training strategy, we will employ Gaussian integration points [110,32] to generate the training data sets of sizes T N equal to 27, 216 and 1331 according to the available distribution [75] of inputs displayed in Figure 11. In short, the optimal choice [110] of training points (i.e. Gaussian quadrature rule) corresponds to the roots of the polynomial of one degree higher than the order used in the polynomial representation. The Gaussian integration points form a full tensor (FT) grid in the space of inputs. This is what leads to sizes of the training data sets equal to 27, 216 and 1331 related to the polynomial representation of 3 rd , 5 th and 10 th degrees correspondingly. Strictly, this training rule can be fully satisfied for aPC representation following the Gaussian quadrature rule [110], but there is no proof for multi-layered structures such as DANN or DaPC NN indicating that the corresponding Gaussian training strategy could mitigate the Runge phenomenon. To assess the quality of prediction, we will employ the validation data set D V N of the size V N = 10 4 [53] generated according to the variability of the inputs (Monte Carlo approach) shown in Figure 11."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Prediction and Validation",
+      "text": "We will reproduce the CO 2 saturation along the radial distance from the injection well for the fixed time instance of 100 days in accordance with the CO 2 benchmark scenario [54]. To do so, we will train aPC expansion, conventional DANN and DaPC NN for each numerical discretion cell (i.e. 250 times). In this sense, we will construct 250 networks/expansions that seek to capture features of CO 2 displacement in the subsurface. The related ML architectures are presented in Table 3 . Figure 12 demonstrates the performance of the considered ML models during validation, using the Sobol sequence training data with T N = 1000. All three approaches are far away in capturing the reference values of mean and standard deviation for CO 2 saturation even considering a sufficiently large size of the training data. All three ML models suffer strongly from the Gibbs effect (i.e oscillations) caused by the strong non-linearity of shock propagation (see examples in [54]). The regularization in equation ( 23) seems to show the most significant effect for the aPC. Opposite to that, using Gaussian integration points as training data helps to mitigate the Runge phenomenon and to reduce the Gibbs effect substantially not only for the aPC as expected, but also for the DaPC NN."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Prediction and Validation",
+      "text": "Corresponding numbers of training points and technical specifications of the considered ML models are presented in"
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Evidence of convergence",
+      "text": "We will assess the convergence in terms of mean square error, mean value and standard deviation of CO 2 saturation over the training data size T N for both previously mentioned training strategies. In order to make the quantities of interest in correspondence with the original benchmark study [52] and its follow-up [87], we will consider the   following space-averaged quantities:"
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Evidence of convergence",
+      "text": "Figure 16 shows convergence in terms of the absolute averaged mean square error in equation ( 29), absolute averaged error of mean value in equation ( 30) and absolute averaged error of standard deviation in equation ( 31) over the training data size T N for aPC, conventional DANN and DaPC NN. Figure 16 displays the convergence of the analyzed ML approaches trained on the Sobol sequences and as well on the Gaussian integration points (marked by superscript FT)."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Evidence of convergence",
+      "text": "We observe that the performance of DANN does not profit from an increasing training data size. Also, it does not benefit from the considered choices of training points and seems to be affected by oscillations caused by the strong non-linearity of the underlying problem. Additionally, increasing the training data size does not help the aPC expansion if the training points are not optimally distributed (see more details in [75]), but it is clearly visible how the use of Gaussian integration points help overcome the Runge phenomenon. Moreover, the Gaussian integration points strongly help in DaPC NN training and also reduce the Gibbs effect, rendering the results more reliable. We also would like to remark, that turning the DaPC NN architecture into a one-layer structure reproduces the aPC results under the same technical specification. However, we have selected the multi-layered DaPC NN architecture as specified in Table 4 for illustration of performance in order to provide the broader picture. Overall, we conclude that all considered ML approaches suffer a lot in capturing the strong shock propagation in the CO 2 benchmark model, as all three rely on smooth functions."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Final Remarks",
+      "text": "In the current paper, we offer a view on neural signal processing in deep artificial neural networks from the PCE perspective, introducing in that way the DaPC NN. By employing PCE fundamentals, we demonstrate that orthonormality conditions in each node of the conventional DANN structure are fulfilled if the neural signal propagating through the multi-layer architecture was normally distributed with zero mean and unit variance. This situation is not necessarily satisfied for the majority of data-driven applications and, hence, could lead to redundant representation, where one neural signal could contain partial information that is also coming from other neurons. Moreover, introducing the PCE into the DANN structure provides an opportunity to go beyond the linear weighted superposition of single univariate neurons on each node."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Final Remarks",
+      "text": "From the modelling perspective, the user is prompted to specify the DaPC NN architecture through the number of layers, number of nodes per layer, activation function and loss function similar as in a conventional DANNs. Additionally, the novel DaPC NN requires specification of the desired degree of non-linearity for each hidden layer. The latter aspect leads to high-order weighted superposition on each node of the network, so that non-linear activation functions become optional. This reduces the potential for subjectivity in the modeling procedure. However, it also introduces a new responsibility of choosing the degree of non-linearity, which in turn raises new research questions."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Final Remarks",
+      "text": "Technically, the DaPC NN requires a similar training procedure as any conventional DANN, and all trained weights determine automatically the corresponding multi-variate data-driven orthonormal bases for all layers of DaPC NN. The DaPC NN Matlab Toolbox is available online and users are invited to adopt it for own needs [77]."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Final Remarks",
+      "text": "To illustrate the performance of the DaPC NN, we have investigated three test cases, comparing the DaPC NN with the conventional DANN and also with aPC expansion. To do so, we have employed identical training procedures for DANN, DaPC NN and aPC, minimizing the mean squared error, regularized via ridge regression. In the training procedure, we employ exactly the same training and validation data sets for all three ML approaches. Additionally, we vary the size of the training data set and assess the convergence of the different ML approaches on a validation data set by evaluating the mean square error, error of mean and error of standard deviation."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Final Remarks",
+      "text": "In the first and second test cases, we observe that the DaPC NN reaches superior results in comparison to the aPC and DANN, even considering that we use only a moderate training data size. In the third CO 2 benchmark test case, we observe that all considered ML approaches suffer a lot in capturing the strong CO 2 shock propagation, as they all rely on smooth functions. However, using Gaussian integration points as training dataset helps to mitigate the Runge phenomenon and reduce the Gibbs effect substantially not only for the aPC but also for the DaPC NN. This emphasizes that the DaPC NN inherits partially the aPC properties that help to overcome the Runge phenomenon. Therefore, an optimal training strategy relying on the distribution of the inputs helps to construct an acceptable ML model at low computational costs. Unfortunately, the performance of the DANN does not profit from the considered choices of training points. Increasing the training data size does not seem to be helpful against oscillations caused by the strong non-linearity of the underlying problem. The latter point can be explained by the derivations in the current paper, where the conventional DANN structure is shown to be optimal for Gaussian distribution of inputs (and also Gaussian signal processing on each node) that is hardly fulfilled in the considered CO 2 benchmark."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Summary and Conclusions",
+      "text": "The current paper analyzes the neural signal processing in deep artificial neural networks from the point of view of polynomial chaos (PCE) theory. The response on each node of a deep network has been seen from the PCE perspective, making use of orthonormal polynomial basis functions. The proposed generalization of the conventional structure of DANNs towards the DaPC NN decomposes the neural signals, employing an adaptive construction of data-driven multi-variate orthonormal bases on each node in the multi-layer structure. Moreover, by introducing PCE theory to represent the response of each node, it offers an additional opportunity to go beyond the linear weighted superposition of single univariate neurons as in conventional DANN structures. In that sense, the introduced DaPC NN structure can be seen as a generalization of the conventional DANN with incorporation of aPC theory. The newly introduced DaPC NN assures orthonormal decomposition on each node and also offers an additional possibility to account for high-order neural effects. Doing so, the weights gain a clear meaning according to global sensitivity analysis and they reflect the partial contribution of each single neuron (linear univariate terms) or simultaneous combination of neurons (non-linear multivariate terms) to the total variance of the response on each node."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Summary and Conclusions",
+      "text": "Concluding the analysis of the current paper, we anticipate that avoiding the redundant representation and accounting for high-order neural effects could increase the performance of the neural network. Following the observation in the current paper, we stress that the high non-linearity of the underlying problems could limit the ability of the plain aPC with only one-layer polynomial representation. As opposed to that, the encoded flexibility of DANNs seems to suffer significantly from over-fitting, regardless of the regularization of weights. Overall, the DaPC NN shows the ability to predict quantities of interest more consistently with lower variance in comparison to DANNs. Furthermore, we also observe that omitting the regularization in the loss function only slightly degrades the results of DaPC NN and aPC, whereas the conventional DANN is significantly more affected by it."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Summary and Conclusions",
+      "text": "Remarking that aspect, we accentuate that joining the fundamentals of homogeneous chaos theory with the deep representation of neural networks requires additional research, where various architectures accompanied by specific loss functions and training algorithms could be investigated. In particular, concepts employed in recurrent neural networks, neural ordinary differential equations, physical regularization or Bayesian regularization could be adopted directly to the DaPC NN structure. Moreover, the introduced DaPC NN structure opens a pathway to use analytical properties quantifying the importance of neural signal on each node . In particular, implementing an explicit analytical form of data-driven orthonormal polynomial bases in equations ( 17)-( 23) from [75] could significantly accelerate the training process of DaPC NN. Additionally, since the weights of DaPC NN reflect the meaning according to global sensitivity analysis, they could be partially omitted [20] to offer a sparse DaPC NN representation. The latter is highly beneficial in mitigating issues related to overfitting. Additionally, state-of-the-art findings in the PCE community can further be included, such as various sparse learning techniques, multi-element decomposition, Bayesian learning, etc."
+    },
+    {
+      "paper_id": "2306.14753",
+      "file_name": "2306.14753_The_Deep_Arbitrary_Polynomial_Chaos_Neur.pdf",
+      "page_number": 1,
+      "section": "Summary and Conclusions",
+      "text": "From a technical perspective, we would like to clarify that the primary goal of the current paper is not to achieve high computational efficiency in the training procedure. Instead, we offer a unique perspective on the DANN structure. Indeed, the computational time of the current version of DaPC NN is significantly higher than that of DANN, since it requires adaptive computation of the orthonormal basis during the training process. The procedure could be accelerated using explicit analytic relations for a moderate degree of expansion from [75]. Moreover, further speed up could be achieved when employing parallel and GPU-based computing."
+    }
+  ],
+  "figures": [],
+  "figures_count": 0,
+  "vector_graphs": [
+    {
+      "page_number": 4,
+      "drawing_path_count": 35,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 11,
+      "drawing_path_count": 135,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 15,
+      "drawing_path_count": 2642,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 16,
+      "drawing_path_count": 9383,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 17,
+      "drawing_path_count": 706,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 18,
+      "drawing_path_count": 5731,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 19,
+      "drawing_path_count": 5577,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 20,
+      "drawing_path_count": 97,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 21,
+      "drawing_path_count": 221,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 22,
+      "drawing_path_count": 342,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 23,
+      "drawing_path_count": 772,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 25,
+      "drawing_path_count": 155,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 26,
+      "drawing_path_count": 191,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 27,
+      "drawing_path_count": 172,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 28,
+      "drawing_path_count": 129,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 29,
+      "drawing_path_count": 197,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 30,
+      "drawing_path_count": 52,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    }
+  ],
+  "vector_graphs_count": 17
+}

@@ -1,0 +1,27 @@
+{
+  "paper_id": "2605.23989",
+  "paper_title": "2605.23989 Towards trustworthy agentic AI a compreh",
+  "authors": [
+    "Research Authors"
+  ],
+  "venue": "arXiv / Peer-Reviewed Venue",
+  "core_problem": "\b\f\b\u000b\n\u000e\u0007\t\n\b\u0007\u0006\u0004\u0006\b\r\r\u0003\u0007\f\b\u0005\u0007\u0002\u0001\u0000",
+  "methodology_summary": "Agentic AI systems—Large Language Models (LLMs) augmented with planning, tool use, memory, and long-horizon interactions—can\nexecute complex tasks autonomously, but their multi-step trajectories introduce new failure modes that challenge trustworthiness. This\nsurvey provides a focused examination of trustworthy agentic AI through two core dimension",
+  "datasets_eval": [
+    "Tabular Data (TAB-2605.23989-P2-1)",
+    "Tabular Data (TAB-2605.23989-P5-1)",
+    "Tabular Data (TAB-2605.23989-P5-2)",
+    "Tabular Data (TAB-2605.23989-P11-1)"
+  ],
+  "empirical_results": "Agentic AI systems—Large Language Models (LLMs) augmented with planning, tool use, memory, and long-horizon interactions—can\nexecute complex tasks autonomously, but their multi-step trajectories introduce new failure modes that challenge trustworthiness. This\nsurvey provides a focused examination of",
+  "explicit_limitations": "However, as LLM-based assistants are increasingly connected to\nenterprise data and tools, failures can translate into direct real-\nworld impact. For example, a “zero-click” prompt injection vulner-\nability in Microsoft 365 Copilot (CVE-2025-32711, “EchoLeak”)\nwas publicly reported and patched, highl",
+  "numerical_metrics": [],
+  "geographical_data": {},
+  "pipeline_steps": [
+    "Problem Formulation & Data Ingestion",
+    "Method Execution & Architecture",
+    "Empirical Evaluation & Benchmarking"
+  ],
+  "generation_mode": "HEURISTIC_FALLBACK",
+  "model_name": "Rule-Based Heuristic Engine"
+}

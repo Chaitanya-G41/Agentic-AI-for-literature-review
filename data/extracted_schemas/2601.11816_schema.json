@@ -1,0 +1,27 @@
+{
+  "paper_id": "2601.11816",
+  "paper_title": "2601.11816 POLARIS Typed Planning and Governed Exec",
+  "authors": [
+    "Research Authors"
+  ],
+  "venue": "arXiv / Peer-Reviewed Venue",
+  "core_problem": "POLARIS: Typed Planning and Governed Execution\nfor Agentic AI in Back-Office Automation",
+  "methodology_summary": "Enterprise back-office workflows require agentic systems that are auditable, policy-aligned, and op-\nerationally predictable, capabilities that generic multi-agent setups often fail to deliver. We present\nPOLARIS (Policy-Aware LLM Agentic Reasoning for Integrated Systems), a governed orchestration\nframework that treats automation as typed plan synt",
+  "datasets_eval": [
+    "Tabular Data (TAB-2601.11816-P11-1)",
+    "Enterprise",
+    "POLARIS",
+    "Policy-Aware"
+  ],
+  "empirical_results": "Enterprise back-office workflows require agentic systems that are auditable, policy-aligned, and op-\nerationally predictable, capabilities that generic multi-agent setups often fail to deliver. We present\nPOLARIS (Policy-Aware LLM Agentic Reasoning for Integrated Systems), a governed orchestration\nf",
+  "explicit_limitations": "candidate workflows before selection (Author et al., 2025; Wu et al., 2023b). However, enterprise\ndeployment of such Agentic AI remains limited by the lack of typed planning, evaluation metrics, and\nauditable execution paths. To overcome these inherent drawbacks, we introduce POLARIS, a modular orch",
+  "numerical_metrics": [],
+  "geographical_data": {},
+  "pipeline_steps": [
+    "Problem Formulation & Data Ingestion",
+    "Method Execution & Architecture",
+    "Empirical Evaluation & Benchmarking"
+  ],
+  "generation_mode": "HEURISTIC_FALLBACK",
+  "model_name": "Rule-Based Heuristic Engine"
+}

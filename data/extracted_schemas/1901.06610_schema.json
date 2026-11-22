@@ -1,0 +1,24 @@
+{
+  "paper_id": "1901.06610",
+  "paper_title": "Hierarchical Attentional Hybrid Neural Networks for Document Classification",
+  "authors": [
+    "Not specified"
+  ],
+  "venue": "Not specified",
+  "core_problem": "Document classification, where existing deep learning models fail to efficiently incorporate document structure knowledge and do not adequately account for the contextual importance of words and sentences.",
+  "methodology_summary": "A new approach called Hierarchical Attentional Hybrid Neural Networks (HAHNN) combining Convolutional Neural Networks (CNN), Gated Recurrent Units (GRU), and attention mechanisms. It uses hierarchical representation and temporal convolutions to extract meaningful, generalizable, and abstract features based on document structure.",
+  "datasets_eval": [
+    "Not specified (Evaluated against state-of-the-art models using test reviews for visualization)"
+  ],
+  "empirical_results": "The proposed HAHNN model shows improved accuracy compared to current attention-based approaches and state-of-the-art models.",
+  "explicit_limitations": "Occasionally, some sentences show issues where fewer important words receive high importance (e.g., the word 'translate' receiving high importance in a neutral context).",
+  "numerical_metrics": [],
+  "geographical_data": {},
+  "pipeline_steps": [
+    "Problem Formulation & Data Ingestion",
+    "Method Execution & Architecture",
+    "Empirical Evaluation & Benchmarking"
+  ],
+  "generation_mode": "GENUINE_LLM",
+  "model_name": "NVIDIA_NIM (nvidia/nemotron-3.5-bolt-e4b)"
+}

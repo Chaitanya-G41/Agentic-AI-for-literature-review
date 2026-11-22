@@ -1,0 +1,24 @@
+{
+  "paper_id": "2609.05946",
+  "paper_title": "Interpretable and Fair Generalized Additive Models",
+  "authors": [
+    "Not specified in context"
+  ],
+  "venue": "Not specified in context",
+  "core_problem": "Lack of explicit quantitative metrics for evaluating interpretability in NN-based GAMs, and the underexplored simultaneous optimization of interpretability and fairness.",
+  "methodology_summary": "Proposes a Multi-Objective Neural Basis Model (MONBM) framework based on multi-objective evolutionary learning to simultaneously optimize accuracy, interpretability, and fairness. Introduces explicit quantitative metrics (smoothness and monotonicity) for interpretability.",
+  "datasets_eval": [
+    "Not specified in context"
+  ],
+  "empirical_results": "Reveals complex relationships between accuracy, interpretability, and fairness, demonstrating how multi-objective optimization can be combined with self-interpretable models.",
+  "explicit_limitations": "Existing research often assumes GAMs inherently provide satisfactory explanations, and traditional regularization techniques influence interpretability implicitly rather than providing explicit quantitative criteria for optimization.",
+  "numerical_metrics": [],
+  "geographical_data": {},
+  "pipeline_steps": [
+    "Problem Formulation & Data Ingestion",
+    "Method Execution & Architecture",
+    "Empirical Evaluation & Benchmarking"
+  ],
+  "generation_mode": "GENUINE_LLM",
+  "model_name": "NVIDIA_NIM (nvidia/nemotron-3.5-bolt-e4b)"
+}

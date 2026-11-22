@@ -1,0 +1,240 @@
+.root {
+  overflow-y: auto;
+  border-left: 2px solid var(--ink);
+  background: var(--paper);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px 12px;
+  border-bottom: 1px solid var(--rule);
+  flex-shrink: 0;
+}
+
+.headLabel {
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  letter-spacing: 0.12em;
+  color: var(--ink-3);
+  text-transform: uppercase;
+}
+
+.paradigmBadge {
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  padding: 2px 7px;
+  border: 1px solid;
+  border-radius: 2px;
+  text-transform: uppercase;
+}
+
+/* Empty state */
+.empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 32px 20px;
+  text-align: center;
+}
+
+.emptyIcon {
+  color: var(--rule-strong);
+}
+
+.emptyHead {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.emptySub {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--ink-3);
+  line-height: 1.6;
+  max-width: 220px;
+}
+
+/* Content */
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.idRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--rule);
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.arxivId {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.loc {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--ink-3);
+}
+
+.block {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.blockLabel {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.paperTitle {
+  font-family: var(--font-serif);
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.35;
+}
+
+.quoteText {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--ink-2);
+  line-height: 1.6;
+}
+
+.sourceText {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 12px;
+  line-height: 1.65;
+  color: var(--ink);
+  background: rgba(0, 0, 0, 0.025);
+  border-left: 2px solid var(--ink);
+  padding: 10px 12px;
+}
+
+.methodText {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--ink-3);
+  line-height: 1.6;
+}
+
+.simRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--rule);
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.simLabel {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--ink-3);
+}
+
+.simScore {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.groundingRow {
+  padding: 8px 16px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.groundingOk {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  color: var(--success);
+}
+
+.actions {
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.actionPrimary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 9px 12px;
+  border-radius: 2px;
+  cursor: pointer;
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  transition: all 0.14s;
+  width: 100%;
+}
+
+.actionPrimary:hover {
+  background: var(--accent);
+}
+
+.actionRowSecondary {
+  display: flex;
+  gap: 6px;
+}
+
+.actionSecondary {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  padding: 6px 8px;
+  border-radius: 2px;
+  cursor: pointer;
+  background: transparent;
+  color: var(--ink-2);
+  border: 1px solid var(--rule-strong);
+  text-decoration: none;
+  transition: all 0.14s;
+}
+
+.actionSecondary:hover:not(:disabled) {
+  border-color: var(--ink);
+  color: var(--ink);
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.actionSecondary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}

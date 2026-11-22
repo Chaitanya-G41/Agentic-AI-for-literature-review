@@ -1,0 +1,26 @@
+{
+  "paper_id": "2305.10601",
+  "paper_title": "Tree of Thoughts: Deliberate Reasoning with Large Language Models",
+  "authors": [
+    "Not specified in the text"
+  ],
+  "venue": "Not specified in the text",
+  "core_problem": "Large Language Models are confined to token-level, left-to-right decision-making, which limits their ability to perform tasks requiring exploration, strategic lookahead, or non-trivial planning.",
+  "methodology_summary": "Introduction of the \"Tree of Thoughts\" (ToT) framework, which generalizes Chain of Thought by enabling exploration over coherent units of text (\"thoughts\") as intermediate steps, allowing LMs to perform deliberate decision making, consider multiple reasoning paths, and backtrack.",
+  "datasets_eval": [
+    "Game of 24",
+    "Creative Writing",
+    "Mini Crosswords"
+  ],
+  "empirical_results": "On Game of 24, ToT achieved a 74% success rate, significantly higher than GPT-4 with CoT prompting (4%).",
+  "explicit_limitations": "The \"most frequent\" heuristic only applies when the output space is limited (e.g., multi-choice QA); the state evaluation used as a pruning heuristic in crosswords can be imperfect, sometimes pruning correct solutions.",
+  "numerical_metrics": [],
+  "geographical_data": {},
+  "pipeline_steps": [
+    "Problem Formulation & Data Ingestion",
+    "Method Execution & Architecture",
+    "Empirical Evaluation & Benchmarking"
+  ],
+  "generation_mode": "GENUINE_LLM",
+  "model_name": "NVIDIA_NIM (nvidia/nemotron-3.5-bolt-e4b)"
+}

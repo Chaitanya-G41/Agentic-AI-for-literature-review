@@ -1,0 +1,25 @@
+{
+  "paper_id": "2512.09458",
+  "paper_title": "2512.09458 Architectures for Building Agentic AI",
+  "authors": [
+    "Research Authors"
+  ],
+  "venue": "arXiv / Peer-Reviewed Venue",
+  "core_problem": "Building on classical\nfoundations, we propose a practical taxonomy—tool-using agents, memory-augmented\nagents, planning and self-improvement agents, multi-agent systems, and embodied or\nweb agents—and analyse how each pattern reshapes the reliability envelope and fail-\nure modes.",
+  "methodology_summary": "Chapter 3: Architectures for Building Agentic AI 1 Introduction: purpose, scope, and architecture reliability This chapter surveys architectural choices for building agentic AI systems and analyses\nhow those choices shape reliability. Our central claim is straightforward: reliability is,\nfirst and foremost, an architectural property. It emerges fro",
+  "datasets_eval": [
+    "ReWOO",
+    "Reasoning",
+    "Without",
+    "Observation"
+  ],
+  "empirical_results": "This book is not intended as yet another broad introduction to Agentic GenAI; instead,\nwe put these recent developments in the specific context of reliability. By reliability, we\nmean the consistent achievement of intended outcomes under stated conditions, within\nacceptable bounds of safety, securit",
+  "explicit_limitations": "Understanding the relation of Agentic GenAI with classic autonomous agents\nis crucially important to avoid reinventing the wheel: many key concepts have been\nstudied for a long time and are relatively well-understood today; however, the nature\nof GenAI also brings up challenges that are completely n",
+  "numerical_metrics": [],
+  "geographical_data": {},
+  "pipeline_steps": [
+    "Our central claim is straightforward: reliability is,\nfirst and foremost, an architectural property."
+  ],
+  "generation_mode": "HEURISTIC_FALLBACK",
+  "model_name": "Rule-Based Heuristic Engine"
+}

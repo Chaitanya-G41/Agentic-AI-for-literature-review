@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CorpusCanvas • Spatial Research Whiteboard</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap');
+
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      background-color: #0E1117;
+      color: #F8FAFC;
+      margin: 0;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    .font-mono-tag {
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* Infinite Whiteboard Canvas with Blueprint Dot-Grid */
+    #canvas-viewport {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+      cursor: grab;
+      background-color: #0B0F17;
+      background-image: 
+        radial-gradient(rgba(255, 255, 255, 0.12) 1.2px, transparent 1.2px),
+        radial-gradient(rgba(59, 130, 246, 0.08) 1.5px, transparent 1.5px);
+      background-size: 32px 32px, 96px 96px;
+    }
+
+    #canvas-viewport:active {
+      cursor: grabbing;
+    }
+
+    #canvas-world {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4000px;
+      height: 3000px;
+      transform-origin: 0 0;
+      transition: transform 0.05s ease-out;
+    }
+
+    /* Floating Whiteboard Paper Nodes */
+    .canvas-node {
+      position: absolute;
+      width: 320px;
+      background: rgba(18, 24, 38, 0.88);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 14px;
+      box-shadow: 
+        0 10px 30px -5px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(255, 255, 255, 0.05);
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .canvas-node:hover {
+      transform: translateY(-4px) scale(1.02);
+      border-color: rgba(96, 165, 250, 0.6);
+      box-shadow: 
+        0 20px 40px -10px rgba(37, 99, 235, 0.35),
+        0 0 25px rgba(59, 130, 246, 0.2);
+    }
+
+    .canvas-node.active-node {
+      border-color: #38BDF8 !important;
+      box-shadow: 
+        0 0 0 2px #38BDF8,
+        0 20px 50px -10px rgba(56, 189, 248, 0.45) !important;
+    }
+
+    /* Cluster Territory Zone Rings */
+    .cluster-zone {
+      position: absolute;
+      border: 1.5px dashed rgba(255, 255, 255, 0.14);
+      border-radius: 28px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .cluster-title {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 20px;
+      position: absolute;
+      top: -16px;
+      left: 28px;
+    }
+
+    /* SVG Connecting Curves */
+    #connections-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .wire-path {
+      fill: none;
+      stroke-width: 2.2px;
+      stroke-linecap: round;
+      opacity: 0.55;
+      transition: all 0.3s ease;
+    }
+
+    .wire-glow {
+      animation: pulseWire 3s infinite alternate;
+    }
+
+    @keyframes pulseWire {
+      0% { opacity: 0.35; stroke-dashoffset: 0; }
+      100% { opacity: 0.85; stroke-dashoffset: 40; }
+    }
+
+    /* Slide-Over Evidence Inspector Drawer */
+    #evidence-drawer {
+      position: fixed;
+      top: 16px;
+      right: -480px;
+      width: 440px;
+      height: calc(100vh - 32px);
+      background: rgba(15, 23, 42, 0.94);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      box-shadow: -15px 0 45px rgba(0, 0, 0, 0.7);
+      transition: right 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #evidence-drawer.open {
+      right: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- FLOATING HUD BAR (TOP-LEFT) -->
+  <div class="fixed top-5 left-5 z-40 flex items-center gap-3 bg-slate-900/90 backdrop-blur-md border border-slate-700/60 p-2 pl-3 rounded-2xl shadow-2xl">
+    <div class="flex items-center gap-2 pr-3 border-r border-slate-700/80">
+      <span class="w-3 h-3 rounded-full bg-cyan-400 animate-ping"></span>
+      <span class="font-extrabold text-sm tracking-tight text-white font-mono-tag">CORPUS<span class="text-cyan-400">CANVAS</span></span>
+    </div>
+
+    <!-- Cluster Jump Buttons -->
+    <div class="flex items-center gap-1.5 text-xs font-mono-tag">
+      <button onclick="focusCluster('reasoning')" class="px-2.5 py-1 bg-violet-500/20 hover:bg-violet-500/30 text-violet-300 border border-violet-500/40 rounded-lg transition">
+        🟣 Reasoning (4)
+      </button>
+      <button onclick="focusCluster('tools')" class="px-2.5 py-1 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 rounded-lg transition">
+        🟢 Tool Augmentation (3)
+      </button>
+      <button onclick="focusCluster('multiagent')" class="px-2.5 py-1 bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 rounded-lg transition">
+        🟡 Multi-Agent (5)
+      </button>
+    </div>
+
+    <button onclick="resetZoom()" class="p-1.5 hover:bg-slate-800 text-slate-400 hover:text-white rounded-lg transition ml-1" title="Reset View">
+      ⟲ Reset
+    </button>
+  </div>
+
+  <!-- FLOATING MINIMAP & ZOOM CONTROLS (BOTTOM-LEFT) -->
+  <div class="fixed bottom-5 left-5 z-40 flex items-center gap-2 bg-slate-900/90 backdrop-blur-md border border-slate-700/60 p-1.5 rounded-xl text-xs font-mono-tag text-slate-300">
+    <button onclick="zoomBy(0.2)" class="w-8 h-8 flex items-center justify-center hover:bg-slate-800 rounded font-bold text-base transition">+</button>
+    <span id="zoom-indicator" class="px-2 font-bold text-cyan-400">100%</span>
+    <button onclick="zoomBy(-0.2)" class="w-8 h-8 flex items-center justify-center hover:bg-slate-800 rounded font-bold text-base transition">−</button>
+    <div class="w-[1px] h-4 bg-slate-700 mx-1"></div>
+    <span class="text-[11px] text-slate-400 px-2 hidden sm:inline">Drag canvas to pan • Scroll to zoom</span>
+  </div>
+
+  <!-- THE INTERACTIVE WHITEBOARD CANVAS -->
+  <div id="canvas-viewport">
+    
+    <div id="canvas-world">
+      
+      <!-- SVG Connecting Curves Layer -->
+      <svg id="connections-layer">
+        <!-- ReAct to Reflexion -->
+        <path d="M 680 430 C 760 430, 800 430, 880 430" class="wire-path wire-glow stroke-violet-400" stroke-dasharray="6,4"></path>
+        <!-- ReAct to Tree of Thoughts -->
+        <path d="M 520 540 C 520 620, 520 640, 520 710" class="wire-path stroke-violet-400"></path>
+        <!-- ReAct to Toolformer (Cross-cluster bridge) -->
+        <path d="M 680 490 C 820 490, 1100 380, 1280 380" class="wire-path stroke-cyan-400" stroke-dasharray="8,4"></path>
+        <!-- Toolformer to Gorilla -->
+        <path d="M 1600 380 C 1680 380, 1720 380, 1800 380" class="wire-path wire-glow stroke-emerald-400"></path>
+        <!-- ReAct to AutoGen (Cross-cluster multi-agent bridge) -->
+        <path d="M 520 840 C 520 1100, 1200 1020, 1380 1020" class="wire-path stroke-amber-400" stroke-dasharray="6,3"></path>
+        <!-- ChatDev to MetaGPT -->
+        <path d="M 1060 1180 C 1140 1180, 1180 1180, 1260 1180" class="wire-path stroke-amber-400"></path>
+        <!-- MetaGPT to AutoGen -->
+        <path d="M 1420 1100 C 1420 1060, 1420 1040, 1420 1000" class="wire-path wire-glow stroke-amber-400"></path>
+      </svg>
+
+      <!-- CLUSTER 1: REASONING & REFLECTION -->
+      <div class="cluster-zone bg-violet-950/15" style="top: 260px; left: 300px; width: 940px; height: 640px;">
+        <div class="cluster-title bg-violet-950 text-violet-300 border border-violet-500/40">
+          CLUSTER 01 • DELIBERATION & SEARCH
+        </div>
+      </div>
+
+      <!-- Node 1: ReAct -->
+      <div id="node-2210.03629" onclick="openDrawer('2210.03629')" class="canvas-node" style="top: 360px; left: 360px;">
+        <div class="p-4 space-y-2.5">
+          <div class="flex items-center justify-between font-mono-tag text-[11px]">
+            <span class="text-violet-400 font-bold">arXiv:2210.03629</span>
+            <span class="bg-violet-950/80 text-violet-300 border border-violet-700/50 px-2 py-0.5 rounded text-[10px]">ICLR '23</span>
+          </div>
+          <h3 class="font-bold text-base text-white leading-snug">ReAct: Synergizing Reasoning and Acting</h3>
+          <p class="text-xs text-slate-300 font-normal leading-relaxed">
+            Interleaves verbal reasoning traces with action calls. Eliminates static CoT hallucination via intermediate observations.
+          </p>
+          <div class="pt-2 border-t border-slate-700/60 flex items-center justify-between text-[11px] font-mono-tag">
+            <span class="text-emerald-400 font-semibold">✓ 34% Error Drop</span>
+            <span class="text-slate-400">8 Graphs</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Node 2: Reflexion -->
+      <div id="node-2303.11366" onclick="openDrawer('2303.11366')" class="canvas-node" style="top: 360px; left: 880px;">
+        <div class="p-4 space-y-2.5">
+          <div class="flex items-center justify-between font-mono-tag text-[11px]">
+            <span class="text-violet-400 font-bold">arXiv:2303.11366</span>
+            <span class="bg-violet-950/80 text-violet-300 border border-violet-700/50 px-2 py-0.5 rounded text-[10px]">NeurIPS '23</span>
+          </div>
+          <h3 class="font-bold text-base text-white leading-snug">Reflexion: Verbal Reinforcement Learning</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Equips agents with dynamic memory heuristics without gradient updates. Evaluates execution trajectories via self-critique.
+          </p>
+          <div class="pt-2 border-t border-slate-700/60 flex items-center justify-between text-[11px] font-mono-tag">
+            <span class="text-cyan-400 font-semibold">Self-Reflection</span>
+            <span class="text-slate-400">HumanEval: 91%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Node 3: Tree of Thoughts -->
+      <div id="node-2305.10601" onclick="openDrawer('2305.10601')" class="canvas-node" style="top: 710px; left: 360px;">
+        <div class="p-4 space-y-2.5">
+          <div class="flex items-center justify-between font-mono-tag text-[11px]">
+            <span class="text-violet-400 font-bold">arXiv:2305.10601</span>
+            <span class="bg-violet-950/80 text-violet-300 border border-violet-700/50 px-2 py-0.5 rounded text-[10px]">NeurIPS '23</span>
+          </div>
+          <h3 class="font-bold text-base text-white leading-snug">Tree of Thoughts: Deliberate Search</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Frames problem-solving as tree search with heuristic lookahead and backtracking over Game-of-24 sets.
+          </p>
+          <div class="pt-2 border-t border-slate-700/60 flex items-center justify-between text-[11px] font-mono-tag">
+            <span class="text-amber-400 font-semibold">BFS / DFS Search</span>
+            <span class="text-slate-400">74% on Game-24</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CLUSTER 2: TOOL AUGMENTATION & APIS -->
+      <div class="cluster-zone bg-emerald-950/15" style="top: 260px; left: 1300px; width: 900px; height: 500px;">
+        <div class="cluster-title bg-emerald-950 text-emerald-300 border border-emerald-500/40">
+          CLUSTER 02 • TOOL AUGMENTATION & APIS
+        </div>
+      </div>
+
+      <!-- Node 4: Toolformer -->
+      <div id="node-2302.04761" onclick="openDrawer('2302.04761')" class="canvas-node" style="top: 360px; left: 1360px;">
+        <div class="p-4 space-y-2.5">
+          <div class="flex items-center justify-between font-mono-tag text-[11px]">
+            <span class="text-emerald-400 font-bold">arXiv:2302.04761</span>
+            <span class="bg-emerald-950/80 text-emerald-300 border border-emerald-700/50 px-2 py-0.5 rounded text-[10px]">NeurIPS '23</span>
+          </div>
+          <h3 class="font-bold text-base text-white leading-snug">Toolformer: Self-Supervised Tool Calling</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Teaches LMs to decide which APIs to call via loss perturbation tokens without human training data.
+          </p>
+          <div class="pt-2 border-t border-slate-700/60 flex items-center justify-between text-[11px] font-mono-tag">
+            <span class="text-emerald-400 font-semibold">Infilling Loss</span>
+            <span class="text-slate-400">5 Tool Types</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Node 5: Gorilla -->
+      <div id="node-2305.15334" onclick="openDrawer('2305.15334')" class="canvas-node" style="top: 360px; left: 1800px;">
+        <div class="p-4 space-y-2.5">
+          <div class="flex items-center justify-between font-mono-tag text-[11px]">
+            <span class="text-emerald-400 font-bold">arXiv:2305.15334</span>
+            <span class="bg-emerald-950/80 text-emerald-300 border border-emerald-700/50 px-2 py-0.5 rounded text-[10px]">arXiv</span>
+          </div>
+          <h3 class="font-bold text-base text-white leading-snug">Gorilla: Connected with 1,600+ APIs</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Retrieval-aware fine-tuning that minimizes hallucinated API signatures on TorchHub, HuggingFace, and ModelHub.
+          </p>
+          <div class="pt-2 border-t border-slate-700/60 flex items-center justify-between text-[11px] font-mono-tag">
+            <span class="text-emerald-400 font-semibold">Zero API Hallucination</span>
+            <span class="text-slate-400">1,645 APIs</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CLUSTER 3: COLLABORATIVE MULTI-AGENT -->
+      <div class="cluster-zone bg-amber-950/15" style="top: 960px; left: 700px; width: 1100px; height: 500px;">
+        <div class="cluster-title bg-amber-950 text-amber-300 border border-amber-500/40">
+          CLUSTER 03 • MULTI-AGENT COLLABORATION
+        </div>
+      </div>
+
+      <!-- Node 6: ChatDev -->
+      <div id="node-2307.07924" onclick="openDrawer('2307.07924')" class="canvas-node" style="top: 1060px; left: 740px;">
+        <div class="p-4 space-y-2.5">
+          <div class="flex items-center justify-between font-mono-tag text-[11px]">
+            <span class="text-amber-400 font-bold">arXiv:2307.07924</span>
+            <span class="bg-amber-950/80 text-amber-300 border border-amber-700/50 px-2 py-0.5 rounded text-[10px]">ACL '24</span>
+          </div>
+          <h3 class="font-bold text-base text-white leading-snug">ChatDev: Virtual Software Company</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Multi-agent dialogue under the waterfall model (CEO, CPO, CTO, Programmer) for automated code development.
+          </p>
+          <div class="pt-2 border-t border-slate-700/60 flex items-center justify-between text-[11px] font-mono-tag">
+            <span class="text-amber-400 font-semibold">Role-Play Dialogue</span>
+            <span class="text-slate-400">&lt; $1 Cost</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Node 7: AutoGen -->
+      <div id="node-2308.08155" onclick="openDrawer('2308.08155')" class="canvas-node" style="top: 1060px; left: 1360px;">
+        <div class="p-4 space-y-2.5">
+          <div class="flex items-center justify-between font-mono-tag text-[11px]">
+            <span class="text-amber-400 font-bold">arXiv:2308.08155</span>
+            <span class="bg-amber-950/80 text-amber-300 border border-amber-700/50 px-2 py-0.5 rounded text-[10px]">arXiv '23</span>
+          </div>
+          <h3 class="font-bold text-base text-white leading-snug">AutoGen: Multi-Agent Conversations</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Conversable agents that seamlessly mix human feedback, LLMs, and code execution environments.
+          </p>
+          <div class="pt-2 border-t border-slate-700/60 flex items-center justify-between text-[11px] font-mono-tag">
+            <span class="text-amber-400 font-semibold">Conversable API</span>
+            <span class="text-slate-400">Math & Coding</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- SLIDE-OVER EVIDENCE INSPECTOR DRAWER -->
+  <aside id="evidence-drawer">
+    
+    <!-- Drawer Header -->
+    <div class="p-5 border-b border-slate-800 flex items-center justify-between">
+      <div>
+        <span class="font-mono-tag text-[11px] text-cyan-400 uppercase tracking-widest font-bold">EVIDENCE INSPECTOR</span>
+        <h2 id="drawer-paper-title" class="font-bold text-lg text-white mt-0.5 leading-snug">Paper Title</h2>
+      </div>
+      <button onclick="closeDrawer()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center font-bold text-sm transition">
+        ✕
+      </button>
+    </div>
+
+    <!-- Drawer Scrollable Content -->
+    <div class="p-5 overflow-y-auto space-y-5 flex-1">
+      
+      <!-- Metadata Slip -->
+      <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-3.5 space-y-1.5 font-mono-tag text-xs">
+        <div class="flex justify-between">
+          <span class="text-slate-400">Paper Reference:</span>
+          <span id="drawer-paper-id" class="text-cyan-400 font-bold">arXiv:2210.03629</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-400">Primary Paradigm:</span>
+          <span id="drawer-paradigm" class="text-white">Reasoning & Acting</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-400">Grounding Score:</span>
+          <span class="text-emerald-400 font-bold">0.94 (GROBID TEI)</span>
+        </div>
+      </div>
+
+      <!-- Verbatim Grounding Quote Box -->
+      <div class="space-y-2">
+        <span class="font-mono-tag text-xs text-slate-400 uppercase font-bold tracking-wider">VERBATIM SOURCE SENTENCE</span>
+        <div id="drawer-quote" class="bg-slate-950 border border-slate-800 rounded-xl p-4 text-xs font-mono-tag text-slate-200 leading-relaxed border-l-4 border-l-cyan-400">
+          "..."
+        </div>
+      </div>
+
+      <!-- Stated Limitations / Bottlenecks -->
+      <div class="space-y-2">
+        <span class="font-mono-tag text-xs text-rose-400 uppercase font-bold tracking-wider">REPORTED LIMITATION</span>
+        <div id="drawer-limitation" class="bg-rose-950/20 border border-rose-900/40 rounded-xl p-3.5 text-xs text-rose-200 leading-relaxed">
+          "..."
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="pt-2 flex items-center gap-2">
+        <button onclick="openSourcePdf()" class="flex-1 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs py-2.5 rounded-xl font-mono-tag transition">
+          Open Original PDF ↗
+        </button>
+        <button class="px-4 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs py-2.5 rounded-xl font-mono-tag transition">
+          Copy JSON
+        </button>
+      </div>
+
+    </div>
+
+  </aside>
+
+  <!-- INTERACTIVE CANVAS LOGIC: PAN & ZOOM -->
+  <script>
+    const viewport = document.getElementById('canvas-viewport');
+    const world = document.getElementById('canvas-world');
+    const zoomIndicator = document.getElementById('zoom-indicator');
+
+    let scale = 1;
+    let panX = -100;
+    let panY = -120;
+    let isPanning = false;
+    let startX = 0;
+    let startY = 0;
+    let activePaperId = "2210.03629";
+
+    const papersData = {
+      "2210.03629": {
+        title: "ReAct: Synergizing Reasoning and Acting in Language Models",
+        paradigm: "Interleaved Reason-Action Loop",
+        quote: "ReAct prompts the model to generate both verbal reasoning traces and task-specific actions in an interleaved manner, creating synergy between internal deliberation and external tool observation.",
+        limitation: "Context trajectory length grows linearly with task steps, causing prompt window saturation on complex environments."
+      },
+      "2303.11366": {
+        title: "Reflexion: Language Agents with Verbal Reinforcement Learning",
+        paradigm: "Self-Reflection & Working Memory",
+        quote: "Reflexion equips agents with dynamic memory heuristics without gradient updates. Evaluates execution trajectories via self-critique.",
+        limitation: "Prone to infinite reflection loops when environment rewards are sparse or ambiguous."
+      },
+      "2305.10601": {
+        title: "Tree of Thoughts: Deliberate Problem Solving with Language Models",
+        paradigm: "Deliberate Search (BFS / DFS)",
+        quote: "Tree of Thoughts allows LMs to deliberate over multiple reasoning paths, self-evaluate choices, and lookahead or backtrack when necessary.",
+        limitation: "High tree-branching factor leads to exponential token cost explosion on unrestricted domains."
+      },
+      "2302.04761": {
+        title: "Toolformer: Language Models Can Teach Themselves to Use Tools",
+        paradigm: "Self-Supervised API Augmentation",
+        quote: "Toolformer learns in a self-supervised way to call a variety of tools like calculators, QA engines, and search APIs through discrete annotation tokens.",
+        limitation: "Inability to chain multiple interdependent tools where output of Tool A feeds Tool B."
+      },
+      "2305.15334": {
+        title: "Gorilla: Large Language Model Connected with Massive APIs",
+        paradigm: "Retrieval-Aware Model Grounding",
+        quote: "Gorilla operates with a document retriever to surface up-to-date API documentation, eliminating hallucinated function signatures.",
+        limitation: "Dependent on retriever recall; misses parameters if documentation is poorly structured."
+      },
+      "2307.07924": {
+        title: "ChatDev: Communicative Agents for Software Development",
+        paradigm: "Role-Play Multi-Agent Dialogue",
+        quote: "ChatDev models virtual software enterprises under the waterfall model to generate full-stack software code collaboratively.",
+        limitation: "Dialogue drift and redundant chatter across long conversations incur token overhead."
+      },
+      "2308.08155": {
+        title: "AutoGen: Enabling Next-Gen Conversational Applications",
+        paradigm: "Conversable Multi-Agent Protocol",
+        quote: "AutoGen presents conversable multi-agent abstractions that unify LLM, human, and tool capabilities through structured, multi-turn dialogue channels.",
+        limitation: "Cascading conversational hallucination drift where an early error contaminates all subsequent agent turns."
+      }
+    };
+
+    function updateTransform() {
+      world.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
+      zoomIndicator.textContent = `${Math.round(scale * 100)}%`;
+    }
+
+    // Canvas Panning via Drag
+    viewport.addEventListener('mousedown', (e) => {
+      if (e.target.closest('.canvas-node') || e.target.closest('button')) return;
+      isPanning = true;
+      startX = e.clientX - panX;
+      startY = e.clientY - panY;
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isPanning) return;
+      panX = e.clientX - startX;
+      panY = e.clientY - startY;
+      updateTransform();
+    });
+
+    window.addEventListener('mouseup', () => {
+      isPanning = false;
+    });
+
+    // Canvas Zooming via Wheel
+    viewport.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      const zoomFactor = e.deltaY < 0 ? 1.08 : 0.92;
+      scale = Math.min(Math.max(scale * zoomFactor, 0.4), 2.2);
+      updateTransform();
+    }, { passive: false });
+
+    function zoomBy(delta) {
+      scale = Math.min(Math.max(scale + delta, 0.4), 2.2);
+      updateTransform();
+    }
+
+    function resetZoom() {
+      scale = 1;
+      panX = -100;
+      panY = -120;
+      updateTransform();
+    }
+
+    function focusCluster(type) {
+      if (type === 'reasoning') {
+        panX = -200;
+        panY = -180;
+        scale = 1.05;
+      } else if (type === 'tools') {
+        panX = -1180;
+        panY = -180;
+        scale = 1.05;
+      } else if (type === 'multiagent') {
+        panX = -650;
+        panY = -820;
+        scale = 1.05;
+      }
+      updateTransform();
+    }
+
+    // Evidence Drawer Interaction
+    function openDrawer(paperId) {
+      activePaperId = paperId;
+      const data = papersData[paperId];
+      if (!data) return;
+
+      document.querySelectorAll('.canvas-node').forEach(el => el.classList.remove('active-node'));
+      const activeEl = document.getElementById(`node-${paperId}`);
+      if (activeEl) activeEl.classList.add('active-node');
+
+      document.getElementById('drawer-paper-title').textContent = data.title;
+      document.getElementById('drawer-paper-id').textContent = `arXiv:${paperId}`;
+      document.getElementById('drawer-paradigm').textContent = data.paradigm;
+      document.getElementById('drawer-quote').textContent = `"${data.quote}"`;
+      document.getElementById('drawer-limitation').textContent = `"${data.limitation}"`;
+
+      document.getElementById('evidence-drawer').classList.add('open');
+    }
+
+    function closeDrawer() {
+      document.getElementById('evidence-drawer').classList.remove('open');
+      document.querySelectorAll('.canvas-node').forEach(el => el.classList.remove('active-node'));
+    }
+
+    function openSourcePdf() {
+      window.open(`https://arxiv.org/pdf/${activePaperId}.pdf`, '_blank');
+    }
+
+    // Initialize position
+    updateTransform();
+  </script>
+
+</body>
+</html>

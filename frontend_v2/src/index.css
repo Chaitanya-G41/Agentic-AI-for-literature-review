@@ -1,0 +1,93 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --paper:   #FAF8F5;      /* warm editorial ivory */
+  --ink:     #121316;      /* near-black ink */
+  --ink-2:   #3D3D3D;
+  --ink-3:   #64748B;
+  --rule:    #D6D3CE;      /* rule line */
+  --rule-strong: #B0A99A;
+  --accent:  #2563EB;
+  --accent-bg: #EFF6FF;
+  --accent-mid: #BFDBFE;
+  --success: #059669;
+  --warning: #D97706;
+
+  --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-sans:  'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-mono:  'Space Mono', 'Courier New', monospace;
+
+  --bar-h: 48px;
+}
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--paper);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--rule-strong); border-radius: 3px; }
+
+/* Error screen */
+.error-screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 40px;
+  text-align: center;
+  background: var(--paper);
+}
+.error-mono {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: var(--ink-3);
+}
+.error-msg {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  color: var(--ink);
+  max-width: 480px;
+  line-height: 1.5;
+}
+.error-msg code {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  background: #F1F5F9;
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+.error-sub {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-3);
+}
+
+.primary-reload-btn {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  padding: 8px 16px;
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.app-root {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}

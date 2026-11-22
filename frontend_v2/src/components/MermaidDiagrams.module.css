@@ -1,0 +1,39 @@
+.root {
+  border: 1px solid var(--rule);
+  margin-top: 16px;
+}
+
+.tabs {
+  display: flex;
+  border-bottom: 1px solid var(--rule);
+  background: rgba(0,0,0,0.02);
+}
+.tab, .tabOn {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 10px 16px;
+  border: none;
+  background: none;
+  color: var(--ink-3);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: all 0.14s;
+}
+.tab:hover { color: var(--ink); }
+.tabOn { color: var(--ink); border-bottom-color: var(--ink); }
+
+.chartWrap {
+  padding: 24px;
+  overflow-x: auto;
+  background: white;
+}
+.chart { min-height: 160px; }
+.chart svg { max-width: 100%; height: auto; }
+
+.error { padding: 16px; }
+.errorLabel { font-family: var(--font-mono); font-size: 10px; color: #DC2626; margin-bottom: 6px; }
+.errorPre { font-family: var(--font-mono); font-size: 10px; color: #64748B; white-space: pre-wrap; }

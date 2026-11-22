@@ -1,0 +1,23 @@
+{
+  "paper_id": "1905.05918",
+  "paper_title": "A Neural Network-Evolutionary Computation Framework for Remaining Useful Life Estimation",
+  "authors": [
+    "Not specified in context"
+  ],
+  "venue": "Not specified in context",
+  "core_problem": "Estimating the Remaining Useful Life (RUL) of mechanical systems efficiently, addressing the time-consuming nature of tuning data-related parameters in traditional methods.",
+  "methodology_summary": "A framework combining a multi-layer perceptron (neural network) with an evolutionary algorithm for optimizing data-related parameters. It uses a strided time window and automatically reshapes data to increase model efficiency while maintaining low complexity (few hidden layers/neurons).",
+  "datasets_eval": [
+    "C-MAPSS dataset [1]"
+  ],
+  "empirical_results": "The proposed method's accuracy is compared against other state-of-the-art methods on the C-MAPSS dataset. Good prognostics results have been achieved, though data-driven approaches typically have wider confidence intervals than model-based approaches.",
+  "explicit_limitations": "The current study uses specific regressors and evolutionary algorithms; the framework's generality allows for other combinations. Future work will extend the framework for model selection and analyze the influence of the window stride parameter (ns).",
+  "numerical_metrics": [],
+  "geographical_data": {},
+  "pipeline_steps": [
+    "The framework presented here automatically reshapes the data such that the efficiency of the model is increased.",
+    "Furthermore, the complexity of the model is kept low, e.g."
+  ],
+  "generation_mode": "GENUINE_LLM",
+  "model_name": "NVIDIA_NIM (nvidia/nemotron-3.5-bolt-e4b)"
+}

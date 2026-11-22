@@ -1,0 +1,27 @@
+{
+  "paper_id": "2308.00352",
+  "paper_title": "2308.00352 MetaGPT Meta Programming",
+  "authors": [
+    "Research Authors"
+  ],
+  "venue": "arXiv / Peer-Reviewed Venue",
+  "core_problem": "Published as a conference paper at ICLR 2024",
+  "methodology_summary": "METAGPT: META PROGRAMMING FOR A\nMULTI-AGENT COLLABORATIVE FRAMEWORK Remarkable progress has been made on automated problem solving through so-\ncieties of agents based on large language models (LLMs). Existing LLM-based\nmulti-agent systems can already solve simple dialogue tasks. Solutions to more\ncomplex tasks, however, are complicated through logi",
+  "datasets_eval": [
+    "Tabular Data (TAB-2308.00352-P9-1)",
+    "Tabular Data (TAB-2308.00352-P9-2)",
+    "Tabular Data (TAB-2308.00352-P24-1)",
+    "Tabular Data (TAB-2308.00352-P24-2)"
+  ],
+  "empirical_results": "Remarkable progress has been made on automated problem solving through so-\ncieties of agents based on large language models (LLMs). Existing LLM-based\nmulti-agent systems can already solve simple dialogue tasks. Solutions to more\ncomplex tasks, however, are complicated through logic inconsistencies ",
+  "explicit_limitations": "Remarkable progress has been made on automated problem solving through so-\ncieties of agents based on large language models (LLMs). Existing LLM-based\nmulti-agent systems can already solve simple dialogue tasks. Solutions to more\ncomplex tasks, however, are complicated through logic inconsistencies ",
+  "numerical_metrics": [],
+  "geographical_data": {},
+  "pipeline_steps": [
+    "Problem Formulation & Data Ingestion",
+    "Method Execution & Architecture",
+    "Empirical Evaluation & Benchmarking"
+  ],
+  "generation_mode": "HEURISTIC_FALLBACK",
+  "model_name": "Rule-Based Heuristic Engine"
+}

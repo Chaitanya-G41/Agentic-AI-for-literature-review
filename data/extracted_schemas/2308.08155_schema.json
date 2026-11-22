@@ -1,0 +1,27 @@
+{
+  "paper_id": "2308.08155",
+  "paper_title": "2308.08155 AutoGen Enabling Next-Ge",
+  "authors": [
+    "Research Authors"
+  ],
+  "venue": "arXiv / Peer-Reviewed Venue",
+  "core_problem": "AutoGen: Enabling Next-Gen LLM\nApplications via Multi-Agent Conversation",
+  "methodology_summary": "Figure 1: AutoGen enables diverse LLM-based applications using multi-agent conversations. (Left)\nAutoGen agents are conversable, customizable, and can be based on LLMs, tools, humans, or even\na combination of them. (Top-middle) Agents can converse to solve tasks. (Right) They can form\na chat, potentially with humans in the loop. (Bottom-middle) The",
+  "datasets_eval": [
+    "Tabular Data (TAB-2308.08155-P1-1)",
+    "Tabular Data (TAB-2308.08155-P7-1)",
+    "Tabular Data (TAB-2308.08155-P7-2)",
+    "Tabular Data (TAB-2308.08155-P7-3)"
+  ],
+  "empirical_results": "1 Customizable and conversable agents. AutoGen uses a generic design of agents that can lever-\nage LLMs, human inputs, tools, or a combination of them. The result is that developers can\neasily and quickly create agents with different roles (e.g., agents to write code, execute code,\nwire in human fee",
+  "explicit_limitations": "By allowing custom agents that can converse with each other, conversable agents in AutoGen serve\nas a useful building block. However, to develop applications where agents make meaningful progress\non tasks, developers also need to be able to specify and mold these multi-agent conversations. Retrieval",
+  "numerical_metrics": [],
+  "geographical_data": {},
+  "pipeline_steps": [
+    "Problem Formulation & Data Ingestion",
+    "Method Execution & Architecture",
+    "Empirical Evaluation & Benchmarking"
+  ],
+  "generation_mode": "HEURISTIC_FALLBACK",
+  "model_name": "Rule-Based Heuristic Engine"
+}

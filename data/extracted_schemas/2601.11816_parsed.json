@@ -1,0 +1,4103 @@
+{
+  "paper_id": "2601.11816",
+  "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+  "parser_used": "PyMuPDF_Layout_Engine",
+  "total_pages": 17,
+  "figures_count": 5,
+  "figures": [
+    {
+      "figure_id": "FIG-2601.11816-P1-1",
+      "page_number": 1,
+      "file_path": "data/figures\\2601.11816\\fig_p1_1.png",
+      "dimensions": "2560x674",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2601.11816-P4-1",
+      "page_number": 4,
+      "file_path": "data/figures\\2601.11816\\fig_p4_1.png",
+      "dimensions": "931x901",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2601.11816-P10-1",
+      "page_number": 10,
+      "file_path": "data/figures\\2601.11816\\fig_p10_1.png",
+      "dimensions": "2925x1469",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2601.11816-P11-1",
+      "page_number": 11,
+      "file_path": "data/figures\\2601.11816\\fig_p11_1.png",
+      "dimensions": "1080x457",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2601.11816-P11-2",
+      "page_number": 11,
+      "file_path": "data/figures\\2601.11816\\fig_p11_2.png",
+      "dimensions": "1100x1307",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    }
+  ],
+  "vector_graphs_count": 2,
+  "vector_graphs": [
+    {
+      "page_number": 7,
+      "drawing_path_count": 56,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        595.2760009765625,
+        841.8900146484375
+      ]
+    },
+    {
+      "page_number": 11,
+      "drawing_path_count": 74,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        595.2760009765625,
+        841.8900146484375
+      ]
+    }
+  ],
+  "tables_count": 1,
+  "tables": [
+    {
+      "table_id": "TAB-2601.11816-P11-1",
+      "page_number": 11,
+      "rows_count": 4,
+      "cols_count": 4,
+      "data": [
+        [
+          "Parse ↔ Validate Loop",
+          "",
+          "",
+          "Reconcillation and Outputs"
+        ],
+        [
+          "DocumentParserAgent (OCR + layout)\nDataValidatorAgent (schema + required\nfields)\nNo Valid?\nFeedback to parser (attempts 1→3): • 'Invoice\nNumber' invalid • 'Date' missing • 'Vendor Name'\nmissing/unknown\nRules: - normalize dates - normalize currency -\nreconcile totals vs. line items - prefer canonical\nfield names",
+          "",
+          "",
+          "PolicyRetrievalAgent STATUS: Error\nMessage: Missing/invalid output from\nDocumentParserAgent\nApprovalAgent APPROVED: False\nReason: Parsing error led to missing required\nfields (Invoice #, Date, Vendor).\nFinal Output { approved: false,\nreason: parsing error → missing/unknown\nfields }"
+        ],
+        [
+          "",
+          "max at",
+          "tempts",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ]
+      ]
+    }
+  ],
+  "full_text": "POLARIS: Typed Planning and Governed Execution\nfor Agentic AI in Back-Office Automation\n\nZahra Moslemi1, Keerthi Koneru2, Yen-Ting Lee3, Sheethal Kumar2, Ramesh Radhakrishnan2\n\n1University of California, Irvine, 2Center for Advanced AI, Accenture, 3University of California, San Diego\n\nEnterprise back-office workflows require agentic systems that are auditable, policy-aligned, and op-\nerationally predictable, capabilities that generic multi-agent setups often fail to deliver. We present\nPOLARIS (Policy-Aware LLM Agentic Reasoning for Integrated Systems), a governed orchestration\nframework that treats automation as typed plan synthesis and validated execution over LLM agents. A\nplanner proposes structurally diverse, type-checked directed acyclic graphs (DAGs); a rubric-guided\nreasoning module selects a single compliant plan; and execution is guarded by validator-gated checks, a\nbounded repair loop, and compiled policy guardrails that block or route side effects before they occur.\nApplied to document-centric finance tasks, POLARIS produces decision-grade artifacts and full execution\ntraces while reducing human intervention. Empirically, POLARIS achieves a micro-F1 of 0.81 on the\nSROIE dataset and, on a controlled synthetic suite, achieves 0.95–1.00 precision for anomaly routing\nwith preserved audit trails. These evaluations constitute an initial benchmark for governed Agentic AI.\nPOLARIS provides a methodological and benchmark reference for policy-aligned Agentic AI.\nKeywords: Agentic AI; Enterprise Automation; Back-Office Tasks; Benchmarks; Governance; Typed\nPlanning; Evaluation\n\n1. Introduction\n\nEnterprise back-office automation (e.g., accounts payable, contract checks) imposes requirements\nthat generic multi-agent LLM stacks often fail to meet: actions must be auditable, operationally\npredictable, policy-aligned, and governed before any side effects occur, and reliably evaluable against\nreproducible metrics. In practice, untyped tool calls, best-of-𝑁prompting, and open-ended retries\nyield brittle pipelines with unclear provenance and no predictable service-level agreement (SLA)\nguarantees. We argue that meeting enterprise guarantees requires re-casting orchestration as typed,\ngoverned planning and execution where plans are type-checked and structurally diverse; selection is\nrubric-based and policy-aware; and execution is guarded by validators and compiled policy checks\nthat gate side effects.\n\nRecent progress in Agentic AI has created powerful but ungoverned multi-agent stacks. Modern\nLLMs now support precise language understanding and the use of controlled tools (OpenAI et al.,\n2023), enabling agentic systems for operational work. LLM-based agents combine core reasoning with\ndomain tools (Qin et al., 2024; Wang et al., 2024); multi-agent systems assign specialized roles across\nworkflows (Wu et al., 2023b; Hong et al., 2024); and planning-centric frameworks cast orchestration\nas agent-oriented planning (AOP) with typed sub-tasks (Li et al., 2024). In parallel, workflow-centric\napproaches represent execution as a directed acyclic graph (DAG) of tool calls with explicit interfaces\n(Wu et al., 2023b; Hong et al., 2024), often following a plan-then-act paradigm that synthesizes\n\ncandidate workflows before selection (Author et al., 2025; Wu et al., 2023b). However, enterprise\ndeployment of such Agentic AI remains limited by the lack of typed planning, evaluation metrics, and\nauditable execution paths.\n\nApplying these ideas in regulated settings is challenging: inputs are heterogeneous and legally\nconstrained, and errors carry financial risk. Common stacks (a) pass untyped input/output (I/O) in\n\nCorresponding author(s): Keerthi Koneru (keerthi.koneru@accenture.com). All work was done during the authors’ tenure at Accenture.\n© 2026 Accenture. All rights reserved\n\narXiv:2601.11816v1  [cs.AI]  16 Jan 2026\n\nPOLARIS: Typed Planning and Governed Execution for Agentic AI in Back-Office Automation\n\nfree-form messages, (b) treat plan generation as best-of-𝑁prompting without structural diversity\nguarantees, (c) lack compiled policy checks that gate side effects, and (d) don’t use past experience to\nguide future decisions; making governed, auditable behavior difficult to guarantee.\n\nTo overcome these inherent drawbacks, we introduce POLARIS, a modular orchestration framework\nthat treats back-office automation as planning over typed agents. A Chain-of-Action planner proposes\na small set of structurally diverse type-checked DAGs; a lightweight reasoning selector chooses one\nplan using a rubric over compliance, safe sequencing, and parsimony. Execution is then guarded: the\nvalidator checks gate side effects and drives a targeted parser–validator repair loop, while compiled\npolicy guardrails (e.g., thresholds, currency rules, segregation-of-duties (SoD)) block, route, or\nannotate actions prior to external effects. The result is an auditable decision object and complete\nexecution trace suitable for regulated environments (Figure 1).\n\nRelative to prior multi-agent DAG systems, POLARIS (i) enforces type-sound composition with first-\nclass diversity constraints at plan generation (not just prompt sampling), (ii) uses a rubric-based\nselector that is policy-aware and emits auditable JSON decisions, and (iii) bounds latency and cost\nvia a validator-gated repair loop that targets only failing fields before any external side-effects. In\nsynthetic invoice suites and the SROIE benchmark, the same plan–select–act loop shows strong\nextraction accuracy and high-precision policy/anomaly routing while preserving end-to-end lineage.\n\nThis work contributes to the broader effort to establish reproducible benchmarks and evaluable\nframeworks for Agentic AI in enterprise settings. POLARIS provides a reference implementation\nfor typed policy-aware orchestration that can be quantitatively assessed in controlled enterprise\nscenarios.\n\nThe remainder of this paper is organized as follows: Section 2 reviews prior advances in agentic\nprocess automation, benchmarking, and programmatic prompting. Section 3 introduces the enterprise\ntask setting, notation, and agent taxonomy used throughout this work. Section 4 formalizes the\nPOLARIS framework, covering typed plan synthesis, rubric-based reasoning, and dependency-aware\nexecution. Sections 4.6–4.7 describe the validator-gated repair loop, policy guardrails, and risk control\nmechanisms. Section 5 presents empirical evaluations and benchmark comparisons, while Section 6\nconcludes with implications for governed, auditable agentic automation and future benchmark\ndevelopment.\n\n2. Related Work\n\nLLM-based back-office automation spans general orchestration frameworks and domain-specific\nsystems. ProAgent reframes Robotic Process Automation as Agentic Process Automation by having an\nLLM synthesize executable workflows and coordinate sub-agents for data-dependent branches (Ye\net al., 2023). SmartFlow complements this with vision and LLM planning to operate changing\nenterprise UIs without fragile selectors (Jain et al., 2024). Domain-aligned approaches harden\ngovernance: FinRobot introduces finance-focused Generative Business Process AI Agents that map\nintents to ERP tasks via rule-constrained planning, Chain-of-Actions execution, and human-in-the-\nloop for auditability (Yang et al., 2025); Agent-S formalizes the execution of the SOP with a state-\ndecision planner, an action executor for API/user steps, and shared execution memory for fault\nrecovery (Kulkarni et al., 2025); and an RL-guided multi-agent parser learns document classification,\nschema induction, and iterative extraction to handle layout drift in invoices and POs (Amjad et al.,\n2025). Although not enterprise-specific, Generative Agents contribute reusable patterns for memory,\nretrieval, and reflection that stabilize multi-step behaviors (Park et al., 2023).\n\nBenchmarks and evaluation. Recent evaluation efforts emphasize process-aware benchmarking\n\n2\n\nPOLARIS: Typed Planning and Governed Execution for Agentic AI in Back-Office Automation\n\nbeyond final task success. AgentBench and AgentBoard introduce structured multi-environment\nevaluations with fine-grained analytical metrics for LLM agents (Liu et al., 2023; Ma et al., 2024),\nwhile BrowserGym and WebArena provide reproducible web-based environments to test planning,\ntool use, and long-horizon reasoning (Lemke et al., 2024; Zhou et al., 2023). Governance-focused\nframeworks such as Safe Agents (Huang et al., 2024) and rubric-based evaluation methods such as\nLLM-as-Judge (Zheng et al., 2024) underscore the importance of accountability and transparent\ndecision traces—key motivations for POLARIS’s policy-aware orchestration. Our work focuses on\ntyped planning, policy-aware selection, and validator-gated repair producing auditable traces, areas\nnot emphasized in UI/web benchmarks.\n\nProgrammatic prompting and planning priors. Beyond conventional prompt templates, DSPy\ncompiles declarative LLM pipelines into self-improving modules and provides structured priors that\nenable optimizable, type-constrained plan synthesis (Khattab et al., 2023). AutoGen demonstrates\nscalable multi-agent conversations with coordination patterns, but lacks type contracts or compiled\npolicy guardrails (Wu et al., 2023a). In broader multi-agent planning, Voyager (Wang et al., 2023)\nshows how exemplar-guided exploration and continual learning improve long-horizon agent behavior.\nPOLARIS unifies these strengths by enforcing typed planning, policy compliance, and bounded repair\nloops, establishing a governance layer critical for enterprise-grade auditability and reliability.\n\n3. Preliminaries\n\nWe target document-centric enterprise workflows (e.g., invoice processing) where heterogeneous\n\ninputs—PDFs, emails, prompts, or API events—must yield decision-grade artifacts such as validated\nrecords, approvals, or audit reports. Let X denote raw inputs and 𝜏∈T be the normalized task record\nsummarizing the metadata and required fields.\n\nTyped agents and I/O contracts.\nPOLARIS maintains a library A = {𝐴1, . . . , 𝐴𝑛} of GPT-backed\ncomponents, each specifying a capability description, typed I/O schemas, pre/postconditions, and\npolicy or risk tags (eligibility, side effects, segregation-of-duties). Agents are grouped as: Normalizer\n(InputNormalizer); Planning & Selection (CoAPlanner, ReasoningAgent); Data Extractors\n(DocumentParser, DataValidator); Data Processors (RecordMatcher, PolicyRetrieval,\n\nAnomalyDetection, RiskControl, APIAccess, Scheduler); and Reconciliation (Approval,\nReportGenerator).\n\nPlans as typed DAGs.\nA plan 𝑝is a directed acyclic graph 𝐺𝑝= (𝑉𝑝, 𝐸𝑝) of agent invocations whose\nedges are type-checked against declared I/O contracts. Feasibility requires: (i) input compatibility,\n(ii) compliance ordering (e.g., parse→validate→risk/approval), and (iii) adherence to concurrency\n\nlimits. Execution follows completion-based semantics—nodes become eligible when all parents fin-\nish—allowing safe fan-out and aggregation of partial evidence.\n\nCompliance and anomaly primitives.\nPolicy checks detect unknown vendors, threshold breaches,\nand currency mismatches (Section 4.7). Anomalies use a robust vendor-wise score:\n\n𝑧MAD(𝑥; 𝑣) = |𝑥−median𝑣|\n\n1.4826 · MAD𝑣\n,\n\nflagged if 𝑧MAD > 𝑘mad (default 3.5), with cohort/global fallback and date-sanity validation (Sec-\ntion 4.8). Additional details, agent role definitions, Table 6 appear in Appendix A.\n\n3\n\nPOLARIS: Typed Planning and Governed Execution for Agentic AI in Back-Office Automation\n\nFigure 1 | Overview of POLARIS orchestration with governed plan selection. Raw inputs (prompt-\ns/triggers/PDFs) are normalized by the InputNormalizerAgent. The CoAPlannerAgent pro-\nposes multiple structured execution plans; a Reasoning Agent scores them and selects a single\nplan. The chosen plan executes as a DAG: a DocumentParserAgent and DataValidatorAgent\nrun with a bounded repair loop (orange) to improve extractions, after which only the required Data\nProcessor Agents are invoked (e.g., RecordMatching, PolicyRetrieval, AnomalyDetection,\nRiskControl, APIAccess). Reconciliation Agents (Approval, ReportGenerator) produce\ndecision-grade outputs (Structured Report, Approval/Decision Action, Inference/Alert Result). Dashed\nlines indicate data/control flow across stages. DSPy few-shot learning supplies planning priors.\n\n4. Method\n\n4.1. POLARIS Overview\n\nPOLARIS operationalizes the above as a plan–select–act loop over typed agents (Figure 1). It modular-\nizes normalization, plan synthesis, reasoning-driven selection, guarded execution, and continuous\nfeedback—each stage auditable and policy-aligned.\n\n4.2. (1) Normalization\n\nThis stage converts heterogeneous input formats from the enterprise into a canonical JSON record, enabling\ntype verification and policy tagging for reproducible downstream execution.\n\nInputNormalizerAgent maps raw inputs 𝑥∈X (files, free text, events) to a canonical task record\n𝜏= 𝑓norm(𝑥) consumed by downstream agents. It handles diverse inputs (schedules, prompts, PDFs,\n\n4\n\nPOLARIS: Typed Planning and Governed Execution for Agentic AI in Back-Office Automation\n\nemails, API events), categorizes, and normalizes them for consistent downstream processing.\n\nConcretely, the agent is an Autogen ConversableAgent prompted with a strict JSON schema\nand returns a single JSON object with fields:\n\n• task_type: coarse task category (e.g., document_parsing, user_command, event_triggered);\n• input_format: acquisition mode (e.g., file, text, file+instruction, event);\n• file_name: original filename if present, otherwise empty;\n• file_type: MIME/extension (e.g., pdf, png, eml, csv) or none;\n• timestamp: ISO-8601 time associated with 𝑥(ingest or document time);\n• origin: source identifier (e.g., email, upload, chat);\n• instruction: user/system instruction if supplied;\n• meta: auxiliary key–value pairs (e.g., locale, BU, region, channel).\n\nThe implementation enforces (i) schema-guided prompting, (ii) model invocation via generate_reply,\nand (iii) deterministic JSON extraction—the last JSON object in the response is regex-parsed. In case\nof failure to recover a valid JSON, the agent returns a structured error payload with the raw model\nresponse, enabling safe fallback or escalation without side effects. This normalization removes input\nheterogeneity before planning, ensuring reproducible type checks and policy attachment.\n\n4.3. (2) Candidate Plan Synthesis (CoAPlanner)\n\nGoal. Given a normalized task record 𝜏, the planner must propose a set of 𝐾typed, feasible, and\npairwise distinct workflow hypotheses\n\nΠ(𝜏) = {𝑝1, . . . , 𝑝𝐾},\n𝑝𝑘∈P,\n\nwhere each 𝑝𝑘is a directed acyclic graph (DAG) of agent invocations whose edges respect the declared\ninput/output (I/O) types and policy tags (Section 3). Plan synthesis is modeled as diversification\nunder type constraints guided by model priors.\n\nCore reasoning steps.\nInternally, the CoAPlanner performs three sequential reasoning steps before\ngenerating candidate DAGs:\n\n• Interpret Task Intent: Derive the required outcome from the parsed task_type of 𝜏;\n• Select Required Agents: identify task-specific agents relevant to execution;\n• Sequence Agent Calls: order agents by dependencies and conditional triggers.\n\nTyped, constraint-guided generation.\nWe view the planner as a conditional generator 𝐺𝜃(𝑝| 𝜏, E)\non typed DAGs, where E is a small exemplar bank. Each draw 𝑝∼𝐺𝜃must satisfy feasibility (type-\ncompatible edges; intrinsic orderings such as parse→validate→risk/approval) and minimality (no\nsuperfluous stages). Feasibility is enforced at generation by emitting node signatures and checking\nedge composition against I/O contracts; minimality is encouraged through a brevity prior in the\nplanner’s scoring.\n\nDiversity as a first-class constraint.\nRather than sample duplicates and prune, we **enforce\ndiversity during generation.** Let ∼denote an equivalence relation identifying DAGs with the same\nordered “core chain” and dependency structure. The planner returns Π(𝜏) such that 𝑝𝑖≁𝑝𝑗for all 𝑖≠𝑗.\n\n5\n\nPOLARIS: Typed Planning and Governed Execution for Agentic AI in Back-Office Automation\n\nPractically, candidates must differ in agent set, edge structure, or stage ordering while maintaining\ntype soundness. Formally, the planner solves:\n\nmax\n\nΠ(𝜏)\n\n∑︁\n\n𝑝∈Π(𝜏)\n\n𝑠𝜃(𝑝; 𝜏)\ns.t.\n𝑝∈F (𝜏) ∀𝑝, 𝑝𝑖≁𝑝𝑗∀𝑖≠𝑗.\n(1)\n\nwhere 𝑠𝜃is the planner’s internal plausibility score and F (𝜏) the feasible set.\n\nDomain priors via few-shot planning.\nTo bias generation toward policy-consistent plans, we\ninstantiate E (few-shot memory) using DSPy (Declarative Self-improving Python), which compiles\nLLM prompts into structured, trainable programs. DSPy encodes reusable planning modules that are\noptimizeable and updateable. For CoAPlanner, E includes compact labeled scenarios (positive/nega-\ntive, anomaly exemplars, approval thresholds) describing the ideal agent chains and rationales. These\nexemplars are compiled by DSPy into a reusable planning program conditioning 𝐺𝜃during generation.\nWhen producing its 𝐾DAGs, CoAPlanner biases sampling toward successful chain patterns (e.g.,\n\nparse→validate→risk/approve) while exploring alternative edge structures. This yields efficient and\nrobust few-shot planning.\n\nThe Reasoner later evaluates these DSPy-guided candidates, ensuring that only type- and policy-sound\nDAGs advance. Thus DSPy supplies CoAPlanner with a structured prior narrowing the search space\nto high-quality, diverse, interpretable 𝐾-plan proposals.\n\nPolicy-aware invariants.\nCertain invariants are hard-coded: invoices with vendors must retrieve\npolicy context before irreversible actions; “month-end” workflows must stage scheduling before report\nemission; and approval sinks must trail validation and risk control. These invariants restrict F (𝜏) to\ntype- and policy-sound plans.\n\n4.4. (3) Reasoning-Based Selection (ReasoningAgent)\n\nObjective. Given a diversified set Π(𝜏) = {𝑝1, . . . , 𝑝𝐾} of typed plans (Section 4.3), the selector\nchooses a single plan\n\nˆ𝑝= arg max\n\n𝑝∈Π(𝜏) 𝑈(𝑝; 𝜏)\n(2)\n\nwith\n\n𝑈(𝑝; 𝜏) = 𝑤1 compliance(𝑝) + 𝑤2 sequencing(𝑝)\n(3)\n\n+ 𝑤3 parsimony(𝑝) + 𝑤4 prior(𝑝).\n(4)\n\nThe four rubric terms are: (i) compliance: verifies admissible agents and contract/policy eligibility;\n(ii) sequencing: evaluates ordering quality, favoring safe sequences (parse→validate→risk/approval)\nwhile penalizing unsafe permutations; (iii) parsimony: prefers minimal non-redundant step sets;\nand (iv) prior: planner-assigned self-consistency score. Weights (𝑤1, 𝑤2, 𝑤3) are fixed in this work.\n\nSelector as a constrained reasoner.\nWe instantiate the selector as a lightweight reasoning LLM that\n(a) evaluates rubric terms against the typed plan specification and (b) emits a structured decision: a\n\nplan index and a short justification. Using the normalized record, the candidates 𝐾, and the rubric, it\nreturns a JSON object containing chosen_index and reason.\n\nPlans that fail any hard constraint (policy or type) are discarded before scoring.\n\n6\n\nPOLARIS: Typed Planning and Governed Execution for Agentic AI in Back-Office Automation\n\nDocument\n\nParser\n\nPolicy\nCheck\n\nRisk\nCheck\n\nAnomaly\n\nCheck\n\nApproval\n\nReport\n\nParallel\n\nFigure 2 | Dependency-aware parallel scheduler. The scheduler converts the planner’s ordered list\nof agents into a DAG that enables safe parallelism. DocumentParser runs first; middle-stage checks\nrun concurrently; sinks wait for all upstream checks.\n\nReasoning-tuned LLMs improve constraint awareness, calibrated comparison, and structured output\ncontrol. They maintain policy/order invariants, apply rubric ties rationally, and emit strict JSON\nenabling fail-fast rejection and auditable decisions. Importantly, the selector evaluates only among\npre-validated candidates without altering types or adding actions.\n\n4.5. (4) Guarded Execution with a Dependency-Aware Scheduler\n\nGiven the selected plan ˆ𝑝, the execution proceeds as a dependency graph with completion-based\nsemantics. The scheduler converts CoAPlanner’s ordered stages into a typed DAG and runs ready\nnodes in parallel while honoring dependencies (Figure 2).\n\nExecution model.\nWe maintain a readiness set 𝑅of nodes whose predecessors have been successfully\ncompleted. At each step, the scheduler dispatches all nodes in 𝑅subject to resource limits; completions\nupdate downstream dependencies and refresh 𝑅.\n\nThe resulting parallel execution pattern is shown in Figure 2.\n\nDependency rules (enforced invariants).\n\n• Parser first: any agent that consumes extracted fields must wait for DocumentParser.\n• Middle parallelization: after parsing, independent checks (PolicyRetrieval, RiskControl,\nAnomalyDetector, RecordMatcher) run concurrently.\n\n7\n\nPOLARIS: Typed Planning and Governed Execution for Agentic AI in Back-Office Automation\n\nAlgorithm 1 Validator-Gated Repair Loop (bounded)\n\nRequire: normalized record 𝜏, parser 𝑃, validator 𝑉, threshold 𝜏𝑐, budget 𝐿max\n\n1: ˆ𝑧←𝑃(𝜏)\n⊲initial parse\n\n2: for ℓ= 1 to 𝐿max do\n\n3:\n𝑟←𝑉(ˆ𝑧)\n⊲schema / cross-field checks; 𝑟=pass and minconf(ˆ𝑧) ≥𝜏𝑐\n4:\nif 𝑟= pass then\n\n5:\nbreak\n⊲accept repaired extraction\n\n6:\nA ←Explain(𝑟, ˆ𝑧)\n⊲which fields/rules failed?\n\n7:\nˆ𝑧←Merge(ˆ𝑧, 𝑃(𝜏; A))\n⊲re-parse + overwrite\n\n8: if 𝑉(ˆ𝑧) = pass then\n\n9:\nreturn ˆ𝑧\n⊲seed downstream agents\n\n10: else\n\n11:\nreturn Fallback(ˆ𝑧)\n⊲safe path\n\n• Aggregate sinks last: Approval and ReportGenerator execute only after all upstream\nchecks succeed.\n\nDynamic prerequisites.\nEdges may be injected at runtime based on intermediate signals. For\ninstance, if AnomalyDetector emits a high score, the scheduler adds a prerequisite edge to an\nExtraVerification node; conversely, low risk may bypass optional reconciliation. These dynamic\nguards preserve safety while minimizing latency.\n\n4.6. (5) Validator-Gated Repair Loop\n\nDocument parsing is the dominant failure mode in back-office flows: OCR/layout models can miss\nfields, mis-read dates/currencies, or drift under noisy scans. Executing brittle parses propagates\npolicy errors. We therefore insert a bounded, validator-gated repair loop to improve extractions before\nirreversible actions.\n\nTrigger.\nLet ˆ𝑧be the parser output (fields with confidences), and 𝑉(ˆ𝑧) denote validator checks\n(schema completeness, cross-field arithmetic, date logic, external consistency). The loop is entered if:\n(i) required field missing; or (ii) field confidence < 𝜏𝑐; or (iii) rule violation 𝑉(ˆ𝑧) = fail.\n\nInstead of re-parsing wholesale, we issue localized repair actions guided by validator feedback: ROI\nhints (zones for totals/dates/vendors), OCR/layout cues, schema prompts, and string normalization.\n\nRepairs are additive; only implicated fields are re-requested.\n\nTermination and guarantees.\nThe loop runs for at most 𝐿max iterations (typically 2 ∼3) and\nterminates when 𝑉(ˆ𝑧) = pass or the budget is exhausted. If it exits by budget, control escalates for\nhuman review or a safe lower-coverage path (no approvals, full audit trace).\n\nScheduler integration.\nThe repair loop lies in the critical path before mid-pipeline checks. After com-\npletion, repaired fields seed the execution store, skipping redundant DocumentParser/DataValidator\nstages, and preserving parallelism downstream.\n\n8\n\nPOLARIS: Typed Planning and Governed Execution for Agentic AI in Back-Office Automation\n\nTable 1 | Extraction by scenario (required fields: invoice #, date, vendor, total).\n\nScenario\ntotal\nTP\nFP\nFN\nTN\nprecision\nrecall\nf1\n\nViolation–Unknown Vendor (VU)\n40\n35\n1\n0\n4\n0.9722\n1.0000\n0.9859\nViolation–Layout Drift and Noise (VL)\n40\n23\n5\n0\n12\n0.8214\n1.0000\n0.9020\nCompliant–Clean Set (CC)\n40\n29\n1\n2\n8\n0.9667\n0.9355\n0.9508\nCompliant–Month-End Batch (CM)\n40\n34\n0\n2\n4\n1.0000\n0.9444\n0.9714\n\nTOTAL\n160\n121\n7\n4\n28\n0.9453\n0.9680\n0.9565\n\n4.7. (6) Policy Guardrails and Risk Control\n\nPolicyRetrieval queries a lightweight policy store keyed by vendor, sector and currency, returning (i)\nexistence flag, (ii) matched vendor identity, and (iii) the vendor’s policy record (threshold, currency,\nterms). RiskControl compiles these clauses into executable checks and gates unsafe actions: hard\nviolations halt; soft ones escalate with machine-readable justifications.\n\nViolation definition.\nLet 𝐸(𝑣) denote the existence of the vendor 𝑣, 𝑎(𝑖) the total invoice for the\ninvoice 𝑖, 𝜏(𝑣) the threshold for the vendor 𝑣, 𝑐(𝑖) the inferred currency , and 𝑐∗(𝑣) the policy currency\nA violation occurs if any holds:\n\n1. Unknown vendor: ¬𝐸(𝑣).\n2. Threshold breach (unapproved): 𝐸(𝑣) ∧𝑎(𝑖) > 𝜏(𝑣) and no attached approval artifact.\n3. Currency mismatch: 𝐸(𝑣) ∧𝑐(𝑖) ≠𝑐∗(𝑣).\n\nEvaluation.\nWe summarize policy decisions by (TPV, FPV, FNV, TNV):\n\n• TPV (True Positive Violation): the system correctly flags a true violation;\n• FPV (False Positive Violation): the system flags violation when none exists;\n• FNV (False Negative Violation): the system misses a true violation;\n• TNV (True Negative Violation): the system correctly identifies compliance.\n\nWe report precision/recall/F1 scores for policy compliance.\n\nExtending the policy layer.\nBeyond core checks, the layer supports: (i) duplicate detection (same\n(vendor, invoice_number) within a lookback window 𝑇); (ii) black/whitelists; (iii) graded risk scoring,\n𝑠(𝑖) = Í\n\n𝑘𝑤𝑘1{rule𝑘(𝑖)} for tiered routing (auto-approve / review / block); and (iv) enforcement of\nprovenance that requires PO, receiving, and approval artifacts. Missing provenance automatically\nregisters as a violation.\n\n4.8. (7) Anomaly Detection and Handling\n\nSignal construction. For each vendor 𝑣, we maintain baselines over the amount fields and compute\n𝑧MAD(𝑥; 𝑣) = |𝑥−median𝑣|/(1.4826 · MAD𝑣). An item is anomalous if 𝑧MAD > 𝑘mad (default 3.5).\nWhen vendor data are sparse (MAD𝑣=0 or few points), we substitute cohort (sector/currency) or\n\nglobal statistics to avoid false spikes. Additionally, we apply date sanity rules: any issue/due/payment\ndate strictly after “today” is anomalous.\n\n9\n\nPOLARIS: Typed Planning and Governed Execution for Agentic AI in Back-Office Automation\n\nFigure 3 | Extraction performance by scenario for POLARIS. Grouped bars show Precision, Recall, and\nF1 across VU (Unknown Vendor), VL (Layout Drift/Noise), CC (Clean), and CM (Month-End). The plot\nhighlights high recall under noise (VL) with a precision dip, and strong balance on clean/compliant\nsettings.\n\nRouting playbook.\nA downstream playbook executes enrich →classify severity →route →act\n→close: (i) enrich with policy context and prior incidents; (ii) classify the severity; (iii) route to\nAPIAccess holds, ticketing, or human review; (iv) act (notify vendor, request artifacts, schedule\nre-checks); (v) close with a structured disposition. Outcomes refresh vendor/cohort baselines and\ndashboards, preventing drift. This design keeps anomaly detection statistically minimal (see Section 3)\nbut operationally governed and auditable.\n\n4.9. (8) Outputs, Auditability, and Feedback\n\nDecision-grade artifacts.\nFor each input, POLARIS emits: (i) a validated JSON record with fields,\nconfidences, and type signatures; (ii) a decision object (approve/hold/reject) with structured ra-\ntionales tied to policy clauses and anomaly evidence; (iii) alerts and escalation targets; and (iv) a\ncomplete execution trace (selected DAG, per-node I/O, repair actions, and timing). These artifacts\nenable replay, independent verification, and seamless system ingestion.\n\nAuditability by construction.\nPOLARIS logs traces and summaries—what plan ran, why it was\nchosen, what failed, and what was repaired. These logs update (i) planning priors (few-shot exemplars)\nand (ii) anomaly/policy baselines. Improvement is governed: exemplars, not opaque prompts, are\nupdated, preserving predictability and reviewability.\n\n5. Evaluation and Benchmark Results\n\nWe evaluate POLARIS as a benchmarking framework for governed Agentic AI in enterprise workflows,\n\nusing (i) a controlled synthetic suite that stresses policy governance, anomaly handling, and scheduler\nbehavior (in Table 2), and (ii) the SROIE benchmark for document-centric extraction.\n\n10\n\nPOLARIS: Typed Planning and Governed Execution for Agentic AI in Back-Office Automation\n\nInput Normalizer\n\nNormalized Input(bad-quality invoice){\n\ntask_type: document_parsing,\n  file_name: invoice_bad_quality.jpg,\n\norigin: email,\n  instruction: \"Approve if all\nnecessary fields are present and\n\ncorrect.\",\n  meta: { project: HEALTHCARE,\n\ndepartment: Accounts }\n\n}\n\nParse ↔ Validate Loop\n\nDocumentParserAgent (OCR + layout)\n\nDataValidatorAgent (schema + required\n\nfields)\n\nValid?\n\nFeedback to parser (attempts 1→3): • 'Invoice\nNumber' invalid • 'Date' missing • 'Vendor Name'\n\nmissing/unknown \nRules: - normalize dates - normalize currency -\nreconcile totals vs. line items - prefer canonical\n\nfield names\n\nNo\n\nReconcillation and Outputs\n\nPolicyRetrievalAgent STATUS: Error \nMessage: Missing/invalid output from\n\nDocumentParserAgent\n\nApprovalAgent APPROVED: False \nReason: Parsing error led to missing required\n\nfields (Invoice #, Date, Vendor).\n\nFinal Output { approved: false, \n reason: parsing error → missing/unknown\n\nfields }\n\nmax attempts\n\nPlanning (DSPy CoAPlanner Trace)\n\nPlan 0 [DocumentParser → DataValidator →\n\nPolicyRetrieval → Approval] \nRationale: Parse, validate, check policy,\n\napprove.\n\nPlan 1 [DocumentParser → AnomalyDetection →\n\nPolicyRetrieval → Approval] \nRationale: Parse, anomaly check, policy,\n\napprove.\n\nPlan 2 [DocumentParser → PolicyRetrieval →\n\nSimilarityCheck → Approval] \nRationale: Parse, policy, dup check, approve.\n\nChosen by ReasoningAgent\n\nIndex: 0 \nExecution: DocumentParser → DataValidator →\n\nPolicyRetrieval → Approval\n\nSelection (by Reasoning Agent)\n\nPOLARIS: Inputs/Outputs, DSPy Plan Trace, and Parse-Validate Loop (Synthetic Negative Scenario )\n\nInput\n\nFigure 4 | POLARIS: Inputs/Outputs, DSPy plan trace, and validator-gated repair loop (syn-\nthetic negative scenario VL). Left: a low-quality invoice is normalized by the InputNormalizer\ninto a canonical JSON record. Middle–left: the CoAPlanner proposes multiple typed plans; the\nReasoningAgent selects one (shown) that executes DocumentParser →DataValidator →\nPolicyRetrieval →Approval. Middle–right: a bounded parser↔validator loop issues targeted\nfeedback (e.g., fix missing/invalid invoice number, date, vendor; normalize currency/dates) until\nvalidation passes or the attempt budget is exhausted. Right: reconciliation shows a policy retrieval\nerror due to missing/invalid parsed fields; the ApprovalAgent returns approved:\nfalse with\na structured rationale and final output object.\n\nModels.\nUnless otherwise stated, CoAPlanner is instantiated with GPT-4o (diversity-oriented plan\nsynthesis under type constraints), while ReasoningAgent is a GPT-5 reasoning model configured\nfor strict JSON output and fail-fast selection. This mirrors our design: open-ended planning with\na high-throughput multimodal model, followed by compact, constraint-aware comparison with a\nreasoning-tuned model.\n\n5.1. Datasets and Simulation Design\n\nSetup.\nAll runs use the plan–select–act loop with 𝐾=5 diversified plans, the constrained Rea-\nsoningAgent selector, and the validator-gated repair loop with budget 𝐿max=3. Month-end jobs en-\nforce Scheduler→ReportGenerator. Anomaly detection uses vendor-wise MAD baselines with\n𝑘mad=3.5 plus a strict future-date rule.\n\n5.2. Synthetic Results (40 Invoices)\n\nField extraction.\nAcross scenarios, POLARIS achieves high recall with strong overall balance (Table 1\nand Figure 3): precision/recall/F1 of 0.945/0.968/0.957. In VU (unknown vendors), extraction is\naccurate despite policy violations (precision 0.972, recall 1.000), which shows the method’s ability\nto separate parsing quality from downstream governance. The hardest case, VL (noisy/misaligned\nscans), preserves recall 1.000 with a precision dip (0.821), indicating that robustness favors coverage\nunder noise. Clean conditions perform as expected: CC yields high balance (precision 0.967, recall\n0.936) and CM achieves perfect precision with slightly reduced recall (precision 1.000, recall 0.944).\nAn end-to-end trace of a noisy run appears in Figure 4.\n\n11\n\nPOLARIS: Typed Planning and Governed Execution for Agentic AI in Back-Office Automation\n\nTable 2 | Synthetic suite and labeling rules. Each scenario contains 10 invoices (40 total). Policy\nviolation ground truth is vendor not found in policy DB. Anomaly ground truth uses a robust z-score\nwith MAD: |𝑥−median(𝑋)|/(1.4826 · MAD(𝑋)) > 𝑘mad; we use 𝑘mad=3.5.\n\nScenario\nDescription / Purpose\nCompliant–Clean Set (CC)\nClean invoices; vendors present in policy DB; no anomalies\nexpected.\nCompliant–Month-End Batch (CM)\nDay-30 month-end batch; parsing/policy clean; scheduler\nmust trigger.\nViolation–Unknown Vendor (VU)\nVendors intentionally absent from policy DB ⇒policy vio-\nlation expected.\nViolation–Layout Drift & Noise (VL)\nNoisy/misaligned scans ⇒stresses extraction & anomaly\nrobustness.\nSROIE\nStandard 4-field extraction (Company, Address, Date, To-\ntal).\n\nTable 3 | Policy (violation detection). Metrics are undefined (—) where no positive cases exist.\n\nScenario\nTPV\nFPV\nFNV\nTNV\nprecision\nrecall\nf1\n\nVU\n8\n1\n0\n0\n0.8889\n1.0000\n0.9412\n\nVL\n1\n1\n2\n2\n0.5000\n0.3333\n0.4000\n\nCC\n0\n0\n0\n5\n—\n—\n—\n\nCM\n0\n0\n0\n8\n—\n—\n—\n\nTOTAL\n9\n2\n2\n15\n0.8182\n0.8182\n0.8182\n\nPolicy governance.\nUnknown-vendor violations (VU) are surfaced with high precision (Table 3);\nthe residual recall loss in VL is attributable to upstream noise.\n\nFor positive scenarios (CC, CM), no policy violations are present by design; thus, there are no\npositive cases to score and precision/recall/F1 are undefined. When violations exist (VU, VL),\nprecision/recall/F1 are computed normally.\n\nAnomaly detection.\nVendor-wise MAD baselines yield perfect precision and high recall overall\n(Table 4).\n\nCC has no injected anomalies, so precision/recall/F1 are N/A. VL contains layout noise, causing one\nFN due to sparse vendor baselines; our MAD detector return to cohort/global stats, yielding high\nprecision with a small recall drop. VU shows no amount outliers by construction (policy, not statistical,\nviolations), hence 0 for anomaly metrics while date checks remain active.\n\n5.3. SROIE (4-Field Extraction)\n\nWe apply the same parser–validator pattern (contrast upscaling →OCR →LLM with validation\n\nfeedback). POLARIS attains strong overall extraction quality (Table 5).\n\nAcross synthetic stress tests and SROIE, POLARIS translates typed planning, constrained selection, and\nbounded repair into decision-grade outputs with explicit lineage. Compared to point OCR+rules base-\n\n12\n\nPOLARIS: Typed Planning and Governed Execution for Agentic AI in Back-Office Automation\n\nTable 4 | Anomaly (MAD, 𝑘mad=3.5) and date checks. Metrics are undefined (—) where no positive\ncases exist.\n\nScenario\ntotal\nTP\nFP\nFN\nTN\nprecision\nrecall\nf1\n\nVU\n8\n0\n0\n0\n8\n—\n—\n—\n\nVL\n6\n5\n0\n1\n0\n1.0000\n0.8333\n0.9091\n\nCC\n3\n0\n0\n0\n3\n—\n—\n—\n\nCM\n9\n4\n0\n0\n5\n1.0000\n1.0000\n1.0000\n\nTOTAL\n26\n9\n0\n1\n16\n1.0000\n0.9000\n0.9474\n\nTable 5 | SROIE overall and per-field accuracy.\n\nMetric\nPrecision\nRecall\nF1\nField Acc.\n\nOverall\n0.8189\n0.8045\n0.8116\n0.8045\n\nField\nCompany\nAddress\nDate\nTotal\n\nAccuracy\n0.8500\n0.8500\n0.7600\n0.7576\n\nlines, we see higher recall under noise and precise policy/alarm signals, while preserving auditability\nand policy compliance by construction.\n\n5.4. Benchmark Implications\n\nThe controlled synthetic suite introduced in this work provides an initial benchmark for evaluating\ngoverned agentic systems. Beyond conventional precision and recall, it measures enterprise-specific\ndimensions such as policy compliance, audit-trace completeness, and risk-routing accuracy. POLARIS’s\ntyped DAG traces, validator repair logs, and policy decisions constitute reusable evaluation primitives\nthat enable reproducibility of compliance accuracy, routing precision, and repair effectiveness across\nagent frameworks.\n\nFuture benchmarks may expand these dimensions with standardized governance metrics and multi-\nagent reproducibility protocols, forming a baseline schema for comparing enterprise-grade Agentic AI\nsystems.\n\n6. Conclusion\n\nClassical back-office automation relies on brittle point tools (OCR + rules) that lack end-to-end\nprovenance; generic agent stacks provide flexibility but often blur interfaces and policy boundaries.\nPOLARIS integrates: typed DAG planning (safe composition), diversity-constrained plan synthesis\n(distinct candidates), reasoning-based selection (multi-criterion, policy-aware choice), and a bounded\n\nrepair loop (targeted, auditable fixes). This combination yields decision-grade outputs with explicit\nlineage and policy justifications advancing from reactive point solutions or black-box agents to\npolicy-aligned, valuable enterprise automation. Beyond its immediate performance gains, POLARIS\nintroduces evaluation constructs—typed DAG lineage, governed selection logs, and validator repair\ntraces—that can inform future benchmark design for reliable enterprise Agentic AI.\n\n13\n\nPOLARIS: Typed Planning and Governed Execution for Agentic AI in Back-Office Automation\n\nBy formalizing each agentic stage as a verifiable, auditable process, POLARIS bridges the gap between\nresearch prototypes and enterprise deployment realities. It shows how policy alignment, type\nsafety, and evaluation transparency can coexist without sacrificing adaptability or performance. The\nframework thus provides both a reproducible benchmark and a foundation for extending governed\nmulti-agent reasoning to other regulated domains such as finance, supply chain, and compliance. In\ndoing so, it contributes a concrete blueprint toward a reliable, accountable, and operationally robust\nAgentic AI for the enterprise. While evaluations center on finance workflows, the design generalizes\nto other governed domains (supply chain, HR, compliance). Broader cross-domain validation and\nintegration with standard AgentBench tasks remain areas of future work.\n\n14\n\nPOLARIS: Typed Planning and Governed Execution for Agentic AI in Back-Office Automation\n\nReferences\n\nAyesha Amjad et al. An agentic system with reinforcement-learned subsystem improvements for\n\nparsing form-like documents. arXiv preprint arXiv:2505.13504, 2025.\n\nA. Author, B. Author, and C. Author. Gentask: Generalizable planning for llm agent collaboration,\n\n2025. ICLR 2025 (to appear) or arXiv preprint.\n\nZhen Hong, Ge Zhang, Ming Zhuge, et al. Metagpt: Meta programming for multi-agent collaboration,\n\n2024.\n\nY. Huang et al. Safe agents: Enforcing control and accountability in llm-based systems. ACL, 2024.\n\nRaghav Jain et al. Smartflow: Robotic process automation using llms and vision. arXiv preprint\n\narXiv:2405.12842, 2024.\n\nOmar Khattab, Christopher Re, and Christopher Potts. Dspy: Compiling declarative language model\n\ncalls into self-improving pipelines. arXiv preprint arXiv:2310.03714, 2023.\n\nYash Kulkarni et al. Agent-s: Llm agentic workflow to automate standard operating procedures. arXiv\n\npreprint arXiv:2503.15520, 2025.\n\nChristian Lemke et al. The browsergym ecosystem for web agent research. arXiv preprint\n\narXiv:2412.05467, 2024.\n\nKai Li, Yujia Wang, Hao Zhou, et al. Aop: Agent-oriented planning for llm-based multi-agent systems,\n\n2024.\n\nXiao Liu, Hao Yu, Jie Tang, et al. Agentbench: Evaluating llms as agents. arXiv preprint\n\narXiv:2308.03688, 2023.\n\nChang Ma, Junlei Zhang, and Junxian He. Agentboard: An analytical evaluation board of multi-turn\n\nllm agents. In NeurIPS Datasets and Benchmarks Track, 2024.\n\nOpenAI, Josh Achiam, et al. Gpt-4 technical report, 2023.\n\nJoon Sung Park, Carrie J. Cai O’Brien, Meredith Ringel Morris Liu, Percy Liang, and Michael S.\n\nBernstein. Generative agents: Interactive simulacra of human behavior. arXiv preprint\narXiv:2304.03442, 2023.\n\nChengwei Qin, Yuhui Zhang, Weizhe Chen, et al. A survey on large language model based agents:\n\nArchitectures, applications, and challenges, 2024.\n\nYizhong Wang, Zeqiu Lin, et al. Agentbench: Evaluating llms as agents, 2024.\n\nZ. Wang et al. Voyager: An open-ended embodied agent with large language models. In NeurIPS,\n\n2023.\n\nQian Wu et al. Autogen: Enabling next-gen llm applications via multi-agent conversation. arXiv\n\npreprint arXiv:2308.08155, 2023a.\n\nXidao Wu, Shuyu Gao, Tianyi Li, et al. Autogen: Enabling next-gen llm applications via multi-agent\n\nconversation, 2023b.\n\nLinyi Yang, Yifan Zhang, Yongchao Rao, et al. Finrobot: Generative business process ai agents for\n\nenterprise resource planning in finance. arXiv preprint arXiv:2506.01423, 2025.\n\n15\n\nPOLARIS: Typed Planning and Governed Execution for Agentic AI in Back-Office Automation\n\nYujia Ye, Zihan Chen, Guoqing Li, Zhou Yu, and William Yang Wang. Proagent: From robotic process\n\nautomation to agentic process automation. arXiv preprint arXiv:2311.10751, 2023.\n\nB. Zheng et al. Llm-as-judge: Multi-aspect evaluation for agentic systems. ICLR, 2024.\n\nXuezhou Zhou, Jinglong Yang, Han Zhang, et al. Webarena: A realistic web environment for building\n\nautonomous agents. In NeurIPS Datasets and Benchmarks Track, 2023.\n\n16\n\nPOLARIS: Typed Planning and Governed Execution for Agentic AI in Back-Office Automation\n\nA. Expanded Preliminaries\n\nTable 6 | Data Processor and Reconciliation agents and specific roles each play in guarded execution.\n\nAgent\nRole Definitions\n\nRiskControl\nApplies compliance controls and segregation-of-duties\nchecks; assigns risk level and enumerates triggered rules.\n\nRecordMatcher\nMatches invoice fields against reference ledgers or re-\nports; flags field-level discrepancies.\n\nAPIAccess\nInterfaces with external ERP/Tax/Bank systems and\nmaps responses to normalized schemas.\n\nApproval\nAggregates upstream evidence and produces a reasoned\napproval or rejection.\n\nReportGenerator\nProduces concise, human- and machine-readable execu-\ntion summaries.\n\nScheduler\nDependency-aware executor compiling ordered stages\ninto a DAG for safe parallelism.\n\nTask setting.\nWe target document–centric workflows (e.g. invoice processing) where\nheterogeneous inputs such as PDFs, scans, email threads, prompts, or API events are transformed\ninto decision-grade outputs: validated records, approvals/rejections, anomaly alerts, and audit-ready\nreports. Let X denote raw inputs and 𝜏∈T a normalized task record capturing document type,\nmetadata, and required fields.\n\nTyped agents and I/O contracts.\nEach GPT-backed component (Autogen\nConversableAgent) 𝐴declares: (i) a capability description; (ii) typed I/O contracts with optional\nconfidences; (iii) preconditions/postconditions; and (iv) policy and risk tags indicating eligibility,\nside effects, and segregation constraints. Agents are categorized into the following roles: Normalizer,\nPlanning/Selection, Data Extraction, Data Processing, and Reconciliation (Table 6).\n\nPlans as typed DAGs.\nA plan 𝑝is a typed DAG 𝐺𝑝= (𝑉𝑝, 𝐸𝑝) whose nodes are agent invocations\n(𝐴, 𝜄, 𝜎) with explicit input/output types. Feasibility requires type-compatible edges,\ncompliance-order sequencing, and concurrency limits. The scheduler executes with completion-based\nsemantics: a node is eligible once all its predecessors finish, enabling safe partial fan-out and\naggregation of intermediate results.\n\nCompliance and anomaly primitives.\nCompliance checks cover: (i) unknown vendor; (ii)\nthreshold breach without approval; (iii) currency mismatch. Anomaly detection employs a\nvendor-wise MAD-based score\n\n𝑧MAD(𝑥; 𝑣) = |𝑥−median𝑣|\n\n1.4826 · MAD𝑣\n,\n\ntriggering when 𝑧MAD > 𝑘mad (default 3.5), with fallback to cohort/global baselines and date-sanity\nrules for impossible timestamps. The routing logic for anomalies appears in Section 4.8. A violation\noccurs if\n\n¬𝐸(𝑣) ∨(𝐸(𝑣) ∧𝑎(𝑖) > 𝜏(𝑣)) ∨(𝐸(𝑣) ∧𝑐(𝑖) ≠𝑐∗(𝑣)).\n\n17",
+  "chunks": [
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        62.4,
+        84.6,
+        507.1,
+        124.5
+      ],
+      "text": "POLARIS: Typed Planning and Governed Execution\nfor Agentic AI in Back-Office Automation"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        62.4,
+        142.5,
+        443.6,
+        152.9
+      ],
+      "text": "Zahra Moslemi1, Keerthi Koneru2, Yen-Ting Lee3, Sheethal Kumar2, Ramesh Radhakrishnan2"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        61.9,
+        155.5,
+        427.0,
+        164.8
+      ],
+      "text": "1University of California, Irvine, 2Center for Advanced AI, Accenture, 3University of California, San Diego"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        62.0,
+        192.1,
+        534.6,
+        388.7
+      ],
+      "text": "Enterprise back-office workflows require agentic systems that are auditable, policy-aligned, and op-\nerationally predictable, capabilities that generic multi-agent setups often fail to deliver. We present\nPOLARIS (Policy-Aware LLM Agentic Reasoning for Integrated Systems), a governed orchestration\nframework that treats automation as typed plan synthesis and validated execution over LLM agents. A\nplanner proposes structurally diverse, type-checked directed acyclic graphs (DAGs); a rubric-guided\nreasoning module selects a single compliant plan; and execution is guarded by validator-gated checks, a\nbounded repair loop, and compiled policy guardrails that block or route side effects before they occur.\nApplied to document-centric finance tasks, POLARIS produces decision-grade artifacts and full execution\ntraces while reducing human intervention. Empirically, POLARIS achieves a micro-F1 of 0.81 on the\nSROIE dataset and, on a controlled synthetic suite, achieves 0.95–1.00 precision for anomaly routing\nwith preserved audit trails. These evaluations constitute an initial benchmark for governed Agentic AI.\nPOLARIS provides a methodological and benchmark reference for policy-aligned Agentic AI.\nKeywords: Agentic AI; Enterprise Automation; Back-Office Tasks; Benchmarks; Governance; Typed\nPlanning; Evaluation"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 1,
+      "section": "1. Introduction",
+      "bbox": [
+        62.4,
+        416.1,
+        154.7,
+        429.0
+      ],
+      "text": "1. Introduction"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 1,
+      "section": "1. Introduction",
+      "bbox": [
+        62.4,
+        442.9,
+        534.4,
+        562.3
+      ],
+      "text": "Enterprise back-office automation (e.g., accounts payable, contract checks) imposes requirements\nthat generic multi-agent LLM stacks often fail to meet: actions must be auditable, operationally\npredictable, policy-aligned, and governed before any side effects occur, and reliably evaluable against\nreproducible metrics. In practice, untyped tool calls, best-of-𝑁prompting, and open-ended retries\nyield brittle pipelines with unclear provenance and no predictable service-level agreement (SLA)\nguarantees. We argue that meeting enterprise guarantees requires re-casting orchestration as typed,\ngoverned planning and execution where plans are type-checked and structurally diverse; selection is\nrubric-based and policy-aware; and execution is guarded by validators and compiled policy checks\nthat gate side effects."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 1,
+      "section": "1. Introduction",
+      "bbox": [
+        61.5,
+        571.6,
+        534.4,
+        677.5
+      ],
+      "text": "Recent progress in Agentic AI has created powerful but ungoverned multi-agent stacks. Modern\nLLMs now support precise language understanding and the use of controlled tools (OpenAI et al.,\n2023), enabling agentic systems for operational work. LLM-based agents combine core reasoning with\ndomain tools (Qin et al., 2024; Wang et al., 2024); multi-agent systems assign specialized roles across\nworkflows (Wu et al., 2023b; Hong et al., 2024); and planning-centric frameworks cast orchestration\nas agent-oriented planning (AOP) with typed sub-tasks (Li et al., 2024). In parallel, workflow-centric\napproaches represent execution as a directed acyclic graph (DAG) of tool calls with explicit interfaces\n(Wu et al., 2023b; Hong et al., 2024), often following a plan-then-act paradigm that synthesizes"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 1,
+      "section": "1. Introduction",
+      "bbox": [
+        62.4,
+        680.0,
+        532.9,
+        718.1
+      ],
+      "text": "candidate workflows before selection (Author et al., 2025; Wu et al., 2023b). However, enterprise\ndeployment of such Agentic AI remains limited by the lack of typed planning, evaluation metrics, and\nauditable execution paths."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 1,
+      "section": "1. Introduction",
+      "bbox": [
+        62.0,
+        727.4,
+        533.2,
+        752.0
+      ],
+      "text": "Applying these ideas in regulated settings is challenging: inputs are heterogeneous and legally\nconstrained, and errors carry financial risk. Common stacks (a) pass untyped input/output (I/O) in"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 1,
+      "section": "1. Introduction",
+      "bbox": [
+        61.6,
+        786.4,
+        514.2,
+        804.3
+      ],
+      "text": "Corresponding author(s): Keerthi Koneru (keerthi.koneru@accenture.com). All work was done during the authors’ tenure at Accenture.\n© 2026 Accenture. All rights reserved"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 1,
+      "section": "1. Introduction",
+      "bbox": [
+        10.9,
+        251.5,
+        37.6,
+        590.4
+      ],
+      "text": "arXiv:2601.11816v1  [cs.AI]  16 Jan 2026"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 2,
+      "section": "1. Introduction",
+      "bbox": [
+        137.4,
+        56.0,
+        457.9,
+        64.0
+      ],
+      "text": "POLARIS: Typed Planning and Governed Execution for Agentic AI in Back-Office Automation"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 2,
+      "section": "1. Introduction",
+      "bbox": [
+        62.4,
+        86.1,
+        533.2,
+        125.6
+      ],
+      "text": "free-form messages, (b) treat plan generation as best-of-𝑁prompting without structural diversity\nguarantees, (c) lack compiled policy checks that gate side effects, and (d) don’t use past experience to\nguide future decisions; making governed, auditable behavior difficult to guarantee."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 2,
+      "section": "1. Introduction",
+      "bbox": [
+        62.0,
+        135.1,
+        533.2,
+        240.8
+      ],
+      "text": "To overcome these inherent drawbacks, we introduce POLARIS, a modular orchestration framework\nthat treats back-office automation as planning over typed agents. A Chain-of-Action planner proposes\na small set of structurally diverse type-checked DAGs; a lightweight reasoning selector chooses one\nplan using a rubric over compliance, safe sequencing, and parsimony. Execution is then guarded: the\nvalidator checks gate side effects and drives a targeted parser–validator repair loop, while compiled\npolicy guardrails (e.g., thresholds, currency rules, segregation-of-duties (SoD)) block, route, or\nannotate actions prior to external effects. The result is an auditable decision object and complete\nexecution trace suitable for regulated environments (Figure 1)."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 2,
+      "section": "1. Introduction",
+      "bbox": [
+        62.1,
+        250.2,
+        534.7,
+        328.8
+      ],
+      "text": "Relative to prior multi-agent DAG systems, POLARIS (i) enforces type-sound composition with first-\nclass diversity constraints at plan generation (not just prompt sampling), (ii) uses a rubric-based\nselector that is policy-aware and emits auditable JSON decisions, and (iii) bounds latency and cost\nvia a validator-gated repair loop that targets only failing fields before any external side-effects. In\nsynthetic invoice suites and the SROIE benchmark, the same plan–select–act loop shows strong\nextraction accuracy and high-precision policy/anomaly routing while preserving end-to-end lineage."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 2,
+      "section": "1. Introduction",
+      "bbox": [
+        62.0,
+        338.2,
+        532.9,
+        389.8
+      ],
+      "text": "This work contributes to the broader effort to establish reproducible benchmarks and evaluable\nframeworks for Agentic AI in enterprise settings. POLARIS provides a reference implementation\nfor typed policy-aware orchestration that can be quantitatively assessed in controlled enterprise\nscenarios."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 2,
+      "section": "1. Introduction",
+      "bbox": [
+        62.0,
+        399.1,
+        533.2,
+        505.0
+      ],
+      "text": "The remainder of this paper is organized as follows: Section 2 reviews prior advances in agentic\nprocess automation, benchmarking, and programmatic prompting. Section 3 introduces the enterprise\ntask setting, notation, and agent taxonomy used throughout this work. Section 4 formalizes the\nPOLARIS framework, covering typed plan synthesis, rubric-based reasoning, and dependency-aware\nexecution. Sections 4.6–4.7 describe the validator-gated repair loop, policy guardrails, and risk control\nmechanisms. Section 5 presents empirical evaluations and benchmark comparisons, while Section 6\nconcludes with implications for governed, auditable agentic automation and future benchmark\ndevelopment."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 2,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        528.9,
+        160.6,
+        541.9
+      ],
+      "text": "2. Related Work"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 2,
+      "section": "2. Related Work",
+      "bbox": [
+        62.1,
+        555.8,
+        534.6,
+        729.3
+      ],
+      "text": "LLM-based back-office automation spans general orchestration frameworks and domain-specific\nsystems. ProAgent reframes Robotic Process Automation as Agentic Process Automation by having an\nLLM synthesize executable workflows and coordinate sub-agents for data-dependent branches (Ye\net al., 2023). SmartFlow complements this with vision and LLM planning to operate changing\nenterprise UIs without fragile selectors (Jain et al., 2024). Domain-aligned approaches harden\ngovernance: FinRobot introduces finance-focused Generative Business Process AI Agents that map\nintents to ERP tasks via rule-constrained planning, Chain-of-Actions execution, and human-in-the-\nloop for auditability (Yang et al., 2025); Agent-S formalizes the execution of the SOP with a state-\ndecision planner, an action executor for API/user steps, and shared execution memory for fault\nrecovery (Kulkarni et al., 2025); and an RL-guided multi-agent parser learns document classification,\nschema induction, and iterative extraction to handle layout drift in invoices and POs (Amjad et al.,\n2025). Although not enterprise-specific, Generative Agents contribute reusable patterns for memory,\nretrieval, and reflection that stabilize multi-step behaviors (Park et al., 2023)."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 2,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        738.6,
+        532.9,
+        749.7
+      ],
+      "text": "Benchmarks and evaluation. Recent evaluation efforts emphasize process-aware benchmarking"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 2,
+      "section": "2. Related Work",
+      "bbox": [
+        528.5,
+        787.6,
+        532.9,
+        795.5
+      ],
+      "text": "2"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 3,
+      "section": "2. Related Work",
+      "bbox": [
+        137.4,
+        56.0,
+        457.9,
+        64.0
+      ],
+      "text": "POLARIS: Typed Planning and Governed Execution for Agentic AI in Back-Office Automation"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 3,
+      "section": "2. Related Work",
+      "bbox": [
+        61.9,
+        87.5,
+        534.4,
+        206.9
+      ],
+      "text": "beyond final task success. AgentBench and AgentBoard introduce structured multi-environment\nevaluations with fine-grained analytical metrics for LLM agents (Liu et al., 2023; Ma et al., 2024),\nwhile BrowserGym and WebArena provide reproducible web-based environments to test planning,\ntool use, and long-horizon reasoning (Lemke et al., 2024; Zhou et al., 2023). Governance-focused\nframeworks such as Safe Agents (Huang et al., 2024) and rubric-based evaluation methods such as\nLLM-as-Judge (Zheng et al., 2024) underscore the importance of accountability and transparent\ndecision traces—key motivations for POLARIS’s policy-aware orchestration. Our work focuses on\ntyped planning, policy-aware selection, and validator-gated repair producing auditable traces, areas\nnot emphasized in UI/web benchmarks."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 3,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        216.2,
+        534.7,
+        322.1
+      ],
+      "text": "Programmatic prompting and planning priors. Beyond conventional prompt templates, DSPy\ncompiles declarative LLM pipelines into self-improving modules and provides structured priors that\nenable optimizable, type-constrained plan synthesis (Khattab et al., 2023). AutoGen demonstrates\nscalable multi-agent conversations with coordination patterns, but lacks type contracts or compiled\npolicy guardrails (Wu et al., 2023a). In broader multi-agent planning, Voyager (Wang et al., 2023)\nshows how exemplar-guided exploration and continual learning improve long-horizon agent behavior.\nPOLARIS unifies these strengths by enforcing typed planning, policy compliance, and bounded repair\nloops, establishing a governance layer critical for enterprise-grade auditability and reliability."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 3,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        346.0,
+        160.2,
+        358.9
+      ],
+      "text": "3. Preliminaries"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 3,
+      "section": "2. Related Work",
+      "bbox": [
+        61.9,
+        372.8,
+        532.9,
+        383.9
+      ],
+      "text": "We target document-centric enterprise workflows (e.g., invoice processing) where heterogeneous"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 3,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        386.4,
+        532.9,
+        424.5
+      ],
+      "text": "inputs—PDFs, emails, prompts, or API events—must yield decision-grade artifacts such as validated\nrecords, approvals, or audit reports. Let X denote raw inputs and 𝜏∈T be the normalized task record\nsummarizing the metadata and required fields."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 3,
+      "section": "2. Related Work",
+      "bbox": [
+        61.5,
+        447.6,
+        534.4,
+        514.2
+      ],
+      "text": "Typed agents and I/O contracts.\nPOLARIS maintains a library A = {𝐴1, . . . , 𝐴𝑛} of GPT-backed\ncomponents, each specifying a capability description, typed I/O schemas, pre/postconditions, and\npolicy or risk tags (eligibility, side effects, segregation-of-duties). Agents are grouped as: Normalizer\n(InputNormalizer); Planning & Selection (CoAPlanner, ReasoningAgent); Data Extractors\n(DocumentParser, DataValidator); Data Processors (RecordMatcher, PolicyRetrieval,"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 3,
+      "section": "2. Related Work",
+      "bbox": [
+        62.0,
+        516.5,
+        534.4,
+        541.4
+      ],
+      "text": "AnomalyDetection, RiskControl, APIAccess, Scheduler); and Reconciliation (Approval,\nReportGenerator)."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 3,
+      "section": "2. Related Work",
+      "bbox": [
+        61.5,
+        564.5,
+        534.4,
+        604.1
+      ],
+      "text": "Plans as typed DAGs.\nA plan 𝑝is a directed acyclic graph 𝐺𝑝= (𝑉𝑝, 𝐸𝑝) of agent invocations whose\nedges are type-checked against declared I/O contracts. Feasibility requires: (i) input compatibility,\n(ii) compliance ordering (e.g., parse→validate→risk/approval), and (iii) adherence to concurrency"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 3,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        606.6,
+        534.6,
+        631.1
+      ],
+      "text": "limits. Execution follows completion-based semantics—nodes become eligible when all parents fin-\nish—allowing safe fan-out and aggregation of partial evidence."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 3,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        655.8,
+        534.4,
+        680.3
+      ],
+      "text": "Compliance and anomaly primitives.\nPolicy checks detect unknown vendors, threshold breaches,\nand currency mismatches (Section 4.7). Anomalies use a robust vendor-wise score:"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 3,
+      "section": "2. Related Work",
+      "bbox": [
+        230.0,
+        690.3,
+        358.0,
+        711.0
+      ],
+      "text": "𝑧MAD(𝑥; 𝑣) = |𝑥−median𝑣|"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 3,
+      "section": "2. Related Work",
+      "bbox": [
+        291.7,
+        697.7,
+        365.5,
+        717.6
+      ],
+      "text": "1.4826 · MAD𝑣\n,"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 3,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        726.9,
+        534.6,
+        752.9
+      ],
+      "text": "flagged if 𝑧MAD > 𝑘mad (default 3.5), with cohort/global fallback and date-sanity validation (Sec-\ntion 4.8). Additional details, agent role definitions, Table 6 appear in Appendix A."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 3,
+      "section": "2. Related Work",
+      "bbox": [
+        528.5,
+        787.6,
+        532.9,
+        795.5
+      ],
+      "text": "3"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 4,
+      "section": "2. Related Work",
+      "bbox": [
+        137.4,
+        56.0,
+        457.9,
+        64.0
+      ],
+      "text": "POLARIS: Typed Planning and Governed Execution for Agentic AI in Back-Office Automation"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 4,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        414.3,
+        534.6,
+        534.1
+      ],
+      "text": "Figure 1 | Overview of POLARIS orchestration with governed plan selection. Raw inputs (prompt-\ns/triggers/PDFs) are normalized by the InputNormalizerAgent. The CoAPlannerAgent pro-\nposes multiple structured execution plans; a Reasoning Agent scores them and selects a single\nplan. The chosen plan executes as a DAG: a DocumentParserAgent and DataValidatorAgent\nrun with a bounded repair loop (orange) to improve extractions, after which only the required Data\nProcessor Agents are invoked (e.g., RecordMatching, PolicyRetrieval, AnomalyDetection,\nRiskControl, APIAccess). Reconciliation Agents (Approval, ReportGenerator) produce\ndecision-grade outputs (Structured Report, Approval/Decision Action, Inference/Alert Result). Dashed\nlines indicate data/control flow across stages. DSPy few-shot learning supplies planning priors."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 4,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        556.6,
+        125.9,
+        569.5
+      ],
+      "text": "4. Method"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 4,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        584.6,
+        181.6,
+        595.5
+      ],
+      "text": "4.1. POLARIS Overview"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 4,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        607.0,
+        534.6,
+        644.9
+      ],
+      "text": "POLARIS operationalizes the above as a plan–select–act loop over typed agents (Figure 1). It modular-\nizes normalization, plan synthesis, reasoning-driven selection, guarded execution, and continuous\nfeedback—each stage auditable and policy-aligned."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 4,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        667.4,
+        177.8,
+        678.3
+      ],
+      "text": "4.2. (1) Normalization"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 4,
+      "section": "2. Related Work",
+      "bbox": [
+        61.9,
+        689.9,
+        532.9,
+        714.3
+      ],
+      "text": "This stage converts heterogeneous input formats from the enterprise into a canonical JSON record, enabling\ntype verification and policy tagging for reproducible downstream execution."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 4,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        722.1,
+        534.7,
+        749.1
+      ],
+      "text": "InputNormalizerAgent maps raw inputs 𝑥∈X (files, free text, events) to a canonical task record\n𝜏= 𝑓norm(𝑥) consumed by downstream agents. It handles diverse inputs (schedules, prompts, PDFs,"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 4,
+      "section": "2. Related Work",
+      "bbox": [
+        528.5,
+        787.6,
+        532.9,
+        795.5
+      ],
+      "text": "4"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 5,
+      "section": "2. Related Work",
+      "bbox": [
+        137.4,
+        56.0,
+        457.9,
+        64.0
+      ],
+      "text": "POLARIS: Typed Planning and Governed Execution for Agentic AI in Back-Office Automation"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 5,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        87.6,
+        498.6,
+        98.5
+      ],
+      "text": "emails, API events), categorizes, and normalizes them for consistent downstream processing."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 5,
+      "section": "2. Related Work",
+      "bbox": [
+        62.0,
+        107.5,
+        532.9,
+        132.4
+      ],
+      "text": "Concretely, the agent is an Autogen ConversableAgent prompted with a strict JSON schema\nand returns a single JSON object with fields:"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 5,
+      "section": "2. Related Work",
+      "bbox": [
+        77.7,
+        150.3,
+        525.0,
+        256.5
+      ],
+      "text": "• task_type: coarse task category (e.g., document_parsing, user_command, event_triggered);\n• input_format: acquisition mode (e.g., file, text, file+instruction, event);\n• file_name: original filename if present, otherwise empty;\n• file_type: MIME/extension (e.g., pdf, png, eml, csv) or none;\n• timestamp: ISO-8601 time associated with 𝑥(ingest or document time);\n• origin: source identifier (e.g., email, upload, chat);\n• instruction: user/system instruction if supplied;\n• meta: auxiliary key–value pairs (e.g., locale, BU, region, channel)."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 5,
+      "section": "2. Related Work",
+      "bbox": [
+        62.0,
+        274.5,
+        545.5,
+        340.0
+      ],
+      "text": "The implementation enforces (i) schema-guided prompting, (ii) model invocation via generate_reply,\nand (iii) deterministic JSON extraction—the last JSON object in the response is regex-parsed. In case\nof failure to recover a valid JSON, the agent returns a structured error payload with the raw model\nresponse, enabling safe fallback or escalation without side effects. This normalization removes input\nheterogeneity before planning, ensuring reproducible type checks and policy attachment."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 5,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        362.5,
+        303.8,
+        373.4
+      ],
+      "text": "4.3. (2) Candidate Plan Synthesis (CoAPlanner)"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 5,
+      "section": "2. Related Work",
+      "bbox": [
+        62.0,
+        383.3,
+        532.9,
+        409.3
+      ],
+      "text": "Goal. Given a normalized task record 𝜏, the planner must propose a set of 𝐾typed, feasible, and\npairwise distinct workflow hypotheses"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 5,
+      "section": "2. Related Work",
+      "bbox": [
+        221.4,
+        421.4,
+        374.0,
+        434.8
+      ],
+      "text": "Π(𝜏) = {𝑝1, . . . , 𝑝𝐾},\n𝑝𝑘∈P,"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 5,
+      "section": "2. Related Work",
+      "bbox": [
+        61.9,
+        445.9,
+        532.9,
+        485.4
+      ],
+      "text": "where each 𝑝𝑘is a directed acyclic graph (DAG) of agent invocations whose edges respect the declared\ninput/output (I/O) types and policy tags (Section 3). Plan synthesis is modeled as diversification\nunder type constraints guided by model priors."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 5,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        510.1,
+        532.9,
+        534.5
+      ],
+      "text": "Core reasoning steps.\nInternally, the CoAPlanner performs three sequential reasoning steps before\ngenerating candidate DAGs:"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 5,
+      "section": "2. Related Work",
+      "bbox": [
+        77.7,
+        551.4,
+        501.8,
+        590.9
+      ],
+      "text": "• Interpret Task Intent: Derive the required outcome from the parsed task_type of 𝜏;\n• Select Required Agents: identify task-specific agents relevant to execution;\n• Sequence Agent Calls: order agents by dependencies and conditional triggers."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 5,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        614.1,
+        534.7,
+        694.3
+      ],
+      "text": "Typed, constraint-guided generation.\nWe view the planner as a conditional generator 𝐺𝜃(𝑝| 𝜏, E)\non typed DAGs, where E is a small exemplar bank. Each draw 𝑝∼𝐺𝜃must satisfy feasibility (type-\ncompatible edges; intrinsic orderings such as parse→validate→risk/approval) and minimality (no\nsuperfluous stages). Feasibility is enforced at generation by emitting node signatures and checking\nedge composition against I/O contracts; minimality is encouraged through a brevity prior in the\nplanner’s scoring."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 5,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        718.8,
+        534.7,
+        756.9
+      ],
+      "text": "Diversity as a first-class constraint.\nRather than sample duplicates and prune, we **enforce\ndiversity during generation.** Let ∼denote an equivalence relation identifying DAGs with the same\nordered “core chain” and dependency structure. The planner returns Π(𝜏) such that 𝑝𝑖≁𝑝𝑗for all 𝑖≠𝑗."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 5,
+      "section": "2. Related Work",
+      "bbox": [
+        528.5,
+        787.6,
+        532.9,
+        795.5
+      ],
+      "text": "5"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 6,
+      "section": "2. Related Work",
+      "bbox": [
+        137.4,
+        56.0,
+        457.9,
+        64.0
+      ],
+      "text": "POLARIS: Typed Planning and Governed Execution for Agentic AI in Back-Office Automation"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 6,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        87.6,
+        532.9,
+        112.0
+      ],
+      "text": "Practically, candidates must differ in agent set, edge structure, or stage ordering while maintaining\ntype soundness. Formally, the planner solves:"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 6,
+      "section": "2. Related Work",
+      "bbox": [
+        176.0,
+        125.4,
+        196.2,
+        136.3
+      ],
+      "text": "max"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 6,
+      "section": "2. Related Work",
+      "bbox": [
+        177.6,
+        134.1,
+        194.1,
+        142.8
+      ],
+      "text": "Π(𝜏)"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 6,
+      "section": "2. Related Work",
+      "bbox": [
+        204.3,
+        121.7,
+        218.7,
+        132.7
+      ],
+      "text": "∑︁"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 6,
+      "section": "2. Related Work",
+      "bbox": [
+        198.7,
+        139.6,
+        224.4,
+        148.3
+      ],
+      "text": "𝑝∈Π(𝜏)"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 6,
+      "section": "2. Related Work",
+      "bbox": [
+        227.0,
+        122.9,
+        533.8,
+        136.3
+      ],
+      "text": "𝑠𝜃(𝑝; 𝜏)\ns.t.\n𝑝∈F (𝜏) ∀𝑝, 𝑝𝑖≁𝑝𝑗∀𝑖≠𝑗.\n(1)"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 6,
+      "section": "2. Related Work",
+      "bbox": [
+        61.9,
+        165.2,
+        425.4,
+        177.6
+      ],
+      "text": "where 𝑠𝜃is the planner’s internal plausibility score and F (𝜏) the feasible set."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 6,
+      "section": "2. Related Work",
+      "bbox": [
+        61.9,
+        202.0,
+        534.7,
+        294.3
+      ],
+      "text": "Domain priors via few-shot planning.\nTo bias generation toward policy-consistent plans, we\ninstantiate E (few-shot memory) using DSPy (Declarative Self-improving Python), which compiles\nLLM prompts into structured, trainable programs. DSPy encodes reusable planning modules that are\noptimizeable and updateable. For CoAPlanner, E includes compact labeled scenarios (positive/nega-\ntive, anomaly exemplars, approval thresholds) describing the ideal agent chains and rationales. These\nexemplars are compiled by DSPy into a reusable planning program conditioning 𝐺𝜃during generation.\nWhen producing its 𝐾DAGs, CoAPlanner biases sampling toward successful chain patterns (e.g.,"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 6,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        296.9,
+        532.9,
+        321.4
+      ],
+      "text": "parse→validate→risk/approve) while exploring alternative edge structures. This yields efficient and\nrobust few-shot planning."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 6,
+      "section": "2. Related Work",
+      "bbox": [
+        62.0,
+        330.9,
+        532.9,
+        368.8
+      ],
+      "text": "The Reasoner later evaluates these DSPy-guided candidates, ensuring that only type- and policy-sound\nDAGs advance. Thus DSPy supplies CoAPlanner with a structured prior narrowing the search space\nto high-quality, diverse, interpretable 𝐾-plan proposals."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 6,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        393.2,
+        533.1,
+        444.9
+      ],
+      "text": "Policy-aware invariants.\nCertain invariants are hard-coded: invoices with vendors must retrieve\npolicy context before irreversible actions; “month-end” workflows must stage scheduling before report\nemission; and approval sinks must trail validation and risk control. These invariants restrict F (𝜏) to\ntype- and policy-sound plans."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 6,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        467.0,
+        333.8,
+        477.9
+      ],
+      "text": "4.4. (3) Reasoning-Based Selection (ReasoningAgent)"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 6,
+      "section": "2. Related Work",
+      "bbox": [
+        61.9,
+        487.8,
+        533.1,
+        513.8
+      ],
+      "text": "Objective. Given a diversified set Π(𝜏) = {𝑝1, . . . , 𝑝𝐾} of typed plans (Section 4.3), the selector\nchooses a single plan"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 6,
+      "section": "2. Related Work",
+      "bbox": [
+        249.8,
+        514.9,
+        308.4,
+        527.3
+      ],
+      "text": "ˆ𝑝= arg max"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 6,
+      "section": "2. Related Work",
+      "bbox": [
+        285.4,
+        514.9,
+        533.8,
+        533.8
+      ],
+      "text": "𝑝∈Π(𝜏) 𝑈(𝑝; 𝜏)\n(2)"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 6,
+      "section": "2. Related Work",
+      "bbox": [
+        61.9,
+        541.6,
+        83.2,
+        552.5
+      ],
+      "text": "with"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 6,
+      "section": "2. Related Work",
+      "bbox": [
+        186.1,
+        563.3,
+        533.8,
+        577.4
+      ],
+      "text": "𝑈(𝑝; 𝜏) = 𝑤1 compliance(𝑝) + 𝑤2 sequencing(𝑝)\n(3)"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 6,
+      "section": "2. Related Work",
+      "bbox": [
+        232.5,
+        579.9,
+        533.8,
+        593.9
+      ],
+      "text": "+ 𝑤3 parsimony(𝑝) + 𝑤4 prior(𝑝).\n(4)"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 6,
+      "section": "2. Related Work",
+      "bbox": [
+        61.5,
+        611.4,
+        534.0,
+        664.0
+      ],
+      "text": "The four rubric terms are: (i) compliance: verifies admissible agents and contract/policy eligibility;\n(ii) sequencing: evaluates ordering quality, favoring safe sequences (parse→validate→risk/approval)\nwhile penalizing unsafe permutations; (iii) parsimony: prefers minimal non-redundant step sets;\nand (iv) prior: planner-assigned self-consistency score. Weights (𝑤1, 𝑤2, 𝑤3) are fixed in this work."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 6,
+      "section": "2. Related Work",
+      "bbox": [
+        61.5,
+        687.5,
+        533.1,
+        712.0
+      ],
+      "text": "Selector as a constrained reasoner.\nWe instantiate the selector as a lightweight reasoning LLM that\n(a) evaluates rubric terms against the typed plan specification and (b) emits a structured decision: a"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 6,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        713.1,
+        533.1,
+        739.0
+      ],
+      "text": "plan index and a short justification. Using the normalized record, the candidates 𝐾, and the rubric, it\nreturns a JSON object containing chosen_index and reason."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 6,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        748.4,
+        441.4,
+        759.4
+      ],
+      "text": "Plans that fail any hard constraint (policy or type) are discarded before scoring."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 6,
+      "section": "2. Related Work",
+      "bbox": [
+        528.5,
+        787.6,
+        532.9,
+        795.5
+      ],
+      "text": "6"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 7,
+      "section": "2. Related Work",
+      "bbox": [
+        137.4,
+        56.0,
+        457.9,
+        64.0
+      ],
+      "text": "POLARIS: Typed Planning and Governed Execution for Agentic AI in Back-Office Automation"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 7,
+      "section": "2. Related Work",
+      "bbox": [
+        272.0,
+        101.5,
+        322.6,
+        113.1
+      ],
+      "text": "Document"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 7,
+      "section": "2. Related Work",
+      "bbox": [
+        281.2,
+        114.1,
+        313.5,
+        125.7
+      ],
+      "text": "Parser"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 7,
+      "section": "2. Related Work",
+      "bbox": [
+        183.8,
+        179.2,
+        214.9,
+        203.4
+      ],
+      "text": "Policy\nCheck"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 7,
+      "section": "2. Related Work",
+      "bbox": [
+        279.9,
+        179.2,
+        311.0,
+        203.4
+      ],
+      "text": "Risk\nCheck"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 7,
+      "section": "2. Related Work",
+      "bbox": [
+        377.2,
+        179.2,
+        420.9,
+        190.8
+      ],
+      "text": "Anomaly"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 7,
+      "section": "2. Related Work",
+      "bbox": [
+        383.5,
+        191.8,
+        414.6,
+        203.4
+      ],
+      "text": "Check"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 7,
+      "section": "2. Related Work",
+      "bbox": [
+        271.4,
+        266.9,
+        316.3,
+        278.4
+      ],
+      "text": "Approval"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 7,
+      "section": "2. Related Work",
+      "bbox": [
+        278.8,
+        326.8,
+        312.2,
+        338.4
+      ],
+      "text": "Report"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 7,
+      "section": "2. Related Work",
+      "bbox": [
+        286.2,
+        216.4,
+        301.0,
+        221.3
+      ],
+      "text": "Parallel"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 7,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        379.5,
+        533.1,
+        418.0
+      ],
+      "text": "Figure 2 | Dependency-aware parallel scheduler. The scheduler converts the planner’s ordered list\nof agents into a DAG that enables safe parallelism. DocumentParser runs first; middle-stage checks\nrun concurrently; sinks wait for all upstream checks."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 7,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        442.0,
+        533.1,
+        493.6
+      ],
+      "text": "Reasoning-tuned LLMs improve constraint awareness, calibrated comparison, and structured output\ncontrol. They maintain policy/order invariants, apply rubric ties rationally, and emit strict JSON\nenabling fail-fast rejection and auditable decisions. Importantly, the selector evaluates only among\npre-validated candidates without altering types or adding actions."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 7,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        516.1,
+        389.9,
+        527.0
+      ],
+      "text": "4.5. (4) Guarded Execution with a Dependency-Aware Scheduler"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 7,
+      "section": "2. Related Work",
+      "bbox": [
+        62.0,
+        537.0,
+        533.2,
+        576.5
+      ],
+      "text": "Given the selected plan ˆ𝑝, the execution proceeds as a dependency graph with completion-based\nsemantics. The scheduler converts CoAPlanner’s ordered stages into a typed DAG and runs ready\nnodes in parallel while honoring dependencies (Figure 2)."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 7,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        599.7,
+        533.2,
+        639.2
+      ],
+      "text": "Execution model.\nWe maintain a readiness set 𝑅of nodes whose predecessors have been successfully\ncompleted. At each step, the scheduler dispatches all nodes in 𝑅subject to resource limits; completions\nupdate downstream dependencies and refresh 𝑅."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 7,
+      "section": "2. Related Work",
+      "bbox": [
+        62.0,
+        648.6,
+        351.6,
+        659.5
+      ],
+      "text": "The resulting parallel execution pattern is shown in Figure 2."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 7,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        684.1,
+        264.5,
+        695.0
+      ],
+      "text": "Dependency rules (enforced invariants)."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 7,
+      "section": "2. Related Work",
+      "bbox": [
+        77.7,
+        713.0,
+        542.9,
+        751.5
+      ],
+      "text": "• Parser first: any agent that consumes extracted fields must wait for DocumentParser.\n• Middle parallelization: after parsing, independent checks (PolicyRetrieval, RiskControl,\nAnomalyDetector, RecordMatcher) run concurrently."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 7,
+      "section": "2. Related Work",
+      "bbox": [
+        528.5,
+        787.6,
+        532.9,
+        795.5
+      ],
+      "text": "7"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 8,
+      "section": "2. Related Work",
+      "bbox": [
+        137.4,
+        56.0,
+        457.9,
+        64.0
+      ],
+      "text": "POLARIS: Typed Planning and Governed Execution for Agentic AI in Back-Office Automation"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 8,
+      "section": "2. Related Work",
+      "bbox": [
+        62.0,
+        87.6,
+        326.2,
+        98.5
+      ],
+      "text": "Algorithm 1 Validator-Gated Repair Loop (bounded)"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 8,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        103.2,
+        434.2,
+        116.6
+      ],
+      "text": "Require: normalized record 𝜏, parser 𝑃, validator 𝑉, threshold 𝜏𝑐, budget 𝐿max"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 8,
+      "section": "2. Related Work",
+      "bbox": [
+        67.6,
+        116.7,
+        532.9,
+        129.2
+      ],
+      "text": "1: ˆ𝑧←𝑃(𝜏)\n⊲initial parse"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 8,
+      "section": "2. Related Work",
+      "bbox": [
+        67.6,
+        130.3,
+        174.8,
+        144.3
+      ],
+      "text": "2: for ℓ= 1 to 𝐿max do"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 8,
+      "section": "2. Related Work",
+      "bbox": [
+        67.6,
+        143.8,
+        532.3,
+        169.8
+      ],
+      "text": "3:\n𝑟←𝑉(ˆ𝑧)\n⊲schema / cross-field checks; 𝑟=pass and minconf(ˆ𝑧) ≥𝜏𝑐\n4:\nif 𝑟= pass then"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 8,
+      "section": "2. Related Work",
+      "bbox": [
+        67.6,
+        170.9,
+        532.9,
+        183.4
+      ],
+      "text": "5:\nbreak\n⊲accept repaired extraction"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 8,
+      "section": "2. Related Work",
+      "bbox": [
+        67.6,
+        186.9,
+        534.0,
+        199.3
+      ],
+      "text": "6:\nA ←Explain(𝑟, ˆ𝑧)\n⊲which fields/rules failed?"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 8,
+      "section": "2. Related Work",
+      "bbox": [
+        67.6,
+        200.4,
+        532.9,
+        212.8
+      ],
+      "text": "7:\nˆ𝑧←Merge(ˆ𝑧, 𝑃(𝜏; A))\n⊲re-parse + overwrite"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 8,
+      "section": "2. Related Work",
+      "bbox": [
+        67.6,
+        216.4,
+        170.4,
+        228.8
+      ],
+      "text": "8: if 𝑉(ˆ𝑧) = pass then"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 8,
+      "section": "2. Related Work",
+      "bbox": [
+        67.6,
+        229.9,
+        532.9,
+        242.3
+      ],
+      "text": "9:\nreturn ˆ𝑧\n⊲seed downstream agents"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 8,
+      "section": "2. Related Work",
+      "bbox": [
+        62.6,
+        244.9,
+        100.5,
+        255.8
+      ],
+      "text": "10: else"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 8,
+      "section": "2. Related Work",
+      "bbox": [
+        62.6,
+        257.0,
+        532.9,
+        269.4
+      ],
+      "text": "11:\nreturn Fallback(ˆ𝑧)\n⊲safe path"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 8,
+      "section": "2. Related Work",
+      "bbox": [
+        77.7,
+        296.0,
+        532.9,
+        320.8
+      ],
+      "text": "• Aggregate sinks last: Approval and ReportGenerator execute only after all upstream\nchecks succeed."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 8,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        345.4,
+        533.1,
+        397.1
+      ],
+      "text": "Dynamic prerequisites.\nEdges may be injected at runtime based on intermediate signals. For\ninstance, if AnomalyDetector emits a high score, the scheduler adds a prerequisite edge to an\nExtraVerification node; conversely, low risk may bypass optional reconciliation. These dynamic\nguards preserve safety while minimizing latency."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 8,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        419.6,
+        249.1,
+        430.5
+      ],
+      "text": "4.6. (5) Validator-Gated Repair Loop"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 8,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        441.9,
+        532.9,
+        493.5
+      ],
+      "text": "Document parsing is the dominant failure mode in back-office flows: OCR/layout models can miss\nfields, mis-read dates/currencies, or drift under noisy scans. Executing brittle parses propagates\npolicy errors. We therefore insert a bounded, validator-gated repair loop to improve extractions before\nirreversible actions."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 8,
+      "section": "2. Related Work",
+      "bbox": [
+        61.5,
+        516.6,
+        534.3,
+        556.2
+      ],
+      "text": "Trigger.\nLet ˆ𝑧be the parser output (fields with confidences), and 𝑉(ˆ𝑧) denote validator checks\n(schema completeness, cross-field arithmetic, date logic, external consistency). The loop is entered if:\n(i) required field missing; or (ii) field confidence < 𝜏𝑐; or (iii) rule violation 𝑉(ˆ𝑧) = fail."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 8,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        565.6,
+        534.5,
+        590.0
+      ],
+      "text": "Instead of re-parsing wholesale, we issue localized repair actions guided by validator feedback: ROI\nhints (zones for totals/dates/vendors), OCR/layout cues, schema prompts, and string normalization."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 8,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        599.4,
+        347.9,
+        610.4
+      ],
+      "text": "Repairs are additive; only implicated fields are re-requested."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 8,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        633.5,
+        533.1,
+        673.0
+      ],
+      "text": "Termination and guarantees.\nThe loop runs for at most 𝐿max iterations (typically 2 ∼3) and\nterminates when 𝑉(ˆ𝑧) = pass or the budget is exhausted. If it exits by budget, control escalates for\nhuman review or a safe lower-coverage path (no approvals, full audit trace)."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 8,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        697.8,
+        555.3,
+        735.7
+      ],
+      "text": "Scheduler integration.\nThe repair loop lies in the critical path before mid-pipeline checks. After com-\npletion, repaired fields seed the execution store, skipping redundant DocumentParser/DataValidator\nstages, and preserving parallelism downstream."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 8,
+      "section": "2. Related Work",
+      "bbox": [
+        528.5,
+        787.6,
+        532.9,
+        795.5
+      ],
+      "text": "8"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 9,
+      "section": "2. Related Work",
+      "bbox": [
+        137.4,
+        56.0,
+        457.9,
+        64.0
+      ],
+      "text": "POLARIS: Typed Planning and Governed Execution for Agentic AI in Back-Office Automation"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 9,
+      "section": "2. Related Work",
+      "bbox": [
+        108.2,
+        85.5,
+        486.7,
+        97.0
+      ],
+      "text": "Table 1 | Extraction by scenario (required fields: invoice #, date, vendor, total)."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 9,
+      "section": "2. Related Work",
+      "bbox": [
+        107.6,
+        114.2,
+        492.7,
+        123.2
+      ],
+      "text": "Scenario\ntotal\nTP\nFP\nFN\nTN\nprecision\nrecall\nf1"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 9,
+      "section": "2. Related Work",
+      "bbox": [
+        105.1,
+        130.3,
+        492.7,
+        172.9
+      ],
+      "text": "Violation–Unknown Vendor (VU)\n40\n35\n1\n0\n4\n0.9722\n1.0000\n0.9859\nViolation–Layout Drift and Noise (VL)\n40\n23\n5\n0\n12\n0.8214\n1.0000\n0.9020\nCompliant–Clean Set (CC)\n40\n29\n1\n2\n8\n0.9667\n0.9355\n0.9508\nCompliant–Month-End Batch (CM)\n40\n34\n0\n2\n4\n1.0000\n0.9444\n0.9714"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 9,
+      "section": "2. Related Work",
+      "bbox": [
+        107.6,
+        179.8,
+        492.7,
+        188.9
+      ],
+      "text": "TOTAL\n160\n121\n7\n4\n28\n0.9453\n0.9680\n0.9565"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 9,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        213.0,
+        279.6,
+        223.9
+      ],
+      "text": "4.7. (6) Policy Guardrails and Risk Control"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 9,
+      "section": "2. Related Work",
+      "bbox": [
+        62.1,
+        235.3,
+        534.4,
+        286.9
+      ],
+      "text": "PolicyRetrieval queries a lightweight policy store keyed by vendor, sector and currency, returning (i)\nexistence flag, (ii) matched vendor identity, and (iii) the vendor’s policy record (threshold, currency,\nterms). RiskControl compiles these clauses into executable checks and gates unsafe actions: hard\nviolations halt; soft ones escalate with machine-readable justifications."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 9,
+      "section": "2. Related Work",
+      "bbox": [
+        62.0,
+        310.0,
+        533.2,
+        349.6
+      ],
+      "text": "Violation definition.\nLet 𝐸(𝑣) denote the existence of the vendor 𝑣, 𝑎(𝑖) the total invoice for the\ninvoice 𝑖, 𝜏(𝑣) the threshold for the vendor 𝑣, 𝑐(𝑖) the inferred currency , and 𝑐∗(𝑣) the policy currency\nA violation occurs if any holds:"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 9,
+      "section": "2. Related Work",
+      "bbox": [
+        75.1,
+        366.4,
+        502.5,
+        405.9
+      ],
+      "text": "1. Unknown vendor: ¬𝐸(𝑣).\n2. Threshold breach (unapproved): 𝐸(𝑣) ∧𝑎(𝑖) > 𝜏(𝑣) and no attached approval artifact.\n3. Currency mismatch: 𝐸(𝑣) ∧𝑐(𝑖) ≠𝑐∗(𝑣)."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 9,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        429.1,
+        400.9,
+        441.5
+      ],
+      "text": "Evaluation.\nWe summarize policy decisions by (TPV, FPV, FNV, TNV):"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 9,
+      "section": "2. Related Work",
+      "bbox": [
+        77.7,
+        459.9,
+        443.9,
+        511.5
+      ],
+      "text": "• TPV (True Positive Violation): the system correctly flags a true violation;\n• FPV (False Positive Violation): the system flags violation when none exists;\n• FNV (False Negative Violation): the system misses a true violation;\n• TNV (True Negative Violation): the system correctly identifies compliance."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 9,
+      "section": "2. Related Work",
+      "bbox": [
+        61.9,
+        529.8,
+        342.2,
+        540.8
+      ],
+      "text": "We report precision/recall/F1 scores for policy compliance."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 9,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        565.4,
+        534.4,
+        610.9
+      ],
+      "text": "Extending the policy layer.\nBeyond core checks, the layer supports: (i) duplicate detection (same\n(vendor, invoice_number) within a lookback window 𝑇); (ii) black/whitelists; (iii) graded risk scoring,\n𝑠(𝑖) = Í"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 9,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        591.0,
+        533.2,
+        630.5
+      ],
+      "text": "𝑘𝑤𝑘1{rule𝑘(𝑖)} for tiered routing (auto-approve / review / block); and (iv) enforcement of\nprovenance that requires PO, receiving, and approval artifacts. Missing provenance automatically\nregisters as a violation."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 9,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        653.0,
+        272.6,
+        663.9
+      ],
+      "text": "4.8. (7) Anomaly Detection and Handling"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 9,
+      "section": "2. Related Work",
+      "bbox": [
+        61.9,
+        673.9,
+        534.7,
+        713.4
+      ],
+      "text": "Signal construction. For each vendor 𝑣, we maintain baselines over the amount fields and compute\n𝑧MAD(𝑥; 𝑣) = |𝑥−median𝑣|/(1.4826 · MAD𝑣). An item is anomalous if 𝑧MAD > 𝑘mad (default 3.5).\nWhen vendor data are sparse (MAD𝑣=0 or few points), we substitute cohort (sector/currency) or"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 9,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        716.1,
+        533.1,
+        740.5
+      ],
+      "text": "global statistics to avoid false spikes. Additionally, we apply date sanity rules: any issue/due/payment\ndate strictly after “today” is anomalous."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 9,
+      "section": "2. Related Work",
+      "bbox": [
+        528.5,
+        787.6,
+        532.9,
+        795.5
+      ],
+      "text": "9"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 10,
+      "section": "2. Related Work",
+      "bbox": [
+        137.4,
+        56.0,
+        457.9,
+        64.0
+      ],
+      "text": "POLARIS: Typed Planning and Governed Execution for Agentic AI in Back-Office Automation"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 10,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        296.4,
+        533.1,
+        348.5
+      ],
+      "text": "Figure 3 | Extraction performance by scenario for POLARIS. Grouped bars show Precision, Recall, and\nF1 across VU (Unknown Vendor), VL (Layout Drift/Noise), CC (Clean), and CM (Month-End). The plot\nhighlights high recall under noise (VL) with a precision dip, and strong balance on clean/compliant\nsettings."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 10,
+      "section": "2. Related Work",
+      "bbox": [
+        62.0,
+        372.0,
+        533.8,
+        451.2
+      ],
+      "text": "Routing playbook.\nA downstream playbook executes enrich →classify severity →route →act\n→close: (i) enrich with policy context and prior incidents; (ii) classify the severity; (iii) route to\nAPIAccess holds, ticketing, or human review; (iv) act (notify vendor, request artifacts, schedule\nre-checks); (v) close with a structured disposition. Outcomes refresh vendor/cohort baselines and\ndashboards, preventing drift. This design keeps anomaly detection statistically minimal (see Section 3)\nbut operationally governed and auditable."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 10,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        473.7,
+        285.0,
+        484.6
+      ],
+      "text": "4.9. (8) Outputs, Auditability, and Feedback"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 10,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        496.0,
+        534.6,
+        561.2
+      ],
+      "text": "Decision-grade artifacts.\nFor each input, POLARIS emits: (i) a validated JSON record with fields,\nconfidences, and type signatures; (ii) a decision object (approve/hold/reject) with structured ra-\ntionales tied to policy clauses and anomaly evidence; (iii) alerts and escalation targets; and (iv) a\ncomplete execution trace (selected DAG, per-node I/O, repair actions, and timing). These artifacts\nenable replay, independent verification, and seamless system ingestion."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 10,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        585.7,
+        533.8,
+        637.4
+      ],
+      "text": "Auditability by construction.\nPOLARIS logs traces and summaries—what plan ran, why it was\nchosen, what failed, and what was repaired. These logs update (i) planning priors (few-shot exemplars)\nand (ii) anomaly/policy baselines. Improvement is governed: exemplars, not opaque prompts, are\nupdated, preserving predictability and reviewability."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 10,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        661.3,
+        287.8,
+        674.3
+      ],
+      "text": "5. Evaluation and Benchmark Results"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 10,
+      "section": "2. Related Work",
+      "bbox": [
+        61.9,
+        688.3,
+        534.4,
+        699.1
+      ],
+      "text": "We evaluate POLARIS as a benchmarking framework for governed Agentic AI in enterprise workflows,"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 10,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        701.9,
+        533.1,
+        726.3
+      ],
+      "text": "using (i) a controlled synthetic suite that stresses policy governance, anomaly handling, and scheduler\nbehavior (in Table 2), and (ii) the SROIE benchmark for document-centric extraction."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 10,
+      "section": "2. Related Work",
+      "bbox": [
+        524.1,
+        787.6,
+        532.9,
+        795.5
+      ],
+      "text": "10"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        137.4,
+        56.0,
+        457.9,
+        64.0
+      ],
+      "text": "POLARIS: Typed Planning and Governed Execution for Agentic AI in Back-Office Automation"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        102.2,
+        194.3,
+        134.8,
+        198.8
+      ],
+      "text": "Input Normalizer"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        72.9,
+        206.3,
+        163.7,
+        210.8
+      ],
+      "text": "Normalized Input(bad-quality invoice){"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        74.1,
+        210.9,
+        162.5,
+        220.1
+      ],
+      "text": "task_type: document_parsing,\n  file_name: invoice_bad_quality.jpg,"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        80.1,
+        220.5,
+        156.6,
+        234.7
+      ],
+      "text": "origin: email,\n  instruction: \"Approve if all\nnecessary fields are present and"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        82.5,
+        234.8,
+        154.2,
+        243.9
+      ],
+      "text": "correct.\",\n  meta: { project: HEALTHCARE,"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        92.1,
+        244.4,
+        144.6,
+        248.9
+      ],
+      "text": "department: Accounts }"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        117.1,
+        249.1,
+        119.5,
+        253.6
+      ],
+      "text": "}"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        322.7,
+        114.7,
+        365.6,
+        119.2
+      ],
+      "text": "Parse ↔ Validate Loop"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        309.6,
+        132.6,
+        381.7,
+        137.1
+      ],
+      "text": "DocumentParserAgent (OCR + layout)"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        308.4,
+        156.2,
+        382.9,
+        160.6
+      ],
+      "text": "DataValidatorAgent (schema + required"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        339.8,
+        161.2,
+        351.5,
+        165.6
+      ],
+      "text": "fields)"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        339.8,
+        185.1,
+        351.5,
+        189.5
+      ],
+      "text": "Valid?"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        300.2,
+        212.9,
+        391.1,
+        222.4
+      ],
+      "text": "Feedback to parser (attempts 1→3): • 'Invoice\nNumber' invalid • 'Date' missing • 'Vendor Name'"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        300.8,
+        222.6,
+        390.5,
+        236.6
+      ],
+      "text": "missing/unknown \nRules: - normalize dates - normalize currency -\nreconcile totals vs. line items - prefer canonical"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        334.7,
+        236.8,
+        356.6,
+        241.3
+      ],
+      "text": "field names"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        305.6,
+        185.7,
+        310.4,
+        189.8
+      ],
+      "text": "No"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        444.4,
+        114.7,
+        496.2,
+        119.2
+      ],
+      "text": "Reconcillation and Outputs"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        434.5,
+        133.6,
+        505.7,
+        142.7
+      ],
+      "text": "PolicyRetrievalAgent STATUS: Error \nMessage: Missing/invalid output from"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        448.5,
+        143.2,
+        491.7,
+        147.7
+      ],
+      "text": "DocumentParserAgent"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        426.7,
+        173.4,
+        513.5,
+        182.5
+      ],
+      "text": "ApprovalAgent APPROVED: False \nReason: Parsing error led to missing required"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        440.7,
+        183.1,
+        499.5,
+        187.5
+      ],
+      "text": "fields (Invoice #, Date, Vendor)."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        429.5,
+        218.2,
+        510.7,
+        227.3
+      ],
+      "text": "Final Output { approved: false, \n reason: parsing error → missing/unknown"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        463.6,
+        227.9,
+        476.6,
+        232.3
+      ],
+      "text": "fields }"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        395.3,
+        163.6,
+        418.8,
+        167.7
+      ],
+      "text": "max attempts"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        194.8,
+        114.7,
+        261.2,
+        119.2
+      ],
+      "text": "Planning (DSPy CoAPlanner Trace)"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        186.5,
+        127.0,
+        269.2,
+        131.4
+      ],
+      "text": "Plan 0 [DocumentParser → DataValidator →"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        190.3,
+        131.6,
+        265.4,
+        141.1
+      ],
+      "text": "PolicyRetrieval → Approval] \nRationale: Parse, validate, check policy,"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        219.6,
+        141.3,
+        236.2,
+        145.7
+      ],
+      "text": "approve."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        181.8,
+        155.5,
+        273.9,
+        160.0
+      ],
+      "text": "Plan 1 [DocumentParser → AnomalyDetection →"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        189.6,
+        160.2,
+        266.1,
+        169.6
+      ],
+      "text": "PolicyRetrieval → Approval] \nRationale: Parse, anomaly check, policy,"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        219.6,
+        169.8,
+        236.2,
+        174.2
+      ],
+      "text": "approve."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        184.6,
+        186.7,
+        270.5,
+        191.2
+      ],
+      "text": "Plan 2 [DocumentParser → PolicyRetrieval →"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        184.8,
+        191.4,
+        270.2,
+        200.8
+      ],
+      "text": "SimilarityCheck → Approval] \nRationale: Parse, policy, dup check, approve."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        200.7,
+        228.9,
+        255.0,
+        233.3
+      ],
+      "text": "Chosen by ReasoningAgent"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        182.8,
+        238.2,
+        272.9,
+        247.6
+      ],
+      "text": "Index: 0 \nExecution: DocumentParser → DataValidator →"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        201.9,
+        247.8,
+        253.8,
+        252.2
+      ],
+      "text": "PolicyRetrieval → Approval"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        198.1,
+        214.3,
+        257.9,
+        218.7
+      ],
+      "text": "Selection (by Reasoning Agent)"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        116.4,
+        94.5,
+        478.7,
+        103.0
+      ],
+      "text": "POLARIS: Inputs/Outputs, DSPy Plan Trace, and Parse-Validate Loop (Synthetic Negative Scenario )"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        113.1,
+        114.7,
+        123.9,
+        119.2
+      ],
+      "text": "Input"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        62.1,
+        273.0,
+        534.7,
+        392.9
+      ],
+      "text": "Figure 4 | POLARIS: Inputs/Outputs, DSPy plan trace, and validator-gated repair loop (syn-\nthetic negative scenario VL). Left: a low-quality invoice is normalized by the InputNormalizer\ninto a canonical JSON record. Middle–left: the CoAPlanner proposes multiple typed plans; the\nReasoningAgent selects one (shown) that executes DocumentParser →DataValidator →\nPolicyRetrieval →Approval. Middle–right: a bounded parser↔validator loop issues targeted\nfeedback (e.g., fix missing/invalid invoice number, date, vendor; normalize currency/dates) until\nvalidation passes or the attempt budget is exhausted. Right: reconciliation shows a policy retrieval\nerror due to missing/invalid parsed fields; the ApprovalAgent returns approved:\nfalse with\na structured rationale and final output object."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        416.9,
+        532.9,
+        482.1
+      ],
+      "text": "Models.\nUnless otherwise stated, CoAPlanner is instantiated with GPT-4o (diversity-oriented plan\nsynthesis under type constraints), while ReasoningAgent is a GPT-5 reasoning model configured\nfor strict JSON output and fail-fast selection. This mirrors our design: open-ended planning with\na high-throughput multimodal model, followed by compact, constraint-aware comparison with a\nreasoning-tuned model."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        504.6,
+        247.2,
+        515.5
+      ],
+      "text": "5.1. Datasets and Simulation Design"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        525.4,
+        534.7,
+        579.9
+      ],
+      "text": "Setup.\nAll runs use the plan–select–act loop with 𝐾=5 diversified plans, the constrained Rea-\nsoningAgent selector, and the validator-gated repair loop with budget 𝐿max=3. Month-end jobs en-\nforce Scheduler→ReportGenerator. Anomaly detection uses vendor-wise MAD baselines with\n𝑘mad=3.5 plus a strict future-date rule."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        601.0,
+        241.7,
+        611.9
+      ],
+      "text": "5.2. Synthetic Results (40 Invoices)"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        62.0,
+        623.4,
+        534.7,
+        729.1
+      ],
+      "text": "Field extraction.\nAcross scenarios, POLARIS achieves high recall with strong overall balance (Table 1\nand Figure 3): precision/recall/F1 of 0.945/0.968/0.957. In VU (unknown vendors), extraction is\naccurate despite policy violations (precision 0.972, recall 1.000), which shows the method’s ability\nto separate parsing quality from downstream governance. The hardest case, VL (noisy/misaligned\nscans), preserves recall 1.000 with a precision dip (0.821), indicating that robustness favors coverage\nunder noise. Clean conditions perform as expected: CC yields high balance (precision 0.967, recall\n0.936) and CM achieves perfect precision with slightly reduced recall (precision 1.000, recall 0.944).\nAn end-to-end trace of a noisy run appears in Figure 4."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 11,
+      "section": "2. Related Work",
+      "bbox": [
+        524.1,
+        787.6,
+        532.9,
+        795.5
+      ],
+      "text": "11"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 12,
+      "section": "2. Related Work",
+      "bbox": [
+        137.4,
+        56.0,
+        457.9,
+        64.0
+      ],
+      "text": "POLARIS: Typed Planning and Governed Execution for Agentic AI in Back-Office Automation"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 12,
+      "section": "2. Related Work",
+      "bbox": [
+        61.9,
+        85.5,
+        533.2,
+        125.5
+      ],
+      "text": "Table 2 | Synthetic suite and labeling rules. Each scenario contains 10 invoices (40 total). Policy\nviolation ground truth is vendor not found in policy DB. Anomaly ground truth uses a robust z-score\nwith MAD: |𝑥−median(𝑋)|/(1.4826 · MAD(𝑋)) > 𝑘mad; we use 𝑘mad=3.5."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 12,
+      "section": "2. Related Work",
+      "bbox": [
+        87.6,
+        136.7,
+        509.3,
+        267.0
+      ],
+      "text": "Scenario\nDescription / Purpose\nCompliant–Clean Set (CC)\nClean invoices; vendors present in policy DB; no anomalies\nexpected.\nCompliant–Month-End Batch (CM)\nDay-30 month-end batch; parsing/policy clean; scheduler\nmust trigger.\nViolation–Unknown Vendor (VU)\nVendors intentionally absent from policy DB ⇒policy vio-\nlation expected.\nViolation–Layout Drift & Noise (VL)\nNoisy/misaligned scans ⇒stresses extraction & anomaly\nrobustness.\nSROIE\nStandard 4-field extraction (Company, Address, Date, To-\ntal)."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 12,
+      "section": "2. Related Work",
+      "bbox": [
+        73.2,
+        281.2,
+        521.8,
+        292.7
+      ],
+      "text": "Table 3 | Policy (violation detection). Metrics are undefined (—) where no positive cases exist."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 12,
+      "section": "2. Related Work",
+      "bbox": [
+        133.5,
+        311.3,
+        468.0,
+        322.4
+      ],
+      "text": "Scenario\nTPV\nFPV\nFNV\nTNV\nprecision\nrecall\nf1"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 12,
+      "section": "2. Related Work",
+      "bbox": [
+        133.5,
+        331.2,
+        468.0,
+        342.4
+      ],
+      "text": "VU\n8\n1\n0\n0\n0.8889\n1.0000\n0.9412"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 12,
+      "section": "2. Related Work",
+      "bbox": [
+        133.5,
+        350.6,
+        468.0,
+        361.9
+      ],
+      "text": "VL\n1\n1\n2\n2\n0.5000\n0.3333\n0.4000"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 12,
+      "section": "2. Related Work",
+      "bbox": [
+        133.5,
+        370.1,
+        468.0,
+        381.3
+      ],
+      "text": "CC\n0\n0\n0\n5\n—\n—\n—"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 12,
+      "section": "2. Related Work",
+      "bbox": [
+        133.5,
+        389.6,
+        468.0,
+        400.8
+      ],
+      "text": "CM\n0\n0\n0\n8\n—\n—\n—"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 12,
+      "section": "2. Related Work",
+      "bbox": [
+        133.5,
+        409.4,
+        468.0,
+        420.6
+      ],
+      "text": "TOTAL\n9\n2\n2\n15\n0.8182\n0.8182\n0.8182"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 12,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        464.5,
+        534.0,
+        489.1
+      ],
+      "text": "Policy governance.\nUnknown-vendor violations (VU) are surfaced with high precision (Table 3);\nthe residual recall loss in VL is attributable to upstream noise."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 12,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        498.4,
+        534.4,
+        536.5
+      ],
+      "text": "For positive scenarios (CC, CM), no policy violations are present by design; thus, there are no\npositive cases to score and precision/recall/F1 are undefined. When violations exist (VU, VL),\nprecision/recall/F1 are computed normally."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 12,
+      "section": "2. Related Work",
+      "bbox": [
+        61.5,
+        561.0,
+        532.9,
+        585.6
+      ],
+      "text": "Anomaly detection.\nVendor-wise MAD baselines yield perfect precision and high recall overall\n(Table 4)."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 12,
+      "section": "2. Related Work",
+      "bbox": [
+        62.0,
+        595.0,
+        534.4,
+        646.6
+      ],
+      "text": "CC has no injected anomalies, so precision/recall/F1 are N/A. VL contains layout noise, causing one\nFN due to sparse vendor baselines; our MAD detector return to cohort/global stats, yielding high\nprecision with a small recall drop. VU shows no amount outliers by construction (policy, not statistical,\nviolations), hence 0 for anomaly metrics while date checks remain active."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 12,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        669.1,
+        220.7,
+        680.0
+      ],
+      "text": "5.3. SROIE (4-Field Extraction)"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 12,
+      "section": "2. Related Work",
+      "bbox": [
+        61.9,
+        690.8,
+        532.9,
+        702.3
+      ],
+      "text": "We apply the same parser–validator pattern (contrast upscaling →OCR →LLM with validation"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 12,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        705.0,
+        396.6,
+        715.9
+      ],
+      "text": "feedback). POLARIS attains strong overall extraction quality (Table 5)."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 12,
+      "section": "2. Related Work",
+      "bbox": [
+        62.0,
+        725.4,
+        534.6,
+        749.7
+      ],
+      "text": "Across synthetic stress tests and SROIE, POLARIS translates typed planning, constrained selection, and\nbounded repair into decision-grade outputs with explicit lineage. Compared to point OCR+rules base-"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 12,
+      "section": "2. Related Work",
+      "bbox": [
+        524.1,
+        787.6,
+        532.9,
+        795.5
+      ],
+      "text": "12"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 13,
+      "section": "2. Related Work",
+      "bbox": [
+        137.4,
+        56.0,
+        457.9,
+        64.0
+      ],
+      "text": "POLARIS: Typed Planning and Governed Execution for Agentic AI in Back-Office Automation"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 13,
+      "section": "2. Related Work",
+      "bbox": [
+        62.0,
+        84.6,
+        532.9,
+        110.6
+      ],
+      "text": "Table 4 | Anomaly (MAD, 𝑘mad=3.5) and date checks. Metrics are undefined (—) where no positive\ncases exist."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 13,
+      "section": "2. Related Work",
+      "bbox": [
+        133.3,
+        129.0,
+        468.1,
+        140.0
+      ],
+      "text": "Scenario\ntotal\nTP\nFP\nFN\nTN\nprecision\nrecall\nf1"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 13,
+      "section": "2. Related Work",
+      "bbox": [
+        133.3,
+        148.5,
+        468.1,
+        159.6
+      ],
+      "text": "VU\n8\n0\n0\n0\n8\n—\n—\n—"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 13,
+      "section": "2. Related Work",
+      "bbox": [
+        133.3,
+        167.7,
+        468.1,
+        178.7
+      ],
+      "text": "VL\n6\n5\n0\n1\n0\n1.0000\n0.8333\n0.9091"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 13,
+      "section": "2. Related Work",
+      "bbox": [
+        133.3,
+        186.8,
+        468.1,
+        197.8
+      ],
+      "text": "CC\n3\n0\n0\n0\n3\n—\n—\n—"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 13,
+      "section": "2. Related Work",
+      "bbox": [
+        133.3,
+        205.9,
+        468.1,
+        216.9
+      ],
+      "text": "CM\n9\n4\n0\n0\n5\n1.0000\n1.0000\n1.0000"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 13,
+      "section": "2. Related Work",
+      "bbox": [
+        133.3,
+        225.3,
+        468.1,
+        236.3
+      ],
+      "text": "TOTAL\n26\n9\n0\n1\n16\n1.0000\n0.9000\n0.9474"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 13,
+      "section": "2. Related Work",
+      "bbox": [
+        187.8,
+        250.8,
+        407.2,
+        262.3
+      ],
+      "text": "Table 5 | SROIE overall and per-field accuracy."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 13,
+      "section": "2. Related Work",
+      "bbox": [
+        158.1,
+        281.4,
+        443.9,
+        293.6
+      ],
+      "text": "Metric\nPrecision\nRecall\nF1\nField Acc."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 13,
+      "section": "2. Related Work",
+      "bbox": [
+        158.1,
+        303.1,
+        435.4,
+        315.3
+      ],
+      "text": "Overall\n0.8189\n0.8045\n0.8116\n0.8045"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 13,
+      "section": "2. Related Work",
+      "bbox": [
+        158.1,
+        324.7,
+        430.3,
+        336.9
+      ],
+      "text": "Field\nCompany\nAddress\nDate\nTotal"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 13,
+      "section": "2. Related Work",
+      "bbox": [
+        158.1,
+        345.9,
+        435.4,
+        358.0
+      ],
+      "text": "Accuracy\n0.8500\n0.8500\n0.7600\n0.7576"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 13,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        382.8,
+        533.2,
+        407.2
+      ],
+      "text": "lines, we see higher recall under noise and precise policy/alarm signals, while preserving auditability\nand policy compliance by construction."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 13,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        429.6,
+        209.3,
+        440.6
+      ],
+      "text": "5.4. Benchmark Implications"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 13,
+      "section": "2. Related Work",
+      "bbox": [
+        61.9,
+        451.9,
+        532.9,
+        530.7
+      ],
+      "text": "The controlled synthetic suite introduced in this work provides an initial benchmark for evaluating\ngoverned agentic systems. Beyond conventional precision and recall, it measures enterprise-specific\ndimensions such as policy compliance, audit-trace completeness, and risk-routing accuracy. POLARIS’s\ntyped DAG traces, validator repair logs, and policy decisions constitute reusable evaluation primitives\nthat enable reproducibility of compliance accuracy, routing precision, and repair effectiveness across\nagent frameworks."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 13,
+      "section": "2. Related Work",
+      "bbox": [
+        62.4,
+        540.1,
+        534.6,
+        578.1
+      ],
+      "text": "Future benchmarks may expand these dimensions with standardized governance metrics and multi-\nagent reproducibility protocols, forming a baseline schema for comparing enterprise-grade Agentic AI\nsystems."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 13,
+      "section": "6. Conclusion",
+      "bbox": [
+        62.4,
+        602.0,
+        145.9,
+        615.0
+      ],
+      "text": "6. Conclusion"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 13,
+      "section": "6. Conclusion",
+      "bbox": [
+        61.5,
+        628.9,
+        534.7,
+        680.5
+      ],
+      "text": "Classical back-office automation relies on brittle point tools (OCR + rules) that lack end-to-end\nprovenance; generic agent stacks provide flexibility but often blur interfaces and policy boundaries.\nPOLARIS integrates: typed DAG planning (safe composition), diversity-constrained plan synthesis\n(distinct candidates), reasoning-based selection (multi-criterion, policy-aware choice), and a bounded"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 13,
+      "section": "6. Conclusion",
+      "bbox": [
+        62.4,
+        683.1,
+        533.1,
+        748.2
+      ],
+      "text": "repair loop (targeted, auditable fixes). This combination yields decision-grade outputs with explicit\nlineage and policy justifications advancing from reactive point solutions or black-box agents to\npolicy-aligned, valuable enterprise automation. Beyond its immediate performance gains, POLARIS\nintroduces evaluation constructs—typed DAG lineage, governed selection logs, and validator repair\ntraces—that can inform future benchmark design for reliable enterprise Agentic AI."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 13,
+      "section": "6. Conclusion",
+      "bbox": [
+        524.1,
+        787.6,
+        532.9,
+        795.5
+      ],
+      "text": "13"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 14,
+      "section": "6. Conclusion",
+      "bbox": [
+        137.4,
+        56.0,
+        457.9,
+        64.0
+      ],
+      "text": "POLARIS: Typed Planning and Governed Execution for Agentic AI in Back-Office Automation"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 14,
+      "section": "6. Conclusion",
+      "bbox": [
+        62.0,
+        87.7,
+        533.1,
+        206.9
+      ],
+      "text": "By formalizing each agentic stage as a verifiable, auditable process, POLARIS bridges the gap between\nresearch prototypes and enterprise deployment realities. It shows how policy alignment, type\nsafety, and evaluation transparency can coexist without sacrificing adaptability or performance. The\nframework thus provides both a reproducible benchmark and a foundation for extending governed\nmulti-agent reasoning to other regulated domains such as finance, supply chain, and compliance. In\ndoing so, it contributes a concrete blueprint toward a reliable, accountable, and operationally robust\nAgentic AI for the enterprise. While evaluations center on finance workflows, the design generalizes\nto other governed domains (supply chain, HR, compliance). Broader cross-domain validation and\nintegration with standard AgentBench tasks remain areas of future work."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 14,
+      "section": "6. Conclusion",
+      "bbox": [
+        524.1,
+        787.6,
+        532.9,
+        795.5
+      ],
+      "text": "14"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 15,
+      "section": "6. Conclusion",
+      "bbox": [
+        137.4,
+        56.0,
+        457.9,
+        64.0
+      ],
+      "text": "POLARIS: Typed Planning and Governed Execution for Agentic AI in Back-Office Automation"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 15,
+      "section": "6. Conclusion",
+      "bbox": [
+        62.4,
+        86.0,
+        127.0,
+        98.9
+      ],
+      "text": "References"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 15,
+      "section": "6. Conclusion",
+      "bbox": [
+        62.4,
+        112.9,
+        517.1,
+        123.8
+      ],
+      "text": "Ayesha Amjad et al. An agentic system with reinforcement-learned subsystem improvements for"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 15,
+      "section": "6. Conclusion",
+      "bbox": [
+        73.2,
+        126.4,
+        403.1,
+        137.4
+      ],
+      "text": "parsing form-like documents. arXiv preprint arXiv:2505.13504, 2025."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 15,
+      "section": "6. Conclusion",
+      "bbox": [
+        62.4,
+        149.0,
+        522.7,
+        159.9
+      ],
+      "text": "A. Author, B. Author, and C. Author. Gentask: Generalizable planning for llm agent collaboration,"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 15,
+      "section": "6. Conclusion",
+      "bbox": [
+        72.9,
+        162.5,
+        297.2,
+        173.4
+      ],
+      "text": "2025. ICLR 2025 (to appear) or arXiv preprint."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 15,
+      "section": "6. Conclusion",
+      "bbox": [
+        62.4,
+        185.1,
+        534.4,
+        195.9
+      ],
+      "text": "Zhen Hong, Ge Zhang, Ming Zhuge, et al. Metagpt: Meta programming for multi-agent collaboration,"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 15,
+      "section": "6. Conclusion",
+      "bbox": [
+        72.9,
+        198.6,
+        100.2,
+        209.5
+      ],
+      "text": "2024."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 15,
+      "section": "6. Conclusion",
+      "bbox": [
+        62.4,
+        221.1,
+        530.3,
+        232.0
+      ],
+      "text": "Y. Huang et al. Safe agents: Enforcing control and accountability in llm-based systems. ACL, 2024."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 15,
+      "section": "6. Conclusion",
+      "bbox": [
+        62.4,
+        243.6,
+        511.8,
+        254.5
+      ],
+      "text": "Raghav Jain et al. Smartflow: Robotic process automation using llms and vision. arXiv preprint"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 15,
+      "section": "6. Conclusion",
+      "bbox": [
+        73.2,
+        257.1,
+        192.0,
+        268.1
+      ],
+      "text": "arXiv:2405.12842, 2024."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 15,
+      "section": "6. Conclusion",
+      "bbox": [
+        62.4,
+        279.7,
+        532.9,
+        290.6
+      ],
+      "text": "Omar Khattab, Christopher Re, and Christopher Potts. Dspy: Compiling declarative language model"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 15,
+      "section": "6. Conclusion",
+      "bbox": [
+        73.2,
+        293.2,
+        425.8,
+        304.1
+      ],
+      "text": "calls into self-improving pipelines. arXiv preprint arXiv:2310.03714, 2023."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 15,
+      "section": "6. Conclusion",
+      "bbox": [
+        62.4,
+        315.8,
+        532.9,
+        326.6
+      ],
+      "text": "Yash Kulkarni et al. Agent-s: Llm agentic workflow to automate standard operating procedures. arXiv"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 15,
+      "section": "6. Conclusion",
+      "bbox": [
+        73.2,
+        329.3,
+        232.4,
+        340.2
+      ],
+      "text": "preprint arXiv:2503.15520, 2025."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 15,
+      "section": "6. Conclusion",
+      "bbox": [
+        62.4,
+        351.8,
+        484.0,
+        362.7
+      ],
+      "text": "Christian Lemke et al. The browsergym ecosystem for web agent research. arXiv preprint"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 15,
+      "section": "6. Conclusion",
+      "bbox": [
+        73.2,
+        365.3,
+        192.0,
+        376.3
+      ],
+      "text": "arXiv:2412.05467, 2024."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 15,
+      "section": "6. Conclusion",
+      "bbox": [
+        62.4,
+        387.9,
+        534.4,
+        398.7
+      ],
+      "text": "Kai Li, Yujia Wang, Hao Zhou, et al. Aop: Agent-oriented planning for llm-based multi-agent systems,"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 15,
+      "section": "6. Conclusion",
+      "bbox": [
+        72.9,
+        401.4,
+        100.2,
+        412.3
+      ],
+      "text": "2024."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 15,
+      "section": "6. Conclusion",
+      "bbox": [
+        62.4,
+        423.9,
+        475.7,
+        434.8
+      ],
+      "text": "Xiao Liu, Hao Yu, Jie Tang, et al. Agentbench: Evaluating llms as agents. arXiv preprint"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 15,
+      "section": "6. Conclusion",
+      "bbox": [
+        73.2,
+        437.4,
+        192.0,
+        448.4
+      ],
+      "text": "arXiv:2308.03688, 2023."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 15,
+      "section": "6. Conclusion",
+      "bbox": [
+        62.4,
+        460.0,
+        532.9,
+        470.8
+      ],
+      "text": "Chang Ma, Junlei Zhang, and Junxian He. Agentboard: An analytical evaluation board of multi-turn"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 15,
+      "section": "6. Conclusion",
+      "bbox": [
+        73.2,
+        473.5,
+        363.2,
+        484.4
+      ],
+      "text": "llm agents. In NeurIPS Datasets and Benchmarks Track, 2024."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 15,
+      "section": "6. Conclusion",
+      "bbox": [
+        62.4,
+        496.0,
+        335.7,
+        506.9
+      ],
+      "text": "OpenAI, Josh Achiam, et al. Gpt-4 technical report, 2023."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 15,
+      "section": "6. Conclusion",
+      "bbox": [
+        62.4,
+        518.5,
+        510.2,
+        529.4
+      ],
+      "text": "Joon Sung Park, Carrie J. Cai O’Brien, Meredith Ringel Morris Liu, Percy Liang, and Michael S."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 15,
+      "section": "6. Conclusion",
+      "bbox": [
+        73.2,
+        532.1,
+        479.6,
+        556.6
+      ],
+      "text": "Bernstein. Generative agents: Interactive simulacra of human behavior. arXiv preprint\narXiv:2304.03442, 2023."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 15,
+      "section": "6. Conclusion",
+      "bbox": [
+        62.4,
+        568.1,
+        526.7,
+        579.0
+      ],
+      "text": "Chengwei Qin, Yuhui Zhang, Weizhe Chen, et al. A survey on large language model based agents:"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 15,
+      "section": "6. Conclusion",
+      "bbox": [
+        72.9,
+        581.7,
+        308.0,
+        592.6
+      ],
+      "text": "Architectures, applications, and challenges, 2024."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 15,
+      "section": "6. Conclusion",
+      "bbox": [
+        62.4,
+        604.2,
+        430.5,
+        615.1
+      ],
+      "text": "Yizhong Wang, Zeqiu Lin, et al. Agentbench: Evaluating llms as agents, 2024."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 15,
+      "section": "6. Conclusion",
+      "bbox": [
+        62.4,
+        626.7,
+        523.5,
+        637.6
+      ],
+      "text": "Z. Wang et al. Voyager: An open-ended embodied agent with large language models. In NeurIPS,"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 15,
+      "section": "6. Conclusion",
+      "bbox": [
+        72.9,
+        640.3,
+        100.2,
+        651.2
+      ],
+      "text": "2023."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 15,
+      "section": "6. Conclusion",
+      "bbox": [
+        62.4,
+        662.8,
+        514.2,
+        673.7
+      ],
+      "text": "Qian Wu et al. Autogen: Enabling next-gen llm applications via multi-agent conversation. arXiv"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 15,
+      "section": "6. Conclusion",
+      "bbox": [
+        73.2,
+        676.3,
+        237.9,
+        687.3
+      ],
+      "text": "preprint arXiv:2308.08155, 2023a."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 15,
+      "section": "6. Conclusion",
+      "bbox": [
+        62.4,
+        698.8,
+        532.6,
+        709.7
+      ],
+      "text": "Xidao Wu, Shuyu Gao, Tianyi Li, et al. Autogen: Enabling next-gen llm applications via multi-agent"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 15,
+      "section": "6. Conclusion",
+      "bbox": [
+        73.2,
+        712.4,
+        172.0,
+        723.3
+      ],
+      "text": "conversation, 2023b."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 15,
+      "section": "6. Conclusion",
+      "bbox": [
+        62.4,
+        734.9,
+        523.1,
+        745.8
+      ],
+      "text": "Linyi Yang, Yifan Zhang, Yongchao Rao, et al. Finrobot: Generative business process ai agents for"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 15,
+      "section": "6. Conclusion",
+      "bbox": [
+        73.2,
+        748.4,
+        452.8,
+        759.4
+      ],
+      "text": "enterprise resource planning in finance. arXiv preprint arXiv:2506.01423, 2025."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 15,
+      "section": "6. Conclusion",
+      "bbox": [
+        524.1,
+        787.6,
+        532.9,
+        795.5
+      ],
+      "text": "15"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 16,
+      "section": "6. Conclusion",
+      "bbox": [
+        137.4,
+        56.0,
+        457.9,
+        64.0
+      ],
+      "text": "POLARIS: Typed Planning and Governed Execution for Agentic AI in Back-Office Automation"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 16,
+      "section": "6. Conclusion",
+      "bbox": [
+        62.4,
+        87.7,
+        532.9,
+        98.5
+      ],
+      "text": "Yujia Ye, Zihan Chen, Guoqing Li, Zhou Yu, and William Yang Wang. Proagent: From robotic process"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 16,
+      "section": "6. Conclusion",
+      "bbox": [
+        73.2,
+        101.1,
+        465.8,
+        112.1
+      ],
+      "text": "automation to agentic process automation. arXiv preprint arXiv:2311.10751, 2023."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 16,
+      "section": "6. Conclusion",
+      "bbox": [
+        62.4,
+        123.7,
+        469.7,
+        134.6
+      ],
+      "text": "B. Zheng et al. Llm-as-judge: Multi-aspect evaluation for agentic systems. ICLR, 2024."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 16,
+      "section": "6. Conclusion",
+      "bbox": [
+        62.4,
+        146.3,
+        532.9,
+        157.1
+      ],
+      "text": "Xuezhou Zhou, Jinglong Yang, Han Zhang, et al. Webarena: A realistic web environment for building"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 16,
+      "section": "6. Conclusion",
+      "bbox": [
+        73.2,
+        159.7,
+        405.7,
+        170.7
+      ],
+      "text": "autonomous agents. In NeurIPS Datasets and Benchmarks Track, 2023."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 16,
+      "section": "6. Conclusion",
+      "bbox": [
+        524.1,
+        787.6,
+        532.9,
+        795.5
+      ],
+      "text": "16"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 17,
+      "section": "6. Conclusion",
+      "bbox": [
+        137.4,
+        56.0,
+        457.9,
+        64.0
+      ],
+      "text": "POLARIS: Typed Planning and Governed Execution for Agentic AI in Back-Office Automation"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 17,
+      "section": "6. Conclusion",
+      "bbox": [
+        62.4,
+        86.0,
+        224.2,
+        98.9
+      ],
+      "text": "A. Expanded Preliminaries"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 17,
+      "section": "6. Conclusion",
+      "bbox": [
+        62.0,
+        117.6,
+        532.9,
+        129.1
+      ],
+      "text": "Table 6 | Data Processor and Reconciliation agents and specific roles each play in guarded execution."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 17,
+      "section": "6. Conclusion",
+      "bbox": [
+        124.4,
+        146.5,
+        308.8,
+        156.4
+      ],
+      "text": "Agent\nRole Definitions"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 17,
+      "section": "6. Conclusion",
+      "bbox": [
+        124.4,
+        163.3,
+        473.7,
+        185.5
+      ],
+      "text": "RiskControl\nApplies compliance controls and segregation-of-duties\nchecks; assigns risk level and enumerates triggered rules."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 17,
+      "section": "6. Conclusion",
+      "bbox": [
+        124.4,
+        191.9,
+        475.3,
+        214.2
+      ],
+      "text": "RecordMatcher\nMatches invoice fields against reference ledgers or re-\nports; flags field-level discrepancies."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 17,
+      "section": "6. Conclusion",
+      "bbox": [
+        124.4,
+        220.6,
+        473.7,
+        242.9
+      ],
+      "text": "APIAccess\nInterfaces with external ERP/Tax/Bank systems and\nmaps responses to normalized schemas."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 17,
+      "section": "6. Conclusion",
+      "bbox": [
+        124.4,
+        249.3,
+        473.7,
+        271.6
+      ],
+      "text": "Approval\nAggregates upstream evidence and produces a reasoned\napproval or rejection."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 17,
+      "section": "6. Conclusion",
+      "bbox": [
+        124.4,
+        278.0,
+        475.3,
+        300.3
+      ],
+      "text": "ReportGenerator\nProduces concise, human- and machine-readable execu-\ntion summaries."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 17,
+      "section": "6. Conclusion",
+      "bbox": [
+        124.4,
+        306.7,
+        473.7,
+        329.0
+      ],
+      "text": "Scheduler\nDependency-aware executor compiling ordered stages\ninto a DAG for safe parallelism."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 17,
+      "section": "6. Conclusion",
+      "bbox": [
+        62.4,
+        358.9,
+        533.2,
+        424.0
+      ],
+      "text": "Task setting.\nWe target document–centric workflows (e.g. invoice processing) where\nheterogeneous inputs such as PDFs, scans, email threads, prompts, or API events are transformed\ninto decision-grade outputs: validated records, approvals/rejections, anomaly alerts, and audit-ready\nreports. Let X denote raw inputs and 𝜏∈T a normalized task record capturing document type,\nmetadata, and required fields."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 17,
+      "section": "6. Conclusion",
+      "bbox": [
+        62.4,
+        448.3,
+        534.3,
+        513.8
+      ],
+      "text": "Typed agents and I/O contracts.\nEach GPT-backed component (Autogen\nConversableAgent) 𝐴declares: (i) a capability description; (ii) typed I/O contracts with optional\nconfidences; (iii) preconditions/postconditions; and (iv) policy and risk tags indicating eligibility,\nside effects, and segregation constraints. Agents are categorized into the following roles: Normalizer,\nPlanning/Selection, Data Extraction, Data Processing, and Reconciliation (Table 6)."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 17,
+      "section": "6. Conclusion",
+      "bbox": [
+        62.4,
+        536.9,
+        532.9,
+        603.6
+      ],
+      "text": "Plans as typed DAGs.\nA plan 𝑝is a typed DAG 𝐺𝑝= (𝑉𝑝, 𝐸𝑝) whose nodes are agent invocations\n(𝐴, 𝜄, 𝜎) with explicit input/output types. Feasibility requires type-compatible edges,\ncompliance-order sequencing, and concurrency limits. The scheduler executes with completion-based\nsemantics: a node is eligible once all its predecessors finish, enabling safe partial fan-out and\naggregation of intermediate results."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 17,
+      "section": "6. Conclusion",
+      "bbox": [
+        62.1,
+        628.2,
+        499.6,
+        666.2
+      ],
+      "text": "Compliance and anomaly primitives.\nCompliance checks cover: (i) unknown vendor; (ii)\nthreshold breach without approval; (iii) currency mismatch. Anomaly detection employs a\nvendor-wise MAD-based score"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 17,
+      "section": "6. Conclusion",
+      "bbox": [
+        230.0,
+        663.0,
+        358.0,
+        683.7
+      ],
+      "text": "𝑧MAD(𝑥; 𝑣) = |𝑥−median𝑣|"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 17,
+      "section": "6. Conclusion",
+      "bbox": [
+        291.7,
+        670.4,
+        365.5,
+        690.3
+      ],
+      "text": "1.4826 · MAD𝑣\n,"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 17,
+      "section": "6. Conclusion",
+      "bbox": [
+        62.4,
+        695.1,
+        532.8,
+        734.6
+      ],
+      "text": "triggering when 𝑧MAD > 𝑘mad (default 3.5), with fallback to cohort/global baselines and date-sanity\nrules for impossible timestamps. The routing logic for anomalies appears in Section 4.8. A violation\noccurs if"
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 17,
+      "section": "6. Conclusion",
+      "bbox": [
+        177.7,
+        734.6,
+        417.4,
+        747.9
+      ],
+      "text": "¬𝐸(𝑣) ∨(𝐸(𝑣) ∧𝑎(𝑖) > 𝜏(𝑣)) ∨(𝐸(𝑣) ∧𝑐(𝑖) ≠𝑐∗(𝑣))."
+    },
+    {
+      "paper_id": "2601.11816",
+      "file_name": "2601.11816_POLARIS_Typed_Planning_and_Governed_Exec.pdf",
+      "page_number": 17,
+      "section": "6. Conclusion",
+      "bbox": [
+        524.1,
+        787.6,
+        532.9,
+        795.5
+      ],
+      "text": "17"
+    }
+  ]
+}

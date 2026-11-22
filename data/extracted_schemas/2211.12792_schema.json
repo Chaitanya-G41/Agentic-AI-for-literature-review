@@ -1,0 +1,22 @@
+{
+  "paper_id": "2211.12792",
+  "paper_title": "Metapath Context Convolution-based Heterogeneous Graph Neural Network (MECCH)",
+  "authors": [
+    "Not specified in the text"
+  ],
+  "venue": "Not specified in the text",
+  "core_problem": "Existing metapath-based models in HGNNs suffer from either information loss or high computation costs, and existing HGNNs degrade in performance when deep.",
+  "methodology_summary": "MECCH is a novel Metapath Context Convolution-based HGNN that leverages metapath contexts (a new graph structure) to facilitate lossless node information aggregation without redundancy. It uses three novel components: metapath context construction, metapath context encoder, and convolutional metapath fusion.",
+  "datasets_eval": [
+    "Five real-world heterogeneous graph datasets"
+  ],
+  "empirical_results": "MECCH achieves superior prediction accuracy compared with state-of-the-art baselines with improved computational efficiency on node classification and link prediction tasks.",
+  "explicit_limitations": "Existing metapath-based HGNNs struggle to balance model performance and computational efficiency; HAN (Wang et al., 2019a) causes information loss by discarding intermediate nodes along metapaths.",
+  "numerical_metrics": [],
+  "geographical_data": {},
+  "pipeline_steps": [
+    "However, existing metapath-based models suffer from either information loss or high computation costs."
+  ],
+  "generation_mode": "GENUINE_LLM",
+  "model_name": "NVIDIA_NIM (nvidia/nemotron-3.5-bolt-e4b)"
+}

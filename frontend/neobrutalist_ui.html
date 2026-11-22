@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scholar's Digital Binder - True Neo-Brutalist Pastel</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;800;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+
+    body {
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      background-color: #FAF6EE;
+      color: #000000;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .font-mono-neo {
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* Chunky Neo-Brutalist Hard Drop Shadows & Thick Borders */
+    .brutal-box {
+      border: 3.5px solid #000000;
+      box-shadow: 6px 6px 0px #000000;
+      transition: all 0.12s ease-in-out;
+    }
+
+    .brutal-box-sm {
+      border: 2.5px solid #000000;
+      box-shadow: 4px 4px 0px #000000;
+    }
+
+    .brutal-btn {
+      border: 3px solid #000000;
+      box-shadow: 5px 5px 0px #000000;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.1s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .brutal-btn:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 7px 7px 0px #000000;
+    }
+
+    .brutal-btn:active {
+      transform: translate(3px, 3px);
+      box-shadow: 1px 1px 0px #000000;
+    }
+
+    .brutal-badge {
+      border: 2px solid #000000;
+      box-shadow: 2.5px 2.5px 0px #000000;
+      font-weight: 700;
+    }
+
+    /* Soft Pastel Color Palette */
+    .bg-pastel-cream   { background-color: #FFFDF8; }
+    .bg-pastel-butter  { background-color: #FEF08A; } /* soft yellow */
+    .bg-pastel-pink    { background-color: #FBCFE8; } /* soft pastel pink */
+    .bg-pastel-sage    { background-color: #BBF7D0; } /* soft pastel mint */
+    .bg-pastel-lavender{ background-color: #DDD6FE; } /* soft pastel purple */
+    .bg-pastel-peach   { background-color: #FED7AA; } /* soft pastel orange */
+    .bg-pastel-sky     { background-color: #BAE6FD; } /* soft pastel cyan */
+
+    /* Background Organic Blobs (like your reference image) */
+    .blob-1 {
+      position: absolute;
+      top: -40px;
+      left: -60px;
+      width: 220px;
+      height: 220px;
+      background-color: #FBCFE8; /* pastel pink */
+      border: 3.5px solid #000000;
+      border-radius: 58% 42% 66% 34% / 45% 58% 42% 55%;
+      z-index: -1;
+    }
+
+    .blob-2 {
+      position: absolute;
+      top: 120px;
+      right: -80px;
+      width: 260px;
+      height: 280px;
+      background-color: #BBF7D0; /* pastel mint */
+      border: 3.5px solid #000000;
+      border-radius: 40% 60% 30% 70% / 60% 30% 70% 40%;
+      z-index: -1;
+    }
+
+    .blob-3 {
+      position: absolute;
+      bottom: 40px;
+      left: 10%;
+      width: 180px;
+      height: 180px;
+      background-color: #FED7AA; /* pastel peach */
+      border: 3.5px solid #000000;
+      border-radius: 50% 50% 40% 60% / 40% 60% 50% 50%;
+      z-index: -1;
+    }
+  </style>
+</head>
+<body class="p-4 md:p-8 min-h-screen">
+
+  <!-- Playful Background Blobs -->
+  <div class="blob-1"></div>
+  <div class="blob-2"></div>
+  <div class="blob-3"></div>
+
+  <!-- Header Bar -->
+  <header class="brutal-box bg-white rounded-none p-4 mb-8 flex flex-wrap items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <div class="w-12 h-12 bg-pastel-butter brutal-box-sm flex items-center justify-center font-black text-2xl">
+        §
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="text-2xl md:text-3xl font-black uppercase tracking-tight">The Scholar’s Digital Binder</span>
+          <span class="brutal-badge bg-pastel-lavender font-mono-neo text-xs px-2 py-0.5 uppercase">NLP-05</span>
+        </div>
+        <p class="text-xs font-mono-neo text-neutral-800 font-bold mt-0.5">
+          Autonomous Multi-Agent Literature Review • RVCE CSE
+        </p>
+      </div>
+    </div>
+
+    <!-- Navigation Switcher -->
+    <div class="flex items-center gap-3">
+      <div class="flex brutal-box-sm bg-white p-1">
+        <button class="brutal-btn bg-pastel-butter px-3 py-1.5 text-xs font-mono-neo uppercase font-bold">
+          ⚡ 1. Agent Runner
+        </button>
+        <button class="px-3 py-1.5 text-xs font-mono-neo uppercase font-bold text-neutral-600 hover:text-black">
+          📖 2. 3-Pane Desk
+        </button>
+      </div>
+
+      <button class="brutal-btn bg-pastel-pink px-4 py-2 text-xs font-mono-neo uppercase font-bold">
+        Export Review ↗
+      </button>
+    </div>
+  </header>
+
+  <!-- Big Hero / Announcement Box (Matching the "CRACK THE CODE" Vibe) -->
+  <section class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8 items-start">
+    
+    <!-- Hero Left: Giant Typography & Punchy Action -->
+    <div class="lg:col-span-8 space-y-4">
+      
+      <div class="inline-block brutal-badge bg-pastel-butter px-3 py-1 font-mono-neo text-xs font-bold uppercase tracking-wider">
+        Interactive Agentic Pipeline • 6 Stages
+      </div>
+
+      <div class="space-y-2">
+        <h1 class="text-4xl md:text-6xl font-black uppercase tracking-tight leading-none">
+          SYNTHESIZE THE
+          <span class="inline-block bg-pastel-butter px-3 py-1 brutal-box-sm ml-1 transform -rotate-1">
+            RESEARCH
+          </span>
+        </h1>
+        <p class="brutal-box bg-white p-4 font-mono-neo text-xs md:text-sm leading-relaxed max-w-2xl font-bold">
+          Stop manually reading 50-page PDFs. Let 6 autonomous AI agents parse, extract verified Pydantic schemas, build comparative matrices, and detect research gaps.
+        </p>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-wrap gap-3 pt-2">
+        <button class="brutal-btn bg-pastel-pink px-6 py-3 text-sm font-mono-neo font-bold uppercase">
+          ⚡ Run Full Pipeline Now
+        </button>
+        <button class="brutal-btn bg-pastel-sky px-5 py-3 text-sm font-mono-neo font-bold uppercase">
+          📚 Load 12 Default Benchmark Papers
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Hero Right: Quick Status Slip -->
+    <div class="lg:col-span-4">
+      <div class="brutal-box bg-pastel-cream p-5 transform rotate-1 space-y-3">
+        <div class="flex items-center justify-between border-b-2 border-black pb-2">
+          <span class="font-mono-neo text-xs font-bold uppercase">Live Budget Guardrail</span>
+          <span class="brutal-badge bg-pastel-sage px-2 py-0.5 text-[10px] font-mono-neo font-bold">0 Quota Waste</span>
+        </div>
+        <div class="font-mono-neo text-xs space-y-1.5 font-bold">
+          <div class="flex justify-between">
+            <span>LLM Calls Budget:</span>
+            <span class="bg-pastel-butter px-1 brutal-badge text-[10px]">3 Points Max</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Model:</span>
+            <span>meta/muse-glimmer-30b</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Grounded Ingestion:</span>
+            <span class="text-emerald-700">GROBID + PyMuPDF</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- 6-Stage Agent Pipeline Cards (Chunky Pastel Blocks) -->
+  <section class="mb-8">
+    
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-xl font-black uppercase tracking-tight flex items-center gap-2">
+        <span>🔄</span> Pipeline Execution Stages
+      </h2>
+      <span class="font-mono-neo text-xs font-bold text-neutral-600">Click a stage to inspect</span>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+      
+      <!-- Stage 1 -->
+      <div class="brutal-box bg-pastel-butter p-3 cursor-pointer transform hover:-translate-y-1">
+        <div class="flex justify-between items-center mb-1">
+          <span class="font-mono-neo text-[10px] font-bold">01</span>
+          <span class="text-xs">✓</span>
+        </div>
+        <div class="font-black text-sm uppercase">Screening</div>
+        <div class="font-mono-neo text-[10px] text-neutral-700 mt-1">arXiv Semantic Query</div>
+      </div>
+
+      <!-- Stage 2 -->
+      <div class="brutal-box bg-pastel-sage p-3 cursor-pointer transform hover:-translate-y-1">
+        <div class="flex justify-between items-center mb-1">
+          <span class="font-mono-neo text-[10px] font-bold">02</span>
+          <span class="text-xs">✓</span>
+        </div>
+        <div class="font-black text-sm uppercase">Extraction</div>
+        <div class="font-mono-neo text-[10px] text-neutral-700 mt-1">Pydantic Schemas</div>
+      </div>
+
+      <!-- Stage 3 -->
+      <div class="brutal-box bg-pastel-lavender p-3 cursor-pointer transform hover:-translate-y-1">
+        <div class="flex justify-between items-center mb-1">
+          <span class="font-mono-neo text-[10px] font-bold">03</span>
+          <span class="text-xs">✓</span>
+        </div>
+        <div class="font-black text-sm uppercase">Summaries</div>
+        <div class="font-mono-neo text-[10px] text-neutral-700 mt-1">Vector RAG Engine</div>
+      </div>
+
+      <!-- Stage 4 -->
+      <div class="brutal-box bg-pastel-peach p-3 cursor-pointer transform hover:-translate-y-1">
+        <div class="flex justify-between items-center mb-1">
+          <span class="font-mono-neo text-[10px] font-bold">04</span>
+          <span class="text-xs">⏳</span>
+        </div>
+        <div class="font-black text-sm uppercase">Matrix</div>
+        <div class="font-mono-neo text-[10px] text-neutral-700 mt-1">Pydantic Table</div>
+      </div>
+
+      <!-- Stage 5 -->
+      <div class="brutal-box bg-pastel-pink p-3 cursor-pointer transform hover:-translate-y-1">
+        <div class="flex justify-between items-center mb-1">
+          <span class="font-mono-neo text-[10px] font-bold">05</span>
+          <span class="text-xs">○</span>
+        </div>
+        <div class="font-black text-sm uppercase">Gaps</div>
+        <div class="font-mono-neo text-[10px] text-neutral-700 mt-1">Cross-Paper Frontier</div>
+      </div>
+
+      <!-- Stage 6 -->
+      <div class="brutal-box bg-pastel-sky p-3 cursor-pointer transform hover:-translate-y-1">
+        <div class="flex justify-between items-center mb-1">
+          <span class="font-mono-neo text-[10px] font-bold">06</span>
+          <span class="text-xs">○</span>
+        </div>
+        <div class="font-black text-sm uppercase">Report</div>
+        <div class="font-mono-neo text-[10px] text-neutral-700 mt-1">One Prompt Only</div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- Interactive Agent 1 Panel: Query & Filtering -->
+  <main class="brutal-box bg-white p-6 md:p-8 space-y-6">
+    
+    <div class="flex flex-wrap items-center justify-between gap-3 border-b-4 border-black pb-4">
+      <div>
+        <span class="brutal-badge bg-pastel-butter font-mono-neo text-xs px-2.5 py-1 uppercase">
+          Agent 1: Ingestion & Relevance Screening
+        </span>
+        <h3 class="text-2xl md:text-3xl font-black uppercase mt-1">
+          Enter Research Topic & Screen arXiv
+        </h3>
+        <p class="font-mono-neo text-xs text-neutral-700 mt-0.5">
+          Autonomous TF-IDF relevance filtering, recency preference, and candidate ranking.
+        </p>
+      </div>
+
+      <button class="brutal-btn bg-pastel-butter px-4 py-2 text-xs font-mono-neo font-bold uppercase">
+        ⚡ Execute Agent 1
+      </button>
+    </div>
+
+    <!-- Search Query Input -->
+    <div class="space-y-2">
+      <label class="font-mono-neo text-xs font-black uppercase">Research Project Title or Keywords:</label>
+      <input type="text" value="Agentic AI with Multi-Agent Systems and Tool Use"
+             class="w-full brutal-box-sm bg-pastel-cream px-4 py-3 font-mono-neo text-sm font-bold focus:outline-none focus:bg-white">
+      
+      <!-- Preset Suggestions Pills -->
+      <div class="flex flex-wrap gap-2 pt-1">
+        <span class="font-mono-neo text-[10px] text-neutral-500 font-bold self-center">Presets:</span>
+        <button class="brutal-badge bg-pastel-lavender hover:bg-violet-300 px-2 py-0.5 text-[11px] font-mono-neo font-bold">
+          Agentic AI with Multi-Agent Systems
+        </button>
+        <button class="brutal-badge bg-pastel-sage hover:bg-emerald-300 px-2 py-0.5 text-[11px] font-mono-neo font-bold">
+          LLM Self-Reflection & Tree Search
+        </button>
+        <button class="brutal-badge bg-pastel-peach hover:bg-orange-300 px-2 py-0.5 text-[11px] font-mono-neo font-bold">
+          Embodied Decision Making
+        </button>
+      </div>
+    </div>
+
+    <!-- Parameter Sliders Box -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+      <div class="brutal-box-sm bg-pastel-cream p-3">
+        <div class="font-mono-neo text-xs font-bold uppercase mb-1">Target Papers:</div>
+        <div class="text-2xl font-black">12 <span class="text-xs font-mono-neo text-neutral-500 font-normal">Papers</span></div>
+      </div>
+      <div class="brutal-box-sm bg-pastel-cream p-3">
+        <div class="font-mono-neo text-xs font-bold uppercase mb-1">Recency Preference:</div>
+        <div class="text-2xl font-black">20% <span class="text-xs font-mono-neo text-neutral-500 font-normal">Weight</span></div>
+      </div>
+      <div class="brutal-box-sm bg-pastel-cream p-3">
+        <div class="font-mono-neo text-xs font-bold uppercase mb-1">Candidate Pool:</div>
+        <div class="text-2xl font-black">25 <span class="text-xs font-mono-neo text-neutral-500 font-normal">Candidates</span></div>
+      </div>
+    </div>
+
+  </main>
+
+</body>
+</html>

@@ -10,7 +10,7 @@ import json
 import re
 import time
 from typing import List, Dict, Any, Optional
-from fastapi import FastAPI, HTTPException, Query, Body, BackgroundTasks
+from fastapi import FastAPI, HTTPException, Query, Body, BackgroundTasks, UploadFile, File, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
@@ -304,9 +304,9 @@ def screen_topic(req: ScreeningRequest):
         agent = RelevanceScreeningAgent(recency_weight=req.recency_weight)
         candidates = agent.search_arxiv(req.query, max_candidates=req.max_candidates)
         if not candidates:
-            return {"candidates": []}
+            return {"candidates": [], "papers": [], "results": []}
         ranked = agent.score_and_rank(req.query, candidates)
-        return {"candidates": ranked}
+        return {"candidates": ranked, "papers": ranked, "results": ranked}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -350,7 +350,10 @@ def clear_corpus_api():
 
 @app.post("/api/run-agent/extraction")
 def run_extraction_agent_api():
-    """Runs PDF Parser and Schema Extraction Agent on all corpus papers."""
+    """Runs PDF Parser and Schema Extraction Agent on all corpus papers.
+    Skips papers that already have a schema file to avoid redundant LLM calls
+    (each NVIDIA NIM call takes ~270s).
+    """
     from src.ingestion.parser import parse_pdf_file
     from src.agents.extraction import run_extraction_agent
 
@@ -360,10 +363,24 @@ def run_extraction_agent_api():
 
     os.makedirs(SCHEMAS_DIR, exist_ok=True)
     extracted_schemas = []
+    skipped = []
 
     for pdf_path in pdf_files:
+        pdf_name = os.path.basename(pdf_path)
+        paper_id = pdf_name.split("_")[0]
+        schema_file = os.path.join(SCHEMAS_DIR, f"{paper_id}_schema.json")
+
+        # Skip if schema already exists — LLM call not needed
+        if os.path.exists(schema_file):
+            skipped.append(paper_id)
+            try:
+                with open(schema_file, "r", encoding="utf-8") as f:
+                    extracted_schemas.append(json.load(f))
+            except Exception:
+                pass
+            continue
+
         parsed_doc = parse_pdf_file(pdf_path)
-        paper_id = parsed_doc["paper_id"]
         parsed_json_path = os.path.join(SCHEMAS_DIR, f"{paper_id}_parsed.json")
         with open(parsed_json_path, "w", encoding="utf-8") as f:
             json.dump(parsed_doc, f, indent=2, ensure_ascii=False)
@@ -372,7 +389,12 @@ def run_extraction_agent_api():
         extracted_schemas.append(schema.dict() if hasattr(schema, "dict") else schema)
         time.sleep(1)
 
-    return {"status": "completed", "count": len(extracted_schemas), "schemas": extracted_schemas}
+    return {
+        "status": "completed",
+        "count": len(extracted_schemas),
+        "skipped": len(skipped),
+        "schemas": extracted_schemas,
+    }
 
 
 @app.post("/api/run-agent/summarizer")
@@ -457,6 +479,33 @@ def run_report_agent_api():
         "title": report.title,
         "full_markdown": report.full_markdown
     }
+
+
+
+@app.post("/api/upload-pdf")
+async def upload_pdf(request: Request, filename: Optional[str] = Query(None)):
+    """Accepts a PDF upload as raw binary or multipart and stores it in the corpus directory."""
+    os.makedirs(PDF_DIR, exist_ok=True)
+    content_type = request.headers.get("content-type", "")
+
+    if "multipart/form-data" in content_type:
+        form = await request.form()
+        uploaded_file = form.get("file")
+        if not uploaded_file:
+            raise HTTPException(status_code=400, detail="No file field in multipart request")
+        fname = filename or uploaded_file.filename
+        content = await uploaded_file.read()
+    else:
+        fname = filename or request.headers.get("x-filename") or f"uploaded_{int(time.time())}.pdf"
+        content = await request.body()
+
+    if not fname.lower().endswith(".pdf"):
+        fname += ".pdf"
+
+    dest = os.path.join(PDF_DIR, os.path.basename(fname))
+    with open(dest, "wb") as f:
+        f.write(content)
+    return {"status": "ok", "filename": os.path.basename(fname), "size": len(content)}
 
 
 # Serve static built frontend if available

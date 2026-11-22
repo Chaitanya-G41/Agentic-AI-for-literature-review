@@ -1,0 +1,24 @@
+{
+  "paper_id": "2205.13273",
+  "paper_title": "Acute Lymphoblastic Leukemia Detection Using Hypercomplex Neural Networks",
+  "authors": [
+    "N/A"
+  ],
+  "venue": "N/A",
+  "core_problem": "Diagnosis of acute lymphoblast leukemia (ALL) from blood smear digital microscopic images by classifying lymphocytes.",
+  "methodology_summary": "Utilizing eight hypercomplex-valued convolutional neural networks (HvCNNs) based on hypercomplex algebras (including Clifford algebras) alongside real-valued convolutional networks for image classification.",
+  "datasets_eval": [
+    "ALL-IDB2"
+  ],
+  "empirical_results": "The HvCNN based on Clifford algebras processing HSV-encoded images achieved an average accuracy rate of 96.6% on the ALL-IDB2 dataset (50% train-test split), outperforming real-valued models with a simpler architecture and fewer parameters.",
+  "explicit_limitations": "One specific HvCNN based on the algebra B[-1, +1] yielded a median accuracy rate of 93.8% when processing HSV-encoded images, which was lower than other models in the HSV case.",
+  "numerical_metrics": [],
+  "geographical_data": {},
+  "pipeline_steps": [
+    "Problem Formulation & Data Ingestion",
+    "Method Execution & Architecture",
+    "Empirical Evaluation & Benchmarking"
+  ],
+  "generation_mode": "GENUINE_LLM",
+  "model_name": "NVIDIA_NIM (nvidia/nemotron-3.5-bolt-e4b)"
+}

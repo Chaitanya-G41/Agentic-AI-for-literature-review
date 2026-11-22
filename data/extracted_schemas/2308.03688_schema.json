@@ -1,0 +1,20 @@
+{
+  "paper_id": "2308.03688",
+  "paper_title": "AgentBench: Evaluating LLMs as Agents",
+  "authors": [],
+  "venue": "arXiv",
+  "core_problem": "The potential of Large Language Models as agents is widely acknowledged but there is an urgent need to quantitatively evaluate LLMs as agents on challenging tasks in interactive environments. A systematic and standard benchmark to evaluate LLM-as-Agent is lacking. Existing text-based game environments suffer from closed discrete action spaces and narrow focus on commonsense grounding. Embodied agent simulators are complex multi-modal and do not accurately reflect practical use cases of text-only LLMs. Most benchmarks focus on single environments and fail to provide a comprehensive overview across diverse application scenarios.",
+  "methodology_summary": "Present AGENTBENCH, a multi-dimensional benchmark consisting of 8 distinct environments to assess LLM-as-Agent reasoning and decision-making abilities. Develop a unified evaluation toolkit for LLMs to operate on diverse customized agent tasks, enabling comprehensive benchmarking of 29 different LLMs on AGENTBENCH including both API-based and open-sourced models.",
+  "datasets_eval": [
+    "AGENTBENCH comprises 8 distinct environments for evaluating LLM-as-Agent on a wide array of real-world challenges. Datasets, environments and an integrated evaluation package for AGENTBENCH are released at https://github.com/THUDM/AgentBench. Evaluation is conducted on 29 LLMs examined in this edition, including API-based and OSS models."
+  ],
+  "empirical_results": "Extensive testing over 29 API-based and open-sourced LLMs shows top commercial LLMs present strong ability of acting as agents in complex environments, with a significant disparity in performance between them and many OSS competitors no larger than 70B. Typical failure reasons are identified in environments and LLMs, showing poor long-term reasoning, decision-making and instruction following abilities are main obstacles for developing usable LLM agents. Improving instruction following and training on high quality multi-round alignment data could improve agent performance. Training on code presents ambivalent impacts on different agent tasks. Overall scores of AgentBench across 8 environments are reported with dashed lines for two LLM types average.",
+  "explicit_limitations": "Historically, text-based game environments have been employed for language agent evaluation but often suffer from limitation of closed discrete action spaces and primarily narrow focus on models commonsense grounding. More recent embodied agents employ complicated multi-modal simulators based on games, GUI and indoor scenes, which despite complexity do not accurately reflect practical use cases of LLMs and their multi-modal nature creates a hurdle for urgent evaluation of existing text-only LLMs. Finally, most benchmarks now for agents focus on single environments and thus fail to provide a comprehensive overview of LLMs across diverse application scenarios.",
+  "numerical_metrics": [],
+  "geographical_data": {},
+  "pipeline_steps": [
+    "The potential of Large Language Model (LLM) as agents has been widely acknowl-\nedged recently."
+  ],
+  "generation_mode": "GENUINE_LLM",
+  "model_name": "NVIDIA_NIM (meta/muse-glimmer-30b)"
+}

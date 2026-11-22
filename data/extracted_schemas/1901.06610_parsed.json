@@ -1,0 +1,215 @@
+{
+  "paper_id": "1901.06610",
+  "file_name": "1901.06610_Hierarchical_Attentional_Hybrid_Neural_N.pdf",
+  "title": "Hierarchical Attentional Hybrid Neural Networks for Document Classification",
+  "abstract": "Document classification is a challenging task with important applications. The deep learning approaches to the problem have gained much attention recently. Despite the progress, the proposed models do not incorporate the knowledge of the document structure in the architecture efficiently and not take into account the contexting importance of words and sentences. In this paper, we propose a new approach based on a combination of convolutional neural networks, gated recurrent units, and attention mechanisms for document classification tasks. The main contribution of this work is the use of convolution layers to extract more meaningful, generalizable and abstract features by the hierarchical representation. The proposed method in this paper improves the results of the current attention-based approaches.",
+  "parser_used": "GROBID_TEI_XML_with_PyMuPDF_Visuals",
+  "total_pages": 1,
+  "full_text": "Abstract:\nDocument classification is a challenging task with important applications. The deep learning approaches to the problem have gained much attention recently. Despite the progress, the proposed models do not incorporate the knowledge of the document structure in the architecture efficiently and not take into account the contexting importance of words and sentences. In this paper, we propose a new approach based on a combination of convolutional neural networks, gated recurrent units, and attention mechanisms for document classification tasks. The main contribution of this work is the use of convolution layers to extract more meaningful, generalizable and abstract features by the hierarchical representation. The proposed method in this paper improves the results of the current attention-based approaches.\n[Introduction] Text classification is one of the most classical and important tasks in the machine learning field. The document classification, which is essential to organize documents for retrieval, analysis, and curation, is traditionally performed by classifiers such as Support Vector Machines or Random Forests. As in different areas, the deep learning methods are presenting a performance quite superior to traditional approaches in this field [5]. Deep learning is also playing a central role in Natural Language Processing (NLP) through learned word vector representations. It aims to represent words in terms of fixed-length, continuous and dense feature vectors, capturing semantic word relations: similar words are close to each other in the vector space.\n[Introduction] In most NLP tasks for document classification, the proposed models do not incorporate the knowledge of the document structure in the architecture efficiently and not take into account the contexting importance of words and sentences. Much of these approaches do not select qualitative or informative words and sentences since some words are more informative than others in a document. Moreover, these models are frequently based on recurrent neural networks only [6]. Since CNN has leveraged strong performance on deep learning models by extracting more abundant features and reducing the number of parameters, we guess it not only improves computational performance but also yields better generalization on neural models for document classification.\n[Introduction] A recent trend in NLP is to use attentional mechanisms to modeling information dependencies without regard to their distance between words in the input sequences. In [6] is proposed a hierarchical neural architecture for document classification, which employs attentional mechanisms, trying to mirror the hierarchical structure of the document. The intuition underlying the model is that not all parts of a text are equally relevant to represent it. Further, determining the relevant sections involves modeling the interactions and importance among the words and not just their presence in the text.\n[Introduction] In this paper, we propose a new approach for document classification based on CNN, GRU [4] hidden units and attentional mechanisms to improve the model performance by selectively focusing the network on essential parts of the text sentences during the model training. Inspired by [6], we have used the hierarchical concept to better representation of document structure. We call our model as Hierarchical Attentional Hybrid Neural Networks (HAHNN). We also used temporal convolutions [2], which give us more flexible receptive field sizes. We evaluate the proposed approach comparing its results with state-of-the-art models and the model shows an improved accuracy.\n[Hierarchical Attentional Hybrid Neural Networks] The HAHNN model combines convolutional layers, Gated Recurrent Units, and attention mechanisms. Figure 1 shows the proposed architecture. The first layer of HAHNN is a pre-processed word embedding layer (black circles in the Figure 1). The second layer contains a stack of CNN layers that consist of convolutional layers with multiple filters (varying window sizes) and feature maps. We also have performed some trials with temporal convolutional layers with dilated convolutions and gotten promising results. Besides, we used Dropout for regularization. In the next layers, we use a word encoder applying the attention mechanism on word level context vector. In sequence, a sentence encoder applying the attention on sentence-level context vector. The last layer uses a Softmax function to generate the output probability distribution over the classes.\n[Hierarchical Attentional Hybrid Neural Networks] We use CNN to extract more meaningful, generalizable and abstract features by the hierarchical representation. Combining convolutional layers in different filter sizes with both word and sentence encoder in a hierarchical architecture let our model extract more rich features and improves generalization performance in document classification. To obtain representations of more rare words, by taking into account subwords information, we used FastText [3] in the word embedding initialization.\n[Hierarchical Attentional Hybrid Neural Networks] We investigate two variants of the proposed architecture. There is a basic version, as described in Figure 1, and there is another which implements a TCN [2] layer. The goal is to simulate RNNs with very long memory size by adopting a combination of dilated and regular convolutions with residual connections. Dilated convolutions are considered beneficial in longer sequences as they enable an exponentially larger receptive field in convolutional layers. More formally, for a 1-D sequence input x ∈ R n and a filter f : {0, ..., k -1} → R, the dilated convolution operation F on element s of the sequence is defined as\n[Hierarchical Attentional Hybrid Neural Networks] where d is the dilatation factor, k is the filter size, and s -d • i accounts for the past information direction. Dilation is thus equivalent to introducing a fixed step between every two adjacent filter maps. When d = 1, a dilated convolution reduces to a regular convolution. The use of larger dilation enables an output at the top level to represent a wider range of inputs, expanding the receptive field.\n[Hierarchical Attentional Hybrid Neural Networks] Fig. 1: Our HAHNN Architecture include an CNN layer after the embedding layer. In addition, we have created a variant which includes a temporal convolutional layer [2] after the embedding layer.\n[Hierarchical Attentional Hybrid Neural Networks] The proposed model takes into account that the different parts of a document have no similar relevant information. Moreover, determining the relevant sections involves modeling the interactions among the words, not just their isolated presence in the text. Therefore, to consider this aspect, the model includes two levels of attention mechanisms [1]. One structure at the word level and other at the sentence level, which let the model pay more or less attention to individual words and sentences when constructing the document representation.\n[Hierarchical Attentional Hybrid Neural Networks] The strategy consists of different parts: 1) A word sequence encoder and a word-level attention layer; and 2) A sentence encoder and a sentence-level attention layer. In the word encoder, the model uses bidirectional GRU [1] to produce annotations of words by summarizing information from both directions. Therefore, it incorporates the contextual information in the annotation. The attention levels let the model pay more or less attention to individual words and sentences when constructing the representation of the document [6].\n[Hierarchical Attentional Hybrid Neural Networks] Given a sentence with words w it , t ∈ [0 , T ] and an embedding matrix W e , a bidirectional GRU contains the forward GRU -→ f which reads the sentence s i from w i1 to w iT and a backward GRU ←f which reads from w iT to w i1 :\n[Hierarchical Attentional Hybrid Neural Networks] An annotation for a given word w it is obtained by concatenating the forward hidden state and backward hidden state, i.e.,\n[Hierarchical Attentional Hybrid Neural Networks] which summarizes the information of the whole sentence. We use the attention mechanism to evaluates words that are important to the meaning of the sentence and to aggregate the representation of those informative words into a sentence vector. Specifically,\n[Hierarchical Attentional Hybrid Neural Networks] The model measures the importance of a word as the similarity of u it with a word level context vector u w and learns a normalized importance weight α it through a softmax function. After that, the architecture computes the sentence vector s i as a weighted sum of the word annotations based on the weights. The word context vector u w is randomly initialized and jointly learned during the training process.\n[Hierarchical Attentional Hybrid Neural Networks] Given the sentence vectors s i , and the document vector, the sentence attention is obtained as:\n[Hierarchical Attentional Hybrid Neural Networks] -→\n[Hierarchical Attentional Hybrid Neural Networks] The proposed solution concatenates\n[Hierarchical Attentional Hybrid Neural Networks] which summarizes the neighbor sentences around sentence i but still focus on sentence i . To reward sentences that are relevant to correctly classify a document, the solution again use attention mechanism and introduce a sentence level context vector u s using it to measure the importance of the sentences:\n[Hierarchical Attentional Hybrid Neural Networks] In the above equation, v is the document vector that summarizes all the information of sentences in a document. Similarly, the sentence level context vector u s can be randomly initialized and jointly learned during the training process. The output of the sentence attention layer feeds a fully connected softmax layer.\n[Hierarchical Attentional Hybrid Neural Networks] It gives us a probability distribution over the classes. The proposed method is openly available in the github repositoryfoot_0 .\n[Experiments and Results] We evaluate the proposed model on two document classification datasets using 90% of the data for training and the remaining 10% for tests. We split documents into sentences and tokenize each sentence. The word embeddings have dimension 200 and we use Adam optimizer with a learning rate of 0.001. The datasets used are the IMDb Movie Reviewsfoot_1 and Yelp 2018 3 . The former contains a set of 25k highly polar movie reviews for training and 25k for testing, whereas the classification involves detecting positive/negative reviews. The latter include users ratings and write reviews about stores and services on Yelp, being a dataset for multiclass classification (ratings from 0-5 stars). Yelp 2018 contains around 5M full review text data, but we fix in 500k the number of used samples for computational purposes. Table 1 shows the experiment results comparing our results with related works. Note that HN-ATT [6] obtained an accuracy of 72,73% in the Yelp test set, whereas the proposed model obtained an accuracy of 73,28%. Our results also outperformed CNN [6] and VDNN [7]. We can see an improvement of the results in Yelp with our approach using CNN and varying window sizes in filters. The model also performs better in the results with IMDb using both CNN and TCN.\n[Attention Weights Visualizations] To validate the model performance in select informative words and sentences, we present the visualizations of attention weights in Figure 2. There is an example of the attention visualizations for a positive and negative class in test reviews. Every line is a sentence. Blue color denotes the sentence weight, and red denotes the word weight in determining the sentence meaning. There is a greater focus on more important features despite some exceptions. For example, the word \"loving\" and \"amazed\" in Figure 2 (a) and \"disappointment\" in Figure 2    Occasionally, we have found issues in some sentences, where fewer important words are getting higher importance. For example, in Figure 2 (a) notes that the word \"translate\" has received high importance even though it represents a neutral word. These drawbacks will be taken into account in future works.\n[Final Remarks] In this paper, we have presented the HAHNN architecture for document classification. The method combines CNN with attention mechanisms in both word and sentence level. HAHNN improves accuracy in document classification by incorporate the document structure in the model and employing CNN's for the extraction of more abundant features.",
+  "chunks": [
+    {
+      "paper_id": "1901.06610",
+      "file_name": "1901.06610_Hierarchical_Attentional_Hybrid_Neural_N.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "text": "Document classification is a challenging task with important applications. The deep learning approaches to the problem have gained much attention recently. Despite the progress, the proposed models do not incorporate the knowledge of the document structure in the architecture efficiently and not take into account the contexting importance of words and sentences. In this paper, we propose a new approach based on a combination of convolutional neural networks, gated recurrent units, and attention mechanisms for document classification tasks. The main contribution of this work is the use of convolution layers to extract more meaningful, generalizable and abstract features by the hierarchical representation. The proposed method in this paper improves the results of the current attention-based approaches."
+    },
+    {
+      "paper_id": "1901.06610",
+      "file_name": "1901.06610_Hierarchical_Attentional_Hybrid_Neural_N.pdf",
+      "page_number": 1,
+      "section": "Introduction",
+      "text": "Text classification is one of the most classical and important tasks in the machine learning field. The document classification, which is essential to organize documents for retrieval, analysis, and curation, is traditionally performed by classifiers such as Support Vector Machines or Random Forests. As in different areas, the deep learning methods are presenting a performance quite superior to traditional approaches in this field [5]. Deep learning is also playing a central role in Natural Language Processing (NLP) through learned word vector representations. It aims to represent words in terms of fixed-length, continuous and dense feature vectors, capturing semantic word relations: similar words are close to each other in the vector space."
+    },
+    {
+      "paper_id": "1901.06610",
+      "file_name": "1901.06610_Hierarchical_Attentional_Hybrid_Neural_N.pdf",
+      "page_number": 1,
+      "section": "Introduction",
+      "text": "In most NLP tasks for document classification, the proposed models do not incorporate the knowledge of the document structure in the architecture efficiently and not take into account the contexting importance of words and sentences. Much of these approaches do not select qualitative or informative words and sentences since some words are more informative than others in a document. Moreover, these models are frequently based on recurrent neural networks only [6]. Since CNN has leveraged strong performance on deep learning models by extracting more abundant features and reducing the number of parameters, we guess it not only improves computational performance but also yields better generalization on neural models for document classification."
+    },
+    {
+      "paper_id": "1901.06610",
+      "file_name": "1901.06610_Hierarchical_Attentional_Hybrid_Neural_N.pdf",
+      "page_number": 1,
+      "section": "Introduction",
+      "text": "A recent trend in NLP is to use attentional mechanisms to modeling information dependencies without regard to their distance between words in the input sequences. In [6] is proposed a hierarchical neural architecture for document classification, which employs attentional mechanisms, trying to mirror the hierarchical structure of the document. The intuition underlying the model is that not all parts of a text are equally relevant to represent it. Further, determining the relevant sections involves modeling the interactions and importance among the words and not just their presence in the text."
+    },
+    {
+      "paper_id": "1901.06610",
+      "file_name": "1901.06610_Hierarchical_Attentional_Hybrid_Neural_N.pdf",
+      "page_number": 1,
+      "section": "Introduction",
+      "text": "In this paper, we propose a new approach for document classification based on CNN, GRU [4] hidden units and attentional mechanisms to improve the model performance by selectively focusing the network on essential parts of the text sentences during the model training. Inspired by [6], we have used the hierarchical concept to better representation of document structure. We call our model as Hierarchical Attentional Hybrid Neural Networks (HAHNN). We also used temporal convolutions [2], which give us more flexible receptive field sizes. We evaluate the proposed approach comparing its results with state-of-the-art models and the model shows an improved accuracy."
+    },
+    {
+      "paper_id": "1901.06610",
+      "file_name": "1901.06610_Hierarchical_Attentional_Hybrid_Neural_N.pdf",
+      "page_number": 1,
+      "section": "Hierarchical Attentional Hybrid Neural Networks",
+      "text": "The HAHNN model combines convolutional layers, Gated Recurrent Units, and attention mechanisms. Figure 1 shows the proposed architecture. The first layer of HAHNN is a pre-processed word embedding layer (black circles in the Figure 1). The second layer contains a stack of CNN layers that consist of convolutional layers with multiple filters (varying window sizes) and feature maps. We also have performed some trials with temporal convolutional layers with dilated convolutions and gotten promising results. Besides, we used Dropout for regularization. In the next layers, we use a word encoder applying the attention mechanism on word level context vector. In sequence, a sentence encoder applying the attention on sentence-level context vector. The last layer uses a Softmax function to generate the output probability distribution over the classes."
+    },
+    {
+      "paper_id": "1901.06610",
+      "file_name": "1901.06610_Hierarchical_Attentional_Hybrid_Neural_N.pdf",
+      "page_number": 1,
+      "section": "Hierarchical Attentional Hybrid Neural Networks",
+      "text": "We use CNN to extract more meaningful, generalizable and abstract features by the hierarchical representation. Combining convolutional layers in different filter sizes with both word and sentence encoder in a hierarchical architecture let our model extract more rich features and improves generalization performance in document classification. To obtain representations of more rare words, by taking into account subwords information, we used FastText [3] in the word embedding initialization."
+    },
+    {
+      "paper_id": "1901.06610",
+      "file_name": "1901.06610_Hierarchical_Attentional_Hybrid_Neural_N.pdf",
+      "page_number": 1,
+      "section": "Hierarchical Attentional Hybrid Neural Networks",
+      "text": "We investigate two variants of the proposed architecture. There is a basic version, as described in Figure 1, and there is another which implements a TCN [2] layer. The goal is to simulate RNNs with very long memory size by adopting a combination of dilated and regular convolutions with residual connections. Dilated convolutions are considered beneficial in longer sequences as they enable an exponentially larger receptive field in convolutional layers. More formally, for a 1-D sequence input x ∈ R n and a filter f : {0, ..., k -1} → R, the dilated convolution operation F on element s of the sequence is defined as"
+    },
+    {
+      "paper_id": "1901.06610",
+      "file_name": "1901.06610_Hierarchical_Attentional_Hybrid_Neural_N.pdf",
+      "page_number": 1,
+      "section": "Hierarchical Attentional Hybrid Neural Networks",
+      "text": "where d is the dilatation factor, k is the filter size, and s -d • i accounts for the past information direction. Dilation is thus equivalent to introducing a fixed step between every two adjacent filter maps. When d = 1, a dilated convolution reduces to a regular convolution. The use of larger dilation enables an output at the top level to represent a wider range of inputs, expanding the receptive field."
+    },
+    {
+      "paper_id": "1901.06610",
+      "file_name": "1901.06610_Hierarchical_Attentional_Hybrid_Neural_N.pdf",
+      "page_number": 1,
+      "section": "Hierarchical Attentional Hybrid Neural Networks",
+      "text": "Fig. 1: Our HAHNN Architecture include an CNN layer after the embedding layer. In addition, we have created a variant which includes a temporal convolutional layer [2] after the embedding layer."
+    },
+    {
+      "paper_id": "1901.06610",
+      "file_name": "1901.06610_Hierarchical_Attentional_Hybrid_Neural_N.pdf",
+      "page_number": 1,
+      "section": "Hierarchical Attentional Hybrid Neural Networks",
+      "text": "The proposed model takes into account that the different parts of a document have no similar relevant information. Moreover, determining the relevant sections involves modeling the interactions among the words, not just their isolated presence in the text. Therefore, to consider this aspect, the model includes two levels of attention mechanisms [1]. One structure at the word level and other at the sentence level, which let the model pay more or less attention to individual words and sentences when constructing the document representation."
+    },
+    {
+      "paper_id": "1901.06610",
+      "file_name": "1901.06610_Hierarchical_Attentional_Hybrid_Neural_N.pdf",
+      "page_number": 1,
+      "section": "Hierarchical Attentional Hybrid Neural Networks",
+      "text": "The strategy consists of different parts: 1) A word sequence encoder and a word-level attention layer; and 2) A sentence encoder and a sentence-level attention layer. In the word encoder, the model uses bidirectional GRU [1] to produce annotations of words by summarizing information from both directions. Therefore, it incorporates the contextual information in the annotation. The attention levels let the model pay more or less attention to individual words and sentences when constructing the representation of the document [6]."
+    },
+    {
+      "paper_id": "1901.06610",
+      "file_name": "1901.06610_Hierarchical_Attentional_Hybrid_Neural_N.pdf",
+      "page_number": 1,
+      "section": "Hierarchical Attentional Hybrid Neural Networks",
+      "text": "Given a sentence with words w it , t ∈ [0 , T ] and an embedding matrix W e , a bidirectional GRU contains the forward GRU -→ f which reads the sentence s i from w i1 to w iT and a backward GRU ←f which reads from w iT to w i1 :"
+    },
+    {
+      "paper_id": "1901.06610",
+      "file_name": "1901.06610_Hierarchical_Attentional_Hybrid_Neural_N.pdf",
+      "page_number": 1,
+      "section": "Hierarchical Attentional Hybrid Neural Networks",
+      "text": "An annotation for a given word w it is obtained by concatenating the forward hidden state and backward hidden state, i.e.,"
+    },
+    {
+      "paper_id": "1901.06610",
+      "file_name": "1901.06610_Hierarchical_Attentional_Hybrid_Neural_N.pdf",
+      "page_number": 1,
+      "section": "Hierarchical Attentional Hybrid Neural Networks",
+      "text": "which summarizes the information of the whole sentence. We use the attention mechanism to evaluates words that are important to the meaning of the sentence and to aggregate the representation of those informative words into a sentence vector. Specifically,"
+    },
+    {
+      "paper_id": "1901.06610",
+      "file_name": "1901.06610_Hierarchical_Attentional_Hybrid_Neural_N.pdf",
+      "page_number": 1,
+      "section": "Hierarchical Attentional Hybrid Neural Networks",
+      "text": "The model measures the importance of a word as the similarity of u it with a word level context vector u w and learns a normalized importance weight α it through a softmax function. After that, the architecture computes the sentence vector s i as a weighted sum of the word annotations based on the weights. The word context vector u w is randomly initialized and jointly learned during the training process."
+    },
+    {
+      "paper_id": "1901.06610",
+      "file_name": "1901.06610_Hierarchical_Attentional_Hybrid_Neural_N.pdf",
+      "page_number": 1,
+      "section": "Hierarchical Attentional Hybrid Neural Networks",
+      "text": "Given the sentence vectors s i , and the document vector, the sentence attention is obtained as:"
+    },
+    {
+      "paper_id": "1901.06610",
+      "file_name": "1901.06610_Hierarchical_Attentional_Hybrid_Neural_N.pdf",
+      "page_number": 1,
+      "section": "Hierarchical Attentional Hybrid Neural Networks",
+      "text": "-→"
+    },
+    {
+      "paper_id": "1901.06610",
+      "file_name": "1901.06610_Hierarchical_Attentional_Hybrid_Neural_N.pdf",
+      "page_number": 1,
+      "section": "Hierarchical Attentional Hybrid Neural Networks",
+      "text": "The proposed solution concatenates"
+    },
+    {
+      "paper_id": "1901.06610",
+      "file_name": "1901.06610_Hierarchical_Attentional_Hybrid_Neural_N.pdf",
+      "page_number": 1,
+      "section": "Hierarchical Attentional Hybrid Neural Networks",
+      "text": "which summarizes the neighbor sentences around sentence i but still focus on sentence i . To reward sentences that are relevant to correctly classify a document, the solution again use attention mechanism and introduce a sentence level context vector u s using it to measure the importance of the sentences:"
+    },
+    {
+      "paper_id": "1901.06610",
+      "file_name": "1901.06610_Hierarchical_Attentional_Hybrid_Neural_N.pdf",
+      "page_number": 1,
+      "section": "Hierarchical Attentional Hybrid Neural Networks",
+      "text": "In the above equation, v is the document vector that summarizes all the information of sentences in a document. Similarly, the sentence level context vector u s can be randomly initialized and jointly learned during the training process. The output of the sentence attention layer feeds a fully connected softmax layer."
+    },
+    {
+      "paper_id": "1901.06610",
+      "file_name": "1901.06610_Hierarchical_Attentional_Hybrid_Neural_N.pdf",
+      "page_number": 1,
+      "section": "Hierarchical Attentional Hybrid Neural Networks",
+      "text": "It gives us a probability distribution over the classes. The proposed method is openly available in the github repositoryfoot_0 ."
+    },
+    {
+      "paper_id": "1901.06610",
+      "file_name": "1901.06610_Hierarchical_Attentional_Hybrid_Neural_N.pdf",
+      "page_number": 1,
+      "section": "Experiments and Results",
+      "text": "We evaluate the proposed model on two document classification datasets using 90% of the data for training and the remaining 10% for tests. We split documents into sentences and tokenize each sentence. The word embeddings have dimension 200 and we use Adam optimizer with a learning rate of 0.001. The datasets used are the IMDb Movie Reviewsfoot_1 and Yelp 2018 3 . The former contains a set of 25k highly polar movie reviews for training and 25k for testing, whereas the classification involves detecting positive/negative reviews. The latter include users ratings and write reviews about stores and services on Yelp, being a dataset for multiclass classification (ratings from 0-5 stars). Yelp 2018 contains around 5M full review text data, but we fix in 500k the number of used samples for computational purposes. Table 1 shows the experiment results comparing our results with related works. Note that HN-ATT [6] obtained an accuracy of 72,73% in the Yelp test set, whereas the proposed model obtained an accuracy of 73,28%. Our results also outperformed CNN [6] and VDNN [7]. We can see an improvement of the results in Yelp with our approach using CNN and varying window sizes in filters. The model also performs better in the results with IMDb using both CNN and TCN."
+    },
+    {
+      "paper_id": "1901.06610",
+      "file_name": "1901.06610_Hierarchical_Attentional_Hybrid_Neural_N.pdf",
+      "page_number": 1,
+      "section": "Attention Weights Visualizations",
+      "text": "To validate the model performance in select informative words and sentences, we present the visualizations of attention weights in Figure 2. There is an example of the attention visualizations for a positive and negative class in test reviews. Every line is a sentence. Blue color denotes the sentence weight, and red denotes the word weight in determining the sentence meaning. There is a greater focus on more important features despite some exceptions. For example, the word \"loving\" and \"amazed\" in Figure 2 (a) and \"disappointment\" in Figure 2    Occasionally, we have found issues in some sentences, where fewer important words are getting higher importance. For example, in Figure 2 (a) notes that the word \"translate\" has received high importance even though it represents a neutral word. These drawbacks will be taken into account in future works."
+    },
+    {
+      "paper_id": "1901.06610",
+      "file_name": "1901.06610_Hierarchical_Attentional_Hybrid_Neural_N.pdf",
+      "page_number": 1,
+      "section": "Final Remarks",
+      "text": "In this paper, we have presented the HAHNN architecture for document classification. The method combines CNN with attention mechanisms in both word and sentence level. HAHNN improves accuracy in document classification by incorporate the document structure in the model and employing CNN's for the extraction of more abundant features."
+    }
+  ],
+  "figures": [
+    {
+      "figure_id": "FIG-1901.06610-P3-1",
+      "page_number": 3,
+      "file_path": "data/figures\\1901.06610\\fig_p3_1.png",
+      "dimensions": "1977x3503",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-1901.06610-P6-1",
+      "page_number": 6,
+      "file_path": "data/figures\\1901.06610\\fig_p6_1.png",
+      "dimensions": "717x150",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-1901.06610-P6-2",
+      "page_number": 6,
+      "file_path": "data/figures\\1901.06610\\fig_p6_2.png",
+      "dimensions": "719x100",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    }
+  ],
+  "figures_count": 3,
+  "vector_graphs": [],
+  "vector_graphs_count": 0
+}

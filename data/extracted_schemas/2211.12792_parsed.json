@@ -1,0 +1,859 @@
+{
+  "paper_id": "2211.12792",
+  "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+  "title": "MECCH: Metapath Context Convolution-based Heterogeneous Graph Neural Networks",
+  "abstract": "Heterogeneous graph neural networks (HGNNs) were proposed for representation learning on structural data with multiple types of nodes and edges. To deal with the performance degradation issue when HGNNs become deep, researchers combine metapaths into HGNNs to associate nodes closely related in semantics but far apart in the graph. However, existing metapath-based models suffer from either information loss or high computation costs. To address these problems, we present a novel Metapath Context Convolution-based Heterogeneous Graph Neural Network (MECCH). MECCH leverages metapath contexts, a new kind of graph structure that facilitates lossless node information aggregation while avoiding any redundancy. Specifically, MECCH applies three novel components after feature preprocessing to extract comprehensive information from the input graph efficiently: (1) metapath context construction, (2) metapath context encoder, and (3) convolutional metapath fusion. Experiments on five real-world heterogeneous graph datasets for node classification and link prediction show that MECCH achieves superior prediction accuracy compared with state-of-the-art baselines with improved computational efficiency. The code is available at",
+  "parser_used": "GROBID_TEI_XML_with_PyMuPDF_Visuals",
+  "total_pages": 1,
+  "full_text": "Abstract:\nHeterogeneous graph neural networks (HGNNs) were proposed for representation learning on structural data with multiple types of nodes and edges. To deal with the performance degradation issue when HGNNs become deep, researchers combine metapaths into HGNNs to associate nodes closely related in semantics but far apart in the graph. However, existing metapath-based models suffer from either information loss or high computation costs. To address these problems, we present a novel Metapath Context Convolution-based Heterogeneous Graph Neural Network (MECCH). MECCH leverages metapath contexts, a new kind of graph structure that facilitates lossless node information aggregation while avoiding any redundancy. Specifically, MECCH applies three novel components after feature preprocessing to extract comprehensive information from the input graph efficiently: (1) metapath context construction, (2) metapath context encoder, and (3) convolutional metapath fusion. Experiments on five real-world heterogeneous graph datasets for node classification and link prediction show that MECCH achieves superior prediction accuracy compared with state-of-the-art baselines with improved computational efficiency. The code is available at\n[Introduction] Many real-world networks are heterogeneous graphs, which contain multiple types of nodes and edges. As illustrated in Figure 1, a movie information network may consist of actors, movies, directors, and different types of relationships between them. The complex and irregular interactions among different types of nodes and edges make it challenging to extract knowledge from heterogeneous graphs efficiently. Therefore, heterogeneous graph representation learning, which aims to represent nodes using low-dimensional vectors, is a desirable way to automatically process and make inferences on such data.\n[Introduction] Over the past decade, heterogeneous graph representation learning has drawn significant attention. Early attempts usually combine skip-gram model (Mikolov et al., 2013a) and metapathguided random walks (Dong et al., 2017;Fu et al., 2017;Shi et al., 2019). With the rapid development of deep learning, graph neural networks (GNNs) (Kipf and Welling, 2017;Hamilton et al., 2017;Velickovic et al., 2018) are proposed to incorporate node features and benefit from neural network architectures. Initially, GNNs focused on homogeneous graphs. But it is straightforward for researchers to generalize GNNs to the heterogeneous scenario, where multiple types of nodes and edges introduce another layer of complexity into the GNN design.\n[Introduction] Recent efforts in heterogeneous GNNs (HGNNs) can be divided into two categories: relation-based HGNNs and metapathbased HGNNs. Relation-based HGNNs consider message passing parameterized by edge types and aggregate information from direct neighbors (Schlichtkrull et al., 2018;Zhang et al., 2019a;Hu et al., 2020;Lv et al., 2021;Yang et al., 2023d). Models of this kind are generally simple and fast. Still, they usu-  ally require stacking many GNN layers to leverage information multiple hops away, potentially deteriorating model performance (Li et al., 2018;Zhou et al., 2021). Another line of research takes advantage of metapaths, which are ordered sequences of node and edge types describing composite relationships between nodes (as shown in Figure 1). Metapath-based HGNNs consider message passing through metapaths and aggregate information from metapath-guided neighbors. Through this way, the models can comfortably obtain information multiple hops away with very few layers and capture high-level semantic information embedded in the graph.\n[Introduction] However, existing metapath-based HGNNs can hardly achieve a good balance between model performance and computational efficiency. HAN (Wang et al., 2019a) aggregates metapathguided neighbors, but with information loss caused by discarded intermediate nodes along metapaths. MAGNN (Fu et al., 2020) addresses this issue by encoding metapath instances. But the computational complexity is significantly increased due to redundant computations introduced. Unlike HAN and MAGNN, which choose metapaths based on human expertise, GTN (Yun et al., 2019) tries to automatically select informative metapaths using learnable weights. However, GTN also suffers from high computation costs and massive memory usage since it multiplies the entire adjacency matrix of the input graph.\n[Introduction] These problems with existing models drive us to design a new metapath-based HGNN that can extract comprehensive knowledge from the input graph while maintaining modest computation time and memory footprint. Through analysis, we discover that metapath contexts, a new kind of graph structure defined by us, can enable lossless node information aggregation without redundant computations. In this paper, we propose a novel MEtapath Context Convolution-based Heterogeneous Graph Neural Network (MECCH) to learn node representations from heterogeneous graphs. Specifically, after feature preprocessing, MECCH first constructs metapath contexts for each node to describe the neighboring structures formed by the metapaths. Next, MECCH efficiently encodes the constructed metapath contexts to integrate information from both metapathguided neighbors and intermediate nodes along metapaths. In the end, MECCH adaptively combines node representations from different metapaths using an efficient 1-D convolution kernel. In summary, our main contributions are as follows:\n[Introduction] 1. We provide a unified framework for metapath-based HGNNs and analyze their limitations, facilitating new HGNN design with in-depth model understanding. 2. We introduce metapath contexts, a new kind of graph structure that facilitates lossless node information aggregation while avoiding any redundancy. 3. We propose a novel metapath context convolution-based HGNN (MECCH) that can capture comprehensive information without incurring redundant computations. 4. We conduct extensive experiments on five heterogeneous graph datasets for node classification and link prediction against multiple state-of-the-art HGNNs. MECCH consistently outperforms these baselines while improving computational efficiency.\n[Introduction] Paper Structure. Section 2 briefly introduces the historical development of heterogeneous graph representation learning and especially heterogeneous GNNs. Section 3 presents the definitions and graphical illustrations of the important terminologies used in this paper. Section 4 formulates a general framework for metapath-based HGNNs and presents the novel HGNN model we propose for effective and efficient learning on heterogeneous graphs. Section 5 describes the experimental settings and evaluation results on the node classification and link prediction tasks. Section 6 concludes the paper with possible future directions.\n[Related Work] Heterogeneous graph representation learning aims to transform nodes in a heterogeneous graph into low-dimensional vector representations that can preserve the rich semantic information from the original graph structure and node features.\n[Shallow Models] Inspired by the homogeneous graph embedding model Deep-Walk (Perozzi et al., 2014), metapath2vec (Dong et al., 2017) generates random walks guided by a pre-defined metapath, which are then fed to a skip-gram model to generate node embeddings. HIN2vec (Fu et al., 2017) and HERec (Shi et al., 2019) also leverage metapaths in different ways. Some models capture node proximity at the neighborhood level (Chen et al., 2018) or at the schema level (Zhao et al., 2020). Some other embedding models focus on knowledge graphs, i.e., heterogeneous graphs with rich schemas (Bordes et al., 2013;Yang et al., 2015;Sun et al., 2019). There are also models that conduct heterogeneous graph embedding in non-Euclidean vector spaces (Wang et al., 2019b(Wang et al., , 2021a)). These shallow models do not utilize node features, resulting in a heavy loss of important information. They are also trained in an unsupervised fashion. Although their generated embeddings can be fed to downstream models for various tasks, there is a performance gap between them and those end-to-end task-dependent models, i.e., GNNs.\n[Graph Neural Networks] GNNs have been a recent trend in graph representation learning. The rationale behind GNNs is that each node can be characterized by its features and local neighborhood. Following this idea, GCN (Kipf and Welling, 2017), GAT (Velickovic et al., 2018), and many other powerful GNN architectures (Hamilton et al., 2017;Zhang et al., 2018Zhang et al., , 2019b;;Yang et al., 2021) have been proposed. GNNs can leverage node features and benefit from various training paradigms of deep learning, achieving state-of-the-art results in many homogeneous graph datasets (Liang et al., 2022;Yang et al., 2023a,b,c) with various applications, such as recommendation (Chen et al., 2023b,c), biochemistry (Meng et al., 2023a,b,c), and natural language (Song and King, 2022;Ma et al., 2023). It is natural for researchers to generalize GNNs to the heterogeneous setting. We summarize recent HGNN designs into relation-based models and metapath-based models.\n[Relation-based HGNNs] Relation-based HGNNs aggregate direct neighbors modulated by type-specific weights. By extending GCN with edgetype-specific weights, RGCN (Schlichtkrull et al., 2018) groups and aggregates the neighborhood based on the edge types. Het-SANN (Hong et al., 2020) employs type-specific graph attention layers to aggregate local information. HGT (Hu et al., 2020) leverages a Transformer-like encoder (Vaswani et al., 2017) parameterized by node and edge types to aggregate the local neighborhood. Simple-HGN (Lv et al., 2021) extends GAT to the heterogeneous setting via edge-type attention. R-HGNN (Yu et al., 2023) jointly learns node and relation representations via relation-specific and cross-relation message passings. Many follow-up works are based on a similar idea (Zhang et al., 2019a;Yang et al., 2023d;Yu et al., 2020;Yoon et al., 2022;Ahn et al., 2022), which we do not describe in detail. Despite simplicity and efficiency, the only way for relation-based HGNNs to capture information from nodes multiple hops away is to stack more GNN layers, bringing along potential performance degradation caused by the over-smoothing problem (Li et al., 2018) and the over-use of transformation operations (Zhou et al., 2021).\n[Metapath-based HGNNs] To address the limitations stated above, some researchers designed HGNNs leveraging metapaths to associate nodes far from each other, eliminating the need for stacking multiple layers. By connecting metapath-guided neighbors and discarding intermediate nodes, HAN (Wang et al., 2019a) converts a heterogeneous graph into multiple homogeneous subgraphs. It then applies GAT to each subgraph and combines node representations from different metapaths using attention. MAGNN (Fu et al., 2020) incorporates the intermediate nodes discarded by HAN through leveraging metapath instances. However, this raises an efficiency issue caused by duplicate nodes across an exploding number of metapath instances. Metapaths in HAN and MAGNN are manually selected. To automate this process, GTN (Yun et al., 2019) softly selects relations using learnable weights and applies matrix multiplication to obtain the adjacency matrix of arbitrary metapaths, which is fed to a GCN to get node representations. Useful metapaths can be automatically extracted based on the relation weights. GTN requires a tremendous amount of memory space and computation time due to the large matrix multiplication step. Based on GTN, MEGNN (Chang et al., 2022) rearranges the calculation order of the matrix multiplications to improve the efficiency.\n[Metapath-based HGNNs] Despite their success in different datasets, existing metapathbased HGNNs cannot have it all for performance and efficiency. HAN suffers from information loss. MAGNN and GTN are limited by high computation costs. MEGNN still faces the scalability issue with large graphs because of large matrix multiplication. Derivative studies based on these models share similar issues (Zhang et al., 2022;Wang et al., 2022). We leave the detailed illustration and discussion of the underlying mechanisms that cause these issues to Figure 3 and Section 4.1.3. Therefore, we want to design a metapath-based HGNN that can capture the most information from the input heterogeneous graph without information loss, and at the same time can be efficient without redundant computations. We achieve these goals by defining and utilizing a special structure called metapath context. The advantages of metapath context and how it can help avoid the issues mentioned above will be detailed in Section 4.2.\n[Notation Definition] R n n-dimensional Euclidean space a, a, A Scalar, vector, matrix\n[Notation Definition] The cardinality of a set\n[Preliminary] This section gives formal definitions of some basic terminologies of heterogeneous graphs. Their graphical illustrations are provided in Figure 2. Besides, Table 1 briefly references the mathematical symbols used in this work.\n[Preliminary] Definition 1 (Heterogeneous Graph). A heterogeneous graph is defined as a graph G = (V, E) associated with a node type mapping function ϕ : V → A and an edge type mapping function ψ : E → R. A and R denote the pre-defined sets of node types and edge types, respectively, with\n[Preliminary] , where • denotes the composition operator on edge types.\n[Definition 3 (Metapath Instance). Given a metapath] Definition 4 (Metapath-guided Neighbor). Given a metapath P of a heterogeneous graph G, the metapath-guided neighbors N P v of a node v is defined as the set of nodes that connect with node v via some metapath instances of P.\n[Definition 3 (Metapath Instance). Given a metapath] and only if it belongs to a metapath instance of P starting from v in the original graph G.\n[Definition 3 (Metapath Instance). Given a metapath] Definition 6 (Heterogeneous Graph Representation Learning). Given a heterogeneous graph G = (V, E), with node feature matrices\n[Definition 3 (Metapath Instance). Given a metapath] are able to capture rich structural and semantic information involved in G.\n[Methodology] In this section, we propose MECCH, a novel metapath context convolution-based HGNN. First in Section 4.1, we describe a general framework that can represent most existing metapathbased HGNNs. Then in Section 4.2, 4.3, and 4.4, we present the three novel components that constitute MECCH. In the end, we also introduce the training losses in Section 4.5 and analyze the model complexity in Section 4.6.\n[Metapath-based HGNN Framework] We formalize a metapath-based HGNN as the following four components applied in series: (1) feature preprocessing, (2) local subgraph re-construction (LSR), (3) metapath-specific graph convolution (MGC), and (4) metapath fusion (MF). Existing metapath-based HGNNs differ in the last three components. We summarize them along with MECCH in terms of the LSR, MGC, and MF components in Table 2, where MN denotes metapath-guided neighbors, MI denotes metapath instances, and MC denotes metapath contexts.\n[Feature Preprocessing] In heterogeneous graphs, different node types may have unequal dimensions of node features. Therefore, before feeding the input graph into an HGNN, one would apply a node-typespecific linear transformation to project node features into latent vectors with the same dimensionality. For nodes without raw features, we can assign one-hot vectors to them as initial features. Combined with the linear transformation, this is equivalent to an embedding lookup. The projected representation h 0 v of node v of type ϕ (v) can be obtained by:\n[Feature Preprocessing] where v) and b ϕ(v) ∈ R d are the learnable weights and bias.\n[Local Subgraph Re-construction] In metapath-based HGNNs, nodes from the input graph need to be re-connected for message passing through metapath instead of from direct neighbors. Following this, a new local subgraph S P v = V P v , E P v would be re-constructed for each node in each related metapath. The definition of S P v differs across HGNNs. For example, S P v in HAN is the metapath-P-guided neighborhood of v, while S P v in MAGNN is the set of metapath-P's instances incident to v. Each S P v carries unique semantics that will be encoded and captured in the next step.\n[Metapath-specific Graph Convolution] To compute metapath-P-specific node representations, the model would conduct graph convolution on the re-constructed subgraphs S P v from the last step. For node v at layer l, the metapath-P-specific node representation h l v,P is computed by:\n[Metapath-specific Graph Convolution] where MGC l P is the graph convolution function for metapath P at layer l. Different models could have different designs for this function. For example, HAN ignores the intermediate nodes and directly applies GAT to aggregate metapath-guided neighbors. MAGNN incorporates intermediate nodes by encoding and aggregating metapath instances. GTN essentially applies GCN to the metapath-guided neighbors for automatically generated metapaths. A graphical illustration of different MGC l P implementations is provided in Figure 3. Basically, the existing metapath-based HGNNs either aggregate deficient nodes (which causes information loss), or aggregate redundant nodes (which leads to high computation costs). Our MECCH introduced later aims to extract adequate information from the graph without any redundancy. After applying this component, every node is now associated with a set of vector representations, each from one metapath.\n[Metapath Fusion] To combine unilateral metapath-specific representations into one unified node representation h l v , metapath-based HGNNs require a fusion step MF l ϕ(v) :\n[Metapath Fusion] where P ϕ(v) is the set of metapaths starting from node type ϕ (v), either manually selected or automatically generated.\n[Metapath Fusion] Our proposed MECCH follows this framework with novel designs on the last three components. Specifically, after feature preprocessing, we propose to construct metapath contexts for each node in each metapath, then utilize a metapath context encoder to embed metapath-specific information, and finally leverage convolutional metapath fusion to integrate information from different metapaths together. Figure 4 illustrates the overall architecture of MECCH. The model pseudocode is provided in Algorithm 1.\n[Metapath Context Construction] After feature preprocessing, for each node v in each metapath P ∈ P ϕ(v) , MECCH constructs a metapath context, a local subgraph S P v centered at v based on Definition 5. The metapath context S P v describes the entire structure connecting the target node v and the metapath-P-guided neighbors. This notion avoids information loss caused by discarding intermediate nodes in HAN, and reduces redundant computations caused by duplicate nodes across metapath instances in MAGNN. The concept of metapath context is illustrated in Figure 3. As shown, by using metapath contexts, MECCH aggregates each node within the receptive field exactly once, thus can achieve improved efficiency with optimal performance.\n[Metapath Context Construction] For the metapaths considered, MECCH uses all metapaths of a pre-defined length K, which does not require a manual selection process based on human expertise. Any metapath of length less than K must be a sub-sequence of some length-K metapath. The shorter metapath's context would be subsumed entirely as a subgraph of a longer metapath's context. Considering any metapath shorter than K would lead to extracting redundant information. Therefore, unlike GTN, which uses all metapaths with length ≤ K, MECCH only considers length-K metapaths. In this way, MECCH requires no prior knowledge to select metapaths and at the same time avoids a significant amount of redundant computations.\n[Metapath Context Encoder] After constructing the metapath context S P v , MECCH employs a metapath context encoder to learn structural and semantic information embedded in S P v . Since metapath contexts are essentially graphs, it is natural to leverage graph pooling functions to encode S P v . Therefore, the metapath context encoder MGC l P of MECCH is formulated as:\n[Metapath Context Encoder] where READOUT l P could be a permutation-invariant function like summation, or a more sophisticated GNN-based graph encoder to consider the graph structure. Each h l v,P obtained can be interpreted as the information of node v exhibited by metapath P. Our experiments show that an attention-based encoder cannot well capture the semantics embedded in the metapath context. Eventually, we employ the mean graph pooling strategy for this component, which is highly efficient without the need to tune any parameters.\n[Convolutional Metapath Fusion] After encoding metapath contexts, MECCH applies a fusion layer to combine representations from different metapaths h l v,P , ∀P ∈ P ϕ(v) into one unified node representation. A straightforward solution is to take the element-wise mean. But the mean operation does not consider that metapaths might have different importance to node representations. HAN and MAGNN compute metapath weights by applying attention to metapath summary vectors calculated by averaging projected representations of all nodes, which restricts the model to full-batch training only. To bypass this limitation, MECCH adopts an efficient 1-D convolution kernel to adaptively learn the impact of each metapath on the downstream task:\n[Convolutional Metapath Fusion] for all P ∈ P A do 4:\n[Convolutional Metapath Fusion] end for 6: end for 7: for l = 1 . . . L do\n[8:] for all A ∈ A do 9:\n[8:] for all P ∈ P A do 10:\n[8:] end for 12:\n[8:] end for 15: end for 16: return h L v , ∀v ∈ V where α l P is a learnable vector of length equal to the hidden dimension d. Then MECCH further applies a projection to obtain the final node vector of the desired output dimension:\n[8:] where W l ϕ(v) and b l ϕ(v) are the weight matrix and the bias term, σ is an activation function (ReLU by default).\n[Training Losses] For the node classification task, the loss function would be the cross-entropy between ground truths and model outputs over a small set of labeled nodes:\n[Training Losses] where V label is the set of labeled nodes for training, C is the number of classes, y v is the one-hot ground truth of node v, and ŷv = h L v is the model's predicted probability vector. For the link prediction task, we leverage the negative sampling strategy (Mikolov et al., 2013b) to train the model along with a DistMult (Yang et al., 2015) link decoder using a binary cross-entropy loss function:\n[Training Losses] where W lp = diag(w lp ) is a learnable diagonal matrix, σ is the sigmoid function, Ω is the set of positive (observed) edges, and p n is the distribution of v -for sampling negative edges (u, v -).\n[Complexity Analysis] The time complexity of MECCH consists of three parts, corresponding to the feature preprocessing, the metapath context encoder, and the convolutional metapath fusion, respectively. The metapath context construction does not contribute to the complexity because it can be pre-computed. To simplify the complexity analysis, we consider the following scenario: there are N nodes in the input graph, every node is associated with M metapaths of length K, and every node has t type-A neighbors for each node type A. The feature preprocessing is done by Eq. ( 1 The metapath context encoder is defined by Eq. ( 4), where S P v contains at most 1\n[Complexity Analysis] The convolutional metapath fusion consists of Eq. ( 5) and Eq. ( 6). Eq. ( 5\n[Complexity Analysis] In practice, the input dimensionality d in and the output dimensionality d out are typically very small compared to M • t K . Thus, the overall time complexity of a 1-layer MECCH is\n[Complexity Analysis] Therefore, we have MECCH ≈ HAN < MAGNN < GTN for computational complexity.\n[Experiments] In this section, we demonstrate the effectiveness and efficiency of our proposed MECCH by conducting experiments in the node classification and link prediction tasks on five heterogeneous graph datasets. The experiments are designed to answer the following research questions.\n[Experiments] • RQ1. How does MECCH perform in classifying nodes?\n[Experiments] • RQ2. How does MECCH perform in predicting links?\n[Experiments] • RQ3. How efficient is MECCH?\n[Experiments] • RQ4. How effective is each proposed component?\n[Datasets] We select datasets of varying sizes from different domains to simulate real-life applications. For node classification, we adopt the IMDB, ACM, and DBLP datasets from (Yun et al., 2019) to evaluate the performance of MECCH and baselines. For link prediction, we choose the LastFM dataset from (Fu et al., 2020) and the PubMed dataset from (Yang et al., 2022) to compare the models. Since previous researchers usually preprocess the raw data under different pipelines, scores reported in their original papers cannot be compared directly. To ensure fairness, we reran experiments of each model on the same preprocessed datasets. We try our best to follow the default settings (e.g., training/validation/testing splits) of these datasets. Statistics of the five adopted datasets are summarized in Table 3. • IMDB is a movie information network for node classification. The preprocessed subset contains three types of nodes: movies, actors, and directors. A bag-of-words representation of plot keywords describes each node in the dataset. The movie nodes are labeled by their genres.\n[Datasets] • ACM is an academic network for node classification, with three types of nodes: papers, authors, and subjects.\n[Datasets] Nodes in ACM are associated with bag-of-words representations of keywords. The paper nodes are labeled based on the conference in which they were published.\n[Datasets] • DBLP is also an academic network for node classification. It contains three types of nodes: papers, authors, and conferences. Nodes in the dataset are associated with bag-of-words representations of keywords. The author nodes are labeled based on their research fields.\n[Datasets] • LastFm is a music listening information network for link prediction. The preprocessed subset contains three types of nodes: users, artists, and tags. Nodes in this dataset are not associated with any features. The prediction targets are the user-artist edges.\n[Datasets] • PubMed is a biomedical knowledge graph for link prediction, with four types of nodes: genes, diseases, chemicals, and species. Nodes in PubMed are associated with aggregated word2vec embeddings. The prediction targets are the disease-disease edges.\n[Baselines] We compare MECCH against state-of-the-art HGNNs, including three relation-based HGNNs (RGCN, HGT, and Simple-HGN), three metapath-based HGNNs (HAN, MAGNN, and GTN).\n[Baselines] • RGCN (Schlichtkrull et al., 2018) is a relation-based HGNN that groups and aggregates neighbors based on their edge types with edge-type-specific weights.\n[Baselines] • HGT (Hu et al., 2020) is a relation-based HGNN. It leverages a Transformer-like self-attention architecture parameterized by node types and edge types to capture the importance weights of the heterogeneous neighborhood.\n[Baselines] • Simple-HGN (Lv et al., 2021) is a relation-based HGNN.\n[Baselines] It extends GAT by adding edge-type attention, residual connection, and output normalization.\n[Baselines] • HAN (Wang et al., 2019a) is a metapath-based HGNN.\n[Baselines] It learns metapath-specific node embeddings by aggregating metapath-guided neighbors and leverages the attention mechanism to combine metapaths.\n[Baselines] • MAGNN (Fu et al., 2020) is a metapath-based HGNN that enhances HAN by incorporating the intermediate nodes along metapaths with metapath instance encoders.\n[Baselines] • GTN (Yun et al., 2019) is a metapath-based HGNN that can automatically discover valuable metapaths via multiplying weighted sums of relation subgraphs.\n[Hyperparameters] For fairness, we configure the node embedding dimension of all HGNNs to 64. For models with multi-head attention, we set the number of heads as 8 and ensure it would not multiply the embedding dimension, as suggested in (Hu et al., 2020). For metapaths used by HAN and MAGNN, we adopt the ones suggested in their papers. For MAGNN, we use the relational rotation metapath instance encoder. For GTN, we use the adaptive learning rate as suggested in the authors' implementation. For MECCH, we choose the metapath length K within {1, 2, 3, 4, 5}. For each model-dataset pair, we experiment with the number of HGNN layers within {1, 2, 3, 4, 5}, the dropout rate within {0, 0.5}, the learning rate within {1, 2, 5}× 10 -3 , 10 -2 , the weight decay within 0, 10 -3 . The hyperparameter combinations that can fit in the GPU memory and yields the best results are selected (except for GTN, which runs on CPU for ACM, DBLP, and LastFM). We use the same data splits for training, validation, and testing across models. We train all HGNNs using the Adam optimizer for 500 epochs with early stopping applied after a patience of 50 epochs.\n[Platform Specifications] All of our experiments are conducted on the same platform with the following system specifications. CPU: 40x Intel Xeon Platinum 8268 cores. GPU: 1x NVIDIA TITAN V card. Memory: 775 GiB. Operating System: Ubuntu 18.04.6 LTS. Libraries: DGL 0.7.2, PyTorch 1.10.1, and CUDA 11.3.\n[Node Classification (RQ1)] We evaluate MECCH against other baselines for node classification on IMDB, ACM, and DBLP. As shown in Table 3, only a small set of labeled nodes are available for training and validation, which is a typical semi-supervised node classification setting for GNNs. The averages and standard deviations of Table 4: Experiment results (%) of the node classification task on the IMDB, ACM, and DBLP datasets. ↑ (↓) indicates the higher (lower), the better. For each column, the best result is in bold font, and the second-best result is underlined. Macro-F1 and Micro-F1 scores from 5 runs of each model on each dataset are reported in Table 4. From the table, we have the following observations:\n[Model] 1. MECCH consistently outperforms previous state-of-theart HGNNs in node classification across different datasets.\n[Model] On average, the performance gain of our model over the best baseline is around 2.59%. 2. Generally speaking, metapath-based HGNNs produce higher and more stable results than relation-based HGNNs. But the margin is tiny. Nevertheless, our MECCH proves that properly leveraging metapath contexts can bring noticeable advantages. 3. It is interesting that MAGNN and GTN can hardly benefit from their high computation costs. One possible reason might be that redundant aggregations overly smooth meaningful signals from important nodes. For MAGNN, another possible culprit is the parameter-intensive attention mechanism, which is removed in MECCH to avoid overfitting and enhance generalization ability.\n[Link Prediction (RQ2)] On LastFM and PubMed, link prediction is formulated as a binary classification problem to distinguish whether a given edge exists or not in the original graph. During training, the negative edge (u, v -) is generated by replacing the destination node v of a positive edge (u, v) by uniformly sampling v -from V ϕ(v) . For validation and testing, negative edges are pre-generated in a 1:1 ratio to the positive ones and are kept the same across different models for a fair comparison. We also follow (Lv et al., 2021) to sample hard negative edges for validation and testing. The averages and standard deviations of ROC-AUC scores in 5 runs are reported in Table 5, from which we have the following observations:\n[Link Prediction (RQ2)] 1. MECCH performs consistently better than other models, with 1.51% and 4.00% improvements over the strongest baselines on LastFM and PubMed, respectively. 2. The small ROC-AUC variances show that MECCH is much more stable than other HGNNs. 3. One interesting observation is that relation-based HGNNs usually achieve better scores than metapath-based HGNNs in the link prediction task. Nevertheless, our MECCH still outperforms all of them. 4. On PubMed, MAGNN has poor performance, and GTN cannot run due to significant memory consumption. They could both suffer from the diluted neighborhood messages caused by aggregating duplicate information. Moreover, MAGNN may also be negatively affected by the over-parameterized attention modules.\n[Time and Memory Usage (RQ3)] Besides comparing HGNNs based on prediction accuracy, we also evaluate models in terms of computational efficiency.  Metapath Length (K)  As shown, MECCH is much more efficient than MAGNN and GTN in training time and memory usage, with a better or comparable resource usage compared to HAN. This is accomplished when MECCH incorporates more information than HAN (i.e., the intermediate nodes along metapaths). MAGNN on DBLP can only run in mini-batches due to its high GPU memory usage. Hence its reported values cannot be compared directly. On both ACM and DBLP, GTN cannot fit in the limited GPU memory. Instead, it runs on CPU with a significantly longer running time. These results show that MECCH can achieve both superior model performance and decent computational efficiency, further proving the advantages of leveraging metapath contexts over metapath-guided neighbors and metapath instances.\n[Ablation Study (RQ4)] To analyze the effectiveness of the three proposed components, we conduct an ablation study by comparing our MECCH with the following model variants: (1) MECCH-KHop is a variant without leveraging metapath contexts, equivalent to aggregating all the nodes within a radius of K regardless of node or edge types; (2) MECCH-HAN is a variant replacing metapath contexts with metapath-guided neighbors used in HAN;\n[Ablation Study (RQ4)] (3) MECCH-MAGNN is a variant replacing metapath contexts with metapath instances used in MAGNN; (4) MECCH-ACE is a variant using an attention-based module as the metapath context encoder; (5) MECCH-MMF is a variant using the element-wise mean as the metapath fusion strategy; (6) MECCH-nAMF is a variant that fuses metapaths by applying the attention mechanism per node; (7) MECCH-gAMF is a variant that fuses metapaths by using the attention scores computed globally based on the summaries of all nodes' representation. The experiment results are reported in   MAGNN model in Table 4 andTable 5. This also indicates that the attention-free design of MECCH components improves the model performance.\n[Hyperparameter Study] To investigate how MECCH is affected by the hyperparameters, we conduct pilot tests on the IMDB dataset with different choices for the metapath length K and the number of MECCH layers L. Results are shown in Figure 5, where Figure 5 (a) shows results when L is fixed at 1, and Figure 5 (b) shows results under K = 5. Except for the concerning hyperparameter, all other setups are kept unchanged.\n[Hyperparameter Study] From Figure 5 (a), we observe significant increase in performance when leveraging larger metapath contexts (K > 1). The best results on IMDB is reached when K is around 5. Further increasing the metapath length K has diminishing returns. Obviously, the optimal choice of K is closely related to the structural characteristics of the dataset and the downstream task. Referring to Figure 5 (b), MECCH is sensitive to the choice of L. This makes sense because the metapath length K is fixed at 5. Adding one more MECCH layer introduces a much larger receptive field that could dramatically impact the final performance. This also suggests that MECCH is capable of learning the complex semantics embedded in the graph with very few layers, avoiding the potential performance degradation issues when the model gets deep.\n[Visualization] To provide an intuitive assessment of the model's embedding quality, we visualize the node representations generated by different HGNNs on the DBLP and LastFM datasets. On DBLP, we take the generated node vectors of the authors in the testing set just before applying the last GNN layer/output projection. On LastFM, we randomly sample 100 positive user-artist pairs from the testing set and take the node vectors just before applying the DistMult decoder. Then they are projected into a two-dimensional vector space using t-SNE. Here we plot the t-SNE node embedding visualizations of R-GCN, HGT, HAN, and MECCH in Figure 6 for DBLP, where each color corresponds to one author class (research area), and in Figure 7 for LastFM, where blue points are users and green points are artists.\n[Visualization] From the two figures, one can clearly observe the advantage of MECCH over other HGNNs. Figure 6 shows that our proposed MECCH can generate more informative node representations in the node classification task. On DBLP, MECCH makes nodes with the same class labels close to each other and nodes with different class labels far away, resulting in a clear separation between classes. Other HGNNs would produce dispersed intra-class distribution and obscure inter-class boundaries. Figure 7 shows that MECCH can well separate user and artist nodes and preserve the aligned correlation of the positive user-artist pairs. While other HGNNs can roughly divide user nodes and artist nodes into two different groups, they cannot maintain good alignment between users and artists.\n[Conclusion] In this paper, we formulate a unified framework for metapathbased HGNNs to facilitate model understanding and new model design. We analyze existing models and observe that they cannot balance model performance and computational efficiency. To address these issues, we propose a metapath context convolution based HGNN (MECCH) with three novel components:\n[Conclusion] (1) metapath context construction, (2) metapath context encoder, and (3) convolutional metapath fusion. The three components are designed to prevent information loss and redundant computations simultaneously.\n[Conclusion] In experiments, MECCH consistently outperforms state-ofthe-art baselines on five widely adopted heterogeneous graph datasets for node classification and link prediction, with improved computational efficiency. Ablation studies validate the effectiveness of MECCH's novel components in boosting model performance. Embedding visualizations qualitatively demonstrate the superiority of MECCH.\n[Conclusion] For future work, we plan to improve MECCH so that it can be applied to web-scale datasets, such as AMiner (Tang et al., 2008) and MAG (Sinha et al., 2015), where existing metapathbased HGNNs can hardly run due to substantial computational costs. We also plan to incorporate various training paradigms by using MECCH as an encoder to further boost the prediction accuracy, such as self-supervised learning (Ren et al., 2019;Park et al., 2020), contrastive learning (Wang et al., 2021b;Qian et al., 2022;Chen et al., 2023a), and federated learning (Fu and King, 2023).",
+  "chunks": [
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "text": "Heterogeneous graph neural networks (HGNNs) were proposed for representation learning on structural data with multiple types of nodes and edges. To deal with the performance degradation issue when HGNNs become deep, researchers combine metapaths into HGNNs to associate nodes closely related in semantics but far apart in the graph. However, existing metapath-based models suffer from either information loss or high computation costs. To address these problems, we present a novel Metapath Context Convolution-based Heterogeneous Graph Neural Network (MECCH). MECCH leverages metapath contexts, a new kind of graph structure that facilitates lossless node information aggregation while avoiding any redundancy. Specifically, MECCH applies three novel components after feature preprocessing to extract comprehensive information from the input graph efficiently: (1) metapath context construction, (2) metapath context encoder, and (3) convolutional metapath fusion. Experiments on five real-world heterogeneous graph datasets for node classification and link prediction show that MECCH achieves superior prediction accuracy compared with state-of-the-art baselines with improved computational efficiency. The code is available at"
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Introduction",
+      "text": "Many real-world networks are heterogeneous graphs, which contain multiple types of nodes and edges. As illustrated in Figure 1, a movie information network may consist of actors, movies, directors, and different types of relationships between them. The complex and irregular interactions among different types of nodes and edges make it challenging to extract knowledge from heterogeneous graphs efficiently. Therefore, heterogeneous graph representation learning, which aims to represent nodes using low-dimensional vectors, is a desirable way to automatically process and make inferences on such data."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Introduction",
+      "text": "Over the past decade, heterogeneous graph representation learning has drawn significant attention. Early attempts usually combine skip-gram model (Mikolov et al., 2013a) and metapathguided random walks (Dong et al., 2017;Fu et al., 2017;Shi et al., 2019). With the rapid development of deep learning, graph neural networks (GNNs) (Kipf and Welling, 2017;Hamilton et al., 2017;Velickovic et al., 2018) are proposed to incorporate node features and benefit from neural network architectures. Initially, GNNs focused on homogeneous graphs. But it is straightforward for researchers to generalize GNNs to the heterogeneous scenario, where multiple types of nodes and edges introduce another layer of complexity into the GNN design."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Introduction",
+      "text": "Recent efforts in heterogeneous GNNs (HGNNs) can be divided into two categories: relation-based HGNNs and metapathbased HGNNs. Relation-based HGNNs consider message passing parameterized by edge types and aggregate information from direct neighbors (Schlichtkrull et al., 2018;Zhang et al., 2019a;Hu et al., 2020;Lv et al., 2021;Yang et al., 2023d). Models of this kind are generally simple and fast. Still, they usu-  ally require stacking many GNN layers to leverage information multiple hops away, potentially deteriorating model performance (Li et al., 2018;Zhou et al., 2021). Another line of research takes advantage of metapaths, which are ordered sequences of node and edge types describing composite relationships between nodes (as shown in Figure 1). Metapath-based HGNNs consider message passing through metapaths and aggregate information from metapath-guided neighbors. Through this way, the models can comfortably obtain information multiple hops away with very few layers and capture high-level semantic information embedded in the graph."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Introduction",
+      "text": "However, existing metapath-based HGNNs can hardly achieve a good balance between model performance and computational efficiency. HAN (Wang et al., 2019a) aggregates metapathguided neighbors, but with information loss caused by discarded intermediate nodes along metapaths. MAGNN (Fu et al., 2020) addresses this issue by encoding metapath instances. But the computational complexity is significantly increased due to redundant computations introduced. Unlike HAN and MAGNN, which choose metapaths based on human expertise, GTN (Yun et al., 2019) tries to automatically select informative metapaths using learnable weights. However, GTN also suffers from high computation costs and massive memory usage since it multiplies the entire adjacency matrix of the input graph."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Introduction",
+      "text": "These problems with existing models drive us to design a new metapath-based HGNN that can extract comprehensive knowledge from the input graph while maintaining modest computation time and memory footprint. Through analysis, we discover that metapath contexts, a new kind of graph structure defined by us, can enable lossless node information aggregation without redundant computations. In this paper, we propose a novel MEtapath Context Convolution-based Heterogeneous Graph Neural Network (MECCH) to learn node representations from heterogeneous graphs. Specifically, after feature preprocessing, MECCH first constructs metapath contexts for each node to describe the neighboring structures formed by the metapaths. Next, MECCH efficiently encodes the constructed metapath contexts to integrate information from both metapathguided neighbors and intermediate nodes along metapaths. In the end, MECCH adaptively combines node representations from different metapaths using an efficient 1-D convolution kernel. In summary, our main contributions are as follows:"
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Introduction",
+      "text": "1. We provide a unified framework for metapath-based HGNNs and analyze their limitations, facilitating new HGNN design with in-depth model understanding. 2. We introduce metapath contexts, a new kind of graph structure that facilitates lossless node information aggregation while avoiding any redundancy. 3. We propose a novel metapath context convolution-based HGNN (MECCH) that can capture comprehensive information without incurring redundant computations. 4. We conduct extensive experiments on five heterogeneous graph datasets for node classification and link prediction against multiple state-of-the-art HGNNs. MECCH consistently outperforms these baselines while improving computational efficiency."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Introduction",
+      "text": "Paper Structure. Section 2 briefly introduces the historical development of heterogeneous graph representation learning and especially heterogeneous GNNs. Section 3 presents the definitions and graphical illustrations of the important terminologies used in this paper. Section 4 formulates a general framework for metapath-based HGNNs and presents the novel HGNN model we propose for effective and efficient learning on heterogeneous graphs. Section 5 describes the experimental settings and evaluation results on the node classification and link prediction tasks. Section 6 concludes the paper with possible future directions."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Related Work",
+      "text": "Heterogeneous graph representation learning aims to transform nodes in a heterogeneous graph into low-dimensional vector representations that can preserve the rich semantic information from the original graph structure and node features."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Shallow Models",
+      "text": "Inspired by the homogeneous graph embedding model Deep-Walk (Perozzi et al., 2014), metapath2vec (Dong et al., 2017) generates random walks guided by a pre-defined metapath, which are then fed to a skip-gram model to generate node embeddings. HIN2vec (Fu et al., 2017) and HERec (Shi et al., 2019) also leverage metapaths in different ways. Some models capture node proximity at the neighborhood level (Chen et al., 2018) or at the schema level (Zhao et al., 2020). Some other embedding models focus on knowledge graphs, i.e., heterogeneous graphs with rich schemas (Bordes et al., 2013;Yang et al., 2015;Sun et al., 2019). There are also models that conduct heterogeneous graph embedding in non-Euclidean vector spaces (Wang et al., 2019b(Wang et al., , 2021a)). These shallow models do not utilize node features, resulting in a heavy loss of important information. They are also trained in an unsupervised fashion. Although their generated embeddings can be fed to downstream models for various tasks, there is a performance gap between them and those end-to-end task-dependent models, i.e., GNNs."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Graph Neural Networks",
+      "text": "GNNs have been a recent trend in graph representation learning. The rationale behind GNNs is that each node can be characterized by its features and local neighborhood. Following this idea, GCN (Kipf and Welling, 2017), GAT (Velickovic et al., 2018), and many other powerful GNN architectures (Hamilton et al., 2017;Zhang et al., 2018Zhang et al., , 2019b;;Yang et al., 2021) have been proposed. GNNs can leverage node features and benefit from various training paradigms of deep learning, achieving state-of-the-art results in many homogeneous graph datasets (Liang et al., 2022;Yang et al., 2023a,b,c) with various applications, such as recommendation (Chen et al., 2023b,c), biochemistry (Meng et al., 2023a,b,c), and natural language (Song and King, 2022;Ma et al., 2023). It is natural for researchers to generalize GNNs to the heterogeneous setting. We summarize recent HGNN designs into relation-based models and metapath-based models."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Relation-based HGNNs",
+      "text": "Relation-based HGNNs aggregate direct neighbors modulated by type-specific weights. By extending GCN with edgetype-specific weights, RGCN (Schlichtkrull et al., 2018) groups and aggregates the neighborhood based on the edge types. Het-SANN (Hong et al., 2020) employs type-specific graph attention layers to aggregate local information. HGT (Hu et al., 2020) leverages a Transformer-like encoder (Vaswani et al., 2017) parameterized by node and edge types to aggregate the local neighborhood. Simple-HGN (Lv et al., 2021) extends GAT to the heterogeneous setting via edge-type attention. R-HGNN (Yu et al., 2023) jointly learns node and relation representations via relation-specific and cross-relation message passings. Many follow-up works are based on a similar idea (Zhang et al., 2019a;Yang et al., 2023d;Yu et al., 2020;Yoon et al., 2022;Ahn et al., 2022), which we do not describe in detail. Despite simplicity and efficiency, the only way for relation-based HGNNs to capture information from nodes multiple hops away is to stack more GNN layers, bringing along potential performance degradation caused by the over-smoothing problem (Li et al., 2018) and the over-use of transformation operations (Zhou et al., 2021)."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Metapath-based HGNNs",
+      "text": "To address the limitations stated above, some researchers designed HGNNs leveraging metapaths to associate nodes far from each other, eliminating the need for stacking multiple layers. By connecting metapath-guided neighbors and discarding intermediate nodes, HAN (Wang et al., 2019a) converts a heterogeneous graph into multiple homogeneous subgraphs. It then applies GAT to each subgraph and combines node representations from different metapaths using attention. MAGNN (Fu et al., 2020) incorporates the intermediate nodes discarded by HAN through leveraging metapath instances. However, this raises an efficiency issue caused by duplicate nodes across an exploding number of metapath instances. Metapaths in HAN and MAGNN are manually selected. To automate this process, GTN (Yun et al., 2019) softly selects relations using learnable weights and applies matrix multiplication to obtain the adjacency matrix of arbitrary metapaths, which is fed to a GCN to get node representations. Useful metapaths can be automatically extracted based on the relation weights. GTN requires a tremendous amount of memory space and computation time due to the large matrix multiplication step. Based on GTN, MEGNN (Chang et al., 2022) rearranges the calculation order of the matrix multiplications to improve the efficiency."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Metapath-based HGNNs",
+      "text": "Despite their success in different datasets, existing metapathbased HGNNs cannot have it all for performance and efficiency. HAN suffers from information loss. MAGNN and GTN are limited by high computation costs. MEGNN still faces the scalability issue with large graphs because of large matrix multiplication. Derivative studies based on these models share similar issues (Zhang et al., 2022;Wang et al., 2022). We leave the detailed illustration and discussion of the underlying mechanisms that cause these issues to Figure 3 and Section 4.1.3. Therefore, we want to design a metapath-based HGNN that can capture the most information from the input heterogeneous graph without information loss, and at the same time can be efficient without redundant computations. We achieve these goals by defining and utilizing a special structure called metapath context. The advantages of metapath context and how it can help avoid the issues mentioned above will be detailed in Section 4.2."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Notation Definition",
+      "text": "R n n-dimensional Euclidean space a, a, A Scalar, vector, matrix"
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Notation Definition",
+      "text": "The cardinality of a set"
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Preliminary",
+      "text": "This section gives formal definitions of some basic terminologies of heterogeneous graphs. Their graphical illustrations are provided in Figure 2. Besides, Table 1 briefly references the mathematical symbols used in this work."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Preliminary",
+      "text": "Definition 1 (Heterogeneous Graph). A heterogeneous graph is defined as a graph G = (V, E) associated with a node type mapping function ϕ : V → A and an edge type mapping function ψ : E → R. A and R denote the pre-defined sets of node types and edge types, respectively, with"
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Preliminary",
+      "text": ", where • denotes the composition operator on edge types."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Definition 3 (Metapath Instance). Given a metapath",
+      "text": "Definition 4 (Metapath-guided Neighbor). Given a metapath P of a heterogeneous graph G, the metapath-guided neighbors N P v of a node v is defined as the set of nodes that connect with node v via some metapath instances of P."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Definition 3 (Metapath Instance). Given a metapath",
+      "text": "and only if it belongs to a metapath instance of P starting from v in the original graph G."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Definition 3 (Metapath Instance). Given a metapath",
+      "text": "Definition 6 (Heterogeneous Graph Representation Learning). Given a heterogeneous graph G = (V, E), with node feature matrices"
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Definition 3 (Metapath Instance). Given a metapath",
+      "text": "are able to capture rich structural and semantic information involved in G."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Methodology",
+      "text": "In this section, we propose MECCH, a novel metapath context convolution-based HGNN. First in Section 4.1, we describe a general framework that can represent most existing metapathbased HGNNs. Then in Section 4.2, 4.3, and 4.4, we present the three novel components that constitute MECCH. In the end, we also introduce the training losses in Section 4.5 and analyze the model complexity in Section 4.6."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Metapath-based HGNN Framework",
+      "text": "We formalize a metapath-based HGNN as the following four components applied in series: (1) feature preprocessing, (2) local subgraph re-construction (LSR), (3) metapath-specific graph convolution (MGC), and (4) metapath fusion (MF). Existing metapath-based HGNNs differ in the last three components. We summarize them along with MECCH in terms of the LSR, MGC, and MF components in Table 2, where MN denotes metapath-guided neighbors, MI denotes metapath instances, and MC denotes metapath contexts."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Feature Preprocessing",
+      "text": "In heterogeneous graphs, different node types may have unequal dimensions of node features. Therefore, before feeding the input graph into an HGNN, one would apply a node-typespecific linear transformation to project node features into latent vectors with the same dimensionality. For nodes without raw features, we can assign one-hot vectors to them as initial features. Combined with the linear transformation, this is equivalent to an embedding lookup. The projected representation h 0 v of node v of type ϕ (v) can be obtained by:"
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Feature Preprocessing",
+      "text": "where v) and b ϕ(v) ∈ R d are the learnable weights and bias."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Local Subgraph Re-construction",
+      "text": "In metapath-based HGNNs, nodes from the input graph need to be re-connected for message passing through metapath instead of from direct neighbors. Following this, a new local subgraph S P v = V P v , E P v would be re-constructed for each node in each related metapath. The definition of S P v differs across HGNNs. For example, S P v in HAN is the metapath-P-guided neighborhood of v, while S P v in MAGNN is the set of metapath-P's instances incident to v. Each S P v carries unique semantics that will be encoded and captured in the next step."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Metapath-specific Graph Convolution",
+      "text": "To compute metapath-P-specific node representations, the model would conduct graph convolution on the re-constructed subgraphs S P v from the last step. For node v at layer l, the metapath-P-specific node representation h l v,P is computed by:"
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Metapath-specific Graph Convolution",
+      "text": "where MGC l P is the graph convolution function for metapath P at layer l. Different models could have different designs for this function. For example, HAN ignores the intermediate nodes and directly applies GAT to aggregate metapath-guided neighbors. MAGNN incorporates intermediate nodes by encoding and aggregating metapath instances. GTN essentially applies GCN to the metapath-guided neighbors for automatically generated metapaths. A graphical illustration of different MGC l P implementations is provided in Figure 3. Basically, the existing metapath-based HGNNs either aggregate deficient nodes (which causes information loss), or aggregate redundant nodes (which leads to high computation costs). Our MECCH introduced later aims to extract adequate information from the graph without any redundancy. After applying this component, every node is now associated with a set of vector representations, each from one metapath."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Metapath Fusion",
+      "text": "To combine unilateral metapath-specific representations into one unified node representation h l v , metapath-based HGNNs require a fusion step MF l ϕ(v) :"
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Metapath Fusion",
+      "text": "where P ϕ(v) is the set of metapaths starting from node type ϕ (v), either manually selected or automatically generated."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Metapath Fusion",
+      "text": "Our proposed MECCH follows this framework with novel designs on the last three components. Specifically, after feature preprocessing, we propose to construct metapath contexts for each node in each metapath, then utilize a metapath context encoder to embed metapath-specific information, and finally leverage convolutional metapath fusion to integrate information from different metapaths together. Figure 4 illustrates the overall architecture of MECCH. The model pseudocode is provided in Algorithm 1."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Metapath Context Construction",
+      "text": "After feature preprocessing, for each node v in each metapath P ∈ P ϕ(v) , MECCH constructs a metapath context, a local subgraph S P v centered at v based on Definition 5. The metapath context S P v describes the entire structure connecting the target node v and the metapath-P-guided neighbors. This notion avoids information loss caused by discarding intermediate nodes in HAN, and reduces redundant computations caused by duplicate nodes across metapath instances in MAGNN. The concept of metapath context is illustrated in Figure 3. As shown, by using metapath contexts, MECCH aggregates each node within the receptive field exactly once, thus can achieve improved efficiency with optimal performance."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Metapath Context Construction",
+      "text": "For the metapaths considered, MECCH uses all metapaths of a pre-defined length K, which does not require a manual selection process based on human expertise. Any metapath of length less than K must be a sub-sequence of some length-K metapath. The shorter metapath's context would be subsumed entirely as a subgraph of a longer metapath's context. Considering any metapath shorter than K would lead to extracting redundant information. Therefore, unlike GTN, which uses all metapaths with length ≤ K, MECCH only considers length-K metapaths. In this way, MECCH requires no prior knowledge to select metapaths and at the same time avoids a significant amount of redundant computations."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Metapath Context Encoder",
+      "text": "After constructing the metapath context S P v , MECCH employs a metapath context encoder to learn structural and semantic information embedded in S P v . Since metapath contexts are essentially graphs, it is natural to leverage graph pooling functions to encode S P v . Therefore, the metapath context encoder MGC l P of MECCH is formulated as:"
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Metapath Context Encoder",
+      "text": "where READOUT l P could be a permutation-invariant function like summation, or a more sophisticated GNN-based graph encoder to consider the graph structure. Each h l v,P obtained can be interpreted as the information of node v exhibited by metapath P. Our experiments show that an attention-based encoder cannot well capture the semantics embedded in the metapath context. Eventually, we employ the mean graph pooling strategy for this component, which is highly efficient without the need to tune any parameters."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Convolutional Metapath Fusion",
+      "text": "After encoding metapath contexts, MECCH applies a fusion layer to combine representations from different metapaths h l v,P , ∀P ∈ P ϕ(v) into one unified node representation. A straightforward solution is to take the element-wise mean. But the mean operation does not consider that metapaths might have different importance to node representations. HAN and MAGNN compute metapath weights by applying attention to metapath summary vectors calculated by averaging projected representations of all nodes, which restricts the model to full-batch training only. To bypass this limitation, MECCH adopts an efficient 1-D convolution kernel to adaptively learn the impact of each metapath on the downstream task:"
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Convolutional Metapath Fusion",
+      "text": "for all P ∈ P A do 4:"
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Convolutional Metapath Fusion",
+      "text": "end for 6: end for 7: for l = 1 . . . L do"
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "8:",
+      "text": "for all A ∈ A do 9:"
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "8:",
+      "text": "for all P ∈ P A do 10:"
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "8:",
+      "text": "end for 12:"
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "8:",
+      "text": "end for 15: end for 16: return h L v , ∀v ∈ V where α l P is a learnable vector of length equal to the hidden dimension d. Then MECCH further applies a projection to obtain the final node vector of the desired output dimension:"
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "8:",
+      "text": "where W l ϕ(v) and b l ϕ(v) are the weight matrix and the bias term, σ is an activation function (ReLU by default)."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Training Losses",
+      "text": "For the node classification task, the loss function would be the cross-entropy between ground truths and model outputs over a small set of labeled nodes:"
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Training Losses",
+      "text": "where V label is the set of labeled nodes for training, C is the number of classes, y v is the one-hot ground truth of node v, and ŷv = h L v is the model's predicted probability vector. For the link prediction task, we leverage the negative sampling strategy (Mikolov et al., 2013b) to train the model along with a DistMult (Yang et al., 2015) link decoder using a binary cross-entropy loss function:"
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Training Losses",
+      "text": "where W lp = diag(w lp ) is a learnable diagonal matrix, σ is the sigmoid function, Ω is the set of positive (observed) edges, and p n is the distribution of v -for sampling negative edges (u, v -)."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Complexity Analysis",
+      "text": "The time complexity of MECCH consists of three parts, corresponding to the feature preprocessing, the metapath context encoder, and the convolutional metapath fusion, respectively. The metapath context construction does not contribute to the complexity because it can be pre-computed. To simplify the complexity analysis, we consider the following scenario: there are N nodes in the input graph, every node is associated with M metapaths of length K, and every node has t type-A neighbors for each node type A. The feature preprocessing is done by Eq. ( 1 The metapath context encoder is defined by Eq. ( 4), where S P v contains at most 1"
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Complexity Analysis",
+      "text": "The convolutional metapath fusion consists of Eq. ( 5) and Eq. ( 6). Eq. ( 5"
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Complexity Analysis",
+      "text": "In practice, the input dimensionality d in and the output dimensionality d out are typically very small compared to M • t K . Thus, the overall time complexity of a 1-layer MECCH is"
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Complexity Analysis",
+      "text": "Therefore, we have MECCH ≈ HAN < MAGNN < GTN for computational complexity."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Experiments",
+      "text": "In this section, we demonstrate the effectiveness and efficiency of our proposed MECCH by conducting experiments in the node classification and link prediction tasks on five heterogeneous graph datasets. The experiments are designed to answer the following research questions."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Experiments",
+      "text": "• RQ1. How does MECCH perform in classifying nodes?"
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Experiments",
+      "text": "• RQ2. How does MECCH perform in predicting links?"
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Experiments",
+      "text": "• RQ3. How efficient is MECCH?"
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Experiments",
+      "text": "• RQ4. How effective is each proposed component?"
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Datasets",
+      "text": "We select datasets of varying sizes from different domains to simulate real-life applications. For node classification, we adopt the IMDB, ACM, and DBLP datasets from (Yun et al., 2019) to evaluate the performance of MECCH and baselines. For link prediction, we choose the LastFM dataset from (Fu et al., 2020) and the PubMed dataset from (Yang et al., 2022) to compare the models. Since previous researchers usually preprocess the raw data under different pipelines, scores reported in their original papers cannot be compared directly. To ensure fairness, we reran experiments of each model on the same preprocessed datasets. We try our best to follow the default settings (e.g., training/validation/testing splits) of these datasets. Statistics of the five adopted datasets are summarized in Table 3. • IMDB is a movie information network for node classification. The preprocessed subset contains three types of nodes: movies, actors, and directors. A bag-of-words representation of plot keywords describes each node in the dataset. The movie nodes are labeled by their genres."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Datasets",
+      "text": "• ACM is an academic network for node classification, with three types of nodes: papers, authors, and subjects."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Datasets",
+      "text": "Nodes in ACM are associated with bag-of-words representations of keywords. The paper nodes are labeled based on the conference in which they were published."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Datasets",
+      "text": "• DBLP is also an academic network for node classification. It contains three types of nodes: papers, authors, and conferences. Nodes in the dataset are associated with bag-of-words representations of keywords. The author nodes are labeled based on their research fields."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Datasets",
+      "text": "• LastFm is a music listening information network for link prediction. The preprocessed subset contains three types of nodes: users, artists, and tags. Nodes in this dataset are not associated with any features. The prediction targets are the user-artist edges."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Datasets",
+      "text": "• PubMed is a biomedical knowledge graph for link prediction, with four types of nodes: genes, diseases, chemicals, and species. Nodes in PubMed are associated with aggregated word2vec embeddings. The prediction targets are the disease-disease edges."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Baselines",
+      "text": "We compare MECCH against state-of-the-art HGNNs, including three relation-based HGNNs (RGCN, HGT, and Simple-HGN), three metapath-based HGNNs (HAN, MAGNN, and GTN)."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Baselines",
+      "text": "• RGCN (Schlichtkrull et al., 2018) is a relation-based HGNN that groups and aggregates neighbors based on their edge types with edge-type-specific weights."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Baselines",
+      "text": "• HGT (Hu et al., 2020) is a relation-based HGNN. It leverages a Transformer-like self-attention architecture parameterized by node types and edge types to capture the importance weights of the heterogeneous neighborhood."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Baselines",
+      "text": "• Simple-HGN (Lv et al., 2021) is a relation-based HGNN."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Baselines",
+      "text": "It extends GAT by adding edge-type attention, residual connection, and output normalization."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Baselines",
+      "text": "• HAN (Wang et al., 2019a) is a metapath-based HGNN."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Baselines",
+      "text": "It learns metapath-specific node embeddings by aggregating metapath-guided neighbors and leverages the attention mechanism to combine metapaths."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Baselines",
+      "text": "• MAGNN (Fu et al., 2020) is a metapath-based HGNN that enhances HAN by incorporating the intermediate nodes along metapaths with metapath instance encoders."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Baselines",
+      "text": "• GTN (Yun et al., 2019) is a metapath-based HGNN that can automatically discover valuable metapaths via multiplying weighted sums of relation subgraphs."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Hyperparameters",
+      "text": "For fairness, we configure the node embedding dimension of all HGNNs to 64. For models with multi-head attention, we set the number of heads as 8 and ensure it would not multiply the embedding dimension, as suggested in (Hu et al., 2020). For metapaths used by HAN and MAGNN, we adopt the ones suggested in their papers. For MAGNN, we use the relational rotation metapath instance encoder. For GTN, we use the adaptive learning rate as suggested in the authors' implementation. For MECCH, we choose the metapath length K within {1, 2, 3, 4, 5}. For each model-dataset pair, we experiment with the number of HGNN layers within {1, 2, 3, 4, 5}, the dropout rate within {0, 0.5}, the learning rate within {1, 2, 5}× 10 -3 , 10 -2 , the weight decay within 0, 10 -3 . The hyperparameter combinations that can fit in the GPU memory and yields the best results are selected (except for GTN, which runs on CPU for ACM, DBLP, and LastFM). We use the same data splits for training, validation, and testing across models. We train all HGNNs using the Adam optimizer for 500 epochs with early stopping applied after a patience of 50 epochs."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Platform Specifications",
+      "text": "All of our experiments are conducted on the same platform with the following system specifications. CPU: 40x Intel Xeon Platinum 8268 cores. GPU: 1x NVIDIA TITAN V card. Memory: 775 GiB. Operating System: Ubuntu 18.04.6 LTS. Libraries: DGL 0.7.2, PyTorch 1.10.1, and CUDA 11.3."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Node Classification (RQ1)",
+      "text": "We evaluate MECCH against other baselines for node classification on IMDB, ACM, and DBLP. As shown in Table 3, only a small set of labeled nodes are available for training and validation, which is a typical semi-supervised node classification setting for GNNs. The averages and standard deviations of Table 4: Experiment results (%) of the node classification task on the IMDB, ACM, and DBLP datasets. ↑ (↓) indicates the higher (lower), the better. For each column, the best result is in bold font, and the second-best result is underlined. Macro-F1 and Micro-F1 scores from 5 runs of each model on each dataset are reported in Table 4. From the table, we have the following observations:"
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Model",
+      "text": "1. MECCH consistently outperforms previous state-of-theart HGNNs in node classification across different datasets."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Model",
+      "text": "On average, the performance gain of our model over the best baseline is around 2.59%. 2. Generally speaking, metapath-based HGNNs produce higher and more stable results than relation-based HGNNs. But the margin is tiny. Nevertheless, our MECCH proves that properly leveraging metapath contexts can bring noticeable advantages. 3. It is interesting that MAGNN and GTN can hardly benefit from their high computation costs. One possible reason might be that redundant aggregations overly smooth meaningful signals from important nodes. For MAGNN, another possible culprit is the parameter-intensive attention mechanism, which is removed in MECCH to avoid overfitting and enhance generalization ability."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Link Prediction (RQ2)",
+      "text": "On LastFM and PubMed, link prediction is formulated as a binary classification problem to distinguish whether a given edge exists or not in the original graph. During training, the negative edge (u, v -) is generated by replacing the destination node v of a positive edge (u, v) by uniformly sampling v -from V ϕ(v) . For validation and testing, negative edges are pre-generated in a 1:1 ratio to the positive ones and are kept the same across different models for a fair comparison. We also follow (Lv et al., 2021) to sample hard negative edges for validation and testing. The averages and standard deviations of ROC-AUC scores in 5 runs are reported in Table 5, from which we have the following observations:"
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Link Prediction (RQ2)",
+      "text": "1. MECCH performs consistently better than other models, with 1.51% and 4.00% improvements over the strongest baselines on LastFM and PubMed, respectively. 2. The small ROC-AUC variances show that MECCH is much more stable than other HGNNs. 3. One interesting observation is that relation-based HGNNs usually achieve better scores than metapath-based HGNNs in the link prediction task. Nevertheless, our MECCH still outperforms all of them. 4. On PubMed, MAGNN has poor performance, and GTN cannot run due to significant memory consumption. They could both suffer from the diluted neighborhood messages caused by aggregating duplicate information. Moreover, MAGNN may also be negatively affected by the over-parameterized attention modules."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Time and Memory Usage (RQ3)",
+      "text": "Besides comparing HGNNs based on prediction accuracy, we also evaluate models in terms of computational efficiency.  Metapath Length (K)  As shown, MECCH is much more efficient than MAGNN and GTN in training time and memory usage, with a better or comparable resource usage compared to HAN. This is accomplished when MECCH incorporates more information than HAN (i.e., the intermediate nodes along metapaths). MAGNN on DBLP can only run in mini-batches due to its high GPU memory usage. Hence its reported values cannot be compared directly. On both ACM and DBLP, GTN cannot fit in the limited GPU memory. Instead, it runs on CPU with a significantly longer running time. These results show that MECCH can achieve both superior model performance and decent computational efficiency, further proving the advantages of leveraging metapath contexts over metapath-guided neighbors and metapath instances."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Ablation Study (RQ4)",
+      "text": "To analyze the effectiveness of the three proposed components, we conduct an ablation study by comparing our MECCH with the following model variants: (1) MECCH-KHop is a variant without leveraging metapath contexts, equivalent to aggregating all the nodes within a radius of K regardless of node or edge types; (2) MECCH-HAN is a variant replacing metapath contexts with metapath-guided neighbors used in HAN;"
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Ablation Study (RQ4)",
+      "text": "(3) MECCH-MAGNN is a variant replacing metapath contexts with metapath instances used in MAGNN; (4) MECCH-ACE is a variant using an attention-based module as the metapath context encoder; (5) MECCH-MMF is a variant using the element-wise mean as the metapath fusion strategy; (6) MECCH-nAMF is a variant that fuses metapaths by applying the attention mechanism per node; (7) MECCH-gAMF is a variant that fuses metapaths by using the attention scores computed globally based on the summaries of all nodes' representation. The experiment results are reported in   MAGNN model in Table 4 andTable 5. This also indicates that the attention-free design of MECCH components improves the model performance."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Hyperparameter Study",
+      "text": "To investigate how MECCH is affected by the hyperparameters, we conduct pilot tests on the IMDB dataset with different choices for the metapath length K and the number of MECCH layers L. Results are shown in Figure 5, where Figure 5 (a) shows results when L is fixed at 1, and Figure 5 (b) shows results under K = 5. Except for the concerning hyperparameter, all other setups are kept unchanged."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Hyperparameter Study",
+      "text": "From Figure 5 (a), we observe significant increase in performance when leveraging larger metapath contexts (K > 1). The best results on IMDB is reached when K is around 5. Further increasing the metapath length K has diminishing returns. Obviously, the optimal choice of K is closely related to the structural characteristics of the dataset and the downstream task. Referring to Figure 5 (b), MECCH is sensitive to the choice of L. This makes sense because the metapath length K is fixed at 5. Adding one more MECCH layer introduces a much larger receptive field that could dramatically impact the final performance. This also suggests that MECCH is capable of learning the complex semantics embedded in the graph with very few layers, avoiding the potential performance degradation issues when the model gets deep."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Visualization",
+      "text": "To provide an intuitive assessment of the model's embedding quality, we visualize the node representations generated by different HGNNs on the DBLP and LastFM datasets. On DBLP, we take the generated node vectors of the authors in the testing set just before applying the last GNN layer/output projection. On LastFM, we randomly sample 100 positive user-artist pairs from the testing set and take the node vectors just before applying the DistMult decoder. Then they are projected into a two-dimensional vector space using t-SNE. Here we plot the t-SNE node embedding visualizations of R-GCN, HGT, HAN, and MECCH in Figure 6 for DBLP, where each color corresponds to one author class (research area), and in Figure 7 for LastFM, where blue points are users and green points are artists."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Visualization",
+      "text": "From the two figures, one can clearly observe the advantage of MECCH over other HGNNs. Figure 6 shows that our proposed MECCH can generate more informative node representations in the node classification task. On DBLP, MECCH makes nodes with the same class labels close to each other and nodes with different class labels far away, resulting in a clear separation between classes. Other HGNNs would produce dispersed intra-class distribution and obscure inter-class boundaries. Figure 7 shows that MECCH can well separate user and artist nodes and preserve the aligned correlation of the positive user-artist pairs. While other HGNNs can roughly divide user nodes and artist nodes into two different groups, they cannot maintain good alignment between users and artists."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Conclusion",
+      "text": "In this paper, we formulate a unified framework for metapathbased HGNNs to facilitate model understanding and new model design. We analyze existing models and observe that they cannot balance model performance and computational efficiency. To address these issues, we propose a metapath context convolution based HGNN (MECCH) with three novel components:"
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Conclusion",
+      "text": "(1) metapath context construction, (2) metapath context encoder, and (3) convolutional metapath fusion. The three components are designed to prevent information loss and redundant computations simultaneously."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Conclusion",
+      "text": "In experiments, MECCH consistently outperforms state-ofthe-art baselines on five widely adopted heterogeneous graph datasets for node classification and link prediction, with improved computational efficiency. Ablation studies validate the effectiveness of MECCH's novel components in boosting model performance. Embedding visualizations qualitatively demonstrate the superiority of MECCH."
+    },
+    {
+      "paper_id": "2211.12792",
+      "file_name": "2211.12792_MECCH_Metapath_Context_Convolution-based.pdf",
+      "page_number": 1,
+      "section": "Conclusion",
+      "text": "For future work, we plan to improve MECCH so that it can be applied to web-scale datasets, such as AMiner (Tang et al., 2008) and MAG (Sinha et al., 2015), where existing metapathbased HGNNs can hardly run due to substantial computational costs. We also plan to incorporate various training paradigms by using MECCH as an encoder to further boost the prediction accuracy, such as self-supervised learning (Ren et al., 2019;Park et al., 2020), contrastive learning (Wang et al., 2021b;Qian et al., 2022;Chen et al., 2023a), and federated learning (Fu and King, 2023)."
+    }
+  ],
+  "figures": [
+    {
+      "figure_id": "FIG-2211.12792-P1-1",
+      "page_number": 1,
+      "file_path": "data/figures\\2211.12792\\fig_p1_1.png",
+      "dimensions": "128x128",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2211.12792-P1-2",
+      "page_number": 1,
+      "file_path": "data/figures\\2211.12792\\fig_p1_2.png",
+      "dimensions": "512x512",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2211.12792-P1-3",
+      "page_number": 1,
+      "file_path": "data/figures\\2211.12792\\fig_p1_3.png",
+      "dimensions": "128x128",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2211.12792-P1-4",
+      "page_number": 1,
+      "file_path": "data/figures\\2211.12792\\fig_p1_4.png",
+      "dimensions": "128x128",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2211.12792-P1-5",
+      "page_number": 1,
+      "file_path": "data/figures\\2211.12792\\fig_p1_5.png",
+      "dimensions": "128x128",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2211.12792-P1-6",
+      "page_number": 1,
+      "file_path": "data/figures\\2211.12792\\fig_p1_6.png",
+      "dimensions": "128x128",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2211.12792-P1-7",
+      "page_number": 1,
+      "file_path": "data/figures\\2211.12792\\fig_p1_7.png",
+      "dimensions": "512x512",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2211.12792-P3-1",
+      "page_number": 3,
+      "file_path": "data/figures\\2211.12792\\fig_p3_1.png",
+      "dimensions": "1972x1612",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2211.12792-P3-2",
+      "page_number": 3,
+      "file_path": "data/figures\\2211.12792\\fig_p3_2.png",
+      "dimensions": "1928x332",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2211.12792-P3-3",
+      "page_number": 3,
+      "file_path": "data/figures\\2211.12792\\fig_p3_3.png",
+      "dimensions": "1932x448",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2211.12792-P3-4",
+      "page_number": 3,
+      "file_path": "data/figures\\2211.12792\\fig_p3_4.png",
+      "dimensions": "1932x608",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2211.12792-P3-5",
+      "page_number": 3,
+      "file_path": "data/figures\\2211.12792\\fig_p3_5.png",
+      "dimensions": "1972x1088",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2211.12792-P4-1",
+      "page_number": 4,
+      "file_path": "data/figures\\2211.12792\\fig_p4_1.png",
+      "dimensions": "1308x1008",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2211.12792-P10-1",
+      "page_number": 10,
+      "file_path": "data/figures\\2211.12792\\fig_p10_1.png",
+      "dimensions": "793x834",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2211.12792-P10-2",
+      "page_number": 10,
+      "file_path": "data/figures\\2211.12792\\fig_p10_2.png",
+      "dimensions": "810x834",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2211.12792-P10-3",
+      "page_number": 10,
+      "file_path": "data/figures\\2211.12792\\fig_p10_3.png",
+      "dimensions": "793x834",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2211.12792-P10-4",
+      "page_number": 10,
+      "file_path": "data/figures\\2211.12792\\fig_p10_4.png",
+      "dimensions": "810x826",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2211.12792-P10-5",
+      "page_number": 10,
+      "file_path": "data/figures\\2211.12792\\fig_p10_5.png",
+      "dimensions": "930x604",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2211.12792-P10-6",
+      "page_number": 10,
+      "file_path": "data/figures\\2211.12792\\fig_p10_6.png",
+      "dimensions": "930x604",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2211.12792-P10-7",
+      "page_number": 10,
+      "file_path": "data/figures\\2211.12792\\fig_p10_7.png",
+      "dimensions": "930x604",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2211.12792-P10-8",
+      "page_number": 10,
+      "file_path": "data/figures\\2211.12792\\fig_p10_8.png",
+      "dimensions": "930x604",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    }
+  ],
+  "figures_count": 21,
+  "vector_graphs": [
+    {
+      "page_number": 1,
+      "drawing_path_count": 66,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        595.2760009765625,
+        841.8900146484375
+      ]
+    },
+    {
+      "page_number": 5,
+      "drawing_path_count": 141,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        595.2760009765625,
+        841.8900146484375
+      ]
+    },
+    {
+      "page_number": 8,
+      "drawing_path_count": 31,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        595.2760009765625,
+        841.8900146484375
+      ]
+    },
+    {
+      "page_number": 9,
+      "drawing_path_count": 224,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        595.2760009765625,
+        841.8900146484375
+      ]
+    }
+  ],
+  "vector_graphs_count": 4
+}

@@ -1,0 +1,25 @@
+{
+  "paper_id": "2307.07924",
+  "paper_title": "2307.07924 ChatDev Communicative Ag",
+  "authors": [
+    "Research Authors"
+  ],
+  "venue": "arXiv / Peer-Reviewed Venue",
+  "core_problem": "ChatDev: Communicative Agents for Software Development",
+  "methodology_summary": "⋆Tsinghua University\n♠The University of Sydney\n♣BUPT\n♦Modelbest Inc.\nqianc62@gmail.com\nliuzy@tsinghua.edu.cn\nsms@tsinghua.edu.cn Software development is a complex task that\nnecessitates cooperation among multiple mem-\nbers with diverse skills. Numerous studies used\ndeep learning to improve specific phases in a\nwaterfall model, such as design, codin",
+  "datasets_eval": [
+    "Tabular Data (TAB-2307.07924-P3-1)",
+    "Evaluation",
+    "Datasets",
+    "Note"
+  ],
+  "empirical_results": "Software development is a complex task that\nnecessitates cooperation among multiple mem-\nbers with diverse skills. Numerous studies used\ndeep learning to improve specific phases in a\nwaterfall model, such as design, coding, and\ntesting.\nHowever, the deep learning model\nin each phase requires unique ",
+  "explicit_limitations": "Software development is a complex task that\nnecessitates cooperation among multiple mem-\nbers with diverse skills. Numerous studies used\ndeep learning to improve specific phases in a\nwaterfall model, such as design, coding, and\ntesting.\nHowever, the deep learning model\nin each phase requires unique ",
+  "numerical_metrics": [],
+  "geographical_data": {},
+  "pipeline_steps": [
+    "⋆Tsinghua University\n♠The University of Sydney\n♣BUPT\n♦Modelbest Inc."
+  ],
+  "generation_mode": "HEURISTIC_FALLBACK",
+  "model_name": "Rule-Based Heuristic Engine"
+}

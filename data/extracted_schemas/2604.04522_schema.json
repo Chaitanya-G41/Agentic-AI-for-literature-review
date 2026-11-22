@@ -1,0 +1,24 @@
+{
+  "paper_id": "2604.04522",
+  "paper_title": "2604.04522 HDP A Lightweight Cryptographic Protocol",
+  "authors": [
+    "Research Authors"
+  ],
+  "venue": "arXiv / Peer-Reviewed Venue",
+  "core_problem": "HDP: A Lightweight Cryptographic Protocol for",
+  "methodology_summary": "The deployment of agentic AI systems has accelerated dramatically since 2023. Frameworks\nincluding LangChain [1], CrewAI [2], AutoGen [3], and OpenAI's Assistants API enable developers\nto compose pipelines in which a human instruction is passed to an orchestrator agent, which\ndecomposes and delegates subtasks to specialized sub-agents, which in tur",
+  "datasets_eval": [
+    "2604.04522 HDP A Lightweight Cryptographic Protocol Evaluation Benchmark"
+  ],
+  "empirical_results": "Empirical evaluation and experimental performance metrics reported in 2604.04522.",
+  "explicit_limitations": "The remainder of this paper is organized as follows. Section 2 surveys related work and identifies\nthe gap HDP occupies. Section 3 presents the threat model. Section 4 describes the protocol in full.\nSection 5 analyzes security properties. Section 6 discusses implementation considerations and\nrefere",
+  "numerical_metrics": [],
+  "geographical_data": {},
+  "pipeline_steps": [
+    "Problem Formulation & Data Ingestion",
+    "Method Execution & Architecture",
+    "Empirical Evaluation & Benchmarking"
+  ],
+  "generation_mode": "HEURISTIC_FALLBACK",
+  "model_name": "Rule-Based Heuristic Engine"
+}

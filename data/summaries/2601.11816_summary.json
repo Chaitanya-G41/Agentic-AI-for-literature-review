@@ -1,0 +1,51 @@
+{
+  "paper_id": "2601.11816",
+  "paper_title": "2601.11816 POLARIS Typed Planning and Governed Exec",
+  "authors": [
+    "Research Authors"
+  ],
+  "venue": "arXiv / Peer-Reviewed Venue",
+  "grounded_citation": "[Authors et al., arXiv / Peer-Reviewed Venue]",
+  "summary_source": "Heuristic Engine Fallback (Grounded Vector RAG Engine (Design Rule: 0 LLM calls))",
+  "problem_motivation": {
+    "problem_statement": "POLARIS: Typed Planning and Governed Execution\nfor Agentic AI in Back-Office Automation",
+    "motivation": "Overcoming empirical and methodological bottlenecks in existing approaches to achieve validated outcomes in 2601.11816 POLARIS Typed Planning and Governed Exec.",
+    "core_challenges": [
+      "Accurate representation and modeling within 2601.11816 POLARIS Typed Planning and Governed Exec",
+      "Empirical validation across benchmarks: Tabular Data (TAB-2601.11816-P11-1), Enterprise",
+      "Addressing explicit constraints: candidate workflows before selection (Author et al., 2025; Wu et al., 2023b). Ho..."
+    ]
+  },
+  "proposed_methodology": {
+    "method_name": "2601.11816",
+    "core_architecture": "Enterprise back-office workflows require agentic systems that are auditable, policy-aligned, and op-\nerationally predictable, capabilities that generic multi-agent setups often fail to deliver. We present\nPOLARIS (Policy-Aware LLM Agentic Reasoning for Integrated Systems), a governed orchestration\nframework that treats automation as typed plan synt",
+    "technical_innovations": [
+      "Problem Formulation & Data Ingestion",
+      "Method Execution & Architecture",
+      "Empirical Evaluation & Benchmarking"
+    ],
+    "key_algorithms": "Core pipeline execution parameterized across 3 methodological phases."
+  },
+  "empirical_results": {
+    "evaluated_datasets": [
+      "Tabular Data (TAB-2601.11816-P11-1)",
+      "Enterprise",
+      "POLARIS",
+      "Policy-Aware"
+    ],
+    "key_metrics": [
+      "Reported Metric",
+      "Benchmark Score"
+    ],
+    "quantitative_results_summary": "Enterprise back-office workflows require agentic systems that are auditable, policy-aligned, and op-\nerationally predictable, capabilities that generic multi-agent setups often fail to deliver. We present\nPOLARIS (Policy-Aware LLM Agentic Reasoning for Integrated Systems), a governed orchestration\nf",
+    "baseline_comparisons": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in 2601.11816 POLARIS Typed Planning and Governed Exec."
+  },
+  "explicit_limitations": {
+    "stated_limitations": [
+      "candidate workflows before selection (Author et al., 2025; Wu et al., 2023b). However, enterprise\ndeployment of such Agentic AI remains limited by the lack of typed planning, evaluation metrics, and\nauditable execution paths. To overcome these inherent drawbacks, we introduce POLARIS, a modular orch"
+    ],
+    "failure_modes": "Failure boundaries and error cases associated with candidate workflows before selection (Author et al., 2025; Wu et al., 2023b). However, enterprise\ndeployment of such Age.",
+    "computational_tradeoffs": "Computational requirements, runtime complexity, and data scaling constraints discussed in 2601.11816 POLARIS Typed Planning and Governed Exec."
+  },
+  "markdown_full_summary": "# Grounded Literature Review Summary: 2601.11816 POLARIS Typed Planning and Governed Exec\n\n**Citation Anchor:** [Authors et al., arXiv / Peer-Reviewed Venue]  \n**Venue:** arXiv / Peer-Reviewed Venue | **Authors:** Research Authors  \n\n---\n\n### 1. Core Problem & Motivation\nPOLARIS: Typed Planning and Governed Execution\nfor Agentic AI in Back-Office Automation\n\n*Motivation & Gaps:* Overcoming empirical and methodological bottlenecks in existing approaches to achieve validated outcomes in 2601.11816 POLARIS Typed Planning and Governed Exec.  \n*Key Challenges Tackled:*\n- Accurate representation and modeling within 2601.11816 POLARIS Typed Planning and Governed Exec\n- Empirical validation across benchmarks: Tabular Data (TAB-2601.11816-P11-1), Enterprise\n\n---\n\n### 2. Proposed Methodology & Technical Architecture\n**Architecture Overview:**  \nEnterprise back-office workflows require agentic systems that are auditable, policy-aligned, and op-\nerationally predictable, capabilities that generic multi-agent setups often fail to deliver. We present\nPOLARIS (Policy-Aware LLM Agentic Reasoning for Integrated Systems), a governed orchestration\nframework that treats automation as typed plan synt\n\n**Algorithmic Innovation:**  \nCore pipeline execution parameterized across 3 methodological phases.  \n\n*Core Technical Innovations:*\n- Problem Formulation & Data Ingestion\n- Method Execution & Architecture\n\n---\n\n### 3. Empirical Results & Benchmark Datasets\n**Evaluated Datasets:** Tabular Data (TAB-2601.11816-P11-1), Enterprise, POLARIS, Policy-Aware  \n**Key Metrics:** Reported Metric, Benchmark Score  \n\n**Quantitative Findings:**  \nEnterprise back-office workflows require agentic systems that are auditable, policy-aligned, and op-\nerationally predictable, capabilities that generic multi-agent setups often fail to deliver. We present\nPOLARIS (Policy-Aware LLM Agentic Reasoning for Integrated Systems), a governed orchestration\nf  \n\n**Baseline Comparison:**  \nDemonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in 2601.11816 POLARIS Typed Planning and Governed Exec.\n\n---\n\n### 4. Explicit Limitations & Failure Modes\n**Stated Limitations:**  \ncandidate workflows before selection (Author et al., 2025; Wu et al., 2023b). However, enterprise\ndeployment of such Agentic AI remains limited by the lack of typed planning, evaluation metrics, and\nauditable execution paths. To overcome these inherent drawbacks, we introduce POLARIS, a modular orch  \n\n**Failure Modes & Bottlenecks:**  \nFailure boundaries and error cases associated with candidate workflows before selection (Author et al., 2025; Wu et al., 2023b). However, enterprise\ndeployment of such Age.  \n\n**Computational Trade-offs:**  \nComputational requirements, runtime complexity, and data scaling constraints discussed in 2601.11816 POLARIS Typed Planning and Governed Exec.\n"
+}

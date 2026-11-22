@@ -1,0 +1,50 @@
+{
+  "paper_id": "2512.09458",
+  "paper_title": "2512.09458 Architectures for Building Agentic AI",
+  "authors": [
+    "Research Authors"
+  ],
+  "venue": "arXiv / Peer-Reviewed Venue",
+  "grounded_citation": "[Authors et al., arXiv / Peer-Reviewed Venue]",
+  "summary_source": "Heuristic Engine Fallback (Grounded Vector RAG Engine (Design Rule: 0 LLM calls))",
+  "problem_motivation": {
+    "problem_statement": "Building on classical\nfoundations, we propose a practical taxonomy—tool-using agents, memory-augmented\nagents, planning and self-improvement agents, multi-agent systems, and embodied or\nweb agents—and analyse how each pattern reshapes the reliability envelope and fail-\nure modes.",
+    "motivation": "Overcoming empirical and methodological bottlenecks in existing approaches to achieve validated outcomes in 2512.09458 Architectures for Building Agentic AI.",
+    "core_challenges": [
+      "Accurate representation and modeling within 2512.09458 Architectures for Building Agentic AI",
+      "Empirical validation across benchmarks: ReWOO, Reasoning",
+      "Addressing explicit constraints: Understanding the relation of Agentic GenAI with classic autonomous agents\nis cr..."
+    ]
+  },
+  "proposed_methodology": {
+    "method_name": "2512.09458",
+    "core_architecture": "Chapter 3: Architectures for Building Agentic AI 1 Introduction: purpose, scope, and architecture reliability This chapter surveys architectural choices for building agentic AI systems and analyses\nhow those choices shape reliability. Our central claim is straightforward: reliability is,\nfirst and foremost, an architectural property. It emerges fro",
+    "technical_innovations": [
+      "Novel architecture for 2512.09458 Architectures for Building Agentic AI",
+      "Systematic empirical evaluation pipeline"
+    ],
+    "key_algorithms": "Core pipeline execution parameterized across 1 methodological phases."
+  },
+  "empirical_results": {
+    "evaluated_datasets": [
+      "ReWOO",
+      "Reasoning",
+      "Without",
+      "Observation"
+    ],
+    "key_metrics": [
+      "Reported Metric",
+      "Benchmark Score"
+    ],
+    "quantitative_results_summary": "This book is not intended as yet another broad introduction to Agentic GenAI; instead,\nwe put these recent developments in the specific context of reliability. By reliability, we\nmean the consistent achievement of intended outcomes under stated conditions, within\nacceptable bounds of safety, securit",
+    "baseline_comparisons": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in 2512.09458 Architectures for Building Agentic AI."
+  },
+  "explicit_limitations": {
+    "stated_limitations": [
+      "Understanding the relation of Agentic GenAI with classic autonomous agents\nis crucially important to avoid reinventing the wheel: many key concepts have been\nstudied for a long time and are relatively well-understood today; however, the nature\nof GenAI also brings up challenges that are completely n"
+    ],
+    "failure_modes": "Failure boundaries and error cases associated with Understanding the relation of Agentic GenAI with classic autonomous agents\nis crucially important to avoid reinventing t.",
+    "computational_tradeoffs": "Computational requirements, runtime complexity, and data scaling constraints discussed in 2512.09458 Architectures for Building Agentic AI."
+  },
+  "markdown_full_summary": "# Grounded Literature Review Summary: 2512.09458 Architectures for Building Agentic AI\n\n**Citation Anchor:** [Authors et al., arXiv / Peer-Reviewed Venue]  \n**Venue:** arXiv / Peer-Reviewed Venue | **Authors:** Research Authors  \n\n---\n\n### 1. Core Problem & Motivation\nBuilding on classical\nfoundations, we propose a practical taxonomy—tool-using agents, memory-augmented\nagents, planning and self-improvement agents, multi-agent systems, and embodied or\nweb agents—and analyse how each pattern reshapes the reliability envelope and fail-\nure modes.\n\n*Motivation & Gaps:* Overcoming empirical and methodological bottlenecks in existing approaches to achieve validated outcomes in 2512.09458 Architectures for Building Agentic AI.  \n*Key Challenges Tackled:*\n- Accurate representation and modeling within 2512.09458 Architectures for Building Agentic AI\n- Empirical validation across benchmarks: ReWOO, Reasoning\n\n---\n\n### 2. Proposed Methodology & Technical Architecture\n**Architecture Overview:**  \nChapter 3: Architectures for Building Agentic AI 1 Introduction: purpose, scope, and architecture reliability This chapter surveys architectural choices for building agentic AI systems and analyses\nhow those choices shape reliability. Our central claim is straightforward: reliability is,\nfirst and foremost, an architectural property. It emerges fro\n\n**Algorithmic Innovation:**  \nCore pipeline execution parameterized across 1 methodological phases.  \n\n*Core Technical Innovations:*\n- Novel architecture for 2512.09458 Architectures for Building Agentic AI\n- Systematic empirical evaluation pipeline\n\n---\n\n### 3. Empirical Results & Benchmark Datasets\n**Evaluated Datasets:** ReWOO, Reasoning, Without, Observation  \n**Key Metrics:** Reported Metric, Benchmark Score  \n\n**Quantitative Findings:**  \nThis book is not intended as yet another broad introduction to Agentic GenAI; instead,\nwe put these recent developments in the specific context of reliability. By reliability, we\nmean the consistent achievement of intended outcomes under stated conditions, within\nacceptable bounds of safety, securit  \n\n**Baseline Comparison:**  \nDemonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in 2512.09458 Architectures for Building Agentic AI.\n\n---\n\n### 4. Explicit Limitations & Failure Modes\n**Stated Limitations:**  \nUnderstanding the relation of Agentic GenAI with classic autonomous agents\nis crucially important to avoid reinventing the wheel: many key concepts have been\nstudied for a long time and are relatively well-understood today; however, the nature\nof GenAI also brings up challenges that are completely n  \n\n**Failure Modes & Bottlenecks:**  \nFailure boundaries and error cases associated with Understanding the relation of Agentic GenAI with classic autonomous agents\nis crucially important to avoid reinventing t.  \n\n**Computational Trade-offs:**  \nComputational requirements, runtime complexity, and data scaling constraints discussed in 2512.09458 Architectures for Building Agentic AI.\n"
+}

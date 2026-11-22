@@ -1,0 +1,542 @@
+{
+  "paper_id": "2205.13273",
+  "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+  "title": "Acute Lymphoblastic Leukemia Detection Using Hypercomplex-Valued Convolutional Neural Networks",
+  "abstract": "This paper features convolutional neural networks defined on hypercomplex algebras applied to classify lymphocytes in blood smear digital microscopic images. Such classification is helpful for the diagnosis of acute lymphoblast leukemia (ALL), a type of blood cancer. We perform the classification task using eight hypercomplex-valued convolutional neural networks (HvCNNs) along with real-valued convolutional networks. Our results show that HvCNNs perform better than the real-valued model, showcasing higher accuracy with a much smaller number of parameters. Moreover, we found that HvCNNs based on Clifford algebras processing HSV-encoded images attained the highest observed accuracies. Precisely, our HvCNN yielded an average accuracy rate of 96.6% using the ALL-IDB2 dataset with a 50% train-test split, a value extremely close to the stateof-the-art models but using a much simpler architecture with significantly fewer parameters.",
+  "parser_used": "GROBID_TEI_XML_with_PyMuPDF_Visuals",
+  "total_pages": 1,
+  "full_text": "Abstract:\nThis paper features convolutional neural networks defined on hypercomplex algebras applied to classify lymphocytes in blood smear digital microscopic images. Such classification is helpful for the diagnosis of acute lymphoblast leukemia (ALL), a type of blood cancer. We perform the classification task using eight hypercomplex-valued convolutional neural networks (HvCNNs) along with real-valued convolutional networks. Our results show that HvCNNs perform better than the real-valued model, showcasing higher accuracy with a much smaller number of parameters. Moreover, we found that HvCNNs based on Clifford algebras processing HSV-encoded images attained the highest observed accuracies. Precisely, our HvCNN yielded an average accuracy rate of 96.6% using the ALL-IDB2 dataset with a 50% train-test split, a value extremely close to the stateof-the-art models but using a much simpler architecture with significantly fewer parameters.\n[I. INTRODUCTION] Over the past few decades, artificial neural networks (ANN) have been employed on various classification tasks, many of them previously performed by humans. One popular example is the computer-assisted diagnosis (CAD), in which the output of the ANN may assist doctors in making more accurate decisions [1]. Most applications in CAD consist of a machine learning model performing tasks that would be handmade by specialists, reducing the financial and human costs while also avoiding possible mistakes caused by fatigue [2], [3]. Moreover, computers have been repeatedly appointed as outperforming unaided professionals in these tasks [3], [4]. CAD applications have been effectively used, for example, for leukemia identification [5].\n[I. INTRODUCTION] Acute lymphoblastic leukemia (ALL) is a blood pathology that can be lethal in only a few weeks if left unchecked. ALL is a type of blood cancer identified by immature lymphocytes, known as lymphoblasts, in the blood and bone marrow. The peak incidence lies in children ages 2-5 years, and one of the primary forms of ALL detection is through microscopic blood sample inspection. Computer-aided leukemia diagnosis has been achieved using many different approaches in the past years, including deep learning models combined with transfer learning and unsharpening techniques [6], [7], [8], [9]. Also, it has been reported in the literature that a quaternion-valued convolutional neural network exhibited better generalization capability than its corresponding real-valued model to classify white cells as lymphoblasts [10]. Furthermore, the quaternionvalued CNN has about 34% of the total number of parameters of the corresponding real-valued network. This paper investigates further the application of hypercomplex-valued convolutional neural networks (HvCNN) ALL detection.\n[I. INTRODUCTION] Like complex numbers, quaternions are hypercomplex numbers with a wide range of applications in science and engineering. For example, quaternions provide an efficient tool for describing 3D rotations used in computer graphics. Furthermore, quaternion-valued neural networks have been effectively applied for signal processing and control [11], [12], image classification [13], [14], and many other pattern recognition tasks [15], [16]. However, besides the quaternions, many other hypercomplex-valued algebras exist, including the coquaternions, the tessarines, Clifford algebras, and Cayley-Dickson algebras. The tessarines, introduced by Cockle a few years after the introduction of quaternions, is a commutative hypercomplex algebra that has been effectively used for signal processing and the development of neural networks [17], [18], [19], [20], [21]. The Clifford algebras comprise a broad family of associative hypercomplex algebras with interesting geometrical properties [22], [23], [24]. A family of hypercomplex algebras, obtained from the recursive process of Cayley-Dickson, can be used to develop effective HvNNs [25], [26]. Furthermore, four-dimensional hypercomplex algebras have been used for designing neural networks for controlling a robot manipulator [12].\n[I. INTRODUCTION] This paper considers the hypercomplex algebra framework proposed by Kantor and Solodovnikov [27]. This approach furnishes a broad class of hypercomplex algebras which comprises the tessarines, the Clifford algebras, and the Cayley-Dickson algebras. On the downside, the general framework by Kantor and Solodovnikov also contains many hypercomplex algebras with no attractive features. Thus, we shall focus only on eight four-dimensional associative hypercomplex algebras, four of which are commutative. We consider the tessarines, the bi-complex numbers, and the Klein 4-group algebra among the commutative algebras [12], [28]. The four non-commutative hypercomplex algebras include quaternions and coquaternions. Also, they are isomorphic to Clifford as well as Cayley-Dickson algebras [26], [29].\n[I. INTRODUCTION] The paper is organized as follows: Next section presents the basic concepts of hypercomplex algebras and explores notable four-dimensional algebras. Section III addresses hypercomplex-valued CNN models and shows how to emulate them using a real-valued convolutional network. Section IV describes the computational experiments conducted using the ALL-IDB dataset. The paper finishes with some concluding remarks in Section V.\n[II. HYPERCOMPLEX NUMBERS AND SOME NOTABLE] ASSOCIATIVE FOUR-DIMENSIONAL ALGEBRAS Let us present a few basic definitions regarding hypercomplex numbers. Hypercomplex algebras can be defined in any field, but we focus on algebras over the real numbers in this work. As pointed out in the introduction, we consider the general framework proposed by Kantor and Solodovnikov, which includes the most used hypercomplex algebras [27]. We finish this section by presenting eight notable associative four-dimensional hypercomplex algebras.\n[A. A Brief Review on Hypercomplex Number Systems] A hypercomplex algebra A of dimension n + 1 over R is a set\n[A. A Brief Review on Hypercomplex Number Systems] ) equipped with two operations, namely addition and multiplication [27]. The symbols i µ , with i µ / ∈ R for all µ = 1, . . . , n, denote the so-called hyperimaginary units of A. The addition of two hypercomplex numbers\n[A. A Brief Review on Hypercomplex Number Systems] The multiplication operation is carried out distributively and replacing the product of two hypercomplex units i µ and i ν by an hypercomplex number p µν := i µ i ν , where\n[A. A Brief Review on Hypercomplex Number Systems] for all µ, ν = 1, . . . , n. Precisely, the multiplication of two hypercomplex numbers is given by the equation\n[A. A Brief Review on Hypercomplex Number Systems] x µ y ν (p µν ) 0\n[A. A Brief Review on Hypercomplex Number Systems] x µ y ν (p µν ) 1 i 1 + . . .\n[A. A Brief Review on Hypercomplex Number Systems] Note that hyperimaginary units products characterize a hypercomplex algebra A. In other words, the hypercomplex numbers p µν given by (3) determine A. It is common practice to arrange the hypercomplex numbers p µν in a table, called the multiplication table. Examples of multiplication tables are given in Tables I andII. Algebraic properties of an hypercomplex algebra A can be inferred from its multiplication tables. For example, symmetric multiplication tables represent commutative hypercomplex algebras [27]. Note that the four multiplication tables in Table II are symmetric. Thus, they represent commutative hypercomplex algebras. We will discuss in detail the multiplication tables provided in Tables I and II in the following subsection.\n[A. A Brief Review on Hypercomplex Number Systems] A scalar α ∈ A can be identified with the hypercomplex number α = α + 0i 1 + • • • + 0i n , and vice-versa. Furthermore, from (4), the product by scalar in any algebra A satisfies\n[A. A Brief Review on Hypercomplex Number Systems] (\n[A. A Brief Review on Hypercomplex Number Systems] This remark shows that a hypercomplex algebra A can be identified with an (n + 1)-dimensional vector space with the vector addition and the product by a scalar given by ( 2) and ( 5), respectively. Moreover, the basis elements of such (n+1)-dimensional vector space are 1, i 1 , . . . , i n . Besides the addition and the product by a scalar, a hypercomplex algebra is equipped with the multiplication of vectors given by (4). We would like to point out that different multiplication tables do not necessarily yield different hypercomplex algebras. Precisely, we know from linear algebra that a vector space can be represented using different bases. Similarly, a hypercomplex algebra can be obtained from different bases or, equivalently, using different hypercomplex units. Since the multiplication table determines the outcome of the product of any two hypercomplex units, a change of basis results in a different multiplication table. Because of this remark, we say two hypercomplex algebras A and A are isomorphic if they differ by a change of basis. In other words, A and A are isomorphic hypercomplex algebras if the multiplication table of A can be obtained from the multiplication table of A through a change of basis.\n[B. Four-dimensional Hypercomplex Algebras] Let us now focus on four-dimensional hypercomplex algebras, i.e., hypercomplex algebras of the form\n[B. Four-dimensional Hypercomplex Algebras] where i ≡ i 1 , j ≡ i 2 , and k ≡ i 3 are the three hypercomplex units. Four-dimensional hypercomplex algebras are particularly useful for image processing because a color can be represented using a single hypercomplex number. In other words, four-dimensional hypercomplex algebras allows representing a color by a single entity.\n[B. Four-dimensional Hypercomplex Algebras] Note that the hypercomplex numbers p µν = (p µν ) 0 + (p µν ) 1 i+(p µν ) 2 j +(p µν ) 3 k in the multiplication table results in a large number of algebras. Some of these algebras are isomorphic, and many of them have no attractive features. Therefore, we present a construction rule that yields eight associative four-dimensional hypercomplex algebras in the following.\n[B. Four-dimensional Hypercomplex Algebras] Like in the construction of Clifford algebras [30], we assume the product of hypercomplex units is associative. Furthermore, we let the identity\n[B. Four-dimensional Hypercomplex Algebras] hold true. Finally, we assume the four-dimensional hypercomplex algebra is either commutative or anti-commutative. 1) Anticommutative Algebras: We obtain an anticommutative four-dimensional hypercomplex algebra by imposing ij = -ji. From the associativity and ( 7), we obtain\n[B. Four-dimensional Hypercomplex Algebras] To simplify the exposition, let i 2 = γ 1 and j 2 = γ 2 . From ( 7)-( 10), we obtain an associative and anticommutative fourdimensional algebra denoted by A[γ 1 , γ 2 ], whose multiplication table is then\n[B. Four-dimensional Hypercomplex Algebras] and A[+1, +1] whose multiplication tables are depicted in Table I. Finally, we would like to remark that the algebras\n[B. Four-dimensional Hypercomplex Algebras] and A[+1, +1] can be derived using the generalized Cayley-Dickson process [25], [26].\n[B. Four-dimensional Hypercomplex Algebras] 2) Commutative Algebras: In a similar fashion, we impose the condition ij = ji to obtain the commutative fourdimensional hypercomplex algebras. Again, using associativity and (7), we are able to write the identities\n[B. Four-dimensional Hypercomplex Algebras] By expressing i 2 = γ 1 and j 2 = γ 2 , we obtain a commutative hypercomplex algebra\n[B. Four-dimensional Hypercomplex Algebras] Analogously, we end up with the four-dimensional algebras Remark 2. Because they have the same multiplication table, the hypercomplex algebra B[-1, +1] corresponds to the tessarines, also known as commutative quaternions [19], [17]. Similarly, the algebra B[-1, -1] corresponds to the bicomplex numbers [12] while B[+1, +1] is equivalent to the Klein 4-group, a commutative algebra of great interest in symmetric group theory [28]. Concluding, we have a total of eight four-dimensional hypercomplex algebras. All of them are associative, four are anticommutative and the remaining are commutative. Furthermore, the hypercomplex units are well structured in their multiplication\n[B. Four-dimensional Hypercomplex Algebras] where s ij ∈ {-1, +1}, for all i, j = 1, . . . , 3, depends on the parameters γ 1 and γ 2 as well as on the commutativity or anticommutativity of the multiplication. The multiplication table (16) helped us to efficiently implement convolutional neural networks based on the eight hypercomplex algebras presented in this section. We detail this remark in the following section.\n[III. HYPERCOMPLEX-VALUED CONVOLUTIONAL NEURAL NETWORKS (HVCNN)] Convolutional layers are crucial building blocks of convolutional neural networks. The main strength of convolutional layers is their ability to process data locally and, thus, learn local patterns. Convolutional neural networks have been widely applied to image processing tasks [31]. Let us briefly describe a real-valued convolutional layer.\n[A. Real-valued Convolutional Layers] Suppose a convolutional layer is fed by a real-valued image I with C feature channels. Let I(p, c) ∈ R denote the intensity of the cth channel of the image I at pixel p. The neurons of a convolutional layer are parameterized structures called filters. The filters have the same number C of channels as the image I. Let D, commonly a rectangular grid, denote the domain of the filters. Also, let the weights of a convolutional layer with K real-valued filters be arranged in an array F such that F(q, c, k) denotes the value of the cth channel of the kth filter at the point q ∈ D, for c = 1, . . . , C and k = 1, . . . , K. A convolutional layer with K filters yields a real-valued image J\n[Quaternions] with K feature channels obtained by evaluating an activation function on the addition of a bias term and the convolution of the image I by each of the K filters. Precisely, let (I * F)(p, k) denote the convolution of the image I by the kth filter at pixel p. Intuitively, (I * F)(p, k) is the sum of the multiplication of the weights of the kth filter and the intensities of the pixels of the image in a window characterized by the translation of p by S(q), for q ∈ D. The term S(q), for q in the domain D of the filter, represents a translation that can take vertical and horizontal strides into account. In mathematical terms, the convolution of the image I by the kth filter at pixel p is given by\n[Quaternions] Moreover, the intensity of the kth feature channel of the output of a convolutional layer at pixel p is defined by\n[Quaternions] where ϕ : R → R denotes the activation function.\n[B. Hypercomplex-valued Convolutional Layers] The hypercomplex-valued convolutional layer is defined analogously to the real-valued convolutional layer by replacing the real numbers and operations with their corresponding hypercomplex versions in (17) and (18)  [32], [33]. Precisely, the \"intensity\" of the kth channel of the hypercomplex-valued output image J (h) at pixel p is given by\n[B. Hypercomplex-valued Convolutional Layers] where\n[B. Hypercomplex-valued Convolutional Layers] k ∈ A is the bias term, and\n[B. Hypercomplex-valued Convolutional Layers] is the convolution of I (h) by the kth hypercomplex-valued filter at pixel p. In this paper, we only consider split-functions defined using a real-valued function ϕ : R → R as follows for all x ∈ x 0 +\n[C. Emulating Hypercomplex-valued Convolutional Layers] Since most deep neural network libraries are designed for real-valued inputs, we show how to emulate a fourdimensional hypercomplex-valued convolutional layer using a real-valued convolutional layer. The reasoning is quite similar to the approaches reported in the literature for complex-and quaternion-valued deep networks [32], [33].\n[C. Emulating Hypercomplex-valued Convolutional Layers] First, an image I (h) with C channels defined on a fourdimensional hypercomplex algebra can be represented by\n[C. Emulating Hypercomplex-valued Convolutional Layers] where I 0 , I 1 , I 2 , and I 3 are real-valued images with C channels. Similarly, a bank of K hypercomplex-valued filters can be represented by\n[C. Emulating Hypercomplex-valued Convolutional Layers] where F 0 , F 1 , F 2 , and F 3 are real-valued arrays representing each a bank of K filters with domain D and C feature channels. From the multiplication table (16) and omitting the arguments (p + S(q), c) and (q, c, k) to simplify the notation, we obtain\n[C. Emulating Hypercomplex-valued Convolutional Layers] Therefore, the real-part of the convolution given by ( 20) satisfies the equation\n[C. Emulating Hypercomplex-valued Convolutional Layers] I 0 (p + S(q), c)F 0 (q, c, k)\n[C. Emulating Hypercomplex-valued Convolutional Layers] + s 11 I 1 (p + S(q), c)F 1 (q, c, k) (24)\n[C. Emulating Hypercomplex-valued Convolutional Layers] + s 22 I 2 (p + S(q), c)F 2 (q, c, k)\n[C. Emulating Hypercomplex-valued Convolutional Layers] Equivalently, the real-part of the convolution of the image I (h) by the kth hypercomplex-valued filter at pixel p can be computed using the real-valued convolution\n[C. Emulating Hypercomplex-valued Convolutional Layers] where I (r) is the real-valued image with 4C features channels obtained by concatenating the real and imaginary parts of I (h) as follows\n[C. Emulating Hypercomplex-valued Convolutional Layers] for all pixels p, and F (r) 0 is the real-valued filter defined by\n[C. Emulating Hypercomplex-valued Convolutional Layers] for all q ∈ D and k = 1, . . . , K. For short, the notation\n[C. Emulating Hypercomplex-valued Convolutional Layers] means that F (r) 0 is obtained by concatenating F 0 , s 11 F 1 , s 22 F 2 , and s 33 F 3 as prescribed above. Note from (17) that\n[C. Emulating Hypercomplex-valued Convolutional Layers] which coincides with I (h) * F (h) 0 (p, k) given by (24). Therefore, using a split-function, the real-part J 0 (p, k) of the output J (h) (p, k) of the hypercomplex-valued convolutional layer given by ( 20) can be computed using a real-valued convolutional layer as follows are given by ( 26) and ( 31), respectively. In a similar vein, the three imaginary parts J 1 (p, k), J 2 (p, k), and J 3 (p, k) of the kth channel of the hypercomplex-valued image J (h) at pixel p can be computed using real-valued convolutional layers with bias terms b 1 (k), b 2 (k), and b 3 (k) and real-valued filters\n[C. Emulating Hypercomplex-valued Convolutional Layers] respectively.\n[C. Emulating Hypercomplex-valued Convolutional Layers] We would like to finish this section with few remarks: First, emulating a hypercomplex-valued convolutional layer allow us to take advantage of open-source deep libraries such as Tensorflow and PyTorch for python and Flux for Julia Language. Consequently, hypercomplexvalued versions of well-known deep neural networks can be implemented in current deep learning libraries. On top of that, although not properly designed for hypercomplex-valued models, pooling layers, sophisticated optimizers, and speed-up training techniques such as batch normalization and weight initialization can be incorporated as the first attempt into hypercomplex-valued deep networks. In the following section, we consider a hypercomplex-valued deep neural network for the classification of lymphocytes from smear blood images that resembles the LeNet architecture [34].\n[IV. LYMPHOBLAST IMAGE CLASSIFICATION TASK] One of the primary forms of diagnosis of acute lymphoblastic leukemia (ALL) is through microscopic blood smear image inspection [6], [7], [8], [9]. Precisely, physicians diagnose ALL by the presence of many lymphoblasts in a blood smear image in which white cells are stained with bluish-purple coloration. A candidate cell image is selected, cut from the blood smear image, and fed into a machine learning classifier for a computer-aided leukemia diagnosis. For illustrative purposes, Fig. 1 shows two candidate cell images used in such a classification task. The classifier predicts if the candidate image is a lymphoblast in the simplest binary case.\n[IV. LYMPHOBLAST IMAGE CLASSIFICATION TASK] In our model, the candidate images have 100 × 100 pixels and have been saved using either the RGB (red-green-blue) or the HSV (hue-saturation-value) color encodings. Using the RGB encoding, an image is characterized by the intensities of red (R), green (G), and blue (B), respectively. An RGB encoded image has been mapped into a hypercomplex-valued image\n[IV. LYMPHOBLAST IMAGE CLASSIFICATION TASK] RGB by means of the equation\n[IV. LYMPHOBLAST IMAGE CLASSIFICATION TASK] Similarly, a HSV-encoded image is characterized by the hue H ∈ [0, 2π), the value V ∈ [0, 1], and the saturation\n[IV. LYMPHOBLAST IMAGE CLASSIFICATION TASK] HSV is derived from an HSVencoded image as follows [10]:\n[IV. LYMPHOBLAST IMAGE CLASSIFICATION TASK] Note that, because ij = k in all the considered hypercomplex algebras, (37) is equivalent to\n[IV. LYMPHOBLAST IMAGE CLASSIFICATION TASK] We performed the lymphocyte classification task using realvalued CNNs (RvCNNs) and the proposed HvCNNs. Similar architectures are adopted for both real-and hypercomplexvalued models, as suggested in [10]. The RvCNN features three convolutional layers with 3 × 3 filters followed by a max-pooling layer with 2 × 2 kernels. A dense layer with 1 unit yields the output. The hypercomplex-valued models have the same layer layout but a much smaller number of filters per convolution layer because each hypercomplex-valued channel is equivalent to four real-valued feature channels. The activation function adopted for all convolutional layers is the rectified linear unit (ReLU). The dense layer for both architectures is a single neuron that outputs the label 0 for a healthy white cell and 1 for a lymphoblast image. Table III shows a breakdown of total parameters per layer for each architecture. All deep network models in this work were implemented using the python libraries Keras and Tensorflow. The source codes are available at https://github.com/mevalle/ Hypercomplex-valued-Convolutional-Neural-Networks.\n[A. Computational Experiments] Let us now describe the outcome of the computational experiments performed using the acute lymphoblastic leukemia image database (ALL-IDB), a popular public dataset for segmentation and classification tasks directed at ALL detection [35]. The ALL-image database (ALL-IDB) consists of two sets of images. The ALL-IDB1 contains 108 blood smear images for segmentation and classification tasks. The ALL-IDB2 contains 260 segmented images, each containing a single blood element like the images depicted in Fig. 1, and is aimed exclusively for the classification task [35].\n[A. Computational Experiments] We used all the 260 images from the ALL-IDB2 dataset in our computational experiments. Like Genovese et al. [7], [8], we randomly split the dataset into the training and test sets containing each 50% of the total number of images. The training set is enlarged using horizontal and vertical flips. We conducted 100 simulations per experiment. Each simulation consists of splitting training and test set, augmenting the training set, initializing the network parameters, training for 100 epochs using ADAM optimizer and the binary crossentropy loss function, and predicting test images. We evaluate the performances using the accuracy score in the test set.\n[A. Computational Experiments] We derive a total of 18 network configurations using the real numbers and the eight hypercomplex algebras detailed in Section II. Namely, each of the nine models (1 RvCNN and 8 HvCNNs) is used in the classification tasks of both RGB and HSV encoded image sets. The box plots depicted in Fig. 2 summarize the outcome of the computational experiment.\n[A. Computational Experiments] Note that all models performed well for the RGB encoded images, with medians close to 95% accuracy except for the HvCNN based on the algebra B[-1, +1] that yields a median accuracy rate of 93.8%. In the HSV case, however, performances vary more drastically. The real-valued model exhibits poor performance compared to all the hypercomplex-valued ones, with a median accuracy rate of 91. To better depict the outcome of this computational experiment, we summarize the performance of the network classifiers in the Hasse diagram shown in Fig. 3. This figure depicts a single HvCNN model of each isomorphic hypercomplex algebra group to simplify the exposition. Precisely, Fig. 3 compares the performance of the HvCNNs based on the hypercomplex algebras A\n[A. Computational Experiments] , along with the real-valued models. In this diagram, a solid line connecting two models indicates that the one above achieved better performance than the one below, with a confidence level of 0.99 according to a Student's t-test. In other words, models higher up in the diagram perform significantly better than those on the lower end. Furthermore, the solid lines indicate a transitive relation. Thus, if model A is better than B and B is better than C, then A is better than C. First off, Fig. 3 confirms that the HvCNN models performed better using the HSV than the RGB encoding, and HvCNNs on HSV encoded images outperform the real-valued models on both encodings. In addition, it shows the real-valued model on HSV encoded images as the poorest performer. Moreover, coquaternion-and tessarine-based HvCNNs outperformed the HvCNN based on quaternions, the four-dimensional algebra most widely used in applications. At this point, we would like to recall that superior performance of neural networks based on non-usual hypercomplex algebras has been previously reported in the literature [26], [29], despite quaternion-based neural network yielding better performance in applications like controlling a robot manipulator [12]. Finally, we would like to recall that Genovese et al. obtained average accuracy rates of 97.92% using a ResNet18 combined with histopathological transfer learning [7]. The top-performing HvCNNs achieved average accuracy scores of 96.51% and 96.39%. However, in contrast to the ResNet18 network with approximately 11.4M parameters, the HvC-NNs have only 36K trainable parameters. In particular, the coquaternion-valued HvCNN with HSV encoding achieved 98% of the average accuracy score of the ResNet18 with transfer learning but with only 0.3% of its total number of trainable parameters.\n[V. CONCLUDING REMARKS] In this work, we extended the concept of a quaternionvalued CNN to general hypercomplex algebras. We constructed eight such algebras with desirable properties according to Kantor and Solodovnikov framework. These algebras are isomorphic to well-known four-dimensional algebras: quaternions, coquaternions, tessarines, Klein 4-group, Cayley-Dickson algebras, and Clifford algebras. The hypercomplexvalued neural networks have been applied for lymphoblast image classification.\n[V. CONCLUDING REMARKS] Using the public dataset ALL-IDB2, we conducted experiments featuring real-valued and hypercomplex-valued models. We observed that the HvCNNs performed similarly to the real-valued models in the RGB-encoded images while outperforming the RvCNNs with HSV-encoded images. The superior performance of the HvCNN indicates that they take better advantage of the HSV color system, which is more akin to human vision and more widely used in computer vision applications [36]. Consequently, HvCNN models seem more efficient at comprising information in its filters and fourdimensional entities than the real-valued models. Moreover, coquaternion-and tessarine-valued models outperformed the quaternion-valued CNNs. Lastly, the performance attained by the top-performing HvCNN models is significant and comparable to notable results in the literature. Indeed, Genovese et al. observed an average accuracy score of 97.92% with the ResNet18, a deep network containing around 11 million parameters [7]. The coquaternion-valued CNN yielded an average accuracy of 96.51% with approximately 0.3% of the total of trainable parameters of the real-valued ResNet18.",
+  "chunks": [
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "text": "This paper features convolutional neural networks defined on hypercomplex algebras applied to classify lymphocytes in blood smear digital microscopic images. Such classification is helpful for the diagnosis of acute lymphoblast leukemia (ALL), a type of blood cancer. We perform the classification task using eight hypercomplex-valued convolutional neural networks (HvCNNs) along with real-valued convolutional networks. Our results show that HvCNNs perform better than the real-valued model, showcasing higher accuracy with a much smaller number of parameters. Moreover, we found that HvCNNs based on Clifford algebras processing HSV-encoded images attained the highest observed accuracies. Precisely, our HvCNN yielded an average accuracy rate of 96.6% using the ALL-IDB2 dataset with a 50% train-test split, a value extremely close to the stateof-the-art models but using a much simpler architecture with significantly fewer parameters."
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "I. INTRODUCTION",
+      "text": "Over the past few decades, artificial neural networks (ANN) have been employed on various classification tasks, many of them previously performed by humans. One popular example is the computer-assisted diagnosis (CAD), in which the output of the ANN may assist doctors in making more accurate decisions [1]. Most applications in CAD consist of a machine learning model performing tasks that would be handmade by specialists, reducing the financial and human costs while also avoiding possible mistakes caused by fatigue [2], [3]. Moreover, computers have been repeatedly appointed as outperforming unaided professionals in these tasks [3], [4]. CAD applications have been effectively used, for example, for leukemia identification [5]."
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "I. INTRODUCTION",
+      "text": "Acute lymphoblastic leukemia (ALL) is a blood pathology that can be lethal in only a few weeks if left unchecked. ALL is a type of blood cancer identified by immature lymphocytes, known as lymphoblasts, in the blood and bone marrow. The peak incidence lies in children ages 2-5 years, and one of the primary forms of ALL detection is through microscopic blood sample inspection. Computer-aided leukemia diagnosis has been achieved using many different approaches in the past years, including deep learning models combined with transfer learning and unsharpening techniques [6], [7], [8], [9]. Also, it has been reported in the literature that a quaternion-valued convolutional neural network exhibited better generalization capability than its corresponding real-valued model to classify white cells as lymphoblasts [10]. Furthermore, the quaternionvalued CNN has about 34% of the total number of parameters of the corresponding real-valued network. This paper investigates further the application of hypercomplex-valued convolutional neural networks (HvCNN) ALL detection."
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "I. INTRODUCTION",
+      "text": "Like complex numbers, quaternions are hypercomplex numbers with a wide range of applications in science and engineering. For example, quaternions provide an efficient tool for describing 3D rotations used in computer graphics. Furthermore, quaternion-valued neural networks have been effectively applied for signal processing and control [11], [12], image classification [13], [14], and many other pattern recognition tasks [15], [16]. However, besides the quaternions, many other hypercomplex-valued algebras exist, including the coquaternions, the tessarines, Clifford algebras, and Cayley-Dickson algebras. The tessarines, introduced by Cockle a few years after the introduction of quaternions, is a commutative hypercomplex algebra that has been effectively used for signal processing and the development of neural networks [17], [18], [19], [20], [21]. The Clifford algebras comprise a broad family of associative hypercomplex algebras with interesting geometrical properties [22], [23], [24]. A family of hypercomplex algebras, obtained from the recursive process of Cayley-Dickson, can be used to develop effective HvNNs [25], [26]. Furthermore, four-dimensional hypercomplex algebras have been used for designing neural networks for controlling a robot manipulator [12]."
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "I. INTRODUCTION",
+      "text": "This paper considers the hypercomplex algebra framework proposed by Kantor and Solodovnikov [27]. This approach furnishes a broad class of hypercomplex algebras which comprises the tessarines, the Clifford algebras, and the Cayley-Dickson algebras. On the downside, the general framework by Kantor and Solodovnikov also contains many hypercomplex algebras with no attractive features. Thus, we shall focus only on eight four-dimensional associative hypercomplex algebras, four of which are commutative. We consider the tessarines, the bi-complex numbers, and the Klein 4-group algebra among the commutative algebras [12], [28]. The four non-commutative hypercomplex algebras include quaternions and coquaternions. Also, they are isomorphic to Clifford as well as Cayley-Dickson algebras [26], [29]."
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "I. INTRODUCTION",
+      "text": "The paper is organized as follows: Next section presents the basic concepts of hypercomplex algebras and explores notable four-dimensional algebras. Section III addresses hypercomplex-valued CNN models and shows how to emulate them using a real-valued convolutional network. Section IV describes the computational experiments conducted using the ALL-IDB dataset. The paper finishes with some concluding remarks in Section V."
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "II. HYPERCOMPLEX NUMBERS AND SOME NOTABLE",
+      "text": "ASSOCIATIVE FOUR-DIMENSIONAL ALGEBRAS Let us present a few basic definitions regarding hypercomplex numbers. Hypercomplex algebras can be defined in any field, but we focus on algebras over the real numbers in this work. As pointed out in the introduction, we consider the general framework proposed by Kantor and Solodovnikov, which includes the most used hypercomplex algebras [27]. We finish this section by presenting eight notable associative four-dimensional hypercomplex algebras."
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "A. A Brief Review on Hypercomplex Number Systems",
+      "text": "A hypercomplex algebra A of dimension n + 1 over R is a set"
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "A. A Brief Review on Hypercomplex Number Systems",
+      "text": ") equipped with two operations, namely addition and multiplication [27]. The symbols i µ , with i µ / ∈ R for all µ = 1, . . . , n, denote the so-called hyperimaginary units of A. The addition of two hypercomplex numbers"
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "A. A Brief Review on Hypercomplex Number Systems",
+      "text": "The multiplication operation is carried out distributively and replacing the product of two hypercomplex units i µ and i ν by an hypercomplex number p µν := i µ i ν , where"
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "A. A Brief Review on Hypercomplex Number Systems",
+      "text": "for all µ, ν = 1, . . . , n. Precisely, the multiplication of two hypercomplex numbers is given by the equation"
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "A. A Brief Review on Hypercomplex Number Systems",
+      "text": "x µ y ν (p µν ) 0"
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "A. A Brief Review on Hypercomplex Number Systems",
+      "text": "x µ y ν (p µν ) 1 i 1 + . . ."
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "A. A Brief Review on Hypercomplex Number Systems",
+      "text": "Note that hyperimaginary units products characterize a hypercomplex algebra A. In other words, the hypercomplex numbers p µν given by (3) determine A. It is common practice to arrange the hypercomplex numbers p µν in a table, called the multiplication table. Examples of multiplication tables are given in Tables I andII. Algebraic properties of an hypercomplex algebra A can be inferred from its multiplication tables. For example, symmetric multiplication tables represent commutative hypercomplex algebras [27]. Note that the four multiplication tables in Table II are symmetric. Thus, they represent commutative hypercomplex algebras. We will discuss in detail the multiplication tables provided in Tables I and II in the following subsection."
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "A. A Brief Review on Hypercomplex Number Systems",
+      "text": "A scalar α ∈ A can be identified with the hypercomplex number α = α + 0i 1 + • • • + 0i n , and vice-versa. Furthermore, from (4), the product by scalar in any algebra A satisfies"
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "A. A Brief Review on Hypercomplex Number Systems",
+      "text": "("
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "A. A Brief Review on Hypercomplex Number Systems",
+      "text": "This remark shows that a hypercomplex algebra A can be identified with an (n + 1)-dimensional vector space with the vector addition and the product by a scalar given by ( 2) and ( 5), respectively. Moreover, the basis elements of such (n+1)-dimensional vector space are 1, i 1 , . . . , i n . Besides the addition and the product by a scalar, a hypercomplex algebra is equipped with the multiplication of vectors given by (4). We would like to point out that different multiplication tables do not necessarily yield different hypercomplex algebras. Precisely, we know from linear algebra that a vector space can be represented using different bases. Similarly, a hypercomplex algebra can be obtained from different bases or, equivalently, using different hypercomplex units. Since the multiplication table determines the outcome of the product of any two hypercomplex units, a change of basis results in a different multiplication table. Because of this remark, we say two hypercomplex algebras A and A are isomorphic if they differ by a change of basis. In other words, A and A are isomorphic hypercomplex algebras if the multiplication table of A can be obtained from the multiplication table of A through a change of basis."
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "B. Four-dimensional Hypercomplex Algebras",
+      "text": "Let us now focus on four-dimensional hypercomplex algebras, i.e., hypercomplex algebras of the form"
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "B. Four-dimensional Hypercomplex Algebras",
+      "text": "where i ≡ i 1 , j ≡ i 2 , and k ≡ i 3 are the three hypercomplex units. Four-dimensional hypercomplex algebras are particularly useful for image processing because a color can be represented using a single hypercomplex number. In other words, four-dimensional hypercomplex algebras allows representing a color by a single entity."
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "B. Four-dimensional Hypercomplex Algebras",
+      "text": "Note that the hypercomplex numbers p µν = (p µν ) 0 + (p µν ) 1 i+(p µν ) 2 j +(p µν ) 3 k in the multiplication table results in a large number of algebras. Some of these algebras are isomorphic, and many of them have no attractive features. Therefore, we present a construction rule that yields eight associative four-dimensional hypercomplex algebras in the following."
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "B. Four-dimensional Hypercomplex Algebras",
+      "text": "Like in the construction of Clifford algebras [30], we assume the product of hypercomplex units is associative. Furthermore, we let the identity"
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "B. Four-dimensional Hypercomplex Algebras",
+      "text": "hold true. Finally, we assume the four-dimensional hypercomplex algebra is either commutative or anti-commutative. 1) Anticommutative Algebras: We obtain an anticommutative four-dimensional hypercomplex algebra by imposing ij = -ji. From the associativity and ( 7), we obtain"
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "B. Four-dimensional Hypercomplex Algebras",
+      "text": "To simplify the exposition, let i 2 = γ 1 and j 2 = γ 2 . From ( 7)-( 10), we obtain an associative and anticommutative fourdimensional algebra denoted by A[γ 1 , γ 2 ], whose multiplication table is then"
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "B. Four-dimensional Hypercomplex Algebras",
+      "text": "and A[+1, +1] whose multiplication tables are depicted in Table I. Finally, we would like to remark that the algebras"
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "B. Four-dimensional Hypercomplex Algebras",
+      "text": "and A[+1, +1] can be derived using the generalized Cayley-Dickson process [25], [26]."
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "B. Four-dimensional Hypercomplex Algebras",
+      "text": "2) Commutative Algebras: In a similar fashion, we impose the condition ij = ji to obtain the commutative fourdimensional hypercomplex algebras. Again, using associativity and (7), we are able to write the identities"
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "B. Four-dimensional Hypercomplex Algebras",
+      "text": "By expressing i 2 = γ 1 and j 2 = γ 2 , we obtain a commutative hypercomplex algebra"
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "B. Four-dimensional Hypercomplex Algebras",
+      "text": "Analogously, we end up with the four-dimensional algebras Remark 2. Because they have the same multiplication table, the hypercomplex algebra B[-1, +1] corresponds to the tessarines, also known as commutative quaternions [19], [17]. Similarly, the algebra B[-1, -1] corresponds to the bicomplex numbers [12] while B[+1, +1] is equivalent to the Klein 4-group, a commutative algebra of great interest in symmetric group theory [28]. Concluding, we have a total of eight four-dimensional hypercomplex algebras. All of them are associative, four are anticommutative and the remaining are commutative. Furthermore, the hypercomplex units are well structured in their multiplication"
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "B. Four-dimensional Hypercomplex Algebras",
+      "text": "where s ij ∈ {-1, +1}, for all i, j = 1, . . . , 3, depends on the parameters γ 1 and γ 2 as well as on the commutativity or anticommutativity of the multiplication. The multiplication table (16) helped us to efficiently implement convolutional neural networks based on the eight hypercomplex algebras presented in this section. We detail this remark in the following section."
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "III. HYPERCOMPLEX-VALUED CONVOLUTIONAL NEURAL NETWORKS (HVCNN)",
+      "text": "Convolutional layers are crucial building blocks of convolutional neural networks. The main strength of convolutional layers is their ability to process data locally and, thus, learn local patterns. Convolutional neural networks have been widely applied to image processing tasks [31]. Let us briefly describe a real-valued convolutional layer."
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "A. Real-valued Convolutional Layers",
+      "text": "Suppose a convolutional layer is fed by a real-valued image I with C feature channels. Let I(p, c) ∈ R denote the intensity of the cth channel of the image I at pixel p. The neurons of a convolutional layer are parameterized structures called filters. The filters have the same number C of channels as the image I. Let D, commonly a rectangular grid, denote the domain of the filters. Also, let the weights of a convolutional layer with K real-valued filters be arranged in an array F such that F(q, c, k) denotes the value of the cth channel of the kth filter at the point q ∈ D, for c = 1, . . . , C and k = 1, . . . , K. A convolutional layer with K filters yields a real-valued image J"
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "Quaternions",
+      "text": "with K feature channels obtained by evaluating an activation function on the addition of a bias term and the convolution of the image I by each of the K filters. Precisely, let (I * F)(p, k) denote the convolution of the image I by the kth filter at pixel p. Intuitively, (I * F)(p, k) is the sum of the multiplication of the weights of the kth filter and the intensities of the pixels of the image in a window characterized by the translation of p by S(q), for q ∈ D. The term S(q), for q in the domain D of the filter, represents a translation that can take vertical and horizontal strides into account. In mathematical terms, the convolution of the image I by the kth filter at pixel p is given by"
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "Quaternions",
+      "text": "Moreover, the intensity of the kth feature channel of the output of a convolutional layer at pixel p is defined by"
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "Quaternions",
+      "text": "where ϕ : R → R denotes the activation function."
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "B. Hypercomplex-valued Convolutional Layers",
+      "text": "The hypercomplex-valued convolutional layer is defined analogously to the real-valued convolutional layer by replacing the real numbers and operations with their corresponding hypercomplex versions in (17) and (18)  [32], [33]. Precisely, the \"intensity\" of the kth channel of the hypercomplex-valued output image J (h) at pixel p is given by"
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "B. Hypercomplex-valued Convolutional Layers",
+      "text": "where"
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "B. Hypercomplex-valued Convolutional Layers",
+      "text": "k ∈ A is the bias term, and"
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "B. Hypercomplex-valued Convolutional Layers",
+      "text": "is the convolution of I (h) by the kth hypercomplex-valued filter at pixel p. In this paper, we only consider split-functions defined using a real-valued function ϕ : R → R as follows for all x ∈ x 0 +"
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "C. Emulating Hypercomplex-valued Convolutional Layers",
+      "text": "Since most deep neural network libraries are designed for real-valued inputs, we show how to emulate a fourdimensional hypercomplex-valued convolutional layer using a real-valued convolutional layer. The reasoning is quite similar to the approaches reported in the literature for complex-and quaternion-valued deep networks [32], [33]."
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "C. Emulating Hypercomplex-valued Convolutional Layers",
+      "text": "First, an image I (h) with C channels defined on a fourdimensional hypercomplex algebra can be represented by"
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "C. Emulating Hypercomplex-valued Convolutional Layers",
+      "text": "where I 0 , I 1 , I 2 , and I 3 are real-valued images with C channels. Similarly, a bank of K hypercomplex-valued filters can be represented by"
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "C. Emulating Hypercomplex-valued Convolutional Layers",
+      "text": "where F 0 , F 1 , F 2 , and F 3 are real-valued arrays representing each a bank of K filters with domain D and C feature channels. From the multiplication table (16) and omitting the arguments (p + S(q), c) and (q, c, k) to simplify the notation, we obtain"
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "C. Emulating Hypercomplex-valued Convolutional Layers",
+      "text": "Therefore, the real-part of the convolution given by ( 20) satisfies the equation"
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "C. Emulating Hypercomplex-valued Convolutional Layers",
+      "text": "I 0 (p + S(q), c)F 0 (q, c, k)"
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "C. Emulating Hypercomplex-valued Convolutional Layers",
+      "text": "+ s 11 I 1 (p + S(q), c)F 1 (q, c, k) (24)"
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "C. Emulating Hypercomplex-valued Convolutional Layers",
+      "text": "+ s 22 I 2 (p + S(q), c)F 2 (q, c, k)"
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "C. Emulating Hypercomplex-valued Convolutional Layers",
+      "text": "Equivalently, the real-part of the convolution of the image I (h) by the kth hypercomplex-valued filter at pixel p can be computed using the real-valued convolution"
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "C. Emulating Hypercomplex-valued Convolutional Layers",
+      "text": "where I (r) is the real-valued image with 4C features channels obtained by concatenating the real and imaginary parts of I (h) as follows"
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "C. Emulating Hypercomplex-valued Convolutional Layers",
+      "text": "for all pixels p, and F (r) 0 is the real-valued filter defined by"
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "C. Emulating Hypercomplex-valued Convolutional Layers",
+      "text": "for all q ∈ D and k = 1, . . . , K. For short, the notation"
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "C. Emulating Hypercomplex-valued Convolutional Layers",
+      "text": "means that F (r) 0 is obtained by concatenating F 0 , s 11 F 1 , s 22 F 2 , and s 33 F 3 as prescribed above. Note from (17) that"
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "C. Emulating Hypercomplex-valued Convolutional Layers",
+      "text": "which coincides with I (h) * F (h) 0 (p, k) given by (24). Therefore, using a split-function, the real-part J 0 (p, k) of the output J (h) (p, k) of the hypercomplex-valued convolutional layer given by ( 20) can be computed using a real-valued convolutional layer as follows are given by ( 26) and ( 31), respectively. In a similar vein, the three imaginary parts J 1 (p, k), J 2 (p, k), and J 3 (p, k) of the kth channel of the hypercomplex-valued image J (h) at pixel p can be computed using real-valued convolutional layers with bias terms b 1 (k), b 2 (k), and b 3 (k) and real-valued filters"
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "C. Emulating Hypercomplex-valued Convolutional Layers",
+      "text": "respectively."
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "C. Emulating Hypercomplex-valued Convolutional Layers",
+      "text": "We would like to finish this section with few remarks: First, emulating a hypercomplex-valued convolutional layer allow us to take advantage of open-source deep libraries such as Tensorflow and PyTorch for python and Flux for Julia Language. Consequently, hypercomplexvalued versions of well-known deep neural networks can be implemented in current deep learning libraries. On top of that, although not properly designed for hypercomplex-valued models, pooling layers, sophisticated optimizers, and speed-up training techniques such as batch normalization and weight initialization can be incorporated as the first attempt into hypercomplex-valued deep networks. In the following section, we consider a hypercomplex-valued deep neural network for the classification of lymphocytes from smear blood images that resembles the LeNet architecture [34]."
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "IV. LYMPHOBLAST IMAGE CLASSIFICATION TASK",
+      "text": "One of the primary forms of diagnosis of acute lymphoblastic leukemia (ALL) is through microscopic blood smear image inspection [6], [7], [8], [9]. Precisely, physicians diagnose ALL by the presence of many lymphoblasts in a blood smear image in which white cells are stained with bluish-purple coloration. A candidate cell image is selected, cut from the blood smear image, and fed into a machine learning classifier for a computer-aided leukemia diagnosis. For illustrative purposes, Fig. 1 shows two candidate cell images used in such a classification task. The classifier predicts if the candidate image is a lymphoblast in the simplest binary case."
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "IV. LYMPHOBLAST IMAGE CLASSIFICATION TASK",
+      "text": "In our model, the candidate images have 100 × 100 pixels and have been saved using either the RGB (red-green-blue) or the HSV (hue-saturation-value) color encodings. Using the RGB encoding, an image is characterized by the intensities of red (R), green (G), and blue (B), respectively. An RGB encoded image has been mapped into a hypercomplex-valued image"
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "IV. LYMPHOBLAST IMAGE CLASSIFICATION TASK",
+      "text": "RGB by means of the equation"
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "IV. LYMPHOBLAST IMAGE CLASSIFICATION TASK",
+      "text": "Similarly, a HSV-encoded image is characterized by the hue H ∈ [0, 2π), the value V ∈ [0, 1], and the saturation"
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "IV. LYMPHOBLAST IMAGE CLASSIFICATION TASK",
+      "text": "HSV is derived from an HSVencoded image as follows [10]:"
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "IV. LYMPHOBLAST IMAGE CLASSIFICATION TASK",
+      "text": "Note that, because ij = k in all the considered hypercomplex algebras, (37) is equivalent to"
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "IV. LYMPHOBLAST IMAGE CLASSIFICATION TASK",
+      "text": "We performed the lymphocyte classification task using realvalued CNNs (RvCNNs) and the proposed HvCNNs. Similar architectures are adopted for both real-and hypercomplexvalued models, as suggested in [10]. The RvCNN features three convolutional layers with 3 × 3 filters followed by a max-pooling layer with 2 × 2 kernels. A dense layer with 1 unit yields the output. The hypercomplex-valued models have the same layer layout but a much smaller number of filters per convolution layer because each hypercomplex-valued channel is equivalent to four real-valued feature channels. The activation function adopted for all convolutional layers is the rectified linear unit (ReLU). The dense layer for both architectures is a single neuron that outputs the label 0 for a healthy white cell and 1 for a lymphoblast image. Table III shows a breakdown of total parameters per layer for each architecture. All deep network models in this work were implemented using the python libraries Keras and Tensorflow. The source codes are available at https://github.com/mevalle/ Hypercomplex-valued-Convolutional-Neural-Networks."
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "A. Computational Experiments",
+      "text": "Let us now describe the outcome of the computational experiments performed using the acute lymphoblastic leukemia image database (ALL-IDB), a popular public dataset for segmentation and classification tasks directed at ALL detection [35]. The ALL-image database (ALL-IDB) consists of two sets of images. The ALL-IDB1 contains 108 blood smear images for segmentation and classification tasks. The ALL-IDB2 contains 260 segmented images, each containing a single blood element like the images depicted in Fig. 1, and is aimed exclusively for the classification task [35]."
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "A. Computational Experiments",
+      "text": "We used all the 260 images from the ALL-IDB2 dataset in our computational experiments. Like Genovese et al. [7], [8], we randomly split the dataset into the training and test sets containing each 50% of the total number of images. The training set is enlarged using horizontal and vertical flips. We conducted 100 simulations per experiment. Each simulation consists of splitting training and test set, augmenting the training set, initializing the network parameters, training for 100 epochs using ADAM optimizer and the binary crossentropy loss function, and predicting test images. We evaluate the performances using the accuracy score in the test set."
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "A. Computational Experiments",
+      "text": "We derive a total of 18 network configurations using the real numbers and the eight hypercomplex algebras detailed in Section II. Namely, each of the nine models (1 RvCNN and 8 HvCNNs) is used in the classification tasks of both RGB and HSV encoded image sets. The box plots depicted in Fig. 2 summarize the outcome of the computational experiment."
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "A. Computational Experiments",
+      "text": "Note that all models performed well for the RGB encoded images, with medians close to 95% accuracy except for the HvCNN based on the algebra B[-1, +1] that yields a median accuracy rate of 93.8%. In the HSV case, however, performances vary more drastically. The real-valued model exhibits poor performance compared to all the hypercomplex-valued ones, with a median accuracy rate of 91. To better depict the outcome of this computational experiment, we summarize the performance of the network classifiers in the Hasse diagram shown in Fig. 3. This figure depicts a single HvCNN model of each isomorphic hypercomplex algebra group to simplify the exposition. Precisely, Fig. 3 compares the performance of the HvCNNs based on the hypercomplex algebras A"
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "A. Computational Experiments",
+      "text": ", along with the real-valued models. In this diagram, a solid line connecting two models indicates that the one above achieved better performance than the one below, with a confidence level of 0.99 according to a Student's t-test. In other words, models higher up in the diagram perform significantly better than those on the lower end. Furthermore, the solid lines indicate a transitive relation. Thus, if model A is better than B and B is better than C, then A is better than C. First off, Fig. 3 confirms that the HvCNN models performed better using the HSV than the RGB encoding, and HvCNNs on HSV encoded images outperform the real-valued models on both encodings. In addition, it shows the real-valued model on HSV encoded images as the poorest performer. Moreover, coquaternion-and tessarine-based HvCNNs outperformed the HvCNN based on quaternions, the four-dimensional algebra most widely used in applications. At this point, we would like to recall that superior performance of neural networks based on non-usual hypercomplex algebras has been previously reported in the literature [26], [29], despite quaternion-based neural network yielding better performance in applications like controlling a robot manipulator [12]. Finally, we would like to recall that Genovese et al. obtained average accuracy rates of 97.92% using a ResNet18 combined with histopathological transfer learning [7]. The top-performing HvCNNs achieved average accuracy scores of 96.51% and 96.39%. However, in contrast to the ResNet18 network with approximately 11.4M parameters, the HvC-NNs have only 36K trainable parameters. In particular, the coquaternion-valued HvCNN with HSV encoding achieved 98% of the average accuracy score of the ResNet18 with transfer learning but with only 0.3% of its total number of trainable parameters."
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "V. CONCLUDING REMARKS",
+      "text": "In this work, we extended the concept of a quaternionvalued CNN to general hypercomplex algebras. We constructed eight such algebras with desirable properties according to Kantor and Solodovnikov framework. These algebras are isomorphic to well-known four-dimensional algebras: quaternions, coquaternions, tessarines, Klein 4-group, Cayley-Dickson algebras, and Clifford algebras. The hypercomplexvalued neural networks have been applied for lymphoblast image classification."
+    },
+    {
+      "paper_id": "2205.13273",
+      "file_name": "2205.13273_Acute_Lymphoblastic_Leukemia_Detection_U.pdf",
+      "page_number": 1,
+      "section": "V. CONCLUDING REMARKS",
+      "text": "Using the public dataset ALL-IDB2, we conducted experiments featuring real-valued and hypercomplex-valued models. We observed that the HvCNNs performed similarly to the real-valued models in the RGB-encoded images while outperforming the RvCNNs with HSV-encoded images. The superior performance of the HvCNN indicates that they take better advantage of the HSV color system, which is more akin to human vision and more widely used in computer vision applications [36]. Consequently, HvCNN models seem more efficient at comprising information in its filters and fourdimensional entities than the real-valued models. Moreover, coquaternion-and tessarine-valued models outperformed the quaternion-valued CNNs. Lastly, the performance attained by the top-performing HvCNN models is significant and comparable to notable results in the literature. Indeed, Genovese et al. observed an average accuracy score of 97.92% with the ResNet18, a deep network containing around 11 million parameters [7]. The coquaternion-valued CNN yielded an average accuracy of 96.51% with approximately 0.3% of the total of trainable parameters of the real-valued ResNet18."
+    }
+  ],
+  "figures": [
+    {
+      "figure_id": "FIG-2205.13273-P6-1",
+      "page_number": 6,
+      "file_path": "data/figures\\2205.13273\\fig_p6_1.jpeg",
+      "dimensions": "257x257",
+      "format": "jpeg",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2205.13273-P6-2",
+      "page_number": 6,
+      "file_path": "data/figures\\2205.13273\\fig_p6_2.jpeg",
+      "dimensions": "257x257",
+      "format": "jpeg",
+      "type": "raster_figure_or_diagram"
+    }
+  ],
+  "figures_count": 2,
+  "vector_graphs": [
+    {
+      "page_number": 5,
+      "drawing_path_count": 40,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        595.2760009765625,
+        841.8900146484375
+      ]
+    },
+    {
+      "page_number": 7,
+      "drawing_path_count": 61,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        595.2760009765625,
+        841.8900146484375
+      ]
+    },
+    {
+      "page_number": 8,
+      "drawing_path_count": 286,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        595.2760009765625,
+        841.8900146484375
+      ]
+    }
+  ],
+  "vector_graphs_count": 3
+}

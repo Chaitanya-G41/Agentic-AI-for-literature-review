@@ -1,0 +1,25 @@
+{
+  "paper_id": "2305.16291",
+  "paper_title": "2305.16291 Voyager An Open-Ended Em",
+  "authors": [
+    "Research Authors"
+  ],
+  "venue": "arXiv / Peer-Reviewed Venue",
+  "core_problem": "VOYAGER: An Open-Ended Embodied Agent",
+  "methodology_summary": "with Large Language Models We introduce VOYAGER, the first LLM-powered embodied lifelong learning agent\nin Minecraft that continuously explores the world, acquires diverse skills, and\nmakes novel discoveries without human intervention. VOYAGER consists of three\nkey components: 1) an automatic curriculum that maximizes exploration, 2) an\never-growin",
+  "datasets_eval": [
+    "Tabular Data (TAB-2305.16291-P3-1)",
+    "Tabular Data (TAB-2305.16291-P4-2)",
+    "Tabular Data (TAB-2305.16291-P5-1)",
+    "Tabular Data (TAB-2305.16291-P5-2)"
+  ],
+  "empirical_results": "Empirically, VOYAGER demonstrates strong in-context lifelong learning capabilities. It can construct\nan ever-growing skill library of action programs that are reusable, interpretable, and generalizable\nto novel tasks. We evaluate VOYAGER systematically against other LLM-based agent techniques\n(e.g.,",
+  "explicit_limitations": "Building generally capable embodied agents that continuously explore, plan, and develop new skills\nin open-ended worlds is a grand challenge for the AI community [1–5]. Classical approaches\nemploy reinforcement learning (RL) [6, 7] and imitation learning [8–10] that operate on primitive\nactions, whi",
+  "numerical_metrics": [],
+  "geographical_data": {},
+  "pipeline_steps": [
+    "VOYAGER interacts with GPT-4 via blackbox queries, which bypasses the need for\nmodel parameter fine-tuning."
+  ],
+  "generation_mode": "HEURISTIC_FALLBACK",
+  "model_name": "Rule-Based Heuristic Engine"
+}

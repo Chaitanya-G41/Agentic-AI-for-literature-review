@@ -1,0 +1,24 @@
+{
+  "paper_id": "2306.14753",
+  "paper_title": "The Deep Arbitrary Polynomial Chaos Neur",
+  "authors": [
+    "N/A"
+  ],
+  "venue": "N/A",
+  "core_problem": "Integrating Deep Artificial Neural Networks (DANNs) with the Theory of Polynomial Chaos Expansion (PCE) for data-driven modeling.",
+  "methodology_summary": "Employing a purely data-driven generalization of PCE (introduced in 2012 by Oladyshkin and Nowak) to construct a multi-variate orthonormal polynomial basis (aPC representation) based only on 2d raw stochastic moments evaluated from limited data.",
+  "datasets_eval": [
+    "Available data set of limited size (used for moment evaluation)."
+  ],
+  "empirical_results": "The resulting polynomials are real if and only if the Hankel matrix of moments is positive definite. Numerical solutions for the linear system can be obtained via lower-order moments, recursive relations, Gram-Schmidt orthogonalization, or Stieltjes procedure.",
+  "explicit_limitations": "For a majority of deep learning approaches based on DANNs, the kernel structure of neural signal processing remains undetermined/unspecified in the provided context.",
+  "numerical_metrics": [],
+  "geographical_data": {},
+  "pipeline_steps": [
+    "Problem Formulation & Data Ingestion",
+    "Method Execution & Architecture",
+    "Empirical Evaluation & Benchmarking"
+  ],
+  "generation_mode": "GENUINE_LLM",
+  "model_name": "NVIDIA_NIM (nvidia/nemotron-3.5-bolt-e4b)"
+}

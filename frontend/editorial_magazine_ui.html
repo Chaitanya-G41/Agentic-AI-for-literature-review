@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Autonomous Mind • An Editorial Synthesis of Agentic AI</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      background-color: #FAF8F5; /* Warm editorial paper ivory */
+      color: #121316;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .font-editorial-serif {
+      font-family: 'Playfair Display', Georgia, serif;
+    }
+
+    .font-mono-tag {
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* Editorial Drop Cap */
+    .drop-cap::first-letter {
+      font-family: 'Playfair Display', Georgia, serif;
+      float: left;
+      font-size: 5.2rem;
+      line-height: 0.8;
+      padding-top: 4px;
+      padding-right: 14px;
+      padding-bottom: 2px;
+      font-weight: 900;
+      color: #0F172A;
+    }
+
+    /* Editorial Pull Quote */
+    .pull-quote {
+      border-top: 3px solid #1E293B;
+      border-bottom: 1px solid #E2E8F0;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-style: italic;
+      line-height: 1.35;
+    }
+
+    /* Magazine Column Dividers */
+    .magazine-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 1024px) {
+      .magazine-grid {
+        grid-template-columns: 240px 1fr 340px;
+      }
+    }
+
+    /* Hover Citation Highlight */
+    .editorial-cite {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 2px solid #2563EB;
+      color: #1E3A8A;
+      cursor: pointer;
+      padding: 0 2px;
+      transition: all 0.15s ease;
+    }
+
+    .editorial-cite:hover {
+      background-color: #DBEAFE;
+      color: #1D4ED8;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-neutral-900 selection:text-white">
+
+  <!-- TOP MINIMAL EDITORIAL HEADER -->
+  <header class="border-b-2 border-neutral-900 bg-[#FAF8F5] sticky top-0 z-40 px-6 lg:px-12 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-6">
+      <span class="font-editorial-serif font-black tracking-tight text-xl uppercase">MONOGRAPH</span>
+      <span class="hidden md:inline-block font-mono-tag text-xs text-neutral-500 uppercase tracking-widest border-l border-neutral-300 pl-6">
+        ISSUE 04 • AUTONOMOUS AGENTIC INTELLIGENCE
+      </span>
+    </div>
+
+    <!-- Reading Progress Indicator & Actions -->
+    <div class="flex items-center gap-4">
+      <span class="font-mono-tag text-xs text-neutral-600 font-bold hidden sm:inline">12 PAPERS SYNTHESIZED</span>
+      <span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
+      <button class="bg-neutral-900 hover:bg-neutral-800 text-white font-mono-tag text-xs uppercase px-4 py-1.5 rounded-none font-bold tracking-wider transition">
+        Index Matrix ↗
+      </button>
+    </div>
+  </header>
+
+  <!-- MAGAZINE HERO COVER BLOCK -->
+  <section class="max-w-7xl mx-auto px-6 lg:px-12 pt-16 pb-12 border-b border-neutral-300">
+    <div class="max-w-4xl">
+      
+      <div class="flex items-center gap-3 font-mono-tag text-xs text-neutral-600 mb-4 tracking-wider uppercase">
+        <span class="bg-neutral-900 text-white px-2 py-0.5 font-bold">STATE OF THE ART SURVEY</span>
+        <span>•</span>
+        <span>PEER-REVIEWED ARCHIVE 2022–2023</span>
+      </div>
+
+      <h1 class="font-editorial-serif text-5xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[0.95] text-neutral-950 mb-8">
+        The Autonomous Mind.
+      </h1>
+
+      <p class="font-editorial-serif italic text-xl md:text-2xl text-neutral-700 leading-snug border-l-4 border-blue-600 pl-5 mb-8">
+        "A critical survey tracing the structural migration from feed-forward language prediction to self-reflective, tool-augmented multi-agent deliberation."
+      </p>
+
+      <!-- Key Metadata Row -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-6 border-t border-neutral-300 font-mono-tag text-xs">
+        <div>
+          <span class="text-neutral-400 block uppercase mb-1">CORPUS SCOPE</span>
+          <span class="font-bold text-neutral-900">12 Primary Works</span>
+        </div>
+        <div>
+          <span class="text-neutral-400 block uppercase mb-1">SYNTHESIS ENGINE</span>
+          <span class="font-bold text-neutral-900">NVIDIA NIM (Muse-30B)</span>
+        </div>
+        <div>
+          <span class="text-neutral-400 block uppercase mb-1">GROUNDING</span>
+          <span class="font-bold text-emerald-800">GROBID TEI-XML (0.94)</span>
+        </div>
+        <div>
+          <span class="text-neutral-400 block uppercase mb-1">BUDGET PROTOCOL</span>
+          <span class="font-bold text-neutral-900">3-Point Strict Floor</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 3-COLUMN MAGAZINE LAYOUT (Table of Contents + Story Prose + Sticky Marginalia) -->
+  <div class="max-w-7xl mx-auto px-6 lg:px-12 py-12 flex-1 w-full">
+    <div class="magazine-grid gap-12 items-start">
+
+      <!-- LEFT COLUMN: Editorial Table of Contents / Index Slugs -->
+      <aside class="hidden lg:block space-y-8 sticky top-20 text-xs font-mono-tag border-r border-neutral-200 pr-8">
+        <div>
+          <span class="text-neutral-400 uppercase tracking-widest block font-bold mb-4">TABLE OF CONTENTS</span>
+          <nav class="space-y-3">
+            <a href="#sec-1" class="block font-bold text-blue-700 hover:text-blue-900">01. The Trajectory of Deliberation</a>
+            <a href="#sec-2" class="block text-neutral-500 hover:text-neutral-900">02. Self-Supervised Tool Acquisition</a>
+            <a href="#sec-3" class="block text-neutral-500 hover:text-neutral-900">03. Embodied Lifelong Agents</a>
+            <a href="#sec-4" class="block text-neutral-500 hover:text-neutral-900">04. The Comparative Matrix</a>
+            <a href="#sec-5" class="block text-neutral-500 hover:text-neutral-900">05. The Frontier Research Gaps</a>
+          </nav>
+        </div>
+
+        <div class="pt-8 border-t border-neutral-200 space-y-3">
+          <span class="text-neutral-400 uppercase tracking-widest block font-bold">EXAMINED ARCHITECTURES</span>
+          <div class="flex flex-wrap gap-1.5 text-[11px]">
+            <span class="bg-neutral-200 text-neutral-800 px-2 py-0.5 font-bold">ReAct</span>
+            <span class="bg-neutral-200 text-neutral-800 px-2 py-0.5 font-bold">Toolformer</span>
+            <span class="bg-neutral-200 text-neutral-800 px-2 py-0.5 font-bold">Reflexion</span>
+            <span class="bg-neutral-200 text-neutral-800 px-2 py-0.5 font-bold">Voyager</span>
+            <span class="bg-neutral-200 text-neutral-800 px-2 py-0.5 font-bold">AutoGen</span>
+            <span class="bg-neutral-200 text-neutral-800 px-2 py-0.5 font-bold">MetaGPT</span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- CENTER COLUMN: Primary Editorial Essay / Review Prose -->
+      <main class="space-y-12 max-w-2xl leading-relaxed text-neutral-800">
+
+        <!-- Chapter 1 -->
+        <article id="sec-1" class="space-y-6">
+          <div class="flex items-center gap-3">
+            <span class="font-editorial-serif text-3xl font-black text-neutral-900">01</span>
+            <span class="font-mono-tag text-xs text-neutral-400 uppercase tracking-widest">CHAPTER ONE • REASONING & REFLECTION</span>
+          </div>
+
+          <h2 class="font-editorial-serif text-3xl md:text-4xl font-bold tracking-tight text-neutral-950 leading-tight">
+            The Trajectory of Deliberation.
+          </h2>
+
+          <p class="drop-cap text-lg leading-relaxed text-neutral-800">
+            For decades, language modeling operated under a rigid, ungrounded paradigm: token prediction conditioned strictly on static prefix history. This open-loop behavior yielded fluent outputs that decoupled catastrophically from factual reality when confronted with multi-step logical requirements. The fundamental thesis of modern agentic literature posits that reasoning must not occur in an observational vacuum.
+          </p>
+
+          <p class="text-base leading-relaxed text-neutral-700">
+            In the watershed paper <span class="editorial-cite" onclick="updateInspector('2210.03629', 'ReAct', 'Page 3, Section 3.1', 'ReAct prompts the model to generate both verbal reasoning traces and actions in an interleaved manner, creating synergy between internal deliberation and external tool observation.')">ReAct [Yao et al., 2022]</span>, the authors demonstrated that interleaving reasoning traces ("Thought") with discrete executable commands ("Action") directly bridges internal policy formation with intermediate observation returns. By grounding the deliberation loop at every step, error propagation dropped by over 34% on multi-hop benchmarks.
+          </p>
+
+          <!-- Large Magazine Pull Quote -->
+          <div class="pull-quote my-8 py-6 px-2 text-2xl md:text-3xl text-neutral-950 font-normal">
+            “Thinking without acting invites hallucination; acting without thinking breeds random drift.”
+          </div>
+
+          <p class="text-base leading-relaxed text-neutral-700">
+            Subsequent frameworks evolved this feedback loop from single-turn reactive triggers into deliberate search spaces. In <span class="editorial-cite" onclick="updateInspector('2305.10601', 'Tree of Thoughts', 'Page 2, Section 2', 'Tree of Thoughts allows LMs to deliberate over multiple reasoning paths, self-evaluate choices, and lookahead or backtrack when necessary.')">Tree of Thoughts [Yao et al., 2023]</span>, problem-solving is reformulated as tree search with heuristics, allowing language models to deliberately backtrack, self-evaluate intermediate hypotheses, and look ahead across complex game-of-24 problem sets.
+          </p>
+        </article>
+
+        <!-- Chapter 2: The Comparative Architecture Matrix -->
+        <article id="sec-2" class="space-y-6 pt-6 border-t border-neutral-300">
+          <div class="flex items-center gap-3">
+            <span class="font-editorial-serif text-3xl font-black text-neutral-900">02</span>
+            <span class="font-mono-tag text-xs text-neutral-400 uppercase tracking-widest">CHAPTER TWO • CROSS-PAPER COMPARISON</span>
+          </div>
+
+          <h2 class="font-editorial-serif text-3xl font-bold tracking-tight text-neutral-950">
+            The Methodological Matrix.
+          </h2>
+
+          <p class="text-base text-neutral-700">
+            Below is the deterministic comparative matrix synthesized across all primary papers, indexing each framework by its core algorithmic paradigm and empirically reported limitations:
+          </p>
+
+          <!-- High-Contrast Clean Magazine Table -->
+          <div class="overflow-x-auto border-t-2 border-b-2 border-neutral-950 py-3 my-4">
+            <table class="w-full text-left font-mono-tag text-xs">
+              <thead>
+                <tr class="border-b border-neutral-300 text-neutral-500 uppercase tracking-wider text-[11px]">
+                  <th class="py-2 pr-4 font-bold">Paper Ref</th>
+                  <th class="py-2 pr-4 font-bold">Core Paradigm</th>
+                  <th class="py-2 pr-4 font-bold">Innovation</th>
+                  <th class="py-2 font-bold">Systemic Bottleneck</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-neutral-200">
+                <tr class="hover:bg-neutral-100 cursor-pointer" onclick="updateInspector('2210.03629', 'ReAct', 'Page 3', 'Context trajectory length expands linearly...')">
+                  <td class="py-3 pr-4 font-bold text-blue-800">2210.03629</td>
+                  <td class="py-3 pr-4 text-neutral-600">Thought-Action Loop</td>
+                  <td class="py-3 pr-4 text-neutral-900">Interleaved Traces</td>
+                  <td class="py-3 text-neutral-600">Context explosion</td>
+                </tr>
+                <tr class="hover:bg-neutral-100 cursor-pointer" onclick="updateInspector('2302.04761', 'Toolformer', 'Page 2', 'Inability to chain interdependent API queries...')">
+                  <td class="py-3 pr-4 font-bold text-blue-800">2302.04761</td>
+                  <td class="py-3 pr-4 text-neutral-600">Tool Augmentation</td>
+                  <td class="py-3 pr-4 text-neutral-900">API Infilling Loss</td>
+                  <td class="py-3 text-neutral-600">No multi-tool chaining</td>
+                </tr>
+                <tr class="hover:bg-neutral-100 cursor-pointer" onclick="updateInspector('2305.16291', 'Voyager', 'Page 4', 'Black-box API queries induce high latency...')">
+                  <td class="py-3 pr-4 font-bold text-blue-800">2305.16291</td>
+                  <td class="py-3 pr-4 text-neutral-600">Embodied Agent</td>
+                  <td class="py-3 pr-4 text-neutral-900">Skill Code Library</td>
+                  <td class="py-3 text-neutral-600">High API query overhead</td>
+                </tr>
+                <tr class="hover:bg-neutral-100 cursor-pointer" onclick="updateInspector('2308.08155', 'AutoGen', 'Page 3', 'Dialogue channels experience conversational drift...')">
+                  <td class="py-3 pr-4 font-bold text-blue-800">2308.08155</td>
+                  <td class="py-3 pr-4 text-neutral-600">Multi-Agent Protocol</td>
+                  <td class="py-3 pr-4 text-neutral-900">Conversable Channels</td>
+                  <td class="py-3 text-neutral-600">Multi-turn drift & loops</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </article>
+
+        <!-- Chapter 3: Research Gaps Block -->
+        <article id="sec-3" class="space-y-6 pt-6 border-t border-neutral-300">
+          <div class="flex items-center gap-3">
+            <span class="font-editorial-serif text-3xl font-black text-neutral-900">03</span>
+            <span class="font-mono-tag text-xs text-neutral-400 uppercase tracking-widest">CHAPTER THREE • FRONTIER GAPS</span>
+          </div>
+
+          <h2 class="font-editorial-serif text-3xl font-bold tracking-tight text-neutral-950">
+            Unexplored Boundaries.
+          </h2>
+
+          <div class="bg-neutral-900 text-white p-6 md:p-8 space-y-4">
+            <div class="font-mono-tag text-xs text-amber-400 uppercase font-bold tracking-widest">
+              GAP-01 • MEMORY SYNCHRONIZATION UNDER PRIVACY BOUNDARIES
+            </div>
+            <h3 class="font-editorial-serif text-2xl font-bold leading-snug">
+              Heterogeneous agents cannot coordinate episodic memory across isolated tenant boundaries.
+            </h3>
+            <p class="font-mono-tag text-xs text-neutral-400 leading-relaxed">
+              Synthesized from 8 distinct papers: while communication protocols (AutoGen, ChatDev) model multi-agent conversation, zero frameworks provide cryptographically isolated state synchronization when agents act on behalf of competing enterprise tenants.
+            </p>
+          </div>
+        </article>
+
+      </main>
+
+      <!-- RIGHT COLUMN: Sticky Editorial Citation & Evidence Inspector -->
+      <aside class="space-y-6 lg:sticky lg:top-20">
+        
+        <div class="border-t-2 border-neutral-950 pt-3">
+          <span class="font-mono-tag text-xs uppercase tracking-widest font-bold text-neutral-400 block mb-3">
+            PROVENANCE INSPECTOR
+          </span>
+
+          <div id="inspector-card" class="bg-white border border-neutral-300 p-5 shadow-sm space-y-4 transition-all">
+            
+            <div class="flex items-center justify-between font-mono-tag text-xs border-b border-neutral-200 pb-2">
+              <span class="font-bold text-blue-700" id="insp-pid">arXiv:2210.03629</span>
+              <span class="text-neutral-500 font-bold" id="insp-loc">Page 3, §3.1</span>
+            </div>
+
+            <div>
+              <span class="text-[10px] font-mono-tag text-neutral-400 uppercase block mb-1">PAPER REFERENCE</span>
+              <h4 class="font-editorial-serif text-base font-bold text-neutral-900 leading-snug" id="insp-title">
+                ReAct: Synergizing Reasoning and Acting in Language Models
+              </h4>
+            </div>
+
+            <div>
+              <span class="text-[10px] font-mono-tag text-neutral-400 uppercase block mb-1">VERBATIM SOURCE TEXT</span>
+              <p class="font-editorial-serif italic text-sm text-neutral-800 leading-relaxed bg-neutral-50 p-3 border-l-2 border-neutral-900" id="insp-text">
+                "ReAct prompts the model to generate both verbal reasoning traces and task-specific actions in an interleaved manner, creating synergy between internal deliberation and external tool observation."
+              </p>
+            </div>
+
+            <div class="pt-2 border-t border-neutral-100 flex items-center justify-between text-xs font-mono-tag">
+              <span class="text-emerald-700 font-bold">✓ TEI-XML Grounded</span>
+              <button onclick="openPdf()" class="text-neutral-900 underline font-bold hover:text-blue-700">
+                Open arXiv PDF ↗
+              </button>
+            </div>
+
+          </div>
+
+          <p class="font-mono-tag text-[11px] text-neutral-400 mt-3 leading-snug">
+            💡 Click any underlined citation in the story to update the verbatim source text and verify zero-hallucination provenance.
+          </p>
+
+        </div>
+
+      </aside>
+
+    </div>
+  </div>
+
+  <script>
+    let activePaperId = "2210.03629";
+
+    function updateInspector(paperId, title, loc, quote) {
+      activePaperId = paperId;
+      document.getElementById('insp-pid').textContent = `arXiv:${paperId}`;
+      document.getElementById('insp-title').textContent = title;
+      document.getElementById('insp-loc').textContent = loc;
+      document.getElementById('insp-text').textContent = `"${quote}"`;
+
+      const card = document.getElementById('inspector-card');
+      card.style.transform = 'translateY(-3px)';
+      card.style.borderColor = '#2563EB';
+      setTimeout(() => {
+        card.style.transform = 'translateY(0)';
+        card.style.borderColor = '#E2E8F0';
+      }, 200);
+    }
+
+    function openPdf() {
+      window.open(`https://arxiv.org/pdf/${activePaperId}.pdf`, '_blank');
+    }
+  </script>
+
+</body>
+</html>

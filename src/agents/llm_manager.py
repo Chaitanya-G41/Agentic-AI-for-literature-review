@@ -53,9 +53,9 @@ class LLMManager:
 
         # Models to attempt on NVIDIA NIM
         self.preferred_nvidia_models = preferred_models or [
-            "meta/muse-glimmer-30b",
-            "nvidia/llama-3.1-nemotron-70b-instruct",
-            "mistralai/mixtral-8x22b-instruct-v0.1"
+            "nvidia/nemotron-3.5-bolt-e4b",
+            "nvidia/nemotron-3.5-lightning-30b-a3b",
+            "meta/muse-glimmer-30b"
         ]
         
         # Gemini fallback models
@@ -184,7 +184,7 @@ class LLMManager:
 
     def generate_structured_json(self, prompt: str, system_instruction: str = None, max_retries: int = 3, response_schema=None):
         """
-        Generates and parses a JSON response from the LLM.
+        Generates and parses a JSON response from the LLM with robust multi-pass error correction.
         """
         augmented_prompt = prompt + "\n\nCRITICAL: Return ONLY a valid JSON object matching the requested schema. No markdown formatting, no conversational text."
         raw_text = self.generate_text(augmented_prompt, system_instruction=system_instruction, max_retries=max_retries)
@@ -192,11 +192,11 @@ class LLMManager:
         if not raw_text:
             return None
 
-        # Clean ```json code fence blocks
-        cleaned = re.sub(r'```json\s*', '', raw_text)
-        cleaned = re.sub(r'```\s*$', '', cleaned).strip()
+        # Clean ```json code fence blocks anywhere in text
+        cleaned = re.sub(r'```json\s*', '', raw_text, flags=re.IGNORECASE)
+        cleaned = re.sub(r'```\s*', '', cleaned).strip()
 
-        # Locate JSON block
+        # Locate JSON block (outermost { ... } or [ ... ])
         json_obj = re.search(r'\{.*\}', cleaned, re.DOTALL)
         if json_obj:
             cleaned = json_obj.group(0)
@@ -205,9 +205,20 @@ class LLMManager:
             if json_arr:
                 cleaned = json_arr.group(0)
 
+        # Remove trailing commas that break standard json.loads
+        cleaned = re.sub(r',\s*([\]}])', r'\1', cleaned)
+
         try:
             return json.loads(cleaned)
         except Exception as e:
+            # Fallback 1: try ast.literal_eval for single-quoted Python-style dicts
+            try:
+                import ast
+                val = ast.literal_eval(cleaned)
+                if isinstance(val, (dict, list)):
+                    return val
+            except Exception:
+                pass
             self.last_error = f"JSON parse error: {e}"
             return None
 

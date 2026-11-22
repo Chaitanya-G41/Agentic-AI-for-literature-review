@@ -1,0 +1,24 @@
+{
+  "paper_id": "2307.05639",
+  "paper_title": "Learning Active Subspaces and Discovering Interpretability in Neural Networks",
+  "authors": [
+    "Not specified in context"
+  ],
+  "venue": "Not specified in context",
+  "core_problem": "The conflicting nature of achieving strong predictive performance and human interpretability in machine learning models.",
+  "methodology_summary": "A modification of the radial basis function neural network (RBFNN) where the Gaussian kernel is equipped with a learnable precision matrix. The eigenvectors of this matrix reveal the active subspace and allow for ranking input variable importance.",
+  "datasets_eval": [
+    "Not specified, but experiments were conducted for regression, classification, and feature selection tasks."
+  ],
+  "empirical_results": "The proposed model achieved attractive prediction performance compared to popular ML models, state-of-the-art deep learning embedding techniques, and a transformer model, while also providing meaningful interpretability.",
+  "explicit_limitations": "Standard Gaussian kernels often assume an isotropic covariance (equal variance across features), treating all features equally, whereas the proposed method allows for learning a full precision matrix to capture distinct variances.",
+  "numerical_metrics": [],
+  "geographical_data": {},
+  "pipeline_steps": [
+    "Problem Formulation & Data Ingestion",
+    "Method Execution & Architecture",
+    "Empirical Evaluation & Benchmarking"
+  ],
+  "generation_mode": "GENUINE_LLM",
+  "model_name": "NVIDIA_NIM (nvidia/nemotron-3.5-bolt-e4b)"
+}

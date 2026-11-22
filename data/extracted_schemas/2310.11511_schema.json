@@ -1,0 +1,25 @@
+{
+  "paper_id": "2310.11511",
+  "paper_title": "2310.11511 Self-RAG Learning to Ret",
+  "authors": [
+    "Research Authors"
+  ],
+  "venue": "arXiv / Peer-Reviewed Venue",
+  "core_problem": "Preprint.",
+  "methodology_summary": "Despite their remarkable capabilities, large language models (LLMs) often produce\nresponses containing factual inaccuracies due to their sole reliance on the paramet-\nric knowledge they encapsulate. Retrieval-Augmented Generation (RAG), an ad\nhoc approach that augments LMs with retrieval of relevant knowledge, decreases\nsuch issues. However, indisc",
+  "datasets_eval": [
+    "Tabular Data (TAB-2310.11511-P4-1)",
+    "Tabular Data (TAB-2310.11511-P4-2)",
+    "Tabular Data (TAB-2310.11511-P5-1)",
+    "Tabular Data (TAB-2310.11511-P9-1)"
+  ],
+  "empirical_results": "Despite their remarkable capabilities, large language models (LLMs) often produce\nresponses containing factual inaccuracies due to their sole reliance on the paramet-\nric knowledge they encapsulate. Retrieval-Augmented Generation (RAG), an ad\nhoc approach that augments LMs with retrieval of relevant",
+  "explicit_limitations": "Despite their remarkable capabilities, large language models (LLMs) often produce\nresponses containing factual inaccuracies due to their sole reliance on the paramet-\nric knowledge they encapsulate. Retrieval-Augmented Generation (RAG), an ad\nhoc approach that augments LMs with retrieval of relevant",
+  "numerical_metrics": [],
+  "geographical_data": {},
+  "pipeline_steps": [
+    "Generating\nreflection tokens makes the"
+  ],
+  "generation_mode": "HEURISTIC_FALLBACK",
+  "model_name": "Rule-Based Heuristic Engine"
+}

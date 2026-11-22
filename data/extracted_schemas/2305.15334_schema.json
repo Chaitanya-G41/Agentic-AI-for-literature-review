@@ -1,0 +1,26 @@
+{
+  "paper_id": "2305.15334",
+  "paper_title": "2305.15334 Gorilla Large Language M",
+  "authors": [
+    "Research Authors"
+  ],
+  "venue": "arXiv / Peer-Reviewed Venue",
+  "core_problem": "Gorilla: Large Language Model Connected with",
+  "methodology_summary": "Gorilla: Large Language Model Connected with Large Language Models (LLMs) have seen an impressive wave of advances re-\ncently, with models now excelling in a variety of tasks, such as mathematical\nreasoning and program synthesis. However, their potential to effectively use tools\nvia API calls remains unfulfilled. This is a challenging task even for",
+  "datasets_eval": [
+    "Tabular Data (TAB-2305.15334-P2-1)",
+    "Tabular Data (TAB-2305.15334-P4-1)",
+    "Tabular Data (TAB-2305.15334-P4-2)",
+    "Tabular Data (TAB-2305.15334-P7-1)"
+  ],
+  "empirical_results": "Large Language Models (LLMs) have seen an impressive wave of advances re-\ncently, with models now excelling in a variety of tasks, such as mathematical\nreasoning and program synthesis. However, their potential to effectively use tools\nvia API calls remains unfulfilled. This is a challenging task eve",
+  "explicit_limitations": "Large Language Models (LLMs) have seen an impressive wave of advances re-\ncently, with models now excelling in a variety of tasks, such as mathematical\nreasoning and program synthesis. However, their potential to effectively use tools\nvia API calls remains unfulfilled. This is a challenging task eve",
+  "numerical_metrics": [],
+  "geographical_data": {},
+  "pipeline_steps": [
+    "We\nrelease Gorilla, a finetuned LLaMA-based model that surpasses the performance\nof GPT-4 on writing API calls.",
+    "To evaluate\nthe model’s ability, we introduce APIBench, a comprehensive d"
+  ],
+  "generation_mode": "HEURISTIC_FALLBACK",
+  "model_name": "Rule-Based Heuristic Engine"
+}
