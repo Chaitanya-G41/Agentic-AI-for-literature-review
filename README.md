@@ -184,3 +184,38 @@ Agentic-AI-for-literature-review/
 ## 📄 License & Credits
 Developed under the **NLP Interest Group (NLP-05)** at **R.V. College of Engineering**.  
 Released under the [MIT License](LICENSE).
+
+## Evaluation and review transparency
+
+The `frontend_v2` command bar exposes **System Architecture** (six-agent pipeline,
+schemas and fallbacks) and **Evaluation Rubric** (four evaluation pillars and current
+corpus statistics). The cover shows genuine LLM, heuristic and unknown extraction
+counts. Citation-ID validity is a provenance proxy, not proof of factual accuracy.
+
+Run the offline benchmark from the repository root:
+
+```powershell
+python eval_benchmark.py
+python eval_benchmark.py --judge  # Optional: sends report + cited schemas to configured LLM
+python -B -m unittest discover -s tests -v
+```
+
+The default output is `data/reports/evaluation_benchmark_report.md`. Override inputs
+with `--report`, `--data-dir`, and `--output`. Active coverage uses only PDFs currently
+in `data/pdf_corpus/`; an empty corpus yields **N/A**, even when historical schemas
+exist. Numerical matching requires the extracted value and its paper citation in
+the same paragraph or table row; human verification of units and context is still
+required. `--judge` uses NVIDIA NIM first and Gemini as fallback, validates scores
+on a 1–5 scale, and reports unavailable providers without fabricating scores.
+
+Synthesis requests a full-length survey in one logical call with a 16,384-token
+output allowance; shorter responses carry an explicit quality note. The live smoke
+test `python -B tests/smoke_synthesis.py` uses the comparative-analysis snapshot and
+writes `data/reports/literature_review_validation.md`, preserving the current report.
+It requires configured API credentials and does not test fresh PDF ingestion.
+
+For browser regression checks, run Vite on port 5178 in `frontend_v2`, install the
+temporary runner with `npm.cmd install --no-save --package-lock=false @playwright/test`,
+then run `node ui-smoke.cjs` (requires Chrome). This uses fixture API responses and
+checks Mermaid rendering, extraction statistics, dialog focus/Escape and mobile
+dialog width. Production compilation: `npm.cmd run build` in `frontend_v2`.
