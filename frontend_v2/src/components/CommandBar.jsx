@@ -1,5 +1,7 @@
 import clsx from 'clsx'
-import { Download, Plus, RotateCcw } from 'lucide-react'
+import { useState } from 'react'
+import { Download, Plus, RotateCcw, Cpu, Award } from 'lucide-react'
+import ReviewInfoModal from './ReviewInfoModal'
 import styles from './CommandBar.module.css'
 
 const PILLARS = [
@@ -11,6 +13,7 @@ const PILLARS = [
 
 export default function CommandBar({
   corpus,
+  reportData,
   readingMode,
   setReadingMode,
   activePillars,
@@ -20,6 +23,7 @@ export default function CommandBar({
   setActivePillarLens,
   onStartFresh,
 }) {
+  const [infoModal, setInfoModal] = useState(null)
   const togglePillar = (key) => {
     setActivePillars((p) => ({ ...p, [key]: !p[key] }))
   }
@@ -93,6 +97,12 @@ export default function CommandBar({
 
       {/* Right controls */}
       <div className={styles.right}>
+        <button className={styles.resetBtn} onClick={() => setInfoModal('architecture')} aria-haspopup="dialog">
+          <Cpu size={12} /> System Architecture
+        </button>
+        <button className={styles.resetBtn} onClick={() => setInfoModal('evaluation')} aria-haspopup="dialog">
+          <Award size={12} /> Evaluation Rubric
+        </button>
         {/* Start Fresh / New Review button */}
         <button
           className={styles.resetBtn}
@@ -128,6 +138,7 @@ export default function CommandBar({
           <span>Export</span>
         </button>
       </div>
+      {infoModal && <ReviewInfoModal kind={infoModal} onClose={() => setInfoModal(null)} corpus={corpus} content={reportData?.content || reportData?.report || ''} />}
     </header>
   )
 }

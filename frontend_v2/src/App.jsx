@@ -130,6 +130,7 @@ export default function App() {
     <div className="app-root">
       <CommandBar
         corpus={corpus}
+        reportData={reportData}
         readingMode={readingMode}
         setReadingMode={setReadingMode}
         activePillars={activePillars}

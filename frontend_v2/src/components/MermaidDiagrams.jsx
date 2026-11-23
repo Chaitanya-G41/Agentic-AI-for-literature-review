@@ -8,8 +8,8 @@ mermaid.initialize({
   themeVariables: {
     primaryColor: '#F8FAFC',
     primaryTextColor: '#121316',
-    primaryBorderColor: '#2563EB',
-    lineColor: '#94A3B8',
+    primaryBorderColor: '#121316',
+    lineColor: '#3D3D3D',
     background: '#FAF8F5',
     fontFamily: 'Plus Jakarta Sans, system-ui, sans-serif',
     fontSize: '12px',
@@ -23,12 +23,15 @@ const LABELS = {
   research_gaps_flowchart: 'Research Gaps',
 }
 
+let renderSequence = 0
+
 function Chart({ code, id }) {
   const ref = useRef()
   const [err, setErr] = useState(null)
 
   useEffect(() => {
     if (!ref.current || !code) return
+    let cancelled = false
     setErr(null)
     const clean = code
       .replace(/^```mermaid\s*/i, '')
@@ -36,9 +39,10 @@ function Chart({ code, id }) {
       .replace(/%%[^\n]*/g, '')   // strip %% directives that might error
       .trim()
 
-    mermaid.render(`mmd-${id}-${Date.now()}`, clean)
-      .then(({ svg }) => { if (ref.current) ref.current.innerHTML = svg })
-      .catch(e => setErr(e.message))
+    mermaid.render(`mmd-${id.replace(/[^a-zA-Z0-9_-]/g, '-')}-${++renderSequence}`, clean)
+      .then(({ svg }) => { if (!cancelled && ref.current) ref.current.innerHTML = svg })
+      .catch(e => { if (!cancelled) setErr(e.message) })
+    return () => { cancelled = true }
   }, [code, id])
 
   if (err) return (

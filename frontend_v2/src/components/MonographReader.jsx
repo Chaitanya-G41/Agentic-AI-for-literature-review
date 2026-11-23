@@ -7,6 +7,7 @@ import ProvenanceInspector from './ProvenanceInspector'
 import SplitScreenPdf from './SplitScreenPdf'
 import MermaidDiagrams from './MermaidDiagrams'
 import styles from './MonographReader.module.css'
+import { extractionStats } from './reviewStats'
 
 /* ── Jargon dictionary for hover tooltips ───────────────────────── */
 const JARGON = {
@@ -159,6 +160,7 @@ export default function MonographReader({
   }
 
   const isSplitActive = Boolean(activePdfPaper)
+  const extraction = extractionStats(corpus)
 
   return (
     <div className={clsx(styles.root, isSplitActive && styles.rootSplit)}>
@@ -264,8 +266,14 @@ export default function MonographReader({
               </span>
             </div>
             <div className={styles.stat}>
-              <span className={styles.statLabel}>INTERACTIVE PROVENANCE</span>
+              <span className={styles.statLabel}>CITATION INTEGRITY GUARDRAIL</span>
               <span className={styles.statValue}>Split-Screen PDF Grounded</span>
+              <span className={styles.extractionPill}>
+                {extraction.total ? `${extraction.llm}/${extraction.total} LLM · ${extraction.heuristic}/${extraction.total} Heuristic (${extraction.percent}% LLM)` : 'No active extractions'}
+                {extraction.unknown > 0 && ` · ${extraction.unknown} Unknown`}
+              </span>
+              <small className={styles.guardrailNote}>Zero-Hallucination Enforced via Dual Vector Embedding + Split-Screen Grounding</small>
+              <small className={styles.guardrailNote}>Design goal; extraction mode does not certify factual accuracy.</small>
             </div>
           </div>
         </section>

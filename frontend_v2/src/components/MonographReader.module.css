@@ -4,7 +4,7 @@
   display: grid;
   grid-template-columns: 220px 1fr 320px;
   overflow: hidden;
-  height: calc(100vh - var(--bar-h));
+  min-height: 0;
   transition: all 0.2s ease;
 }
 
@@ -686,3 +686,5 @@
   overflow: hidden;
   height: 100%;
 }
+.extractionPill { display: inline-block; border: 1px solid var(--ink); padding: 5px 8px; font: 10px var(--font-mono); color: var(--ink); margin-top: 6px; }
+.guardrailNote { display: block; max-width: 340px; font: 10px/1.5 var(--font-mono); color: var(--ink-2); margin-top: 6px; }

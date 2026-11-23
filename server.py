@@ -152,6 +152,7 @@ def get_corpus():
             "is_parsed": os.path.exists(parsed_file),
             "is_extracted": os.path.exists(schema_file),
             "is_summarized": os.path.exists(summary_file),
+            "generation_mode": "UNKNOWN",
             "title": filename.replace(".pdf", "").replace("_", " "),
             "authors": [],
             "year": 2023,
@@ -171,6 +172,8 @@ def get_corpus():
                     meta["core_problem"] = s_data.get("core_problem") or ""
                     meta["methodology"] = s_data.get("methodology_summary") or ""
                     meta["limitations"] = s_data.get("explicit_limitations") or ""
+                    meta["generation_mode"] = s_data.get("generation_mode") or "UNKNOWN"
+                    meta["model_name"] = s_data.get("model_name")
                     meta["paradigm"] = classify_paradigm(meta["title"], meta["core_problem"])
             except Exception:
                 pass
