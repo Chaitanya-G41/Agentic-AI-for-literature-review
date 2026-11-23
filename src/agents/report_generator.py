@@ -19,6 +19,7 @@ from pydantic import BaseModel, Field
 from typing import List, Optional
 
 from src.agents.llm_manager import LLMManager
+from src.agents.report_evidence import LLM_SYNTHESIS_PROMPT, as_dict, numerical_evidence
 
 class LiteratureReviewReport(BaseModel):
 
@@ -960,154 +961,37 @@ def generate_themes_mindmap(comp_analysis, report_title: str = "") -> str:
 
 
 def generate_research_gaps_flowchart(comp_analysis, gap_analysis=None, schemas=None, report_title: str = "") -> str:
-    """
-    Synthesizes Diagram 3: Empirical Constraints & Research Gaps Lineage Flowchart.
-    Hierarchical two-layer architecture (flowchart TB) strictly matching academic standards:
-    - Layer 1: Observed Empirical Limitation Themes in a balanced horizontal row (Pale pink #FEF2F2, red border #DC2626).
-    - Layer 2A: Author-Stated Research Gaps (Pale mint #F0FDF4, subtle green border #0D9488, panel #A7F3D0).
-    - Layer 2B: Cross-Paper Synthesized Frontier Gaps (Pale lavender #FAF5FF, subtle purple border #7C3AED, panel #DDD6FE).
-    - Connector Routing: 100% parallel vertical routing in open space (rankSpacing: 65) with white background label pills.
-    - Zero line crossings, zero overlapping labels, zero text truncation with ellipses.
-    - 100% dynamically grounded in analyzed research papers and synthesis findings.
-    """
-    rows = _get_val(comp_analysis, "methodology_comparison", []) if comp_analysis else []
-    is_single = len(rows) == 1 or (schemas and len(schemas) == 1)
-
-    lines = [
-        "```mermaid",
-        "%% diagram_id: research_gaps_flowchart",
-        "%%{init: {'theme': 'base', 'themeVariables': {'background': '#0E1117', 'darkBkgColor': '#0E1117', 'fontFamily': 'Inter, system-ui, sans-serif', 'fontSize': '12px'}, 'flowchart': {'nodeSpacing': 20, 'rankSpacing': 40, 'subGraphTitleMargin': {'top': 10, 'bottom': 12}, 'curve': 'basis', 'htmlLabels': true, 'padding': 14}}}%%",
-        "flowchart TB"
-    ]
-
-    # Data curation
-    if is_single:
-        row = rows[0] if rows else (schemas[0] if schemas else {})
-        pid = str(_get_val(row, "paper_id", "single")).strip()
-        paper_title = str(_get_val(row, "paper_title", pid)).strip()
-        if "2310.06770" in pid or "swe" in paper_title.lower():
-            lt_items = [
-                ("Execution Sandbox & Environment Rigidity", f"Reported in {pid}"),
-                ("Patch Verification & Regression Flakiness", f"Reported in {pid}"),
-                ("Repository Traversal & Context Overhead", f"Reported in {pid}")
-            ]
-            eg_items = [
-                ("GAP-01", "Multi-File Dependency Localization", f"Author-Stated ({pid})"),
-                ("GAP-02", "Test Suite Flakiness & Deterministic Eval", f"Author-Stated ({pid})")
-            ]
-            sg_items = [
-                ("GAP-SYN-01", "Formal Semantic Verification in Autonomous SE", "Open Strategic Frontier")
-            ]
-        elif "2012.10386" in pid or "climate" in paper_title.lower():
-            lt_items = [
-                ("Regional Downscaling & Topographic Biases", f"Reported in {pid}"),
-                ("Multi-Model Dispersion & Uncertainty Bounds", f"Reported in {pid}"),
-                ("Precipitation Extremes Under RCP Scenarios", f"Reported in {pid}")
-            ]
-            eg_items = [
-                ("GAP-01", "Topographic Corrections for Complex Terrain", f"Author-Stated ({pid})"),
-                ("GAP-02", "Aerosol Forcing & Cloud Microphysics", f"Author-Stated ({pid})")
-            ]
-            sg_items = [
-                ("GAP-SYN-01", "Coupling Climate Projections to Impact Models", "Open Strategic Frontier")
-            ]
-        else:
-            lt_items = [
-                (f"{pid} Operational Constraints", f"Reported in {pid}"),
-                ("Empirical Benchmark Bounds", f"Reported in {pid}"),
-                ("Scalability Limitations", f"Reported in {pid}")
-            ]
-            eg_items = [
-                ("GAP-01", f"Architecture Generalization in {pid}", f"Author-Stated ({pid})"),
-                ("GAP-02", "Empirical Evaluation Gaps", f"Author-Stated ({pid})")
-            ]
-            sg_items = [
-                ("GAP-SYN-01", "Cross-Domain Scaling & Verifiable Robustness", "Open Strategic Frontier")
-            ]
-    else:
-        # Multi-Paper Corpus Scope - Grounded in Primary Literature
-        lt_items = [
-            ("Inference Latency & Token Overhead", "Observed across 10 Frameworks"),
-            ("Hallucination & Error Propagation", "Observed across 8 Frameworks"),
-            ("Search Space Explosion & Horizon Trapping", "Observed across 4 Frameworks"),
-            ("Inter-Agent Coordination Overhead", "Observed across 3 Multi-Agent Frameworks")
-        ]
-        eg_items = [
-            ("GAP-01", "Static Black-Box Reasoning Without External Grounding", "Author-Stated (2210.03629)"),
-            ("GAP-02", "Inability to Access Real-Time External APIs & Tool Execution", "Author-Stated (2302.04761)"),
-            ("GAP-03", "Inefficient Trial-and-Error Learning from Feedback Without Policy Updates", "Author-Stated (2303.11366)")
-        ]
-        sg_items = [
-            ("GAP-SYN-01", "Cross-System Scalability & Generalization Across Evaluated Architectures", "Synthesized Frontier Gap (Corpus)")
-        ]
-
-    # Layer 1: Observed Empirical Constraints & Limitations
-    lines.append('    subgraph Layer1 ["Layer 1: Observed Empirical Constraints & Limitations"]')
-    lines.append("        direction LR")
-    lt_ids = []
-    for idx, (theme_title, meta) in enumerate(lt_items):
-        lt_id = f"LT_{idx}"
-        lt_ids.append(lt_id)
-        esc_title = escape_mermaid_label(f"<b>{theme_title}</b>", wrap_len=26)
-        card_content = f"{esc_title}<br/><span style='font-size:10px;color:#991B1B;'>{meta}</span>"
-        lines.append(f'        {lt_id}["{card_content}"]:::limitationStyle')
-    lines.append("    end")
-
-    # Layer 2A: Author-Stated Research Gaps
-    lines.append("")
-    lines.append('    subgraph Layer2_Author ["Layer 2: Author-Stated Research Gaps"]')
-    lines.append("        direction LR")
-    eg_ids = []
-    for idx, (gid, gtitle, gmeta) in enumerate(eg_items):
-        eg_id = f"EG_{idx}"
-        eg_ids.append(eg_id)
-        clean_gtitle = re.sub(r'^\[GAP-[^\]]+\]\s*', '', gtitle).strip()
-        esc_title = escape_mermaid_label(f"<b>[{gid}] {clean_gtitle}</b>", wrap_len=26)
-        card_content = f"{esc_title}<br/><span style='font-size:10px;color:#0F766E;'>{gmeta}</span>"
-        lines.append(f'        {eg_id}["{card_content}"]:::explicitStyle')
-    lines.append("    end")
-
-    # Layer 2B: Cross-Paper Synthesized Frontier Gaps
-    lines.append("")
-    lines.append('    subgraph Layer2_Synth ["Layer 2: Synthesized Frontier Gaps"]')
-    lines.append("        direction LR")
-    sg_ids = []
-    for idx, (gid, gtitle, gmeta) in enumerate(sg_items):
-        sg_id = f"SG_{idx}"
-        sg_ids.append(sg_id)
-        clean_gtitle = re.sub(r'^\[GAP-[^\]]+\]\s*', '', gtitle).strip()
-        esc_title = escape_mermaid_label(f"<b>[{gid}] {clean_gtitle}</b>", wrap_len=26)
-        card_content = f"{esc_title}<br/><span style='font-size:10px;color:#6D28D9;'>{gmeta}</span>"
-        lines.append(f'        {sg_id}["{card_content}"]:::synthStyle')
-    lines.append("    end")
-
-    # Connectors - Grounded Evidence-Based Causal, Thematic, and Synthesized Lineages
-    lines.append("")
-    if is_single:
-        for i in range(min(len(eg_ids), len(lt_ids))):
-            lines.append(f"    {lt_ids[i]} -.-> {eg_ids[i]}")
-        if sg_ids:
-            lines.append(f"    {lt_ids[-1]} -.-> {sg_ids[0]}")
-    else:
-        # Verified causal lineage: Hallucination & ungrounded reasoning directly motivates ReAct
-        lines.append("    LT_1 --> EG_0")
-        # Verified causal lineage: Search space combinatorial explosion directly motivates Reflexion verbal reflection
-        lines.append("    LT_2 --> EG_2")
-        # Supported thematic relationship: Toolformer mitigates static generation errors via real-time tool calls
-        lines.append('    LT_1 -. "Thematic Link" .-> EG_1')
-        # Synthesized frontier linkage: Coordination overhead connects to multi-agent scalability frontier
-        lines.append('    LT_3 -. "Synthesized Frontier" .-> SG_0')
-
-    # Visual Styles matching academic palette
-    lines.append("")
-    lines.append("    classDef limitationStyle fill:#FFFFFF,stroke:#DC2626,stroke-width:1.4px,color:#991B1B,font-size:11px;")
-    lines.append("    classDef explicitStyle fill:#FFFFFF,stroke:#0D9488,stroke-width:1.4px,color:#115E59,font-size:11px;")
-    lines.append("    classDef synthStyle fill:#FFFFFF,stroke:#7C3AED,stroke-width:1.4px,color:#5B21B6,font-size:11px;")
-    lines.append("    style Layer1 fill:#FEF2F2,stroke:#FECACA,stroke-width:1.5px;")
-    lines.append("    style Layer2_Author fill:#F0FDF4,stroke:#A7F3D0,stroke-width:1.5px;")
-    lines.append("    style Layer2_Synth fill:#FAF5FF,stroke:#DDD6FE,stroke-width:1.5px;")
-    lines.append("    linkStyle default stroke:#64748B,stroke-width:1.4px,stroke-dasharray: 4 4;")
-    lines.append("```")
+    """Render only supplied gaps; edges indicate shared evidence, not causation."""
+    themes = _get_val(comp_analysis, "limitation_themes", []) or []
+    explicit = _get_val(gap_analysis, "explicit_gaps", []) or []
+    synthesized = _get_val(gap_analysis, "synthesized_gaps", []) or []
+    if not (themes or explicit or synthesized):
+        return ""
+    lines = ["```mermaid", "%% diagram_id: research_gaps_flowchart", "flowchart TB"]
+    nodes = []
+    for prefix, items, label, title_key, ids_key in [
+        ("LT", themes, "Observed limitation themes", "theme", "paper_ids"),
+        ("EG", explicit, "Author-stated gaps", "title", "affected_papers"),
+        ("SG", synthesized, "Synthesized frontier gaps", "title", "affected_papers"),
+    ]:
+        if not items:
+            continue
+        lines.append(f'    subgraph {prefix}_group ["{label}"]')
+        for i, item in enumerate(items):
+            gid = str(_get_val(item, "gap_id", f"{prefix}_{i}"))
+            node = f"{prefix}_{i}_{sanitize_mermaid_id(gid)}"
+            ids = set(_get_val(item, ids_key, []) or [])
+            text = f"{gid}: {_get_val(item, title_key, 'Not reported')}"
+            if ids:
+                text += " - " + ", ".join(sorted(ids))
+            lines.append(f'        {node}["{escape_mermaid_label(text)}"]')
+            nodes.append((prefix, node, ids))
+        lines.append("    end")
+    for prefix, node, ids in nodes:
+        for other_prefix, other, other_ids in nodes:
+            if (prefix, other_prefix) in {("LT", "EG"), ("LT", "SG"), ("EG", "SG")} and ids & other_ids:
+                lines.append(f'    {node} -. "Shared paper evidence" .-> {other}')
+    lines += ["    classDef default fill:ivory,stroke:black,color:black;", "```"]
     return "\n".join(lines)
 
 def inject_mermaid_diagrams_into_markdown(report_md: str, diagrams: dict) -> str:
@@ -1146,7 +1030,7 @@ def inject_mermaid_diagrams_into_markdown(report_md: str, diagrams: dict) -> str
 
     if flowchart and "%% diagram_id: methodology_flowchart" not in md:
 
-        match = re.search(r'(##\s*2\.\s*(?:Architectural Paradigms|Comparative Analysis Matrix).*?\n)', md, re.IGNORECASE)
+        match = re.search(r'(##\s*2\.\s*(?:Methodological Taxonomy|Architectural Paradigms|Comparative Analysis Matrix).*?\n)', md, re.IGNORECASE)
 
         if match:
 
@@ -1196,28 +1080,6 @@ def generate_literature_review(schemas, summaries, comp_analysis, gap_analysis, 
 
     llm = llm_manager or LLMManager()
 
-    # 1. Synthesize deterministic Mermaid diagrams (0 LLM Calls)
-
-    diagrams = {}
-
-    d1 = generate_methodology_flowchart(comp_analysis)
-
-    if d1:
-
-        diagrams["methodology_flowchart"] = d1
-
-    d2 = generate_themes_mindmap(comp_analysis)
-
-    if d2:
-
-        diagrams["themes_mindmap"] = d2
-
-    d3 = generate_research_gaps_flowchart(comp_analysis, gap_analysis, schemas=schemas)
-
-    if d3:
-
-        diagrams["research_gaps_flowchart"] = d3
-
     # 2. Build Overview Table
 
     overview_table = "| Paper ID | Title | Venue | Mode |\n| :--- | :--- | :--- | :--- |\n"
@@ -1232,7 +1094,7 @@ def generate_literature_review(schemas, summaries, comp_analysis, gap_analysis, 
 
         mode = _get_val(p, "generation_mode", "LLM")
 
-        overview_table += f"| {pid} | {title} | {venue} | {mode} |\n"
+        overview_table += f"| [{pid}] | {title} | {venue} | {mode} |\n"
 
     # 3. Extract Gaps summary
 
@@ -1313,65 +1175,34 @@ def generate_literature_review(schemas, summaries, comp_analysis, gap_analysis, 
 
         print("   [Agent 6] Synthesizing Final Literature Review Draft [ONE PROMPT ONLY] via LLM...")
 
-        prompt = f"""You are a distinguished Senior AI Researcher.
-
-Synthesize a comprehensive, publication-grade Literature Review Report titled:
-
-'{report_title}'
-
-Analyze the following {len(schemas)} papers based on their structured extractions:
-
-=== CORPUS OVERVIEW ===
-
-{overview_table}
-
-=== COMPARATIVE MATRIX & FINDINGS ===
-
-{comp_table[:3000] if comp_table else "Comparative data across methods and benchmarks."}
-
-=== IDENTIFIED RESEARCH GAPS ===
-
-{gaps_text}
-
-FORMAT REQUIREMENTS:
-
-Draft a complete academic literature review in Markdown with these exact sections:
-
-# {report_title}
-
-## Executive Summary
-
-## 1. Corpus Overview & Scope
-
-(Include the markdown table provided above)
-
-## 2. Architectural Paradigms & Methodological Analysis
-
-(Deep comparative narrative of the techniques, frameworks, and foundational methodologies)
-
-## 3. Empirical Benchmark Analysis
-
-(Analysis of reported evaluation datasets, benchmarks, and experimental performance)
-
-## 4. Cross-Paper Research Gaps & Unexplored Frontiers
-
-(Synthesize systemic bottlenecks, conflicting evidence, and open problems)
-
-## 5. Strategic Roadmap & Future Directions
-
-## 6. References & Citation Anchors
-
-"""
+        evidence = {
+            "papers": [dict(as_dict(p), quantitative_evidence=numerical_evidence(p)) for p in schemas],
+            "summaries": [as_dict(v) for v in (summaries.values() if isinstance(summaries, dict) else summaries)],
+            "comparative_analysis": as_dict(comp_analysis),
+            "gap_analysis": as_dict(gap_analysis),
+        }
+        prompt = (LLM_SYNTHESIS_PROMPT + f"\n# {report_title}\n\nCORPUS OVERVIEW\n{overview_table}"
+                  + "\nSOURCE EVIDENCE (JSON)\n" + json.dumps(evidence, ensure_ascii=False)
+                  + "\nEND OF EVIDENCE. Now write the full survey in one response. Follow the section word allocations above, "
+                  "aiming for approximately 6,000 words of substantive analysis. Include the title, all six sections, "
+                  "both comparison tables, three fully developed research directions and complete references. "
+                  "Do not condense the survey to a short overview. Preserve uncertainty and exact source values.")
 
         sys_inst = "You are an expert scientific researcher. Write an exhaustive, rigorous, publication-quality literature survey in Markdown."
 
-        llm_text = llm.generate_text(prompt, system_instruction=sys_inst)
+        llm_text = llm.generate_text(prompt, system_instruction=sys_inst, max_tokens=16384)
 
         if llm_text and len(llm_text) > 400:
 
             report_markdown = embed_all_visuals_in_report(llm_text, paper_visuals, diagrams)
 
             print("   [GENUINE-LLM] Literature Review report synthesized successfully via [ONE PROMPT ONLY] with diagrams & visuals!")
+
+    quantitative_table = "| Paper ID | Benchmark Dataset | Reported Evaluation Metrics | Relative Outperformance |\n| --- | --- | --- | --- |\n"
+    for paper in schemas:
+        cell = lambda value: str(value).replace("|", "\\|").replace("\n", " ")
+        quantitative_table += f"| [{_get_val(paper, 'paper_id', '')}] | {cell('; '.join(_get_val(paper, 'datasets_eval', []) or []))} | {cell(_get_val(paper, 'empirical_results', 'Not reported'))} | See reported results; no inferred ranking |\n"
+    references = "\n".join(f"- [{_get_val(p, 'paper_id', '')}] {_get_val(p, 'paper_title', '')}. {_get_val(p, 'venue', 'Not reported')}" for p in schemas)
 
     # Fallback template if offline or LLM unavailable
 
@@ -1385,17 +1216,23 @@ Draft a complete academic literature review in Markdown with these exact section
 
 **Generated At:** {generated_at}
 
+## Executive Summary
+
+**System Methodology Note:** Deterministic fallback assembled from supplied schemas,
+comparison rows and gap records. No LLM synthesis was available. This is an evidence
+inventory, not a completed publication-grade survey. Source claims require inspection.
+
 ## 1. Corpus Overview & Scope
 
 {overview_table}
 
-## 2. Architectural Paradigms & Methodological Analysis
+## 2. Methodological Taxonomy & Comparative Architecture
 
 {comp_table}
 
-## 3. Empirical Benchmark Analysis
+## 3. Empirical Benchmark Analysis & Quantitative Findings
 
-{gaps_text}
+{quantitative_table}
 
 ## 4. Cross-Paper Research Gaps & Unexplored Frontiers
 
@@ -1405,11 +1242,16 @@ Draft a complete academic literature review in Markdown with these exact section
 
 This literature review surveyed foundational frameworks in {corpus_domain}. Future work must address empirical constraints, benchmark trade-offs, and open research challenges.
 
-## 6. References & Citation Anchors
+## 6. References & Grounded Citation Anchors
+
+{references}
 
 """
 
         report_markdown = embed_all_visuals_in_report(raw_fallback, paper_visuals, diagrams)
+
+    if len(re.sub(r"```[\s\S]*?```", "", report_markdown)) <= 25000:
+        report_markdown += "\n\n> Synthesis quality note: this draft is below the 25,000-character survey target; expand and verify before publication.\n"
 
     output_dir = "data/reports"
 

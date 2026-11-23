@@ -110,7 +110,7 @@ class LLMManager:
                         keys.append(cleaned)
         return keys
 
-    def generate_text(self, prompt: str, system_instruction: str = None, max_retries: int = 3) -> str:
+    def generate_text(self, prompt: str, system_instruction: str = None, max_retries: int = 3, max_tokens: int = 8192) -> str:
         """
         Executes text generation. Tries NVIDIA NIM first, then Gemini, then returns None for Heuristic fallback.
         """
@@ -135,7 +135,7 @@ class LLMManager:
                                 messages=messages,
                                 temperature=0.2,
                                 top_p=0.7,
-                                max_tokens=8192
+                                max_tokens=max_tokens
                             )
                             if completion and completion.choices:
                                 msg = completion.choices[0].message
@@ -158,8 +158,9 @@ class LLMManager:
                 try:
                     client = genai.Client(api_key=key)
                     config = genai_types.GenerateContentConfig(
-                        system_instruction=system_instruction
-                    ) if system_instruction else None
+                        system_instruction=system_instruction,
+                        max_output_tokens=max_tokens,
+                    )
 
                     for model in self.preferred_gemini_models:
                         try:
