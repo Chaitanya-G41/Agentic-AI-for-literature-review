@@ -64,51 +64,56 @@ class ComparativeAnalysis(BaseModel):
 
 def classify_paradigm_generic(summary_dict: Dict[str, Any]) -> str:
     """
-    Classifies the agentic paradigm generically using content keywords from
-    architecture, methodology, and problem statements without hardcoding paper names.
-    """
-    title = str(summary_dict.get("paper_title", "")).lower()
-    meth = summary_dict.get("proposed_methodology", {})
-    prob = summary_dict.get("problem_motivation", {})
-    
-    text_corpus = " ".join([
-        title,
-        meth.get("method_name", ""),
-        meth.get("core_architecture", ""),
-        " ".join(meth.get("technical_innovations", [])),
-        meth.get("key_algorithms", ""),
-        prob.get("problem_statement", ""),
-        prob.get("motivation", "")
-    ]).lower()
+    Classifies the architecture paradigm (high-level category) generically.
 
-    if re.search(r"\b(climate|temperature|precipitation|meteorolog|cordex|downscaling|rcp|emission scenario|ensemble|climate model|regional downscaling)\b", text_corpus):
-        return "Climate Projections & Regional Downscaling"
-    if re.search(r"\b(tree of thoughts|deliberate problem solving|search tree|graph search|mcts|lookahead|backtracking)\b", text_corpus):
-        return "Tree / Graph Search & Planning"
-    if re.search(r"\b(reflexion|self-reflection|self-refine|verbal reinforcement|reflective|critique|iterative refinement)\b", text_corpus):
-        return "Self-Reflection & Refinement"
-    if re.search(r"\b(multi-agent|multiagent|chatdev|metagpt|autogen|collaborative agents|role-playing|agent society|inter-agent|agent communication)\b", text_corpus):
-        return "Multi-Agent Collaboration"
-    if re.search(r"\b(self-rag|retrieval-augmented|dense retrieval|retriever)\b", text_corpus):
-        return "Retrieval-Augmented Generation (RAG)"
-    if re.search(r"\b(swe-bench|swe_bench|software engineering|bug fix|github issues)\b", text_corpus):
-        return "Software Engineering & Code Benchmark"
-    if re.search(r"\b(agentbench|benchmarking|evaluation suite|testbed|evaluation framework)\b", text_corpus):
-        return "Evaluation Benchmark / Testbed"
-    if re.search(r"\b(voyager|embodied agent|skill library|minecraft)\b", text_corpus):
-        return "Embodied Agent & Skill Learning"
-    if re.search(r"\b(toolformer|gorilla|tool-use|external tool|tool use|api integration|apis|web browse|calculator)\b", text_corpus):
-        return "Tool-Augmented / API Integration"
-    if re.search(r"\b(react|thought-action|reasoning trace|in-context reasoning)\b", text_corpus):
-        return "Reasoning & Action (ReAct)"
-    if re.search(r"\b(prompting|chain-of-thought|in-context|few-shot|decomposition)\b", text_corpus):
-        return "Reasoning & Prompting"
-    if re.search(r"\b(reinforcement learning|policy gradient|reward model|q-learning|actor-critic|rlhf|ppo)\b", text_corpus):
-        return "Reinforcement Learning (RL)"
-    if re.search(r"\b(biomedical|clinical|genomic|epidemiolog|healthcare)\b", text_corpus):
-        return "Biomedical & Clinical Modeling"
-    
-    return "Specialized Framework"
+    Architecture category, methodology (method_name), and technical innovations are
+    SEPARATE concepts and must never be conflated:
+      - architecture_type / core_architecture -> paradigm label (this function)
+      - method_name                           -> named methodology (reported separately)
+      - technical_innovations                 -> specific contributions (methodology flowchart only)
+
+    Technical innovations are intentionally EXCLUDED from paradigm classification because
+    they describe specific algorithmic contributions, not high-level architectural classes.
+    When no structural field resolves a paradigm, "Empirical Methodology" is returned.
+    """
+    meth = summary_dict.get("proposed_methodology", {})
+
+    # Priority 1: Explicit architecture_type field (most reliable paradigm label)
+    arch_type = str(meth.get("architecture_type", "")).strip()
+    if arch_type and arch_type.lower() not in ["not specified", "n/a", "general", ""]:
+        return arch_type
+
+    # Priority 2: core_architecture field (structural description, short name only)
+    core_arch = str(meth.get("core_architecture", "")).strip()
+    if core_arch and len(core_arch.split()) <= 6:
+        return core_arch
+
+    # Priority 3: Content-based classification from paper title and core_architecture text.
+    # method_name is intentionally excluded: it names the specific methodology, not the
+    # architectural paradigm class. technical_innovations are also excluded.
+    title = str(summary_dict.get("paper_title", "")).lower()
+    text_corpus = f"{title} {core_arch}".lower()
+
+    if any(k in text_corpus for k in ["transformer", "attention"]):
+        return "Transformer Architecture"
+    if any(k in text_corpus for k in ["reinforcement learning", "q-learning", "policy gradient", "actor-critic"]):
+        return "Reinforcement Learning & Policy Optimization"
+    if any(k in text_corpus for k in ["graph", "topology", "gnn", "node embedding"]):
+        return "Graph & Topology Modeling"
+    if any(k in text_corpus for k in ["convolutional", "cnn", "vision"]):
+        return "Deep Convolutional Network"
+    if any(k in text_corpus for k in ["lstm", "recurrent", "rnn", "time-series"]):
+        return "Sequential & Recurrent Deep Architecture"
+    if any(k in text_corpus for k in ["generative", "gan", "diffusion", "flow"]):
+        return "Generative Modeling & Synthesis"
+    if any(k in text_corpus for k in ["autoencoder", "latent", "reconstruction"]):
+        return "Autoencoder Representation Learning"
+    if any(k in text_corpus for k in ["optimization", "convex", "bayesian"]):
+        return "Algorithmic Optimization & Search"
+
+    # technical_innovations are NOT used here \u2014 see function docstring.
+    return "Empirical Methodology"
+
 
 
 # ============================================================================
@@ -141,6 +146,19 @@ def generate_heuristic_comparative_analysis(
     and limitation clusters directly from grounded summary data.
     Uses only verified content in summaries with zero invented metrics or claims.
     """
+    # Normalize summaries to dicts if Pydantic models are passed
+    norm_summaries = {}
+    for pid, s_raw in summaries.items():
+        if hasattr(s_raw, "model_dump"):
+            norm_summaries[pid] = s_raw.model_dump()
+        elif hasattr(s_raw, "dict"):
+            norm_summaries[pid] = s_raw.dict()
+        elif isinstance(s_raw, dict):
+            norm_summaries[pid] = s_raw
+        else:
+            norm_summaries[pid] = vars(s_raw)
+    summaries = norm_summaries
+
     paper_ids = list(summaries.keys())
     paper_count = len(paper_ids)
 
@@ -148,40 +166,21 @@ def generate_heuristic_comparative_analysis(
     metrics_rows: List[MetricsRow] = []
     dataset_overlap: Dict[str, List[str]] = {}
 
-    # Verified benchmark evaluations grounded strictly in primary-source experimental metrics
-    VERIFIED_BENCHMARK_EVALS = {
-        "HotpotQA": ["2210.03629", "2303.11366"],
-        "HumanEval": ["2303.11366", "2308.00352"],
-        "ALFWorld": ["2210.03629", "2303.11366", "2308.03688", "2308.08155"]
-    }
-
-    # Verified primary evidence for hallucination, error propagation, and architectural mitigation
-    VERIFIED_HALLUCINATION_EVIDENCE = {
-        "2210.03629": "Explicit observation: hallucination and reasoning error cascades in ungrounded reasoning traces",
-        "2302.04761": "Explicit observation: hallucination of invalid API endpoints and parameters in language models",
-        "2303.11366": "Explicit observation: hallucinatory loops and false memory generation during autonomous reflection",
-        "2305.15334": "Explicit observation: high rate of hallucinated API calls and arguments on TorchHub/HuggingFace",
-        "2305.16291": "Explicit observation: skill hallucination and execution failure without grounding in Minecraft simulator",
-        "2307.07924": "Architectural mitigation: communicative de-hallucination mechanisms to prevent collaborative agent drift",
-        "2308.00352": "Architectural mitigation: structured Standard Operating Procedures (SOPs) to counter multi-agent role hallucination",
-        "2308.08155": "Architectural mitigation: multi-agent verification loops to suppress cascading dialogue errors"
-    }
-
     # Standard limitation clusters to group grounded limitations
     theme_definitions = [
         {
             "theme": "Inference Latency & Token / Computational Overhead",
-            "regex": r"\b(token|tokens|cost|costs|overhead|latency|compute|consumption|expense|budget|context window|inference time)\b",
+            "regex": r"\b(token|tokens|cost|costs|overhead|latency|compute|consumption|expense|budget|context window|inference time|real-time|hardware)\b",
             "matches": []
         },
         {
             "theme": "Hallucination, Error Propagation & Mitigation Mechanisms",
-            "regex": None,
+            "regex": r"\b(hallucinat|error cascade|error propagation|mitigation|verification loop|cascading|drift)\b",
             "matches": []
         },
         {
             "theme": "Search Space Explosion & Long-Horizon Trapping",
-            "regex": r"\b(search space|combinatorial|long-term|long-horizon|memory retention|backtrack|depth|greedy|horizon)\b",
+            "regex": r"\b(search space|combinatorial|long-term|long-horizon|memory retention|backtrack|depth|greedy|horizon|multi-horizon)\b",
             "matches": []
         },
         {
@@ -197,7 +196,8 @@ def generate_heuristic_comparative_analysis(
     ]
 
     for pid in paper_ids:
-        s = summaries[pid]
+        s_obj = summaries[pid]
+        s = s_obj.model_dump() if hasattr(s_obj, "model_dump") else (s_obj.dict() if hasattr(s_obj, "dict") else (s_obj if isinstance(s_obj, dict) else vars(s_obj)))
         title = s.get("paper_title", pid)
         citation = s.get("grounded_citation", f"[{pid}]")
         
@@ -205,18 +205,17 @@ def generate_heuristic_comparative_analysis(
         results = s.get("empirical_results", {})
         limits = s.get("explicit_limitations", {})
 
-        # 1. Methodology Row
+        # 1. Methodology Row - Strictly use verified technique, never title fragments
         paradigm = classify_paradigm_generic(s)
-        method_name = meth.get("method_name") or title.split(":")[0] if ":" in title else title.split()[0]
-        
         innovations = meth.get("technical_innovations", [])
+        method_name_val = str(meth.get("method_name") or "").strip() or "Methodology not identified"
         key_innovation = innovations[0] if innovations else meth.get("core_architecture", "")[:150]
 
         methodology_rows.append(MethodologyRow(
             paper_id=pid,
             paper_title=title,
             grounded_citation=citation,
-            method_name=method_name,
+            method_name=method_name_val,
             architecture_category=paradigm,
             key_innovation=key_innovation,
             paradigm=paradigm
@@ -237,63 +236,54 @@ def generate_heuristic_comparative_analysis(
             baseline_comparison=baseline_comp
         ))
 
-        # 3. Dataset Overlap Indexing with Primary-Source Grounding
+        # 3. Dynamic Dataset Overlap Indexing
         for ds in datasets:
             ds_clean = ds.strip()
             if not ds_clean:
                 continue
-            # If standard agent benchmark, only attribute if verified evaluation exists
-            if ds_clean in VERIFIED_BENCHMARK_EVALS:
-                if pid not in VERIFIED_BENCHMARK_EVALS[ds_clean]:
-                    continue
             if ds_clean not in dataset_overlap:
                 dataset_overlap[ds_clean] = []
             if pid not in dataset_overlap[ds_clean]:
                 dataset_overlap[ds_clean].append(pid)
 
-    # Seed verified benchmark evaluations for evaluated papers present in current corpus
-    for b_name, v_pids in VERIFIED_BENCHMARK_EVALS.items():
-        present = [p for p in v_pids if p in paper_ids]
-        if present:
-            dataset_overlap[b_name] = present
-
-    # Verified empirical limitation themes grounded strictly in primary-source literature
-    VERIFIED_THEME_PAPERS = {
-        "Inference Latency & Token / Computational Overhead": {
-            "pids": ["2210.03629", "2302.04761", "2303.11366", "2305.10601", "2305.15334", "2305.16291", "2307.07924", "2308.00352", "2308.08155", "2310.11511"],
-            "desc": "High token consumption and inference latency in iterative agentic reasoning loops."
-        },
-        "Hallucination, Error Propagation & Mitigation Mechanisms": {
-            "pids": ["2210.03629", "2302.04761", "2303.11366", "2305.15334", "2305.16291", "2307.07924", "2308.00352", "2308.08155"],
-            "desc": "Identified across 8 agent frameworks: distinguishes direct empirical observations of model hallucination and reasoning error cascades (ReAct, Toolformer, Reflexion, Gorilla, Voyager) from architectural de-hallucination and verification mechanisms (ChatDev, MetaGPT, AutoGen)."
-        },
-        "Search Space Explosion & Long-Horizon Trapping": {
-            "pids": ["2305.10601", "2303.11366", "2305.16291", "2310.06770"],
-            "desc": "Combinatorial exploration bottlenecks, action-space explosion, and long-horizon decision trapping."
-        },
-        "Scalability & Inter-Agent Coordination Overhead": {
-            "pids": ["2307.07924", "2308.00352", "2308.08155"],
-            "desc": "Communication redundancy, token multiplication, and consensus latency in multi-agent collaboration."
-        },
-        "Domain-Specific & Climate Modeling Constraints": {
-            "pids": ["2012.10386"],
-            "desc": "Ensemble projection dispersion, regional downscaling resolution bounds, and emissions scenario uncertainty."
-        }
-    }
-
-    # Assemble structured LimitationTheme objects
+    # 4. Dynamic Limitation Themes Clustering (Evidence-Grounded Across All Papers)
     limitation_themes: List[LimitationTheme] = []
-    for theme_name, t_info in VERIFIED_THEME_PAPERS.items():
-        present_pids = [p for p in t_info["pids"] if p in paper_ids]
-        if present_pids:
-            cits = [summaries[p].get("grounded_citation", f"[{p}]") for p in present_pids if p in summaries]
+    assigned_pids = set()
+
+    for t_def in theme_definitions:
+        rx = re.compile(t_def["regex"], re.IGNORECASE) if t_def.get("regex") else None
+        matched = []
+        for p in paper_ids:
+            s_data = summaries.get(p, {})
+            lim_text = str(s_data.get("explicit_limitations", "") or "")
+            prob_text = ""
+            if isinstance(s_data.get("problem_motivation"), dict):
+                prob_text = str(s_data["problem_motivation"].get("problem_statement", ""))
+            comb = f"{lim_text} {prob_text}"
+            if rx and rx.search(comb):
+                matched.append(p)
+        if matched:
+            cits = [summaries[p].get("grounded_citation", f"[{p}]") for p in matched if p in summaries]
             limitation_themes.append(LimitationTheme(
-                theme=theme_name,
-                paper_ids=present_pids,
+                theme=t_def["theme"],
+                paper_ids=matched,
                 citations=cits,
-                description=t_info["desc"],
-                frequency=len(present_pids)
+                description=f"Empirical constraints and operational challenges reported across {len(matched)} paper(s).",
+                frequency=len(matched)
             ))
+            assigned_pids.update(matched)
+
+    # Any papers still remaining: group under domain-specific empirical bounds
+    still_unassigned = [p for p in paper_ids if p not in assigned_pids]
+    if still_unassigned:
+        cits = [summaries[p].get("grounded_citation", f"[{p}]") for p in still_unassigned if p in summaries]
+        limitation_themes.append(LimitationTheme(
+            theme="Domain-Specific Operational & Empirical Bounds",
+            paper_ids=still_unassigned,
+            citations=cits,
+            description=f"Domain-specific operational constraints reported across {len(still_unassigned)} paper(s).",
+            frequency=len(still_unassigned)
+        ))
 
     limitation_themes.sort(key=lambda x: x.frequency, reverse=True)
 

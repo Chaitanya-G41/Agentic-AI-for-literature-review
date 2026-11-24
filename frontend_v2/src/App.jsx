@@ -10,6 +10,8 @@ export default function App() {
   const [loading, setLoading]                     = useState(true)
   const [corpus, setCorpus]                       = useState([])
   const [reportData, setReportData]               = useState(null)
+  const [reviews, setReviews]                     = useState([])
+  const [selectedReviewId, setSelectedReviewId]   = useState(null)
   const [inspectorState, setInspectorState]       = useState(null)
   const [activePillars, setActivePillars]         = useState({
     methodology: true, datasets: true, limitations: true, gaps: true,
@@ -26,18 +28,29 @@ export default function App() {
     return localStorage.getItem('monograph_session_active') === 'true'
   })
 
-  const loadData = useCallback(async () => {
+  const loadData = useCallback(async (targetReviewId = null) => {
     try {
-      const [cRes, rRes] = await Promise.all([
+      const reportUrl = targetReviewId
+        ? `/api/report?review_id=${encodeURIComponent(targetReviewId)}`
+        : '/api/report'
+      const [cRes, rRes, revRes] = await Promise.all([
         fetch('/api/corpus'),
-        fetch('/api/report'),
+        fetch(reportUrl),
+        fetch('/api/reviews').catch(() => ({ ok: false })),
       ])
       if (!cRes.ok || !rRes.ok) throw new Error('Backend API unavailable')
       const cData = await cRes.json()
       const rData = await rRes.json()
+      const revData = revRes.ok ? await revRes.json() : { reviews: [] }
       const papers = cData.papers || cData || []
       setCorpus(papers)
       setReportData(rData)
+      setReviews(revData.reviews || [])
+      if (rData.review_id) {
+        setSelectedReviewId(rData.review_id)
+      } else if (targetReviewId) {
+        setSelectedReviewId(targetReviewId)
+      }
 
       // Set default inspector to first paper if none selected
       if (!inspectorState && papers.length > 0) {
@@ -67,7 +80,8 @@ export default function App() {
   const handleStartReview = async () => {
     localStorage.setItem('monograph_session_active', 'true')
     setHasActiveSession(true)
-    await loadData()
+    setSelectedReviewId(null)
+    await loadData(null)
   }
 
   // Load sample benchmark papers
@@ -77,7 +91,8 @@ export default function App() {
       await fetch('/api/load-benchmark', { method: 'POST' })
       localStorage.setItem('monograph_session_active', 'true')
       setHasActiveSession(true)
-      await loadData()
+      setSelectedReviewId(null)
+      await loadData(null)
     } catch (e) {
       alert('Failed to load benchmark: ' + e.message)
     } finally {
@@ -86,7 +101,7 @@ export default function App() {
   }
 
   // Clear session to return to fresh WelcomeScreen
-  const handleStartFresh = () => {
+  const handleStartFresh = async () => {
     const confirmReset = window.confirm(
       'Start a new research review? This will return to the welcome screen so you can search a new topic or upload fresh papers.'
     )
@@ -96,6 +111,14 @@ export default function App() {
       setActivePdfPaper(null)
       setActivePillarLens(null)
       setInspectorState(null)
+      try {
+        await fetch('/api/clear-corpus', { method: 'POST' })
+      } catch (e) {
+        console.error('Failed to clear backend corpus:', e)
+      }
+      setCorpus([])
+      setReportData(null)
+      setSelectedReviewId(null)
     }
   }
 
@@ -137,6 +160,12 @@ export default function App() {
         activePillarLens={activePillarLens}
         setActivePillarLens={setActivePillarLens}
         onStartFresh={handleStartFresh}
+        reviews={reviews}
+        selectedReviewId={selectedReviewId}
+        onSelectReview={(rId) => {
+          setSelectedReviewId(rId)
+          loadData(rId)
+        }}
       />
 
       <MonographReader
