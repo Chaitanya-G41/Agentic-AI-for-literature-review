@@ -22,9 +22,6 @@ export default function CommandBar({
   activePillarLens,
   setActivePillarLens,
   onStartFresh,
-  reviews = [],
-  selectedReviewId = null,
-  onSelectReview,
 }) {
   const [infoModal, setInfoModal] = useState(null)
   const togglePillar = (key) => {
@@ -66,24 +63,6 @@ export default function CommandBar({
             <Plus size={10} /> Add
           </span>
         </button>
-
-        {reviews && reviews.length > 1 && (
-          <div className={styles.reviewPickerWrap}>
-            <span className={styles.reviewPickerLabel}>REVIEW:</span>
-            <select
-              className={styles.reviewSelect}
-              value={selectedReviewId || ''}
-              onChange={(e) => onSelectReview && onSelectReview(e.target.value)}
-              title="Switch between saved literature reviews"
-            >
-              {reviews.map((r) => (
-                <option key={r.review_id} value={r.review_id}>
-                  {r.title ? (r.title.length > 25 ? r.title.slice(0, 25) + '…' : r.title) : r.review_id} ({r.paper_count} papers)
-                </option>
-              ))}
-            </select>
-          </div>
-        )}
       </div>
 
       {/* Center: Pillar Lenses (Pure Black & Ivory Monochrome) */}

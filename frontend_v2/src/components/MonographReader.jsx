@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
@@ -32,8 +31,7 @@ const JARGON = {
 function wrapJargon(text) {
   let out = text
   Object.entries(JARGON).forEach(([term, def]) => {
-    const escapedTerm = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-    const re = new RegExp(`(?<![\\w-])(${escapedTerm})(?![\\w-])`, 'gi')
+    const re = new RegExp(`(?<![\\w-])(${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})(?![\\w-])`, 'gi')
     out = out.replace(re, `<abbr class="${styles.jargon}" title="${def}">$1</abbr>`)
   })
   return out
@@ -44,26 +42,17 @@ const CIT_RE = /(\[[^\]]{3,100}\])/g
 function ParagraphContent({ children, corpus, onSelectPaper }) {
   const renderNode = (child) => {
     if (typeof child !== 'string') return child
-
     const parts = child.split(CIT_RE)
-
     if (parts.length === 1) {
       return <span dangerouslySetInnerHTML={{ __html: wrapJargon(child) }} />
     }
-
     return parts.map((part, i) => {
       if (CIT_RE.test(part)) {
         CIT_RE.lastIndex = 0
-
         const arxivMatch = part.match(/(\d{4}\.\d{4,5})/)?.[1]
-
         const paper = arxivMatch
-          ? corpus.find(p =>
-              (p.paper_id || '').includes(arxivMatch) ||
-              (p.arxiv_id || '').includes(arxivMatch)
-            )
+          ? corpus.find(p => (p.paper_id || '').includes(arxivMatch) || (p.arxiv_id || '').includes(arxivMatch))
           : null
-
         return (
           <span
             key={i}
@@ -79,16 +68,12 @@ function ParagraphContent({ children, corpus, onSelectPaper }) {
           </span>
         )
       }
-
       CIT_RE.lastIndex = 0
       return <span key={i} dangerouslySetInnerHTML={{ __html: wrapJargon(part) }} />
     })
   }
 
-  if (Array.isArray(children)) {
-    return <>{children.map((c, i) => <span key={i}>{renderNode(c)}</span>)}</>
-  }
-
+  if (Array.isArray(children)) return <>{children.map((c, i) => <span key={i}>{renderNode(c)}</span>)}</>
   return <>{renderNode(children)}</>
 }
 
@@ -100,18 +85,10 @@ function toId(children) {
 function extractTOC(md) {
   const lines = md.split('\n')
   const toc = []
-
   lines.forEach(line => {
     const m = line.match(/^(#{1,3})\s+(.+)/)
-    if (m) {
-      toc.push({
-        level: m[1].length,
-        text: m[2].trim(),
-        id: toId(m[2].trim())
-      })
-    }
+    if (m) toc.push({ level: m[1].length, text: m[2].trim(), id: toId(m[2].trim()) })
   })
-
   return toc
 }
 
@@ -129,18 +106,9 @@ export default function MonographReader({
 }) {
   const content = reportData?.content || reportData?.report || ''
   const diagrams = reportData?.diagrams || {}
-  // Treat empty object {} the same as null — only use diagramData if it has actual keys
-  const rawDiagramData = reportData?.diagram_data
-  const diagramData = rawDiagramData && typeof rawDiagramData === 'object' && (
-    (rawDiagramData.methodology && rawDiagramData.methodology.categories?.length > 0) ||
-    (rawDiagramData.thematic_clusters && rawDiagramData.thematic_clusters.themes?.length > 0) ||
-    (rawDiagramData.research_gaps && rawDiagramData.research_gaps.gaps?.length > 0)
-  ) ? rawDiagramData : null
-
   const [toc, setToc] = useState([])
   const [activeSection, setActiveSection] = useState('')
   const [showDiagrams, setShowDiagrams] = useState(false)
-
   const proseRef = useRef(null)
 
   const cleanTitle = reportData?.title
@@ -162,28 +130,18 @@ export default function MonographReader({
     if (content) setToc(extractTOC(content))
   }, [content])
 
-  // Reset diagram expansion state whenever the loaded review changes so each review
-  // starts with the Architecture Diagrams section collapsed (clean UX per review).
-  useEffect(() => {
-    setShowDiagrams(false)
-  }, [reportData])
-
   // Track scroll for TOC
   useEffect(() => {
     const el = proseRef.current
     if (!el) return
-
     const handler = () => {
       const headings = el.querySelectorAll('h1, h2, h3, h4')
       let cur = ''
-
       headings.forEach(h => {
         if (h.getBoundingClientRect().top < 140) cur = h.id
       })
-
       if (cur) setActiveSection(cur)
     }
-
     el.addEventListener('scroll', handler, { passive: true })
     return () => el.removeEventListener('scroll', handler)
   }, [])
@@ -207,7 +165,7 @@ export default function MonographReader({
   return (
     <div className={clsx(styles.root, isSplitActive && styles.rootSplit)}>
 
-      {/* ── LEFT: TABLE OF CONTENTS ── */}
+      {/* ── LEFT: TABLE OF CONTENTS (Hidden or compact during split) ── */}
       {!isSplitActive && (
         <aside className={styles.toc}>
           <div className={styles.tocCover}>
@@ -229,14 +187,10 @@ export default function MonographReader({
                 {item.text}
               </button>
             ))}
-
-            {(Object.keys(diagrams).length > 0 || diagramData) && (
+            {Object.keys(diagrams).length > 0 && (
               <button
                 className={styles.tocH2}
-                onClick={() => {
-                  setShowDiagrams(true)
-                  scrollTo('diagrams')
-                }}
+                onClick={() => { setShowDiagrams(true); scrollTo('diagrams') }}
               >
                 Architecture Diagrams
               </button>
@@ -252,7 +206,6 @@ export default function MonographReader({
               const id = p.paper_id || p.arxiv_id || ''
               const par = p.paradigm
               const isSelected = inspectorState?.paperId === id
-
               return (
                 <div
                   key={id}
@@ -267,7 +220,6 @@ export default function MonographReader({
                     className={styles.paperDot}
                     style={{ background: par?.text || 'var(--ink-3)' }}
                   />
-
                   <div className={styles.paperRowInfo}>
                     <span className={styles.paperRowId}>{id}</span>
                     <span className={styles.paperRowTitle}>
@@ -281,11 +233,8 @@ export default function MonographReader({
         </aside>
       )}
 
-      {/* ── CENTER: MONOGRAPH ESSAY ── */}
-      <main
-        className={clsx(styles.article, isSplitActive && styles.articleSplit)}
-        ref={proseRef}
-      >
+      {/* ── CENTER / LEFT (Split): MONOGRAPH ESSAY ── */}
+      <main className={clsx(styles.article, isSplitActive && styles.articleSplit)} ref={proseRef}>
 
         {/* Hero cover header */}
         <section className={styles.hero}>
@@ -306,19 +255,16 @@ export default function MonographReader({
               <span className={styles.statLabel}>CORPUS SCOPE</span>
               <span className={styles.statValue}>{corpus.length} Primary Works</span>
             </div>
-
             <div className={styles.stat}>
               <span className={styles.statLabel}>SYNTHESIS ENGINE</span>
               <span className={styles.statValue}>NVIDIA NIM (3-Point Budget)</span>
             </div>
-
             <div className={styles.stat}>
               <span className={styles.statLabel}>GROUNDING</span>
               <span className={styles.statValue} style={{ color: 'var(--success)' }}>
                 GROBID TEI-XML
               </span>
             </div>
-
             <div className={styles.stat}>
               <span className={styles.statLabel}>CITATION INTEGRITY GUARDRAIL</span>
               <span className={styles.statValue}>Split-Screen PDF Grounded</span>
@@ -332,7 +278,7 @@ export default function MonographReader({
           </div>
         </section>
 
-        {/* ── ACTIVE PILLAR LENS SPOTLIGHT ── */}
+        {/* ── ACTIVE PILLAR LENS SPOTLIGHT (When user clicks Methodology, Datasets, Limitations, or Gaps) ── */}
         {activePillarLens && (
           <div className={styles.lensBanner}>
             <div className={styles.lensHeader}>
@@ -342,7 +288,6 @@ export default function MonographReader({
                   ACTIVE LENS: {activePillarLens.toUpperCase()} COMPARATIVE SPOTLIGHT
                 </span>
               </div>
-
               <button
                 className={styles.clearLensBtn}
                 onClick={() => setActivePillarLens(null)}
@@ -361,7 +306,6 @@ export default function MonographReader({
               {corpus.slice(0, 10).map(p => {
                 const id = p.paper_id || p.arxiv_id || ''
                 let displaySnippet = ''
-
                 if (activePillarLens === 'limitations') displaySnippet = p.limitations
                 else if (activePillarLens === 'methodology') displaySnippet = p.methodology
                 else if (activePillarLens === 'datasets') displaySnippet = p.metadata?.benchmarks || p.core_problem
@@ -374,17 +318,11 @@ export default function MonographReader({
                     key={id}
                     className={styles.lensCard}
                     onClick={() => {
-                      handleSelectPaper(
-                        p,
-                        displaySnippet.slice(0, 140),
-                        `Section: ${activePillarLens}`,
-                        0.96
-                      )
+                      handleSelectPaper(p, displaySnippet.slice(0, 140), `Section: ${activePillarLens}`, 0.96)
                     }}
                   >
                     <div className={styles.lensCardTop}>
                       <span className={styles.lensPaperId}>arXiv:{id}</span>
-
                       <button
                         className={styles.openPdfMiniBtn}
                         onClick={(e) => {
@@ -396,11 +334,7 @@ export default function MonographReader({
                         PDF ↗
                       </button>
                     </div>
-
-                    <h5 className={styles.lensPaperTitle}>
-                      {p.title?.replace(/^\d+\.\d+\s+/, '')}
-                    </h5>
-
+                    <h5 className={styles.lensPaperTitle}>{p.title?.replace(/^\d+\.\d+\s+/, '')}</h5>
                     <p className={styles.lensCardText}>
                       "{displaySnippet.slice(0, 180)}…"
                     </p>
@@ -429,10 +363,8 @@ export default function MonographReader({
                 h2: ({ children }) => <h2 id={toId(children)} className={styles.h2}>{children}</h2>,
                 h3: ({ children }) => <h3 id={toId(children)} className={styles.h3}>{children}</h3>,
                 h4: ({ children }) => <h4 id={toId(children)} className={styles.h4}>{children}</h4>,
-
                 p: ({ children, node }) => {
                   const isFirst = node?.position?.start?.line < 10
-
                   return (
                     <p className={isFirst ? styles.pDropCap : styles.p}>
                       <ParagraphContent corpus={corpus} onSelectPaper={handleSelectPaper}>
@@ -441,42 +373,28 @@ export default function MonographReader({
                     </p>
                   )
                 },
-
                 blockquote: ({ children }) => (
                   <blockquote className={styles.pullQuote}>{children}</blockquote>
                 ),
-
                 table: ({ children }) => (
                   <div className={styles.tableWrap}>
                     <table className={styles.table}>{children}</table>
                   </div>
                 ),
-
                 th: ({ children }) => <th className={styles.th}>{children}</th>,
                 td: ({ children }) => <td className={styles.td}>{children}</td>,
-
                 code: ({ inline, children }) =>
                   inline ? <code className={styles.inlineCode}>{children}</code> : null,
-
                 pre: ({ children, node }) => {
                   const code = node?.children?.[0]
                   if (code?.properties?.className?.includes('language-mermaid')) return null
                   return <pre className={styles.pre}>{children}</pre>
                 },
-
                 li: ({ children }) => <li className={styles.li}>{children}</li>,
                 ul: ({ children }) => <ul className={styles.ul}>{children}</ul>,
                 ol: ({ children }) => <ol className={styles.ol}>{children}</ol>,
-
                 a: ({ href, children }) => (
-                  <a
-                    className={styles.link}
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {children}
-                  </a>
+                  <a className={styles.link} href={href} target="_blank" rel="noopener noreferrer">{children}</a>
                 ),
               }}
             >
@@ -490,7 +408,6 @@ export default function MonographReader({
           <div className={styles.prose}>
             {corpus.map((p, i) => {
               const id = p.paper_id || p.arxiv_id || ''
-
               return (
                 <article
                   key={id}
@@ -498,29 +415,16 @@ export default function MonographReader({
                   onClick={() => handleSelectPaper(p, '', 'Plain mode select', 0.94)}
                 >
                   <div className={styles.plainHeaderRow}>
-                    <span className={styles.plainNum}>
-                      {String(i + 1).padStart(2, '0')}
-                    </span>
-
-                    <span className={styles.plainTag}>
-                      {p.paradigm?.name || 'Research Paper'}
-                    </span>
-
+                    <span className={styles.plainNum}>{String(i + 1).padStart(2, '0')}</span>
+                    <span className={styles.plainTag}>{p.paradigm?.name || 'Research Paper'}</span>
                     <button
                       className={styles.openPdfMiniBtn}
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        handleOpenSplitPdf(p)
-                      }}
+                      onClick={(e) => { e.stopPropagation(); handleOpenSplitPdf(p) }}
                     >
                       Open PDF ↗
                     </button>
                   </div>
-
-                  <h3 className={styles.h2}>
-                    {p.title?.replace(/^\d+\.\d+\s+/, '')}
-                  </h3>
-
+                  <h3 className={styles.h2}>{p.title?.replace(/^\d+\.\d+\s+/, '')}</h3>
                   <span className={styles.plainArxiv}>arXiv:{id}</span>
 
                   {p.core_problem && (
@@ -549,12 +453,11 @@ export default function MonographReader({
           </div>
         )}
 
-        {/* ── ARCHITECTURE DIAGRAMS ── */}
-        {(Object.keys(diagrams).length > 0 || diagramData) && (
+        {/* Architecture Diagrams Drawer/Section */}
+        {Object.keys(diagrams).length > 0 && (
           <div id="diagrams" className={styles.diagramSection}>
             <div className={styles.diagramSectionHead}>
               <h3 className={styles.h2}>Architecture Diagrams</h3>
-
               <button
                 className={styles.diagramToggle}
                 onClick={() => setShowDiagrams(v => !v)}
@@ -562,13 +465,7 @@ export default function MonographReader({
                 {showDiagrams ? 'Collapse ↑' : 'Expand Flowcharts ↓'}
               </button>
             </div>
-
-            {showDiagrams && (
-              <MermaidDiagrams
-                diagrams={diagrams}
-                diagramData={diagramData}
-              />
-            )}
+            {showDiagrams && <MermaidDiagrams diagrams={diagrams} />}
           </div>
         )}
 
@@ -599,6 +496,7 @@ export default function MonographReader({
           />
         </aside>
       )}
+
     </div>
   )
 }
