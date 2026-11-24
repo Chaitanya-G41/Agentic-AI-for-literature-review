@@ -1,0 +1,1152 @@
+{
+  "paper_id": "1909.06684",
+  "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+  "parser_used": "PyMuPDF_Layout_Engine",
+  "total_pages": 8,
+  "figures_count": 14,
+  "figures": [
+    {
+      "figure_id": "FIG-1909.06684-P2-1",
+      "page_number": 2,
+      "file_path": "data/figures\\1909.06684\\fig_p2_1.png",
+      "dimensions": "1049x841",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-1909.06684-P2-2",
+      "page_number": 2,
+      "file_path": "data/figures\\1909.06684\\fig_p2_2.png",
+      "dimensions": "1088x862",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-1909.06684-P3-1",
+      "page_number": 3,
+      "file_path": "data/figures\\1909.06684\\fig_p3_1.png",
+      "dimensions": "107x266",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-1909.06684-P3-2",
+      "page_number": 3,
+      "file_path": "data/figures\\1909.06684\\fig_p3_2.jpeg",
+      "dimensions": "156x350",
+      "format": "jpeg",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-1909.06684-P3-11",
+      "page_number": 3,
+      "file_path": "data/figures\\1909.06684\\fig_p3_11.png",
+      "dimensions": "846x226",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-1909.06684-P3-12",
+      "page_number": 3,
+      "file_path": "data/figures\\1909.06684\\fig_p3_12.png",
+      "dimensions": "648x176",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-1909.06684-P3-17",
+      "page_number": 3,
+      "file_path": "data/figures\\1909.06684\\fig_p3_17.png",
+      "dimensions": "475x229",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-1909.06684-P3-18",
+      "page_number": 3,
+      "file_path": "data/figures\\1909.06684\\fig_p3_18.png",
+      "dimensions": "724x312",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-1909.06684-P3-19",
+      "page_number": 3,
+      "file_path": "data/figures\\1909.06684\\fig_p3_19.png",
+      "dimensions": "923x357",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-1909.06684-P3-21",
+      "page_number": 3,
+      "file_path": "data/figures\\1909.06684\\fig_p3_21.png",
+      "dimensions": "170x149",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-1909.06684-P7-1",
+      "page_number": 7,
+      "file_path": "data/figures\\1909.06684\\fig_p7_1.png",
+      "dimensions": "625x523",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-1909.06684-P7-2",
+      "page_number": 7,
+      "file_path": "data/figures\\1909.06684\\fig_p7_2.png",
+      "dimensions": "625x523",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-1909.06684-P7-3",
+      "page_number": 7,
+      "file_path": "data/figures\\1909.06684\\fig_p7_3.png",
+      "dimensions": "625x470",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-1909.06684-P7-4",
+      "page_number": 7,
+      "file_path": "data/figures\\1909.06684\\fig_p7_4.png",
+      "dimensions": "625x470",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    }
+  ],
+  "vector_graphs_count": 2,
+  "vector_graphs": [
+    {
+      "page_number": 3,
+      "drawing_path_count": 162,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    },
+    {
+      "page_number": 6,
+      "drawing_path_count": 40,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    }
+  ],
+  "tables_count": 2,
+  "tables": [
+    {
+      "table_id": "TAB-1909.06684-P6-1",
+      "page_number": 6,
+      "rows_count": 2,
+      "cols_count": 4,
+      "data": [
+        [
+          "Model",
+          "Kidneys Dice",
+          "Tumor Dice",
+          "Composite Dice"
+        ],
+        [
+          "Our split (single model)\nOur split (TTA + ensemble)\nApproximate score (single model)\nApproximate score (TTA + ensemble)",
+          "0.957\n0.970\n0.955\n0.974",
+          "0.821\n0.834\n0.736\n0.784",
+          "0.889\n0.902\n0.845\n0.879"
+        ]
+      ]
+    },
+    {
+      "table_id": "TAB-1909.06684-P6-2",
+      "page_number": 6,
+      "rows_count": 2,
+      "cols_count": 3,
+      "data": [
+        [
+          "Kidneys Dice",
+          "Tumor Dice",
+          "Composite Dice"
+        ],
+        [
+          "0.9742",
+          "0.8103",
+          "0.8923"
+        ]
+      ]
+    }
+  ],
+  "full_text": "3D Kidneys and Kidney Tumor Semantic\nSegmentation using Boundary-Aware Networks\n\nAndriy Myronenko1 and Ali Hatamizadeh1,2\n\n1 NVIDIA, Santa Clara, CA, USA\n2 Computer Science Department, University of California, Los Angeles, CA, USA\n{amyronenko,ahatamizadeh}@nvidia.com\n\nAbstract. Automated segmentation of kidneys and kidney tumors is\nan important step in quantifying the tumor’s morphometrical details to\nmonitor the progression of the disease and accurately compare decisions\nregarding the kidney tumor treatment. Manual delineation techniques\nare often tedious, error-prone and require expert knowledge for creating\nunambiguous representation of kidneys and kidney tumors segmentation.\nIn this work, we propose an end-to-end boundary aware fully Convolu-\ntional Neural Networks (CNNs) for reliable kidney and kidney tumor\nsemantic segmentation from arterial phase abdominal 3D CT scans. We\npropose a segmentation network consisting of an encoder-decoder archi-\ntecture that speciﬁcally accounts for organ and tumor edge information\nby devising a dedicated boundary branch supervised by edge-aware loss\nterms. We have evaluated our model on 2019 MICCAI KiTS Kidney Tu-\nmor Segmentation Challenge dataset and our method has achieved dice\nscores of 0.9742 and 0.8103 for kidney and tumor repetitively and an\noverall composite dice score of 0.8923.\n\nKeywords: Abdominal CT · Kidneys · Tumor · Segmentation Deep\nLearning · Convolutional Neural Networks\n\n1\nIntroduction\n\nKidney cancer accounted for nearly 175,000 deaths worldwide in 2018 [1], and\nit is projected that 14,770 deaths will occur due to the disease in 2019 in the\nUS [10]. Current kidney tumor treatment planning include Radical Nephrectomy\n(RN) and Partial Nephrectomy (PN). In RN, both the tumor and the aﬀected\nkidney are removed whereas in PN the tumor is removed but kidneys are saved\n[11]. Although RNs were historically prevalent as a standard treatment procedure\nfor kidney tumors, new capabilities for earlier detection of the tumors as well as\nadvancements in surgery has made PNs a viable treatment approach [6].\n\nAutomated segmentation of kidneys and kidney tumors assists physicians to\nobtain accurate morphometrical details of the tumor in an eﬃcient and reliable\nmanner as the manual delineation process is often tedious and error-prone. The\ndecision for kidney tumor treatment plan can be made by leveraging such impor-\ntant tumor’s morphometrical information. Recently, deep learning approaches for\n\narXiv:1909.06684v1  [eess.IV]  14 Sep 2019\n\n2\nA. Myronenko, and A. Hatamizadeh\n\nFig. 1. Example of an axial slice of 3D CT images of two patients in KiTS dataset.\nRed color indicates kidneys, green color indicates tumor region.\n\nsemantic image segmentation have demonstrated prominent results in medical\nimage analysis for various applications [8,9,3,2]. The powerful non-linear fea-\nture extraction capabilities of CNNs along with the eﬀectiveness of the encoder-\ndecoder architectures have made it possible to employ CNNs for challenging\nsegmentation tasks.\n\nIn this paper, we propose a boundary-aware fully Convolutional Neural Net-\nworks for end-to-end and reliable semantic segmentation of kidneys and kidney\ntumor by encoding the information of edges in a dedicated stream that is super-\nvised by edge-aware losses. We have trained and tested our model on 2019 KiTS\nKidney Tumor Segmentation Challenge and results demonstrate the eﬀectiveness\nof our proposed framework.\n\n2\nRelated Work\n\nTraditionally, various techniques such as deformable models, GrabCuts, region\ngrowing and atlas-based methods have been applied to the problem of kidney\nsegmentation. In recent years, researchers have attempted to leverage the power\nof deep learning and CNNs to build segmentation frameworks that are more au-\ntomated and less dependant on incorporation of prior shape statistics. Thong et\nal. [12] proposed a 2D patch-based approach for kidney segmentation in contrast-\nenhanced CT scans by leveraging a modiﬁed ConvNet. Jackson et al. [7] devel-\noped a framework for detection and segmentation and of kidneys in non-contrast\nCT images by utilizing a 3D U-Net. Yang et al. [14] proposed a method for kidney\nand renal tumor segmentation in CT angiography image by a modiﬁed residual\nFCN that is equipped with a pyramid pooling module. Furthermore, Yin et al.\n[15] employed a cascaded approach for segmentation of kidneys with renal cell\ncarcinoma by training a CNN that predicts a bounding box around kidney and a\n\n3D Kidney Tumor Segmentation using Boundary-Aware Networks\n3\n\nConv 3×3×3\n\n+\n+\n+\nC\n\nBilinear Upsampling\nResidual Block\nConv 1×1×1\nAttention Gate\n\n3×176×176×176\n\nFig. 2. Our proposed CNN architecture.\n\nsubsequent CNN that segments the kidneys. Recently, Xia et al. [13] proposed a\ntwo-stage approach for segmentation of kidney and space-occupying lesion area\nby using SCNN and ResNet for image retrieval and SIFT-ﬂow and MRF for\nsmoothing and pixel matching.\n\n3\nMethods\n\n3.1\nFramework Architecture\n\nAs illustrated in Figure 2, our network consists of the main segmentation branch\nand the additional boundary stream that processes the feature maps at the\nboundary level [4]. The main branch follows [9] an asymmetric encoder-decoder\nstructure. The input to the encoder is a 176x176x176 crop which is initially fed\ninto a 3x3x3 convolution with 16 ﬁlters. Feature maps are then extracted at\neach resolution by feeding them into a residual block [5] followed by a strided\n3x3x3 convolution (for downsizing and doubling of feature dimension). The bot-\ntom of the encoder entails four consecutive residual blocks that are connected\nto the decoder. The extracted feature maps in the decoder are upsampled us-\ning bilinear interpolation and added with feature maps from the encoder. The\noutput of the decoder is concatenated with the output of the boundary and fed\ninto a 1x1x1 convolution with 2 channels where channel-wise sigmoid activation\nσ(X) =\n1\n1+exp(−X) determines the probability of each voxel belonging to kidneys\nand tumor or only tumor classes.\n\n4\nA. Myronenko, and A. Hatamizadeh\n\n3.2\nBoundary Stream\n\nThe purpose of the boundary stream is to highlight the edge information of\nthe feature maps extracted in the main encoder by leveraging an additional\nattention-driven decoder. The attention gates in every resolution of the bound-\nary stream process the feature maps that are learned in the main encoder as\nwell as the output of the previous attention gates. For the ﬁrst attention gate,\nwe ﬁrst concatenate the output of the encoder with its previous resolution and\nfeed it into a residual block. In the attention gates, each input is ﬁrst fed into\na 3x3x3 convolutional layer with matching number of feature maps and then\nfused together, followed by ReLU. The output of the ReLU is fed into a 1x1x1\nconvolution layer followed by sigmoid function σ to obtain the attention map.\nConsecutively, an element-wise multiplication between the boundary stream fea-\nture maps and the computed attention map results in the output of the attention\ngates.\n\n3.3\nLoss Functions\n\nWe use a dice loss function on the predicted outputs of the main stream as well\nas the boundary stream. The dice loss is as follows [8]:\n\nLDice = 1 −\n2 ∗P ytrue ∗ypred\nP y2\n\ntrue + P y2\n\npred + ϵ\n(1)\n\nWhere ypred, ytrue denote the voxel-wise semantic predictions of the main\nstream and their corresponding labels, ϵ is a small constant to avoid division by\nzero and summation is carried over the total number of voxels.\n\nAdditionally, we add a weighted Binary Cross Entropy (BCE) loss to the\nboundary stream loss in order to deal with the imbalanced number of boundary\nand non-boundary voxels:\n\nLBCE = −β\n\nX\n\nj∈y+\n\nlogP(ypred,j = 1|x; θ)\n\n−(1 −β)\n\nX\n\nj∈y−\n\nlogP(ypred,j = 0|x; θ)\n\n(2)\n\nWhere x, θ, y−and y+ denote the 3D input image, CNN parameters, edge\nand non-edge voxel sets respectively. β is the ratio of non-edge pixels over the\nentire number of voxels and P(ypred,j) denotes the probability of the predicated\nclass at voxel j.\n\nThe total loss function that is minimized during training is computed by\ntaking the average of losses for tumor-only and foreground class predictions.\n\n3D Kidney Tumor Segmentation using Boundary-Aware Networks\n5\n\n4\nImplementation Details and Dataset\n\nKiTS 2019 dataset : Kidney Tumor Segmentation Challenge (KiTS 2019) pro-\nvides data of multi-phase 3D CTs, voxel-wise ground truth labels, and com-\nprehensive clinical outcomes for 300 patients who underwent nephrectomy for\nkidney tumors between 2010 to 2018 at University of Minnesota [6]. 210 pa-\ntients were randomly selected for the training set and the remaining 90 patients\nwere left as a testing set. The annotation was performed in the transverse plane\nwith regular subsampling of series in the longitudinal direction with roughly 50\nannotated slices depicting the Kidney for each patient. The labels for excluded\nslices were computed by using a contour interpolation algorithm [6]. Figure 1\nillustrates 2D axial view of the example images from two patients in the training\nset of KiTS 2019.\n\nData processing : We normalized the CT data to [-1, 1] range by dividing the\nintensity values by 1000 and clipping the values that fall outside this range.\nFor training, images were re-sampled to 1x1x1mm isotropic resolution and re-\nsampled back to their original resolution after the inference. The re-sampled\noutput size of the images was on average 512x512 in axial plane and 400 −800\nalong the inf-sup direction.\n\nImplementation details :We have implemented our method in Pytorch3. Since\nthe re-sampled CT image were often large, we used a 176x176x176 crop during\ntraining. The cropping region was centered on the kidney tumor label (with\nprobability 0.8), on any foreground (with probability 0.1) and on background\n(with probability 0.1). We found it important to sample more frequently from\nthe tumor region. The model was trained on 8 NVIDIA Tesla V100 16GB GPUs\n(DGX-1 server). We used a batch size of 8 and the Adam optimization algorithm\nwith the initial learning rate of α0 = 5e−5 that was further decreased according\nto α = α0 ∗(1 −e/Ne)0.9 [9], where e and Ne denote the current epoch counter\ntotal number of epochs (300 in our case). During inference, we have leveraged\ntest time augmentation (TTA) and have used an ensemble of 5 models to further\nimprove the results.\n\nEvaluation metrics : We have adopted the same three evaluation metrics as\noutlined by KiTS 2019 challenge. Kidneys dice denote the segmentation perfor-\nmance when considering both kidneys and tumors as the foreground whereas\ntumor dice considers everything except the tumor as background. Composite\ndice is simply the average of kidneys dice and tumor dice.\n\n5\nResults and Discussion\n\nPreliminary : Table 1 represents the evaluation results of our model on our own\ndataset split. We divided the training set of KiTS 2019 dataset into our own\n\n3 http://pytorch.org/\n\n6\nA. Myronenko, and A. Hatamizadeh\n\nTable 1. Preliminary dice results based on our own data split as well as 2 approximate\nscores provided by KiTS 2019 submission portal.\n\nModel\nKidneys Dice Tumor Dice Composite Dice\nOur split (single model)\n0.957\n0.821\n0.889\nOur split (TTA + ensemble)\n0.970\n0.834\n0.902\nApproximate score (single model)\n0.955\n0.736\n0.845\nApproximate score (TTA + ensemble)\n0.974\n0.784\n0.879\n\nsubsets for training and validation and evaluated the performance of a single\nmodel as well as an ensemble of 5 models. Finally the KiTS 2019 submission\nprovided two approximate scores based on a small subset of its validation dataset\nand this allowed us to list the approximate scores of the single model and the\nensemble model. Evidently, the dice scores from evaluations on our own split were\nsimilar and consistent with the approximate scores provided by the submission\nportal(see Table 1). Figure 3 illustrates the segmentation visualizations of our\nmethod and their corresponding ground truth from two cases in the validation\nset of our own split.\n\nKiTS 2019 Test Set : The evaluation results4 of our model on the testing set of\nKiTS 2019 dataset is presented in Table 2. The kidneys dice is very similar to\napproximate scores obtained by the ensemble model that utilizes TTA while the\ntumor dice is %3.35 better than its counterpart. Moreover, our method ranks\n9th overall in terms of the composite dice of kidneys and Tumor among 100\nparticipants in KiTS 2019 challenge. Our model in particular performed better\non kidneys segmentation task.\n\nTable 2. The Evaluation results of our model on KiTS 2019 test set.\n\nKidneys Dice Tumor Dice Composite Dice\n\n0.9742\n0.8103\n0.8923\n\n6\nConclusion\n\nIn this work, we have proposed an end-to-end 3D framework for reliable and\nautomated segmentation of kidneys and kidney tumors. Our network consists\nof a an encoder-decoder architecture equipped with a boundary stream that\nprocesses the edge information separately and is supervised by edge-aware losses.\nWe have validated the eﬀectiveness of our approach by training and testing our\nmodel on 2019 MICCAI KiTS Kidney Tumor Segmentation Challenge dataset.\nOur method has achieved dice scores of 0.9742 and 0.8103 for kidney and tumor\n\n4 http://results.kits-challenge.org/miccai2019/\n\n3D Kidney Tumor Segmentation using Boundary-Aware Networks\n7\n\n(a) Our Predictions\n(b) Ground truth Labels\n\nFig. 3. Visualization of (a) our model’s predictions (b) ground truth labels\n\nrepetitively and an overall composite dice score of 0.8923 and ranks 9th overall\nin terms of composite dice among 100 participants of this challenge.\n\nReferences\n\n1. Bray, F., Ferlay, J., Soerjomataram, I., Siegel, R.L., Torre, L.A., Jemal, A.: Global\ncancer statistics 2018: Globocan estimates of incidence and mortality worldwide\nfor 36 cancers in 185 countries. CA: a cancer journal for clinicians 68(6), 394–424\n(2018)\n2. Hatamizadeh, A., Hoogi, A., Sengupta, D., Lu, W., Wilcox, B., Rubin, D., Ter-\nzopoulos, D.: Deep active lesion segmentation. arXiv preprint arXiv:1908.06933\n(2019)\n\n8\nA. Myronenko, and A. Hatamizadeh\n\n3. Hatamizadeh, A., Hosseini, H., Liu, Z., Schwartz, S.D., Terzopoulos, D.: Deep\ndilated convolutional nets for the automatic segmentation of retinal vessels. arXiv\npreprint arXiv:1905.12120 (2019)\n4. Hatamizadeh, A., Terzopoulos, D., Myronenko, A.: End-to-end boundary aware\nnetworks for medical image segmentation. arXiv preprint arXiv:1908.08071 (2019)\n5. He, K., Zhang, X., Ren, S., Sun, J.: Identity mappings in deep residual networks.\nIn: European Conference on Computer Vision (ECCV) (2016)\n6. Heller, N., Sathianathen, N., Kalapara, A., Walczak, E., Moore, K., Kaluzniak,\nH., Rosenberg, J., Blake, P., Rengel, Z., Oestreich, M., et al.: The kits19 challenge\ndata: 300 kidney tumor cases with clinical context, ct semantic segmentations, and\nsurgical outcomes. arXiv preprint arXiv:1904.00445 (2019)\n7. Jackson, P., Hardcastle, N., Dawe, N., Kron, T., Hofman, M., Hicks, R.J.: Deep\nlearning renal segmentation for fully automated radiation dose estimation in un-\nsealed source therapy. Frontiers in oncology 8, 215 (2018)\n8. Milletari, F., Navab, N., Ahmadi, S.A.: V-net: Fully convolutional neural networks\nfor volumetric medical image segmentation. In: Fourth International Conference\non 3D Vision (3DV) (2016)\n9. Myronenko, A.: 3D MRI brain tumor segmentation using autoencoder regulariza-\ntion. In: BrainLes, Medical Image Computing and Computer Assisted Intervention\n(MICCAI). pp. 311–320. LNCS, Springer (2018), https://arxiv.org/abs/1810.\n11654\n10. Siegel, R.L., Miller, K.D., Jemal, A.: Cancer statistics, 2019. CA: a cancer journal\nfor clinicians 69(1), 7–34 (2019)\n11. Sun, M., Abdollah, F., Bianchi, M., Trinh, Q.D., Jeldres, C., Thuret, R., Tian, Z.,\nShariat, S.F., Montorsi, F., Perrotte, P., et al.: Treatment management of small\nrenal masses in the 21st century: a paradigm shift. Annals of surgical oncology\n19(7), 2380–2387 (2012)\n12. Thong, W., Kadoury, S., Pich´e, N., Pal, C.J.: Convolutional networks for kidney\nsegmentation in contrast-enhanced ct scans. Computer Methods in Biomechanics\nand Biomedical Engineering: Imaging & Visualization 6(3), 277–282 (2018)\n13. Xia, K.j., Yin, H.s., Zhang, Y.d.: Deep semantic segmentation of kidney and space-\noccupying lesion area based on scnn and resnet models combined with sift-ﬂow\nalgorithm. Journal of medical systems 43(1), 2 (2019)\n14. Yang, G., Li, G., Pan, T., Kong, Y., Wu, J., Shu, H., Luo, L., Dillenseger, J.L.,\nCoatrieux, J.L., Tang, L., et al.: Automatic segmentation of kidney and renal tumor\nin ct images based on 3d fully convolutional neural network with pyramid pooling\nmodule. In: 2018 24th International Conference on Pattern Recognition (ICPR).\npp. 3790–3795. IEEE (2018)\n15. Yin, K., Liu, C., Bardis, M., Martin, J., Liu, H., Ushinsky, A., Glavis-Bloom, J.,\nChantaduly, C., Chow, D.S., Houshyar, R., et al.: Deep learning segmentation of\nkidneys with renal cell carcinoma. (2019)",
+  "chunks": [
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        140.1,
+        114.6,
+        475.4,
+        146.9
+      ],
+      "text": "3D Kidneys and Kidney Tumor Semantic\nSegmentation using Boundary-Aware Networks"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        210.6,
+        167.1,
+        404.2,
+        180.7
+      ],
+      "text": "Andriy Myronenko1 and Ali Hatamizadeh1,2"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        142.4,
+        188.6,
+        473.0,
+        223.7
+      ],
+      "text": "1 NVIDIA, Santa Clara, CA, USA\n2 Computer Science Department, University of California, Los Angeles, CA, USA\n{amyronenko,ahatamizadeh}@nvidia.com"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 1,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        163.1,
+        256.1,
+        452.3,
+        429.4
+      ],
+      "text": "Abstract. Automated segmentation of kidneys and kidney tumors is\nan important step in quantifying the tumor’s morphometrical details to\nmonitor the progression of the disease and accurately compare decisions\nregarding the kidney tumor treatment. Manual delineation techniques\nare often tedious, error-prone and require expert knowledge for creating\nunambiguous representation of kidneys and kidney tumors segmentation.\nIn this work, we propose an end-to-end boundary aware fully Convolu-\ntional Neural Networks (CNNs) for reliable kidney and kidney tumor\nsemantic segmentation from arterial phase abdominal 3D CT scans. We\npropose a segmentation network consisting of an encoder-decoder archi-\ntecture that speciﬁcally accounts for organ and tumor edge information\nby devising a dedicated boundary branch supervised by edge-aware loss\nterms. We have evaluated our model on 2019 MICCAI KiTS Kidney Tu-\nmor Segmentation Challenge dataset and our method has achieved dice\nscores of 0.9742 and 0.8103 for kidney and tumor repetitively and an\noverall composite dice score of 0.8923."
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 1,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        163.1,
+        442.4,
+        452.3,
+        462.4
+      ],
+      "text": "Keywords: Abdominal CT · Kidneys · Tumor · Segmentation Deep\nLearning · Convolutional Neural Networks"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 1,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        134.8,
+        485.5,
+        229.0,
+        497.4
+      ],
+      "text": "1\nIntroduction"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 1,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        134.8,
+        511.5,
+        480.7,
+        605.2
+      ],
+      "text": "Kidney cancer accounted for nearly 175,000 deaths worldwide in 2018 [1], and\nit is projected that 14,770 deaths will occur due to the disease in 2019 in the\nUS [10]. Current kidney tumor treatment planning include Radical Nephrectomy\n(RN) and Partial Nephrectomy (PN). In RN, both the tumor and the aﬀected\nkidney are removed whereas in PN the tumor is removed but kidneys are saved\n[11]. Although RNs were historically prevalent as a standard treatment procedure\nfor kidney tumors, new capabilities for earlier detection of the tumors as well as\nadvancements in surgery has made PNs a viable treatment approach [6]."
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 1,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        134.8,
+        607.3,
+        480.6,
+        665.1
+      ],
+      "text": "Automated segmentation of kidneys and kidney tumors assists physicians to\nobtain accurate morphometrical details of the tumor in an eﬃcient and reliable\nmanner as the manual delineation process is often tedious and error-prone. The\ndecision for kidney tumor treatment plan can be made by leveraging such impor-\ntant tumor’s morphometrical information. Recently, deep learning approaches for"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 1,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        10.9,
+        211.2,
+        37.6,
+        570.0
+      ],
+      "text": "arXiv:1909.06684v1  [eess.IV]  14 Sep 2019"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 2,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        134.8,
+        92.9,
+        314.6,
+        101.9
+      ],
+      "text": "2\nA. Myronenko, and A. Hatamizadeh"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 2,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        134.8,
+        295.7,
+        480.6,
+        315.7
+      ],
+      "text": "Fig. 1. Example of an axial slice of 3D CT images of two patients in KiTS dataset.\nRed color indicates kidneys, green color indicates tumor region."
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 2,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        134.8,
+        339.0,
+        480.6,
+        396.8
+      ],
+      "text": "semantic image segmentation have demonstrated prominent results in medical\nimage analysis for various applications [8,9,3,2]. The powerful non-linear fea-\nture extraction capabilities of CNNs along with the eﬀectiveness of the encoder-\ndecoder architectures have made it possible to employ CNNs for challenging\nsegmentation tasks."
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 2,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        134.8,
+        398.8,
+        480.6,
+        468.5
+      ],
+      "text": "In this paper, we propose a boundary-aware fully Convolutional Neural Net-\nworks for end-to-end and reliable semantic segmentation of kidneys and kidney\ntumor by encoding the information of edges in a dedicated stream that is super-\nvised by edge-aware losses. We have trained and tested our model on 2019 KiTS\nKidney Tumor Segmentation Challenge and results demonstrate the eﬀectiveness\nof our proposed framework."
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 2,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        134.8,
+        487.5,
+        236.8,
+        499.5
+      ],
+      "text": "2\nRelated Work"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 2,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        134.8,
+        511.7,
+        480.7,
+        665.1
+      ],
+      "text": "Traditionally, various techniques such as deformable models, GrabCuts, region\ngrowing and atlas-based methods have been applied to the problem of kidney\nsegmentation. In recent years, researchers have attempted to leverage the power\nof deep learning and CNNs to build segmentation frameworks that are more au-\ntomated and less dependant on incorporation of prior shape statistics. Thong et\nal. [12] proposed a 2D patch-based approach for kidney segmentation in contrast-\nenhanced CT scans by leveraging a modiﬁed ConvNet. Jackson et al. [7] devel-\noped a framework for detection and segmentation and of kidneys in non-contrast\nCT images by utilizing a 3D U-Net. Yang et al. [14] proposed a method for kidney\nand renal tumor segmentation in CT angiography image by a modiﬁed residual\nFCN that is equipped with a pyramid pooling module. Furthermore, Yin et al.\n[15] employed a cascaded approach for segmentation of kidneys with renal cell\ncarcinoma by training a CNN that predicts a bounding box around kidney and a"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 3,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        180.4,
+        92.9,
+        480.6,
+        101.9
+      ],
+      "text": "3D Kidney Tumor Segmentation using Boundary-Aware Networks\n3"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 3,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        343.8,
+        302.1,
+        373.5,
+        308.4
+      ],
+      "text": "Conv 3×3×3"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 3,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        317.6,
+        168.0,
+        441.5,
+        175.8
+      ],
+      "text": "+\n+\n+\nC"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 3,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        169.5,
+        302.0,
+        441.3,
+        308.8
+      ],
+      "text": "Bilinear Upsampling\nResidual Block\nConv 1×1×1\nAttention Gate"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 3,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        135.4,
+        186.7,
+        164.4,
+        191.5
+      ],
+      "text": "3×176×176×176"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 3,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        226.1,
+        324.3,
+        389.3,
+        333.2
+      ],
+      "text": "Fig. 2. Our proposed CNN architecture."
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 3,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        134.8,
+        361.3,
+        480.6,
+        407.1
+      ],
+      "text": "subsequent CNN that segments the kidneys. Recently, Xia et al. [13] proposed a\ntwo-stage approach for segmentation of kidney and space-occupying lesion area\nby using SCNN and ResNet for image retrieval and SIFT-ﬂow and MRF for\nsmoothing and pixel matching."
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 3,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        134.8,
+        436.1,
+        206.4,
+        448.0
+      ],
+      "text": "3\nMethods"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 3,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        134.8,
+        470.1,
+        283.8,
+        480.1
+      ],
+      "text": "3.1\nFramework Architecture"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 3,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        134.8,
+        498.6,
+        480.7,
+        665.1
+      ],
+      "text": "As illustrated in Figure 2, our network consists of the main segmentation branch\nand the additional boundary stream that processes the feature maps at the\nboundary level [4]. The main branch follows [9] an asymmetric encoder-decoder\nstructure. The input to the encoder is a 176x176x176 crop which is initially fed\ninto a 3x3x3 convolution with 16 ﬁlters. Feature maps are then extracted at\neach resolution by feeding them into a residual block [5] followed by a strided\n3x3x3 convolution (for downsizing and doubling of feature dimension). The bot-\ntom of the encoder entails four consecutive residual blocks that are connected\nto the decoder. The extracted feature maps in the decoder are upsampled us-\ning bilinear interpolation and added with feature maps from the encoder. The\noutput of the decoder is concatenated with the output of the boundary and fed\ninto a 1x1x1 convolution with 2 channels where channel-wise sigmoid activation\nσ(X) =\n1\n1+exp(−X) determines the probability of each voxel belonging to kidneys\nand tumor or only tumor classes."
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 4,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        134.8,
+        92.9,
+        314.6,
+        101.9
+      ],
+      "text": "4\nA. Myronenko, and A. Hatamizadeh"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 4,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        134.8,
+        118.0,
+        249.9,
+        128.0
+      ],
+      "text": "3.2\nBoundary Stream"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 4,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        134.8,
+        145.2,
+        480.6,
+        298.7
+      ],
+      "text": "The purpose of the boundary stream is to highlight the edge information of\nthe feature maps extracted in the main encoder by leveraging an additional\nattention-driven decoder. The attention gates in every resolution of the bound-\nary stream process the feature maps that are learned in the main encoder as\nwell as the output of the previous attention gates. For the ﬁrst attention gate,\nwe ﬁrst concatenate the output of the encoder with its previous resolution and\nfeed it into a residual block. In the attention gates, each input is ﬁrst fed into\na 3x3x3 convolutional layer with matching number of feature maps and then\nfused together, followed by ReLU. The output of the ReLU is fed into a 1x1x1\nconvolution layer followed by sigmoid function σ to obtain the attention map.\nConsecutively, an element-wise multiplication between the boundary stream fea-\nture maps and the computed attention map results in the output of the attention\ngates."
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 4,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        134.8,
+        325.9,
+        234.7,
+        335.9
+      ],
+      "text": "3.3\nLoss Functions"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 4,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        134.8,
+        353.1,
+        480.6,
+        375.1
+      ],
+      "text": "We use a dice loss function on the predicted outputs of the main stream as well\nas the boundary stream. The dice loss is as follows [8]:"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 4,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        231.7,
+        383.9,
+        373.5,
+        414.9
+      ],
+      "text": "LDice = 1 −\n2 ∗P ytrue ∗ypred\nP y2"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 4,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        304.6,
+        397.5,
+        354.1,
+        422.1
+      ],
+      "text": "true + P y2"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 4,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        349.8,
+        398.1,
+        480.6,
+        417.9
+      ],
+      "text": "pred + ϵ\n(1)"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 4,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        134.8,
+        429.0,
+        480.6,
+        462.9
+      ],
+      "text": "Where ypred, ytrue denote the voxel-wise semantic predictions of the main\nstream and their corresponding labels, ϵ is a small constant to avoid division by\nzero and summation is carried over the total number of voxels."
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 4,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        134.8,
+        466.4,
+        480.7,
+        500.2
+      ],
+      "text": "Additionally, we add a weighted Binary Cross Entropy (BCE) loss to the\nboundary stream loss in order to deal with the imbalanced number of boundary\nand non-boundary voxels:"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 4,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        224.0,
+        527.9,
+        276.7,
+        539.5
+      ],
+      "text": "LBCE = −β"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 4,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        281.0,
+        525.7,
+        295.4,
+        535.7
+      ],
+      "text": "X"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 4,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        278.9,
+        542.0,
+        297.1,
+        549.7
+      ],
+      "text": "j∈y+"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 4,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        299.3,
+        527.9,
+        391.4,
+        539.5
+      ],
+      "text": "logP(ypred,j = 1|x; θ)"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 4,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        226.2,
+        556.9,
+        267.2,
+        567.0
+      ],
+      "text": "−(1 −β)"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 4,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        271.2,
+        554.8,
+        285.6,
+        564.7
+      ],
+      "text": "X"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 4,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        268.9,
+        571.1,
+        287.4,
+        578.6
+      ],
+      "text": "j∈y−"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 4,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        289.5,
+        556.9,
+        381.7,
+        568.5
+      ],
+      "text": "logP(ypred,j = 0|x; θ)"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 4,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        467.9,
+        547.1,
+        480.6,
+        557.1
+      ],
+      "text": "(2)"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 4,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        134.8,
+        593.9,
+        480.6,
+        639.7
+      ],
+      "text": "Where x, θ, y−and y+ denote the 3D input image, CNN parameters, edge\nand non-edge voxel sets respectively. β is the ratio of non-edge pixels over the\nentire number of voxels and P(ypred,j) denotes the probability of the predicated\nclass at voxel j."
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 4,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        134.8,
+        643.2,
+        480.6,
+        665.1
+      ],
+      "text": "The total loss function that is minimized during training is computed by\ntaking the average of losses for tumor-only and foreground class predictions."
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 5,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        180.4,
+        92.9,
+        480.6,
+        101.9
+      ],
+      "text": "3D Kidney Tumor Segmentation using Boundary-Aware Networks\n5"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 5,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        134.8,
+        116.5,
+        369.2,
+        128.4
+      ],
+      "text": "4\nImplementation Details and Dataset"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 5,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        134.8,
+        141.4,
+        480.7,
+        270.9
+      ],
+      "text": "KiTS 2019 dataset : Kidney Tumor Segmentation Challenge (KiTS 2019) pro-\nvides data of multi-phase 3D CTs, voxel-wise ground truth labels, and com-\nprehensive clinical outcomes for 300 patients who underwent nephrectomy for\nkidney tumors between 2010 to 2018 at University of Minnesota [6]. 210 pa-\ntients were randomly selected for the training set and the remaining 90 patients\nwere left as a testing set. The annotation was performed in the transverse plane\nwith regular subsampling of series in the longitudinal direction with roughly 50\nannotated slices depicting the Kidney for each patient. The labels for excluded\nslices were computed by using a contour interpolation algorithm [6]. Figure 1\nillustrates 2D axial view of the example images from two patients in the training\nset of KiTS 2019."
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 5,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        134.8,
+        284.3,
+        480.7,
+        354.0
+      ],
+      "text": "Data processing : We normalized the CT data to [-1, 1] range by dividing the\nintensity values by 1000 and clipping the values that fall outside this range.\nFor training, images were re-sampled to 1x1x1mm isotropic resolution and re-\nsampled back to their original resolution after the inference. The re-sampled\noutput size of the images was on average 512x512 in axial plane and 400 −800\nalong the inf-sup direction."
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 5,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        134.8,
+        366.2,
+        480.7,
+        508.9
+      ],
+      "text": "Implementation details :We have implemented our method in Pytorch3. Since\nthe re-sampled CT image were often large, we used a 176x176x176 crop during\ntraining. The cropping region was centered on the kidney tumor label (with\nprobability 0.8), on any foreground (with probability 0.1) and on background\n(with probability 0.1). We found it important to sample more frequently from\nthe tumor region. The model was trained on 8 NVIDIA Tesla V100 16GB GPUs\n(DGX-1 server). We used a batch size of 8 and the Adam optimization algorithm\nwith the initial learning rate of α0 = 5e−5 that was further decreased according\nto α = α0 ∗(1 −e/Ne)0.9 [9], where e and Ne denote the current epoch counter\ntotal number of epochs (300 in our case). During inference, we have leveraged\ntest time augmentation (TTA) and have used an ensemble of 5 models to further\nimprove the results."
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 5,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        134.8,
+        522.3,
+        480.6,
+        580.1
+      ],
+      "text": "Evaluation metrics : We have adopted the same three evaluation metrics as\noutlined by KiTS 2019 challenge. Kidneys dice denote the segmentation perfor-\nmance when considering both kidneys and tumors as the foreground whereas\ntumor dice considers everything except the tumor as background. Composite\ndice is simply the average of kidneys dice and tumor dice."
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 5,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        134.8,
+        599.9,
+        290.0,
+        611.9
+      ],
+      "text": "5\nResults and Discussion"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 5,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        134.8,
+        624.9,
+        480.6,
+        646.8
+      ],
+      "text": "Preliminary : Table 1 represents the evaluation results of our model on our own\ndataset split. We divided the training set of KiTS 2019 dataset into our own"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 5,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        137.5,
+        652.1,
+        224.1,
+        664.9
+      ],
+      "text": "3 http://pytorch.org/"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 6,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        134.8,
+        92.9,
+        314.6,
+        101.9
+      ],
+      "text": "6\nA. Myronenko, and A. Hatamizadeh"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 6,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        134.8,
+        115.1,
+        480.6,
+        135.0
+      ],
+      "text": "Table 1. Preliminary dice results based on our own data split as well as 2 approximate\nscores provided by KiTS 2019 submission portal."
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 6,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        143.1,
+        146.8,
+        472.3,
+        200.0
+      ],
+      "text": "Model\nKidneys Dice Tumor Dice Composite Dice\nOur split (single model)\n0.957\n0.821\n0.889\nOur split (TTA + ensemble)\n0.970\n0.834\n0.902\nApproximate score (single model)\n0.955\n0.736\n0.845\nApproximate score (TTA + ensemble)\n0.974\n0.784\n0.879"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 6,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        134.8,
+        227.0,
+        480.7,
+        332.6
+      ],
+      "text": "subsets for training and validation and evaluated the performance of a single\nmodel as well as an ensemble of 5 models. Finally the KiTS 2019 submission\nprovided two approximate scores based on a small subset of its validation dataset\nand this allowed us to list the approximate scores of the single model and the\nensemble model. Evidently, the dice scores from evaluations on our own split were\nsimilar and consistent with the approximate scores provided by the submission\nportal(see Table 1). Figure 3 illustrates the segmentation visualizations of our\nmethod and their corresponding ground truth from two cases in the validation\nset of our own split."
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 6,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        134.8,
+        344.1,
+        480.7,
+        429.4
+      ],
+      "text": "KiTS 2019 Test Set : The evaluation results4 of our model on the testing set of\nKiTS 2019 dataset is presented in Table 2. The kidneys dice is very similar to\napproximate scores obtained by the ensemble model that utilizes TTA while the\ntumor dice is %3.35 better than its counterpart. Moreover, our method ranks\n9th overall in terms of the composite dice of kidneys and Tumor among 100\nparticipants in KiTS 2019 challenge. Our model in particular performed better\non kidneys segmentation task."
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 6,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        167.7,
+        451.5,
+        447.7,
+        460.5
+      ],
+      "text": "Table 2. The Evaluation results of our model on KiTS 2019 test set."
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 6,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        222.1,
+        470.6,
+        393.3,
+        479.5
+      ],
+      "text": "Kidneys Dice Tumor Dice Composite Dice"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 6,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        236.0,
+        481.9,
+        374.3,
+        490.9
+      ],
+      "text": "0.9742\n0.8103\n0.8923"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 6,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        134.8,
+        537.3,
+        219.3,
+        549.2
+      ],
+      "text": "6\nConclusion"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 6,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        134.8,
+        563.9,
+        480.6,
+        645.6
+      ],
+      "text": "In this work, we have proposed an end-to-end 3D framework for reliable and\nautomated segmentation of kidneys and kidney tumors. Our network consists\nof a an encoder-decoder architecture equipped with a boundary stream that\nprocesses the edge information separately and is supervised by edge-aware losses.\nWe have validated the eﬀectiveness of our approach by training and testing our\nmodel on 2019 MICCAI KiTS Kidney Tumor Segmentation Challenge dataset.\nOur method has achieved dice scores of 0.9742 and 0.8103 for kidney and tumor"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 6,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        137.5,
+        652.1,
+        325.5,
+        664.9
+      ],
+      "text": "4 http://results.kits-challenge.org/miccai2019/"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 7,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        180.4,
+        92.9,
+        480.6,
+        101.9
+      ],
+      "text": "3D Kidney Tumor Segmentation using Boundary-Aware Networks\n7"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 7,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        180.0,
+        460.7,
+        445.6,
+        469.7
+      ],
+      "text": "(a) Our Predictions\n(b) Ground truth Labels"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 7,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        156.4,
+        481.6,
+        459.0,
+        490.6
+      ],
+      "text": "Fig. 3. Visualization of (a) our model’s predictions (b) ground truth labels"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 7,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        134.8,
+        516.8,
+        480.6,
+        538.7
+      ],
+      "text": "repetitively and an overall composite dice score of 0.8923 and ranks 9th overall\nin terms of composite dice among 100 participants of this challenge."
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 7,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        134.8,
+        561.7,
+        197.7,
+        573.7
+      ],
+      "text": "References"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 7,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        139.4,
+        589.6,
+        480.7,
+        664.9
+      ],
+      "text": "1. Bray, F., Ferlay, J., Soerjomataram, I., Siegel, R.L., Torre, L.A., Jemal, A.: Global\ncancer statistics 2018: Globocan estimates of incidence and mortality worldwide\nfor 36 cancers in 185 countries. CA: a cancer journal for clinicians 68(6), 394–424\n(2018)\n2. Hatamizadeh, A., Hoogi, A., Sengupta, D., Lu, W., Wilcox, B., Rubin, D., Ter-\nzopoulos, D.: Deep active lesion segmentation. arXiv preprint arXiv:1908.06933\n(2019)"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 8,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        134.8,
+        92.9,
+        314.6,
+        101.9
+      ],
+      "text": "8\nA. Myronenko, and A. Hatamizadeh"
+    },
+    {
+      "paper_id": "1909.06684",
+      "file_name": "1909.06684_3D_Kidneys_and_Kidney_Tumor_Semantic_Seg.pdf",
+      "page_number": 8,
+      "section": "Abstract. Automated segmentation of kidneys and kidney tumors is",
+      "bbox": [
+        134.8,
+        118.8,
+        480.7,
+        566.1
+      ],
+      "text": "3. Hatamizadeh, A., Hosseini, H., Liu, Z., Schwartz, S.D., Terzopoulos, D.: Deep\ndilated convolutional nets for the automatic segmentation of retinal vessels. arXiv\npreprint arXiv:1905.12120 (2019)\n4. Hatamizadeh, A., Terzopoulos, D., Myronenko, A.: End-to-end boundary aware\nnetworks for medical image segmentation. arXiv preprint arXiv:1908.08071 (2019)\n5. He, K., Zhang, X., Ren, S., Sun, J.: Identity mappings in deep residual networks.\nIn: European Conference on Computer Vision (ECCV) (2016)\n6. Heller, N., Sathianathen, N., Kalapara, A., Walczak, E., Moore, K., Kaluzniak,\nH., Rosenberg, J., Blake, P., Rengel, Z., Oestreich, M., et al.: The kits19 challenge\ndata: 300 kidney tumor cases with clinical context, ct semantic segmentations, and\nsurgical outcomes. arXiv preprint arXiv:1904.00445 (2019)\n7. Jackson, P., Hardcastle, N., Dawe, N., Kron, T., Hofman, M., Hicks, R.J.: Deep\nlearning renal segmentation for fully automated radiation dose estimation in un-\nsealed source therapy. Frontiers in oncology 8, 215 (2018)\n8. Milletari, F., Navab, N., Ahmadi, S.A.: V-net: Fully convolutional neural networks\nfor volumetric medical image segmentation. In: Fourth International Conference\non 3D Vision (3DV) (2016)\n9. Myronenko, A.: 3D MRI brain tumor segmentation using autoencoder regulariza-\ntion. In: BrainLes, Medical Image Computing and Computer Assisted Intervention\n(MICCAI). pp. 311–320. LNCS, Springer (2018), https://arxiv.org/abs/1810.\n11654\n10. Siegel, R.L., Miller, K.D., Jemal, A.: Cancer statistics, 2019. CA: a cancer journal\nfor clinicians 69(1), 7–34 (2019)\n11. Sun, M., Abdollah, F., Bianchi, M., Trinh, Q.D., Jeldres, C., Thuret, R., Tian, Z.,\nShariat, S.F., Montorsi, F., Perrotte, P., et al.: Treatment management of small\nrenal masses in the 21st century: a paradigm shift. Annals of surgical oncology\n19(7), 2380–2387 (2012)\n12. Thong, W., Kadoury, S., Pich´e, N., Pal, C.J.: Convolutional networks for kidney\nsegmentation in contrast-enhanced ct scans. Computer Methods in Biomechanics\nand Biomedical Engineering: Imaging & Visualization 6(3), 277–282 (2018)\n13. Xia, K.j., Yin, H.s., Zhang, Y.d.: Deep semantic segmentation of kidney and space-\noccupying lesion area based on scnn and resnet models combined with sift-ﬂow\nalgorithm. Journal of medical systems 43(1), 2 (2019)\n14. Yang, G., Li, G., Pan, T., Kong, Y., Wu, J., Shu, H., Luo, L., Dillenseger, J.L.,\nCoatrieux, J.L., Tang, L., et al.: Automatic segmentation of kidney and renal tumor\nin ct images based on 3d fully convolutional neural network with pyramid pooling\nmodule. In: 2018 24th International Conference on Pattern Recognition (ICPR).\npp. 3790–3795. IEEE (2018)\n15. Yin, K., Liu, C., Bardis, M., Martin, J., Liu, H., Ushinsky, A., Glavis-Bloom, J.,\nChantaduly, C., Chow, D.S., Houshyar, R., et al.: Deep learning segmentation of\nkidneys with renal cell carcinoma. (2019)"
+    }
+  ]
+}

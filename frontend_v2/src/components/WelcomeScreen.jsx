@@ -60,6 +60,9 @@ export default function WelcomeScreen({ onStartReview, onLoadBenchmark, existing
 
     try {
       if (downloadPromise) {
+        setPipelineStage('Initializing Workspace')
+        addLog('Resetting corpus workspace for fresh topic review...')
+        await fetch('/api/clear-corpus', { method: 'POST' }).catch(() => {})
         setPipelineStage('Downloading Papers')
         addLog('Agent 1: Fetching candidate PDFs from arXiv repository...')
         await downloadPromise

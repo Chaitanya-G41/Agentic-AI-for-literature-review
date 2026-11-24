@@ -8,8 +8,8 @@ mermaid.initialize({
   themeVariables: {
     primaryColor: '#FFFFFF',
     primaryTextColor: '#121316',
-    primaryBorderColor: '#3B82F6',
-    lineColor: '#94A3B8',
+    primaryBorderColor: '#121316',
+    lineColor: '#3D3D3D',
     background: '#FAF8F5',
     fontFamily: 'Plus Jakarta Sans, system-ui, sans-serif',
     fontSize: '12px',
@@ -23,6 +23,8 @@ const LABELS = {
   research_gaps_flowchart: 'Research Gaps',
 }
 
+let renderSequence = 0
+
 function Chart({ code, id }) {
   const ref = useRef()
   const [err, setErr] = useState(null)
@@ -30,6 +32,7 @@ function Chart({ code, id }) {
   useEffect(() => {
     let isCancelled = false
     if (!ref.current || !code) return
+    let cancelled = false
     setErr(null)
     const clean = code
       .replace(/^```mermaid\s*/i, '')
@@ -37,7 +40,7 @@ function Chart({ code, id }) {
       .replace(/^%%(?!\{init)[^\n]*\n?/gm, '')
       .trim()
 
-    const uniqueId = `mmd-${id}-${Date.now()}`
+    const uniqueId = mmd--
     try {
       mermaid.render(uniqueId, clean)
         .then(({ svg }) => {

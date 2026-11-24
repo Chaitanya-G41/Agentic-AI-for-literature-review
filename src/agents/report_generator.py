@@ -19,6 +19,7 @@ from pydantic import BaseModel, Field
 from typing import List, Optional, Dict, Any, Tuple
 
 from src.agents.llm_manager import LLMManager
+from src.agents.report_evidence import LLM_SYNTHESIS_PROMPT, as_dict, numerical_evidence
 
 class LiteratureReviewReport(BaseModel):
     title: str = Field(description="Title of the report")
@@ -249,7 +250,7 @@ def extract_corpus_domain(comp_analysis=None, schemas=None, report_title: str = 
     if schemas:
         for s in schemas:
             pid = str(_get_val(s, "paper_id", ""))
-            txt = f"{_get_val(s, 'paper_title', '')} {_get_val(s, 'core_problem', '')}"
+txt = f"{_get_val(s, 'paper_title', '')} {_get_val(s, 'core_problem', '')} {_get_val(s, 'methodology_summary', '')}"
             paper_texts[pid] = paper_texts.get(pid, "") + " " + txt
 
     if comp_analysis:
@@ -257,15 +258,16 @@ def extract_corpus_domain(comp_analysis=None, schemas=None, report_title: str = 
             pid = str(_get_val(r, "paper_id", ""))
             txt = f"{_get_val(r, 'paper_title', '')} {_get_val(r, 'paradigm', '')} {_get_val(r, 'architecture_category', '')}"
             paper_texts[pid] = paper_texts.get(pid, "") + " " + txt
+            paper_texts[pid] = paper_texts.get(pid, "") + " " + txt
 
     stopwords = {
         "a", "an", "the", "and", "or", "of", "in", "on", "at", "to", "for", "with",
         "by", "from", "via", "into", "towards", "using", "through", "can", "large",
         "language", "model", "models", "learning", "based", "approach", "new", "study",
-        "analysis", "automated", "system", "systems", "framework", "evaluation", "paper",
-        "papers", "cross", "corpus", "review", "literature", "methodology", "methodologies",
-        "testbed", "benchmark", "benchmarks", "empirical", "formulation", "question",
-        "specialized", "general", "proposed", "novel"
+"analysis", "automated", "system", "systems", "framework", "evaluation", "evaluations",
+        "benchmark", "benchmarks", "testbed", "testbeds", "specialized", "dataset", "datasets",
+        "paper", "papers", "cross", "corpus", "review", "literature", "methodology", "methodologies",
+        "empirical", "formulation", "question", "general", "proposed", "novel"
     }
 
     bigram_paper_counts = Counter()
@@ -1748,15 +1750,16 @@ def generate_themes_mindmap(comp_analysis=None, report_title: str = "", schemas:
             short_t = escape_mermaid_label(" ".join(p_title.split()[:3]), wrap_len=18)
             lines.append(f'    {t_id} --> {p_node}["<b>{short_t}</b><br/><span style=\'font-size:9.5px;color:#64748B;\'>{p_id}</span>"]:::paperStyle')
 
-    lines.extend([
+lines.extend([
         "",
         "    classDef coreStyle fill:#0F766E,stroke:#115E59,stroke-width:2px,color:#FFFFFF,font-size:12px,font-weight:bold,rx:6px,ry:6px;",
         "    classDef themeStyle fill:#F0FDFA,stroke:#0D9488,stroke-width:1.5px,color:#134E4A,font-size:11px,font-weight:600,rx:5px,ry:5px;",
         "    classDef divergenceStyle fill:#FFFBEB,stroke:#D97706,stroke-width:1.5px,color:#92400E,font-size:11px,font-weight:600,rx:5px,ry:5px;",
         "    classDef paperStyle fill:#FFFFFF,stroke:#CBD5E1,stroke-width:1px,color:#334155,font-size:10px,rx:4px,ry:4px;",
-        "    linkStyle default stroke:#94A3B8,stroke-width:1.2px;",
-        "```"
+        "    linkStyle default stroke:#64748B,stroke-width:1.2px;"
     ])
+
+    lines.append("```")
     return "\n".join(lines)
 
 
@@ -1913,7 +1916,7 @@ def inject_mermaid_diagrams_into_markdown(report_md: str, diagrams: dict) -> str
 
     if flowchart and "%% diagram_id: methodology_flowchart" not in md:
 
-        match = re.search(r'(##\s*2\.\s*(?:Architectural Paradigms|Comparative Analysis Matrix).*?\n)', md, re.IGNORECASE)
+        match = re.search(r'(##\s*2\.\s*(?:Methodological Taxonomy|Architectural Paradigms|Comparative Analysis Matrix).*?\n)', md, re.IGNORECASE)
 
         if match:
 
@@ -1963,7 +1966,7 @@ def generate_literature_review(schemas, summaries, comp_analysis, gap_analysis, 
 
     llm = llm_manager or LLMManager()
 
-    # 1. Determine Report Title and Corpus Domain
+# 1. Determine Report Title and Corpus Domain
     if not report_title:
         aq_file = "data/active_query.json"
         active_q = ""
@@ -1978,30 +1981,12 @@ def generate_literature_review(schemas, summaries, comp_analysis, gap_analysis, 
             report_title = f"Automated Literature Review: Synthesis of {active_q}"
         elif len(schemas) == 1:
             s0 = schemas[0]
-            p_title = _get_val(s0, "paper_title", "Research Paper").replace("_", " ").strip()
-            corpus_domain = p_title
-            report_title = f"Automated Literature Review: Synthesis of {p_title}"
+            t0 = _get_val(s0, "paper_title", "")
+            corpus_domain = t0 if t0 else "Autonomous Research Systems"
+            report_title = f"Automated Literature Review: Deep Single-Paper Synthesis of {corpus_domain}"
         else:
-            corpus_domain = extract_corpus_domain(comp_analysis=comp_analysis, schemas=schemas, default_domain="Scientific Research")
+            corpus_domain = extract_corpus_domain(comp_analysis, schemas, report_title, default_domain="Scientific Literature")
             report_title = f"Automated Literature Review: Synthesis of {corpus_domain}"
-    else:
-        corpus_domain = extract_corpus_domain(report_title=report_title, default_domain="Scientific Research")
-
-    # 2. Build structured diagram data
-    diag_data = build_dynamic_diagram_data(
-        schemas=schemas,
-        summaries=summaries,
-        comp_analysis=comp_analysis,
-        gap_analysis=gap_analysis,
-        report_title=report_title
-    )
-
-    # 3. Synthesize deterministic Mermaid diagrams (0 LLM Calls)
-    diagrams = {
-        "methodology_flowchart": generate_methodology_flowchart(comp_analysis, report_title=report_title, schemas=schemas, diag_data=diag_data),
-        "themes_mindmap": generate_themes_mindmap(comp_analysis, report_title=report_title, schemas=schemas, diag_data=diag_data),
-        "research_gaps_flowchart": generate_research_gaps_flowchart(comp_analysis, gap_analysis, schemas=schemas, report_title=report_title, diag_data=diag_data)
-    }
 
     # 4. Build Overview Table
     overview_table = "| Paper ID | Title | Venue | Mode |\n| :--- | :--- | :--- | :--- |\n"
@@ -2010,7 +1995,8 @@ def generate_literature_review(schemas, summaries, comp_analysis, gap_analysis, 
         title = _get_val(p, "paper_title", "")
         venue = _get_val(p, "venue", "arXiv / Peer-Reviewed")
         mode = _get_val(p, "generation_mode", "LLM")
-        overview_table += f"| {pid} | {title} | {venue} | {mode} |\n"
+overview_table += f"| [{pid}] | {title} | {venue} | {mode} |
+"
 
     # 5. Extract Gaps summary
     gaps_text = ""
@@ -2048,65 +2034,34 @@ def generate_literature_review(schemas, summaries, comp_analysis, gap_analysis, 
 
         print("   [Agent 6] Synthesizing Final Literature Review Draft [ONE PROMPT ONLY] via LLM...")
 
-        prompt = f"""You are a distinguished Senior AI Researcher.
-
-Synthesize a comprehensive, publication-grade Literature Review Report titled:
-
-'{report_title}'
-
-Analyze the following {len(schemas)} papers based on their structured extractions:
-
-=== CORPUS OVERVIEW ===
-
-{overview_table}
-
-=== COMPARATIVE MATRIX & FINDINGS ===
-
-{comp_table[:3000] if comp_table else "Comparative data across methods and benchmarks."}
-
-=== IDENTIFIED RESEARCH GAPS ===
-
-{gaps_text}
-
-FORMAT REQUIREMENTS:
-
-Draft a complete academic literature review in Markdown with these exact sections:
-
-# {report_title}
-
-## Executive Summary
-
-## 1. Corpus Overview & Scope
-
-(Include the markdown table provided above)
-
-## 2. Architectural Paradigms & Methodological Analysis
-
-(Deep comparative narrative of the techniques, frameworks, and foundational methodologies)
-
-## 3. Empirical Benchmark Analysis
-
-(Analysis of reported evaluation datasets, benchmarks, and experimental performance)
-
-## 4. Cross-Paper Research Gaps & Unexplored Frontiers
-
-(Synthesize systemic bottlenecks, conflicting evidence, and open problems)
-
-## 5. Strategic Roadmap & Future Directions
-
-## 6. References & Citation Anchors
-
-"""
+        evidence = {
+            "papers": [dict(as_dict(p), quantitative_evidence=numerical_evidence(p)) for p in schemas],
+            "summaries": [as_dict(v) for v in (summaries.values() if isinstance(summaries, dict) else summaries)],
+            "comparative_analysis": as_dict(comp_analysis),
+            "gap_analysis": as_dict(gap_analysis),
+        }
+        prompt = (LLM_SYNTHESIS_PROMPT + f"\n# {report_title}\n\nCORPUS OVERVIEW\n{overview_table}"
+                  + "\nSOURCE EVIDENCE (JSON)\n" + json.dumps(evidence, ensure_ascii=False)
+                  + "\nEND OF EVIDENCE. Now write the full survey in one response. Follow the section word allocations above, "
+                  "aiming for approximately 6,000 words of substantive analysis. Include the title, all six sections, "
+                  "both comparison tables, three fully developed research directions and complete references. "
+                  "Do not condense the survey to a short overview. Preserve uncertainty and exact source values.")
 
         sys_inst = "You are an expert scientific researcher. Write an exhaustive, rigorous, publication-quality literature survey in Markdown."
 
-        llm_text = llm.generate_text(prompt, system_instruction=sys_inst)
+        llm_text = llm.generate_text(prompt, system_instruction=sys_inst, max_tokens=16384)
 
         if llm_text and len(llm_text) > 400:
 
             report_markdown = embed_all_visuals_in_report(llm_text, paper_visuals, diagrams)
 
             print("   [GENUINE-LLM] Literature Review report synthesized successfully via [ONE PROMPT ONLY] with diagrams & visuals!")
+
+    quantitative_table = "| Paper ID | Benchmark Dataset | Reported Evaluation Metrics | Relative Outperformance |\n| --- | --- | --- | --- |\n"
+    for paper in schemas:
+        cell = lambda value: str(value).replace("|", "\\|").replace("\n", " ")
+        quantitative_table += f"| [{_get_val(paper, 'paper_id', '')}] | {cell('; '.join(_get_val(paper, 'datasets_eval', []) or []))} | {cell(_get_val(paper, 'empirical_results', 'Not reported'))} | See reported results; no inferred ranking |\n"
+    references = "\n".join(f"- [{_get_val(p, 'paper_id', '')}] {_get_val(p, 'paper_title', '')}. {_get_val(p, 'venue', 'Not reported')}" for p in schemas)
 
     # Fallback template if offline or LLM unavailable
 
@@ -2120,17 +2075,23 @@ Draft a complete academic literature review in Markdown with these exact section
 
 **Generated At:** {generated_at}
 
+## Executive Summary
+
+**System Methodology Note:** Deterministic fallback assembled from supplied schemas,
+comparison rows and gap records. No LLM synthesis was available. This is an evidence
+inventory, not a completed publication-grade survey. Source claims require inspection.
+
 ## 1. Corpus Overview & Scope
 
 {overview_table}
 
-## 2. Architectural Paradigms & Methodological Analysis
+## 2. Methodological Taxonomy & Comparative Architecture
 
 {comp_table}
 
-## 3. Empirical Benchmark Analysis
+## 3. Empirical Benchmark Analysis & Quantitative Findings
 
-{gaps_text}
+{quantitative_table}
 
 ## 4. Cross-Paper Research Gaps & Unexplored Frontiers
 
@@ -2140,11 +2101,16 @@ Draft a complete academic literature review in Markdown with these exact section
 
 This literature review surveyed foundational frameworks in {corpus_domain}. Future work must address empirical constraints, benchmark trade-offs, and open research challenges.
 
-## 6. References & Citation Anchors
+## 6. References & Grounded Citation Anchors
+
+{references}
 
 """
 
         report_markdown = embed_all_visuals_in_report(raw_fallback, paper_visuals, diagrams)
+
+    if len(re.sub(r"```[\s\S]*?```", "", report_markdown)) <= 25000:
+        report_markdown += "\n\n> Synthesis quality note: this draft is below the 25,000-character survey target; expand and verify before publication.\n"
 
     output_dir = "data/reports"
     os.makedirs(output_dir, exist_ok=True)

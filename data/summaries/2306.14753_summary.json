@@ -1,24 +1,24 @@
 {
   "paper_id": "2306.14753",
-  "paper_title": "2306.14753 The Deep Arbitrary Polynomial Chaos Neur",
+  "paper_title": "The Deep Arbitrary Polynomial Chaos Neur",
   "authors": [
-    "Research Authors"
+    "N/A"
   ],
-  "venue": "arXiv / Peer-Reviewed Venue",
-  "grounded_citation": "[Authors et al., arXiv / Peer-Reviewed Venue]",
+  "venue": "N/A",
+  "grounded_citation": "[N/A et al., N/A]",
   "summary_source": "Heuristic Engine Fallback (Grounded Vector RAG Engine (Design Rule: 0 LLM calls))",
   "problem_motivation": {
-    "problem_statement": "Artificial Intelligence and Machine learning have been widely used in various fields of mathematical computing, physical modeling, computational science, communication science, and stochastic analysis. Approaches based on Deep Artificial Neural Netwo",
-    "motivation": "Overcoming empirical and methodological bottlenecks in existing approaches to achieve validated outcomes in 2306.14753 The Deep Arbitrary Polynomial Chaos Neur.",
+    "problem_statement": "Integrating Deep Artificial Neural Networks (DANNs) with the Theory of Polynomial Chaos Expansion (PCE) for data-driven modeling.",
+    "motivation": "Overcoming empirical and methodological bottlenecks in existing approaches to achieve validated outcomes in The Deep Arbitrary Polynomial Chaos Neur.",
     "core_challenges": [
-      "Accurate representation and modeling within 2306.14753 The Deep Arbitrary Polynomial Chaos Neur",
-      "Empirical validation across benchmarks: Because, Instead",
-      "Addressing explicit constraints: Artificial Intelligence and Machine learning have been widely used in various fi..."
+      "Accurate representation and modeling within The Deep Arbitrary Polynomial Chaos Neur",
+      "Empirical validation across benchmarks: Available data set of limited size (used for moment evaluation).",
+      "Addressing explicit constraints: For a majority of deep learning approaches based on DANNs, the kernel structure ..."
     ]
   },
   "proposed_methodology": {
-    "method_name": "2306.14753",
-    "core_architecture": "Artificial Intelligence and Machine learning have been widely used in various fields of mathematical computing, physical modeling, computational science, communication science, and stochastic analysis. Approaches based on Deep Artificial Neural Networks (DANN) are very popular in our days. Depending on the learning task, the exact form of DANNs is ",
+    "method_name": "The",
+    "core_architecture": "Employing a purely data-driven generalization of PCE (introduced in 2012 by Oladyshkin and Nowak) to construct a multi-variate orthonormal polynomial basis (aPC representation) based only on 2d raw stochastic moments evaluated from limited data.",
     "technical_innovations": [
       "Problem Formulation & Data Ingestion",
       "Method Execution & Architecture",
@@ -28,24 +28,21 @@
   },
   "empirical_results": {
     "evaluated_datasets": [
-      "Because",
-      "Instead",
-      "DANN",
-      "DaPC"
+      "Available data set of limited size (used for moment evaluation)."
     ],
     "key_metrics": [
       "Reported Metric",
       "Benchmark Score"
     ],
-    "quantitative_results_summary": "Theory of polynomial chaos expansion (PCE) was originally introduced by Norbert Wiener [113] in 1938. In PCE, the dependence of the model response (output) on all inputs is expressed using projection onto an orthogonal or orthonormal multi-variate polynomial basis [33,104]. For the current paper, we",
-    "baseline_comparisons": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in 2306.14753 The Deep Arbitrary Polynomial Chaos Neur."
+    "quantitative_results_summary": "The resulting polynomials are real if and only if the Hankel matrix of moments is positive definite. Numerical solutions for the linear system can be obtained via lower-order moments, recursive relations, Gram-Schmidt orthogonalization, or Stieltjes procedure.",
+    "baseline_comparisons": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in The Deep Arbitrary Polynomial Chaos Neur."
   },
   "explicit_limitations": {
     "stated_limitations": [
-      "Artificial Intelligence and Machine learning have been widely used in various fields of mathematical computing, physical modeling, computational science, communication science, and stochastic analysis. Approaches based on Deep Artificial Neural Networks (DANN) are very popular in our days. Depending"
+      "For a majority of deep learning approaches based on DANNs, the kernel structure of neural signal processing remains undetermined/unspecified in the provided context."
     ],
-    "failure_modes": "Failure boundaries and error cases associated with Artificial Intelligence and Machine learning have been widely used in various fields of mathematical computing, physical.",
-    "computational_tradeoffs": "Computational requirements, runtime complexity, and data scaling constraints discussed in 2306.14753 The Deep Arbitrary Polynomial Chaos Neur."
+    "failure_modes": "Failure boundaries and error cases associated with For a majority of deep learning approaches based on DANNs, the kernel structure of neural signal processing remains unde.",
+    "computational_tradeoffs": "Computational requirements, runtime complexity, and data scaling constraints discussed in The Deep Arbitrary Polynomial Chaos Neur."
   },
-  "markdown_full_summary": "# Grounded Literature Review Summary: 2306.14753 The Deep Arbitrary Polynomial Chaos Neur\n\n**Citation Anchor:** [Authors et al., arXiv / Peer-Reviewed Venue]  \n**Venue:** arXiv / Peer-Reviewed Venue | **Authors:** Research Authors  \n\n---\n\n### 1. Core Problem & Motivation\nArtificial Intelligence and Machine learning have been widely used in various fields of mathematical computing, physical modeling, computational science, communication science, and stochastic analysis. Approaches based on Deep Artificial Neural Netwo\n\n*Motivation & Gaps:* Overcoming empirical and methodological bottlenecks in existing approaches to achieve validated outcomes in 2306.14753 The Deep Arbitrary Polynomial Chaos Neur.  \n*Key Challenges Tackled:*\n- Accurate representation and modeling within 2306.14753 The Deep Arbitrary Polynomial Chaos Neur\n- Empirical validation across benchmarks: Because, Instead\n\n---\n\n### 2. Proposed Methodology & Technical Architecture\n**Architecture Overview:**  \nArtificial Intelligence and Machine learning have been widely used in various fields of mathematical computing, physical modeling, computational science, communication science, and stochastic analysis. Approaches based on Deep Artificial Neural Networks (DANN) are very popular in our days. Depending on the learning task, the exact form of DANNs is \n\n**Algorithmic Innovation:**  \nCore pipeline execution parameterized across 3 methodological phases.  \n\n*Core Technical Innovations:*\n- Problem Formulation & Data Ingestion\n- Method Execution & Architecture\n\n---\n\n### 3. Empirical Results & Benchmark Datasets\n**Evaluated Datasets:** Because, Instead, DANN, DaPC  \n**Key Metrics:** Reported Metric, Benchmark Score  \n\n**Quantitative Findings:**  \nTheory of polynomial chaos expansion (PCE) was originally introduced by Norbert Wiener [113] in 1938. In PCE, the dependence of the model response (output) on all inputs is expressed using projection onto an orthogonal or orthonormal multi-variate polynomial basis [33,104]. For the current paper, we  \n\n**Baseline Comparison:**  \nDemonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in 2306.14753 The Deep Arbitrary Polynomial Chaos Neur.\n\n---\n\n### 4. Explicit Limitations & Failure Modes\n**Stated Limitations:**  \nArtificial Intelligence and Machine learning have been widely used in various fields of mathematical computing, physical modeling, computational science, communication science, and stochastic analysis. Approaches based on Deep Artificial Neural Networks (DANN) are very popular in our days. Depending  \n\n**Failure Modes & Bottlenecks:**  \nFailure boundaries and error cases associated with Artificial Intelligence and Machine learning have been widely used in various fields of mathematical computing, physical.  \n\n**Computational Trade-offs:**  \nComputational requirements, runtime complexity, and data scaling constraints discussed in 2306.14753 The Deep Arbitrary Polynomial Chaos Neur.\n"
+  "markdown_full_summary": "# Grounded Literature Review Summary: The Deep Arbitrary Polynomial Chaos Neur\n\n**Citation Anchor:** [N/A et al., N/A]  \n**Venue:** N/A | **Authors:** N/A  \n\n---\n\n### 1. Core Problem & Motivation\nIntegrating Deep Artificial Neural Networks (DANNs) with the Theory of Polynomial Chaos Expansion (PCE) for data-driven modeling.\n\n*Motivation & Gaps:* Overcoming empirical and methodological bottlenecks in existing approaches to achieve validated outcomes in The Deep Arbitrary Polynomial Chaos Neur.  \n*Key Challenges Tackled:*\n- Accurate representation and modeling within The Deep Arbitrary Polynomial Chaos Neur\n- Empirical validation across benchmarks: Available data set of limited size (used for moment evaluation).\n\n---\n\n### 2. Proposed Methodology & Technical Architecture\n**Architecture Overview:**  \nEmploying a purely data-driven generalization of PCE (introduced in 2012 by Oladyshkin and Nowak) to construct a multi-variate orthonormal polynomial basis (aPC representation) based only on 2d raw stochastic moments evaluated from limited data.\n\n**Algorithmic Innovation:**  \nCore pipeline execution parameterized across 3 methodological phases.  \n\n*Core Technical Innovations:*\n- Problem Formulation & Data Ingestion\n- Method Execution & Architecture\n\n---\n\n### 3. Empirical Results & Benchmark Datasets\n**Evaluated Datasets:** Available data set of limited size (used for moment evaluation).  \n**Key Metrics:** Reported Metric, Benchmark Score  \n\n**Quantitative Findings:**  \nThe resulting polynomials are real if and only if the Hankel matrix of moments is positive definite. Numerical solutions for the linear system can be obtained via lower-order moments, recursive relations, Gram-Schmidt orthogonalization, or Stieltjes procedure.  \n\n**Baseline Comparison:**  \nDemonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in The Deep Arbitrary Polynomial Chaos Neur.\n\n---\n\n### 4. Explicit Limitations & Failure Modes\n**Stated Limitations:**  \nFor a majority of deep learning approaches based on DANNs, the kernel structure of neural signal processing remains undetermined/unspecified in the provided context.  \n\n**Failure Modes & Bottlenecks:**  \nFailure boundaries and error cases associated with For a majority of deep learning approaches based on DANNs, the kernel structure of neural signal processing remains unde.  \n\n**Computational Trade-offs:**  \nComputational requirements, runtime complexity, and data scaling constraints discussed in The Deep Arbitrary Polynomial Chaos Neur.\n"
 }

@@ -1,0 +1,24 @@
+{
+  "paper_id": "2510.08617",
+  "paper_title": "Reproducible Evaluation of Data Augmentation",
+  "authors": [
+    "N/A"
+  ],
+  "venue": "N/A",
+  "core_problem": "Brain tumor segmentation is challenging due to class imbalance and limited model generalization, hindering accurate diagnosis and treatment planning.",
+  "methodology_summary": "The study evaluates U-Net segmentation performance on brain tumor MRI using focal loss and basic data augmentation strategies (horizontal flip, rotation, and scaling).",
+  "datasets_eval": [
+    "A publicly available MRI dataset."
+  ],
+  "empirical_results": "The U-Net with focal loss achieved a precision of 90%, comparable to state-of-the-art results.",
+  "explicit_limitations": "Manual delineation by radiologists is time-consuming, prone to inter-observer variability, and difficult to scale in clinical settings.",
+  "numerical_metrics": [],
+  "geographical_data": {},
+  "pipeline_steps": [
+    "Problem Formulation & Data Ingestion",
+    "Method Execution & Architecture",
+    "Empirical Evaluation & Benchmarking"
+  ],
+  "generation_mode": "GENUINE_LLM",
+  "model_name": "NVIDIA_NIM (nvidia/nemotron-3.5-bolt-e4b)"
+}

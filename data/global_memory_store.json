@@ -236,21 +236,20 @@
     "2305.10601": {
       "schema": {
         "paper_id": "2305.10601",
-        "paper_title": "2305.10601 Tree of Thoughts Deliber",
+        "paper_title": "Tree of Thoughts: Deliberate Reasoning with Large Language Models",
         "authors": [
-          "Research Authors"
+          "Not specified in the text"
         ],
-        "venue": "arXiv / Peer-Reviewed Venue",
-        "core_problem": "Tree of Thoughts: Deliberate Problem Solving",
-        "methodology_summary": "with Large Language Models Language models are increasingly being deployed for general problem solving\nacross a wide range of tasks, but are still confined to token-level, left-to-right\ndecision-making processes during inference. This means they can fall short in\ntasks that require exploration, strategic lookahead, or where initial decisions play\na",
+        "venue": "Not specified in the text",
+        "core_problem": "Large Language Models are confined to token-level, left-to-right decision-making, which limits their ability to perform tasks requiring exploration, strategic lookahead, or non-trivial planning.",
+        "methodology_summary": "Introduction of the \"Tree of Thoughts\" (ToT) framework, which generalizes Chain of Thought by enabling exploration over coherent units of text (\"thoughts\") as intermediate steps, allowing LMs to perform deliberate decision making, consider multiple reasoning paths, and backtrack.",
         "datasets_eval": [
-          "Tabular Data (TAB-2305.10601-P2-1)",
-          "Tabular Data (TAB-2305.10601-P5-2)",
-          "Tabular Data (TAB-2305.10601-P6-2)",
-          "Tabular Data (TAB-2305.10601-P6-3)"
+          "Game of 24",
+          "Creative Writing",
+          "Mini Crosswords"
         ],
-        "empirical_results": "Language models are increasingly being deployed for general problem solving\nacross a wide range of tasks, but are still confined to token-level, left-to-right\ndecision-making processes during inference. This means they can fall short in\ntasks that require exploration, strategic lookahead, or where i",
-        "explicit_limitations": "1···n, y(i)] ∼pCoT\nθ\n(z1···n, y|x) (i = 1 · · · k), then returns the most frequent output:\narg maxy #{i | y(i) = y}. CoT-SC improves upon CoT, because there are generally different\nthought processes for the same problem (e.g. different ways to prove the same theorem), and the\noutput decision can be ",
+        "empirical_results": "On Game of 24, ToT achieved a 74% success rate, significantly higher than GPT-4 with CoT prompting (4%).",
+        "explicit_limitations": "The \"most frequent\" heuristic only applies when the output space is limited (e.g., multi-choice QA); the state evaluation used as a pruning heuristic in crosswords can be imperfect, sometimes pruning correct solutions.",
         "numerical_metrics": [],
         "geographical_data": {},
         "pipeline_steps": [
@@ -258,30 +257,30 @@
           "Method Execution & Architecture",
           "Empirical Evaluation & Benchmarking"
         ],
-        "generation_mode": "HEURISTIC_FALLBACK",
-        "model_name": "Rule-Based Heuristic Engine"
+        "generation_mode": "GENUINE_LLM",
+        "model_name": "NVIDIA_NIM (nvidia/nemotron-3.5-bolt-e4b)"
       },
       "summary": {
         "paper_id": "2305.10601",
-        "paper_title": "2305.10601 Tree of Thoughts Deliber",
+        "paper_title": "Tree of Thoughts: Deliberate Reasoning with Large Language Models",
         "authors": [
-          "Research Authors"
+          "Not specified in the text"
         ],
-        "venue": "arXiv / Peer-Reviewed Venue",
-        "grounded_citation": "[Authors et al., arXiv / Peer-Reviewed Venue]",
+        "venue": "Not specified in the text",
+        "grounded_citation": "[text et al., Not specified in the text]",
         "summary_source": "Heuristic Engine Fallback (Grounded Vector RAG Engine (Design Rule: 0 LLM calls))",
         "problem_motivation": {
-          "problem_statement": "Tree of Thoughts: Deliberate Problem Solving",
-          "motivation": "Overcoming empirical and methodological bottlenecks in existing approaches to achieve validated outcomes in 2305.10601 Tree of Thoughts Deliber.",
+          "problem_statement": "Large Language Models are confined to token-level, left-to-right decision-making, which limits their ability to perform tasks requiring exploration, strategic lookahead, or non-trivial planning.",
+          "motivation": "Overcoming empirical and methodological bottlenecks in existing approaches to achieve validated outcomes in Tree of Thoughts: Deliberate Reasoning with Large Language Models.",
           "core_challenges": [
-            "Accurate representation and modeling within 2305.10601 Tree of Thoughts Deliber",
-            "Empirical validation across benchmarks: Tabular Data (TAB-2305.10601-P2-1), Tabular Data (TAB-2305.10601-P5-2)",
-            "Addressing explicit constraints: 1···n, y(i)] ∼pCoT\nθ\n(z1···n, y|x) (i = 1 · · · k), then returns the most freque..."
+            "Accurate representation and modeling within Tree of Thoughts: Deliberate Reasoning with Large Language Models",
+            "Empirical validation across benchmarks: Game of 24, Creative Writing",
+            "Addressing explicit constraints: The \"most frequent\" heuristic only applies when the output space is limited (e.g..."
           ]
         },
         "proposed_methodology": {
-          "method_name": "2305.10601",
-          "core_architecture": "with Large Language Models Language models are increasingly being deployed for general problem solving\nacross a wide range of tasks, but are still confined to token-level, left-to-right\ndecision-making processes during inference. This means they can fall short in\ntasks that require exploration, strategic lookahead, or where initial decisions play\na",
+          "method_name": "Tree of Thoughts",
+          "core_architecture": "Introduction of the \"Tree of Thoughts\" (ToT) framework, which generalizes Chain of Thought by enabling exploration over coherent units of text (\"thoughts\") as intermediate steps, allowing LMs to perform deliberate decision making, consider multiple reasoning paths, and backtrack.",
           "technical_innovations": [
             "Problem Formulation & Data Ingestion",
             "Method Execution & Architecture",
@@ -291,26 +290,25 @@
         },
         "empirical_results": {
           "evaluated_datasets": [
-            "Tabular Data (TAB-2305.10601-P2-1)",
-            "Tabular Data (TAB-2305.10601-P5-2)",
-            "Tabular Data (TAB-2305.10601-P6-2)",
-            "Tabular Data (TAB-2305.10601-P6-3)"
+            "Game of 24",
+            "Creative Writing",
+            "Mini Crosswords"
           ],
           "key_metrics": [
-            "Reported Metric",
-            "Benchmark Score"
+            "Accuracy / Success Rate (%)",
+            "Normalized Metric"
           ],
-          "quantitative_results_summary": "Language models are increasingly being deployed for general problem solving\nacross a wide range of tasks, but are still confined to token-level, left-to-right\ndecision-making processes during inference. This means they can fall short in\ntasks that require exploration, strategic lookahead, or where i",
-          "baseline_comparisons": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in 2305.10601 Tree of Thoughts Deliber."
+          "quantitative_results_summary": "On Game of 24, ToT achieved a 74% success rate, significantly higher than GPT-4 with CoT prompting (4%).",
+          "baseline_comparisons": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in Tree of Thoughts: Deliberate Reasoning with Large Language Models."
         },
         "explicit_limitations": {
           "stated_limitations": [
-            "1···n, y(i)] ∼pCoT\nθ\n(z1···n, y|x) (i = 1 · · · k), then returns the most frequent output:\narg maxy #{i | y(i) = y}. CoT-SC improves upon CoT, because there are generally different\nthought processes for the same problem (e.g. different ways to prove the same theorem), and the\noutput decision can be "
+            "The \"most frequent\" heuristic only applies when the output space is limited (e.g., multi-choice QA); the state evaluation used as a pruning heuristic in crosswords can be imperfect, sometimes pruning correct solutions."
           ],
-          "failure_modes": "Failure boundaries and error cases associated with 1···n, y(i)] ∼pCoT\nθ\n(z1···n, y|x) (i = 1 · · · k), then returns the most frequent output:\narg maxy #{i | y(i) = y}. CoT.",
-          "computational_tradeoffs": "Computational requirements, runtime complexity, and data scaling constraints discussed in 2305.10601 Tree of Thoughts Deliber."
+          "failure_modes": "Failure boundaries and error cases associated with The \"most frequent\" heuristic only applies when the output space is limited (e.g., multi-choice QA); the state evaluatio.",
+          "computational_tradeoffs": "Computational requirements, runtime complexity, and data scaling constraints discussed in Tree of Thoughts: Deliberate Reasoning with Large Language Models."
         },
-        "markdown_full_summary": "# Grounded Literature Review Summary: 2305.10601 Tree of Thoughts Deliber\n\n**Citation Anchor:** [Authors et al., arXiv / Peer-Reviewed Venue]  \n**Venue:** arXiv / Peer-Reviewed Venue | **Authors:** Research Authors  \n\n---\n\n### 1. Core Problem & Motivation\nTree of Thoughts: Deliberate Problem Solving\n\n*Motivation & Gaps:* Overcoming empirical and methodological bottlenecks in existing approaches to achieve validated outcomes in 2305.10601 Tree of Thoughts Deliber.  \n*Key Challenges Tackled:*\n- Accurate representation and modeling within 2305.10601 Tree of Thoughts Deliber\n- Empirical validation across benchmarks: Tabular Data (TAB-2305.10601-P2-1), Tabular Data (TAB-2305.10601-P5-2)\n\n---\n\n### 2. Proposed Methodology & Technical Architecture\n**Architecture Overview:**  \nwith Large Language Models Language models are increasingly being deployed for general problem solving\nacross a wide range of tasks, but are still confined to token-level, left-to-right\ndecision-making processes during inference. This means they can fall short in\ntasks that require exploration, strategic lookahead, or where initial decisions play\na\n\n**Algorithmic Innovation:**  \nCore pipeline execution parameterized across 3 methodological phases.  \n\n*Core Technical Innovations:*\n- Problem Formulation & Data Ingestion\n- Method Execution & Architecture\n\n---\n\n### 3. Empirical Results & Benchmark Datasets\n**Evaluated Datasets:** Tabular Data (TAB-2305.10601-P2-1), Tabular Data (TAB-2305.10601-P5-2), Tabular Data (TAB-2305.10601-P6-2), Tabular Data (TAB-2305.10601-P6-3)  \n**Key Metrics:** Reported Metric, Benchmark Score  \n\n**Quantitative Findings:**  \nLanguage models are increasingly being deployed for general problem solving\nacross a wide range of tasks, but are still confined to token-level, left-to-right\ndecision-making processes during inference. This means they can fall short in\ntasks that require exploration, strategic lookahead, or where i  \n\n**Baseline Comparison:**  \nDemonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in 2305.10601 Tree of Thoughts Deliber.\n\n---\n\n### 4. Explicit Limitations & Failure Modes\n**Stated Limitations:**  \n1···n, y(i)] ∼pCoT\nθ\n(z1···n, y|x) (i = 1 · · · k), then returns the most frequent output:\narg maxy #{i | y(i) = y}. CoT-SC improves upon CoT, because there are generally different\nthought processes for the same problem (e.g. different ways to prove the same theorem), and the\noutput decision can be   \n\n**Failure Modes & Bottlenecks:**  \nFailure boundaries and error cases associated with 1···n, y(i)] ∼pCoT\nθ\n(z1···n, y|x) (i = 1 · · · k), then returns the most frequent output:\narg maxy #{i | y(i) = y}. CoT.  \n\n**Computational Trade-offs:**  \nComputational requirements, runtime complexity, and data scaling constraints discussed in 2305.10601 Tree of Thoughts Deliber.\n"
+        "markdown_full_summary": "# Grounded Literature Review Summary: Tree of Thoughts: Deliberate Reasoning with Large Language Models\n\n**Citation Anchor:** [text et al., Not specified in the text]  \n**Venue:** Not specified in the text | **Authors:** Not specified in the text  \n\n---\n\n### 1. Core Problem & Motivation\nLarge Language Models are confined to token-level, left-to-right decision-making, which limits their ability to perform tasks requiring exploration, strategic lookahead, or non-trivial planning.\n\n*Motivation & Gaps:* Overcoming empirical and methodological bottlenecks in existing approaches to achieve validated outcomes in Tree of Thoughts: Deliberate Reasoning with Large Language Models.  \n*Key Challenges Tackled:*\n- Accurate representation and modeling within Tree of Thoughts: Deliberate Reasoning with Large Language Models\n- Empirical validation across benchmarks: Game of 24, Creative Writing\n\n---\n\n### 2. Proposed Methodology & Technical Architecture\n**Architecture Overview:**  \nIntroduction of the \"Tree of Thoughts\" (ToT) framework, which generalizes Chain of Thought by enabling exploration over coherent units of text (\"thoughts\") as intermediate steps, allowing LMs to perform deliberate decision making, consider multiple reasoning paths, and backtrack.\n\n**Algorithmic Innovation:**  \nCore pipeline execution parameterized across 3 methodological phases.  \n\n*Core Technical Innovations:*\n- Problem Formulation & Data Ingestion\n- Method Execution & Architecture\n\n---\n\n### 3. Empirical Results & Benchmark Datasets\n**Evaluated Datasets:** Game of 24, Creative Writing, Mini Crosswords  \n**Key Metrics:** Accuracy / Success Rate (%), Normalized Metric  \n\n**Quantitative Findings:**  \nOn Game of 24, ToT achieved a 74% success rate, significantly higher than GPT-4 with CoT prompting (4%).  \n\n**Baseline Comparison:**  \nDemonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in Tree of Thoughts: Deliberate Reasoning with Large Language Models.\n\n---\n\n### 4. Explicit Limitations & Failure Modes\n**Stated Limitations:**  \nThe \"most frequent\" heuristic only applies when the output space is limited (e.g., multi-choice QA); the state evaluation used as a pruning heuristic in crosswords can be imperfect, sometimes pruning correct solutions.  \n\n**Failure Modes & Bottlenecks:**  \nFailure boundaries and error cases associated with The \"most frequent\" heuristic only applies when the output space is limited (e.g., multi-choice QA); the state evaluatio.  \n\n**Computational Trade-offs:**  \nComputational requirements, runtime complexity, and data scaling constraints discussed in Tree of Thoughts: Deliberate Reasoning with Large Language Models.\n"
       }
     },
     "2305.15334": {
@@ -1146,21 +1144,18 @@
     "2306.14753": {
       "schema": {
         "paper_id": "2306.14753",
-        "paper_title": "2306.14753 The Deep Arbitrary Polynomial Chaos Neur",
+        "paper_title": "The Deep Arbitrary Polynomial Chaos Neur",
         "authors": [
-          "Research Authors"
+          "N/A"
         ],
-        "venue": "arXiv / Peer-Reviewed Venue",
-        "core_problem": "Artificial Intelligence and Machine learning have been widely used in various fields of mathematical computing, physical modeling, computational science, communication science, and stochastic analysis. Approaches based on Deep Artificial Neural Netwo",
-        "methodology_summary": "Artificial Intelligence and Machine learning have been widely used in various fields of mathematical computing, physical modeling, computational science, communication science, and stochastic analysis. Approaches based on Deep Artificial Neural Networks (DANN) are very popular in our days. Depending on the learning task, the exact form of DANNs is ",
+        "venue": "N/A",
+        "core_problem": "Integrating Deep Artificial Neural Networks (DANNs) with the Theory of Polynomial Chaos Expansion (PCE) for data-driven modeling.",
+        "methodology_summary": "Employing a purely data-driven generalization of PCE (introduced in 2012 by Oladyshkin and Nowak) to construct a multi-variate orthonormal polynomial basis (aPC representation) based only on 2d raw stochastic moments evaluated from limited data.",
         "datasets_eval": [
-          "Because",
-          "Instead",
-          "DANN",
-          "DaPC"
+          "Available data set of limited size (used for moment evaluation)."
         ],
-        "empirical_results": "Theory of polynomial chaos expansion (PCE) was originally introduced by Norbert Wiener [113] in 1938. In PCE, the dependence of the model response (output) on all inputs is expressed using projection onto an orthogonal or orthonormal multi-variate polynomial basis [33,104]. For the current paper, we",
-        "explicit_limitations": "Artificial Intelligence and Machine learning have been widely used in various fields of mathematical computing, physical modeling, computational science, communication science, and stochastic analysis. Approaches based on Deep Artificial Neural Networks (DANN) are very popular in our days. Depending",
+        "empirical_results": "The resulting polynomials are real if and only if the Hankel matrix of moments is positive definite. Numerical solutions for the linear system can be obtained via lower-order moments, recursive relations, Gram-Schmidt orthogonalization, or Stieltjes procedure.",
+        "explicit_limitations": "For a majority of deep learning approaches based on DANNs, the kernel structure of neural signal processing remains undetermined/unspecified in the provided context.",
         "numerical_metrics": [],
         "geographical_data": {},
         "pipeline_steps": [
@@ -1168,30 +1163,30 @@
           "Method Execution & Architecture",
           "Empirical Evaluation & Benchmarking"
         ],
-        "generation_mode": "HEURISTIC_FALLBACK",
-        "model_name": "Rule-Based Heuristic Engine"
+        "generation_mode": "GENUINE_LLM",
+        "model_name": "NVIDIA_NIM (nvidia/nemotron-3.5-bolt-e4b)"
       },
       "summary": {
         "paper_id": "2306.14753",
-        "paper_title": "2306.14753 The Deep Arbitrary Polynomial Chaos Neur",
+        "paper_title": "The Deep Arbitrary Polynomial Chaos Neur",
         "authors": [
-          "Research Authors"
+          "N/A"
         ],
-        "venue": "arXiv / Peer-Reviewed Venue",
-        "grounded_citation": "[Authors et al., arXiv / Peer-Reviewed Venue]",
+        "venue": "N/A",
+        "grounded_citation": "[N/A et al., N/A]",
         "summary_source": "Heuristic Engine Fallback (Grounded Vector RAG Engine (Design Rule: 0 LLM calls))",
         "problem_motivation": {
-          "problem_statement": "Artificial Intelligence and Machine learning have been widely used in various fields of mathematical computing, physical modeling, computational science, communication science, and stochastic analysis. Approaches based on Deep Artificial Neural Netwo",
-          "motivation": "Overcoming empirical and methodological bottlenecks in existing approaches to achieve validated outcomes in 2306.14753 The Deep Arbitrary Polynomial Chaos Neur.",
+          "problem_statement": "Integrating Deep Artificial Neural Networks (DANNs) with the Theory of Polynomial Chaos Expansion (PCE) for data-driven modeling.",
+          "motivation": "Overcoming empirical and methodological bottlenecks in existing approaches to achieve validated outcomes in The Deep Arbitrary Polynomial Chaos Neur.",
           "core_challenges": [
-            "Accurate representation and modeling within 2306.14753 The Deep Arbitrary Polynomial Chaos Neur",
-            "Empirical validation across benchmarks: Because, Instead",
-            "Addressing explicit constraints: Artificial Intelligence and Machine learning have been widely used in various fi..."
+            "Accurate representation and modeling within The Deep Arbitrary Polynomial Chaos Neur",
+            "Empirical validation across benchmarks: Available data set of limited size (used for moment evaluation).",
+            "Addressing explicit constraints: For a majority of deep learning approaches based on DANNs, the kernel structure ..."
           ]
         },
         "proposed_methodology": {
-          "method_name": "2306.14753",
-          "core_architecture": "Artificial Intelligence and Machine learning have been widely used in various fields of mathematical computing, physical modeling, computational science, communication science, and stochastic analysis. Approaches based on Deep Artificial Neural Networks (DANN) are very popular in our days. Depending on the learning task, the exact form of DANNs is ",
+          "method_name": "The",
+          "core_architecture": "Employing a purely data-driven generalization of PCE (introduced in 2012 by Oladyshkin and Nowak) to construct a multi-variate orthonormal polynomial basis (aPC representation) based only on 2d raw stochastic moments evaluated from limited data.",
           "technical_innovations": [
             "Problem Formulation & Data Ingestion",
             "Method Execution & Architecture",
@@ -1201,26 +1196,23 @@
         },
         "empirical_results": {
           "evaluated_datasets": [
-            "Because",
-            "Instead",
-            "DANN",
-            "DaPC"
+            "Available data set of limited size (used for moment evaluation)."
           ],
           "key_metrics": [
             "Reported Metric",
             "Benchmark Score"
           ],
-          "quantitative_results_summary": "Theory of polynomial chaos expansion (PCE) was originally introduced by Norbert Wiener [113] in 1938. In PCE, the dependence of the model response (output) on all inputs is expressed using projection onto an orthogonal or orthonormal multi-variate polynomial basis [33,104]. For the current paper, we",
-          "baseline_comparisons": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in 2306.14753 The Deep Arbitrary Polynomial Chaos Neur."
+          "quantitative_results_summary": "The resulting polynomials are real if and only if the Hankel matrix of moments is positive definite. Numerical solutions for the linear system can be obtained via lower-order moments, recursive relations, Gram-Schmidt orthogonalization, or Stieltjes procedure.",
+          "baseline_comparisons": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in The Deep Arbitrary Polynomial Chaos Neur."
         },
         "explicit_limitations": {
           "stated_limitations": [
-            "Artificial Intelligence and Machine learning have been widely used in various fields of mathematical computing, physical modeling, computational science, communication science, and stochastic analysis. Approaches based on Deep Artificial Neural Networks (DANN) are very popular in our days. Depending"
+            "For a majority of deep learning approaches based on DANNs, the kernel structure of neural signal processing remains undetermined/unspecified in the provided context."
           ],
-          "failure_modes": "Failure boundaries and error cases associated with Artificial Intelligence and Machine learning have been widely used in various fields of mathematical computing, physical.",
-          "computational_tradeoffs": "Computational requirements, runtime complexity, and data scaling constraints discussed in 2306.14753 The Deep Arbitrary Polynomial Chaos Neur."
+          "failure_modes": "Failure boundaries and error cases associated with For a majority of deep learning approaches based on DANNs, the kernel structure of neural signal processing remains unde.",
+          "computational_tradeoffs": "Computational requirements, runtime complexity, and data scaling constraints discussed in The Deep Arbitrary Polynomial Chaos Neur."
         },
-        "markdown_full_summary": "# Grounded Literature Review Summary: 2306.14753 The Deep Arbitrary Polynomial Chaos Neur\n\n**Citation Anchor:** [Authors et al., arXiv / Peer-Reviewed Venue]  \n**Venue:** arXiv / Peer-Reviewed Venue | **Authors:** Research Authors  \n\n---\n\n### 1. Core Problem & Motivation\nArtificial Intelligence and Machine learning have been widely used in various fields of mathematical computing, physical modeling, computational science, communication science, and stochastic analysis. Approaches based on Deep Artificial Neural Netwo\n\n*Motivation & Gaps:* Overcoming empirical and methodological bottlenecks in existing approaches to achieve validated outcomes in 2306.14753 The Deep Arbitrary Polynomial Chaos Neur.  \n*Key Challenges Tackled:*\n- Accurate representation and modeling within 2306.14753 The Deep Arbitrary Polynomial Chaos Neur\n- Empirical validation across benchmarks: Because, Instead\n\n---\n\n### 2. Proposed Methodology & Technical Architecture\n**Architecture Overview:**  \nArtificial Intelligence and Machine learning have been widely used in various fields of mathematical computing, physical modeling, computational science, communication science, and stochastic analysis. Approaches based on Deep Artificial Neural Networks (DANN) are very popular in our days. Depending on the learning task, the exact form of DANNs is \n\n**Algorithmic Innovation:**  \nCore pipeline execution parameterized across 3 methodological phases.  \n\n*Core Technical Innovations:*\n- Problem Formulation & Data Ingestion\n- Method Execution & Architecture\n\n---\n\n### 3. Empirical Results & Benchmark Datasets\n**Evaluated Datasets:** Because, Instead, DANN, DaPC  \n**Key Metrics:** Reported Metric, Benchmark Score  \n\n**Quantitative Findings:**  \nTheory of polynomial chaos expansion (PCE) was originally introduced by Norbert Wiener [113] in 1938. In PCE, the dependence of the model response (output) on all inputs is expressed using projection onto an orthogonal or orthonormal multi-variate polynomial basis [33,104]. For the current paper, we  \n\n**Baseline Comparison:**  \nDemonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in 2306.14753 The Deep Arbitrary Polynomial Chaos Neur.\n\n---\n\n### 4. Explicit Limitations & Failure Modes\n**Stated Limitations:**  \nArtificial Intelligence and Machine learning have been widely used in various fields of mathematical computing, physical modeling, computational science, communication science, and stochastic analysis. Approaches based on Deep Artificial Neural Networks (DANN) are very popular in our days. Depending  \n\n**Failure Modes & Bottlenecks:**  \nFailure boundaries and error cases associated with Artificial Intelligence and Machine learning have been widely used in various fields of mathematical computing, physical.  \n\n**Computational Trade-offs:**  \nComputational requirements, runtime complexity, and data scaling constraints discussed in 2306.14753 The Deep Arbitrary Polynomial Chaos Neur.\n"
+        "markdown_full_summary": "# Grounded Literature Review Summary: The Deep Arbitrary Polynomial Chaos Neur\n\n**Citation Anchor:** [N/A et al., N/A]  \n**Venue:** N/A | **Authors:** N/A  \n\n---\n\n### 1. Core Problem & Motivation\nIntegrating Deep Artificial Neural Networks (DANNs) with the Theory of Polynomial Chaos Expansion (PCE) for data-driven modeling.\n\n*Motivation & Gaps:* Overcoming empirical and methodological bottlenecks in existing approaches to achieve validated outcomes in The Deep Arbitrary Polynomial Chaos Neur.  \n*Key Challenges Tackled:*\n- Accurate representation and modeling within The Deep Arbitrary Polynomial Chaos Neur\n- Empirical validation across benchmarks: Available data set of limited size (used for moment evaluation).\n\n---\n\n### 2. Proposed Methodology & Technical Architecture\n**Architecture Overview:**  \nEmploying a purely data-driven generalization of PCE (introduced in 2012 by Oladyshkin and Nowak) to construct a multi-variate orthonormal polynomial basis (aPC representation) based only on 2d raw stochastic moments evaluated from limited data.\n\n**Algorithmic Innovation:**  \nCore pipeline execution parameterized across 3 methodological phases.  \n\n*Core Technical Innovations:*\n- Problem Formulation & Data Ingestion\n- Method Execution & Architecture\n\n---\n\n### 3. Empirical Results & Benchmark Datasets\n**Evaluated Datasets:** Available data set of limited size (used for moment evaluation).  \n**Key Metrics:** Reported Metric, Benchmark Score  \n\n**Quantitative Findings:**  \nThe resulting polynomials are real if and only if the Hankel matrix of moments is positive definite. Numerical solutions for the linear system can be obtained via lower-order moments, recursive relations, Gram-Schmidt orthogonalization, or Stieltjes procedure.  \n\n**Baseline Comparison:**  \nDemonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in The Deep Arbitrary Polynomial Chaos Neur.\n\n---\n\n### 4. Explicit Limitations & Failure Modes\n**Stated Limitations:**  \nFor a majority of deep learning approaches based on DANNs, the kernel structure of neural signal processing remains undetermined/unspecified in the provided context.  \n\n**Failure Modes & Bottlenecks:**  \nFailure boundaries and error cases associated with For a majority of deep learning approaches based on DANNs, the kernel structure of neural signal processing remains unde.  \n\n**Computational Trade-offs:**  \nComputational requirements, runtime complexity, and data scaling constraints discussed in The Deep Arbitrary Polynomial Chaos Neur.\n"
       }
     },
     "2307.05639": {
@@ -1835,927 +1827,621 @@
         },
         "markdown_full_summary": "# Grounded Literature Review Summary: Acute Lymphoblastic Leukemia Detection Using Hypercomplex Neural Networks\n\n**Citation Anchor:** [N/A et al., N/A]  \n**Venue:** N/A | **Authors:** N/A  \n\n---\n\n### 1. Core Problem & Motivation\nDiagnosis of acute lymphoblast leukemia (ALL) from blood smear digital microscopic images by classifying lymphocytes.\n\n*Motivation & Gaps:* Overcoming empirical and methodological bottlenecks in existing approaches to achieve validated outcomes in Acute Lymphoblastic Leukemia Detection Using Hypercomplex Neural Networks.  \n*Key Challenges Tackled:*\n- Accurate representation and modeling within Acute Lymphoblastic Leukemia Detection Using Hypercomplex Neural Networks\n- Empirical validation across benchmarks: ALL-IDB2\n\n---\n\n### 2. Proposed Methodology & Technical Architecture\n**Architecture Overview:**  \nUtilizing eight hypercomplex-valued convolutional neural networks (HvCNNs) based on hypercomplex algebras (including Clifford algebras) alongside real-valued convolutional networks for image classification.\n\n**Algorithmic Innovation:**  \nCore pipeline execution parameterized across 3 methodological phases.  \n\n*Core Technical Innovations:*\n- Problem Formulation & Data Ingestion\n- Method Execution & Architecture\n\n---\n\n### 3. Empirical Results & Benchmark Datasets\n**Evaluated Datasets:** ALL-IDB2  \n**Key Metrics:** Accuracy / Success Rate (%), Normalized Metric  \n\n**Quantitative Findings:**  \nThe HvCNN based on Clifford algebras processing HSV-encoded images achieved an average accuracy rate of 96.6% on the ALL-IDB2 dataset (50% train-test split), outperforming real-valued models with a simpler architecture and fewer parameters.  \n\n**Baseline Comparison:**  \nDemonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in Acute Lymphoblastic Leukemia Detection Using Hypercomplex Neural Networks.\n\n---\n\n### 4. Explicit Limitations & Failure Modes\n**Stated Limitations:**  \nOne specific HvCNN based on the algebra B[-1, +1] yielded a median accuracy rate of 93.8% when processing HSV-encoded images, which was lower than other models in the HSV case.  \n\n**Failure Modes & Bottlenecks:**  \nFailure boundaries and error cases associated with One specific HvCNN based on the algebra B[-1, +1] yielded a median accuracy rate of 93.8% when processing HSV-encoded im.  \n\n**Computational Trade-offs:**  \nComputational requirements, runtime complexity, and data scaling constraints discussed in Acute Lymphoblastic Leukemia Detection Using Hypercomplex Neural Networks.\n"
       }
+    },
+    "1909.06684": {
+      "schema": {
+        "paper_id": "1909.06684",
+        "paper_title": "3D Kidneys and Kidney Tumor Semantic Segmentation",
+        "authors": [
+          "N/A"
+        ],
+        "venue": "N/A",
+        "core_problem": "Tedious, error-prone, and expert-dependent manual delineation of kidneys and kidney tumors in 3D CT scans for monitoring disease progression and treatment planning.",
+        "methodology_summary": "An end-to-end boundary aware fully Convolutional Neural Network (CNN) with an encoder-decoder architecture, featuring a dedicated boundary branch supervised by edge-aware loss terms.",
+        "datasets_eval": [
+          "2019 MICCAI KiTS Kidney Tumor Segmentation Challenge dataset"
+        ],
+        "empirical_results": "Dice scores of 0.9742 for kidney and 0.8103 for tumor, with an overall composite dice score of 0.8923.",
+        "explicit_limitations": "N/A",
+        "numerical_metrics": [],
+        "geographical_data": {},
+        "pipeline_steps": [
+          "Problem Formulation & Data Ingestion",
+          "Method Execution & Architecture",
+          "Empirical Evaluation & Benchmarking"
+        ],
+        "generation_mode": "GENUINE_LLM",
+        "model_name": "NVIDIA_NIM (nvidia/nemotron-3.5-bolt-e4b)"
+      },
+      "summary": {
+        "paper_id": "1909.06684",
+        "paper_title": "3D Kidneys and Kidney Tumor Semantic Segmentation",
+        "authors": [
+          "N/A"
+        ],
+        "venue": "N/A",
+        "grounded_citation": "[N/A et al., N/A]",
+        "summary_source": "Heuristic Engine Fallback (Grounded Vector RAG Engine (Design Rule: 0 LLM calls))",
+        "problem_motivation": {
+          "problem_statement": "Tedious, error-prone, and expert-dependent manual delineation of kidneys and kidney tumors in 3D CT scans for monitoring disease progression and treatment planning.",
+          "motivation": "Overcoming empirical and methodological bottlenecks in existing approaches to achieve validated outcomes in 3D Kidneys and Kidney Tumor Semantic Segmentation.",
+          "core_challenges": [
+            "Accurate representation and modeling within 3D Kidneys and Kidney Tumor Semantic Segmentation",
+            "Empirical validation across benchmarks: 2019 MICCAI KiTS Kidney Tumor Segmentation Challenge dataset",
+            "Addressing explicit constraints: N/A..."
+          ]
+        },
+        "proposed_methodology": {
+          "method_name": "3D",
+          "core_architecture": "An end-to-end boundary aware fully Convolutional Neural Network (CNN) with an encoder-decoder architecture, featuring a dedicated boundary branch supervised by edge-aware loss terms.",
+          "technical_innovations": [
+            "Problem Formulation & Data Ingestion",
+            "Method Execution & Architecture",
+            "Empirical Evaluation & Benchmarking"
+          ],
+          "key_algorithms": "Core pipeline execution parameterized across 3 methodological phases."
+        },
+        "empirical_results": {
+          "evaluated_datasets": [
+            "2019 MICCAI KiTS Kidney Tumor Segmentation Challenge dataset"
+          ],
+          "key_metrics": [
+            "Reported Metric",
+            "Benchmark Score"
+          ],
+          "quantitative_results_summary": "Dice scores of 0.9742 for kidney and 0.8103 for tumor, with an overall composite dice score of 0.8923.",
+          "baseline_comparisons": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in 3D Kidneys and Kidney Tumor Semantic Segmentation."
+        },
+        "explicit_limitations": {
+          "stated_limitations": [
+            "N/A"
+          ],
+          "failure_modes": "Failure boundaries and error cases associated with N/A.",
+          "computational_tradeoffs": "Computational requirements, runtime complexity, and data scaling constraints discussed in 3D Kidneys and Kidney Tumor Semantic Segmentation."
+        },
+        "markdown_full_summary": "# Grounded Literature Review Summary: 3D Kidneys and Kidney Tumor Semantic Segmentation\n\n**Citation Anchor:** [N/A et al., N/A]  \n**Venue:** N/A | **Authors:** N/A  \n\n---\n\n### 1. Core Problem & Motivation\nTedious, error-prone, and expert-dependent manual delineation of kidneys and kidney tumors in 3D CT scans for monitoring disease progression and treatment planning.\n\n*Motivation & Gaps:* Overcoming empirical and methodological bottlenecks in existing approaches to achieve validated outcomes in 3D Kidneys and Kidney Tumor Semantic Segmentation.  \n*Key Challenges Tackled:*\n- Accurate representation and modeling within 3D Kidneys and Kidney Tumor Semantic Segmentation\n- Empirical validation across benchmarks: 2019 MICCAI KiTS Kidney Tumor Segmentation Challenge dataset\n\n---\n\n### 2. Proposed Methodology & Technical Architecture\n**Architecture Overview:**  \nAn end-to-end boundary aware fully Convolutional Neural Network (CNN) with an encoder-decoder architecture, featuring a dedicated boundary branch supervised by edge-aware loss terms.\n\n**Algorithmic Innovation:**  \nCore pipeline execution parameterized across 3 methodological phases.  \n\n*Core Technical Innovations:*\n- Problem Formulation & Data Ingestion\n- Method Execution & Architecture\n\n---\n\n### 3. Empirical Results & Benchmark Datasets\n**Evaluated Datasets:** 2019 MICCAI KiTS Kidney Tumor Segmentation Challenge dataset  \n**Key Metrics:** Reported Metric, Benchmark Score  \n\n**Quantitative Findings:**  \nDice scores of 0.9742 for kidney and 0.8103 for tumor, with an overall composite dice score of 0.8923.  \n\n**Baseline Comparison:**  \nDemonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in 3D Kidneys and Kidney Tumor Semantic Segmentation.\n\n---\n\n### 4. Explicit Limitations & Failure Modes\n**Stated Limitations:**  \nN/A  \n\n**Failure Modes & Bottlenecks:**  \nFailure boundaries and error cases associated with N/A.  \n\n**Computational Trade-offs:**  \nComputational requirements, runtime complexity, and data scaling constraints discussed in 3D Kidneys and Kidney Tumor Semantic Segmentation.\n"
+      }
+    },
+    "2009.12188": {
+      "schema": {
+        "paper_id": "2009.12188",
+        "paper_title": "Brain Tumor Segmentation using 3D-CNNs",
+        "authors": [
+          "N/A"
+        ],
+        "venue": "N/A",
+        "core_problem": "High memory consumption in 3D-CNNs for brain tumor segmentation in 3D MRIs, and the lack of uncertainty information in most existing methods, which is critical for medical diagnosis.",
+        "methodology_summary": "Proposes a 3D encoder-decoder architecture based on V-Net [6], trained with patching techniques to reduce memory consumption and handle unbalanced data. Introduces voxel-wise uncertainty (epistemic and aleatoric) using test-time dropout and data-augmentation, respectively.",
+        "datasets_eval": [
+          "Brain Tumor Segmentation (BraTS) challenge (started in 2012), specifically mentioning BraTS 2020 training."
+        ],
+        "empirical_results": "Best results obtained with the V-Net model directly when post-processing is applied. Dice score and Hausdorff distance showed lower performance on the validation set, especially in the ET region.",
+        "explicit_limitations": "Entropy provides a global measure instead of a map for sub-regions, necessitating the use of voxel-wise uncertainty.",
+        "numerical_metrics": [],
+        "geographical_data": {},
+        "pipeline_steps": [
+          "used to assess the diagnosis, treatment and evaluation of the disease."
+        ],
+        "generation_mode": "GENUINE_LLM",
+        "model_name": "NVIDIA_NIM (nvidia/nemotron-3.5-bolt-e4b)"
+      },
+      "summary": {
+        "paper_id": "2009.12188",
+        "paper_title": "Brain Tumor Segmentation using 3D-CNNs",
+        "authors": [
+          "N/A"
+        ],
+        "venue": "N/A",
+        "grounded_citation": "[N/A et al., N/A]",
+        "summary_source": "Heuristic Engine Fallback (Grounded Vector RAG Engine (Design Rule: 0 LLM calls))",
+        "problem_motivation": {
+          "problem_statement": "High memory consumption in 3D-CNNs for brain tumor segmentation in 3D MRIs, and the lack of uncertainty information in most existing methods, which is critical for medical diagnosis.",
+          "motivation": "Overcoming empirical and methodological bottlenecks in existing approaches to achieve validated outcomes in Brain Tumor Segmentation using 3D-CNNs.",
+          "core_challenges": [
+            "Accurate representation and modeling within Brain Tumor Segmentation using 3D-CNNs",
+            "Empirical validation across benchmarks: Brain Tumor Segmentation (BraTS) challenge (started in 2012), specifically mentioning BraTS 2020 training.",
+            "Addressing explicit constraints: Entropy provides a global measure instead of a map for sub-regions, necessitatin..."
+          ]
+        },
+        "proposed_methodology": {
+          "method_name": "Brain",
+          "core_architecture": "Proposes a 3D encoder-decoder architecture based on V-Net [6], trained with patching techniques to reduce memory consumption and handle unbalanced data. Introduces voxel-wise uncertainty (epistemic and aleatoric) using test-time dropout and data-augmentation, respectively.",
+          "technical_innovations": [
+            "Novel architecture for Brain Tumor Segmentation using 3D-CNNs",
+            "Systematic empirical evaluation pipeline"
+          ],
+          "key_algorithms": "Core pipeline execution parameterized across 1 methodological phases."
+        },
+        "empirical_results": {
+          "evaluated_datasets": [
+            "Brain Tumor Segmentation (BraTS) challenge (started in 2012), specifically mentioning BraTS 2020 training."
+          ],
+          "key_metrics": [
+            "Reported Metric",
+            "Benchmark Score"
+          ],
+          "quantitative_results_summary": "Best results obtained with the V-Net model directly when post-processing is applied. Dice score and Hausdorff distance showed lower performance on the validation set, especially in the ET region.",
+          "baseline_comparisons": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in Brain Tumor Segmentation using 3D-CNNs."
+        },
+        "explicit_limitations": {
+          "stated_limitations": [
+            "Entropy provides a global measure instead of a map for sub-regions, necessitating the use of voxel-wise uncertainty."
+          ],
+          "failure_modes": "Failure boundaries and error cases associated with Entropy provides a global measure instead of a map for sub-regions, necessitating the use of voxel-wise uncertainty..",
+          "computational_tradeoffs": "Computational requirements, runtime complexity, and data scaling constraints discussed in Brain Tumor Segmentation using 3D-CNNs."
+        },
+        "markdown_full_summary": "# Grounded Literature Review Summary: Brain Tumor Segmentation using 3D-CNNs\n\n**Citation Anchor:** [N/A et al., N/A]  \n**Venue:** N/A | **Authors:** N/A  \n\n---\n\n### 1. Core Problem & Motivation\nHigh memory consumption in 3D-CNNs for brain tumor segmentation in 3D MRIs, and the lack of uncertainty information in most existing methods, which is critical for medical diagnosis.\n\n*Motivation & Gaps:* Overcoming empirical and methodological bottlenecks in existing approaches to achieve validated outcomes in Brain Tumor Segmentation using 3D-CNNs.  \n*Key Challenges Tackled:*\n- Accurate representation and modeling within Brain Tumor Segmentation using 3D-CNNs\n- Empirical validation across benchmarks: Brain Tumor Segmentation (BraTS) challenge (started in 2012), specifically mentioning BraTS 2020 training.\n\n---\n\n### 2. Proposed Methodology & Technical Architecture\n**Architecture Overview:**  \nProposes a 3D encoder-decoder architecture based on V-Net [6], trained with patching techniques to reduce memory consumption and handle unbalanced data. Introduces voxel-wise uncertainty (epistemic and aleatoric) using test-time dropout and data-augmentation, respectively.\n\n**Algorithmic Innovation:**  \nCore pipeline execution parameterized across 1 methodological phases.  \n\n*Core Technical Innovations:*\n- Novel architecture for Brain Tumor Segmentation using 3D-CNNs\n- Systematic empirical evaluation pipeline\n\n---\n\n### 3. Empirical Results & Benchmark Datasets\n**Evaluated Datasets:** Brain Tumor Segmentation (BraTS) challenge (started in 2012), specifically mentioning BraTS 2020 training.  \n**Key Metrics:** Reported Metric, Benchmark Score  \n\n**Quantitative Findings:**  \nBest results obtained with the V-Net model directly when post-processing is applied. Dice score and Hausdorff distance showed lower performance on the validation set, especially in the ET region.  \n\n**Baseline Comparison:**  \nDemonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in Brain Tumor Segmentation using 3D-CNNs.\n\n---\n\n### 4. Explicit Limitations & Failure Modes\n**Stated Limitations:**  \nEntropy provides a global measure instead of a map for sub-regions, necessitating the use of voxel-wise uncertainty.  \n\n**Failure Modes & Bottlenecks:**  \nFailure boundaries and error cases associated with Entropy provides a global measure instead of a map for sub-regions, necessitating the use of voxel-wise uncertainty..  \n\n**Computational Trade-offs:**  \nComputational requirements, runtime complexity, and data scaling constraints discussed in Brain Tumor Segmentation using 3D-CNNs.\n"
+      }
+    },
+    "2011.02840": {
+      "schema": {
+        "paper_id": "2011.02840",
+        "paper_title": "DR-Unet104 for Multimodal MRI brain tumor",
+        "authors": [
+          "N/A"
+        ],
+        "venue": "N/A",
+        "core_problem": "Accurate lesion segmentation in brain MRIs, specifically for brain tumors (gliomas), which is a challenging task due to high variation in tumor size, shape, position, and inconsistent intensity/contrast across modalities.",
+        "methodology_summary": "Proposes a 2D deep residual Unet with 104 convolutional layers (DR-Unet104). Enhancements include adding a 'bottleneck' residual block to the Unet encoder and applying dropout (specifically 0.2) after each convolution block stack for regularization.",
+        "datasets_eval": [
+          "Multimodal Brain Tumor Segmentation (BraTS) 2020 Challenge data (validation and testing sets)."
+        ],
+        "empirical_results": "On validation data, DR-Unet104 achieved mean dice scores of 0.8862 (whole tumor), 0.6756 (enhancing tumor), and 0.6721 (tumor core). On the challenge's testing data, final mean DSC scores were 0.8673 (whole tumor), 0.7514 (enhancing tumor), and 0.7983 (tumor core). These results showed an improvement over DeepLabV3+ with a ResNet-V2-152 backbone.",
+        "explicit_limitations": "The method uses only 2D convolutions, which is noted as a limitation compared to 3D architectures, although this also provides the benefit of running on lower power computers.",
+        "numerical_metrics": [],
+        "geographical_data": {},
+        "pipeline_steps": [
+          "Problem Formulation & Data Ingestion",
+          "Method Execution & Architecture",
+          "Empirical Evaluation & Benchmarking"
+        ],
+        "generation_mode": "GENUINE_LLM",
+        "model_name": "NVIDIA_NIM (nvidia/nemotron-3.5-bolt-e4b)"
+      },
+      "summary": {
+        "paper_id": "2011.02840",
+        "paper_title": "DR-Unet104 for Multimodal MRI brain tumor",
+        "authors": [
+          "N/A"
+        ],
+        "venue": "N/A",
+        "grounded_citation": "[N/A et al., N/A]",
+        "summary_source": "Heuristic Engine Fallback (Grounded Vector RAG Engine (Design Rule: 0 LLM calls))",
+        "problem_motivation": {
+          "problem_statement": "Accurate lesion segmentation in brain MRIs, specifically for brain tumors (gliomas), which is a challenging task due to high variation in tumor size, shape, position, and inconsistent intensity/contrast across modalities.",
+          "motivation": "Overcoming empirical and methodological bottlenecks in existing approaches to achieve validated outcomes in DR-Unet104 for Multimodal MRI brain tumor.",
+          "core_challenges": [
+            "Accurate representation and modeling within DR-Unet104 for Multimodal MRI brain tumor",
+            "Empirical validation across benchmarks: Multimodal Brain Tumor Segmentation (BraTS) 2020 Challenge data (validation and testing sets).",
+            "Addressing explicit constraints: The method uses only 2D convolutions, which is noted as a limitation compared to..."
+          ]
+        },
+        "proposed_methodology": {
+          "method_name": "DR-Unet104",
+          "core_architecture": "Proposes a 2D deep residual Unet with 104 convolutional layers (DR-Unet104). Enhancements include adding a 'bottleneck' residual block to the Unet encoder and applying dropout (specifically 0.2) after each convolution block stack for regularization.",
+          "technical_innovations": [
+            "Problem Formulation & Data Ingestion",
+            "Method Execution & Architecture",
+            "Empirical Evaluation & Benchmarking"
+          ],
+          "key_algorithms": "Core pipeline execution parameterized across 3 methodological phases."
+        },
+        "empirical_results": {
+          "evaluated_datasets": [
+            "Multimodal Brain Tumor Segmentation (BraTS) 2020 Challenge data (validation and testing sets)."
+          ],
+          "key_metrics": [
+            "Reported Metric",
+            "Benchmark Score"
+          ],
+          "quantitative_results_summary": "On validation data, DR-Unet104 achieved mean dice scores of 0.8862 (whole tumor), 0.6756 (enhancing tumor), and 0.6721 (tumor core). On the challenge's testing data, final mean DSC scores were 0.8673 (whole tumor), 0.7514 (enhancing tumor), and 0.7983 (tumor core). These results showed an improvement over DeepLabV3+ with a ResNet-V2-152 backbone.",
+          "baseline_comparisons": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in DR-Unet104 for Multimodal MRI brain tumor."
+        },
+        "explicit_limitations": {
+          "stated_limitations": [
+            "The method uses only 2D convolutions, which is noted as a limitation compared to 3D architectures, although this also provides the benefit of running on lower power computers."
+          ],
+          "failure_modes": "Failure boundaries and error cases associated with The method uses only 2D convolutions, which is noted as a limitation compared to 3D architectures, although this also pr.",
+          "computational_tradeoffs": "Computational requirements, runtime complexity, and data scaling constraints discussed in DR-Unet104 for Multimodal MRI brain tumor."
+        },
+        "markdown_full_summary": "# Grounded Literature Review Summary: DR-Unet104 for Multimodal MRI brain tumor\n\n**Citation Anchor:** [N/A et al., N/A]  \n**Venue:** N/A | **Authors:** N/A  \n\n---\n\n### 1. Core Problem & Motivation\nAccurate lesion segmentation in brain MRIs, specifically for brain tumors (gliomas), which is a challenging task due to high variation in tumor size, shape, position, and inconsistent intensity/contrast across modalities.\n\n*Motivation & Gaps:* Overcoming empirical and methodological bottlenecks in existing approaches to achieve validated outcomes in DR-Unet104 for Multimodal MRI brain tumor.  \n*Key Challenges Tackled:*\n- Accurate representation and modeling within DR-Unet104 for Multimodal MRI brain tumor\n- Empirical validation across benchmarks: Multimodal Brain Tumor Segmentation (BraTS) 2020 Challenge data (validation and testing sets).\n\n---\n\n### 2. Proposed Methodology & Technical Architecture\n**Architecture Overview:**  \nProposes a 2D deep residual Unet with 104 convolutional layers (DR-Unet104). Enhancements include adding a 'bottleneck' residual block to the Unet encoder and applying dropout (specifically 0.2) after each convolution block stack for regularization.\n\n**Algorithmic Innovation:**  \nCore pipeline execution parameterized across 3 methodological phases.  \n\n*Core Technical Innovations:*\n- Problem Formulation & Data Ingestion\n- Method Execution & Architecture\n\n---\n\n### 3. Empirical Results & Benchmark Datasets\n**Evaluated Datasets:** Multimodal Brain Tumor Segmentation (BraTS) 2020 Challenge data (validation and testing sets).  \n**Key Metrics:** Reported Metric, Benchmark Score  \n\n**Quantitative Findings:**  \nOn validation data, DR-Unet104 achieved mean dice scores of 0.8862 (whole tumor), 0.6756 (enhancing tumor), and 0.6721 (tumor core). On the challenge's testing data, final mean DSC scores were 0.8673 (whole tumor), 0.7514 (enhancing tumor), and 0.7983 (tumor core). These results showed an improvement over DeepLabV3+ with a ResNet-V2-152 backbone.  \n\n**Baseline Comparison:**  \nDemonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in DR-Unet104 for Multimodal MRI brain tumor.\n\n---\n\n### 4. Explicit Limitations & Failure Modes\n**Stated Limitations:**  \nThe method uses only 2D convolutions, which is noted as a limitation compared to 3D architectures, although this also provides the benefit of running on lower power computers.  \n\n**Failure Modes & Bottlenecks:**  \nFailure boundaries and error cases associated with The method uses only 2D convolutions, which is noted as a limitation compared to 3D architectures, although this also pr.  \n\n**Computational Trade-offs:**  \nComputational requirements, runtime complexity, and data scaling constraints discussed in DR-Unet104 for Multimodal MRI brain tumor.\n"
+      }
+    },
+    "2011.11052": {
+      "schema": {
+        "paper_id": "2011.11052",
+        "paper_title": "Efficient embedding network for 3D brain",
+        "authors": [
+          "N/A"
+        ],
+        "venue": "N/A",
+        "core_problem": "Lack of data in 3D medical image processing, specifically for 3D semantic segmentation of brain tumors, compared to 2D natural image analysis.",
+        "methodology_summary": "Proposing an asymmetric U-Net network that incorporates the EfficientNet model into the encoding branch. Initial encoder layers are used to reduce the third dimension of the 3D input to fit the 2D EfficientNet input.",
+        "datasets_eval": [
+          "BraTS 2020 challenge (including 369 cases: 293 HGG and 76 LGG) using 4 modalities: native (T1), post-contrast T1-weighted (T1Gd), T2-weighted (T2), and T2-FLAIR."
+        ],
+        "empirical_results": "The proposed method achieved promising performance on validation and test data from the BraTS 2020 challenge.",
+        "explicit_limitations": "Treatment of LGG remains difficult due to variability in tumor size, location, histology, and biological behavior; tumor pressure deforms normal tissues, complicating distinction between normal and tumoral areas.",
+        "numerical_metrics": [],
+        "geographical_data": {},
+        "pipeline_steps": [
+          "We propose an asymmetric U-Net network by incorporat-\ning the EﬃcientNet model as part of the encoding branch."
+        ],
+        "generation_mode": "GENUINE_LLM",
+        "model_name": "NVIDIA_NIM (nvidia/nemotron-3.5-bolt-e4b)"
+      },
+      "summary": {
+        "paper_id": "2011.11052",
+        "paper_title": "Efficient embedding network for 3D brain",
+        "authors": [
+          "N/A"
+        ],
+        "venue": "N/A",
+        "grounded_citation": "[N/A et al., N/A]",
+        "summary_source": "Heuristic Engine Fallback (Grounded Vector RAG Engine (Design Rule: 0 LLM calls))",
+        "problem_motivation": {
+          "problem_statement": "Lack of data in 3D medical image processing, specifically for 3D semantic segmentation of brain tumors, compared to 2D natural image analysis.",
+          "motivation": "Overcoming empirical and methodological bottlenecks in existing approaches to achieve validated outcomes in Efficient embedding network for 3D brain.",
+          "core_challenges": [
+            "Accurate representation and modeling within Efficient embedding network for 3D brain",
+            "Empirical validation across benchmarks: BraTS 2020 challenge (including 369 cases: 293 HGG and 76 LGG) using 4 modalities: native (T1), post-contrast T1-weighted (T1Gd), T2-weighted (T2), and T2-FLAIR.",
+            "Addressing explicit constraints: Treatment of LGG remains difficult due to variability in tumor size, location, h..."
+          ]
+        },
+        "proposed_methodology": {
+          "method_name": "Efficient",
+          "core_architecture": "Proposing an asymmetric U-Net network that incorporates the EfficientNet model into the encoding branch. Initial encoder layers are used to reduce the third dimension of the 3D input to fit the 2D EfficientNet input.",
+          "technical_innovations": [
+            "Novel architecture for Efficient embedding network for 3D brain",
+            "Systematic empirical evaluation pipeline"
+          ],
+          "key_algorithms": "Core pipeline execution parameterized across 1 methodological phases."
+        },
+        "empirical_results": {
+          "evaluated_datasets": [
+            "BraTS 2020 challenge (including 369 cases: 293 HGG and 76 LGG) using 4 modalities: native (T1), post-contrast T1-weighted (T1Gd), T2-weighted (T2), and T2-FLAIR."
+          ],
+          "key_metrics": [
+            "Reported Metric",
+            "Benchmark Score"
+          ],
+          "quantitative_results_summary": "The proposed method achieved promising performance on validation and test data from the BraTS 2020 challenge.",
+          "baseline_comparisons": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in Efficient embedding network for 3D brain."
+        },
+        "explicit_limitations": {
+          "stated_limitations": [
+            "Treatment of LGG remains difficult due to variability in tumor size, location, histology, and biological behavior; tumor pressure deforms normal tissues, complicating distinction between normal and tumoral areas."
+          ],
+          "failure_modes": "Failure boundaries and error cases associated with Treatment of LGG remains difficult due to variability in tumor size, location, histology, and biological behavior; tumor.",
+          "computational_tradeoffs": "Computational requirements, runtime complexity, and data scaling constraints discussed in Efficient embedding network for 3D brain."
+        },
+        "markdown_full_summary": "# Grounded Literature Review Summary: Efficient embedding network for 3D brain\n\n**Citation Anchor:** [N/A et al., N/A]  \n**Venue:** N/A | **Authors:** N/A  \n\n---\n\n### 1. Core Problem & Motivation\nLack of data in 3D medical image processing, specifically for 3D semantic segmentation of brain tumors, compared to 2D natural image analysis.\n\n*Motivation & Gaps:* Overcoming empirical and methodological bottlenecks in existing approaches to achieve validated outcomes in Efficient embedding network for 3D brain.  \n*Key Challenges Tackled:*\n- Accurate representation and modeling within Efficient embedding network for 3D brain\n- Empirical validation across benchmarks: BraTS 2020 challenge (including 369 cases: 293 HGG and 76 LGG) using 4 modalities: native (T1), post-contrast T1-weighted (T1Gd), T2-weighted (T2), and T2-FLAIR.\n\n---\n\n### 2. Proposed Methodology & Technical Architecture\n**Architecture Overview:**  \nProposing an asymmetric U-Net network that incorporates the EfficientNet model into the encoding branch. Initial encoder layers are used to reduce the third dimension of the 3D input to fit the 2D EfficientNet input.\n\n**Algorithmic Innovation:**  \nCore pipeline execution parameterized across 1 methodological phases.  \n\n*Core Technical Innovations:*\n- Novel architecture for Efficient embedding network for 3D brain\n- Systematic empirical evaluation pipeline\n\n---\n\n### 3. Empirical Results & Benchmark Datasets\n**Evaluated Datasets:** BraTS 2020 challenge (including 369 cases: 293 HGG and 76 LGG) using 4 modalities: native (T1), post-contrast T1-weighted (T1Gd), T2-weighted (T2), and T2-FLAIR.  \n**Key Metrics:** Reported Metric, Benchmark Score  \n\n**Quantitative Findings:**  \nThe proposed method achieved promising performance on validation and test data from the BraTS 2020 challenge.  \n\n**Baseline Comparison:**  \nDemonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in Efficient embedding network for 3D brain.\n\n---\n\n### 4. Explicit Limitations & Failure Modes\n**Stated Limitations:**  \nTreatment of LGG remains difficult due to variability in tumor size, location, histology, and biological behavior; tumor pressure deforms normal tissues, complicating distinction between normal and tumoral areas.  \n\n**Failure Modes & Bottlenecks:**  \nFailure boundaries and error cases associated with Treatment of LGG remains difficult due to variability in tumor size, location, histology, and biological behavior; tumor.  \n\n**Computational Trade-offs:**  \nComputational requirements, runtime complexity, and data scaling constraints discussed in Efficient embedding network for 3D brain.\n"
+      }
+    },
+    "2411.01896": {
+      "schema": {
+        "paper_id": "2411.01896",
+        "paper_title": "MBDRes-U-Net: Multi-Scale Lightweight Bra Tumor Segmentation",
+        "authors": [
+          "Not specified"
+        ],
+        "venue": "Not specified",
+        "core_problem": "The increasing computational burden of deep learning methods in medical imaging, specifically achieving good brain tumor segmentation performance with a lightweight model.",
+        "methodology_summary": "Proposes the MBDRes-U-Net model using a three-dimensional (3D) U-Net codec framework, integrating multibranch residual blocks and fused attention to enrich feature expression and improve segmentation accuracy while maintaining a lightweight architecture.",
+        "datasets_eval": [
+          "Brain Tumor Segmentation (BraTS) Challenge 2018 and 2019 datasets"
+        ],
+        "empirical_results": "The architecture maintains high precision in brain tumor segmentation while considerably reducing calculation overhead.",
+        "explicit_limitations": "Compared to attention mechanisms that focus on important channel-feature information, the initial grouping operation was discarded and 3D SE was used, and the multiple branches generated by channel grouping work independently.",
+        "numerical_metrics": [],
+        "geographical_data": {},
+        "pipeline_steps": [
+          "Problem Formulation & Data Ingestion",
+          "Method Execution & Architecture",
+          "Empirical Evaluation & Benchmarking"
+        ],
+        "generation_mode": "GENUINE_LLM",
+        "model_name": "NVIDIA_NIM (nvidia/nemotron-3.5-bolt-e4b)"
+      },
+      "summary": {
+        "paper_id": "2411.01896",
+        "paper_title": "MBDRes-U-Net: Multi-Scale Lightweight Bra Tumor Segmentation",
+        "authors": [
+          "Not specified"
+        ],
+        "venue": "Not specified",
+        "grounded_citation": "[specified et al., Not specified]",
+        "summary_source": "Heuristic Engine Fallback (Grounded Vector RAG Engine (Design Rule: 0 LLM calls))",
+        "problem_motivation": {
+          "problem_statement": "The increasing computational burden of deep learning methods in medical imaging, specifically achieving good brain tumor segmentation performance with a lightweight model.",
+          "motivation": "Overcoming empirical and methodological bottlenecks in existing approaches to achieve validated outcomes in MBDRes-U-Net: Multi-Scale Lightweight Bra Tumor Segmentation.",
+          "core_challenges": [
+            "Accurate representation and modeling within MBDRes-U-Net: Multi-Scale Lightweight Bra Tumor Segmentation",
+            "Empirical validation across benchmarks: Brain Tumor Segmentation (BraTS) Challenge 2018 and 2019 datasets",
+            "Addressing explicit constraints: Compared to attention mechanisms that focus on important channel-feature informa..."
+          ]
+        },
+        "proposed_methodology": {
+          "method_name": "MBDRes-U-Net",
+          "core_architecture": "Proposes the MBDRes-U-Net model using a three-dimensional (3D) U-Net codec framework, integrating multibranch residual blocks and fused attention to enrich feature expression and improve segmentation accuracy while maintaining a lightweight architecture.",
+          "technical_innovations": [
+            "Problem Formulation & Data Ingestion",
+            "Method Execution & Architecture",
+            "Empirical Evaluation & Benchmarking"
+          ],
+          "key_algorithms": "Core pipeline execution parameterized across 3 methodological phases."
+        },
+        "empirical_results": {
+          "evaluated_datasets": [
+            "Brain Tumor Segmentation (BraTS) Challenge 2018 and 2019 datasets"
+          ],
+          "key_metrics": [
+            "Reported Metric",
+            "Benchmark Score"
+          ],
+          "quantitative_results_summary": "The architecture maintains high precision in brain tumor segmentation while considerably reducing calculation overhead.",
+          "baseline_comparisons": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in MBDRes-U-Net: Multi-Scale Lightweight Bra Tumor Segmentation."
+        },
+        "explicit_limitations": {
+          "stated_limitations": [
+            "Compared to attention mechanisms that focus on important channel-feature information, the initial grouping operation was discarded and 3D SE was used, and the multiple branches generated by channel grouping work independently."
+          ],
+          "failure_modes": "Failure boundaries and error cases associated with Compared to attention mechanisms that focus on important channel-feature information, the initial grouping operation was.",
+          "computational_tradeoffs": "Computational requirements, runtime complexity, and data scaling constraints discussed in MBDRes-U-Net: Multi-Scale Lightweight Bra Tumor Segmentation."
+        },
+        "markdown_full_summary": "# Grounded Literature Review Summary: MBDRes-U-Net: Multi-Scale Lightweight Bra Tumor Segmentation\n\n**Citation Anchor:** [specified et al., Not specified]  \n**Venue:** Not specified | **Authors:** Not specified  \n\n---\n\n### 1. Core Problem & Motivation\nThe increasing computational burden of deep learning methods in medical imaging, specifically achieving good brain tumor segmentation performance with a lightweight model.\n\n*Motivation & Gaps:* Overcoming empirical and methodological bottlenecks in existing approaches to achieve validated outcomes in MBDRes-U-Net: Multi-Scale Lightweight Bra Tumor Segmentation.  \n*Key Challenges Tackled:*\n- Accurate representation and modeling within MBDRes-U-Net: Multi-Scale Lightweight Bra Tumor Segmentation\n- Empirical validation across benchmarks: Brain Tumor Segmentation (BraTS) Challenge 2018 and 2019 datasets\n\n---\n\n### 2. Proposed Methodology & Technical Architecture\n**Architecture Overview:**  \nProposes the MBDRes-U-Net model using a three-dimensional (3D) U-Net codec framework, integrating multibranch residual blocks and fused attention to enrich feature expression and improve segmentation accuracy while maintaining a lightweight architecture.\n\n**Algorithmic Innovation:**  \nCore pipeline execution parameterized across 3 methodological phases.  \n\n*Core Technical Innovations:*\n- Problem Formulation & Data Ingestion\n- Method Execution & Architecture\n\n---\n\n### 3. Empirical Results & Benchmark Datasets\n**Evaluated Datasets:** Brain Tumor Segmentation (BraTS) Challenge 2018 and 2019 datasets  \n**Key Metrics:** Reported Metric, Benchmark Score  \n\n**Quantitative Findings:**  \nThe architecture maintains high precision in brain tumor segmentation while considerably reducing calculation overhead.  \n\n**Baseline Comparison:**  \nDemonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in MBDRes-U-Net: Multi-Scale Lightweight Bra Tumor Segmentation.\n\n---\n\n### 4. Explicit Limitations & Failure Modes\n**Stated Limitations:**  \nCompared to attention mechanisms that focus on important channel-feature information, the initial grouping operation was discarded and 3D SE was used, and the multiple branches generated by channel grouping work independently.  \n\n**Failure Modes & Bottlenecks:**  \nFailure boundaries and error cases associated with Compared to attention mechanisms that focus on important channel-feature information, the initial grouping operation was.  \n\n**Computational Trade-offs:**  \nComputational requirements, runtime complexity, and data scaling constraints discussed in MBDRes-U-Net: Multi-Scale Lightweight Bra Tumor Segmentation.\n"
+      }
+    },
+    "2510.08617": {
+      "schema": {
+        "paper_id": "2510.08617",
+        "paper_title": "Reproducible Evaluation of Data Augmentation",
+        "authors": [
+          "N/A"
+        ],
+        "venue": "N/A",
+        "core_problem": "Brain tumor segmentation is challenging due to class imbalance and limited model generalization, hindering accurate diagnosis and treatment planning.",
+        "methodology_summary": "The study evaluates U-Net segmentation performance on brain tumor MRI using focal loss and basic data augmentation strategies (horizontal flip, rotation, and scaling).",
+        "datasets_eval": [
+          "A publicly available MRI dataset."
+        ],
+        "empirical_results": "The U-Net with focal loss achieved a precision of 90%, comparable to state-of-the-art results.",
+        "explicit_limitations": "Manual delineation by radiologists is time-consuming, prone to inter-observer variability, and difficult to scale in clinical settings.",
+        "numerical_metrics": [],
+        "geographical_data": {},
+        "pipeline_steps": [
+          "Problem Formulation & Data Ingestion",
+          "Method Execution & Architecture",
+          "Empirical Evaluation & Benchmarking"
+        ],
+        "generation_mode": "GENUINE_LLM",
+        "model_name": "NVIDIA_NIM (nvidia/nemotron-3.5-bolt-e4b)"
+      },
+      "summary": {
+        "paper_id": "2510.08617",
+        "paper_title": "Reproducible Evaluation of Data Augmentation",
+        "authors": [
+          "N/A"
+        ],
+        "venue": "N/A",
+        "grounded_citation": "[N/A et al., N/A]",
+        "summary_source": "Heuristic Engine Fallback (Grounded Vector RAG Engine (Design Rule: 0 LLM calls))",
+        "problem_motivation": {
+          "problem_statement": "Brain tumor segmentation is challenging due to class imbalance and limited model generalization, hindering accurate diagnosis and treatment planning.",
+          "motivation": "Overcoming empirical and methodological bottlenecks in existing approaches to achieve validated outcomes in Reproducible Evaluation of Data Augmentation.",
+          "core_challenges": [
+            "Accurate representation and modeling within Reproducible Evaluation of Data Augmentation",
+            "Empirical validation across benchmarks: A publicly available MRI dataset.",
+            "Addressing explicit constraints: Manual delineation by radiologists is time-consuming, prone to inter-observer va..."
+          ]
+        },
+        "proposed_methodology": {
+          "method_name": "Reproducible",
+          "core_architecture": "The study evaluates U-Net segmentation performance on brain tumor MRI using focal loss and basic data augmentation strategies (horizontal flip, rotation, and scaling).",
+          "technical_innovations": [
+            "Problem Formulation & Data Ingestion",
+            "Method Execution & Architecture",
+            "Empirical Evaluation & Benchmarking"
+          ],
+          "key_algorithms": "Core pipeline execution parameterized across 3 methodological phases."
+        },
+        "empirical_results": {
+          "evaluated_datasets": [
+            "A publicly available MRI dataset."
+          ],
+          "key_metrics": [
+            "Accuracy / Success Rate (%)",
+            "Normalized Metric"
+          ],
+          "quantitative_results_summary": "The U-Net with focal loss achieved a precision of 90%, comparable to state-of-the-art results.",
+          "baseline_comparisons": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in Reproducible Evaluation of Data Augmentation."
+        },
+        "explicit_limitations": {
+          "stated_limitations": [
+            "Manual delineation by radiologists is time-consuming, prone to inter-observer variability, and difficult to scale in clinical settings."
+          ],
+          "failure_modes": "Failure boundaries and error cases associated with Manual delineation by radiologists is time-consuming, prone to inter-observer variability, and difficult to scale in cli.",
+          "computational_tradeoffs": "Computational requirements, runtime complexity, and data scaling constraints discussed in Reproducible Evaluation of Data Augmentation."
+        },
+        "markdown_full_summary": "# Grounded Literature Review Summary: Reproducible Evaluation of Data Augmentation\n\n**Citation Anchor:** [N/A et al., N/A]  \n**Venue:** N/A | **Authors:** N/A  \n\n---\n\n### 1. Core Problem & Motivation\nBrain tumor segmentation is challenging due to class imbalance and limited model generalization, hindering accurate diagnosis and treatment planning.\n\n*Motivation & Gaps:* Overcoming empirical and methodological bottlenecks in existing approaches to achieve validated outcomes in Reproducible Evaluation of Data Augmentation.  \n*Key Challenges Tackled:*\n- Accurate representation and modeling within Reproducible Evaluation of Data Augmentation\n- Empirical validation across benchmarks: A publicly available MRI dataset.\n\n---\n\n### 2. Proposed Methodology & Technical Architecture\n**Architecture Overview:**  \nThe study evaluates U-Net segmentation performance on brain tumor MRI using focal loss and basic data augmentation strategies (horizontal flip, rotation, and scaling).\n\n**Algorithmic Innovation:**  \nCore pipeline execution parameterized across 3 methodological phases.  \n\n*Core Technical Innovations:*\n- Problem Formulation & Data Ingestion\n- Method Execution & Architecture\n\n---\n\n### 3. Empirical Results & Benchmark Datasets\n**Evaluated Datasets:** A publicly available MRI dataset.  \n**Key Metrics:** Accuracy / Success Rate (%), Normalized Metric  \n\n**Quantitative Findings:**  \nThe U-Net with focal loss achieved a precision of 90%, comparable to state-of-the-art results.  \n\n**Baseline Comparison:**  \nDemonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in Reproducible Evaluation of Data Augmentation.\n\n---\n\n### 4. Explicit Limitations & Failure Modes\n**Stated Limitations:**  \nManual delineation by radiologists is time-consuming, prone to inter-observer variability, and difficult to scale in clinical settings.  \n\n**Failure Modes & Bottlenecks:**  \nFailure boundaries and error cases associated with Manual delineation by radiologists is time-consuming, prone to inter-observer variability, and difficult to scale in cli.  \n\n**Computational Trade-offs:**  \nComputational requirements, runtime complexity, and data scaling constraints discussed in Reproducible Evaluation of Data Augmentation.\n"
+      }
     }
   },
-  "last_updated": "2026-11-20T18:32:36.377878",
+  "last_updated": "2026-11-22T13:59:16.316033",
   "comparative_analysis": {
-    "paper_count": 24,
+    "paper_count": 6,
     "paper_ids": [
-      "2210.03629",
-      "2302.04761",
-      "2303.11366",
-      "2305.10601",
-      "2305.15334",
-      "2305.16291",
-      "2307.07924",
-      "2308.00352",
-      "2308.03688",
-      "2308.08155",
-      "2310.06770",
-      "2310.11511",
-      "1901.06610",
-      "1905.05918",
-      "2211.12792",
-      "2306.14753",
-      "2307.05639",
-      "2512.09458",
-      "2601.11816",
-      "2604.04522",
-      "2605.05287",
-      "2605.23989",
-      "2609.05946",
-      "2205.13273"
+      "1909.06684",
+      "2009.12188",
+      "2011.02840",
+      "2011.11052",
+      "2411.01896",
+      "2510.08617"
     ],
     "methodology_comparison": [
       {
-        "paper_id": "2210.03629",
-        "paper_title": "ReAct: Synergizing Reasoning and Acting in Language Models",
-        "grounded_citation": "[text et al., Not specified in text]",
-        "method_name": "ReAct",
-        "architecture_category": "Reasoning & Action (ReAct)",
-        "key_innovation": "Novel architecture for ReAct: Synergizing Reasoning and Acting in Language Models",
-        "paradigm": "Reasoning & Action (ReAct)"
-      },
-      {
-        "paper_id": "2302.04761",
-        "paper_title": "Toolformer: Language Models Can Teach Themselves to Use Tools",
-        "grounded_citation": "[Authors et al., arXiv]",
-        "method_name": "Toolformer",
-        "architecture_category": "Evaluation Benchmark / Testbed",
-        "key_innovation": "Problem Formulation & Data Ingestion",
-        "paradigm": "Evaluation Benchmark / Testbed"
-      },
-      {
-        "paper_id": "2303.11366",
-        "paper_title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
-        "grounded_citation": "[Shinn et al., arXiv preprint arXiv:2303.11366 (2023)]",
-        "method_name": "Reflexion",
-        "architecture_category": "Self-Reflection & Refinement",
-        "key_innovation": "Problem Formulation & Data Ingestion",
-        "paradigm": "Self-Reflection & Refinement"
-      },
-      {
-        "paper_id": "2305.10601",
-        "paper_title": "2305.10601 Tree of Thoughts Deliber",
-        "grounded_citation": "[Authors et al., arXiv / Peer-Reviewed Venue]",
-        "method_name": "2305.10601",
-        "architecture_category": "Tree / Graph Search & Planning",
-        "key_innovation": "Problem Formulation & Data Ingestion",
-        "paradigm": "Tree / Graph Search & Planning"
-      },
-      {
-        "paper_id": "2305.15334",
-        "paper_title": "2305.15334 Gorilla Large Language M",
-        "grounded_citation": "[Authors et al., arXiv / Peer-Reviewed Venue]",
-        "method_name": "2305.15334",
-        "architecture_category": "Tool-Augmented / API Integration",
-        "key_innovation": "We\nrelease Gorilla, a finetuned LLaMA-based model that surpasses the performance\nof GPT-4 on writing API calls.",
-        "paradigm": "Tool-Augmented / API Integration"
-      },
-      {
-        "paper_id": "2305.16291",
-        "paper_title": "2305.16291 Voyager An Open-Ended Em",
-        "grounded_citation": "[Authors et al., arXiv / Peer-Reviewed Venue]",
-        "method_name": "2305.16291",
-        "architecture_category": "Embodied Agent & Skill Learning",
-        "key_innovation": "Novel architecture for 2305.16291 Voyager An Open-Ended Em",
-        "paradigm": "Embodied Agent & Skill Learning"
-      },
-      {
-        "paper_id": "2307.07924",
-        "paper_title": "2307.07924 ChatDev Communicative Ag",
-        "grounded_citation": "[Authors et al., arXiv / Peer-Reviewed Venue]",
-        "method_name": "2307.07924",
-        "architecture_category": "Multi-Agent Collaboration",
-        "key_innovation": "Novel architecture for 2307.07924 ChatDev Communicative Ag",
-        "paradigm": "Multi-Agent Collaboration"
-      },
-      {
-        "paper_id": "2308.00352",
-        "paper_title": "2308.00352 MetaGPT Meta Programming",
-        "grounded_citation": "[Authors et al., arXiv / Peer-Reviewed Venue]",
-        "method_name": "2308.00352",
-        "architecture_category": "Multi-Agent Collaboration",
-        "key_innovation": "Problem Formulation & Data Ingestion",
-        "paradigm": "Multi-Agent Collaboration"
-      },
-      {
-        "paper_id": "2308.03688",
-        "paper_title": "AgentBench: Evaluating LLMs as Agents",
-        "grounded_citation": "[Authors et al., arXiv]",
-        "method_name": "AgentBench",
-        "architecture_category": "Evaluation Benchmark / Testbed",
-        "key_innovation": "Novel architecture for AgentBench: Evaluating LLMs as Agents",
-        "paradigm": "Evaluation Benchmark / Testbed"
-      },
-      {
-        "paper_id": "2308.08155",
-        "paper_title": "2308.08155 AutoGen Enabling Next-Ge",
-        "grounded_citation": "[Authors et al., arXiv / Peer-Reviewed Venue]",
-        "method_name": "2308.08155",
-        "architecture_category": "Multi-Agent Collaboration",
-        "key_innovation": "Problem Formulation & Data Ingestion",
-        "paradigm": "Multi-Agent Collaboration"
-      },
-      {
-        "paper_id": "2310.06770",
-        "paper_title": "2310.06770 SWE-bench Can Language M",
-        "grounded_citation": "[Authors et al., arXiv / Peer-Reviewed Venue]",
-        "method_name": "2310.06770",
-        "architecture_category": "Software Engineering & Code Benchmark",
-        "key_innovation": "Novel architecture for 2310.06770 SWE-bench Can Language M",
-        "paradigm": "Software Engineering & Code Benchmark"
-      },
-      {
-        "paper_id": "2310.11511",
-        "paper_title": "2310.11511 Self-RAG Learning to Ret",
-        "grounded_citation": "[Authors et al., arXiv / Peer-Reviewed Venue]",
-        "method_name": "2310.11511",
-        "architecture_category": "Retrieval-Augmented Generation (RAG)",
-        "key_innovation": "Novel architecture for 2310.11511 Self-RAG Learning to Ret",
-        "paradigm": "Retrieval-Augmented Generation (RAG)"
-      },
-      {
-        "paper_id": "1901.06610",
-        "paper_title": "Hierarchical Attentional Hybrid Neural Networks for Document Classification",
-        "grounded_citation": "[specified et al., Not specified]",
-        "method_name": "Hierarchical",
-        "architecture_category": "Evaluation Benchmark / Testbed",
-        "key_innovation": "Problem Formulation & Data Ingestion",
-        "paradigm": "Evaluation Benchmark / Testbed"
-      },
-      {
-        "paper_id": "1905.05918",
-        "paper_title": "A Neural Network-Evolutionary Computation Framework for Remaining Useful Life Estimation",
-        "grounded_citation": "[context et al., Not specified in context]",
-        "method_name": "A",
-        "architecture_category": "Specialized Framework",
-        "key_innovation": "The framework presented here automatically reshapes the data such that the efficiency of the model is increased.",
-        "paradigm": "Specialized Framework"
-      },
-      {
-        "paper_id": "2211.12792",
-        "paper_title": "Metapath Context Convolution-based Heterogeneous Graph Neural Network (MECCH)",
-        "grounded_citation": "[text et al., Not specified in the text]",
-        "method_name": "Metapath",
-        "architecture_category": "Specialized Framework",
-        "key_innovation": "Novel architecture for Metapath Context Convolution-based Heterogeneous Graph Neural Network (MECCH)",
-        "paradigm": "Specialized Framework"
-      },
-      {
-        "paper_id": "2306.14753",
-        "paper_title": "2306.14753 The Deep Arbitrary Polynomial Chaos Neur",
-        "grounded_citation": "[Authors et al., arXiv / Peer-Reviewed Venue]",
-        "method_name": "2306.14753",
-        "architecture_category": "Evaluation Benchmark / Testbed",
-        "key_innovation": "Problem Formulation & Data Ingestion",
-        "paradigm": "Evaluation Benchmark / Testbed"
-      },
-      {
-        "paper_id": "2307.05639",
-        "paper_title": "Learning Active Subspaces and Discovering Interpretability in Neural Networks",
-        "grounded_citation": "[context et al., Not specified in context]",
-        "method_name": "Learning",
-        "architecture_category": "Evaluation Benchmark / Testbed",
-        "key_innovation": "Problem Formulation & Data Ingestion",
-        "paradigm": "Evaluation Benchmark / Testbed"
-      },
-      {
-        "paper_id": "2512.09458",
-        "paper_title": "2512.09458 Architectures for Building Agentic AI",
-        "grounded_citation": "[Authors et al., arXiv / Peer-Reviewed Venue]",
-        "method_name": "2512.09458",
-        "architecture_category": "Multi-Agent Collaboration",
-        "key_innovation": "Novel architecture for 2512.09458 Architectures for Building Agentic AI",
-        "paradigm": "Multi-Agent Collaboration"
-      },
-      {
-        "paper_id": "2601.11816",
-        "paper_title": "2601.11816 POLARIS Typed Planning and Governed Exec",
-        "grounded_citation": "[Authors et al., arXiv / Peer-Reviewed Venue]",
-        "method_name": "2601.11816",
-        "architecture_category": "Multi-Agent Collaboration",
-        "key_innovation": "Problem Formulation & Data Ingestion",
-        "paradigm": "Multi-Agent Collaboration"
-      },
-      {
-        "paper_id": "2604.04522",
-        "paper_title": "2604.04522 HDP A Lightweight Cryptographic Protocol",
-        "grounded_citation": "[Authors et al., arXiv / Peer-Reviewed Venue]",
-        "method_name": "2604.04522",
-        "architecture_category": "Multi-Agent Collaboration",
-        "key_innovation": "Problem Formulation & Data Ingestion",
-        "paradigm": "Multi-Agent Collaboration"
-      },
-      {
-        "paper_id": "2605.05287",
-        "paper_title": "2605.05287 Securing the Agent Vendor-Neutral Multit",
-        "grounded_citation": "[Authors et al., arXiv / Peer-Reviewed Venue]",
-        "method_name": "2605.05287",
-        "architecture_category": "Evaluation Benchmark / Testbed",
-        "key_innovation": "Problem Formulation & Data Ingestion",
-        "paradigm": "Evaluation Benchmark / Testbed"
-      },
-      {
-        "paper_id": "2605.23989",
-        "paper_title": "2605.23989 Towards trustworthy agentic AI a compreh",
-        "grounded_citation": "[Authors et al., arXiv / Peer-Reviewed Venue]",
-        "method_name": "2605.23989",
-        "architecture_category": "Evaluation Benchmark / Testbed",
-        "key_innovation": "Problem Formulation & Data Ingestion",
-        "paradigm": "Evaluation Benchmark / Testbed"
-      },
-      {
-        "paper_id": "2609.05946",
-        "paper_title": "Interpretable and Fair Generalized Additive Models",
-        "grounded_citation": "[context et al., Not specified in context]",
-        "method_name": "Interpretable",
-        "architecture_category": "Evaluation Benchmark / Testbed",
-        "key_innovation": "Problem Formulation & Data Ingestion",
-        "paradigm": "Evaluation Benchmark / Testbed"
-      },
-      {
-        "paper_id": "2205.13273",
-        "paper_title": "Acute Lymphoblastic Leukemia Detection Using Hypercomplex Neural Networks",
+        "paper_id": "1909.06684",
+        "paper_title": "3D Kidneys and Kidney Tumor Semantic Segmentation",
         "grounded_citation": "[N/A et al., N/A]",
-        "method_name": "Acute",
+        "method_name": "3D",
+        "architecture_category": "Evaluation Benchmark / Testbed",
+        "key_innovation": "Problem Formulation & Data Ingestion",
+        "paradigm": "Evaluation Benchmark / Testbed"
+      },
+      {
+        "paper_id": "2009.12188",
+        "paper_title": "Brain Tumor Segmentation using 3D-CNNs",
+        "grounded_citation": "[N/A et al., N/A]",
+        "method_name": "Brain",
+        "architecture_category": "Specialized Framework",
+        "key_innovation": "Novel architecture for Brain Tumor Segmentation using 3D-CNNs",
+        "paradigm": "Specialized Framework"
+      },
+      {
+        "paper_id": "2011.02840",
+        "paper_title": "DR-Unet104 for Multimodal MRI brain tumor",
+        "grounded_citation": "[N/A et al., N/A]",
+        "method_name": "DR-Unet104",
+        "architecture_category": "Evaluation Benchmark / Testbed",
+        "key_innovation": "Problem Formulation & Data Ingestion",
+        "paradigm": "Evaluation Benchmark / Testbed"
+      },
+      {
+        "paper_id": "2011.11052",
+        "paper_title": "Efficient embedding network for 3D brain",
+        "grounded_citation": "[N/A et al., N/A]",
+        "method_name": "Efficient",
+        "architecture_category": "Specialized Framework",
+        "key_innovation": "Novel architecture for Efficient embedding network for 3D brain",
+        "paradigm": "Specialized Framework"
+      },
+      {
+        "paper_id": "2411.01896",
+        "paper_title": "MBDRes-U-Net: Multi-Scale Lightweight Bra Tumor Segmentation",
+        "grounded_citation": "[specified et al., Not specified]",
+        "method_name": "MBDRes-U-Net",
+        "architecture_category": "Evaluation Benchmark / Testbed",
+        "key_innovation": "Problem Formulation & Data Ingestion",
+        "paradigm": "Evaluation Benchmark / Testbed"
+      },
+      {
+        "paper_id": "2510.08617",
+        "paper_title": "Reproducible Evaluation of Data Augmentation",
+        "grounded_citation": "[N/A et al., N/A]",
+        "method_name": "Reproducible",
         "architecture_category": "Evaluation Benchmark / Testbed",
         "key_innovation": "Problem Formulation & Data Ingestion",
         "paradigm": "Evaluation Benchmark / Testbed"
       }
     ],
     "dataset_overlap_matrix": {
-      "HotpotQA (Question Answering)": [
-        "2210.03629"
+      "2019 MICCAI KiTS Kidney Tumor Segmentation Challenge dataset": [
+        "1909.06684"
       ],
-      "Fever (Fact Verification)": [
-        "2210.03629"
+      "Brain Tumor Segmentation (BraTS) challenge (started in 2012), specifically mentioning BraTS 2020 training.": [
+        "2009.12188"
       ],
-      "ALFWorld (Interactive Decision Making)": [
-        "2210.03629"
+      "Multimodal Brain Tumor Segmentation (BraTS) 2020 Challenge data (validation and testing sets).": [
+        "2011.02840"
       ],
-      "WebShop (Interactive Decision Making)": [
-        "2210.03629"
+      "BraTS 2020 challenge (including 369 cases: 293 HGG and 76 LGG) using 4 modalities: native (T1), post-contrast T1-weighted (T1Gd), T2-weighted (T2), and T2-FLAIR.": [
+        "2011.11052"
       ],
-      "HumanEval": [
-        "2303.11366",
-        "2308.00352"
+      "Brain Tumor Segmentation (BraTS) Challenge 2018 and 2019 datasets": [
+        "2411.01896"
       ],
-      "sequential decision-making tasks": [
-        "2303.11366"
-      ],
-      "coding tasks": [
-        "2303.11366"
-      ],
-      "language reasoning tasks": [
-        "2303.11366"
-      ],
-      "Tabular Data (TAB-2305.10601-P2-1)": [
-        "2305.10601"
-      ],
-      "Tabular Data (TAB-2305.10601-P5-2)": [
-        "2305.10601"
-      ],
-      "Tabular Data (TAB-2305.10601-P6-2)": [
-        "2305.10601"
-      ],
-      "Tabular Data (TAB-2305.10601-P6-3)": [
-        "2305.10601"
-      ],
-      "Tabular Data (TAB-2305.15334-P2-1)": [
-        "2305.15334"
-      ],
-      "Tabular Data (TAB-2305.15334-P4-1)": [
-        "2305.15334"
-      ],
-      "Tabular Data (TAB-2305.15334-P4-2)": [
-        "2305.15334"
-      ],
-      "Tabular Data (TAB-2305.15334-P7-1)": [
-        "2305.15334"
-      ],
-      "Tabular Data (TAB-2305.16291-P3-1)": [
-        "2305.16291"
-      ],
-      "Tabular Data (TAB-2305.16291-P4-2)": [
-        "2305.16291"
-      ],
-      "Tabular Data (TAB-2305.16291-P5-1)": [
-        "2305.16291"
-      ],
-      "Tabular Data (TAB-2305.16291-P5-2)": [
-        "2305.16291"
-      ],
-      "Tabular Data (TAB-2307.07924-P3-1)": [
-        "2307.07924"
-      ],
-      "Evaluation": [
-        "2307.07924"
-      ],
-      "Datasets": [
-        "2307.07924"
-      ],
-      "Note": [
-        "2307.07924"
-      ],
-      "Tabular Data (TAB-2308.00352-P9-1)": [
-        "2308.00352"
-      ],
-      "Tabular Data (TAB-2308.00352-P9-2)": [
-        "2308.00352"
-      ],
-      "Tabular Data (TAB-2308.00352-P24-1)": [
-        "2308.00352"
-      ],
-      "Tabular Data (TAB-2308.00352-P24-2)": [
-        "2308.00352"
-      ],
-      "AGENTBENCH comprises 8 distinct environments for evaluating LLM-as-Agent on a wide array of real-world challenges. Datasets, environments and an integrated evaluation package for AGENTBENCH are released at https://github.com/THUDM/AgentBench. Evaluation is conducted on 29 LLMs examined in this edition, including API-based and OSS models.": [
-        "2308.03688"
-      ],
-      "Tabular Data (TAB-2308.08155-P1-1)": [
-        "2308.08155"
-      ],
-      "Tabular Data (TAB-2308.08155-P7-1)": [
-        "2308.08155"
-      ],
-      "Tabular Data (TAB-2308.08155-P7-2)": [
-        "2308.08155"
-      ],
-      "Tabular Data (TAB-2308.08155-P7-3)": [
-        "2308.08155"
-      ],
-      "Tabular Data (TAB-2310.06770-P9-1)": [
-        "2310.06770"
-      ],
-      "Tabular Data (TAB-2310.06770-P17-1)": [
-        "2310.06770"
-      ],
-      "Tabular Data (TAB-2310.06770-P20-1)": [
-        "2310.06770"
-      ],
-      "Tabular Data (TAB-2310.06770-P36-1)": [
-        "2310.06770"
-      ],
-      "Tabular Data (TAB-2310.11511-P4-1)": [
-        "2310.11511"
-      ],
-      "Tabular Data (TAB-2310.11511-P4-2)": [
-        "2310.11511"
-      ],
-      "Tabular Data (TAB-2310.11511-P5-1)": [
-        "2310.11511"
-      ],
-      "Tabular Data (TAB-2310.11511-P9-1)": [
-        "2310.11511"
-      ],
-      "Not specified (Evaluated against state-of-the-art models using test reviews for visualization)": [
-        "1901.06610"
-      ],
-      "C-MAPSS dataset [1]": [
-        "1905.05918"
-      ],
-      "Five real-world heterogeneous graph datasets": [
-        "2211.12792"
-      ],
-      "Because": [
-        "2306.14753"
-      ],
-      "Instead": [
-        "2306.14753"
-      ],
-      "DANN": [
-        "2306.14753"
-      ],
-      "DaPC": [
-        "2306.14753"
-      ],
-      "Not specified, but experiments were conducted for regression, classification, and feature selection tasks.": [
-        "2307.05639"
-      ],
-      "ReWOO": [
-        "2512.09458"
-      ],
-      "Reasoning": [
-        "2512.09458"
-      ],
-      "Without": [
-        "2512.09458"
-      ],
-      "Observation": [
-        "2512.09458"
-      ],
-      "Tabular Data (TAB-2601.11816-P11-1)": [
-        "2601.11816"
-      ],
-      "Enterprise": [
-        "2601.11816"
-      ],
-      "POLARIS": [
-        "2601.11816"
-      ],
-      "Policy-Aware": [
-        "2601.11816"
-      ],
-      "2604.04522 HDP A Lightweight Cryptographic Protocol Evaluation Benchmark": [
-        "2604.04522"
-      ],
-      "Tabular Data (TAB-2605.05287-P4-1)": [
-        "2605.05287"
-      ],
-      "Tabular Data (TAB-2605.05287-P6-1)": [
-        "2605.05287"
-      ],
-      "Tabular Data (TAB-2605.05287-P7-1)": [
-        "2605.05287"
-      ],
-      "Tabular Data (TAB-2605.05287-P7-3)": [
-        "2605.05287"
-      ],
-      "Tabular Data (TAB-2605.23989-P2-1)": [
-        "2605.23989"
-      ],
-      "Tabular Data (TAB-2605.23989-P5-1)": [
-        "2605.23989"
-      ],
-      "Tabular Data (TAB-2605.23989-P5-2)": [
-        "2605.23989"
-      ],
-      "Tabular Data (TAB-2605.23989-P11-1)": [
-        "2605.23989"
-      ],
-      "Not specified in context": [
-        "2609.05946"
-      ],
-      "ALL-IDB2": [
-        "2205.13273"
-      ],
-      "HotpotQA": [
-        "2210.03629",
-        "2303.11366"
-      ],
-      "ALFWorld": [
-        "2210.03629",
-        "2303.11366",
-        "2308.03688",
-        "2308.08155"
+      "A publicly available MRI dataset.": [
+        "2510.08617"
       ]
     },
     "metrics_comparison": [
       {
-        "paper_id": "2210.03629",
-        "grounded_citation": "[text et al., Not specified in text]",
-        "evaluated_datasets": [
-          "HotpotQA (Question Answering)",
-          "Fever (Fact Verification)",
-          "ALFWorld (Interactive Decision Making)",
-          "WebShop (Interactive Decision Making)"
-        ],
-        "key_metrics": [
-          "Accuracy / Success Rate (%)",
-          "Normalized Metric"
-        ],
-        "quantitative_results": "On HotpotQA and Fever, ReAct overcomes hallucination/error propagation by using a Wikipedia API. On ALFWorld and WebShop, ReAct outperforms imitation and reinforcement learning methods by an absolute success rate of 34% and 10% respectively.",
-        "baseline_comparison": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in ReAct: Synergizing Reasoning and Acting in Language Models."
-      },
-      {
-        "paper_id": "2302.04761",
-        "grounded_citation": "[Authors et al., arXiv]",
-        "evaluated_datasets": [
-          ""
-        ],
-        "key_metrics": [
-          "Reported Metric",
-          "Benchmark Score"
-        ],
-        "quantitative_results": "Toolformer achieves substantially improved zero-shot performance across a variety of downstream tasks, often competitive with much larger models, without sacrificing its core language modeling abilities. Toolformer still lags behind the much larger GPT-3 175B model.",
-        "baseline_comparison": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in Toolformer: Language Models Can Teach Themselves to Use Tools."
-      },
-      {
-        "paper_id": "2303.11366",
-        "grounded_citation": "[Shinn et al., arXiv preprint arXiv:2303.11366 (2023)]",
-        "evaluated_datasets": [
-          "HumanEval",
-          "sequential decision-making tasks",
-          "coding tasks",
-          "language reasoning tasks"
-        ],
-        "key_metrics": [
-          "Accuracy / Success Rate (%)",
-          "Normalized Metric"
-        ],
-        "quantitative_results": "Reflexion obtains significant improvements over a baseline agent across diverse tasks including sequential decision-making, coding and language reasoning. On the HumanEval coding benchmark Reflexion achieves 91% pass@1 accuracy, surpassing the previous state-of-the-art GPT-4 that achieves 80%.",
-        "baseline_comparison": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in Reflexion: Language Agents with Verbal Reinforcement Learning."
-      },
-      {
-        "paper_id": "2305.10601",
-        "grounded_citation": "[Authors et al., arXiv / Peer-Reviewed Venue]",
-        "evaluated_datasets": [
-          "Tabular Data (TAB-2305.10601-P2-1)",
-          "Tabular Data (TAB-2305.10601-P5-2)",
-          "Tabular Data (TAB-2305.10601-P6-2)",
-          "Tabular Data (TAB-2305.10601-P6-3)"
-        ],
-        "key_metrics": [
-          "Reported Metric",
-          "Benchmark Score"
-        ],
-        "quantitative_results": "Language models are increasingly being deployed for general problem solving\nacross a wide range of tasks, but are still confined to token-level, left-to-right\ndecision-making processes during inference. This means they can fall short in\ntasks that require exploration, strategic lookahead, or where i",
-        "baseline_comparison": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in 2305.10601 Tree of Thoughts Deliber."
-      },
-      {
-        "paper_id": "2305.15334",
-        "grounded_citation": "[Authors et al., arXiv / Peer-Reviewed Venue]",
-        "evaluated_datasets": [
-          "Tabular Data (TAB-2305.15334-P2-1)",
-          "Tabular Data (TAB-2305.15334-P4-1)",
-          "Tabular Data (TAB-2305.15334-P4-2)",
-          "Tabular Data (TAB-2305.15334-P7-1)"
-        ],
-        "key_metrics": [
-          "Reported Metric",
-          "Benchmark Score"
-        ],
-        "quantitative_results": "Large Language Models (LLMs) have seen an impressive wave of advances re-\ncently, with models now excelling in a variety of tasks, such as mathematical\nreasoning and program synthesis. However, their potential to effectively use tools\nvia API calls remains unfulfilled. This is a challenging task eve",
-        "baseline_comparison": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in 2305.15334 Gorilla Large Language M."
-      },
-      {
-        "paper_id": "2305.16291",
-        "grounded_citation": "[Authors et al., arXiv / Peer-Reviewed Venue]",
-        "evaluated_datasets": [
-          "Tabular Data (TAB-2305.16291-P3-1)",
-          "Tabular Data (TAB-2305.16291-P4-2)",
-          "Tabular Data (TAB-2305.16291-P5-1)",
-          "Tabular Data (TAB-2305.16291-P5-2)"
-        ],
-        "key_metrics": [
-          "Reported Metric",
-          "Benchmark Score"
-        ],
-        "quantitative_results": "Empirically, VOYAGER demonstrates strong in-context lifelong learning capabilities. It can construct\nan ever-growing skill library of action programs that are reusable, interpretable, and generalizable\nto novel tasks. We evaluate VOYAGER systematically against other LLM-based agent techniques\n(e.g.,",
-        "baseline_comparison": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in 2305.16291 Voyager An Open-Ended Em."
-      },
-      {
-        "paper_id": "2307.07924",
-        "grounded_citation": "[Authors et al., arXiv / Peer-Reviewed Venue]",
-        "evaluated_datasets": [
-          "Tabular Data (TAB-2307.07924-P3-1)",
-          "Evaluation",
-          "Datasets",
-          "Note"
-        ],
-        "key_metrics": [
-          "Reported Metric",
-          "Benchmark Score"
-        ],
-        "quantitative_results": "Software development is a complex task that\nnecessitates cooperation among multiple mem-\nbers with diverse skills. Numerous studies used\ndeep learning to improve specific phases in a\nwaterfall model, such as design, coding, and\ntesting.\nHowever, the deep learning model\nin each phase requires unique ",
-        "baseline_comparison": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in 2307.07924 ChatDev Communicative Ag."
-      },
-      {
-        "paper_id": "2308.00352",
-        "grounded_citation": "[Authors et al., arXiv / Peer-Reviewed Venue]",
-        "evaluated_datasets": [
-          "Tabular Data (TAB-2308.00352-P9-1)",
-          "Tabular Data (TAB-2308.00352-P9-2)",
-          "Tabular Data (TAB-2308.00352-P24-1)",
-          "Tabular Data (TAB-2308.00352-P24-2)"
-        ],
-        "key_metrics": [
-          "Reported Metric",
-          "Benchmark Score"
-        ],
-        "quantitative_results": "Remarkable progress has been made on automated problem solving through so-\ncieties of agents based on large language models (LLMs). Existing LLM-based\nmulti-agent systems can already solve simple dialogue tasks. Solutions to more\ncomplex tasks, however, are complicated through logic inconsistencies ",
-        "baseline_comparison": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in 2308.00352 MetaGPT Meta Programming."
-      },
-      {
-        "paper_id": "2308.03688",
-        "grounded_citation": "[Authors et al., arXiv]",
-        "evaluated_datasets": [
-          "AGENTBENCH comprises 8 distinct environments for evaluating LLM-as-Agent on a wide array of real-world challenges. Datasets, environments and an integrated evaluation package for AGENTBENCH are released at https://github.com/THUDM/AgentBench. Evaluation is conducted on 29 LLMs examined in this edition, including API-based and OSS models."
-        ],
-        "key_metrics": [
-          "Reported Metric",
-          "Benchmark Score"
-        ],
-        "quantitative_results": "Extensive testing over 29 API-based and open-sourced LLMs shows top commercial LLMs present strong ability of acting as agents in complex environments, with a significant disparity in performance between them and many OSS competitors no larger than 70B. Typical failure reasons are identified in environments and LLMs, showing poor long-term reasoning, decision-making and instruction following abilities are main obstacles for developing usable LLM agents. Improving instruction following and training on high quality multi-round alignment data could improve agent performance. Training on code presents ambivalent impacts on different agent tasks. Overall scores of AgentBench across 8 environments are reported with dashed lines for two LLM types average.",
-        "baseline_comparison": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in AgentBench: Evaluating LLMs as Agents."
-      },
-      {
-        "paper_id": "2308.08155",
-        "grounded_citation": "[Authors et al., arXiv / Peer-Reviewed Venue]",
-        "evaluated_datasets": [
-          "Tabular Data (TAB-2308.08155-P1-1)",
-          "Tabular Data (TAB-2308.08155-P7-1)",
-          "Tabular Data (TAB-2308.08155-P7-2)",
-          "Tabular Data (TAB-2308.08155-P7-3)"
-        ],
-        "key_metrics": [
-          "Reported Metric",
-          "Benchmark Score"
-        ],
-        "quantitative_results": "1 Customizable and conversable agents. AutoGen uses a generic design of agents that can lever-\nage LLMs, human inputs, tools, or a combination of them. The result is that developers can\neasily and quickly create agents with different roles (e.g., agents to write code, execute code,\nwire in human fee",
-        "baseline_comparison": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in 2308.08155 AutoGen Enabling Next-Ge."
-      },
-      {
-        "paper_id": "2310.06770",
-        "grounded_citation": "[Authors et al., arXiv / Peer-Reviewed Venue]",
-        "evaluated_datasets": [
-          "Tabular Data (TAB-2310.06770-P9-1)",
-          "Tabular Data (TAB-2310.06770-P17-1)",
-          "Tabular Data (TAB-2310.06770-P20-1)",
-          "Tabular Data (TAB-2310.06770-P36-1)"
-        ],
-        "key_metrics": [
-          "Reported Metric",
-          "Benchmark Score"
-        ],
-        "quantitative_results": "Language models have outpaced our ability to evaluate them effectively, but for\ntheir future development it is essential to study the frontier of their capabilities.\nWe find real-world software engineering to be a rich, sustainable, and challenging\ntestbed for evaluating the next generation of langu",
-        "baseline_comparison": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in 2310.06770 SWE-bench Can Language M."
-      },
-      {
-        "paper_id": "2310.11511",
-        "grounded_citation": "[Authors et al., arXiv / Peer-Reviewed Venue]",
-        "evaluated_datasets": [
-          "Tabular Data (TAB-2310.11511-P4-1)",
-          "Tabular Data (TAB-2310.11511-P4-2)",
-          "Tabular Data (TAB-2310.11511-P5-1)",
-          "Tabular Data (TAB-2310.11511-P9-1)"
-        ],
-        "key_metrics": [
-          "Reported Metric",
-          "Benchmark Score"
-        ],
-        "quantitative_results": "Despite their remarkable capabilities, large language models (LLMs) often produce\nresponses containing factual inaccuracies due to their sole reliance on the paramet-\nric knowledge they encapsulate. Retrieval-Augmented Generation (RAG), an ad\nhoc approach that augments LMs with retrieval of relevant",
-        "baseline_comparison": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in 2310.11511 Self-RAG Learning to Ret."
-      },
-      {
-        "paper_id": "1901.06610",
-        "grounded_citation": "[specified et al., Not specified]",
-        "evaluated_datasets": [
-          "Not specified (Evaluated against state-of-the-art models using test reviews for visualization)"
-        ],
-        "key_metrics": [
-          "Reported Metric",
-          "Benchmark Score"
-        ],
-        "quantitative_results": "The proposed HAHNN model shows improved accuracy compared to current attention-based approaches and state-of-the-art models.",
-        "baseline_comparison": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in Hierarchical Attentional Hybrid Neural Networks for Document Classification."
-      },
-      {
-        "paper_id": "1905.05918",
-        "grounded_citation": "[context et al., Not specified in context]",
-        "evaluated_datasets": [
-          "C-MAPSS dataset [1]"
-        ],
-        "key_metrics": [
-          "Reported Metric",
-          "Benchmark Score"
-        ],
-        "quantitative_results": "The proposed method's accuracy is compared against other state-of-the-art methods on the C-MAPSS dataset. Good prognostics results have been achieved, though data-driven approaches typically have wider confidence intervals than model-based approaches.",
-        "baseline_comparison": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in A Neural Network-Evolutionary Computation Framework for Remaining Useful Life Estimation."
-      },
-      {
-        "paper_id": "2211.12792",
-        "grounded_citation": "[text et al., Not specified in the text]",
-        "evaluated_datasets": [
-          "Five real-world heterogeneous graph datasets"
-        ],
-        "key_metrics": [
-          "Reported Metric",
-          "Benchmark Score"
-        ],
-        "quantitative_results": "MECCH achieves superior prediction accuracy compared with state-of-the-art baselines with improved computational efficiency on node classification and link prediction tasks.",
-        "baseline_comparison": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in Metapath Context Convolution-based Heterogeneous Graph Neural Network (MECCH)."
-      },
-      {
-        "paper_id": "2306.14753",
-        "grounded_citation": "[Authors et al., arXiv / Peer-Reviewed Venue]",
-        "evaluated_datasets": [
-          "Because",
-          "Instead",
-          "DANN",
-          "DaPC"
-        ],
-        "key_metrics": [
-          "Reported Metric",
-          "Benchmark Score"
-        ],
-        "quantitative_results": "Theory of polynomial chaos expansion (PCE) was originally introduced by Norbert Wiener [113] in 1938. In PCE, the dependence of the model response (output) on all inputs is expressed using projection onto an orthogonal or orthonormal multi-variate polynomial basis [33,104]. For the current paper, we",
-        "baseline_comparison": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in 2306.14753 The Deep Arbitrary Polynomial Chaos Neur."
-      },
-      {
-        "paper_id": "2307.05639",
-        "grounded_citation": "[context et al., Not specified in context]",
-        "evaluated_datasets": [
-          "Not specified, but experiments were conducted for regression, classification, and feature selection tasks."
-        ],
-        "key_metrics": [
-          "Reported Metric",
-          "Benchmark Score"
-        ],
-        "quantitative_results": "The proposed model achieved attractive prediction performance compared to popular ML models, state-of-the-art deep learning embedding techniques, and a transformer model, while also providing meaningful interpretability.",
-        "baseline_comparison": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in Learning Active Subspaces and Discovering Interpretability in Neural Networks."
-      },
-      {
-        "paper_id": "2512.09458",
-        "grounded_citation": "[Authors et al., arXiv / Peer-Reviewed Venue]",
-        "evaluated_datasets": [
-          "ReWOO",
-          "Reasoning",
-          "Without",
-          "Observation"
-        ],
-        "key_metrics": [
-          "Reported Metric",
-          "Benchmark Score"
-        ],
-        "quantitative_results": "This book is not intended as yet another broad introduction to Agentic GenAI; instead,\nwe put these recent developments in the specific context of reliability. By reliability, we\nmean the consistent achievement of intended outcomes under stated conditions, within\nacceptable bounds of safety, securit",
-        "baseline_comparison": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in 2512.09458 Architectures for Building Agentic AI."
-      },
-      {
-        "paper_id": "2601.11816",
-        "grounded_citation": "[Authors et al., arXiv / Peer-Reviewed Venue]",
-        "evaluated_datasets": [
-          "Tabular Data (TAB-2601.11816-P11-1)",
-          "Enterprise",
-          "POLARIS",
-          "Policy-Aware"
-        ],
-        "key_metrics": [
-          "Reported Metric",
-          "Benchmark Score"
-        ],
-        "quantitative_results": "Enterprise back-office workflows require agentic systems that are auditable, policy-aligned, and op-\nerationally predictable, capabilities that generic multi-agent setups often fail to deliver. We present\nPOLARIS (Policy-Aware LLM Agentic Reasoning for Integrated Systems), a governed orchestration\nf",
-        "baseline_comparison": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in 2601.11816 POLARIS Typed Planning and Governed Exec."
-      },
-      {
-        "paper_id": "2604.04522",
-        "grounded_citation": "[Authors et al., arXiv / Peer-Reviewed Venue]",
-        "evaluated_datasets": [
-          "2604.04522 HDP A Lightweight Cryptographic Protocol Evaluation Benchmark"
-        ],
-        "key_metrics": [
-          "Reported Metric",
-          "Benchmark Score"
-        ],
-        "quantitative_results": "Empirical evaluation and experimental performance metrics reported in 2604.04522.",
-        "baseline_comparison": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in 2604.04522 HDP A Lightweight Cryptographic Protocol."
-      },
-      {
-        "paper_id": "2605.05287",
-        "grounded_citation": "[Authors et al., arXiv / Peer-Reviewed Venue]",
-        "evaluated_datasets": [
-          "Tabular Data (TAB-2605.05287-P4-1)",
-          "Tabular Data (TAB-2605.05287-P6-1)",
-          "Tabular Data (TAB-2605.05287-P7-1)",
-          "Tabular Data (TAB-2605.05287-P7-3)"
-        ],
-        "key_metrics": [
-          "Reported Metric",
-          "Benchmark Score"
-        ],
-        "quantitative_results": "We validate the proposed architecture through an open-\nsource implementation in OGX1 [25], a vendor-neutral frame-\nwork that implements an OpenAI-compatible, open-source\nResponses API with server-side multi-turn orchestration. We\nevaluate it empirically and show that ABAC gating eliminates\ncross-ten",
-        "baseline_comparison": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in 2605.05287 Securing the Agent Vendor-Neutral Multit."
-      },
-      {
-        "paper_id": "2605.23989",
-        "grounded_citation": "[Authors et al., arXiv / Peer-Reviewed Venue]",
-        "evaluated_datasets": [
-          "Tabular Data (TAB-2605.23989-P2-1)",
-          "Tabular Data (TAB-2605.23989-P5-1)",
-          "Tabular Data (TAB-2605.23989-P5-2)",
-          "Tabular Data (TAB-2605.23989-P11-1)"
-        ],
-        "key_metrics": [
-          "Reported Metric",
-          "Benchmark Score"
-        ],
-        "quantitative_results": "Agentic AI systems—Large Language Models (LLMs) augmented with planning, tool use, memory, and long-horizon interactions—can\nexecute complex tasks autonomously, but their multi-step trajectories introduce new failure modes that challenge trustworthiness. This\nsurvey provides a focused examination of",
-        "baseline_comparison": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in 2605.23989 Towards trustworthy agentic AI a compreh."
-      },
-      {
-        "paper_id": "2609.05946",
-        "grounded_citation": "[context et al., Not specified in context]",
-        "evaluated_datasets": [
-          "Not specified in context"
-        ],
-        "key_metrics": [
-          "Reported Metric",
-          "Benchmark Score"
-        ],
-        "quantitative_results": "Reveals complex relationships between accuracy, interpretability, and fairness, demonstrating how multi-objective optimization can be combined with self-interpretable models.",
-        "baseline_comparison": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in Interpretable and Fair Generalized Additive Models."
-      },
-      {
-        "paper_id": "2205.13273",
+        "paper_id": "1909.06684",
         "grounded_citation": "[N/A et al., N/A]",
         "evaluated_datasets": [
-          "ALL-IDB2"
+          "2019 MICCAI KiTS Kidney Tumor Segmentation Challenge dataset"
+        ],
+        "key_metrics": [
+          "Reported Metric",
+          "Benchmark Score"
+        ],
+        "quantitative_results": "Dice scores of 0.9742 for kidney and 0.8103 for tumor, with an overall composite dice score of 0.8923.",
+        "baseline_comparison": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in 3D Kidneys and Kidney Tumor Semantic Segmentation."
+      },
+      {
+        "paper_id": "2009.12188",
+        "grounded_citation": "[N/A et al., N/A]",
+        "evaluated_datasets": [
+          "Brain Tumor Segmentation (BraTS) challenge (started in 2012), specifically mentioning BraTS 2020 training."
+        ],
+        "key_metrics": [
+          "Reported Metric",
+          "Benchmark Score"
+        ],
+        "quantitative_results": "Best results obtained with the V-Net model directly when post-processing is applied. Dice score and Hausdorff distance showed lower performance on the validation set, especially in the ET region.",
+        "baseline_comparison": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in Brain Tumor Segmentation using 3D-CNNs."
+      },
+      {
+        "paper_id": "2011.02840",
+        "grounded_citation": "[N/A et al., N/A]",
+        "evaluated_datasets": [
+          "Multimodal Brain Tumor Segmentation (BraTS) 2020 Challenge data (validation and testing sets)."
+        ],
+        "key_metrics": [
+          "Reported Metric",
+          "Benchmark Score"
+        ],
+        "quantitative_results": "On validation data, DR-Unet104 achieved mean dice scores of 0.8862 (whole tumor), 0.6756 (enhancing tumor), and 0.6721 (tumor core). On the challenge's testing data, final mean DSC scores were 0.8673 (whole tumor), 0.7514 (enhancing tumor), and 0.7983 (tumor core). These results showed an improvement over DeepLabV3+ with a ResNet-V2-152 backbone.",
+        "baseline_comparison": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in DR-Unet104 for Multimodal MRI brain tumor."
+      },
+      {
+        "paper_id": "2011.11052",
+        "grounded_citation": "[N/A et al., N/A]",
+        "evaluated_datasets": [
+          "BraTS 2020 challenge (including 369 cases: 293 HGG and 76 LGG) using 4 modalities: native (T1), post-contrast T1-weighted (T1Gd), T2-weighted (T2), and T2-FLAIR."
+        ],
+        "key_metrics": [
+          "Reported Metric",
+          "Benchmark Score"
+        ],
+        "quantitative_results": "The proposed method achieved promising performance on validation and test data from the BraTS 2020 challenge.",
+        "baseline_comparison": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in Efficient embedding network for 3D brain."
+      },
+      {
+        "paper_id": "2411.01896",
+        "grounded_citation": "[specified et al., Not specified]",
+        "evaluated_datasets": [
+          "Brain Tumor Segmentation (BraTS) Challenge 2018 and 2019 datasets"
+        ],
+        "key_metrics": [
+          "Reported Metric",
+          "Benchmark Score"
+        ],
+        "quantitative_results": "The architecture maintains high precision in brain tumor segmentation while considerably reducing calculation overhead.",
+        "baseline_comparison": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in MBDRes-U-Net: Multi-Scale Lightweight Bra Tumor Segmentation."
+      },
+      {
+        "paper_id": "2510.08617",
+        "grounded_citation": "[N/A et al., N/A]",
+        "evaluated_datasets": [
+          "A publicly available MRI dataset."
         ],
         "key_metrics": [
           "Accuracy / Success Rate (%)",
           "Normalized Metric"
         ],
-        "quantitative_results": "The HvCNN based on Clifford algebras processing HSV-encoded images achieved an average accuracy rate of 96.6% on the ALL-IDB2 dataset (50% train-test split), outperforming real-valued models with a simpler architecture and fewer parameters.",
-        "baseline_comparison": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in Acute Lymphoblastic Leukemia Detection Using Hypercomplex Neural Networks."
+        "quantitative_results": "The U-Net with focal loss achieved a precision of 90%, comparable to state-of-the-art results.",
+        "baseline_comparison": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in Reproducible Evaluation of Data Augmentation."
       }
     ],
-    "limitation_themes": [
-      {
-        "theme": "Inference Latency & Token / Computational Overhead",
-        "paper_ids": [
-          "2210.03629",
-          "2302.04761",
-          "2303.11366",
-          "2305.10601",
-          "2305.15334",
-          "2305.16291",
-          "2307.07924",
-          "2308.00352",
-          "2308.08155",
-          "2310.11511"
-        ],
-        "citations": [
-          "[text et al., Not specified in text]",
-          "[Authors et al., arXiv]",
-          "[Shinn et al., arXiv preprint arXiv:2303.11366 (2023)]",
-          "[Authors et al., arXiv / Peer-Reviewed Venue]",
-          "[Authors et al., arXiv / Peer-Reviewed Venue]",
-          "[Authors et al., arXiv / Peer-Reviewed Venue]",
-          "[Authors et al., arXiv / Peer-Reviewed Venue]",
-          "[Authors et al., arXiv / Peer-Reviewed Venue]",
-          "[Authors et al., arXiv / Peer-Reviewed Venue]",
-          "[Authors et al., arXiv / Peer-Reviewed Venue]"
-        ],
-        "description": "High token consumption and inference latency in iterative agentic reasoning loops.",
-        "frequency": 10
-      },
-      {
-        "theme": "Hallucination, Error Propagation & Mitigation Mechanisms",
-        "paper_ids": [
-          "2210.03629",
-          "2302.04761",
-          "2303.11366",
-          "2305.15334",
-          "2305.16291",
-          "2307.07924",
-          "2308.00352",
-          "2308.08155"
-        ],
-        "citations": [
-          "[text et al., Not specified in text]",
-          "[Authors et al., arXiv]",
-          "[Shinn et al., arXiv preprint arXiv:2303.11366 (2023)]",
-          "[Authors et al., arXiv / Peer-Reviewed Venue]",
-          "[Authors et al., arXiv / Peer-Reviewed Venue]",
-          "[Authors et al., arXiv / Peer-Reviewed Venue]",
-          "[Authors et al., arXiv / Peer-Reviewed Venue]",
-          "[Authors et al., arXiv / Peer-Reviewed Venue]"
-        ],
-        "description": "Identified across 8 agent frameworks: distinguishes direct empirical observations of model hallucination and reasoning error cascades (ReAct, Toolformer, Reflexion, Gorilla, Voyager) from architectural de-hallucination and verification mechanisms (ChatDev, MetaGPT, AutoGen).",
-        "frequency": 8
-      },
-      {
-        "theme": "Search Space Explosion & Long-Horizon Trapping",
-        "paper_ids": [
-          "2305.10601",
-          "2303.11366",
-          "2305.16291",
-          "2310.06770"
-        ],
-        "citations": [
-          "[Authors et al., arXiv / Peer-Reviewed Venue]",
-          "[Shinn et al., arXiv preprint arXiv:2303.11366 (2023)]",
-          "[Authors et al., arXiv / Peer-Reviewed Venue]",
-          "[Authors et al., arXiv / Peer-Reviewed Venue]"
-        ],
-        "description": "Combinatorial exploration bottlenecks, action-space explosion, and long-horizon decision trapping.",
-        "frequency": 4
-      },
-      {
-        "theme": "Scalability & Inter-Agent Coordination Overhead",
-        "paper_ids": [
-          "2307.07924",
-          "2308.00352",
-          "2308.08155"
-        ],
-        "citations": [
-          "[Authors et al., arXiv / Peer-Reviewed Venue]",
-          "[Authors et al., arXiv / Peer-Reviewed Venue]",
-          "[Authors et al., arXiv / Peer-Reviewed Venue]"
-        ],
-        "description": "Communication redundancy, token multiplication, and consensus latency in multi-agent collaboration.",
-        "frequency": 3
-      }
-    ],
+    "limitation_themes": [],
     "cross_paper_insights": [
-      "Analyzed 24 research paper(s) across 10 distinct agentic paradigm(s).",
-      "High benchmark dataset consensus identified on: HumanEval, HotpotQA, ALFWorld, facilitating direct empirical comparison.",
+      "Analyzed 6 research paper(s) across 2 distinct agentic paradigm(s).",
+      "Evaluations span 6 unique benchmark datasets across distinct operational environments.",
       "Primary architectural approach represented is 'Evaluation Benchmark / Testbed' focused on iterative and structured reasoning.",
-      "Most widespread cross-cutting limitation is 'Inference Latency & Token / Computational Overhead', impacting 10 of 24 paper(s).",
       "Across empirical benchmarks, agentic closed-loop reasoning consistently outperforms static, single-prompt LLM execution."
     ],
-    "markdown_comparison_report": "# Cross-Paper Comparative Analysis & Synthesis Matrix\n\n### 1. Automated 5-Column Literature Comparison Table\n\n| Paper & Citation | Architecture Paradigm | Benchmark Datasets | Quantitative Results & Baselines | Limitations & Failure Modes |\n|---|---|---|---|---|\n| **ReAct: Synergizing Reasoning and Acting in Language Models**<br>`[text et al., Not specified in text]` | **Reasoning & Action (ReAct)**<br>*Novel architecture for ReAct: Synergizing Reasoning and Acting in Language Model...* | HotpotQA (Question Answering), Fever (Fact Verification), ALFWorld (Interactive Decision Making), WebShop (Interactive Decision Making) | **Gains:** On HotpotQA and Fever, ReAct overcomes hallucination/error propagation by using a Wikipedia API. On ALFWorld and WebShop, ReAct ou...<br>**Baselines:** Demonstrates measurable findings and comparative evaluation relative to baseline framework... | **Stated:** Traditional 'chain-of-thought' reasoning is a static black box, not grounded in the external world, limiting r...<br>**Failure Mode:** Failure boundaries and error cases associated with Traditional 'chain-of-thought' reasonin... |\n| **Toolformer: Language Models Can Teach Themselves to Use Tools**<br>`[Authors et al., arXiv]` | **Evaluation Benchmark / Testbed**<br>*Problem Formulation & Data Ingestion* | Custom / Not specified | **Gains:** Toolformer achieves substantially improved zero-shot performance across a variety of downstream tasks, often competitive with much...<br>**Baselines:** Demonstrates measurable findings and comparative evaluation relative to baseline framework... | **Stated:** Toolformer still lags behind the much larger GPT-3 175B model, likely due to both the simplicity of the search...<br>**Failure Mode:** Failure boundaries and error cases associated with Toolformer still lags behind the much l... |\n| **Reflexion: Language Agents with Verbal Reinforcement Learning**<br>`[Shinn et al., arXiv preprint arXiv:2303.11366 (2023)]` | **Self-Reflection & Refinement**<br>*Problem Formulation & Data Ingestion* | HumanEval, sequential decision-making tasks, coding tasks, language reasoning tasks | **Gains:** Reflexion obtains significant improvements over a baseline agent across diverse tasks including sequential decision-making, coding...<br>**Baselines:** Demonstrates measurable findings and comparative evaluation relative to baseline framework... | **Stated:** No explicit limitations are provided in the given context.<br>**Failure Mode:** Failure boundaries and error cases associated with No explicit limitations are provided in... |\n| **2305.10601 Tree of Thoughts Deliber**<br>`[Authors et al., arXiv / Peer-Reviewed Venue]` | **Tree / Graph Search & Planning**<br>*Problem Formulation & Data Ingestion* | Tabular Data (TAB-2305.10601-P2-1), Tabular Data (TAB-2305.10601-P5-2), Tabular Data (TAB-2305.10601-P6-2), Tabular Data (TAB-2305.10601-P6-3) | **Gains:** Language models are increasingly being deployed for general problem solving across a wide range of tasks, but are still confined t...<br>**Baselines:** Demonstrates measurable findings and comparative evaluation relative to baseline framework... | **Stated:** 1···n, y(i)] ∼pCoT θ (z1···n, y\\|x) (i = 1 · · · k), then returns the most frequent output: arg maxy #{i \\| y(...<br>**Failure Mode:** Failure boundaries and error cases associated with 1···n, y(i)] ∼pCoT θ (z1···n, y\\|x) (i... |\n| **2305.15334 Gorilla Large Language M**<br>`[Authors et al., arXiv / Peer-Reviewed Venue]` | **Tool-Augmented / API Integration**<br>*We release Gorilla, a finetuned LLaMA-based model that surpasses the performance...* | Tabular Data (TAB-2305.15334-P2-1), Tabular Data (TAB-2305.15334-P4-1), Tabular Data (TAB-2305.15334-P4-2), Tabular Data (TAB-2305.15334-P7-1) | **Gains:** Large Language Models (LLMs) have seen an impressive wave of advances re- cently, with models now excelling in a variety of tasks,...<br>**Baselines:** Demonstrates measurable findings and comparative evaluation relative to baseline framework... | **Stated:** Large Language Models (LLMs) have seen an impressive wave of advances re- cently, with models now excelling in...<br>**Failure Mode:** Failure boundaries and error cases associated with Large Language Models (LLMs) have seen... |\n| **2305.16291 Voyager An Open-Ended Em**<br>`[Authors et al., arXiv / Peer-Reviewed Venue]` | **Embodied Agent & Skill Learning**<br>*Novel architecture for 2305.16291 Voyager An Open-Ended Em* | Tabular Data (TAB-2305.16291-P3-1), Tabular Data (TAB-2305.16291-P4-2), Tabular Data (TAB-2305.16291-P5-1), Tabular Data (TAB-2305.16291-P5-2) | **Gains:** Empirically, VOYAGER demonstrates strong in-context lifelong learning capabilities. It can construct an ever-growing skill library...<br>**Baselines:** Demonstrates measurable findings and comparative evaluation relative to baseline framework... | **Stated:** Building generally capable embodied agents that continuously explore, plan, and develop new skills in open-end...<br>**Failure Mode:** Failure boundaries and error cases associated with Building generally capable embodied age... |\n| **2307.07924 ChatDev Communicative Ag**<br>`[Authors et al., arXiv / Peer-Reviewed Venue]` | **Multi-Agent Collaboration**<br>*Novel architecture for 2307.07924 ChatDev Communicative Ag* | Tabular Data (TAB-2307.07924-P3-1), Evaluation, Datasets, Note | **Gains:** Software development is a complex task that necessitates cooperation among multiple mem- bers with diverse skills. Numerous studie...<br>**Baselines:** Demonstrates measurable findings and comparative evaluation relative to baseline framework... | **Stated:** Software development is a complex task that necessitates cooperation among multiple mem- bers with diverse ski...<br>**Failure Mode:** Failure boundaries and error cases associated with Software development is a complex task... |\n| **2308.00352 MetaGPT Meta Programming**<br>`[Authors et al., arXiv / Peer-Reviewed Venue]` | **Multi-Agent Collaboration**<br>*Problem Formulation & Data Ingestion* | Tabular Data (TAB-2308.00352-P9-1), Tabular Data (TAB-2308.00352-P9-2), Tabular Data (TAB-2308.00352-P24-1), Tabular Data (TAB-2308.00352-P24-2) | **Gains:** Remarkable progress has been made on automated problem solving through so- cieties of agents based on large language models (LLMs)...<br>**Baselines:** Demonstrates measurable findings and comparative evaluation relative to baseline framework... | **Stated:** Remarkable progress has been made on automated problem solving through so- cieties of agents based on large la...<br>**Failure Mode:** Failure boundaries and error cases associated with Remarkable progress has been made on au... |\n| **AgentBench: Evaluating LLMs as Agents**<br>`[Authors et al., arXiv]` | **Evaluation Benchmark / Testbed**<br>*Novel architecture for AgentBench: Evaluating LLMs as Agents* | AGENTBENCH comprises 8 distinct environments for evaluating LLM-as-Agent on a wide array of real-world challenges. Datasets, environments and an integrated evaluation package for AGENTBENCH are released at https://github.com/THUDM/AgentBench. Evaluation is conducted on 29 LLMs examined in this edition, including API-based and OSS models. | **Gains:** Extensive testing over 29 API-based and open-sourced LLMs shows top commercial LLMs present strong ability of acting as agents in...<br>**Baselines:** Demonstrates measurable findings and comparative evaluation relative to baseline framework... | **Stated:** Historically, text-based game environments have been employed for language agent evaluation but often suffer f...<br>**Failure Mode:** Failure boundaries and error cases associated with Historically, text-based game environme... |\n| **2308.08155 AutoGen Enabling Next-Ge**<br>`[Authors et al., arXiv / Peer-Reviewed Venue]` | **Multi-Agent Collaboration**<br>*Problem Formulation & Data Ingestion* | Tabular Data (TAB-2308.08155-P1-1), Tabular Data (TAB-2308.08155-P7-1), Tabular Data (TAB-2308.08155-P7-2), Tabular Data (TAB-2308.08155-P7-3) | **Gains:** 1 Customizable and conversable agents. AutoGen uses a generic design of agents that can lever- age LLMs, human inputs, tools, or a...<br>**Baselines:** Demonstrates measurable findings and comparative evaluation relative to baseline framework... | **Stated:** By allowing custom agents that can converse with each other, conversable agents in AutoGen serve as a useful b...<br>**Failure Mode:** Failure boundaries and error cases associated with By allowing custom agents that can conv... |\n| **2310.06770 SWE-bench Can Language M**<br>`[Authors et al., arXiv / Peer-Reviewed Venue]` | **Software Engineering & Code Benchmark**<br>*Novel architecture for 2310.06770 SWE-bench Can Language M* | Tabular Data (TAB-2310.06770-P9-1), Tabular Data (TAB-2310.06770-P17-1), Tabular Data (TAB-2310.06770-P20-1), Tabular Data (TAB-2310.06770-P36-1) | **Gains:** Language models have outpaced our ability to evaluate them effectively, but for their future development it is essential to study...<br>**Baselines:** Demonstrates measurable findings and comparative evaluation relative to baseline framework... | **Stated:** tasks are appealing as they pose challenging problems to LMs yet generated solutions can be easily verified by...<br>**Failure Mode:** Failure boundaries and error cases associated with tasks are appealing as they pose challe... |\n| **2310.11511 Self-RAG Learning to Ret**<br>`[Authors et al., arXiv / Peer-Reviewed Venue]` | **Retrieval-Augmented Generation (RAG)**<br>*Novel architecture for 2310.11511 Self-RAG Learning to Ret* | Tabular Data (TAB-2310.11511-P4-1), Tabular Data (TAB-2310.11511-P4-2), Tabular Data (TAB-2310.11511-P5-1), Tabular Data (TAB-2310.11511-P9-1) | **Gains:** Despite their remarkable capabilities, large language models (LLMs) often produce responses containing factual inaccuracies due to...<br>**Baselines:** Demonstrates measurable findings and comparative evaluation relative to baseline framework... | **Stated:** Despite their remarkable capabilities, large language models (LLMs) often produce responses containing factual...<br>**Failure Mode:** Failure boundaries and error cases associated with Despite their remarkable capabilities,... |\n| **Hierarchical Attentional Hybrid Neural Networks for Document Classification**<br>`[specified et al., Not specified]` | **Evaluation Benchmark / Testbed**<br>*Problem Formulation & Data Ingestion* | Not specified (Evaluated against state-of-the-art models using test reviews for visualization) | **Gains:** The proposed HAHNN model shows improved accuracy compared to current attention-based approaches and state-of-the-art models.<br>**Baselines:** Demonstrates measurable findings and comparative evaluation relative to baseline framework... | **Stated:** Occasionally, some sentences show issues where fewer important words receive high importance (e.g., the word '...<br>**Failure Mode:** Failure boundaries and error cases associated with Occasionally, some sentences show issue... |\n| **A Neural Network-Evolutionary Computation Framework for Remaining Useful Life Estimation**<br>`[context et al., Not specified in context]` | **Specialized Framework**<br>*The framework presented here automatically reshapes the data such that the effic...* | C-MAPSS dataset [1] | **Gains:** The proposed method's accuracy is compared against other state-of-the-art methods on the C-MAPSS dataset. Good prognostics results...<br>**Baselines:** Demonstrates measurable findings and comparative evaluation relative to baseline framework... | **Stated:** The current study uses specific regressors and evolutionary algorithms; the framework's generality allows for...<br>**Failure Mode:** Failure boundaries and error cases associated with The current study uses specific regress... |\n| **Metapath Context Convolution-based Heterogeneous Graph Neural Network (MECCH)**<br>`[text et al., Not specified in the text]` | **Specialized Framework**<br>*Novel architecture for Metapath Context Convolution-based Heterogeneous Graph Ne...* | Five real-world heterogeneous graph datasets | **Gains:** MECCH achieves superior prediction accuracy compared with state-of-the-art baselines with improved computational efficiency on nod...<br>**Baselines:** Demonstrates measurable findings and comparative evaluation relative to baseline framework... | **Stated:** Existing metapath-based HGNNs struggle to balance model performance and computational efficiency; HAN (Wang et...<br>**Failure Mode:** Failure boundaries and error cases associated with Existing metapath-based HGNNs struggle... |\n| **2306.14753 The Deep Arbitrary Polynomial Chaos Neur**<br>`[Authors et al., arXiv / Peer-Reviewed Venue]` | **Evaluation Benchmark / Testbed**<br>*Problem Formulation & Data Ingestion* | Because, Instead, DANN, DaPC | **Gains:** Theory of polynomial chaos expansion (PCE) was originally introduced by Norbert Wiener [113] in 1938. In PCE, the dependence of th...<br>**Baselines:** Demonstrates measurable findings and comparative evaluation relative to baseline framework... | **Stated:** Artificial Intelligence and Machine learning have been widely used in various fields of mathematical computing...<br>**Failure Mode:** Failure boundaries and error cases associated with Artificial Intelligence and Machine lea... |\n| **Learning Active Subspaces and Discovering Interpretability in Neural Networks**<br>`[context et al., Not specified in context]` | **Evaluation Benchmark / Testbed**<br>*Problem Formulation & Data Ingestion* | Not specified, but experiments were conducted for regression, classification, and feature selection tasks. | **Gains:** The proposed model achieved attractive prediction performance compared to popular ML models, state-of-the-art deep learning embedd...<br>**Baselines:** Demonstrates measurable findings and comparative evaluation relative to baseline framework... | **Stated:** Standard Gaussian kernels often assume an isotropic covariance (equal variance across features), treating all...<br>**Failure Mode:** Failure boundaries and error cases associated with Standard Gaussian kernels often assume... |\n| **2512.09458 Architectures for Building Agentic AI**<br>`[Authors et al., arXiv / Peer-Reviewed Venue]` | **Multi-Agent Collaboration**<br>*Novel architecture for 2512.09458 Architectures for Building Agentic AI* | ReWOO, Reasoning, Without, Observation | **Gains:** This book is not intended as yet another broad introduction to Agentic GenAI; instead, we put these recent developments in the spe...<br>**Baselines:** Demonstrates measurable findings and comparative evaluation relative to baseline framework... | **Stated:** Understanding the relation of Agentic GenAI with classic autonomous agents is crucially important to avoid rei...<br>**Failure Mode:** Failure boundaries and error cases associated with Understanding the relation of Agentic G... |\n| **2601.11816 POLARIS Typed Planning and Governed Exec**<br>`[Authors et al., arXiv / Peer-Reviewed Venue]` | **Multi-Agent Collaboration**<br>*Problem Formulation & Data Ingestion* | Tabular Data (TAB-2601.11816-P11-1), Enterprise, POLARIS, Policy-Aware | **Gains:** Enterprise back-office workflows require agentic systems that are auditable, policy-aligned, and op- erationally predictable, capa...<br>**Baselines:** Demonstrates measurable findings and comparative evaluation relative to baseline framework... | **Stated:** candidate workflows before selection (Author et al., 2025; Wu et al., 2023b). However, enterprise deployment o...<br>**Failure Mode:** Failure boundaries and error cases associated with candidate workflows before selection (A... |\n| **2604.04522 HDP A Lightweight Cryptographic Protocol**<br>`[Authors et al., arXiv / Peer-Reviewed Venue]` | **Multi-Agent Collaboration**<br>*Problem Formulation & Data Ingestion* | 2604.04522 HDP A Lightweight Cryptographic Protocol Evaluation Benchmark | **Gains:** Empirical evaluation and experimental performance metrics reported in 2604.04522.<br>**Baselines:** Demonstrates measurable findings and comparative evaluation relative to baseline framework... | **Stated:** The remainder of this paper is organized as follows. Section 2 surveys related work and identifies the gap HDP...<br>**Failure Mode:** Failure boundaries and error cases associated with The remainder of this paper is organize... |\n| **2605.05287 Securing the Agent Vendor-Neutral Multit**<br>`[Authors et al., arXiv / Peer-Reviewed Venue]` | **Evaluation Benchmark / Testbed**<br>*Problem Formulation & Data Ingestion* | Tabular Data (TAB-2605.05287-P4-1), Tabular Data (TAB-2605.05287-P6-1), Tabular Data (TAB-2605.05287-P7-1), Tabular Data (TAB-2605.05287-P7-3) | **Gains:** We validate the proposed architecture through an open- source implementation in OGX1 [25], a vendor-neutral frame- work that imple...<br>**Baselines:** Demonstrates measurable findings and comparative evaluation relative to baseline framework... | **Stated:** Retrieval-Augmented Generation (RAG) and agentic AI sys- tems are increasingly prevalent in enterprise AI depl...<br>**Failure Mode:** Failure boundaries and error cases associated with Retrieval-Augmented Generation (RAG) an... |\n| **2605.23989 Towards trustworthy agentic AI a compreh**<br>`[Authors et al., arXiv / Peer-Reviewed Venue]` | **Evaluation Benchmark / Testbed**<br>*Problem Formulation & Data Ingestion* | Tabular Data (TAB-2605.23989-P2-1), Tabular Data (TAB-2605.23989-P5-1), Tabular Data (TAB-2605.23989-P5-2), Tabular Data (TAB-2605.23989-P11-1) | **Gains:** Agentic AI systems—Large Language Models (LLMs) augmented with planning, tool use, memory, and long-horizon interactions—can execu...<br>**Baselines:** Demonstrates measurable findings and comparative evaluation relative to baseline framework... | **Stated:** However, as LLM-based assistants are increasingly connected to enterprise data and tools, failures can transla...<br>**Failure Mode:** Failure boundaries and error cases associated with However, as LLM-based assistants are in... |\n| **Interpretable and Fair Generalized Additive Models**<br>`[context et al., Not specified in context]` | **Evaluation Benchmark / Testbed**<br>*Problem Formulation & Data Ingestion* | Not specified in context | **Gains:** Reveals complex relationships between accuracy, interpretability, and fairness, demonstrating how multi-objective optimization can...<br>**Baselines:** Demonstrates measurable findings and comparative evaluation relative to baseline framework... | **Stated:** Existing research often assumes GAMs inherently provide satisfactory explanations, and traditional regularizat...<br>**Failure Mode:** Failure boundaries and error cases associated with Existing research often assumes GAMs in... |\n| **Acute Lymphoblastic Leukemia Detection Using Hypercomplex Neural Networks**<br>`[N/A et al., N/A]` | **Evaluation Benchmark / Testbed**<br>*Problem Formulation & Data Ingestion* | ALL-IDB2 | **Gains:** The HvCNN based on Clifford algebras processing HSV-encoded images achieved an average accuracy rate of 96.6% on the ALL-IDB2 data...<br>**Baselines:** Demonstrates measurable findings and comparative evaluation relative to baseline framework... | **Stated:** One specific HvCNN based on the algebra B[-1, +1] yielded a median accuracy rate of 93.8% when processing HSV-...<br>**Failure Mode:** Failure boundaries and error cases associated with One specific HvCNN based on the algebra... |\n\n---\n\n### 2. Cross-Paper Synthesis & Methodological Insights\n- Analyzed 24 research paper(s) across 10 distinct agentic paradigm(s).\n- High benchmark dataset consensus identified on: HumanEval, HotpotQA, ALFWorld, facilitating direct empirical comparison.\n- Primary architectural approach represented is 'Evaluation Benchmark / Testbed' focused on iterative and structured reasoning.\n- Most widespread cross-cutting limitation is 'Inference Latency & Token / Computational Overhead', impacting 10 of 24 paper(s).\n- Across empirical benchmarks, agentic closed-loop reasoning consistently outperforms static, single-prompt LLM execution.\n\n---\n\n### 3. Benchmark Dataset Overlap & Evaluation Matrix\n- **HotpotQA (Question Answering)**: (Evaluated in 2210.03629)\n- **Fever (Fact Verification)**: (Evaluated in 2210.03629)\n- **ALFWorld (Interactive Decision Making)**: (Evaluated in 2210.03629)\n- **WebShop (Interactive Decision Making)**: (Evaluated in 2210.03629)\n- **HumanEval**: **(Shared by 2 papers: 2303.11366, 2308.00352)**\n- **sequential decision-making tasks**: (Evaluated in 2303.11366)\n- **coding tasks**: (Evaluated in 2303.11366)\n- **language reasoning tasks**: (Evaluated in 2303.11366)\n- **Tabular Data (TAB-2305.10601-P2-1)**: (Evaluated in 2305.10601)\n- **Tabular Data (TAB-2305.10601-P5-2)**: (Evaluated in 2305.10601)\n- **Tabular Data (TAB-2305.10601-P6-2)**: (Evaluated in 2305.10601)\n- **Tabular Data (TAB-2305.10601-P6-3)**: (Evaluated in 2305.10601)\n- **Tabular Data (TAB-2305.15334-P2-1)**: (Evaluated in 2305.15334)\n- **Tabular Data (TAB-2305.15334-P4-1)**: (Evaluated in 2305.15334)\n- **Tabular Data (TAB-2305.15334-P4-2)**: (Evaluated in 2305.15334)\n- **Tabular Data (TAB-2305.15334-P7-1)**: (Evaluated in 2305.15334)\n- **Tabular Data (TAB-2305.16291-P3-1)**: (Evaluated in 2305.16291)\n- **Tabular Data (TAB-2305.16291-P4-2)**: (Evaluated in 2305.16291)\n- **Tabular Data (TAB-2305.16291-P5-1)**: (Evaluated in 2305.16291)\n- **Tabular Data (TAB-2305.16291-P5-2)**: (Evaluated in 2305.16291)\n- **Tabular Data (TAB-2307.07924-P3-1)**: (Evaluated in 2307.07924)\n- **Evaluation**: (Evaluated in 2307.07924)\n- **Datasets**: (Evaluated in 2307.07924)\n- **Note**: (Evaluated in 2307.07924)\n- **Tabular Data (TAB-2308.00352-P9-1)**: (Evaluated in 2308.00352)\n- **Tabular Data (TAB-2308.00352-P9-2)**: (Evaluated in 2308.00352)\n- **Tabular Data (TAB-2308.00352-P24-1)**: (Evaluated in 2308.00352)\n- **Tabular Data (TAB-2308.00352-P24-2)**: (Evaluated in 2308.00352)\n- **AGENTBENCH comprises 8 distinct environments for evaluating LLM-as-Agent on a wide array of real-world challenges. Datasets, environments and an integrated evaluation package for AGENTBENCH are released at https://github.com/THUDM/AgentBench. Evaluation is conducted on 29 LLMs examined in this edition, including API-based and OSS models.**: (Evaluated in 2308.03688)\n- **Tabular Data (TAB-2308.08155-P1-1)**: (Evaluated in 2308.08155)\n- **Tabular Data (TAB-2308.08155-P7-1)**: (Evaluated in 2308.08155)\n- **Tabular Data (TAB-2308.08155-P7-2)**: (Evaluated in 2308.08155)\n- **Tabular Data (TAB-2308.08155-P7-3)**: (Evaluated in 2308.08155)\n- **Tabular Data (TAB-2310.06770-P9-1)**: (Evaluated in 2310.06770)\n- **Tabular Data (TAB-2310.06770-P17-1)**: (Evaluated in 2310.06770)\n- **Tabular Data (TAB-2310.06770-P20-1)**: (Evaluated in 2310.06770)\n- **Tabular Data (TAB-2310.06770-P36-1)**: (Evaluated in 2310.06770)\n- **Tabular Data (TAB-2310.11511-P4-1)**: (Evaluated in 2310.11511)\n- **Tabular Data (TAB-2310.11511-P4-2)**: (Evaluated in 2310.11511)\n- **Tabular Data (TAB-2310.11511-P5-1)**: (Evaluated in 2310.11511)\n- **Tabular Data (TAB-2310.11511-P9-1)**: (Evaluated in 2310.11511)\n- **Not specified (Evaluated against state-of-the-art models using test reviews for visualization)**: (Evaluated in 1901.06610)\n- **C-MAPSS dataset [1]**: (Evaluated in 1905.05918)\n- **Five real-world heterogeneous graph datasets**: (Evaluated in 2211.12792)\n- **Because**: (Evaluated in 2306.14753)\n- **Instead**: (Evaluated in 2306.14753)\n- **DANN**: (Evaluated in 2306.14753)\n- **DaPC**: (Evaluated in 2306.14753)\n- **Not specified, but experiments were conducted for regression, classification, and feature selection tasks.**: (Evaluated in 2307.05639)\n- **ReWOO**: (Evaluated in 2512.09458)\n- **Reasoning**: (Evaluated in 2512.09458)\n- **Without**: (Evaluated in 2512.09458)\n- **Observation**: (Evaluated in 2512.09458)\n- **Tabular Data (TAB-2601.11816-P11-1)**: (Evaluated in 2601.11816)\n- **Enterprise**: (Evaluated in 2601.11816)\n- **POLARIS**: (Evaluated in 2601.11816)\n- **Policy-Aware**: (Evaluated in 2601.11816)\n- **2604.04522 HDP A Lightweight Cryptographic Protocol Evaluation Benchmark**: (Evaluated in 2604.04522)\n- **Tabular Data (TAB-2605.05287-P4-1)**: (Evaluated in 2605.05287)\n- **Tabular Data (TAB-2605.05287-P6-1)**: (Evaluated in 2605.05287)\n- **Tabular Data (TAB-2605.05287-P7-1)**: (Evaluated in 2605.05287)\n- **Tabular Data (TAB-2605.05287-P7-3)**: (Evaluated in 2605.05287)\n- **Tabular Data (TAB-2605.23989-P2-1)**: (Evaluated in 2605.23989)\n- **Tabular Data (TAB-2605.23989-P5-1)**: (Evaluated in 2605.23989)\n- **Tabular Data (TAB-2605.23989-P5-2)**: (Evaluated in 2605.23989)\n- **Tabular Data (TAB-2605.23989-P11-1)**: (Evaluated in 2605.23989)\n- **Not specified in context**: (Evaluated in 2609.05946)\n- **ALL-IDB2**: (Evaluated in 2205.13273)\n- **HotpotQA**: **(Shared by 2 papers: 2210.03629, 2303.11366)**\n- **ALFWorld**: **(Shared by 4 papers: 2210.03629, 2303.11366, 2308.03688, 2308.08155)**\n\n---\n\n### 4. Shared Limitations & Architectural Trade-offs\n- **Inference Latency & Token / Computational Overhead** (10 paper(s): [text et al., Not specified in text], [Authors et al., arXiv], [Shinn et al., arXiv preprint arXiv:2303.11366 (2023)], [Authors et al., arXiv / Peer-Reviewed Venue], [Authors et al., arXiv / Peer-Reviewed Venue], [Authors et al., arXiv / Peer-Reviewed Venue], [Authors et al., arXiv / Peer-Reviewed Venue], [Authors et al., arXiv / Peer-Reviewed Venue], [Authors et al., arXiv / Peer-Reviewed Venue], [Authors et al., arXiv / Peer-Reviewed Venue]):\n  *High token consumption and inference latency in iterative agentic reasoning loops.*\n- **Hallucination, Error Propagation & Mitigation Mechanisms** (8 paper(s): [text et al., Not specified in text], [Authors et al., arXiv], [Shinn et al., arXiv preprint arXiv:2303.11366 (2023)], [Authors et al., arXiv / Peer-Reviewed Venue], [Authors et al., arXiv / Peer-Reviewed Venue], [Authors et al., arXiv / Peer-Reviewed Venue], [Authors et al., arXiv / Peer-Reviewed Venue], [Authors et al., arXiv / Peer-Reviewed Venue]):\n  *Identified across 8 agent frameworks: distinguishes direct empirical observations of model hallucination and reasoning error cascades (ReAct, Toolformer, Reflexion, Gorilla, Voyager) from architectural de-hallucination and verification mechanisms (ChatDev, MetaGPT, AutoGen).*\n- **Search Space Explosion & Long-Horizon Trapping** (4 paper(s): [Authors et al., arXiv / Peer-Reviewed Venue], [Shinn et al., arXiv preprint arXiv:2303.11366 (2023)], [Authors et al., arXiv / Peer-Reviewed Venue], [Authors et al., arXiv / Peer-Reviewed Venue]):\n  *Combinatorial exploration bottlenecks, action-space explosion, and long-horizon decision trapping.*\n- **Scalability & Inter-Agent Coordination Overhead** (3 paper(s): [Authors et al., arXiv / Peer-Reviewed Venue], [Authors et al., arXiv / Peer-Reviewed Venue], [Authors et al., arXiv / Peer-Reviewed Venue]):\n  *Communication redundancy, token multiplication, and consensus latency in multi-agent collaboration.*\n",
+    "markdown_comparison_report": "# Cross-Paper Comparative Analysis & Synthesis Matrix\n\n### 1. Automated 5-Column Literature Comparison Table\n\n| Paper & Citation | Architecture Paradigm | Benchmark Datasets | Quantitative Results & Baselines | Limitations & Failure Modes |\n|---|---|---|---|---|\n| **3D Kidneys and Kidney Tumor Semantic Segmentation**<br>`[N/A et al., N/A]` | **Evaluation Benchmark / Testbed**<br>*Problem Formulation & Data Ingestion* | 2019 MICCAI KiTS Kidney Tumor Segmentation Challenge dataset | **Gains:** Dice scores of 0.9742 for kidney and 0.8103 for tumor, with an overall composite dice score of 0.8923.<br>**Baselines:** Demonstrates measurable findings and comparative evaluation relative to baseline framework... | **Stated:** N/A<br>**Failure Mode:** Failure boundaries and error cases associated with N/A. |\n| **Brain Tumor Segmentation using 3D-CNNs**<br>`[N/A et al., N/A]` | **Specialized Framework**<br>*Novel architecture for Brain Tumor Segmentation using 3D-CNNs* | Brain Tumor Segmentation (BraTS) challenge (started in 2012), specifically mentioning BraTS 2020 training. | **Gains:** Best results obtained with the V-Net model directly when post-processing is applied. Dice score and Hausdorff distance showed lowe...<br>**Baselines:** Demonstrates measurable findings and comparative evaluation relative to baseline framework... | **Stated:** Entropy provides a global measure instead of a map for sub-regions, necessitating the use of voxel-wise uncert...<br>**Failure Mode:** Failure boundaries and error cases associated with Entropy provides a global measure inste... |\n| **DR-Unet104 for Multimodal MRI brain tumor**<br>`[N/A et al., N/A]` | **Evaluation Benchmark / Testbed**<br>*Problem Formulation & Data Ingestion* | Multimodal Brain Tumor Segmentation (BraTS) 2020 Challenge data (validation and testing sets). | **Gains:** On validation data, DR-Unet104 achieved mean dice scores of 0.8862 (whole tumor), 0.6756 (enhancing tumor), and 0.6721 (tumor core...<br>**Baselines:** Demonstrates measurable findings and comparative evaluation relative to baseline framework... | **Stated:** The method uses only 2D convolutions, which is noted as a limitation compared to 3D architectures, although th...<br>**Failure Mode:** Failure boundaries and error cases associated with The method uses only 2D convolutions, w... |\n| **Efficient embedding network for 3D brain**<br>`[N/A et al., N/A]` | **Specialized Framework**<br>*Novel architecture for Efficient embedding network for 3D brain* | BraTS 2020 challenge (including 369 cases: 293 HGG and 76 LGG) using 4 modalities: native (T1), post-contrast T1-weighted (T1Gd), T2-weighted (T2), and T2-FLAIR. | **Gains:** The proposed method achieved promising performance on validation and test data from the BraTS 2020 challenge.<br>**Baselines:** Demonstrates measurable findings and comparative evaluation relative to baseline framework... | **Stated:** Treatment of LGG remains difficult due to variability in tumor size, location, histology, and biological behav...<br>**Failure Mode:** Failure boundaries and error cases associated with Treatment of LGG remains difficult due... |\n| **MBDRes-U-Net: Multi-Scale Lightweight Bra Tumor Segmentation**<br>`[specified et al., Not specified]` | **Evaluation Benchmark / Testbed**<br>*Problem Formulation & Data Ingestion* | Brain Tumor Segmentation (BraTS) Challenge 2018 and 2019 datasets | **Gains:** The architecture maintains high precision in brain tumor segmentation while considerably reducing calculation overhead.<br>**Baselines:** Demonstrates measurable findings and comparative evaluation relative to baseline framework... | **Stated:** Compared to attention mechanisms that focus on important channel-feature information, the initial grouping ope...<br>**Failure Mode:** Failure boundaries and error cases associated with Compared to attention mechanisms that f... |\n| **Reproducible Evaluation of Data Augmentation**<br>`[N/A et al., N/A]` | **Evaluation Benchmark / Testbed**<br>*Problem Formulation & Data Ingestion* | A publicly available MRI dataset. | **Gains:** The U-Net with focal loss achieved a precision of 90%, comparable to state-of-the-art results.<br>**Baselines:** Demonstrates measurable findings and comparative evaluation relative to baseline framework... | **Stated:** Manual delineation by radiologists is time-consuming, prone to inter-observer variability, and difficult to sc...<br>**Failure Mode:** Failure boundaries and error cases associated with Manual delineation by radiologists is t... |\n\n---\n\n### 2. Cross-Paper Synthesis & Methodological Insights\n- Analyzed 6 research paper(s) across 2 distinct agentic paradigm(s).\n- Evaluations span 6 unique benchmark datasets across distinct operational environments.\n- Primary architectural approach represented is 'Evaluation Benchmark / Testbed' focused on iterative and structured reasoning.\n- Across empirical benchmarks, agentic closed-loop reasoning consistently outperforms static, single-prompt LLM execution.\n\n---\n\n### 3. Benchmark Dataset Overlap & Evaluation Matrix\n- **2019 MICCAI KiTS Kidney Tumor Segmentation Challenge dataset**: (Evaluated in 1909.06684)\n- **Brain Tumor Segmentation (BraTS) challenge (started in 2012), specifically mentioning BraTS 2020 training.**: (Evaluated in 2009.12188)\n- **Multimodal Brain Tumor Segmentation (BraTS) 2020 Challenge data (validation and testing sets).**: (Evaluated in 2011.02840)\n- **BraTS 2020 challenge (including 369 cases: 293 HGG and 76 LGG) using 4 modalities: native (T1), post-contrast T1-weighted (T1Gd), T2-weighted (T2), and T2-FLAIR.**: (Evaluated in 2011.11052)\n- **Brain Tumor Segmentation (BraTS) Challenge 2018 and 2019 datasets**: (Evaluated in 2411.01896)\n- **A publicly available MRI dataset.**: (Evaluated in 2510.08617)\n\n---\n\n### 4. Shared Limitations & Architectural Trade-offs\n- No explicit limitations identified.\n",
     "analysis_source": "Deterministic Grounded Heuristic Engine"
   }
 }

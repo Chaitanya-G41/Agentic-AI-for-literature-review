@@ -1,0 +1,1587 @@
+{
+  "paper_id": "2510.08617",
+  "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+  "parser_used": "PyMuPDF_Layout_Engine",
+  "total_pages": 6,
+  "figures_count": 3,
+  "figures": [
+    {
+      "figure_id": "FIG-2510.08617-P2-1",
+      "page_number": 2,
+      "file_path": "data/figures\\2510.08617\\fig_p2_1.png",
+      "dimensions": "602x510",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2510.08617-P5-1",
+      "page_number": 5,
+      "file_path": "data/figures\\2510.08617\\fig_p5_1.png",
+      "dimensions": "1300x500",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2510.08617-P6-1",
+      "page_number": 6,
+      "file_path": "data/figures\\2510.08617\\fig_p6_1.png",
+      "dimensions": "2000x1000",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    }
+  ],
+  "vector_graphs_count": 0,
+  "vector_graphs": [],
+  "tables_count": 0,
+  "tables": [],
+  "full_text": "Reproducible Evaluation of Data Augmentation and\n\nLoss Functions for Brain Tumor Segmentation\n\nSaumya B\nProject Associate\nDESE, Indian Institute of Science\n\nBengaluru, India\nsaumya.b@fsid-iisc.in\n\nAbstract—Brain tumor segmentation is crucial for diagnosis\nand treatment planning, yet challenges such as class imbalance\nand limited model generalization continue to hinder progress.\nThis work presents a reproducible evaluation of U-Net segmenta-\ntion performance on brain tumor MRI using focal loss and basic\ndata augmentation strategies. Experiments were conducted on a\npublicly available MRI dataset, focusing on focal loss parameter\ntuning and assessing the impact of three data augmentation\ntechniques: horizontal flip, rotation, and scaling. The U-Net with\nfocal loss achieved a precision of 90%, comparable to state-of-the-\nart results. By making all code and results publicly available, this\nstudy establishes a transparent, reproducible baseline to guide\nfuture research on augmentation strategies and loss function\ndesign in brain tumor segmentation.\n\nIndex Terms—brain tumor segmentation, data augmentation,\nU-Net, focal loss\n\nI. INTRODUCTION\n\nBrain tumors are among the most challenging medical\nconditions to diagnose and treat, often requiring precise iden-\ntification of tumor boundaries for effective treatment plan-\nning. Magnetic Resonance Imaging (MRI) is a widely used\nimaging modality for detecting brain tumors, providing de-\ntailed anatomical information essential for accurate diagnosis.\nHowever, manual delineation of tumor regions by radiologists\nis time-consuming, prone to inter-observer variability, and\ndifficult to scale in clinical settings. These challenges highlight\nthe need for automated methods that can accurately segment\nbrain tumors and provide interpretable predictions.\n\nDeep learning-based approaches, particularly convolutional\nneural networks (CNNs), have shown significant promise in\nmedical image segmentation tasks due to their ability to learn\nhierarchical spatial features. Among these, the U-Net archi-\ntecture is widely regarded as the gold standard for biomedical\nimage segmentation, owing to its encoder-decoder structure\nwith skip connections that effectively capture fine-grained\nspatial details [1].While U-Net models have achieved strong\nsegmentation performance, they continue to face challenges\nwith class imbalance, a factor that can significantly affect\nmodel accuracy in medical imaging.\n\nThis study presents a reproducible evaluation of U-Net\nperformance on brain tumor MRI with focal loss and basic\ndata augmentation strategies. Focal loss is commonly applied\nto address class imbalance by increasing the weight of hard-to-\n\nclassify regions, such as tumor boundaries. We systematically\nevaluated the effect of focal loss parameters alongside three\naugmentation techniques — horizontal flip, rotation, and scal-\ning — to assess their impact on segmentation accuracy and\ngeneralization.\n\nThe major contributions of this work are given below:\n\n• A baseline implementation of U-Net with focal loss for\nbrain tumor MRI segmentation\n\n• Analysis of the impact of varying focal loss parameters\non model performance\n\n• Evaluation of the effect of three different data augmen-\ntation techniques on model performance\nThough this study does not introduce new architectures, it\nprovides a transparent, reproducible evaluation of focal loss\nand data augmentation strategies for brain tumor segmentation.\nBy making the results and code publicly available, this work\nserves as a reproducible baseline and reference point for future\nresearch in model training, augmentation strategies, and loss\nfunction design.\n\nII. LITERATURE SURVEY\n\nAccurate quantification of brain tumors is critical for di-\nagnosis, treatment planning, and monitoring of therapeutic\nresponse. Among imaging techniques, MRI remains the pre-\nferred modality because of its superior soft tissue contrast,\nenabling more precise tumor delineation than CT or ultra-\nsound. Traditional segmentation methods, such as thresholding\n[2], [3], boundary detection via active contour models [4],\nand various forms of region growing [5]–[7], depend on\nhandcrafted intensity heuristics [7] or feature engineering [5].\nFor example, Sujan et al. (2016) [3] combined thresholding\nwith morphological operations, reporting approximately 85%\naccuracy for tumor detection on BRATS MRI scans, while\nMeier et al. (2016) [8] demonstrated clinical validation of\na fully automated volumetry system in longitudinal studies.\nNevertheless, such rule-based or classical approaches are fre-\nquently constrained by noise sensitivity and poor generaliza-\ntion across datasets, thus motivating the shift toward deep\nlearning-based segmentation techniques.\n\nConvolutional neural networks (CNNs) have transformed\nmedical image analysis by automatically learning hierarchical\nfeatures, outperforming traditional handcrafted approaches in\n\narXiv:2510.08617v1  [cs.CV]  8 Oct 2025\n\ntumor detection and segmentation [9]. Among these, U-Net\n(Ronneberger et al., 2015) [1] became the standard for biomed-\nical segmentation due to its encoder–decoder structure with\nskip connections, enabling precise localization from limited\ntraining data. However, brain tumor segmentation remains\nchallenging because of severe class imbalance, where tumor\npixels are sparse compared to the background. To address\nthis, several loss functions have been explored: binary cross-\nentropy (BCE) provides pixel-level supervision but struggles\nwith imbalance, while Dice loss emphasizes overlap but can\nbe unstable for small structures. More recently, focal loss [10]\nhas been proposed to focus training on hard-to-classify pixels,\nand studies comparing focal loss with BCE demonstrate its\nadvantage in medical segmentation tasks [11].\n\nData scarcity and variability across scanners often limit\nthe generalization of brain tumor segmentation models. Data\naugmentation is therefore widely applied to synthetically en-\nlarge training sets and improve robustness. Common tech-\nniques include geometric transformations such as flipping,\nrotation, and scaling, as well as elastic deformations and\nintensity perturbations [12]. Prior studies have shown that\neven simple augmentations can significantly boost Dice scores\nand reduce overfitting in medical segmentation tasks. Since\ndata augmentation is already known to improve brain tumor\nsegmentation, this study focuses on systematically comparing\ndifferent augmentation strategies in this context.\n\nIII. METHODOLOGY\n\nTo achieve the objectives mentioned in section 1, the study\nwas conducted in two phases, using the same U-Net model:\n\ni. Focal Loss Parameter Tuning:\n\nIn the initial set of experiments, the goal was to identify\nthe optimal parameters for focal loss that yielded the\nbest segmentation performance. These experiments were\nconducted using the original dataset without applying any\ndata augmentation techniques.\nii. Data Augmentation Analysis:\n\nAfter determining the best-performing focal loss param-\neters, they were fixed for the subsequent experiments.\nThree different data augmentation techniques were then\napplied individually to the dataset, and the model’s per-\nformance was evaluated for each augmentation technique.\nThis systematic approach ensured a comprehensive analysis\nof both focal loss parameter tuning and the impact of data\naugmentation on the model’s segmentation performance.\n\nA. Dataset\n\nFor this study, a brain tumor dataset containing 3064 T1-\nweighted contrast-enhanced MRI images was used. The data\nwas collected from Nanfang Hospital and Tianjing Medical\nUniversity, China, from 2005 to 2010, by Jun Cheng, who\noriginally used the dataset in his study [13] and [14], and\nhad uploaded the entire dataset with its metadata to Figshare.\nThe dataset consists of T1-weighted contrast-enhanced MRI\nscans from 233 patients, and has three kinds of brain tumors\n- 708 cases of Meningiomas, 1426 gliomas and 930 cases of\n\npituitary tumors. The source states that the tumor borders were\nmanually delineated by three experienced radiologists. A copy\nof this dataset was taken from Kaggle [15], where the scans\nand corresponding binary masks were uploaded as 256x256\npixel images. A summary of the details of the dataset are\ngiven in Table 1.\n\nTABLE I\nDATASET DETAILS\n\nTumor type\nDimensions\nNo. of images\nMeningioma\n256x256\n708\nGlioma\n256x256\n1426\nPituitary\n256x256\n930\n\nB. Pre-processing\n\nFig. 1. Pre-processing workflow\n\nThe preprocessing steps began by loading both the images\nand masks in grayscale format, hence reducing the complexity\nby using fewer channels compared to color images. The\nimages and masks were then resized to a standardized size\n(256x256) to ensure uniformity across the dataset. Following\nthis, the pixel values were normalized by dividing each pixel\nby 255, which not only facilitates faster convergence [16]\nduring training but also makes the computations more efficient\nand less memory-intensive. Since the model is designed to\nwork with binary masks, an important step was performed\nto verify that all mask pixel values were either 0 or 1. Any\npixel with a value between 0 and 1 (non-binary) was converted\nto 0 if it was greater than 0 but less than 1. Finally, the\ndataset, which contained 3064 samples, was randomly split\ninto training, validation, and test sets, with 1838 samples\nassigned to the training set, and 613 samples each assigned\nto the validation and test sets.\n\nC. Model Architecture\n\nThe model used in the study is the U-Net architecture,\noriginally designed for biomedical image segmentation tasks.\n\nThe U-Net architecture was selected due to its effectiveness\nin biomedical image segmentation, particularly in tasks with\nlimited labeled data and the need for precise spatial localiza-\ntion, which is critical for tumor segmentation. It employs an\nencoder-decoder structure with skip connections to preserve\nspatial information. The encoder extracts hierarchical features\nthrough downsampling, while the decoder reconstructs the\nsegmentation mask by upsampling the feature maps.\n\nThe encoder consists of four downsampling blocks, each\nwith two convolutional layers (with padding = “same”, kernel\nsize of 3x3) to balance the need for fine-grained segmentation\naccuracy and model generalization. This is followed by a max\npooling layer with a pool size of 2x2. The convolutional\nlayers use ReLU activation and He normal initialization.\nReLU was chosen because it introduces non-linearity, avoids\nvanishing gradient issues, and promotes faster convergence,\nwhile He initialization complements it by maintaining variance\nthroughout the network, ensuring stable and efficient training.\nAfter the pooling layers, a dropout layer with a rate of 0.3 is\napplied to regularize the network and prevent overfitting. The\nnumber of filters doubles in each block, starting from 64 in\nthe first block and increasing to 1024 in the bottleneck layer.\n\nThe decoder mirrors the encoder with four upsampling\nblocks. Each block begins with a transposed convolution layer\nto upsample the feature maps, followed by skip connections\nthat concatenate feature maps from the corresponding encoder\nblock, preserving spatial details lost during down-sampling.\nThese are followed by two convolutional layers with kernel\nsize 3x3 and with ReLU activation and He initialization.\nA dropout layer with the same rate of 0.3 is applied after\nthe concatenation step to maintain regularization and support\nuncertainty estimation. At the bottleneck, the deepest part\nof the U-Net, two convolutional layers with 1024 filters\ncapture high-level feature representations essential for accurate\nsegmentation. The output layer is a 1×1 convolution with a\nsigmoid activation function, producing a binary segmentation\nmap to identify tumor regions.\n\nD. Choosing focal loss as loss function\n\nFocal loss was selected as the loss function for this model\ndue to its effectiveness in addressing class imbalance, which\nis a common issue in segmentation tasks. In this case, the seg-\nmentation masks contain significantly fewer foreground pixels\n(tumor regions) compared to the background pixels. Standard\nloss functions, such as cross-entropy loss, may struggle in\nsuch scenarios because the loss tends to be dominated by the\nmajority class (background).\n\nFocal Loss mitigates this issue by dynamically scaling the\ncontribution of each pixel’s loss based on its classification dif-\nficulty. Hard-to-classify examples (e.g., noisy textures, small\ntumor regions, or partial objects) are given higher weights,\nwhile easy-to-classify examples (e.g., background pixels) are\ndown-weighted, allowing the model to focus on learning\nchallenging patterns. Focal Loss is an extension of Cross-\nEntropy Loss, formulated as in Eq. 1.\n\nFL(pt) = −α(1 −pt)γ log(pt)\n(1)\n\nwhere pt is the model’s predicted probability for the true\nclass, α is a weighting factor for balancing the importance\nof different classes, (1 - pt) is the modulating factor, which\ngives more weight to misclassified or hard examples, and\nγ is the focusing parameter that adjusts how much the loss\nfocuses on hard examples. The parameters α and γ play\ncrucial roles in the behavior of Focal Loss. α is the weighting\nfactor which controls the balance between the foreground and\nbackground classes. For instance, setting a higher α for the\ntumor (foreground) class ensures that the model assigns greater\nimportance to learning from tumor pixels, which are typically\nunderrepresented. γ is the focusing parameter and determines\nthe degree of focus on hard examples. When γ = 0, Focal Loss\nis equivalent to standard Cross-Entropy Loss. Increasing γ\n(e.g., 2.0) amplifies the contribution of harder examples while\nreducing the weight of well-classified ones. Higher values of γ\nare particularly useful in datasets with severe class imbalance.\n\nE. Hyperparamenters\n\nTABLE II\nMODEL HYPERPARAMETERS AND TRAINING CONFIGURATION\n\nCategory\nHyperparameter\nValue\n\nModel Architecture\n\nInput Shape\n(256, 256, 1)\nKernel Size (Initial)\n(3, 3)\nKernel Size (Subsequent)\n(3, 3)\nActivation function\nReLU\nKernel Initializer\nHe Normal\nDropout Rate\n0.3\nFinal Activation\nSigmoid\n\nLoss and Metrics\n\nLoss function\nFocal Loss\nOptimizer\nAdam\nTraining metrics\nAccuracy\n\nTraining Parameters\n\nBatch Size\n8\nLearning Rate\n1 × 10−4\nNo. of epochs\n200\n\nThe Adam optimizer (Adaptive Momentum Estimator) was\nchosen for training the model due to its effectiveness in\nbiomedical image segmentation tasks [17] and its ability to\nbalance computational efficiency, minimal memory require-\nments, and ease of implementation. Unlike traditional stochas-\ntic gradient descent, Adam adapts the learning rate dynam-\nically for each parameter based on past gradients, making\nit well-suited for complex models like U-Net. The learning\nrate is a critical hyperparameter that directly affects training\nstability and speed. A learning rate that is too low can result\nin slow convergence, while one that is too high may cause the\nmodel to miss the optimal solution. For this model, an initial\nlearning rate of 1×10−4 was selected, which provided a good\nbalance between convergence speed and stability. The rest of\nthe hyperparameters chosen are given in detail in the Table 2.\n\nF. Metrics\n\nThe evaluation was focused on assessing segmentation qual-\nity. Segmentation quality was assessed using standard metrics\nsuch as Dice Coefficient, Intersection Over Union (IoU), pre-\ncision and recall. These metrics provide a quantitative measure\n\nof the overlap and accuracy of the predicted segmentation\nmasks compared to the ground truth.\n\nG. Training\n\nAll training was performed using Google Colab’s free TPU,\nthe TPUv2-8. The Tensorflow library was used to enable\nthe model to utilise the TPU during training. The model\nwas trained for 200 epochs using Adam optimizer with a\nlearning rate of 1 × 10−4. A fixed training schedule of 200\nepochs was used across all experiments to ensure consistency\nand to analyze when overfitting tendencies emerged. While\nearly stopping or best-model checkpointing are commonly\napplied, in this study the extended training allowed us to\nobserve the effect of different loss parameters and augmenta-\ntions on convergence and stability. Validation was done using\nthe standard training-validation-test split of 60%-20%-20%.\nDuring training, accuracy was used as the primary evaluation\nmetric, which provides a general measure of how well the\nmodel’s predictions align with the ground truth. However, for a\nmore comprehensive evaluation of segmentation performance,\nadditional metrics were computed on the test dataset, including\nthe Dice coefficient, Intersection over Union (IoU), precision,\nand recall. These metrics are particularly relevant for assessing\nthe quality of segmentation masks, especially in imbalanced\ndatasets where pixel-level accuracy may not fully reflect model\nperformance.\n\nH. Experiments conducted\n\nPhase 1: Focal Loss Parameter Tuning\nIn this phase of the experiments, the α and γ parameters\nfor focal loss were varied to evaluate their impact on segmen-\ntation performance. These experiments were conducted using\nthe original dataset, without applying any data augmentation\ntechniques. Two sets of parameter combinations were tested:\n\n• α = 0.25, γ = 2.0\n• α = 2.0, γ = 0.75\nFor the first set of parameters (α = 0.25, γ = 2.0), the lower α\nplaces more weight on the background class, while the higher\nγ emphasizes hard-to-classify pixels, such as tumor boundaries\nor ambiguous regions. In contrast, the second set of parameters\n(α = 2.0,γ = 0.75) increases the importance of the minority\nclass (tumor) with a higher α, while the smaller γ of 0.75\nreduces the focus on difficult examples and instead prioritizes\nthe overall distribution, giving weightage to easier- to-classify\nregions too.\n\nPhase 2: Data Augmentation Evaluation\nIn this phase, three different data augmentation techniques\nwere evaluated on the proposed model, while keeping the\nfocal loss parameters constant at α = 0.25 and γ = 2.0.\nThe techniques evaluated are: Horizontal Flip, Rotation and\nScaling. The details of these augmentation techniques are\nprovided in Table 3. It is important to note that, since this\nis a segmentation task, the augmentation transformations were\napplied to both the image and its corresponding mask to ensure\nconsistency between the input and target.\n\nTABLE III\nDATA AUGMENTATION EXPERIMENT DETAILS\n\nTechnique\n% of training dataset\nParameters\n\nHorizontal Flip\n50%\nnone\nRotation\n50%\nAngle: ±15◦\nRandom Scaling\n50%\nRange: 0.8 - 1.2\n\nIV. RESULTS AND DISCUSSION\n\nThis section presents the results of the experiments con-\nducted to evaluate the segmentation performance of the model,\nthe impact of focal loss parameter tuning and the effect\nof data augmentation techniques. The model was evaluated\nusing multiple segmentation metrics, including accuracy, loss,\nDice coefficient, Intersection over Union (IoU), precision, and\nrecall. Experiments were conducted using both the original\ndataset and augmented datasets to assess the impact of data\naugmentation techniques on performance. The model showed\ncompetitive results across all metrics, with Horizontal Flip\nemerging as the most effective data augmentation technique,\nachieving the highest Dice coefficient and IoU scores. Rota-\ntion also contributed positively, whereas Scaling had minimal\nimpact on model performance.\n\nA. Impact of focal loss parameters\n\nThe results obtained in the first set of experiments of\ntuning the focal loss are presented in Table 4. In the first\ncase, the configuration prioritized hard-to-classify examples,\nparticularly tumor boundaries, resulting in better performance.\nIn the second case, the configuration emphasized the minor\nclass (tumor regions) more but focused less on boundary\ndetails, leading to weaker performance in challenging regions.\n\nThe experiments demonstrated that the choice of focal loss\nparameters play a significant role in balancing foreground and\nbackground segmentation accuracy.\n\nB. Impact of Data Augmentation\n\nThree data augmentation techniques - Horizontal flip, Ro-\ntation and Scaling - were experimented with to evaluate their\neffect on model generalization and robustness. The results of\nthe experiments are summarized in the Table 5. Horizontal\nflip consistently improved performance across all metrics,\nmaking it the most effective augmentation technique. Rotation\nimproved the Dice coefficient and IoU, indicating its effective-\nness. Scaling, however, showed negligible or no improvement\nin segmentation performance, suggesting that size variations\nare less significant for this dataset. Visualization of ground\ntruth and predictions further supported these findings (refer\nfigure 2), with horizontal flip and rotation demonstrating\nclearer and more accurate segmentation results compared to\nscaling.\n\nC. Inference drawn from Training graphs\n\nFigure 3 shows the training graphs for the different aug-\nmentation techniques compared with the baseline model.\nHorizontal flip and rotation augmentations produced more\n\nTABLE IV\nRESULTS FOR LOSS PARAMETER EXPERIMENTS\n\nLoss Function\nParameters\nAccuracy\nLoss\nPrecision\nRecall\nIoU\nDice Co-efficient\n\nFocal Loss\n\nα = 0.25\n\nγ = 2.0\n0.9941\n0.0082\n0.9014\n0.7681\n0.7082\n0.7867\n\nFocal Loss\n\nα = 2.0\nγ = 0.75\n0.9939\n0.0154\n0.8778\n0.7789\n0.7004\n0.7839\n\nTABLE V\nRESULTS FOR DATA AUGMENTATION EXPERIMENTS\n\nAugmentation type\nAccuracy\nLoss\nPrecision\nRecall\nIoU\nDice Co-efficient\n\nNone\n0.9941\n0.0082\n0.9014\n0.7681\n0.7082\n0.7867\nHorizontal Flip\n0.9942\n0.0053\n0.9001\n0.7779\n0.7152\n0.8041\nRotation\n0.9940\n0.0029\n0.8774\n0.7892\n0.7090\n0.7955\nRandom Scaling\n0.9934\n0.0064\n0.9097\n0.7106\n0.6643\n0.7486\n\nFig. 2. Ground Truth v/s Model Prediction: Green - Prediction, Blue - GT\n\nstable validation curves with smaller gaps between training\nand validation performance, suggesting better robustness to\nunseen data. In contrast, scaling augmentation resulted in\nhigher fluctuations in validation loss, indicating reduced sta-\nbility and weaker generalization. The no-augmentation setting\nshowed smoother curves but a clear gap between training and\nvalidation, pointing to mild overfitting. Overall, the results\nsuggest that simple geometric augmentations such as flip and\nrotation contribute more effectively to generalization compared\nto scaling or no augmentation. Extending training to 200\nepochs further highlighted these differences, showing that\nhorizontal flip consistently accelerated convergence with stable\nbehavior, rotation offered moderate but steady gains, while\nscaling produced noisy training patterns and minimal benefit.\n\nD. Comparison with state-of-the-art\n\nThe model achieved comparable performance with state-\nof-the-art methods for brain tumor segmentation. A brief\ncomparison with state-of-the-art models is shown in Table 7.\n\nTABLE VI\nCOMPARISON WITH STATE-OF-THE-ART (SOTA)\n\nModel\nPrecision Recall\nIoU\nDice co-efficient\n\nOur model\n0.9001\n0.7779 0.7152\n0.8041\nArafat et al. [18]\n0.82\n0.74\n0.68\n0.94\nGupta et al. [19]\n0.89\n0.91\n-\n0.90\n\nV. CONCLUSION AND FUTURE WORK\nThe aim of this study was to systematically evaluate the\nimpact of focal loss parameters and basic data augmentation\nstrategies on U-Net–based brain tumor segmentation. Changes\nin focal loss parameters significantly impacted the model\nbehavior, with better results obtained when parameters were\ntuned to give more weightage on minority class (tumor re-\ngion) and hard-to-classify examples. Among the augmentation\ntechniques, Horizontal flip was the most effective, followed\nby Rotation, while Scaling showed minimal improvement.\nThese findings highlight the importance of careful loss func-\ntion design and augmentation choice in developing robust\nsegmentation pipelines.\n\nFuture work will extend this baseline study to include more\nadvanced augmentation strategies such as elastic deformations,\nmodality-specific transformations, etc. Artificially synthesized\ndata using generative models like GANs can also be experi-\nmented with to evaluate its effect on model performance when\nused as an augmentation technique. Furthermore, classification\nof tumor type can also be integrated into the project pipeline\nsuch that when given an image, the model segments it and\nclassifies the tumor into specific categories.\n\nData\nand\ncode\navailability:\nAll\ncode\nand\nexperimental\nconfigurations\nare\npublicly\navailable\nat\ngithub.com/Saumya4321/2d-brain-tumor-segmentation.\n\nREFERENCES\n\n[1] Ronneberger, Olaf, Philipp Fischer, and Thomas Brox. “U-net: Convo-\n\nlutional networks for biomedical image segmentation.” In International\nConference on Medical image computing and computer-assisted inter-\nvention, pp. 234-241. Cham: Springer international publishing, 2015.\n[2] Otsu, Nobuyuki. “A threshold selection method from gray-level his-\n\ntograms.” Automatica 11, no. 285-296 (1975): 23-27.\n[3] Sujan, Md, Nashid Alam, Syed Abdullah Noman, and Mohammed\n\nJahirul Islam. “A segmentation based automated system for brain tumor\ndetection.” International Journal of Computer Applications 153, no. 10\n(2016): 41-49.\n[4] Derraz, Foued, Mohamed Beladgham, and M’hamed Khelif. “Appli-\n\ncation of active contour models in medical image segmentation.” In\nInternational Conference on Information Technology: Coding and Com-\nputing, 2004. Proceedings. ITCC 2004., vol. 2, pp. 675-681. IEEE, 2004.\n\nFig. 3. Training graphs - (a) Horizontal flip (b) Rotation (c) Scaling (d) No aug; blue - train, orange - validation\n\n[5] Adams, Rolf, and Leanne Bischof. “Seeded region growing.” IEEE\n\nTransactions on pattern analysis and machine intelligence 16, no. 6\n(1994): 641-647.\n[6] Shih, Frank Y., and Shouxian Cheng. “Automatic seeded region growing\n\nfor color image segmentation.” Image and vision computing 23, no. 10\n(2005): 877-886.\n[7] Chaibou, Mahaman Sani, Pierre-Henri Conze, Karim Kalti, Basel So-\n\nlaiman, and Mohamed Ali Mahjoub. “Adaptive strategy for superpixel-\nbased region-growing image segmentation.” Journal of Electronic Imag-\ning 26, no. 6 (2017): 061605-061605.\n[8] Meier, Raphael, Urspeter Knecht, Tina Loosli, Stefan Bauer, Johannes\n\nSlotboom, Roland Wiest, and Mauricio Reyes. “Clinical evaluation of\na fully-automatic segmentation method for longitudinal brain tumor\nvolumetry.” Scientific reports 6, no. 1 (2016): 23376.\n[9] Wang, Guotai, Wenqi Li, S´ebastien Ourselin, and Tom Vercauteren. “Au-\n\ntomatic brain tumor segmentation using cascaded anisotropic convolu-\ntional neural networks.” In International MICCAI brainlesion workshop,\npp. 178-190. Cham: Springer International Publishing, 2017.\n[10] Lin, Tsung-Yi, Priya Goyal, Ross Girshick, Kaiming He, and Piotr\n\nDoll´ar. “Focal loss for dense object detection.” In Proceedings of the\nIEEE international conference on computer vision, pp. 2980-2988. 2017.\n[11] Neyestanak, Mahdi Shafiei, Hamid Jahani, Mohsen Khodarahmi, Javad\n\nZahiri, Mostafa Hosseini, Amirali Fatoorchi, and Mir Saeed Yekanine-\njad. “A quantitative comparison between focal loss and binary cross-\nentropy loss in brain tumor auto-segmentation using U-Net.” Journal of\nBiostatistics and Epidemiology 11, no. 1 (2025): 15-35.\n[12] Nalepa, Jakub, Michal Marcinkiewicz, and Michal Kawulok. “Data\n\naugmentation for brain-tumor segmentation: a review.” Frontiers in\ncomputational neuroscience 13 (2019): 83.\n[13] Cheng, Jun, et al. “Enhanced Performance of Brain Tumor Classification\n\nvia Tumor Region Augmentation and Partition.” PloS one 10.10 (2015)\n[14] Cheng, Jun, et al. “Retrieval of Brain Tumors by Adaptive Spatial\n\nPooling and Fisher Vector Representation.” PloS one 11.6\n[15] The Kaggle dataset link - https://www.kaggle.com/datasets/nikhilroxtomar/\n\nbrain-tumor-segmentation\n[16] Du, Getao, Xu Cao, Jimin Liang, Xueli Chen, and Yonghua Zhan.\n\n“Medical Image Segmentation based on U-Net: A Review.” Journal of\nImaging Science Technology 64, no. 2 (2020).\n[17] Kingma, Diederik P. “Adam: A method for stochastic optimization.”\n\narXiv preprint arXiv:1412.6980 (2014).\n[18] Arafat, Ali, Dipesh Mamtani, and K. R. Jansi. “Brain tumor MRI image\n\nsegmentation and classification based on deep learning techniques.” In\n\n2023 2nd international conference on smart technologies and systems\nfor next generation computing (ICSTSN), pp. 1-6. IEEE, 2023.\n[19] S. Gupta and M. Gupta, “Deep Learning for Brain Tumor Seg-\n\nmentation using Magnetic Resonance Images”, 2021 IEEE Confer-\nence on Computational Intelligence in Bioinformatics and Computa-\ntional Biology (CIBCB), Melbourne, Australia, 2021, pp. 1-6, doi:\n10.1109/CIBCB49929.2021.9562890.",
+  "chunks": [
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        51.0,
+        53.1,
+        561.0,
+        77.0
+      ],
+      "text": "Reproducible Evaluation of Data Augmentation and"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        77.3,
+        81.0,
+        534.8,
+        104.9
+      ],
+      "text": "Loss Functions for Brain Tumor Segmentation"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        237.2,
+        122.2,
+        374.8,
+        157.5
+      ],
+      "text": "Saumya B\nProject Associate\nDESE, Indian Institute of Science"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        261.3,
+        160.1,
+        350.7,
+        182.4
+      ],
+      "text": "Bengaluru, India\nsaumya.b@fsid-iisc.in"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 1,
+      "section": "Abstract—Brain tumor segmentation is crucial for diagnosis",
+      "bbox": [
+        49.0,
+        219.4,
+        300.0,
+        357.9
+      ],
+      "text": "Abstract—Brain tumor segmentation is crucial for diagnosis\nand treatment planning, yet challenges such as class imbalance\nand limited model generalization continue to hinder progress.\nThis work presents a reproducible evaluation of U-Net segmenta-\ntion performance on brain tumor MRI using focal loss and basic\ndata augmentation strategies. Experiments were conducted on a\npublicly available MRI dataset, focusing on focal loss parameter\ntuning and assessing the impact of three data augmentation\ntechniques: horizontal flip, rotation, and scaling. The U-Net with\nfocal loss achieved a precision of 90%, comparable to state-of-the-\nart results. By making all code and results publicly available, this\nstudy establishes a transparent, reproducible baseline to guide\nfuture research on augmentation strategies and loss function\ndesign in brain tumor segmentation."
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 1,
+      "section": "Abstract—Brain tumor segmentation is crucial for diagnosis",
+      "bbox": [
+        49.0,
+        359.2,
+        300.0,
+        378.1
+      ],
+      "text": "Index Terms—brain tumor segmentation, data augmentation,\nU-Net, focal loss"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 1,
+      "section": "I. INTRODUCTION",
+      "bbox": [
+        135.6,
+        392.5,
+        213.4,
+        402.5
+      ],
+      "text": "I. INTRODUCTION"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 1,
+      "section": "I. INTRODUCTION",
+      "bbox": [
+        49.0,
+        409.4,
+        300.0,
+        538.9
+      ],
+      "text": "Brain tumors are among the most challenging medical\nconditions to diagnose and treat, often requiring precise iden-\ntification of tumor boundaries for effective treatment plan-\nning. Magnetic Resonance Imaging (MRI) is a widely used\nimaging modality for detecting brain tumors, providing de-\ntailed anatomical information essential for accurate diagnosis.\nHowever, manual delineation of tumor regions by radiologists\nis time-consuming, prone to inter-observer variability, and\ndifficult to scale in clinical settings. These challenges highlight\nthe need for automated methods that can accurately segment\nbrain tumors and provide interpretable predictions."
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 1,
+      "section": "I. INTRODUCTION",
+      "bbox": [
+        49.0,
+        541.2,
+        300.0,
+        670.7
+      ],
+      "text": "Deep learning-based approaches, particularly convolutional\nneural networks (CNNs), have shown significant promise in\nmedical image segmentation tasks due to their ability to learn\nhierarchical spatial features. Among these, the U-Net archi-\ntecture is widely regarded as the gold standard for biomedical\nimage segmentation, owing to its encoder-decoder structure\nwith skip connections that effectively capture fine-grained\nspatial details [1].While U-Net models have achieved strong\nsegmentation performance, they continue to face challenges\nwith class imbalance, a factor that can significantly affect\nmodel accuracy in medical imaging."
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 1,
+      "section": "I. INTRODUCTION",
+      "bbox": [
+        49.0,
+        673.0,
+        300.0,
+        718.9
+      ],
+      "text": "This study presents a reproducible evaluation of U-Net\nperformance on brain tumor MRI with focal loss and basic\ndata augmentation strategies. Focal loss is commonly applied\nto address class imbalance by increasing the weight of hard-to-"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 1,
+      "section": "I. INTRODUCTION",
+      "bbox": [
+        312.0,
+        218.7,
+        563.0,
+        276.5
+      ],
+      "text": "classify regions, such as tumor boundaries. We systematically\nevaluated the effect of focal loss parameters alongside three\naugmentation techniques — horizontal flip, rotation, and scal-\ning — to assess their impact on segmentation accuracy and\ngeneralization."
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 1,
+      "section": "I. INTRODUCTION",
+      "bbox": [
+        321.9,
+        278.4,
+        544.8,
+        288.3
+      ],
+      "text": "The major contributions of this work are given below:"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 1,
+      "section": "I. INTRODUCTION",
+      "bbox": [
+        322.8,
+        291.9,
+        563.0,
+        313.9
+      ],
+      "text": "• A baseline implementation of U-Net with focal loss for\nbrain tumor MRI segmentation"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 1,
+      "section": "I. INTRODUCTION",
+      "bbox": [
+        322.8,
+        315.8,
+        563.0,
+        337.8
+      ],
+      "text": "• Analysis of the impact of varying focal loss parameters\non model performance"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 1,
+      "section": "I. INTRODUCTION",
+      "bbox": [
+        312.0,
+        339.8,
+        563.0,
+        447.0
+      ],
+      "text": "• Evaluation of the effect of three different data augmen-\ntation techniques on model performance\nThough this study does not introduce new architectures, it\nprovides a transparent, reproducible evaluation of focal loss\nand data augmentation strategies for brain tumor segmentation.\nBy making the results and code publicly available, this work\nserves as a reproducible baseline and reference point for future\nresearch in model training, augmentation strategies, and loss\nfunction design."
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 1,
+      "section": "I. INTRODUCTION",
+      "bbox": [
+        383.9,
+        454.9,
+        491.2,
+        464.9
+      ],
+      "text": "II. LITERATURE SURVEY"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 1,
+      "section": "I. INTRODUCTION",
+      "bbox": [
+        312.0,
+        469.9,
+        563.0,
+        683.1
+      ],
+      "text": "Accurate quantification of brain tumors is critical for di-\nagnosis, treatment planning, and monitoring of therapeutic\nresponse. Among imaging techniques, MRI remains the pre-\nferred modality because of its superior soft tissue contrast,\nenabling more precise tumor delineation than CT or ultra-\nsound. Traditional segmentation methods, such as thresholding\n[2], [3], boundary detection via active contour models [4],\nand various forms of region growing [5]–[7], depend on\nhandcrafted intensity heuristics [7] or feature engineering [5].\nFor example, Sujan et al. (2016) [3] combined thresholding\nwith morphological operations, reporting approximately 85%\naccuracy for tumor detection on BRATS MRI scans, while\nMeier et al. (2016) [8] demonstrated clinical validation of\na fully automated volumetry system in longitudinal studies.\nNevertheless, such rule-based or classical approaches are fre-\nquently constrained by noise sensitivity and poor generaliza-\ntion across datasets, thus motivating the shift toward deep\nlearning-based segmentation techniques."
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 1,
+      "section": "I. INTRODUCTION",
+      "bbox": [
+        312.0,
+        685.0,
+        563.0,
+        718.9
+      ],
+      "text": "Convolutional neural networks (CNNs) have transformed\nmedical image analysis by automatically learning hierarchical\nfeatures, outperforming traditional handcrafted approaches in"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 1,
+      "section": "I. INTRODUCTION",
+      "bbox": [
+        10.9,
+        227.1,
+        37.6,
+        564.9
+      ],
+      "text": "arXiv:2510.08617v1  [cs.CV]  8 Oct 2025"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 2,
+      "section": "I. INTRODUCTION",
+      "bbox": [
+        49.0,
+        51.4,
+        300.0,
+        216.7
+      ],
+      "text": "tumor detection and segmentation [9]. Among these, U-Net\n(Ronneberger et al., 2015) [1] became the standard for biomed-\nical segmentation due to its encoder–decoder structure with\nskip connections, enabling precise localization from limited\ntraining data. However, brain tumor segmentation remains\nchallenging because of severe class imbalance, where tumor\npixels are sparse compared to the background. To address\nthis, several loss functions have been explored: binary cross-\nentropy (BCE) provides pixel-level supervision but struggles\nwith imbalance, while Dice loss emphasizes overlap but can\nbe unstable for small structures. More recently, focal loss [10]\nhas been proposed to focus training on hard-to-classify pixels,\nand studies comparing focal loss with BCE demonstrate its\nadvantage in medical segmentation tasks [11]."
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 2,
+      "section": "I. INTRODUCTION",
+      "bbox": [
+        49.0,
+        218.7,
+        300.0,
+        360.2
+      ],
+      "text": "Data scarcity and variability across scanners often limit\nthe generalization of brain tumor segmentation models. Data\naugmentation is therefore widely applied to synthetically en-\nlarge training sets and improve robustness. Common tech-\nniques include geometric transformations such as flipping,\nrotation, and scaling, as well as elastic deformations and\nintensity perturbations [12]. Prior studies have shown that\neven simple augmentations can significantly boost Dice scores\nand reduce overfitting in medical segmentation tasks. Since\ndata augmentation is already known to improve brain tumor\nsegmentation, this study focuses on systematically comparing\ndifferent augmentation strategies in this context."
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 2,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        130.5,
+        369.0,
+        218.5,
+        378.9
+      ],
+      "text": "III. METHODOLOGY"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 2,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        49.0,
+        384.1,
+        300.0,
+        406.0
+      ],
+      "text": "To achieve the objectives mentioned in section 1, the study\nwas conducted in two phases, using the same U-Net model:"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 2,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        58.6,
+        409.8,
+        192.5,
+        420.0
+      ],
+      "text": "i. Focal Loss Parameter Tuning:"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 2,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        55.9,
+        422.0,
+        300.0,
+        491.7
+      ],
+      "text": "In the initial set of experiments, the goal was to identify\nthe optimal parameters for focal loss that yielded the\nbest segmentation performance. These experiments were\nconducted using the original dataset without applying any\ndata augmentation techniques.\nii. Data Augmentation Analysis:"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 2,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        49.0,
+        493.7,
+        300.0,
+        589.4
+      ],
+      "text": "After determining the best-performing focal loss param-\neters, they were fixed for the subsequent experiments.\nThree different data augmentation techniques were then\napplied individually to the dataset, and the model’s per-\nformance was evaluated for each augmentation technique.\nThis systematic approach ensured a comprehensive analysis\nof both focal loss parameter tuning and the impact of data\naugmentation on the model’s segmentation performance."
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 2,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        49.0,
+        598.0,
+        93.5,
+        607.9
+      ],
+      "text": "A. Dataset"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 2,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        49.0,
+        613.2,
+        300.0,
+        718.9
+      ],
+      "text": "For this study, a brain tumor dataset containing 3064 T1-\nweighted contrast-enhanced MRI images was used. The data\nwas collected from Nanfang Hospital and Tianjing Medical\nUniversity, China, from 2005 to 2010, by Jun Cheng, who\noriginally used the dataset in his study [13] and [14], and\nhad uploaded the entire dataset with its metadata to Figshare.\nThe dataset consists of T1-weighted contrast-enhanced MRI\nscans from 233 patients, and has three kinds of brain tumors\n- 708 cases of Meningiomas, 1426 gliomas and 930 cases of"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 2,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        312.0,
+        51.4,
+        563.0,
+        121.1
+      ],
+      "text": "pituitary tumors. The source states that the tumor borders were\nmanually delineated by three experienced radiologists. A copy\nof this dataset was taken from Kaggle [15], where the scans\nand corresponding binary masks were uploaded as 256x256\npixel images. A summary of the details of the dataset are\ngiven in Table 1."
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 2,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        406.7,
+        137.1,
+        468.4,
+        154.1
+      ],
+      "text": "TABLE I\nDATASET DETAILS"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 2,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        361.6,
+        163.2,
+        513.5,
+        199.4
+      ],
+      "text": "Tumor type\nDimensions\nNo. of images\nMeningioma\n256x256\n708\nGlioma\n256x256\n1426\nPituitary\n256x256\n930"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 2,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        312.0,
+        220.3,
+        385.6,
+        230.2
+      ],
+      "text": "B. Pre-processing"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 2,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        383.8,
+        450.5,
+        491.2,
+        458.5
+      ],
+      "text": "Fig. 1. Pre-processing workflow"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 2,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        312.0,
+        471.0,
+        563.0,
+        672.2
+      ],
+      "text": "The preprocessing steps began by loading both the images\nand masks in grayscale format, hence reducing the complexity\nby using fewer channels compared to color images. The\nimages and masks were then resized to a standardized size\n(256x256) to ensure uniformity across the dataset. Following\nthis, the pixel values were normalized by dividing each pixel\nby 255, which not only facilitates faster convergence [16]\nduring training but also makes the computations more efficient\nand less memory-intensive. Since the model is designed to\nwork with binary masks, an important step was performed\nto verify that all mask pixel values were either 0 or 1. Any\npixel with a value between 0 and 1 (non-binary) was converted\nto 0 if it was greater than 0 but less than 1. Finally, the\ndataset, which contained 3064 samples, was randomly split\ninto training, validation, and test sets, with 1838 samples\nassigned to the training set, and 613 samples each assigned\nto the validation and test sets."
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 2,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        312.0,
+        681.4,
+        404.0,
+        691.4
+      ],
+      "text": "C. Model Architecture"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 2,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        312.0,
+        696.9,
+        563.0,
+        718.9
+      ],
+      "text": "The model used in the study is the U-Net architecture,\noriginally designed for biomedical image segmentation tasks."
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        49.0,
+        51.4,
+        300.0,
+        145.0
+      ],
+      "text": "The U-Net architecture was selected due to its effectiveness\nin biomedical image segmentation, particularly in tasks with\nlimited labeled data and the need for precise spatial localiza-\ntion, which is critical for tumor segmentation. It employs an\nencoder-decoder structure with skip connections to preserve\nspatial information. The encoder extracts hierarchical features\nthrough downsampling, while the decoder reconstructs the\nsegmentation mask by upsampling the feature maps."
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        49.0,
+        146.7,
+        300.0,
+        312.1
+      ],
+      "text": "The encoder consists of four downsampling blocks, each\nwith two convolutional layers (with padding = “same”, kernel\nsize of 3x3) to balance the need for fine-grained segmentation\naccuracy and model generalization. This is followed by a max\npooling layer with a pool size of 2x2. The convolutional\nlayers use ReLU activation and He normal initialization.\nReLU was chosen because it introduces non-linearity, avoids\nvanishing gradient issues, and promotes faster convergence,\nwhile He initialization complements it by maintaining variance\nthroughout the network, ensuring stable and efficient training.\nAfter the pooling layers, a dropout layer with a rate of 0.3 is\napplied to regularize the network and prevent overfitting. The\nnumber of filters doubles in each block, starting from 64 in\nthe first block and increasing to 1024 in the bottleneck layer."
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        49.0,
+        313.7,
+        300.0,
+        491.1
+      ],
+      "text": "The decoder mirrors the encoder with four upsampling\nblocks. Each block begins with a transposed convolution layer\nto upsample the feature maps, followed by skip connections\nthat concatenate feature maps from the corresponding encoder\nblock, preserving spatial details lost during down-sampling.\nThese are followed by two convolutional layers with kernel\nsize 3x3 and with ReLU activation and He initialization.\nA dropout layer with the same rate of 0.3 is applied after\nthe concatenation step to maintain regularization and support\nuncertainty estimation. At the bottleneck, the deepest part\nof the U-Net, two convolutional layers with 1024 filters\ncapture high-level feature representations essential for accurate\nsegmentation. The output layer is a 1×1 convolution with a\nsigmoid activation function, producing a binary segmentation\nmap to identify tumor regions."
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        49.0,
+        497.7,
+        211.7,
+        507.6
+      ],
+      "text": "D. Choosing focal loss as loss function"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        49.0,
+        512.6,
+        300.0,
+        606.3
+      ],
+      "text": "Focal loss was selected as the loss function for this model\ndue to its effectiveness in addressing class imbalance, which\nis a common issue in segmentation tasks. In this case, the seg-\nmentation masks contain significantly fewer foreground pixels\n(tumor regions) compared to the background pixels. Standard\nloss functions, such as cross-entropy loss, may struggle in\nsuch scenarios because the loss tends to be dominated by the\nmajority class (background)."
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        49.0,
+        607.9,
+        300.0,
+        701.6
+      ],
+      "text": "Focal Loss mitigates this issue by dynamically scaling the\ncontribution of each pixel’s loss based on its classification dif-\nficulty. Hard-to-classify examples (e.g., noisy textures, small\ntumor regions, or partial objects) are given higher weights,\nwhile easy-to-classify examples (e.g., background pixels) are\ndown-weighted, allowing the model to focus on learning\nchallenging patterns. Focal Loss is an extension of Cross-\nEntropy Loss, formulated as in Eq. 1."
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        110.7,
+        704.5,
+        300.0,
+        719.5
+      ],
+      "text": "FL(pt) = −α(1 −pt)γ log(pt)\n(1)"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        312.0,
+        51.1,
+        563.0,
+        252.6
+      ],
+      "text": "where pt is the model’s predicted probability for the true\nclass, α is a weighting factor for balancing the importance\nof different classes, (1 - pt) is the modulating factor, which\ngives more weight to misclassified or hard examples, and\nγ is the focusing parameter that adjusts how much the loss\nfocuses on hard examples. The parameters α and γ play\ncrucial roles in the behavior of Focal Loss. α is the weighting\nfactor which controls the balance between the foreground and\nbackground classes. For instance, setting a higher α for the\ntumor (foreground) class ensures that the model assigns greater\nimportance to learning from tumor pixels, which are typically\nunderrepresented. γ is the focusing parameter and determines\nthe degree of focus on hard examples. When γ = 0, Focal Loss\nis equivalent to standard Cross-Entropy Loss. Increasing γ\n(e.g., 2.0) amplifies the contribution of harder examples while\nreducing the weight of well-classified ones. Higher values of γ\nare particularly useful in datasets with severe class imbalance."
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        312.0,
+        260.1,
+        400.5,
+        270.0
+      ],
+      "text": "E. Hyperparamenters"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        332.2,
+        288.1,
+        542.8,
+        305.1
+      ],
+      "text": "TABLE II\nMODEL HYPERPARAMETERS AND TRAINING CONFIGURATION"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        320.2,
+        317.6,
+        531.2,
+        325.6
+      ],
+      "text": "Category\nHyperparameter\nValue"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        320.2,
+        363.1,
+        388.0,
+        371.1
+      ],
+      "text": "Model Architecture"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        417.2,
+        331.8,
+        554.8,
+        393.6
+      ],
+      "text": "Input Shape\n(256, 256, 1)\nKernel Size (Initial)\n(3, 3)\nKernel Size (Subsequent)\n(3, 3)\nActivation function\nReLU\nKernel Initializer\nHe Normal\nDropout Rate\n0.3\nFinal Activation\nSigmoid"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        320.2,
+        408.7,
+        380.7,
+        416.7
+      ],
+      "text": "Loss and Metrics"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        417.2,
+        399.8,
+        547.5,
+        425.7
+      ],
+      "text": "Loss function\nFocal Loss\nOptimizer\nAdam\nTraining metrics\nAccuracy"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        320.2,
+        440.8,
+        392.1,
+        448.8
+      ],
+      "text": "Training Parameters"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        417.2,
+        431.9,
+        544.5,
+        458.2
+      ],
+      "text": "Batch Size\n8\nLearning Rate\n1 × 10−4\nNo. of epochs\n200"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        312.0,
+        473.1,
+        563.0,
+        650.4
+      ],
+      "text": "The Adam optimizer (Adaptive Momentum Estimator) was\nchosen for training the model due to its effectiveness in\nbiomedical image segmentation tasks [17] and its ability to\nbalance computational efficiency, minimal memory require-\nments, and ease of implementation. Unlike traditional stochas-\ntic gradient descent, Adam adapts the learning rate dynam-\nically for each parameter based on past gradients, making\nit well-suited for complex models like U-Net. The learning\nrate is a critical hyperparameter that directly affects training\nstability and speed. A learning rate that is too low can result\nin slow convergence, while one that is too high may cause the\nmodel to miss the optimal solution. For this model, an initial\nlearning rate of 1×10−4 was selected, which provided a good\nbalance between convergence speed and stability. The rest of\nthe hyperparameters chosen are given in detail in the Table 2."
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        312.0,
+        657.9,
+        354.6,
+        667.9
+      ],
+      "text": "F. Metrics"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        312.0,
+        673.0,
+        563.0,
+        718.9
+      ],
+      "text": "The evaluation was focused on assessing segmentation qual-\nity. Segmentation quality was assessed using standard metrics\nsuch as Dice Coefficient, Intersection Over Union (IoU), pre-\ncision and recall. These metrics provide a quantitative measure"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 4,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        49.0,
+        51.4,
+        300.0,
+        73.3
+      ],
+      "text": "of the overlap and accuracy of the predicted segmentation\nmasks compared to the ground truth."
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 4,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        49.0,
+        85.1,
+        97.8,
+        95.1
+      ],
+      "text": "G. Training"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 4,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        49.0,
+        101.8,
+        300.0,
+        362.8
+      ],
+      "text": "All training was performed using Google Colab’s free TPU,\nthe TPUv2-8. The Tensorflow library was used to enable\nthe model to utilise the TPU during training. The model\nwas trained for 200 epochs using Adam optimizer with a\nlearning rate of 1 × 10−4. A fixed training schedule of 200\nepochs was used across all experiments to ensure consistency\nand to analyze when overfitting tendencies emerged. While\nearly stopping or best-model checkpointing are commonly\napplied, in this study the extended training allowed us to\nobserve the effect of different loss parameters and augmenta-\ntions on convergence and stability. Validation was done using\nthe standard training-validation-test split of 60%-20%-20%.\nDuring training, accuracy was used as the primary evaluation\nmetric, which provides a general measure of how well the\nmodel’s predictions align with the ground truth. However, for a\nmore comprehensive evaluation of segmentation performance,\nadditional metrics were computed on the test dataset, including\nthe Dice coefficient, Intersection over Union (IoU), precision,\nand recall. These metrics are particularly relevant for assessing\nthe quality of segmentation masks, especially in imbalanced\ndatasets where pixel-level accuracy may not fully reflect model\nperformance."
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 4,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        49.0,
+        374.6,
+        157.9,
+        384.6
+      ],
+      "text": "H. Experiments conducted"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 4,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        49.0,
+        391.1,
+        300.0,
+        461.4
+      ],
+      "text": "Phase 1: Focal Loss Parameter Tuning\nIn this phase of the experiments, the α and γ parameters\nfor focal loss were varied to evaluate their impact on segmen-\ntation performance. These experiments were conducted using\nthe original dataset, without applying any data augmentation\ntechniques. Two sets of parameter combinations were tested:"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 4,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        49.0,
+        466.0,
+        300.0,
+        598.5
+      ],
+      "text": "• α = 0.25, γ = 2.0\n• α = 2.0, γ = 0.75\nFor the first set of parameters (α = 0.25, γ = 2.0), the lower α\nplaces more weight on the background class, while the higher\nγ emphasizes hard-to-classify pixels, such as tumor boundaries\nor ambiguous regions. In contrast, the second set of parameters\n(α = 2.0,γ = 0.75) increases the importance of the minority\nclass (tumor) with a higher α, while the smaller γ of 0.75\nreduces the focus on difficult examples and instead prioritizes\nthe overall distribution, giving weightage to easier- to-classify\nregions too."
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 4,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        49.0,
+        600.7,
+        300.0,
+        718.9
+      ],
+      "text": "Phase 2: Data Augmentation Evaluation\nIn this phase, three different data augmentation techniques\nwere evaluated on the proposed model, while keeping the\nfocal loss parameters constant at α = 0.25 and γ = 2.0.\nThe techniques evaluated are: Horizontal Flip, Rotation and\nScaling. The details of these augmentation techniques are\nprovided in Table 3. It is important to note that, since this\nis a segmentation task, the augmentation transformations were\napplied to both the image and its corresponding mask to ensure\nconsistency between the input and target."
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 4,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        360.3,
+        52.9,
+        514.7,
+        69.8
+      ],
+      "text": "TABLE III\nDATA AUGMENTATION EXPERIMENT DETAILS"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 4,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        334.2,
+        82.3,
+        526.6,
+        90.3
+      ],
+      "text": "Technique\n% of training dataset\nParameters"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 4,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        334.2,
+        96.6,
+        540.8,
+        122.5
+      ],
+      "text": "Horizontal Flip\n50%\nnone\nRotation\n50%\nAngle: ±15◦\nRandom Scaling\n50%\nRange: 0.8 - 1.2"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 4,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        371.6,
+        148.8,
+        503.4,
+        158.8
+      ],
+      "text": "IV. RESULTS AND DISCUSSION"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 4,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        312.0,
+        164.1,
+        563.0,
+        329.5
+      ],
+      "text": "This section presents the results of the experiments con-\nducted to evaluate the segmentation performance of the model,\nthe impact of focal loss parameter tuning and the effect\nof data augmentation techniques. The model was evaluated\nusing multiple segmentation metrics, including accuracy, loss,\nDice coefficient, Intersection over Union (IoU), precision, and\nrecall. Experiments were conducted using both the original\ndataset and augmented datasets to assess the impact of data\naugmentation techniques on performance. The model showed\ncompetitive results across all metrics, with Horizontal Flip\nemerging as the most effective data augmentation technique,\nachieving the highest Dice coefficient and IoU scores. Rota-\ntion also contributed positively, whereas Scaling had minimal\nimpact on model performance."
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 4,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        312.0,
+        338.3,
+        455.5,
+        348.2
+      ],
+      "text": "A. Impact of focal loss parameters"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 4,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        312.0,
+        353.7,
+        563.0,
+        435.3
+      ],
+      "text": "The results obtained in the first set of experiments of\ntuning the focal loss are presented in Table 4. In the first\ncase, the configuration prioritized hard-to-classify examples,\nparticularly tumor boundaries, resulting in better performance.\nIn the second case, the configuration emphasized the minor\nclass (tumor regions) more but focused less on boundary\ndetails, leading to weaker performance in challenging regions."
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 4,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        312.0,
+        437.4,
+        563.0,
+        471.2
+      ],
+      "text": "The experiments demonstrated that the choice of focal loss\nparameters play a significant role in balancing foreground and\nbackground segmentation accuracy."
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 4,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        312.0,
+        480.0,
+        447.0,
+        490.0
+      ],
+      "text": "B. Impact of Data Augmentation"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 4,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        312.0,
+        495.4,
+        563.0,
+        660.8
+      ],
+      "text": "Three data augmentation techniques - Horizontal flip, Ro-\ntation and Scaling - were experimented with to evaluate their\neffect on model generalization and robustness. The results of\nthe experiments are summarized in the Table 5. Horizontal\nflip consistently improved performance across all metrics,\nmaking it the most effective augmentation technique. Rotation\nimproved the Dice coefficient and IoU, indicating its effective-\nness. Scaling, however, showed negligible or no improvement\nin segmentation performance, suggesting that size variations\nare less significant for this dataset. Visualization of ground\ntruth and predictions further supported these findings (refer\nfigure 2), with horizontal flip and rotation demonstrating\nclearer and more accurate segmentation results compared to\nscaling."
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 4,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        312.0,
+        669.6,
+        482.7,
+        679.6
+      ],
+      "text": "C. Inference drawn from Training graphs"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 4,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        312.0,
+        685.0,
+        563.0,
+        718.9
+      ],
+      "text": "Figure 3 shows the training graphs for the different aug-\nmentation techniques compared with the baseline model.\nHorizontal flip and rotation augmentations produced more"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 5,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        225.1,
+        52.9,
+        386.9,
+        69.8
+      ],
+      "text": "TABLE IV\nRESULTS FOR LOSS PARAMETER EXPERIMENTS"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 5,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        124.2,
+        82.3,
+        487.8,
+        90.3
+      ],
+      "text": "Loss Function\nParameters\nAccuracy\nLoss\nPrecision\nRecall\nIoU\nDice Co-efficient"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 5,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        131.0,
+        105.7,
+        166.4,
+        113.7
+      ],
+      "text": "Focal Loss"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 5,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        188.9,
+        96.4,
+        220.7,
+        104.3
+      ],
+      "text": "α = 0.25"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 5,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        191.4,
+        101.1,
+        470.8,
+        113.3
+      ],
+      "text": "γ = 2.0\n0.9941\n0.0082\n0.9014\n0.7681\n0.7082\n0.7867"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 5,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        131.0,
+        128.7,
+        166.4,
+        136.6
+      ],
+      "text": "Focal Loss"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 5,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        189.2,
+        119.3,
+        470.8,
+        136.2
+      ],
+      "text": "α = 2.0\nγ = 0.75\n0.9939\n0.0154\n0.8778\n0.7789\n0.7004\n0.7839"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 5,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        218.0,
+        155.9,
+        394.0,
+        172.8
+      ],
+      "text": "TABLE V\nRESULTS FOR DATA AUGMENTATION EXPERIMENTS"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 5,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        141.4,
+        185.3,
+        470.6,
+        193.3
+      ],
+      "text": "Augmentation type\nAccuracy\nLoss\nPrecision\nRecall\nIoU\nDice Co-efficient"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 5,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        141.4,
+        199.4,
+        453.6,
+        234.4
+      ],
+      "text": "None\n0.9941\n0.0082\n0.9014\n0.7681\n0.7082\n0.7867\nHorizontal Flip\n0.9942\n0.0053\n0.9001\n0.7779\n0.7152\n0.8041\nRotation\n0.9940\n0.0029\n0.8774\n0.7892\n0.7090\n0.7955\nRandom Scaling\n0.9934\n0.0064\n0.9097\n0.7106\n0.6643\n0.7486"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 5,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        51.0,
+        365.5,
+        298.0,
+        373.5
+      ],
+      "text": "Fig. 2. Ground Truth v/s Model Prediction: Green - Prediction, Blue - GT"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 5,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        49.0,
+        395.1,
+        300.0,
+        560.4
+      ],
+      "text": "stable validation curves with smaller gaps between training\nand validation performance, suggesting better robustness to\nunseen data. In contrast, scaling augmentation resulted in\nhigher fluctuations in validation loss, indicating reduced sta-\nbility and weaker generalization. The no-augmentation setting\nshowed smoother curves but a clear gap between training and\nvalidation, pointing to mild overfitting. Overall, the results\nsuggest that simple geometric augmentations such as flip and\nrotation contribute more effectively to generalization compared\nto scaling or no augmentation. Extending training to 200\nepochs further highlighted these differences, showing that\nhorizontal flip consistently accelerated convergence with stable\nbehavior, rotation offered moderate but steady gains, while\nscaling produced noisy training patterns and minimal benefit."
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 5,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        49.0,
+        568.3,
+        197.4,
+        578.3
+      ],
+      "text": "D. Comparison with state-of-the-art"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 5,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        49.0,
+        583.5,
+        300.0,
+        617.4
+      ],
+      "text": "The model achieved comparable performance with state-\nof-the-art methods for brain tumor segmentation. A brief\ncomparison with state-of-the-art models is shown in Table 7."
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 5,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        91.9,
+        632.6,
+        257.1,
+        649.5
+      ],
+      "text": "TABLE VI\nCOMPARISON WITH STATE-OF-THE-ART (SOTA)"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 5,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        72.0,
+        663.4,
+        277.0,
+        671.3
+      ],
+      "text": "Model\nPrecision Recall\nIoU\nDice co-efficient"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 5,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        72.0,
+        677.4,
+        261.1,
+        703.5
+      ],
+      "text": "Our model\n0.9001\n0.7779 0.7152\n0.8041\nArafat et al. [18]\n0.82\n0.74\n0.68\n0.94\nGupta et al. [19]\n0.89\n0.91\n-\n0.90"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 5,
+      "section": "V. CONCLUSION AND FUTURE WORK",
+      "bbox": [
+        312.0,
+        260.7,
+        563.0,
+        416.9
+      ],
+      "text": "V. CONCLUSION AND FUTURE WORK\nThe aim of this study was to systematically evaluate the\nimpact of focal loss parameters and basic data augmentation\nstrategies on U-Net–based brain tumor segmentation. Changes\nin focal loss parameters significantly impacted the model\nbehavior, with better results obtained when parameters were\ntuned to give more weightage on minority class (tumor re-\ngion) and hard-to-classify examples. Among the augmentation\ntechniques, Horizontal flip was the most effective, followed\nby Rotation, while Scaling showed minimal improvement.\nThese findings highlight the importance of careful loss func-\ntion design and augmentation choice in developing robust\nsegmentation pipelines."
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 5,
+      "section": "Future work will extend this baseline study to include more",
+      "bbox": [
+        312.0,
+        418.5,
+        563.0,
+        524.2
+      ],
+      "text": "Future work will extend this baseline study to include more\nadvanced augmentation strategies such as elastic deformations,\nmodality-specific transformations, etc. Artificially synthesized\ndata using generative models like GANs can also be experi-\nmented with to evaluate its effect on model performance when\nused as an augmentation technique. Furthermore, classification\nof tumor type can also be integrated into the project pipeline\nsuch that when given an image, the model segments it and\nclassifies the tumor into specific categories."
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 5,
+      "section": "Future work will extend this baseline study to include more",
+      "bbox": [
+        312.0,
+        537.7,
+        563.0,
+        571.6
+      ],
+      "text": "Data\nand\ncode\navailability:\nAll\ncode\nand\nexperimental\nconfigurations\nare\npublicly\navailable\nat\ngithub.com/Saumya4321/2d-brain-tumor-segmentation."
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 5,
+      "section": "Future work will extend this baseline study to include more",
+      "bbox": [
+        409.6,
+        578.2,
+        465.4,
+        588.2
+      ],
+      "text": "REFERENCES"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 5,
+      "section": "Future work will extend this baseline study to include more",
+      "bbox": [
+        316.0,
+        593.8,
+        563.0,
+        601.8
+      ],
+      "text": "[1] Ronneberger, Olaf, Philipp Fischer, and Thomas Brox. “U-net: Convo-"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 5,
+      "section": "Future work will extend this baseline study to include more",
+      "bbox": [
+        316.0,
+        602.8,
+        563.0,
+        637.7
+      ],
+      "text": "lutional networks for biomedical image segmentation.” In International\nConference on Medical image computing and computer-assisted inter-\nvention, pp. 234-241. Cham: Springer international publishing, 2015.\n[2] Otsu, Nobuyuki. “A threshold selection method from gray-level his-"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 5,
+      "section": "Future work will extend this baseline study to include more",
+      "bbox": [
+        316.0,
+        638.7,
+        563.0,
+        655.6
+      ],
+      "text": "tograms.” Automatica 11, no. 285-296 (1975): 23-27.\n[3] Sujan, Md, Nashid Alam, Syed Abdullah Noman, and Mohammed"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 5,
+      "section": "Future work will extend this baseline study to include more",
+      "bbox": [
+        316.0,
+        656.6,
+        563.0,
+        691.5
+      ],
+      "text": "Jahirul Islam. “A segmentation based automated system for brain tumor\ndetection.” International Journal of Computer Applications 153, no. 10\n(2016): 41-49.\n[4] Derraz, Foued, Mohamed Beladgham, and M’hamed Khelif. “Appli-"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 5,
+      "section": "Future work will extend this baseline study to include more",
+      "bbox": [
+        330.2,
+        692.5,
+        563.0,
+        718.4
+      ],
+      "text": "cation of active contour models in medical image segmentation.” In\nInternational Conference on Information Technology: Coding and Com-\nputing, 2004. Proceedings. ITCC 2004., vol. 2, pp. 675-681. IEEE, 2004."
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 6,
+      "section": "Future work will extend this baseline study to include more",
+      "bbox": [
+        119.5,
+        309.9,
+        492.5,
+        317.9
+      ],
+      "text": "Fig. 3. Training graphs - (a) Horizontal flip (b) Rotation (c) Scaling (d) No aug; blue - train, orange - validation"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 6,
+      "section": "Future work will extend this baseline study to include more",
+      "bbox": [
+        52.9,
+        342.1,
+        300.0,
+        350.1
+      ],
+      "text": "[5] Adams, Rolf, and Leanne Bischof. “Seeded region growing.” IEEE"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 6,
+      "section": "Future work will extend this baseline study to include more",
+      "bbox": [
+        52.9,
+        351.1,
+        300.0,
+        377.1
+      ],
+      "text": "Transactions on pattern analysis and machine intelligence 16, no. 6\n(1994): 641-647.\n[6] Shih, Frank Y., and Shouxian Cheng. “Automatic seeded region growing"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 6,
+      "section": "Future work will extend this baseline study to include more",
+      "bbox": [
+        52.9,
+        378.1,
+        300.0,
+        404.0
+      ],
+      "text": "for color image segmentation.” Image and vision computing 23, no. 10\n(2005): 877-886.\n[7] Chaibou, Mahaman Sani, Pierre-Henri Conze, Karim Kalti, Basel So-"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 6,
+      "section": "Future work will extend this baseline study to include more",
+      "bbox": [
+        52.9,
+        405.0,
+        300.0,
+        439.9
+      ],
+      "text": "laiman, and Mohamed Ali Mahjoub. “Adaptive strategy for superpixel-\nbased region-growing image segmentation.” Journal of Electronic Imag-\ning 26, no. 6 (2017): 061605-061605.\n[8] Meier, Raphael, Urspeter Knecht, Tina Loosli, Stefan Bauer, Johannes"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 6,
+      "section": "Future work will extend this baseline study to include more",
+      "bbox": [
+        52.9,
+        440.9,
+        300.0,
+        475.8
+      ],
+      "text": "Slotboom, Roland Wiest, and Mauricio Reyes. “Clinical evaluation of\na fully-automatic segmentation method for longitudinal brain tumor\nvolumetry.” Scientific reports 6, no. 1 (2016): 23376.\n[9] Wang, Guotai, Wenqi Li, S´ebastien Ourselin, and Tom Vercauteren. “Au-"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 6,
+      "section": "Future work will extend this baseline study to include more",
+      "bbox": [
+        49.0,
+        476.8,
+        300.0,
+        511.8
+      ],
+      "text": "tomatic brain tumor segmentation using cascaded anisotropic convolu-\ntional neural networks.” In International MICCAI brainlesion workshop,\npp. 178-190. Cham: Springer International Publishing, 2017.\n[10] Lin, Tsung-Yi, Priya Goyal, Ross Girshick, Kaiming He, and Piotr"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 6,
+      "section": "Future work will extend this baseline study to include more",
+      "bbox": [
+        49.0,
+        512.7,
+        300.0,
+        538.7
+      ],
+      "text": "Doll´ar. “Focal loss for dense object detection.” In Proceedings of the\nIEEE international conference on computer vision, pp. 2980-2988. 2017.\n[11] Neyestanak, Mahdi Shafiei, Hamid Jahani, Mohsen Khodarahmi, Javad"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 6,
+      "section": "Future work will extend this baseline study to include more",
+      "bbox": [
+        49.0,
+        539.7,
+        300.0,
+        583.6
+      ],
+      "text": "Zahiri, Mostafa Hosseini, Amirali Fatoorchi, and Mir Saeed Yekanine-\njad. “A quantitative comparison between focal loss and binary cross-\nentropy loss in brain tumor auto-segmentation using U-Net.” Journal of\nBiostatistics and Epidemiology 11, no. 1 (2025): 15-35.\n[12] Nalepa, Jakub, Michal Marcinkiewicz, and Michal Kawulok. “Data"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 6,
+      "section": "Future work will extend this baseline study to include more",
+      "bbox": [
+        49.0,
+        584.6,
+        300.0,
+        610.5
+      ],
+      "text": "augmentation for brain-tumor segmentation: a review.” Frontiers in\ncomputational neuroscience 13 (2019): 83.\n[13] Cheng, Jun, et al. “Enhanced Performance of Brain Tumor Classification"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 6,
+      "section": "Future work will extend this baseline study to include more",
+      "bbox": [
+        49.0,
+        611.5,
+        300.0,
+        628.5
+      ],
+      "text": "via Tumor Region Augmentation and Partition.” PloS one 10.10 (2015)\n[14] Cheng, Jun, et al. “Retrieval of Brain Tumors by Adaptive Spatial"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 6,
+      "section": "Future work will extend this baseline study to include more",
+      "bbox": [
+        49.0,
+        629.5,
+        306.5,
+        646.5
+      ],
+      "text": "Pooling and Fisher Vector Representation.” PloS one 11.6\n[15] The Kaggle dataset link - https://www.kaggle.com/datasets/nikhilroxtomar/"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 6,
+      "section": "Future work will extend this baseline study to include more",
+      "bbox": [
+        49.0,
+        647.5,
+        300.0,
+        664.5
+      ],
+      "text": "brain-tumor-segmentation\n[16] Du, Getao, Xu Cao, Jimin Liang, Xueli Chen, and Yonghua Zhan."
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 6,
+      "section": "Future work will extend this baseline study to include more",
+      "bbox": [
+        49.0,
+        665.5,
+        300.0,
+        691.4
+      ],
+      "text": "“Medical Image Segmentation based on U-Net: A Review.” Journal of\nImaging Science Technology 64, no. 2 (2020).\n[17] Kingma, Diederik P. “Adam: A method for stochastic optimization.”"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 6,
+      "section": "Future work will extend this baseline study to include more",
+      "bbox": [
+        49.0,
+        692.4,
+        300.0,
+        709.4
+      ],
+      "text": "arXiv preprint arXiv:1412.6980 (2014).\n[18] Arafat, Ali, Dipesh Mamtani, and K. R. Jansi. “Brain tumor MRI image"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 6,
+      "section": "Future work will extend this baseline study to include more",
+      "bbox": [
+        67.2,
+        710.4,
+        300.0,
+        718.4
+      ],
+      "text": "segmentation and classification based on deep learning techniques.” In"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 6,
+      "section": "Future work will extend this baseline study to include more",
+      "bbox": [
+        312.0,
+        342.1,
+        563.0,
+        368.0
+      ],
+      "text": "2023 2nd international conference on smart technologies and systems\nfor next generation computing (ICSTSN), pp. 1-6. IEEE, 2023.\n[19] S. Gupta and M. Gupta, “Deep Learning for Brain Tumor Seg-"
+    },
+    {
+      "paper_id": "2510.08617",
+      "file_name": "2510.08617_Reproducible_Evaluation_of_Data_Augmenta.pdf",
+      "page_number": 6,
+      "section": "Future work will extend this baseline study to include more",
+      "bbox": [
+        330.2,
+        369.0,
+        563.0,
+        403.9
+      ],
+      "text": "mentation using Magnetic Resonance Images”, 2021 IEEE Confer-\nence on Computational Intelligence in Bioinformatics and Computa-\ntional Biology (CIBCB), Melbourne, Australia, 2021, pp. 1-6, doi:\n10.1109/CIBCB49929.2021.9562890."
+    }
+  ]
+}
