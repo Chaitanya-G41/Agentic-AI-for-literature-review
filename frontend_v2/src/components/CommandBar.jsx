@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import { useState } from 'react'
-import { Download, Plus, RotateCcw, Cpu, Award } from 'lucide-react'
+import { Download, Plus, RotateCcw, Cpu, Award, Sliders } from 'lucide-react'
 import ReviewInfoModal from './ReviewInfoModal'
 import styles from './CommandBar.module.css'
 
@@ -62,6 +62,15 @@ export default function CommandBar({
           <span className={styles.corpusAddBadge}>
             <Plus size={10} /> Add
           </span>
+        </button>
+        <button
+          className={styles.corpusBtn}
+          onClick={onOpenIngest}
+          title="Open Screening Protocol & Decisions"
+          style={{ marginLeft: 6 }}
+        >
+          <Sliders size={10} style={{ marginRight: 4 }} />
+          <span>Screening</span>
         </button>
       </div>
 

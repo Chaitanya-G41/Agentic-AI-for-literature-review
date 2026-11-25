@@ -106,6 +106,7 @@ export default function MonographReader({
 }) {
   const content = reportData?.content || reportData?.report || ''
   const diagrams = reportData?.diagrams || {}
+  const diagramData = reportData?.diagram_data || null
   const [toc, setToc] = useState([])
   const [activeSection, setActiveSection] = useState('')
   const [showDiagrams, setShowDiagrams] = useState(false)
@@ -454,7 +455,7 @@ export default function MonographReader({
         )}
 
         {/* Architecture Diagrams Drawer/Section */}
-        {Object.keys(diagrams).length > 0 && (
+        {(Object.keys(diagrams).length > 0 || diagramData) && (
           <div id="diagrams" className={styles.diagramSection}>
             <div className={styles.diagramSectionHead}>
               <h3 className={styles.h2}>Architecture Diagrams</h3>
@@ -465,7 +466,12 @@ export default function MonographReader({
                 {showDiagrams ? 'Collapse ↑' : 'Expand Flowcharts ↓'}
               </button>
             </div>
-            {showDiagrams && <MermaidDiagrams diagrams={diagrams} />}
+            {showDiagrams && (
+              <MermaidDiagrams
+                diagrams={diagrams}
+                diagramData={diagramData}
+              />
+            )}
           </div>
         )}
 

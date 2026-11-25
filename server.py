@@ -9,6 +9,8 @@ import glob
 import json
 import re
 import time
+import datetime
+from datetime import datetime, timezone
 from typing import List, Dict, Any, Optional
 from fastapi import FastAPI, HTTPException, Query, Body, BackgroundTasks, UploadFile, File, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -37,7 +39,9 @@ SCHEMAS_DIR = os.path.join(DATA_DIR, "extracted_schemas")
 SUMMARIES_DIR = os.path.join(DATA_DIR, "summaries")
 FIGURES_DIR = os.path.join(DATA_DIR, "figures")
 REPORTS_DIR = os.path.join(DATA_DIR, "reports")
-FRONTEND_DIST = os.path.join(BASE_DIR, "frontend", "dist")
+FRONTEND_DIST = os.path.join(BASE_DIR, "frontend_v2", "dist")
+if not os.path.exists(FRONTEND_DIST):
+    FRONTEND_DIST = os.path.join(BASE_DIR, "frontend", "dist")
 
 # Mount figures static folder
 if os.path.exists(FIGURES_DIR):
@@ -48,10 +52,21 @@ class ScreeningRequest(BaseModel):
     query: str
     max_candidates: int = 25
     recency_weight: float = 0.20
+    inclusion_criteria: Optional[str] = ""
+    exclusion_criteria: Optional[str] = ""
+    max_results: Optional[int] = None
+
+
+class SaveScreeningRequest(BaseModel):
+    query: str
+    inclusion_criteria: Optional[str] = ""
+    exclusion_criteria: Optional[str] = ""
+    candidates: List[Dict[str, Any]]
 
 
 class DownloadRequest(BaseModel):
     papers: List[Dict[str, Any]]
+    query: Optional[str] = ""
 
 
 @app.get("/api/status")
@@ -250,10 +265,10 @@ def stream_pdf(filename: str):
 
 @app.get("/api/report")
 def get_report():
-    """Returns final synthesized Literature Review Report and extracted Mermaid diagrams."""
+    """Returns final synthesized Literature Review Report, Mermaid diagrams, and structured diagram_data."""
     report_path = os.path.join(REPORTS_DIR, "literature_review_report.md")
     if not os.path.exists(report_path):
-        return {"content": "", "diagrams": {}}
+        return {"content": "", "diagrams": {}, "diagram_data": {}}
 
     with open(report_path, "r", encoding="utf-8") as f:
         markdown_text = f.read()
@@ -273,9 +288,41 @@ def get_report():
             elif "rootStyle" in block or "paperCard" in block:
                 diagrams.setdefault("methodology_flowchart", block.strip())
 
+    # Load persisted structured diagram_data or generate dynamically from active review
+    diag_data = {}
+    diag_data_file = os.path.join(REPORTS_DIR, "diagram_data.json")
+    if os.path.exists(diag_data_file):
+        try:
+            with open(diag_data_file, "r", encoding="utf-8") as f:
+                diag_data = json.load(f)
+        except Exception:
+            pass
+
+    if not diag_data:
+        try:
+            from src.agents.report_generator import build_dynamic_diagram_data
+            from src.agents.extraction import PaperSchema
+            active_ids = _get_active_corpus_ids()
+            if active_ids:
+                schema_files = [os.path.join(SCHEMAS_DIR, f"{pid}_schema.json") for pid in active_ids if os.path.exists(os.path.join(SCHEMAS_DIR, f"{pid}_schema.json"))]
+            else:
+                schema_files = sorted(glob.glob(os.path.join(SCHEMAS_DIR, "*_schema.json")))
+            loaded_schemas = []
+            for sf in schema_files:
+                try:
+                    with open(sf, "r", encoding="utf-8") as s_file:
+                        loaded_schemas.append(PaperSchema(**json.load(s_file)))
+                except Exception:
+                    pass
+            diag_data = build_dynamic_diagram_data(schemas=loaded_schemas)
+        except Exception:
+            diag_data = {}
+
     return {
         "content": markdown_text,
-        "diagrams": diagrams
+        "report": markdown_text,
+        "diagrams": diagrams,
+        "diagram_data": diag_data
     }
 
 
@@ -301,27 +348,163 @@ def get_global_memory():
 
 @app.post("/api/screen")
 def screen_topic(req: ScreeningRequest):
-    """Runs Relevance Screening Agent on topic with recency bias."""
+    """Runs Relevance Screening Agent on topic with recency bias and inclusion/exclusion criteria."""
     try:
         from src.ingestion.screening_agent import RelevanceScreeningAgent
         agent = RelevanceScreeningAgent(recency_weight=req.recency_weight)
-        candidates = agent.search_arxiv(req.query, max_candidates=req.max_candidates)
+        limit = req.max_results or req.max_candidates
+        candidates = agent.search_arxiv(req.query, max_candidates=limit)
         if not candidates:
-            return {"candidates": [], "papers": [], "results": []}
-        ranked = agent.score_and_rank(req.query, candidates)
-        return {"candidates": ranked, "papers": ranked, "results": ranked}
+            return {
+                "candidates": [],
+                "papers": [],
+                "results": [],
+                "query": req.query,
+                "inclusion_criteria": req.inclusion_criteria or "",
+                "exclusion_criteria": req.exclusion_criteria or "",
+                "prisma": {"total_identified": 0, "screened": 0, "included": 0, "maybe": 0, "excluded": 0}
+            }
+        ranked = agent.score_and_rank(req.query, candidates, recency_weight=req.recency_weight)
+        evaluated = agent.evaluate_screening(
+            ranked,
+            user_query=req.query,
+            inclusion_criteria=req.inclusion_criteria or "",
+            exclusion_criteria=req.exclusion_criteria or ""
+        )
+
+        inc_count = sum(1 for c in evaluated if c.get("decision") == "Include")
+        may_count = sum(1 for c in evaluated if c.get("decision") == "Maybe")
+        exc_count = sum(1 for c in evaluated if c.get("decision") == "Exclude")
+
+        prisma = {
+            "total_identified": len(evaluated),
+            "screened": len(evaluated),
+            "included": inc_count,
+            "maybe": may_count,
+            "excluded": exc_count
+        }
+
+        # Cache screening state to disk
+        screening_file = os.path.join(DATA_DIR, "screening_results.json")
+        try:
+            with open(screening_file, "w", encoding="utf-8") as f:
+                json.dump({
+                    "query": req.query,
+                    "inclusion_criteria": req.inclusion_criteria or "",
+                    "exclusion_criteria": req.exclusion_criteria or "",
+                    "prisma": prisma,
+                    "candidates": evaluated,
+                    "timestamp": datetime.now(timezone.utc).isoformat()
+                }, f, indent=2)
+        except Exception:
+            pass
+
+        return {
+            "candidates": evaluated,
+            "papers": evaluated,
+            "results": evaluated,
+            "query": req.query,
+            "inclusion_criteria": req.inclusion_criteria or "",
+            "exclusion_criteria": req.exclusion_criteria or "",
+            "prisma": prisma
+        }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@app.post("/api/save-screening")
+def save_screening_api(req: SaveScreeningRequest):
+    """Persists user-curated screening decisions, criteria, and reasons."""
+    try:
+        inc_count = sum(1 for c in req.candidates if c.get("decision") == "Include")
+        may_count = sum(1 for c in req.candidates if c.get("decision") == "Maybe")
+        exc_count = sum(1 for c in req.candidates if c.get("decision") == "Exclude")
+        prisma = {
+            "total_identified": len(req.candidates),
+            "screened": len(req.candidates),
+            "included": inc_count,
+            "maybe": may_count,
+            "excluded": exc_count
+        }
+        screening_file = os.path.join(DATA_DIR, "screening_results.json")
+        data = {
+            "query": req.query,
+            "inclusion_criteria": req.inclusion_criteria or "",
+            "exclusion_criteria": req.exclusion_criteria or "",
+            "prisma": prisma,
+            "candidates": req.candidates,
+            "timestamp": datetime.now(timezone.utc).isoformat()
+        }
+        with open(screening_file, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=2)
+        return {"status": "saved", "prisma": prisma, "count": len(req.candidates)}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/screening")
+def get_screening_api():
+    """Loads active or persisted screening results and PRISMA statistics."""
+    screening_file = os.path.join(DATA_DIR, "screening_results.json")
+    if os.path.exists(screening_file):
+        try:
+            with open(screening_file, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            pass
+    return {
+        "status": "empty",
+        "query": "",
+        "inclusion_criteria": "",
+        "exclusion_criteria": "",
+        "candidates": [],
+        "prisma": {"total_identified": 0, "screened": 0, "included": 0, "maybe": 0, "excluded": 0}
+    }
+
+
 @app.post("/api/download-papers")
 def download_selected(req: DownloadRequest):
-    """Downloads approved candidate papers to data/pdf_corpus/."""
+    """Downloads approved candidate papers to data/pdf_corpus/ and updates active review."""
     try:
         from src.ingestion.screening_agent import RelevanceScreeningAgent
         agent = RelevanceScreeningAgent()
         saved = agent.download_papers(req.papers, output_dir=PDF_DIR)
-        return {"downloaded": saved, "count": len(saved)}
+
+        # Track active paper IDs and review query
+        active_file = os.path.join(DATA_DIR, "active_review.json")
+        paper_ids = [p.get("arxiv_id") or p.get("id") for p in req.papers if (p.get("arxiv_id") or p.get("id"))]
+        
+        # Determine active topic / query
+        active_query = (req.query or "").strip()
+        if not active_query:
+            scr_file = os.path.join(DATA_DIR, "screening_results.json")
+            if os.path.exists(scr_file):
+                try:
+                    with open(scr_file, "r", encoding="utf-8") as sf:
+                        active_query = json.load(sf).get("query", "").strip()
+                except Exception:
+                    pass
+
+        try:
+            with open(active_file, "w", encoding="utf-8") as f:
+                json.dump({
+                    "active_paper_ids": paper_ids,
+                    "query": active_query,
+                    "count": len(paper_ids),
+                    "timestamp": datetime.now(timezone.utc).isoformat()
+                }, f, indent=2)
+        except Exception:
+            pass
+
+        if active_query:
+            aq_file = os.path.join(DATA_DIR, "active_query.json")
+            try:
+                with open(aq_file, "w", encoding="utf-8") as aqf:
+                    json.dump({"query": active_query}, aqf, indent=2)
+            except Exception:
+                pass
+
+        return {"downloaded": saved, "count": len(saved), "active_ids": paper_ids}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -347,33 +530,21 @@ def _get_active_corpus_ids() -> List[str]:
 
 @app.post("/api/clear-corpus")
 def clear_corpus_api():
-    """Clears local PDF corpus and generated schemas for fresh topic exploration."""
-    for folder in [PDF_DIR, SCHEMAS_DIR, SUMMARIES_DIR, REPORTS_DIR]:
-        if os.path.exists(folder):
-            for f in glob.glob(os.path.join(folder, "*")):
-                try:
-                    if os.path.isfile(f):
-                        os.remove(f)
-                except Exception:
-                    pass
+    """Clears workspace session markers without wiping historical schemas or reports."""
+    for fpath in [
+        os.path.join(DATA_DIR, "active_review.json"),
+        os.path.join(DATA_DIR, "active_query.json"),
+        os.path.join(DATA_DIR, "screening_results.json"),
+        os.path.join(REPORTS_DIR, "diagram_data.json"),
+        os.path.join(REPORTS_DIR, "literature_review_report.md"),
+    ]:
+        if os.path.exists(fpath):
+            try:
+                os.remove(fpath)
+            except Exception:
+                pass
 
-    # Clear comparative analysis and reset memory store
-    comp_file = os.path.join(DATA_DIR, "comparative_analysis.json")
-    if os.path.exists(comp_file):
-        try:
-            os.remove(comp_file)
-        except Exception:
-            pass
-
-    mem_file = os.path.join(DATA_DIR, "global_memory_store.json")
-    if os.path.exists(mem_file):
-        try:
-            with open(mem_file, "w", encoding="utf-8") as f:
-                json.dump({"papers": {}, "last_updated": time.time(), "comparative_analysis": None}, f)
-        except Exception:
-            pass
-
-    return {"status": "cleared", "message": "Corpus, schemas, and reports cleared for fresh topic run"}
+    return {"status": "cleared", "message": "Workspace initialized for fresh topic exploration"}
 
 
 @app.post("/api/run-agent/extraction")
@@ -386,12 +557,26 @@ def run_extraction_agent_api():
     from src.agents.extraction import run_extraction_agent
 
     pdf_files = sorted(glob.glob(os.path.join(PDF_DIR, "*.pdf")))
-    if not pdf_files:
-        raise HTTPException(status_code=400, detail="No PDF files in corpus to extract")
-
     os.makedirs(SCHEMAS_DIR, exist_ok=True)
     extracted_schemas = []
     skipped = []
+
+    if not pdf_files:
+        existing_schemas = glob.glob(os.path.join(SCHEMAS_DIR, "*_schema.json"))
+        if existing_schemas:
+            for s_path in existing_schemas:
+                try:
+                    with open(s_path, "r", encoding="utf-8") as f:
+                        extracted_schemas.append(json.load(f))
+                except Exception:
+                    pass
+            return {
+                "status": "completed",
+                "count": len(extracted_schemas),
+                "skipped": len(extracted_schemas),
+                "schemas": extracted_schemas,
+            }
+        raise HTTPException(status_code=400, detail="No PDF files in corpus to extract")
 
     for pdf_path in pdf_files:
         pdf_name = os.path.basename(pdf_path)
@@ -535,10 +720,25 @@ def run_report_agent_api():
     gaps = run_research_gap_agent(schemas)
 
     report = generate_literature_review(schemas, summaries, comp, gaps)
+
+    # Persist structured diagram_data alongside report
+    diag_data = report.diagram_data if hasattr(report, "diagram_data") and report.diagram_data else {}
+    if diag_data:
+        diag_file = os.path.join(REPORTS_DIR, "diagram_data.json")
+        try:
+            with open(diag_file, "w", encoding="utf-8") as df:
+                json.dump(diag_data, df, indent=2, ensure_ascii=False)
+        except Exception:
+            pass
+
     return {
         "status": "completed",
         "title": report.title,
-        "full_markdown": report.full_markdown
+        "full_markdown": report.full_markdown,
+        "content": report.full_markdown,
+        "report": report.full_markdown,
+        "diagrams": report.diagrams if hasattr(report, "diagrams") else {},
+        "diagram_data": diag_data
     }
 
 

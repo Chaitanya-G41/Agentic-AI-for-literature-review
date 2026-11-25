@@ -1,8 +1,9 @@
 from pydantic import BaseModel, Field
-from typing import List
+from typing import List, Dict, Any, Set
 import os
 import re
 import json
+from collections import Counter
 
 class ResearchGap(BaseModel):
   gap_id: str = Field(description = "unique code")
@@ -24,16 +25,85 @@ def _get_val_local(obj, key: str, default=""):
     return obj.get(key, default)
   return getattr(obj, key, default)
 
+ACADEMIC_STOPWORDS = {
+    'the', 'and', 'for', 'with', 'that', 'this', 'are', 'from', 'can', 'has', 'have',
+    'which', 'been', 'were', 'our', 'their', 'such', 'more', 'paper', 'method', 'study',
+    'system', 'systems', 'based', 'using', 'proposed', 'approach', 'model', 'models',
+    'results', 'performance', 'data', 'learning', 'evaluation', 'analysis', 'paper_id',
+    'title', 'abstract', 'introduction', 'conclusion', 'section', 'also', 'into',
+    'both', 'other', 'these', 'those', 'than', 'then', 'each', 'work', 'future',
+    'present', 'presents', 'presented', 'framework', 'provide', 'provides', 'novel', 'new',
+    'state', 'art', 'across', 'within', 'between', 'through', 'under', 'over', 'well',
+    'experimental', 'scope', 'domain', 'noted', 'validated', 'explicit', 'evidential',
+    'empirical', 'various', 'different', 'aims', 'clarify', 'especially', 'exploring',
+    'about', 'after', 'against', 'among', 'because', 'before', 'being', 'between', 'during',
+    'whether', 'neutral', 'fundamental', 'existing', 'tasks', 'task', 'step', 'steps',
+    'execute', 'execution', 'multi', 'potential', 'high', 'large', 'small', 'many',
+    'most', 'some', 'only', 'same', 'first', 'second', 'third', 'while', 'where',
+    'when', 'what', 'which', 'who', 'whom', 'whose', 'why', 'how', 'here', 'there'
+}
+
+def _extract_author_limitation_sentence(text: str, pid: str) -> str:
+  if not text:
+    return ""
+  clean = re.sub(
+    r'^(the remainder of this paper|section \d|in this section|this paper is organized)[^\.\n]*[\.\n]',
+    '', text, flags=re.I
+  ).strip()
+  sentences = [s.strip() for s in re.split(r'[\.\n;]+', clean) if len(s.strip()) > 15]
+  contrast_re = re.compile(
+    r'\b(however|but|yet|nevertheless|nonetheless|although|while|despite|limitation|bottleneck|drawback|suffer|struggles?|fails?|inability|challenge|trade[- ]offs?|expensive|overhead|cost|leakage|attack|drift|uncertainty|untested|degrade)\b',
+    re.I
+  )
+  for s in sentences:
+    if contrast_re.search(s):
+      clean_s = re.sub(r'^(however|but|yet|nevertheless|nonetheless|although|while|despite),?\s*', '', s, flags=re.I).strip()
+      return clean_s
+  if sentences:
+    return sentences[0]
+  return ""
+
+def _extract_domain_keywords(text: str) -> List[str]:
+  words = re.findall(r'\b[a-z]{4,}\b', text.lower())
+  return [w for w in words if w not in ACADEMIC_STOPWORDS]
+
+def _categorize_limitation(text: str) -> str:
+  low = text.lower()
+  if any(k in low for k in ['compute', 'cost', 'latency', 'token', 'overhead', 'memory', 'gpu', 'parameter', 'complexity']):
+    return "Computational Resources & Efficiency"
+  if any(k in low for k in ['error', 'noise', 'fidelity', 'hallucinat', 'drift', 'failure', 'leak', 'attack', 'security', 'trust', 'vulnerab', 'privacy', 'authorization']):
+    return "System Reliability & Security"
+  if any(k in low for k in ['grid', 'power', 'battery', 'storage', 'energy', 'cryogenic', 'dispatch', 'converter', 'mimo']):
+    return "Operational & Physical Constraints"
+  if any(k in low for k in ['generaliz', 'transfer', 'out-of-distribution', 'robustness', 'tabular', 'bias']):
+    return "Generalization & Domain Adaptation"
+  if any(k in low for k in ['scale', 'scalab', 'coordination', 'concurrency', 'throughput', 'multi-agent', 'deadlock']):
+    return "Scalability & Architecture"
+  return "Empirical Limitations"
+
 def run_research_gap_agent(schemas, llm_manager=None):
   paper_context = ""
   for paper in schemas:
-    paper_context += f"\nPaper Title: {_get_val_local(paper, 'paper_title', '')}\n Core Problem: {_get_val_local(paper, 'core_problem', '')}\n Methodology: {_get_val_local(paper, 'methodology_summary', '')}\nLimitations: {_get_val_local(paper, 'explicit_limitations', '')}\n"
+    paper_context += (
+      f"\nPaper ID: {_get_val_local(paper, 'paper_id', '')}\n"
+      f"Paper Title: {_get_val_local(paper, 'paper_title', '')}\n"
+      f"Core Problem: {_get_val_local(paper, 'core_problem', '')}\n"
+      f"Methodology: {_get_val_local(paper, 'methodology_summary', '')}\n"
+      f"Limitations: {_get_val_local(paper, 'explicit_limitations', '')}\n"
+    )
 
   llm = llm_manager or LLMManager()
-  prompt = f"""You are an AI Research Gap Agent. Here is the paper context:
+  prompt = f"""You are an AI Research Gap Agent. Analyze the following research papers:
 {paper_context}
 
-Synthesize 3 to 5 research gaps. Return a JSON OBJECT with keys "explicit_gaps" and "synthesized_gaps".
+Synthesize empirical research gaps grounded strictly in the provided paper context.
+Requirements:
+1. "explicit_gaps": One per paper containing its author-stated limitations.
+2. "synthesized_gaps": Cross-paper research gaps that are shared across AT LEAST TWO papers.
+Do NOT invent shared gaps if papers belong to unrelated domains.
+If evidence is insufficient for cross-paper gaps, return an empty list for "synthesized_gaps".
+
+Return a JSON OBJECT with keys "explicit_gaps" and "synthesized_gaps".
 Each gap item should contain: "gap_id", "title", "category", "description", "affected_papers"."""
 
   data_dict = llm.generate_structured_json(prompt)
@@ -46,81 +116,127 @@ Each gap item should contain: "gap_id", "title", "category", "description", "aff
     except Exception as e:
       print(f"   [Agent 5 Note] Pydantic parsing note: {e}")
 
-  # Grounded Heuristic Fallback if API key is not present
-  print("   [HEURISTIC-FALLBACK] Synthesizing Grounded Heuristic Research Gaps (Reason: Offline or LLM unavailable)...")
+  # Grounded Dynamic Heuristic Engine (zero hardcoded paper IDs or predefined descriptions)
+  print("   [DYNAMIC-HEURISTIC] Synthesizing Evidence-Grounded Research Gaps from Active Corpus...")
 
-  # Verified author-stated primary research gaps grounded directly in primary paper texts
-  KNOWN_AUTHOR_GAPS = {
-    "2210.03629": "Static Black-Box Reasoning Without External Grounding",
-    "2302.04761": "Inability to Access Real-Time External APIs & Tool Execution",
-    "2303.11366": "Inefficient Trial-and-Error Learning from Feedback Without Policy Updates",
-    "2305.10601": "Left-to-Right Token-Level Decision Making Without Strategic Exploration",
-    "2305.15334": "Frequent Hallucination of Incorrect API Signatures and Sub-arguments",
-    "2305.16291": "Execution Catastrophe & Skill Drift in Open-Ended Embodied Environments",
-    "2307.07924": "Multi-Agent Dialogue Redundancy & Cascading Hallucination Drift",
-    "2308.00352": "Multi-Agent Role Hallucination & Natural Language Communication Noise",
-    "2308.03688": "Static Benchmark Saturation & Lack of Real-World Agent Interactive Evaluation",
-    "2308.08155": "Complexity of Multi-Agent Control Flow & Cascading Conversation Errors",
-    "2310.06770": "Inability of LLMs to Resolve Real-World GitHub Issues End-to-End",
-    "2310.11511": "Fixed-Retrieval Degradation & Hallucinated Citations in Generation",
-    "2012.10386": "Coarse GCM Resolution & Topographic Biases in Complex Regional Terrain"
-  }
+  explicit: List[ResearchGap] = []
+  paper_profiles: Dict[str, Dict[str, Any]] = {}
 
-  explicit = []
   for idx, p in enumerate(schemas, start=1):
+    pid = str(_get_val_local(p, 'paper_id', str(idx))).strip()
+    title = str(_get_val_local(p, 'paper_title', f'Paper {idx}')).strip()
     lim_raw = str(_get_val_local(p, 'explicit_limitations', '') or '').strip()
-    title_raw = str(_get_val_local(p, 'paper_title', f'Paper {idx}')).strip()
-    pid_val = str(_get_val_local(p, 'paper_id', str(idx))).strip()
+    core_prob = str(_get_val_local(p, 'core_problem', '') or '').strip()
+    meth_summary = str(_get_val_local(p, 'methodology_summary', '') or '').strip()
 
-    if pid_val in KNOWN_AUTHOR_GAPS:
-      gap_title = f"{KNOWN_AUTHOR_GAPS[pid_val]} ({pid_val})"
-    elif lim_raw:
-      # Contrastive sentence extraction avoiding introductory praise
-      import re as _re
-      sentences = [s.strip() for s in _re.split(r'[\.\n;]+', lim_raw) if s.strip()]
-      contrast_re = _re.compile(r'\b(however|but|yet|nevertheless|nonetheless|although|while|despite|limitation|bottleneck|drawback|suffer|struggle|fails?|inability|black[- ]box|error[- ]prone|restricted)\b', _re.I)
-      selected = None
-      for s in sentences:
-        if contrast_re.search(s):
-          selected = s
-          break
-      if selected:
-        clean_s = _re.sub(r'^(however|but|yet|nevertheless|nonetheless|although|while|despite),?\s*', '', selected, flags=_re.I).strip()
-        gap_title = f"{clean_s[:55]} ({pid_val})"
-      else:
-        gap_title = f"[Synthesized Interpretation: Empirical Constraints in {title_raw[:25]}] ({pid_val})"
-    else:
-      gap_title = f"[Synthesized Interpretation: Empirical Constraints in {title_raw[:25]}] ({pid_val})"
+    # Extract genuine author limitation sentence
+    lim_sentence = _extract_author_limitation_sentence(lim_raw, pid)
+    if not lim_sentence:
+      lim_sentence = _extract_author_limitation_sentence(core_prob, pid)
 
-    lim_lower = (lim_raw + " " + gap_title).lower()
-    if any(k in lim_lower for k in ['compute', 'cost', 'latency', 'token', 'overhead', 'memory', 'gpu']):
-      cat = "Computational Resources & Efficiency"
-    elif any(k in lim_lower for k in ['error', 'noise', 'fidelity', 'hallucinat', 'drift', 'failure']):
-      cat = "System Reliability & Robustness"
-    elif any(k in lim_lower for k in ['generaliz', 'transfer', 'domain', 'out-of-distribution']):
-      cat = "Generalization & Domain Adaptation"
-    elif any(k in lim_lower for k in ['scale', 'scalab', 'throughput', 'concurrency', 'network']):
-      cat = "Scalability & Architecture"
+    if lim_sentence:
+      short_lim = lim_sentence[:55].rstrip()
+      if len(lim_sentence) > 55:
+        short_lim += "..."
+      gap_title = f"{short_lim} ({pid})"
+      cat = _categorize_limitation(f"{lim_sentence} {title}")
+      desc = lim_sentence
     else:
-      cat = "Empirical Evaluation"
+      gap_title = f"Insufficient author-stated limitation evidence ({pid})"
+      cat = "Empirical Limitations"
+      desc = f"No explicit operational constraint or failure mode documented in extracted schema for {title}."
 
     explicit.append(ResearchGap(
       gap_id=f"GAP-{idx:02d}",
       title=gap_title,
       category=cat,
-      description=lim_raw or f"Reported empirical constraints in {title_raw}.",
-      affected_papers=[pid_val]
+      description=desc,
+      affected_papers=[pid]
+    ))
+
+    # Compile domain tokens for cross-paper problem clustering
+    combined_text = f"{title} {core_prob} {meth_summary}"
+    domain_toks = set(_extract_domain_keywords(combined_text))
+    paper_profiles[pid] = {
+      "title": title,
+      "limitation": desc,
+      "category": cat,
+      "tokens": domain_toks,
+      "has_real_limitation": bool(lim_sentence)
+    }
+
+  # Dynamic Problem Overlap Clustering
+  pids = list(paper_profiles.keys())
+  adj: Dict[str, Set[str]] = {pid: set() for pid in pids}
+
+  for i in range(len(pids)):
+    for j in range(i + 1, len(pids)):
+      p1, p2 = pids[i], pids[j]
+      shared = paper_profiles[p1]["tokens"] & paper_profiles[p2]["tokens"]
+      # Require at least 2 distinct domain-specific concepts shared between problems
+      if len(shared) >= 2:
+        adj[p1].add(p2)
+        adj[p2].add(p1)
+
+  # Form problem clusters (only clusters with >= 2 papers form synthesized gaps)
+  visited: Set[str] = set()
+  clusters: List[List[str]] = []
+
+  for pid in pids:
+    if pid not in visited:
+      comp = []
+      queue = [pid]
+      visited.add(pid)
+      while queue:
+        curr = queue.pop(0)
+        comp.append(curr)
+        for nbr in adj[curr]:
+          if nbr not in visited:
+            visited.add(nbr)
+            queue.append(nbr)
+      if len(comp) >= 2:
+        clusters.append(comp)
+
+  synthesized: List[ResearchGap] = []
+  for c_idx, comp_pids in enumerate(clusters, start=1):
+    # Find top shared domain concepts
+    tok_counts = Counter()
+    for pid in comp_pids:
+      tok_counts.update(paper_profiles[pid]["tokens"])
+    top_concepts = [w.title() for w, cnt in tok_counts.most_common(4) if cnt >= 2]
+    concept_str = " & ".join(top_concepts[:2]) if top_concepts else "Empirical Methodology"
+
+    # Assemble supporting limitations from the clustered papers
+    lim_excerpts = [
+      paper_profiles[pid]["limitation"][:90].rstrip()
+      for pid in comp_pids if paper_profiles[pid]["has_real_limitation"]
+    ]
+    if not lim_excerpts:
+      lim_excerpts = [paper_profiles[pid]["limitation"][:90].rstrip() for pid in comp_pids]
+
+    cats = [paper_profiles[pid]["category"] for pid in comp_pids]
+    maj_cat = Counter(cats).most_common(1)[0][0]
+
+    evidence_summary = "; ".join(lim_excerpts[:3])
+    synthesized.append(ResearchGap(
+      gap_id=f"GAP-SYN-{c_idx:02d}",
+      title=f"Cross-Paper Bottlenecks in {concept_str}",
+      category=maj_cat,
+      description=f"Across {len(comp_pids)} evaluated papers ({', '.join(sorted(comp_pids))}), empirical findings demonstrate shared systemic challenges in {concept_str}: {evidence_summary}.",
+      affected_papers=sorted(comp_pids)
+    ))
+
+  # If evidence is insufficient (no 2+ paper overlap), explicitly state insufficient evidence
+  if not synthesized:
+    synthesized.append(ResearchGap(
+      gap_id="GAP-SYN-01",
+      title="Insufficient cross-paper evidence for shared systemic research gap",
+      category="Empirical Evaluation",
+      description="Cross-paper synthesis requires explicit supporting evidence from at least two relevant papers sharing the same research problem. No multi-paper overlap identified across active corpus.",
+      affected_papers=[]
     ))
 
   return ResearchGapAnalysis(
     explicit_gaps=explicit,
-    synthesized_gaps=[
-      ResearchGap(
-        gap_id="GAP-SYN-01",
-        title=f"Cross-System Generalization and Scalability Across {len(schemas)} Evaluated Architectures",
-        category="Systemic Scalability",
-        description="Cross-paper synthesis reveals shared performance bottlenecks and trade-offs under open-ended, high-dimensional operational conditions.",
-        affected_papers=[str(_get_val_local(p, 'paper_id', '')) for p in schemas if _get_val_local(p, 'paper_id', '')]
-      )
-    ]
+    synthesized_gaps=synthesized
   )

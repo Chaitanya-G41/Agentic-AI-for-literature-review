@@ -614,3 +614,187 @@
   0%, 100% { opacity: 1; }
   50% { opacity: 0.35; }
 }
+
+/* Screening Criteria & Decision Controls */
+.criteriaToggleBtn {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  background: none;
+  border: 1px dashed var(--rule);
+  color: var(--ink-2);
+  padding: 6px 10px;
+  cursor: pointer;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  width: fit-content;
+}
+
+.criteriaToggleBtn:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.criteriaPanel {
+  margin-top: 10px;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.02);
+  border: 1px solid var(--rule);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.criteriaGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.criteriaLabel {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  color: var(--ink-2);
+  text-transform: uppercase;
+}
+
+.criteriaInput {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  padding: 6px 10px;
+  border: 1px solid var(--rule);
+  background: white;
+  color: var(--ink);
+  outline: none;
+}
+
+.criteriaInput:focus {
+  border-color: var(--ink);
+}
+
+.prismaSummaryBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid var(--rule);
+  margin-bottom: 10px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+}
+
+.prismaStats {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.prismaBadgeInc {
+  color: #15803d;
+  font-weight: 700;
+}
+
+.prismaBadgeMay {
+  color: #b45309;
+  font-weight: 700;
+}
+
+.prismaBadgeExc {
+  color: #b91c1c;
+  font-weight: 700;
+}
+
+.filterTabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.filterTab {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  padding: 4px 10px;
+  border: 1px solid var(--rule);
+  background: white;
+  color: var(--ink-2);
+  cursor: pointer;
+  border-radius: 2px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.filterTabActive {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+.decisionControls {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin-top: 6px;
+}
+
+.decisionBtn {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 2px;
+  cursor: pointer;
+  border: 1px solid var(--rule);
+  background: white;
+  color: var(--ink-3);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.1s;
+}
+
+.decisionBtn:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.decisionBtnIncludeActive {
+  background: #dcfce7;
+  color: #15803d;
+  border-color: #86efac;
+}
+
+.decisionBtnMaybeActive {
+  background: #fef3c7;
+  color: #b45309;
+  border-color: #fde68a;
+}
+
+.decisionBtnExcludeActive {
+  background: #fee2e2;
+  color: #b91c1c;
+  border-color: #fca5a5;
+}
+
+.reasonBox {
+  margin-top: 6px;
+  padding: 6px 8px;
+  background: rgba(0, 0, 0, 0.02);
+  border-left: 2px solid var(--rule-strong);
+  font-family: var(--font-sans);
+  font-size: 11px;
+  color: var(--ink-2);
+}
+
+.reasonInput {
+  width: 100%;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  color: var(--ink);
+  background: transparent;
+  border: none;
+  outline: none;
+}

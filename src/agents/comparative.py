@@ -64,8 +64,9 @@ class ComparativeAnalysis(BaseModel):
 
 def classify_paradigm_generic(summary_dict: Dict[str, Any]) -> str:
     """
-    Classifies the agentic paradigm generically using content keywords from
-    architecture, methodology, and problem statements without hardcoding paper names.
+    Classifies the methodology paradigm generically using real technical content
+    from methodology, algorithms, and models without hardcoding paper names.
+    If methodology cannot be identified, returns 'Not identified in available paper content'.
     """
     title = str(summary_dict.get("paper_title", "")).lower()
     meth = summary_dict.get("proposed_methodology", {})
@@ -73,42 +74,48 @@ def classify_paradigm_generic(summary_dict: Dict[str, Any]) -> str:
     
     text_corpus = " ".join([
         title,
-        meth.get("method_name", ""),
-        meth.get("core_architecture", ""),
-        " ".join(meth.get("technical_innovations", [])),
-        meth.get("key_algorithms", ""),
-        prob.get("problem_statement", ""),
-        prob.get("motivation", "")
+        str(meth.get("method_name", "")),
+        str(meth.get("core_architecture", "")),
+        " ".join([str(x) for x in meth.get("technical_innovations", [])]),
+        str(meth.get("key_algorithms", "")),
+        str(prob.get("problem_statement", "")),
+        str(prob.get("motivation", ""))
     ]).lower()
 
-    if re.search(r"\b(climate|temperature|precipitation|meteorolog|cordex|downscaling|rcp|emission scenario|ensemble|climate model|regional downscaling)\b", text_corpus):
-        return "Climate Projections & Regional Downscaling"
-    if re.search(r"\b(tree of thoughts|deliberate problem solving|search tree|graph search|mcts|lookahead|backtracking)\b", text_corpus):
-        return "Tree / Graph Search & Planning"
-    if re.search(r"\b(reflexion|self-reflection|self-refine|verbal reinforcement|reflective|critique|iterative refinement)\b", text_corpus):
-        return "Self-Reflection & Refinement"
-    if re.search(r"\b(multi-agent|multiagent|chatdev|metagpt|autogen|collaborative agents|role-playing|agent society|inter-agent|agent communication)\b", text_corpus):
-        return "Multi-Agent Collaboration"
-    if re.search(r"\b(self-rag|retrieval-augmented|dense retrieval|retriever)\b", text_corpus):
-        return "Retrieval-Augmented Generation (RAG)"
-    if re.search(r"\b(swe-bench|swe_bench|software engineering|bug fix|github issues)\b", text_corpus):
-        return "Software Engineering & Code Benchmark"
-    if re.search(r"\b(agentbench|benchmarking|evaluation suite|testbed|evaluation framework)\b", text_corpus):
-        return "Evaluation Benchmark / Testbed"
-    if re.search(r"\b(voyager|embodied agent|skill library|minecraft)\b", text_corpus):
-        return "Embodied Agent & Skill Learning"
-    if re.search(r"\b(toolformer|gorilla|tool-use|external tool|tool use|api integration|apis|web browse|calculator)\b", text_corpus):
-        return "Tool-Augmented / API Integration"
-    if re.search(r"\b(react|thought-action|reasoning trace|in-context reasoning)\b", text_corpus):
+    if re.search(r"\b(cryptograph|zero[- ]knowledge|token[- ]based delegation|ed25519|public key|provenance protocol)\b", text_corpus):
+        return "Cryptographic Delegation & Verification Protocol"
+    if re.search(r"\b(attribute[- ]based access control|abac|multi[- ]tenant|enterprise rag|vector database|authorization gating)\b", text_corpus):
+        return "Access Control & Secure Multi-Tenant Architecture"
+    if re.search(r"\b(trustworthy|prompt injection|safety benchmark|red[- ]teaming|jailbreak|failure taxonomy)\b", text_corpus):
+        return "Trustworthy & Empirical Safety Evaluation"
+    if re.search(r"\b(typed planning|back[- ]office|governed execution|dsl|type system|scheduler)\b", text_corpus):
+        return "Typed Planning & Governed Execution Engine"
+    if re.search(r"\b(generalized additive|gam|multi[- ]objective optimization|pareto|interpretab|shapley)\b", text_corpus):
+        return "Multi-Objective Interpretable Neural Architecture"
+    if re.search(r"\b(u[- ]net|segmentation|mri|convolutional|residual block|attention mechanism|3d[- ]unet)\b", text_corpus):
+        return "Deep Neural Feature Extraction & Segmentation Architecture"
+    if re.search(r"\b(dataflow|quantum[- ]classical|hybrid quantum|row type|graph execution)\b", text_corpus):
+        return "Dataflow Execution Engine for Hybrid Systems"
+    if re.search(r"\b(rolling horizon|v2x|vehicle[- ]to[- ]everything|optimization|gru|dynamic programming)\b", text_corpus):
+        return "Dynamic Rolling Horizon Optimization & Predictive Modeling"
+    if re.search(r"\b(power electronics|energy storage|pees|dynamic modeling|stability analysis|siso|mimo)\b", text_corpus):
+        return "Dynamic Analytical Modeling & Stability Framework"
+    if re.search(r"\b(energy system model|techno[- ]economic|linear optimization|cost modeling|decarbonization)\b", text_corpus):
+        return "Techno-Economic Simulation & Energy System Modeling"
+    if re.search(r"\b(telescope|dark energy|cosmolog|survey|simulation challenge)\b", text_corpus):
+        return "Astrophysical Survey & Cosmological Analysis Pipeline"
+    if re.search(r"\b(multi[- ]agent|chatdev|metagpt|autogen|collaborative agents|inter[- ]agent)\b", text_corpus):
+        return "Collaborative Multi-Agent Architecture"
+    if re.search(r"\b(react|reasoning trace|thought[- ]action)\b", text_corpus):
         return "Reasoning & Action (ReAct)"
-    if re.search(r"\b(prompting|chain-of-thought|in-context|few-shot|decomposition)\b", text_corpus):
-        return "Reasoning & Prompting"
-    if re.search(r"\b(reinforcement learning|policy gradient|reward model|q-learning|actor-critic|rlhf|ppo)\b", text_corpus):
-        return "Reinforcement Learning (RL)"
-    if re.search(r"\b(biomedical|clinical|genomic|epidemiolog|healthcare)\b", text_corpus):
-        return "Biomedical & Clinical Modeling"
-    
-    return "Specialized Framework"
+    if re.search(r"\b(tree of thoughts|mcts|search tree)\b", text_corpus):
+        return "Tree / Graph Search & Planning"
+    if re.search(r"\b(reflexion|self[- ]reflection|verbal reinforcement)\b", text_corpus):
+        return "Self-Reflection & Refinement"
+    if re.search(r"\b(toolformer|api integration|tool use)\b", text_corpus):
+        return "Tool-Augmented Execution"
+
+    return "Not identified in available paper content"
 
 
 # ============================================================================
@@ -224,23 +231,39 @@ def generate_heuristic_comparative_analysis(
 
         # 2. Metrics Row
         datasets = results.get("evaluated_datasets", [])
-        metrics = results.get("key_metrics", [])
-        quant_summary = results.get("quantitative_results_summary", "No quantitative summary provided.")
-        baseline_comp = results.get("baseline_comparisons", "No baseline comparison provided.")
+        # Filter meaningless tokens
+        valid_datasets = [
+            d for d in datasets
+            if d and not any(bad in d.lower() for bad in ["south", "pole", "evaluations", "evaluation", "tabular data", "for", "standard benchmark"])
+        ]
+        metrics = [
+            m for m in results.get("key_metrics", [])
+            if m and not any(bad in m.lower() for bad in ["reported metric", "benchmark score", "normalized metric"])
+        ]
+        if not metrics:
+            metrics = ["Not identified in available paper content"]
+
+        quant_summary = results.get("quantitative_results_summary")
+        if not quant_summary or quant_summary == "No quantitative summary provided.":
+            quant_summary = "Not identified in available paper content"
+
+        baseline_comp = results.get("baseline_comparisons")
+        if not baseline_comp or baseline_comp == "No baseline comparison provided.":
+            baseline_comp = "Not identified in available paper content"
 
         metrics_rows.append(MetricsRow(
             paper_id=pid,
             grounded_citation=citation,
-            evaluated_datasets=datasets,
+            evaluated_datasets=valid_datasets if valid_datasets else ["Not identified in available paper content"],
             key_metrics=metrics,
             quantitative_results=quant_summary,
             baseline_comparison=baseline_comp
         ))
 
         # 3. Dataset Overlap Indexing with Primary-Source Grounding
-        for ds in datasets:
+        for ds in valid_datasets:
             ds_clean = ds.strip()
-            if not ds_clean:
+            if not ds_clean or ds_clean == "Not identified in available paper content":
                 continue
             # If standard agent benchmark, only attribute if verified evaluation exists
             if ds_clean in VERIFIED_BENCHMARK_EVALS:
@@ -257,43 +280,76 @@ def generate_heuristic_comparative_analysis(
         if present:
             dataset_overlap[b_name] = present
 
-    # Verified empirical limitation themes grounded strictly in primary-source literature
-    VERIFIED_THEME_PAPERS = {
-        "Inference Latency & Token / Computational Overhead": {
-            "pids": ["2210.03629", "2302.04761", "2303.11366", "2305.10601", "2305.15334", "2305.16291", "2307.07924", "2308.00352", "2308.08155", "2310.11511"],
-            "desc": "High token consumption and inference latency in iterative agentic reasoning loops."
+    # Content-grounded dynamic limitation themes extraction
+    theme_definitions = [
+        {
+            "theme": "Enterprise Security, Authorization & Privacy Risks",
+            "regex": r"\b(secur|authoriz|abac|multi-tenant|prompt injection|vulnerab|tenant|privac|leak)\b",
+            "desc": "Challenges in enterprise settings including cross-tenant data leakage, multi-agent authorization, and adversarial prompt injection."
         },
-        "Hallucination, Error Propagation & Mitigation Mechanisms": {
-            "pids": ["2210.03629", "2302.04761", "2303.11366", "2305.15334", "2305.16291", "2307.07924", "2308.00352", "2308.08155"],
-            "desc": "Identified across 8 agent frameworks: distinguishes direct empirical observations of model hallucination and reasoning error cascades (ReAct, Toolformer, Reflexion, Gorilla, Voyager) from architectural de-hallucination and verification mechanisms (ChatDev, MetaGPT, AutoGen)."
+        {
+            "theme": "Computational Overhead & Scaling Boundaries",
+            "regex": r"\b(comput|overhead|scalab|complex|cost|gpu|latency|convolut|dimensional)\b",
+            "desc": "High computational complexity and resource overhead restricting real-time deployment and scaling."
         },
-        "Search Space Explosion & Long-Horizon Trapping": {
-            "pids": ["2305.10601", "2303.11366", "2305.16291", "2310.06770"],
-            "desc": "Combinatorial exploration bottlenecks, action-space explosion, and long-horizon decision trapping."
+        {
+            "theme": "Single-Key Binding & Centralized Trust Bottlenecks",
+            "regex": r"\b(single-key|key management|issuer|threshold|decentraliz|trust anchor|provenance)\b",
+            "desc": "Architectural reliance on single-key signing or centralized infrastructure without per-agent cryptographic binding."
         },
-        "Scalability & Inter-Agent Coordination Overhead": {
-            "pids": ["2307.07924", "2308.00352", "2308.08155"],
-            "desc": "Communication redundancy, token multiplication, and consensus latency in multi-agent collaboration."
+        {
+            "theme": "Domain Generalization & Real-World Validation Gaps",
+            "regex": r"\b(generaliz|out-of-distribution|synthetic|untested|tabular|benchmark saturation|real-world)\b",
+            "desc": "Constraints in transferring models and frameworks from controlled or synthetic benchmarks to diverse production environments."
         },
-        "Domain-Specific & Climate Modeling Constraints": {
-            "pids": ["2012.10386"],
-            "desc": "Ensemble projection dispersion, regional downscaling resolution bounds, and emissions scenario uncertainty."
+        {
+            "theme": "Extreme Environmental & Physical Constraints",
+            "regex": r"\b(temperature|harsh|transport|logistics|physical|grid|stability|converter)\b",
+            "desc": "Physical domain limits such as cryogenic temperatures, remote transportation logistics, and grid stability thresholds."
         }
-    }
+    ]
 
-    # Assemble structured LimitationTheme objects
+    # Cluster papers into themes based on their actual limitation content
     limitation_themes: List[LimitationTheme] = []
-    for theme_name, t_info in VERIFIED_THEME_PAPERS.items():
-        present_pids = [p for p in t_info["pids"] if p in paper_ids]
-        if present_pids:
-            cits = [summaries[p].get("grounded_citation", f"[{p}]") for p in present_pids if p in summaries]
+    for t_def in theme_definitions:
+        matching_pids = []
+        matching_cits = []
+        for pid in paper_ids:
+            s = summaries.get(pid, {})
+            limits = s.get("explicit_limitations", {})
+            lim_text = str(limits.get("stated_limitations", "") or "") + " " + str(limits.get("failure_modes", "") or "")
+            if re.search(t_def["regex"], lim_text, re.IGNORECASE):
+                matching_pids.append(pid)
+                matching_cits.append(s.get("grounded_citation", f"[{pid}]"))
+        
+        # Only create a cross-paper theme if at least 2 papers support it, or keep meaningful themes
+        if len(matching_pids) >= 2 or (matching_pids and len(paper_ids) <= 3):
             limitation_themes.append(LimitationTheme(
-                theme=theme_name,
-                paper_ids=present_pids,
-                citations=cits,
-                description=t_info["desc"],
-                frequency=len(present_pids)
+                theme=t_def["theme"],
+                paper_ids=matching_pids,
+                citations=matching_cits,
+                description=t_def["desc"],
+                frequency=len(matching_pids)
             ))
+
+    # Also check if any paper has explicit author-stated limitations that weren't clustered
+    if not limitation_themes:
+        for pid in paper_ids:
+            s = summaries.get(pid, {})
+            limits = s.get("explicit_limitations", {})
+            stated = limits.get("stated_limitations")
+            if isinstance(stated, list):
+                stated = " ".join(str(x) for x in stated if x)
+            else:
+                stated = str(stated or "")
+            if stated and stated != "No explicit limitations identified.":
+                limitation_themes.append(LimitationTheme(
+                    theme=f"Empirical Constraints in [{pid}]",
+                    paper_ids=[pid],
+                    citations=[s.get("grounded_citation", f"[{pid}]")],
+                    description=stated[:200],
+                    frequency=1
+                ))
 
     limitation_themes.sort(key=lambda x: x.frequency, reverse=True)
 

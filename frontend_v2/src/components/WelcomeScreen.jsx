@@ -1,9 +1,24 @@
-import { useState, useRef } from 'react'
-import { Search, Upload, BookOpen, ArrowRight, Loader2, Sparkles, FileText, Trash2, Layers } from 'lucide-react'
+import { useState, useRef, useEffect } from 'react'
+import {
+  Search,
+  Upload,
+  BookOpen,
+  ArrowRight,
+  Loader2,
+  Sparkles,
+  FileText,
+  Trash2,
+  Layers,
+  Sliders,
+  Check,
+  HelpCircle,
+  X,
+  CheckCircle2
+} from 'lucide-react'
 import clsx from 'clsx'
 import styles from './WelcomeScreen.module.css'
 
-export default function WelcomeScreen({ onStartReview, onLoadBenchmark, existingCorpusCount }) {
+export default function WelcomeScreen({ onStartReview, onLoadBenchmark, existingCorpusCount = 0 }) {
   const [tab, setTab] = useState('arxiv') // 'arxiv' | 'upload'
   const [query, setQuery] = useState('')
   const [maxResults, setMaxResults] = useState(6)
@@ -11,6 +26,19 @@ export default function WelcomeScreen({ onStartReview, onLoadBenchmark, existing
   const [screenError, setScreenError] = useState(null)
   const [candidates, setCandidates] = useState([])
   const [selectedIds, setSelectedIds] = useState([])
+
+  // Inclusion / Exclusion criteria state
+  const [showCriteria, setShowCriteria] = useState(false)
+  const [inclusionCriteria, setInclusionCriteria] = useState('')
+  const [exclusionCriteria, setExclusionCriteria] = useState('')
+  const [activeFilter, setActiveFilter] = useState('all') // 'all' | 'include' | 'maybe' | 'exclude'
+  const [prismaStats, setPrismaStats] = useState({
+    total_identified: 0,
+    screened: 0,
+    included: 0,
+    maybe: 0,
+    excluded: 0,
+  })
 
   // Local upload state
   const [localFiles, setLocalFiles] = useState([])
@@ -22,6 +50,26 @@ export default function WelcomeScreen({ onStartReview, onLoadBenchmark, existing
   const [pipelineStage, setPipelineStage] = useState('')
   const [pipelineLogs, setPipelineLogs] = useState([])
 
+  // Load existing screening state if available
+  useEffect(() => {
+    fetch('/api/screening')
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.candidates && data.candidates.length > 0) {
+          setCandidates(data.candidates)
+          if (data.query) setQuery(data.query)
+          if (data.inclusion_criteria) setInclusionCriteria(data.inclusion_criteria)
+          if (data.exclusion_criteria) setExclusionCriteria(data.exclusion_criteria)
+          if (data.prisma) setPrismaStats(data.prisma)
+          const inc = data.candidates
+            .filter(c => c.decision === 'Include')
+            .map(c => c.arxiv_id || c.id)
+          setSelectedIds(inc.length ? inc : data.candidates.map(c => c.arxiv_id || c.id))
+        }
+      })
+      .catch(() => {})
+  }, [])
+
   const handleScreen = async () => {
     if (!query.trim()) return
     setScreening(true)
@@ -32,18 +80,104 @@ export default function WelcomeScreen({ onStartReview, onLoadBenchmark, existing
       const res = await fetch('/api/screen', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query: query.trim(), max_candidates: maxResults, max_results: maxResults, recency_weight: 0.3 }),
+        body: JSON.stringify({
+          query: query.trim(),
+          max_candidates: maxResults,
+          max_results: maxResults,
+          recency_weight: 0.20,
+          inclusion_criteria: inclusionCriteria.trim(),
+          exclusion_criteria: exclusionCriteria.trim(),
+        }),
       })
       if (!res.ok) throw new Error(await res.text())
       const data = await res.json()
       const list = data.candidates || data.papers || data.results || []
       setCandidates(list)
-      setSelectedIds(list.map(p => p.arxiv_id || p.id))
+      if (data.prisma) {
+        setPrismaStats(data.prisma)
+      } else {
+        const inc = list.filter(p => p.decision === 'Include').length
+        const may = list.filter(p => p.decision === 'Maybe').length
+        const exc = list.filter(p => p.decision === 'Exclude').length
+        setPrismaStats({
+          total_identified: list.length,
+          screened: list.length,
+          included: inc,
+          maybe: may,
+          excluded: exc,
+        })
+      }
+
+      // Default selection to Included papers (or non-excluded if none marked include)
+      const included = list.filter(p => p.decision === 'Include').map(p => p.arxiv_id || p.id)
+      if (included.length > 0) {
+        setSelectedIds(included)
+      } else {
+        const nonExcluded = list.filter(p => p.decision !== 'Exclude').map(p => p.arxiv_id || p.id)
+        setSelectedIds(nonExcluded.length ? nonExcluded : list.map(p => p.arxiv_id || p.id))
+      }
     } catch (err) {
       setScreenError(err.message || 'Failed to screen arXiv.')
     } finally {
       setScreening(false)
     }
+  }
+
+  const handleDecisionChange = (id, newDecision) => {
+    setCandidates(prev => {
+      const updated = prev.map(p => {
+        if ((p.arxiv_id || p.id) === id) {
+          return {
+            ...p,
+            decision: newDecision,
+            screening_reason:
+              newDecision === 'Include'
+                ? `Included: Manually approved by reviewer for monograph synthesis.`
+                : newDecision === 'Maybe'
+                ? `Maybe: Flagged for contextual review.`
+                : `Excluded: Manually excluded by reviewer.`
+          }
+        }
+        return p
+      })
+
+      // Update PRISMA counts
+      const inc = updated.filter(p => p.decision === 'Include').length
+      const may = updated.filter(p => p.decision === 'Maybe').length
+      const exc = updated.filter(p => p.decision === 'Exclude').length
+      setPrismaStats({
+        total_identified: updated.length,
+        screened: updated.length,
+        included: inc,
+        maybe: may,
+        excluded: exc,
+      })
+
+      // Auto update selection
+      if (newDecision === 'Include') {
+        setSelectedIds(s => s.includes(id) ? s : [...s, id])
+      } else if (newDecision === 'Exclude') {
+        setSelectedIds(s => s.filter(x => x !== id))
+      }
+
+      // Persist to backend
+      fetch('/api/save-screening', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          query: query.trim(),
+          inclusion_criteria: inclusionCriteria,
+          exclusion_criteria: exclusionCriteria,
+          candidates: updated,
+        }),
+      }).catch(() => {})
+
+      return updated
+    })
+  }
+
+  const handleReasonChange = (id, reason) => {
+    setCandidates(prev => prev.map(p => (p.arxiv_id || p.id) === id ? { ...p, screening_reason: reason } : p))
   }
 
   const toggleSelect = (id) => {
@@ -233,15 +367,97 @@ export default function WelcomeScreen({ onStartReview, onLoadBenchmark, existing
                   </button>
                 </div>
 
+                {/* Inclusion & Exclusion Criteria Toggle */}
+                <button
+                  type="button"
+                  className={styles.criteriaToggleBtn}
+                  onClick={() => setShowCriteria(!showCriteria)}
+                >
+                  <Sliders size={12} />
+                  {showCriteria ? 'Hide Screening Protocol Criteria' : 'Set Inclusion & Exclusion Criteria'}
+                </button>
+
+                {showCriteria && (
+                  <div className={styles.criteriaPanel}>
+                    <div className={styles.criteriaGroup}>
+                      <label className={styles.criteriaLabel}>Inclusion Criteria</label>
+                      <input
+                        type="text"
+                        className={styles.criteriaInput}
+                        placeholder="e.g. neural architecture, empirical evaluation, deep learning, benchmark"
+                        value={inclusionCriteria}
+                        onChange={(e) => setInclusionCriteria(e.target.value)}
+                      />
+                    </div>
+                    <div className={styles.criteriaGroup}>
+                      <label className={styles.criteriaLabel}>Exclusion Criteria</label>
+                      <input
+                        type="text"
+                        className={styles.criteriaInput}
+                        placeholder="e.g. survey only, review, theoretical without experiments, non-English"
+                        value={exclusionCriteria}
+                        onChange={(e) => setExclusionCriteria(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                )}
+
                 {screenError && (
                   <div className={styles.errorBox}>{screenError}</div>
                 )}
 
-                {/* Candidate paper cards */}
+                {/* Candidate paper cards with PRISMA Screening Workflow */}
                 {candidates.length > 0 && (
                   <div className={styles.candidatesArea}>
+                    {/* PRISMA Screening Summary Bar */}
+                    <div className={styles.prismaSummaryBar}>
+                      <span>PRISMA SCREENING PROTOCOL</span>
+                      <div className={styles.prismaStats}>
+                        <span>Identified: <strong>{candidates.length}</strong></span>
+                        <span className={styles.prismaBadgeInc}>
+                          ✓ Included: <strong>{candidates.filter(p => p.decision === 'Include').length}</strong>
+                        </span>
+                        <span className={styles.prismaBadgeMay}>
+                          ? Maybe: <strong>{candidates.filter(p => p.decision === 'Maybe').length}</strong>
+                        </span>
+                        <span className={styles.prismaBadgeExc}>
+                          ✗ Excluded: <strong>{candidates.filter(p => p.decision === 'Exclude').length}</strong>
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Filter Tabs */}
+                    <div className={styles.filterTabs}>
+                      <button
+                        className={clsx(styles.filterTab, activeFilter === 'all' && styles.filterTabActive)}
+                        onClick={() => setActiveFilter('all')}
+                      >
+                        All ({candidates.length})
+                      </button>
+                      <button
+                        className={clsx(styles.filterTab, activeFilter === 'include' && styles.filterTabActive)}
+                        onClick={() => setActiveFilter('include')}
+                      >
+                        Included ({candidates.filter(p => p.decision === 'Include').length})
+                      </button>
+                      <button
+                        className={clsx(styles.filterTab, activeFilter === 'maybe' && styles.filterTabActive)}
+                        onClick={() => setActiveFilter('maybe')}
+                      >
+                        Maybe ({candidates.filter(p => p.decision === 'Maybe').length})
+                      </button>
+                      <button
+                        className={clsx(styles.filterTab, activeFilter === 'exclude' && styles.filterTabActive)}
+                        onClick={() => setActiveFilter('exclude')}
+                      >
+                        Excluded ({candidates.filter(p => p.decision === 'Exclude').length})
+                      </button>
+                    </div>
+
                     <div className={styles.candidatesHeader}>
-                      <span>Found {candidates.length} candidate papers ({selectedIds.length} selected)</span>
+                      <span>
+                        Showing {candidates.filter(p => activeFilter === 'all' || (p.decision || '').toLowerCase() === activeFilter).length} candidate papers ({selectedIds.length} queued for synthesis)
+                      </span>
                       <button
                         className={styles.toggleAllBtn}
                         onClick={() =>
@@ -253,38 +469,88 @@ export default function WelcomeScreen({ onStartReview, onLoadBenchmark, existing
                     </div>
 
                     <div className={styles.candidatesScroll}>
-                      {candidates.map(p => {
-                        const id = p.arxiv_id || p.id
-                        const isChecked = selectedIds.includes(id)
-                        return (
-                          <div
-                            key={id}
-                            className={clsx(styles.candidateRow, isChecked && styles.candidateRowSelected)}
-                            onClick={() => toggleSelect(id)}
-                          >
-                            <input
-                              type="checkbox"
-                              checked={isChecked}
-                              onChange={() => {}}
-                              className={styles.checkbox}
-                            />
-                            <div className={styles.candidateDetails}>
-                              <div className={styles.candidateTop}>
-                                <span className={styles.arxivId}>arXiv:{id}</span>
-                                {p.relevance_score && (
-                                  <span className={styles.matchScore}>
-                                    {Math.round(p.relevance_score * 100)}% match
-                                  </span>
+                      {candidates
+                        .filter(p => activeFilter === 'all' || (p.decision || '').toLowerCase() === activeFilter)
+                        .map(p => {
+                          const id = p.arxiv_id || p.id
+                          const isChecked = selectedIds.includes(id)
+                          const scoreVal = typeof p.relevance_score === 'number'
+                            ? Math.round(p.relevance_score > 1 ? p.relevance_score : p.relevance_score * 100)
+                            : null
+
+                          return (
+                            <div
+                              key={id}
+                              className={clsx(styles.candidateRow, isChecked && styles.candidateRowSelected)}
+                            >
+                              <input
+                                type="checkbox"
+                                checked={isChecked}
+                                onChange={() => toggleSelect(id)}
+                                className={styles.checkbox}
+                              />
+                              <div className={styles.candidateDetails}>
+                                <div className={styles.candidateTop}>
+                                  <span className={styles.arxivId}>arXiv:{id}</span>
+                                  {scoreVal !== null && (
+                                    <span className={styles.matchScore}>
+                                      {scoreVal}% relevance
+                                    </span>
+                                  )}
+                                </div>
+                                <h4 className={styles.candidateTitle}>{p.title}</h4>
+                                {p.abstract && (
+                                  <p className={styles.candidateAbstract}>{p.abstract.slice(0, 200)}…</p>
                                 )}
+
+                                {/* Screening Decisions per paper */}
+                                <div className={styles.decisionControls}>
+                                  <button
+                                    type="button"
+                                    className={clsx(
+                                      styles.decisionBtn,
+                                      p.decision === 'Include' && styles.decisionBtnIncludeActive
+                                    )}
+                                    onClick={() => handleDecisionChange(id, 'Include')}
+                                  >
+                                    <Check size={11} /> Include
+                                  </button>
+                                  <button
+                                    type="button"
+                                    className={clsx(
+                                      styles.decisionBtn,
+                                      p.decision === 'Maybe' && styles.decisionBtnMaybeActive
+                                    )}
+                                    onClick={() => handleDecisionChange(id, 'Maybe')}
+                                  >
+                                    <HelpCircle size={11} /> Maybe
+                                  </button>
+                                  <button
+                                    type="button"
+                                    className={clsx(
+                                      styles.decisionBtn,
+                                      p.decision === 'Exclude' && styles.decisionBtnExcludeActive
+                                    )}
+                                    onClick={() => handleDecisionChange(id, 'Exclude')}
+                                  >
+                                    <X size={11} /> Exclude
+                                  </button>
+                                </div>
+
+                                {/* Screening Reason Field */}
+                                <div className={styles.reasonBox}>
+                                  <input
+                                    type="text"
+                                    className={styles.reasonInput}
+                                    value={p.screening_reason || ''}
+                                    placeholder="Enter screening rationale / reason..."
+                                    onChange={(e) => handleReasonChange(id, e.target.value)}
+                                  />
+                                </div>
                               </div>
-                              <h4 className={styles.candidateTitle}>{p.title}</h4>
-                              {p.abstract && (
-                                <p className={styles.candidateAbstract}>{p.abstract.slice(0, 180)}…</p>
-                              )}
                             </div>
-                          </div>
-                        )
-                      })}
+                          )
+                        })}
                     </div>
 
                     <button
@@ -292,7 +558,7 @@ export default function WelcomeScreen({ onStartReview, onLoadBenchmark, existing
                       onClick={handleDownloadAndSynthesize}
                       disabled={!selectedIds.length}
                     >
-                      <Sparkles size={14} /> Download Selected & Synthesize Monograph ({selectedIds.length} papers)
+                      <Sparkles size={14} /> Download Approved Papers & Synthesize Monograph ({selectedIds.length} papers)
                     </button>
                   </div>
                 )}

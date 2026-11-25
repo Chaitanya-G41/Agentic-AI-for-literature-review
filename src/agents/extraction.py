@@ -107,10 +107,20 @@ class PaperSchema(BaseModel):
         return v
 
 def extract_candidate_blocks(parsed_json):
-    """Keyword heuristic pre-filter to pull candidate blocks for Gemini LLM processing."""
+    """Refined heuristic extraction to pull grounded candidate blocks without noise."""
     chunks = parsed_json.get("chunks", [])
+    full_text = parsed_json.get("full_text", "")
 
+    # Extract clean title from parsed_json
     title = parsed_json.get("file_name", "Unknown Paper").replace(".pdf", "").replace("_parsed.json", "")
+    lines = [ln.strip() for ln in full_text.splitlines() if ln.strip()]
+    if lines:
+        first_line = lines[0]
+        # Ignore common non-title headers
+        if not any(first_line.lower().startswith(p) for p in ["published as", "preprint", "arxiv:", "chapter"]):
+            if len(first_line) > 10 and len(first_line) < 160:
+                title = first_line
+
     method_chunks = []
     result_chunks = []
     limitation_chunks = []
@@ -123,24 +133,29 @@ def extract_candidate_blocks(parsed_json):
 
         if any(k in sec or k in text_lower for k in ["abstract", "introduction", "background", "motivation"]):
             abstract_chunks.append(text)
-        if any(k in sec or k in text_lower for k in ["method", "approach", "architecture", "framework", "model"]):
+        if any(k in sec or k in text_lower for k in ["method", "approach", "architecture", "framework", "model", "algorithm", "design"]):
             method_chunks.append(text)
-        if any(k in sec or k in text_lower for k in ["result", "evaluat", "experiment", "accuracy", "benchmark", "projection"]):
+        if any(k in sec or k in text_lower for k in ["result", "evaluat", "experiment", "accuracy", "benchmark", "performance", "ablation"]):
             result_chunks.append(text)
-        if any(k in sec or k in text_lower for k in ["limitation", "however", "drawback", "fails to", "restricted to", "future work"]):
+        # Prioritize true limitations, discussion, conclusions
+        if any(k in sec for k in ["limitation", "threats to validity", "failure mode"]):
+            limitation_chunks.insert(0, text)
+        elif any(k in sec for k in ["discussion", "conclusion"]):
+            limitation_chunks.append(text)
+        elif any(k in text_lower for k in ["limitation", "threats to validity", "fails to", "bottleneck of our"]):
             limitation_chunks.append(text)
 
     # Grounded core problem deduction from abstract/intro chunks
     core_problem_candidate = ""
-    full_snippet = parsed_json.get("full_text", "")[:3500]
+    full_snippet = full_text[:3500]
     all_intro_text = " ".join(abstract_chunks[:4]) or full_snippet[:1200]
 
     problem_sentences = []
     for sent in re.split(r'(?<=[.!?])\s+', all_intro_text):
         sent_clean = sent.strip()
         sent_lower = sent_clean.lower()
-        if any(k in sent_lower for k in ["we investigate", "this paper addresses", "we study", "we propose", "focuses on", "aims to", "challenge of", "problem of", "bottleneck", "limits"]):
-            if len(sent_clean) > 25:
+        if any(k in sent_lower for k in ["we investigate", "this paper addresses", "we study", "we propose", "focuses on", "aims to", "challenge of", "problem of", "bottleneck"]):
+            if len(sent_clean) > 25 and len(sent_clean) < 300:
                 problem_sentences.append(sent_clean)
 
     if problem_sentences:
@@ -150,28 +165,42 @@ def extract_candidate_blocks(parsed_json):
     else:
         core_problem_candidate = f"Investigation and empirical analysis of {title.replace('_', ' ')}."
 
-    # Dataset deduction
+    # Dataset deduction with noise filtering
     dataset_candidates = []
-    for tab in parsed_json.get("tables", []):
-        tab_id = tab.get("table_id", "")
-        if tab_id and tab_id not in dataset_candidates:
-            dataset_candidates.append(f"Tabular Data ({tab_id})")
+    # Real dataset regex pattern
+    ds_pattern = re.compile(r'\b([A-Z0-9][A-Za-z0-9_-]{1,15}(?:\s+[A-Z0-9][A-Za-z0-9_-]{1,15}){0,3}\s+(?:[Dd]ataset|[Bb]enchmark|[Cc]orpus|[Cc]hallenge|[Dd]atabase))\b')
+    for m in ds_pattern.finditer(full_text[:15000]):
+        cand = m.group(1).strip()
+        # Clean leading words
+        cand = re.sub(r'^(?:The|This|Our|A|An|New|Using|Following|Each|From)\s+', '', cand, flags=re.I).strip()
+        cand_lower = cand.lower()
+        # Filter stop words and noisy geographical terms
+        if not any(bad in cand_lower for bad in ["south", "pole", "evaluation", "evaluations", "tabular", "entire", "same", "our", "proposed", "paper", "section", "table", "figure"]):
+            if len(cand) > 5 and cand not in dataset_candidates:
+                dataset_candidates.append(cand)
 
-    for chunk in result_chunks[:8]:
-        for match in re.finditer(r'\b([A-Z][a-zA-Z0-9_-]{2,20}(?:-(?:bench|QA|Eval|Corpus|Set))?)\b', chunk):
-            word = match.group(1)
-            if word not in ["Figure", "Table", "Section", "Model", "Paper", "The", "This", "Our", "Results", "Methods"] and word not in dataset_candidates:
-                if any(x in chunk.lower() for x in ["dataset", "benchmark", "evaluation", "tested on"]):
-                    dataset_candidates.append(word)
+    # Explicit limitations extraction: prioritize explicit limitations or discussion/conclusion
+    limitation_text = ""
+    for chunk in limitation_chunks:
+        sentences = [s.strip() for s in re.split(r'(?<=[.!?])\s+', chunk) if len(s.strip()) > 20]
+        for s in sentences:
+            s_low = s.lower()
+            if any(k in s_low for k in ["limitation", "threat to validity", "trade-off", "however", "drawback", "remains a challenge", "future work will", "not without limitations", "constrained by", "inability to"]):
+                # Avoid intro praise or pure background
+                if not any(s_low.startswith(bad) for bad in ["in section", "the remainder", "we introduce", "this section"]):
+                    limitation_text = s
+                    break
+        if limitation_text:
+            break
 
     candidate_summary = {
         "title": title,
         "abstract_context": " ".join(abstract_chunks[:6]),
         "method_context": " ".join(method_chunks[:15]),
         "results_context": " ".join(result_chunks[:15]),
-        "limitation_context": " ".join(limitation_chunks[:15]),
+        "limitation_context": limitation_text or " ".join(limitation_chunks[:3])[:350],
         "core_problem": core_problem_candidate,
-        "datasets": dataset_candidates[:4] or [f"{title.replace('_', ' ')} Evaluation Benchmark"],
+        "datasets": dataset_candidates[:3],
         "full_snippet": full_snippet
     }
     return candidate_summary
