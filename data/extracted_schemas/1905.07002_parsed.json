@@ -1,0 +1,3278 @@
+{
+  "paper_id": "1905.07002",
+  "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+  "parser_used": "PyMuPDF_Layout_Engine",
+  "total_pages": 11,
+  "figures_count": 0,
+  "figures": [],
+  "vector_graphs_count": 0,
+  "vector_graphs": [],
+  "tables_count": 0,
+  "tables": [],
+  "full_text": "arXiv:1905.07002v2  [cs.CL]  21 May 2019\n\nTowards Automatic Generation of Shareable Synthetic Clinical Notes\n\nUsing Neural Language Models\n\nOren Melamud\nIBM T. J. Watson Research Center\n\nYorktown Heights, NY, USA.\noren.melamud@ibm.com\n\nChaitanya Shivade\nIBM Almaden Research Center\n\nSan Jose, CA, USA.\ncshivade@us.ibm.com\n\nAbstract\n\nLarge-scale clinical data is invaluable to driv-\ning many computational scientiﬁc advances\ntoday. However, understandable concerns re-\ngarding patient privacy hinder the open dis-\nsemination of such data and give rise to subop-\ntimal siloed research. De-identiﬁcation meth-\nods attempt to address these concerns but were\nshown to be susceptible to adversarial attacks.\nIn this work, we focus on the vast amounts\nof unstructured natural language data stored\nin clinical notes and propose to automatically\ngenerate synthetic clinical notes that are more\namenable to sharing using generative models\ntrained on real de-identiﬁed records. To eval-\nuate the merit of such notes, we measure both\ntheir privacy preservation properties as well as\nutility in training clinical NLP models. Ex-\nperiments using neural language models yield\nnotes whose utility is close to that of the real\nones in some clinical NLP tasks, yet leave am-\nple room for future improvements.\n\n1\nIntroduction\n\nClinical data and clinical notes speciﬁcally, are an\nimportant factor for the advancement of computa-\ntional methods in the medical domain. Sufﬁce to\nsay that the recently introduced MIMIC-III clin-\nical database alone (Johnson et al., 2016) already\nhas hundreds of cites on Google Scholar. How-\never, understandable privacy concerns yield strict\nrestrictions on clinical data dissemination, thus in-\nhibiting scientiﬁc progress. De-identiﬁcation tech-\nniques provide some relief (Dernoncourt et al.,\n2017), but are still far from providing the privacy\nguarantees required for unrestricted sharing (Ohm,\n2009; Shokri et al., 2017).\nIn this work, we investigate the possibility of\ndisseminating clinical notes data by computation-\nally generating synthetic notes that are safer to\nshare than real ones. To this end, we introduce\n\na clinical notes generation task, where synthetic\nnotes are to be generated based on a set of real\nde-identiﬁed clinical discharge summary notes,\nhenceforth referred to as MedText, which we ex-\ntracted from MIMIC-III. The evaluation includes\na new measure of the privacy preservation proper-\nties of the synthetic notes, as well as their utility on\nthree clinical NLP tasks. We use neural language\nmodels to perform this task and discuss the po-\ntential and challenges of this approach. Resources\nassociated with this paper are available for down-\nload. 1\n\n2\nBackground\n\n2.1\nClinical Notes\n\nElectronic health records contain a wealth of in-\nformation about patients in the form of both struc-\ntured data and unstructured text.\nWhile struc-\ntured data is critical for purposes like billing and\nadministration, unstructured clinical notes con-\ntain important information entered by doctors,\nnurses, and other staff associated with patient\ncare, which is not captured elsewhere.\nTo this\nend, researchers have found that although struc-\ntured data is easily accessible, clinical notes re-\nmain indispensable for understanding a patient\nrecord (Birman-Deych et al., 2005; Singh et al.,\n2004). Rosenbloom et al. (2011) argued that clini-\ncal notes are considered to be more useful for iden-\ntifying patients with speciﬁc disorders. A study\nby K¨opcke et al.\n(2013) found that 65% of the\ndata required to determine eligibility of a patient\ninto clinical trials was not found in structured data\nand required examination of clinical notes. Simi-\nlar ﬁndings were also reported by Raghavan et al.\n(2014).\n\nDue to their importance, it is no wonder that\nclinical notes are used extensively in medical NLP\n\n1https://github.com/orenmel/synth-clinical-notes\n\nresearch. Unfortunately, however, due to privacy\nconcerns, explained further below, it is very com-\nmon that the data is exclusively available only to\nresearchers collaborating with or working for a\nparticular healthcare provider (Choi et al., 2016;\nAfzal et al., 2018; Liu et al., 2018).\n\n2.2\nDe-identiﬁcation\n\nClinical notes contain sensitive personal informa-\ntion required for medical investigations, which\nis protected by law.\nFor example,\nin the\nUnited States, the Health Insurance Portabil-\nity and Accountability Act (HIPAA)2 deﬁnes\n18 types of protected health information (PHI)\nthat needs to be removed to de-identify clini-\ncal notes (e.g.\nname, age, dates and contact\ndetails).\nBoth manual and automated methods\nfor de-identiﬁcation have been investigated with\nvarying degrees of success.\nNeamatullah et al.\n(2008) reported a recall ranging from 0.63 to 0.94\nbetween 14 clinicians for manually identifying\nPHI in 130 clinical notes. Since human annota-\ntions for clinical data are costly (Douglass et al.,\n2004), researchers have investigated automated\nand semi-automated methods for de-identiﬁcation\n(Gobbel et al., 2014; Hanauer et al., 2013).\nAu-\ntomated methods range from rule-based systems\n(Morrison et al., 2009) to statistical methods such\nas support vector machines and conditional ran-\ndom ﬁelds (Stubbs et al., 2015), with more recent\nuse of recurrent neural networks (Liu et al., 2017;\nDernoncourt et al., 2017).\n\nUnfortunately, despite strong results reported\nfor clinical data de-identiﬁcation methods, it is\nusually hard to determine to what extent they\nare resistant to re-identiﬁcation attacks on health-\ncare data (Ohm, 2009; El Emam et al., 2011;\nGkoulalas-Divanis et al., 2014).\nTherefore, in\npractice, de-identiﬁed patient data is almost never\nshared freely, and complementary privacy protec-\ntion techniques, such as the one described in the\nfollowing section, are being actively investigated.\n\n2.3\nDifferential Privacy\n\nCollections of private individual data records are\ncommonly used to compute aggregated statisti-\ncal information or train statistical models that are\nmade publicly available.\nPossible use cases in-\nclude collections of search queries used to pro-\n\n2Ofﬁce for Civil Rights H. Standards for privacy of indi-\nvidually identiﬁable health information. Final rule. Federal\nRegister. 2002;67:53181.\n\nvide intelligent auto-completion suggestions to\nusers of search engines and medical records used\nto train computer-based clinical expert systems.\nWhile this is not always transparent, providing ac-\ncess to such aggregated information may be suf-\nﬁcient for attackers to infer some individual pri-\nvate data. One example to such well crafted at-\ntacks are the membership inference attacks pro-\nposed by Shokri et al. (2017). In these attacks, the\nadversary has only black-box access to a machine\nlearning model that was trained on a collection of\nrecords, and tries to learn how to infer whether any\ngiven data record was part of that model’s train set\nor not. Susceptibility to such attacks is an indica-\ntion that private information may be compromised.\n\nDifferential privacy (DP) is, broadly speaking,\na guarantee that the personal information of each\nindividual record within a collection is reasonably\nprotected even when the aggregated statistical in-\nformation is exposed. A model that is trained on\nsome record collection as its input and makes its\noutputs publicly available, will provide stronger\nDP guarantees the less those outputs depend on the\npresence of any individual record in the collection.\n\nMore formally, a randomized function K pro-\nvides ǫ−differential privacy if for all collections\nC1 and C2 differing by at most one element, and\nall S ⊆Range(K):\n\nlog p(K(C1) ∈S) −log p(K(C2) ∈S) ≤ǫ\n\nA mechanism K satisfying this deﬁnition ad-\ndresses concerns of personal information leakage\nfrom any individual record since the inclusion of\nthat record will not result in any publicly exposed\noutputs becoming signiﬁcantly more or less likely\n(Dwork, 2008).\n\nDifferential privacy is an active research ﬁeld,\nwith various techniques proposed to provide DP\nguarantees to various machine learning models\n(Abadi et al., 2016; Papernot et al., 2018). How-\never, while DP shares some motivation with tra-\nditional machine learning techniques, such as the\nneed to avoid overﬁtting, it is unfortunately not\nalways easy to achieve good differential privacy\nguarantees, and they typically come at the cost\nof some accuracy degradation and computational\ncomplexity.\n\n2.4\nLanguage Modeling\n\nLanguage models (LMs) learn to estimate the\nprobability of a next word given a context of pre-\n\nceding words, i.e.\nˆP(wi|w1..i−1), where wi is\nthe word in position i in the text.\nThey were\nfound useful in many NLP tasks, including text\nclassiﬁcation (Howard and Ruder, 2018), machine\ntranslation (Luong et al., 2015) and speech recog-\nnition (Chen et al., 2015).\nThey are also com-\nmonly used for generating text (Sutskever et al.,\n2011; Radford et al., 2018) as we do in this pa-\nper. To generate text, a trained model is typically\nused to estimate the conditional probability dis-\ntribution of the next word ˆP(wi|w1..i−1). Next,\nit samples a word for position i from this distri-\nbution and then goes on to sample the next one\nbased on ˆP(wi+1|w1..i) and so on. The predomi-\nnant model design used to implement LMs today\nused to be Recurrent Neural Networks (RNNs)\ndue to their ability to capture long distance\ncontexts (Jozefowicz et al., 2016), but recently,\nthe attention-based Transformer architecture sur-\npassed state of the art results (Radford et al., 2018;\nDai et al., 2019).\n\n3\nThe Clinical Notes Generation Task\n\nTo establish the merit of synthetic clinical notes\ngenerated by statistical models, we propose a task\nsetup that consists of: (1) real de-identiﬁed clin-\nical notes datasets used to train models, which in\nturn generate synthetic notes; (2) privacy measures\nused to estimate the privacy preservation proper-\nties of the synthetic notes; and (3) utility bench-\nmarks used to estimate the usefulness of the notes.\nTo be considered successful, a model needs to\nscore well both on privacy and utility measures.\n\n3.1\nOriginal Clinical Notes Data\n\nAs our source for composing the real clini-\ncal notes datasets, we used MIMIC-III (v1.4)\n(Johnson et al.,\n2016),\na\nlarge\nde-identiﬁed\ndatabase that comprises nearly 60,000 hospital\nadmissions for 38,645 adult patients. Despite hav-\ning been stripped of patient identiﬁers, MIMIC’s\nrecords are available to researchers only under\nstrict terms of use that include careful access\nrestrictions and completion of sensitive data\ntraining3 due to privacy concerns.\n\nTraining language models is expensive in terms\nof time and compute power.\nIt is a common\npractice (Merity et al., 2017) to evaluate language\nmodels that were trained on both a small dataset\n\n3https://mimic.physionet.org/gettingstarted/access/\n\nthat is relatively quick to train on and a medium-\nsized dataset which can demonstrate some beneﬁts\nof scale while still being manageable. Therefore,\nwithin MIMIC-III, following Dernoncourt et al.\n(2017), we focused on the discharge summary\nnotes due to their content diversity and richness\nin natural language text.\nFurther, we followed\nthe recently introduced WikiText-2 and WikiText-\n103 datasets (Merity et al., 2017) to determine\nplausible size, splits and most of the preprocess-\ning of our datasets. These datasets include text\nfrom Wikipedia articles and are commonly used to\nbenchmark general-domain language models. We\nname our respective benchmarks, MedText-2 and\nMedText-103.\n\nTo create the MedText datasets, we ﬁrst ex-\ntracted the full text of the discharge summary\nnotes from the NOTEEVENTS table available\nfrom MIMIC-III. Since the text includes arbi-\ntrary line splits, presumably for formatting rea-\nsons, we merged lines and then performed sen-\ntence splitting and word tokenization using the\nNLP toolkit spaCy.4\nWe then randomly sam-\npled notes to create the MedText-2 and MedText-\n103 datasets.\nEach of these datasets was split\ninto train/validation/test subsets, with MedText-\n2 and MedText-103 comprising approximately 2\nand 103 million word train sets, respectively, and\nsharing the same ∼200K-word validation and test\nsets. Finally, we replaced all words with an occur-\nrence count below 3 with an unk token.5\n\nTable 1 describes more precise statistics of the\nresulting MedText datasets, compared to the re-\nspective WikiText datasets. As seen, compared to\nthe WikiText datasets, which are nearly identical\nin terms of word counts, we note that MedText ex-\nhibits notably smaller vocabulary sizes (24K vs.\n33K and 135K vs. 267K) and Out-Of-Vocabulary\n(OOV) rates (1.5% vs. 2.6% and 0.3% vs. 0.4%).\nWe hypothesize that this is one of the artifacts of\nMedText being more domain-speciﬁc than Wiki-\nText, as it is restricted only to discharge summary\nnotes.\nTo this end, we note that to the best of\nour knowledge, unlike the general domain where\npopular language modeling benchmarks, such as\nWikiText, PTB and WMT (Chelba et al., 2014),\nare commonly used, there are no equivalent bench-\nmarks speciﬁc to the medical domain. Therefore,\n\n4https://spacy.io/\n5This was done separately for MedText-2 and MedText-\n103 resulting in a discrepancy between their validation/test\nsets in terms of the unk tokens.\n\nTrain\nValid\nTest\nMedText-2\nNotes\n1280\n128\n128\nWords\n2,259,966\n228,795\n219,650\nVocab\n24,052\nOOV\n1.5%\nMedText-103\nNotes\n59,396\n128\n128\nWords\n103,590,422\n228,795\n219,650\nVocab\n135,220\nOOV\n0.3%\n\nTrain\nValid\nTest\nWikiText-2\nArticles\n600\n60\n60\nWords\n2,088,628\n217,646\n245,569\nVocab\n33,278\nOOV\n2.6%\nWikiText-103\nArticles\n28,475\n60\n60\nWords\n103,227,021\n217,646\n245,569\nVocab\n267,735\nOOV\n0.4%\n\nTable 1: MedText vs. WikiText dataset statistics\n\nas an independent contribution, we propose Med-\nText as such a benchmark.\n\n3.2\nThe Privacy Measure\n\nAs mentioned in the Background section, while\ntraditional de-identiﬁcation methods,\nsuch as\ndeleting patient identiﬁers, are an essential pre-\nrequisite to protecting the privacy of patient data,\nit is well understood that they are not sufﬁcient\nto provide strong privacy guarantees. To address\nthis, we propose to share the output of statisti-\ncal models that were trained to generate synthetic\ndata based on real de-identiﬁed data. While this\nintuitively seems to increase privacy preservation\ncompared to sharing the real data, it is still not\nnecessarily sufﬁcient, due to potential private in-\nformation leakage from such models.\n\nTo quantify the risk involved in sharing syn-\nthetic clinical notes, we propose to use an empir-\nical measure of private information leakage. This\nmeasure is meant to serve two purposes: (1) help\ndrive the development of synthetic clinical notes\ngeneration methods that preserve privacy; and (2)\ninform decision makers regarding the concrete risk\nin releasing any given synthetic notes dataset.\n\nOur proposed measure is adopted from the ﬁeld\nof Differential Privacy (DP). Recently, Long et al.\n(2017) proposed an empirical differential pri-\nvacy measure, called Differential Training Pri-\nvacy (DTP). Unlike DP guarantees, which are ana-\nlyzed theoretically and apply only to speciﬁc mod-\nels designed for DP, DTP is a local property of any\nmodel and a concrete training set. It can be derived\nby means of empirical computation to any trained\nmodel regardless of whether it has theoretical DP\nguarantees, and provides an estimate of the pri-\nvacy risks associated with sharing the outputs of\n\nthat concrete trained model. In this work, we base\nour privacy measures on the Pointwise Differen-\ntial Training Privacy (PDTP) metric (Long et al.,\n2017), a more computationally efﬁcient variant of\nDTP:\n\n(1)\nPDTPM,T (t) =\n\nmax\n\ny∈Y (|log pM(T)(y|t) −log pM(T\\{t})(y|t)|)\n\nfor a classiﬁcation model M, a set of possible class\npredictions Y , a training set T, and a speciﬁc tar-\nget record t ∈T for which the risk is measured.\nThe rationale for this measure is that to protect the\nprivacy of t, the difference in the predictions of\na model trained with t versus those of a model\ntrained without it, should be as small as possi-\nble, and in particular when it comes to predictions\nmade when the model is applied to t itself.\n\nFor the purpose of measuring privacy, we make\nthe assumption that the model M that was trained\nto generate the synthetic notes can be queried for\nthe conditional probability log pM(T)(wc\n\ni|wc\n\n1..i−1),\nwhere wc\n\ni is the i-th word in clinical note c, which\nis our equivalent of a record. 6 We note that unlike\nin the setting of Long et al. (2017), where a single\nclass y is predicted for each record, for synthetic\nnotes, we can view every generated word wc\n\ni in\nc as a separate class prediction. Accordingly, we\npropose Sequential-PDTP:\n\n(2)\n\nS −PDTPM,T (c)\n\n= max\n\ni∈1..|c|\n\n\u0010\n\n|log pM(T)(wc\n\ni|wc\n\n1..i−1)\n\n−log pM(T\\{c})(wc\n\ni |wc\n\n1..i−1)|\n\u0011\n\n6If M does not disclose this information, then the syn-\nthetic notes it generates could be used to train a language\nmodel M ′ that does, as an approximation for M.\n\nS-PDTP estimates the privacy risk for clinical\nnote c as the largest absolute difference between\nthe conditional probability predictions made by\nM(T) and M(T \\ {c}) for any of the words in\nc given their preceding context. Finally, our pro-\nposed privacy score for notes generated by a model\nM trained on a benchmark dataset T, is the ex-\npected privacy risk, where a higher score indicates\na higher expected risk:\n\n(3)\nS −PDTPM,T = Ec∈T [S −PDTPM,T (c)]\n\nIntuitively, a high S-PDTP score means that\nthe output of the trained model is sensitive to the\npresence of at least some individual records in\nits training set and therefore revealing that output\nmay compromise the private information in those\nrecords. In practice, since it is challenging com-\nputationally to train and test |T| different models,\nwe use an estimated measure based on a sample of\n30 notes from T.\n\n3.3\nUtility Benchmarks\n\nWe compare the utility of synthetic vs. real clini-\ncal notes by using them as training data in the fol-\nlowing clinical NLP tasks.\n\n3.3.1\nEstimating lexical-semantic association\nAs a measure of the quality of the lexical se-\nmantic information contained in clinical notes,\nwe use them to train word2vec embeddings\n(Mikolov et al., 2013) with 300 dimensions and a\n5-word window 7. Then, we evaluate these embed-\ndings on the medical word similarity and related-\nness benchmarks, UMNSRS-Sim and UMNSRS-\nRel (Pakhomov et al., 2010; Chiu et al., 2016).\nThese benchmarks comprise 566 and 587 word\npairs, which were manually rated with a similar-\nity and relatedness score, respectively.\n\nTo evaluate each set of embeddings, we com-\npute its estimated similarity scores, as the cosine\nsimilarity between the embeddings of the words in\neach pair. Since our MedText datasets are domain-\nspeciﬁc and not huge in size, our learned embed-\ndings do not include a representation for many of\nthe words in the UMNSRS benchmarks. There-\nfore, to ensure that we do have an embedding for\nevery word included in the evaluation, we limit our\ndatasets only to pairs, whose words occur at least\n20 times and 30 times in MedText-2 and MedText-\n103, respectively.\nAccordingly, the number of\n\n7We used default word2vec hyperparameters, except for\n10 negative samples and 10 iterations.\n\npairs we use from UMNSRS-Sim/UMNSRS-Rel\nis 110/105 in the case of MedText-2 and 317/305\nin the case of MedText-103. Finally, each set of\nembeddings is evaluated according to the Spear-\nman’s correlation between the pair rankings in-\nduced by the embeddings’ scores and the one in-\nduced by the manual scores.\n\n3.3.2\nNatural language inference (NLI)\nWe also probe the utility of clinical notes for per-\nforming natural language inference (NLI) – a sen-\ntence level task. The task is to determine whether\na given hypothesis sentence can be inferred from\na given premise sentence. NLI, also known as rec-\nognizing textual entailment (RTE) (Dagan et al.,\n2013), is a fundamental popular task in natural lan-\nguage understanding.\n\nFor our NLI task,\nwe use MedNLI, the\nﬁrst clinical domain NLI dataset, recently re-\nleased by Romanov and Shivade (2018).\nThe\ndataset includes sentence pairs with annotated re-\nlations that are used to train evaluated models.\nRomanov and Shivade (2018) report the perfor-\nmance of various neural network based models\nthat typically beneﬁt from the use of unsuper-\nvised pre-trained word embeddings. In our bench-\nmark, we report the accuracy of their simple BOW\nmodel (also called sum of words) with input em-\nbeddings that are pre-trained on MedText clinical\nnotes and kept ﬁxed during the training with the\nMedNLI sentence pairs. The pre-trained embed-\ndings used were the same as the ones used for\nthe lexical-semantic association task.\nIn all of\nour experiments, we used the implementation of\nRomanov and Shivade (2018) with its default hy-\nperparameters .8\n\n3.3.3\nRecovering letter case information\nOur third task goes beyond word embeddings, us-\ning clinical notes to train a recurrent neural net-\nwork model end-to-end.\nMore speciﬁcally, we\nuse MedText to train letter casing (capitalization)\nmodels. These models are trained based on par-\nallel data comprising the original text and an all-\nlowered-case version of the same. Then, they are\nevaluated on their ability to recover casing for a\ntest lower-cased text. The appealing aspect of this\ntask is that the parallel data can be easily obtained\nin various languages and domains.\n\nWe note that sequential information is impor-\ntant in predicting the correct casing of words. The\n\n8https://github.com/jgc128/mednli\n\nsimplest example in English is that the ﬁrst word\nof every sentence usually begins with a capital\nletter, but title casing, and ambiguous words in\ncontext (such as the word ‘bid’ that may need to\nbe mapped to ‘BID’, i.e.\n’twice-a-day’, in the\nclinical prescription context), are other examples.\nArguably, for this reason, the state-of-the-art for\nthis task is achieved by sequential character-RNN\nmodels (Susanto et al., 2016). We use their imple-\nmentation9 with default hyperparameters for our\nevaluation.10\nWe use the dev and test splits of\nMedText to perform the letter case recovery task\nand report F1.\n\n4\nExperiments\n\nIn this section, we describe results obtained when\nusing various models to perform the clinical notes\ngeneration task. We ﬁrst generate synthetic clin-\nical notes and evaluate their privacy properties.\nThen, assuming these notes were shared with an-\nother party we evaluate their utility to that party in\ntraining various clinical NLP models compared to\nthat of the real notes.\n\n4.1\nCompared Methods\n\nTo generate the synthetic notes, we used primarily\na standard LSTM language model implementation\nby PyTorch. 11\n\nWe trained 2-layer LSTM models with 650\nhidden-units on the train sets of MedText-2 and\nMedText-103, and tuned their hyperparameters\nbased on validation perplexity.12\n\nTo get more perspective on the efﬁcacy of the\nLSTM models, we also trained a simple unigram\nbaseline with Lidstone smoothing:\n\n(4)\npunigram(wi = u|w1..i−1) = count(u) + 1\n\nN + |V |\n\nwhere wi is the word at position i, N is the to-\ntal number of words in the train set and |V | is the\n\n9https://github.com/raymondhs/char-rnn-truecase\n10We use their ‘small’ model conﬁguration for MedText-2\nand ‘large’ model conﬁguration for MedText-103.\n\n11https://github.com/pytorch/examples/\n12For MedText-2, we trained for 20 epochs, beginning with\na learning rate of 20 and reducing it by a factor of 4 after ev-\nery epoch for which the validation loss did not go down com-\npared to the previous epoch. For the much larger MedText-\n103, we trained for 2 epochs, beginning with a learning rate\nof 20 and reducing it by a factor of 1.2 every\n1\n40 epoch if the\nvalidation loss did not go down by at least 0.1, but never go-\ning below a minimum learning rate of 0.1. In all runs, we\nused SGD with gradients clipped to 0.25, back-propagation-\nthrough-time 35 steps, a batch size of 20 and tied input and\noutput embeddings.\n\nsize of the vocabulary. As can clearly be seen, this\nis a very naive model that generates words based\non a smoothed unigram distribution, disregarding\nthe context of the word in the note. Therefore, we\nexpect that the utility of notes generated with this\nmodel would be low. However, on the other hand,\nsince it captures much less information about the\ntrain data, we also expect it to have better privacy\nproperties.\n\nWe then used the trained models to gener-\nate synthetic MedText-2-M and MedText-103-M\ndatasets with identical word counts to the respec-\ntive real note train datasets, and where M denotes\na generative model being used. To that end, we\niteratively sampled a next token from the model’s\npredicted conditional probability distribution and\nthen fed that token as input back to the model. We\nused an empty line as an indication of an end-of-\nnote, hence a collection of clinical notes is rep-\nresented by the model as a seamless sequence of\ntext.\n\nWe study the effect that using dropout regu-\nlarization (Srivastava et al., 2014; Zaremba et al.,\n2014) has on privacy and the tradeoffs between\nprivacy and utility. Dropout, like other regular-\nization methods, is a machine learning technique\ncommonly applied to neural networks to mini-\nmize their prediction error on unseen data by re-\nducing overﬁtting to the train data.\nIt has also\nbeen shown that avoiding overﬁtting using regu-\nlarization is helpful for protecting the privacy of\nthe train data (Jain et al., 2015; Shokri et al., 2017;\nYeom et al., 2017). Accordingly, we hypothesize\nthat the higher dropout values used in our models\nare, the better the privacy scores would be. Utility,\nhowever, typically has a dropout optimum value\nover which it begins to degrade.\n\n4.2\nQualitative Observations\n\nWe sought feedback from a clinician on the qual-\nity of the generated synthetic discharge summary\nnotes.\nA generated note comprises various rel-\nevant sections indicated by plain text headers.\nThese sections are mostly in the right order with\na typical order being: admission details, medi-\ncal history, treatment, medications and ﬁnally, dis-\ncharge details. The text of a section is mostly top-\nically coherent with its header. For instance, the\ntext generated for a medical history section often\nincludes sentences mentioning medical problems.\nOn the other hand, although local linguistic ex-\n\npressions and phrases typically make sense, con-\ntinuity across consecutive sentences makes little\nclinical sense and many sentences are unclear due\nto incorrect grammar. A simple but obvious error\nis change of gender for the same patient (e.g. the\npronoun ‘he’ switches to ‘she’). A different ex-\nample for short range language modeling problem\nis generation of incorrect terms like “Hepatitis C\ndeﬁciency”. The quality of a generated section is\ntypically much better when it is backed by a struc-\nture as in a numbered list of medications. Yet, a\nnotable problem here is that lists frequently have\nrepeated entries (e.g. same symptom listed more\nthan once). In conclusion, to a human eye, the syn-\nthetic notes are clearly distinct from real ones, yet\nfrom a topical and shallow linguistic perspective\nthey do carry genuine properties of the original\ncontent. A sample snippet of a synthetic clinical\nnote is shown in Figure 1.\n\nAdmission Date :\n⟨deidentiﬁed ⟩\nDischarge Date :\n⟨deidentiﬁed ⟩\nDate of Birth :\n⟨deidentiﬁed ⟩Sex :\nF\nService :\nSURGERY\nAllergies :\nPatient recorded as having No Known Allergies to\nDrugs\nAttending :\n⟨deidentiﬁed ⟩\nChief Complaint :\nDyspnea\nMajor Surgical or Invasive Procedure :\nMitral Valve Repair\nHistory of Present Illness :\nMs. ⟨deidentiﬁed ⟩is a 53 year old female who presents\nafter a large bleed rhythmically lag to 2 dose but the pa-\ntient was brought to the Emergency Department where\nhe underwent craniotomy with stenting of right foot un-\nder the LUL COPD and transferred to the OSH on ⟨\ndeidentiﬁed ⟩.\nThe patient will need a pigtail catheter to keep the sitter\ndaily .\n\nFigure 1: Sample snippet of a synthetic clinical note\n\n4.3\nResults\n\nTable 2 shows the results we get when training\nthe LSTM language models with varied dropout\nvalues. Starting with perplexity, we see that gen-\nerally we achieve notably lower (better) perplexi-\nties on MedText, compared to results with LSTM\non WikiText, which are around 100 for WikiText-\n\n2 and 50 for WikiText-103.\n13\nWe hypothe-\nsize that this may be due to the highly domain-\nspeciﬁc medical jargon and repeating note tem-\nplate characteristics that are presumably more pre-\ndictable.\nWe also see that best perplexity re-\nsults are achieved with dropout values around 0.3-\n0.5 for MedText-2, and 0.0 (i.e. no dropout) for\nMedText-103, compared to the 0.5 dropout rate\ncommonly used in general-domain language mod-\neling (Zaremba et al., 2014; Merity et al., 2017).\nThese differences reinforce our proposal of Med-\nText as an interesting language modeling bench-\nmark for medical texts. As a reference for future\nwork, we report the perplexity results obtained on\nthe test set data: 12.88 on MedText-2 (dropout =\n0.5), and 8.15 on MedText-103 (dropout = 0.0).\nNext, looking at privacy, we see that as pre-\ndicted, more aggressive (higher) dropout values\nyield better (lower) privacy risk scores. We also\nsee that privacy scores on the large MedText-103\nare generally much better than the ones on the\nsmaller MedText-2. This observation is intuitive\nin the sense that we would expect to generally get\nbetter privacy protection when any single personal\nclinical note is mixed with more, rather than fewer,\nnotes in the train-set of a note-generating model.\n\nFor the utility evaluation, we chose three repre-\nsentative dropout values, for which we generated\nthe MedText-M notes and compared them against\nthe real MedText on the utility benchmarks. Look-\ning at the results, we ﬁrst see, as expected, that\nthe performance with MedText-M is consistently\nlower than that with MedText, i.e. real notes are\nmore useful than synthetic ones.\nHowever, the\nsynthetic notes do seem to bear useful informa-\ntion. In particular, in the case of the letter case\nrecovery task, they perform almost as well as the\nreal ones. We also see as suspected, that privacy\nusually comes at some expense of utility.\n\nFinally, looking at the unigram baseline, we see\nas expected that perplexity and utility is by far\nworse than that achieved by the LSTM models,\nwhile privacy is much better. This is yet further\nevidence of the utility vs. privacy trade-off. We\nhope that future work could reveal better models\nthat can get closer to the privacy protection values\nexhibited by the unigram model, while achieving\nutility, which is closer to that of the real notes.\n\n13https://www.salesforce.com/products/einstein/ai-\nresearch/the-wikitext-dependency-language-modeling-\ndataset/\n\nnote generation model\ndropout\nperplexity\nprivacy\nsimilarity\nrelatedness\nnli\ncase\nMedText-2\nBaseline: Real notes\n.459\n.381\n.713\n.910\nMedText-2-M\n\nLSTM\n\n0.0\n15.8\n11.7\n.227\n.125\n.678\n.895\n0.3\n12.5\n11.8\n0.5\n12.5\n9.6\n.259\n.160\n.692\n.895\n0.7\n15.4\n7.5\n0.8\n20.3\n6.6\n.146\n.016\n.699\n.883\nunigram\nN/A\n702.4\n0.9\n.027\n-.072\n.661\n.488\n\nnote generation model\ndropout\nperplexity\nprivacy\nsimilarity\nrelatedness\nnli\ncase\nMedText-103\nBaseline: Real notes\n.608\n.489\n.724\n.921\nMedText-103-M\n\nLSTM\n\n0.0\n7.8\n4.9\n.415\n.351\n.697\n.918\n0.2\n8.4\n4.0\n.401\n.337\n.702\n.915\n0.5\n10.2\n3.7\n.315\n.271\n.713\n.910\nunigram\nN/A\n803.5\n0.3\n.094\n.170\n.644\n.469\n\nTable 2: Experimental results with the real MedText and synthetic MedText-M. ‘dropout’ is the dropout value\nused to train different LSTM models on MedText and then generate the respective synthetic MedText-M datasets\n(0.0 means no dropout applied); ‘perplexity’ is the perplexity obtained on the real MedText validation set for\neach note generation model M; ‘privacy’ is our privacy measure (S −PDT PM,T for every M, where T is\nMedText); ‘similarity’/‘relatedness’ are UMNSRS word similarity/relatedness correlation results obtained using\nword embeddings trained on MedText and MedText-M; ‘nli’ is the accuracy obtained on the MedNLI test set using\ndifferent MedText pre-trained word embeddings; and ‘case’ is the case restoration F1 measure.\n\n4.4\nAnalysis\n\nTo better understand the factors determining our\nproposed privacy scores, we took a closer look\nat two note generating models, MedText-2-0 and\nMedText-103-0, which are the models trained on\nMedText-2 and MedText-103, respectively, with\ndropout=0.0. First, we note that in 30 out of 30\nand 25 out of 30 of the notes sampled to compute\nS −PDTPM,T(c) (Eq. 2) in MedText-2-0 and\nMedText-103-0, respectively, we observe that\n\nlog pM(T)(wc\n\nj|wc\n\n1..j−1) > log pM(T\\{c})(wc\nj|wc\n\n1..j−1)\n\nwhere\n\nj = argmaxi∈1..|c|\n\n\u0010\n\n|log pM(T)(wc\n\ni |wc\n\n1..i−1)\n\n−log pM(T\\{c})(wc\n\ni |wc\n\n1..i−1)|\n\u0011\n\nIn other words, in the vast majority of the cases,\nthe maximum differences in probability predic-\ntions are due to the model trained on train-set T,\nwhich includes note c, estimating a higher condi-\ntional probability to a word in c than the one esti-\nmated by the model trained on T \\ {c}. This can\n\nbe expected, since M(T) has seen all the text in c\nduring training, while M(T \\{c}) may or may not\nhave seen similar texts.\n\nFurthermore, when looking at the actual text\npositions j that determine the privacy scores, we\nindeed see that the prediction differences that\ncontribute to the privacy risk measure, are typ-\nically due to rare words and/or sequences of\nwords in note c that have no similar counter-\nparts in T \\ {c}.\nMore speciﬁcally, several of\nthe cases where log pM(T\\{c})(wc\n\nj|wc\n\n1..j−1)\n≪\nlog pM(T)(wc\n\nj|wc\n\n1..j−1) occur when: (1) A partic-\nular rare word wc\n\nj, such as cutdown, appears only\nin a single clinical note c and never in T \\ {c}.\nThis happens, for example, in p(“cutdown” | “Left\npopliteal”);14 (2) The rare word is at position\nj −1 as is Ketamine in p(“gtt” | “On POD # 2\nKetamine,”); and (3) The word wc\n\nj is not rare, but\nusually does not appear right after the sequence\nw1..j−1 as in p(“mouth” | “foaming at”), where in\nT \\ {c} there is always a determiner or pronoun\nbefore the word mouth, or p(“pain” | “mild left\n\n14POD stands for ‘postoperative day’\n\nshould”), where should is a typo of shoulder.\n\nThese ﬁndings lead us to hypothesize that cases\nof PHI, such as full names of patients, inadver-\ntently left in de-identiﬁed notes, might desirably\nincrease the privacy risk measure output because\nof their rarity. This would be interesting to vali-\ndate in future work.\n\nFor risk mitigation, we hypothesize that us-\ning pre-trained word embeddings including rare\nwords and even more so, pre-training the lan-\nguage model on a larger public out-of-domain re-\nsource (Howard and Ruder, 2018), may help in re-\nducing some of the above discrepancies between\npM(T\\{c}) and pM(T) and hence improve the over-\nall privacy score of the models.\n\n5\nRelated Work\n\nRecently, Choi et al. (2017) proposed medGAN,\na model for generating synthetic patient records\nthat are safer to share than the real ones due to\nstronger privacy properties. However, unlike our\nwork, their study is focused on discrete variable\nrecords and does not address the wealth of infor-\nmation embedded in natural language notes.\n\nBoag et al.\n(2016)\ncreated\na corpus\nof\nsynthetically-identiﬁed clinical notes with the\npurpose of using this resource to train de-\nidentiﬁcation models.\nUnlike our synthetic\nnotes, their notes only populate the PHI in-\nstances with synthetic data (e.g. replacing “[**Pa-\ntient Name**] visited [**Hospital**]” with the\nrandomly sampled names “Mary Smith visited\nMGH.”\n\n6\nConclusions and Future Work\n\nWe proposed synthetic clinical notes generation as\nmeans to promote open and collaborative medical\nNLP research. To have merit, the synthetic notes\nneed to be useful and at the same time better pre-\nserve the privacy of patients. To track progress\non this front, we suggested a privacy measure and\na few utility benchmarks. Our experiments using\nneural language models demonstrate the potential\nand challenges of this approach, reveal the ex-\npected trade-offs between privacy and utility, and\nprovide baselines for future work.\n\nFurther work is required to extend the range\nof clinical NLP tasks that can beneﬁt from the\nsynthetic notes as well as increase the levels of\nprivacy provided.\nMcMahan et al.\n(2018) in-\ntroduced an LSTM neural language model with\n\ndifferential privacy guarantees that has just been\npublicly released.15\nRadford et al.\n(2018) and\nDai et al. (2019) recently showed impressive im-\nprovement in language modeling performance us-\ning the novel attention-based Transformer archi-\ntecture and larger model scales. These methods\nare example candidates for evaluation on our pro-\nposed clinical notes generation task. With sufﬁ-\ncient progress, we hope that this line of research\nwould lead to useful large synthetic clinical notes\ndatasets that would be available more freely to a\nwider research community.\n\nAcknowledgments\n\nWe would like to thank Ken Barker and Vandana\nMukherjee for supporting this project. We would\nalso like to thank Thomas Steinke for helpful dis-\ncussions.\n\nReferences\n\nMartin Abadi, Andy Chu, Ian Goodfellow, H Bren-\n\ndan McMahan, Ilya Mironov, Kunal Talwar, and\nLi Zhang. 2016. Deep learning with differential pri-\nvacy.\nIn Proceedings of the 2016 ACM SIGSAC\nConference on Computer and Communications Se-\ncurity.\n\nNaveed Afzal, Vishnu Priya Mallipeddi, Sunghwan\n\nSohn, Hongfang Liu, Rajeev Chaudhry, Christo-\npher G Scott, Iftikhar J Kullo, and Adelaide M\nArruda-Olson. 2018. Natural language processing\nof clinical notes for identiﬁcation of critical limb is-\nchemia. International Journal of Medical Informat-\nics, 111:83–89.\n\nElena Birman-Deych, Amy D Waterman, Yan Yan,\n\nDavid S Nilasena, Martha J Radford, and Brian F\nGage. 2005. Accuracy of icd-9-cm codes for iden-\ntifying cardiovascular and stroke risk factors. Medi-\ncal Care, pages 480–485.\n\nWillie Boag, Tristan Naumann, and Peter Szolovits.\n\n2016.\nTowards the creation of a large corpus of\nsynthetically-identiﬁed clinical notes.\nIn In Pro-\nceedings of Machine Learning for Health Workshop\nat NIPS.\n\nC. Chelba, T. Mikolov, M.Schuster, Q. Ge, T. Brants,\n\nP. Koehn, and T. Robinson. 2014.\nOne billion\nword benchmark for measuring progress in statisti-\ncal language modeling. In Proceedings of INTER-\nSPEECH.\n\nXie Chen, Tian Tan, Xunying Liu, Pierre Lanchantin,\n\nMoquan Wan, Mark JF Gales, and Philip C Wood-\nland. 2015.\nRecurrent neural network language\nmodel adaptation for multi-genre broadcast speech\n\n15https://github.com/tensorﬂow/privacy/\n\nrecognition. In Sixteenth Annual Conference of the\nInternational Speech Communication Association.\n\nBilly Chiu, Gamal Crichton, Anna Korhonen, and\n\nSampo Pyysalo. 2016.\nHow to train good word\nembeddings for biomedical nlp. In Proceedings of\nthe 15th Workshop on Biomedical Natural Language\nProcessing.\n\nEdward Choi,\nMohammad Taha Bahadori, Andy\nSchuetz, Walter F Stewart, and Jimeng Sun. 2016.\nDoctor ai: Predicting clinical events via recurrent\nneural networks. In Machine Learning for Health-\ncare Conference, pages 301–318.\n\nEdward Choi, Siddharth Biswal, Bradley Malin, Jon\n\nDuke, Walter F Stewart, and Jimeng Sun. 2017.\nGenerating multi-label discrete patient records using\ngenerative adversarial networks. In Proceedings of\nMachine Learning for Healthcare Conference.\n\nIdo Dagan, Dan Roth, Mark Sammons, and Fabio Mas-\n\nsimo Zanzotto. 2013.\nRecognizing textual entail-\nment: Models and applications. Synthesis Lectures\non Human Language Technologies, 6(4):1–220.\n\nZihang Dai, Zhilin Yang, Yiming Yang, William W\n\nCohen, Jaime Carbonell, Quoc V Le, and Ruslan\nSalakhutdinov.2019. Transformer-xl: Attentive lan-\nguage models beyond a ﬁxed-length context. arXiv\npreprint arXiv:1901.02860.\n\nFranck Dernoncourt, Ji Young Lee, Ozlem Uzuner,\n\nand Peter Szolovits. 2017. De-identiﬁcation of pa-\ntient notes with recurrent neural networks. Journal\nof the American Medical Informatics Association,\n24(3):596–606.\n\nMargaret Douglass, Gari D Clifford, Andrew Reis-\n\nner, George B Moody, and Roger G Mark. 2004.\nComputer-assisted de-identiﬁcation of free text in\nthe mimic ii database. In Computers in Cardiology,\n2004, pages 341–344. IEEE.\n\nCynthia Dwork. 2008. Differential privacy: A survey\n\nof results. In Proceedings of International Confer-\nence on Theory and Applications of Models of Com-\nputation.\n\nKhaled El Emam, Elizabeth Jonker, Luk Arbuckle,\n\nand Bradley Malin. 2011. A systematic review of\nre-identiﬁcation attacks on health data. PloS One,\n6(12):e28071.\n\nAris Gkoulalas-Divanis, Grigorios Loukides, and Ji-\n\nmeng Sun. 2014. Publishing data from electronic\nhealth records while preserving privacy: A survey\nof algorithms. Journal of biomedical informatics,\n50:4–19.\n\nGlenn T Gobbel, Jennifer Garvin, Ruth Reeves,\n\nRobert\nM\nCronin,\nJulia\nHeavirland,\nJenifer\nWilliams, Allison Weaver, Shrimalini Jayaramaraja,\nDario Giuse, Theodore Speroff, et al. 2014.\nAs-\nsisted annotation of medical free text using raptat.\nJournal of the American Medical Informatics\nAssociation, 21(5):833–841.\n\nDavid Hanauer, John Aberdeen, Samuel Bayer, Ben-\n\njamin Wellner, Cheryl Clark, Kai Zheng, and\nLynette Hirschman. 2013.\nBootstrapping a de-\nidentiﬁcation system for narrative patient records:\ncost-performance tradeoffs.\nInternational Journal\nof Medical Informatics, 82(9):821–831.\n\nJeremy Howard and Sebastian Ruder. 2018. Fine-tuned\n\nlanguage models for text classiﬁcation. In Proceed-\nings of ACL.\n\nPrateek Jain, Vivek Kulkarni, Abhradeep Thakurta, and\n\nOliver Williams. 2015. To drop or not to drop: Ro-\nbustness, consistency and differential privacy prop-\nerties of dropout. arXiv preprint arXiv:1503.02031.\n\nAlistair EW Johnson, Tom J Pollard, Lu Shen,\n\nH\nLehman Li-wei,\nMengling Feng,\nMoham-\nmad Ghassemi, Benjamin Moody, Peter Szolovits,\nLeo Anthony Celi, and Roger G Mark. 2016.\nMIMIC-III, a freely accessible critical care database.\nScientiﬁc data, 3:160035.\n\nR. Jozefowicz, O. Vinyals, M. Schuster, N. Shazeer,\n\nand Y. Wu. 2016. Exploring the limits of language\nmodeling. arXiv preprint arXiv:1602.02410.\n\nFelix K¨opcke, Benjamin Trinczek, Raphael W Ma-\n\njeed, Bj¨orn Schreiweis, Joachim Wenk, Thomas\nLeusch, Thomas Ganslandt, Christian Ohmann,\nBj¨orn Bergh, Rainer R¨ohrig, et al. 2013.\nEvalu-\nation of data completeness in the electronic health\nrecord for the purpose of patient recruitment into\nclinical trials: a retrospective analysis of element\npresence. BMC medical informatics and decision\nmaking, 13(1):37.\n\nJingshu Liu, Zachariah Zhang, and Narges Razavian.\n\n2018. Deep ehr: Chronic disease prediction using\nmedical notes. arXiv preprint arXiv:1808.04928.\n\nZengjian Liu, Buzhou Tang, Xiaolong Wang, and\n\nQingcai Chen. 2017.\nDe-identiﬁcation of clinical\nnotes via recurrent neural network and conditional\nrandom ﬁeld.\nJournal of Biomedical Informatics,\n75:S34–S42.\n\nYunhui Long, Vincent Bindschaedler, and Carl A\n\nGunter. 2017. Towards measuring membership pri-\nvacy. arXiv preprint arXiv:1712.09136.\n\nThang Luong, Michael Kayser, and Christopher D\n\nManning. 2015. Deep neural language models for\nmachine translation.\nIn Proceedings of the Nine-\nteenth Conference on Computational Natural Lan-\nguage Learning.\n\nH Brendan McMahan, Daniel Ramage, Kunal Talwar,\n\nand Li Zhang. 2018. Learning differentially private\nlanguage models without losing accuracy. In Pro-\nceedings of ICLR.\n\nS. Merity, C. Xiong, J. Bradbury, and R. Socher. 2017.\n\nPointer sentinel mixture models. In Proceedings of\nICLR.\n\nT. Mikolov, I. Sutskever, K. Chen, G. Corrado, and\n\nJ. Dean. 2013. Distributed representations of words\nand phrases and their compositionality. In Advances\nin Neural Information Processing Systems.\n\nFrances P Morrison, Li Li, Albert M Lai, and George\n\nHripcsak. 2009.\nRepurposing the clinical record:\ncan an existing natural language processing system\nde-identify clinical notes? Journal of the American\nMedical Informatics Association, 16(1):37–39.\n\nIshna Neamatullah, Margaret M Douglass, H Lehman\n\nLi-wei,\nAndrew\nReisner,\nMauricio\nVillarroel,\nWilliam J Long, Peter Szolovits, George B Moody,\nRoger G Mark, and Gari D Clifford. 2008. Auto-\nmated de-identiﬁcation of free-text medical records.\nBMC Medical Informatics and Decision Making,\n8(1):32.\n\nPaul Ohm. 2009.\nBroken promises of privacy: Re-\nsponding to the surprising failure of anonymization.\nUcla L. Rev., 57:1701.\n\nSerguei Pakhomov, Bridget McInnes, Terrence Adam,\n\nYing Liu, Ted Pedersen, and Genevieve B Melton.\n2010. Semantic similarity and relatedness between\nclinical terms: an experimental study. In Proceed-\nings of AMIA.\n\nNicolas Papernot, Shuang Song, Ilya Mironov, Ananth\n\nRaghunathan, Kunal Talwar, and ´Ulfar Erlingsson.\n2018. Scalable private learning with pate. In Pro-\nceedings of ICLR.\n\nAlec Radford, Jeffrey Wu, Rewon Child, David Luan,\n\nDario Amodei, and Ilya Sutskever. 2018. Language\nmodels are unsupervised multitask learners. Techni-\ncal report, Technical report, OpenAi.\n\nPreethi Raghavan, James L Chen, Eric Fosler-Lussier,\n\nand Albert M Lai. 2014. How essential are unstruc-\ntured clinical narratives and information fusion to\nclinical trial recruitment? In Proceedings of AMIA\nSummits on Translational Science, volume 2014.\nAmerican Medical Informatics Association.\n\nAlexey Romanov and\nChaitanya Shivade. 2018.\nLessons from natural language inference in the clin-\nical domain. In Proceedings of EMNLP.\n\nS Trent Rosenbloom, Joshua C Denny, Hua Xu, Nancy\n\nLorenzi, William W Stead, and Kevin B Johnson.\n2011. Data from clinical notes: a perspective on the\ntension between structure and ﬂexible documenta-\ntion. Journal of the American Medical Informatics\nAssociation, 18(2):181–186.\n\nReza Shokri, Marco Stronati, Congzheng Song, and\n\nVitaly Shmatikov. 2017. Membership inference at-\ntacks against machine learning models. In Proceed-\nings of IEEE Symposium on Security and Privacy.\n\nJasvinder A Singh, Aaron R Holmgren, and Siamak\n\nNoorbaloochi. 2004. Accuracy of veterans admin-\nistration databases for a diagnosis of rheumatoid\narthritis. Arthritis Care & Research, 51(6):952–957.\n\nNitish Srivastava, Geoffrey Hinton, Alex Krizhevsky,\n\nIlya Sutskever, and Ruslan Salakhutdinov. 2014.\nDropout: A simple way to prevent neural networks\nfrom overﬁtting. The Journal of Machine Learning\nResearch, 15(1):1929–1958.\n\nAmber Stubbs, Christopher Kotﬁla, and ¨Ozlem Uzuner.\n\n2015. Automated systems for the de-identiﬁcation\nof longitudinal clinical narratives:\nOverview of\n2014 i2b2/uthealth shared task track 1. Journal of\nBiomedical Informatics, 58:S11–S19.\n\nRaymond Hendy Susanto, Hai Leong Chieu, and Wei\n\nLu. 2016. Learning to capitalize with character-level\nrecurrent neural networks: An empirical study. In\nProceedings of EMNLP.\n\nIlya Sutskever, James Martens, and Geoffrey E Hin-\n\nton. 2011. Generating text with recurrent neural net-\nworks. In Proceedings of ICML.\n\nSamuel Yeom, Matt Fredrikson, and Somesh Jha. 2017.\n\nPrivacy risk in machine learning: Analyzing the con-\nnection to overﬁtting. In Procedings of the IEEE\nComputer Security Foundations Symposium.\n\nWojciech Zaremba, Ilya Sutskever, and Oriol Vinyals.\n\n2014.\nRecurrent neural network regularization.\narXiv preprint arXiv:1409.2329.",
+  "chunks": [
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        10.9,
+        236.7,
+        37.6,
+        590.0
+      ],
+      "text": "arXiv:1905.07002v2  [cs.CL]  21 May 2019"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        87.0,
+        70.8,
+        510.5,
+        85.1
+      ],
+      "text": "Towards Automatic Generation of Shareable Synthetic Clinical Notes"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        202.1,
+        86.7,
+        395.3,
+        101.1
+      ],
+      "text": "Using Neural Language Models"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        117.7,
+        126.2,
+        283.6,
+        152.3
+      ],
+      "text": "Oren Melamud\nIBM T. J. Watson Research Center"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        129.0,
+        154.2,
+        273.0,
+        178.4
+      ],
+      "text": "Yorktown Heights, NY, USA.\noren.melamud@ibm.com"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        322.8,
+        126.2,
+        473.9,
+        152.3
+      ],
+      "text": "Chaitanya Shivade\nIBM Almaden Research Center"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        330.2,
+        154.2,
+        467.0,
+        178.4
+      ],
+      "text": "San Jose, CA, USA.\ncshivade@us.ibm.com"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        158.9,
+        224.4,
+        203.3,
+        236.4
+      ],
+      "text": "Abstract"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        89.0,
+        250.4,
+        273.5,
+        499.5
+      ],
+      "text": "Large-scale clinical data is invaluable to driv-\ning many computational scientiﬁc advances\ntoday. However, understandable concerns re-\ngarding patient privacy hinder the open dis-\nsemination of such data and give rise to subop-\ntimal siloed research. De-identiﬁcation meth-\nods attempt to address these concerns but were\nshown to be susceptible to adversarial attacks.\nIn this work, we focus on the vast amounts\nof unstructured natural language data stored\nin clinical notes and propose to automatically\ngenerate synthetic clinical notes that are more\namenable to sharing using generative models\ntrained on real de-identiﬁed records. To eval-\nuate the merit of such notes, we measure both\ntheir privacy preservation properties as well as\nutility in training clinical NLP models. Ex-\nperiments using neural language models yield\nnotes whose utility is close to that of the real\nones in some clinical NLP tasks, yet leave am-\nple room for future improvements."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        514.2,
+        154.6,
+        526.2
+      ],
+      "text": "1\nIntroduction"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        537.5,
+        290.3,
+        765.7
+      ],
+      "text": "Clinical data and clinical notes speciﬁcally, are an\nimportant factor for the advancement of computa-\ntional methods in the medical domain. Sufﬁce to\nsay that the recently introduced MIMIC-III clin-\nical database alone (Johnson et al., 2016) already\nhas hundreds of cites on Google Scholar. How-\never, understandable privacy concerns yield strict\nrestrictions on clinical data dissemination, thus in-\nhibiting scientiﬁc progress. De-identiﬁcation tech-\nniques provide some relief (Dernoncourt et al.,\n2017), but are still far from providing the privacy\nguarantees required for unrestricted sharing (Ohm,\n2009; Shokri et al., 2017).\nIn this work, we investigate the possibility of\ndisseminating clinical notes data by computation-\nally generating synthetic notes that are safer to\nshare than real ones. To this end, we introduce"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        225.3,
+        525.5,
+        385.3
+      ],
+      "text": "a clinical notes generation task, where synthetic\nnotes are to be generated based on a set of real\nde-identiﬁed clinical discharge summary notes,\nhenceforth referred to as MedText, which we ex-\ntracted from MIMIC-III. The evaluation includes\na new measure of the privacy preservation proper-\nties of the synthetic notes, as well as their utility on\nthree clinical NLP tasks. We use neural language\nmodels to perform this task and discuss the po-\ntential and challenges of this approach. Resources\nassociated with this paper are available for down-\nload. 1"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        397.4,
+        387.9,
+        409.4
+      ],
+      "text": "2\nBackground"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        419.4,
+        396.9,
+        430.3
+      ],
+      "text": "2.1\nClinical Notes"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        437.1,
+        525.6,
+        719.0
+      ],
+      "text": "Electronic health records contain a wealth of in-\nformation about patients in the form of both struc-\ntured data and unstructured text.\nWhile struc-\ntured data is critical for purposes like billing and\nadministration, unstructured clinical notes con-\ntain important information entered by doctors,\nnurses, and other staff associated with patient\ncare, which is not captured elsewhere.\nTo this\nend, researchers have found that although struc-\ntured data is easily accessible, clinical notes re-\nmain indispensable for understanding a patient\nrecord (Birman-Deych et al., 2005; Singh et al.,\n2004). Rosenbloom et al. (2011) argued that clini-\ncal notes are considered to be more useful for iden-\ntifying patients with speciﬁc disorders. A study\nby K¨opcke et al.\n(2013) found that 65% of the\ndata required to determine eligibility of a patient\ninto clinical trials was not found in structured data\nand required examination of clinical notes. Simi-\nlar ﬁndings were also reported by Raghavan et al.\n(2014)."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        721.8,
+        525.7,
+        746.1
+      ],
+      "text": "Due to their importance, it is no wonder that\nclinical notes are used extensively in medical NLP"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        319.9,
+        754.7,
+        493.3,
+        765.2
+      ],
+      "text": "1https://github.com/orenmel/synth-clinical-notes"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        65.6,
+        290.3,
+        144.2
+      ],
+      "text": "research. Unfortunately, however, due to privacy\nconcerns, explained further below, it is very com-\nmon that the data is exclusively available only to\nresearchers collaborating with or working for a\nparticular healthcare provider (Choi et al., 2016;\nAfzal et al., 2018; Liu et al., 2018)."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        155.8,
+        173.9,
+        166.8
+      ],
+      "text": "2.2\nDe-identiﬁcation"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        173.6,
+        290.3,
+        496.2
+      ],
+      "text": "Clinical notes contain sensitive personal informa-\ntion required for medical investigations, which\nis protected by law.\nFor example,\nin the\nUnited States, the Health Insurance Portabil-\nity and Accountability Act (HIPAA)2 deﬁnes\n18 types of protected health information (PHI)\nthat needs to be removed to de-identify clini-\ncal notes (e.g.\nname, age, dates and contact\ndetails).\nBoth manual and automated methods\nfor de-identiﬁcation have been investigated with\nvarying degrees of success.\nNeamatullah et al.\n(2008) reported a recall ranging from 0.63 to 0.94\nbetween 14 clinicians for manually identifying\nPHI in 130 clinical notes. Since human annota-\ntions for clinical data are costly (Douglass et al.,\n2004), researchers have investigated automated\nand semi-automated methods for de-identiﬁcation\n(Gobbel et al., 2014; Hanauer et al., 2013).\nAu-\ntomated methods range from rule-based systems\n(Morrison et al., 2009) to statistical methods such\nas support vector machines and conditional ran-\ndom ﬁelds (Stubbs et al., 2015), with more recent\nuse of recurrent neural networks (Liu et al., 2017;\nDernoncourt et al., 2017)."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        498.9,
+        290.3,
+        631.8
+      ],
+      "text": "Unfortunately, despite strong results reported\nfor clinical data de-identiﬁcation methods, it is\nusually hard to determine to what extent they\nare resistant to re-identiﬁcation attacks on health-\ncare data (Ohm, 2009; El Emam et al., 2011;\nGkoulalas-Divanis et al., 2014).\nTherefore, in\npractice, de-identiﬁed patient data is almost never\nshared freely, and complementary privacy protec-\ntion techniques, such as the one described in the\nfollowing section, are being actively investigated."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        643.4,
+        188.3,
+        654.3
+      ],
+      "text": "2.3\nDifferential Privacy"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        661.2,
+        290.2,
+        726.2
+      ],
+      "text": "Collections of private individual data records are\ncommonly used to compute aggregated statisti-\ncal information or train statistical models that are\nmade publicly available.\nPossible use cases in-\nclude collections of search queries used to pro-"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        734.8,
+        290.3,
+        765.2
+      ],
+      "text": "2Ofﬁce for Civil Rights H. Standards for privacy of indi-\nvidually identiﬁable health information. Final rule. Federal\nRegister. 2002;67:53181."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        65.6,
+        525.5,
+        266.1
+      ],
+      "text": "vide intelligent auto-completion suggestions to\nusers of search engines and medical records used\nto train computer-based clinical expert systems.\nWhile this is not always transparent, providing ac-\ncess to such aggregated information may be suf-\nﬁcient for attackers to infer some individual pri-\nvate data. One example to such well crafted at-\ntacks are the membership inference attacks pro-\nposed by Shokri et al. (2017). In these attacks, the\nadversary has only black-box access to a machine\nlearning model that was trained on a collection of\nrecords, and tries to learn how to infer whether any\ngiven data record was part of that model’s train set\nor not. Susceptibility to such attacks is an indica-\ntion that private information may be compromised."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        268.8,
+        525.5,
+        388.2
+      ],
+      "text": "Differential privacy (DP) is, broadly speaking,\na guarantee that the personal information of each\nindividual record within a collection is reasonably\nprotected even when the aggregated statistical in-\nformation is exposed. A model that is trained on\nsome record collection as its input and makes its\noutputs publicly available, will provide stronger\nDP guarantees the less those outputs depend on the\npresence of any individual record in the collection."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        390.7,
+        525.4,
+        442.4
+      ],
+      "text": "More formally, a randomized function K pro-\nvides ǫ−differential privacy if for all collections\nC1 and C2 differing by at most one element, and\nall S ⊆Range(K):"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        318.7,
+        464.9,
+        514.2,
+        477.1
+      ],
+      "text": "log p(K(C1) ∈S) −log p(K(C2) ∈S) ≤ǫ"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        485.1,
+        525.5,
+        564.0
+      ],
+      "text": "A mechanism K satisfying this deﬁnition ad-\ndresses concerns of personal information leakage\nfrom any individual record since the inclusion of\nthat record will not result in any publicly exposed\noutputs becoming signiﬁcantly more or less likely\n(Dwork, 2008)."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        566.6,
+        525.6,
+        713.0
+      ],
+      "text": "Differential privacy is an active research ﬁeld,\nwith various techniques proposed to provide DP\nguarantees to various machine learning models\n(Abadi et al., 2016; Papernot et al., 2018). How-\never, while DP shares some motivation with tra-\nditional machine learning techniques, such as the\nneed to avoid overﬁtting, it is unfortunately not\nalways easy to achieve good differential privacy\nguarantees, and they typically come at the cost\nof some accuracy degradation and computational\ncomplexity."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        723.6,
+        424.9,
+        734.5
+      ],
+      "text": "2.4\nLanguage Modeling"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        741.2,
+        525.4,
+        765.7
+      ],
+      "text": "Language models (LMs) learn to estimate the\nprobability of a next word given a context of pre-"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        63.0,
+        290.3,
+        347.5
+      ],
+      "text": "ceding words, i.e.\nˆP(wi|w1..i−1), where wi is\nthe word in position i in the text.\nThey were\nfound useful in many NLP tasks, including text\nclassiﬁcation (Howard and Ruder, 2018), machine\ntranslation (Luong et al., 2015) and speech recog-\nnition (Chen et al., 2015).\nThey are also com-\nmonly used for generating text (Sutskever et al.,\n2011; Radford et al., 2018) as we do in this pa-\nper. To generate text, a trained model is typically\nused to estimate the conditional probability dis-\ntribution of the next word ˆP(wi|w1..i−1). Next,\nit samples a word for position i from this distri-\nbution and then goes on to sample the next one\nbased on ˆP(wi+1|w1..i) and so on. The predomi-\nnant model design used to implement LMs today\nused to be Recurrent Neural Networks (RNNs)\ndue to their ability to capture long distance\ncontexts (Jozefowicz et al., 2016), but recently,\nthe attention-based Transformer architecture sur-\npassed state of the art results (Radford et al., 2018;\nDai et al., 2019)."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        363.4,
+        272.2,
+        375.3
+      ],
+      "text": "3\nThe Clinical Notes Generation Task"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        387.9,
+        290.2,
+        520.9
+      ],
+      "text": "To establish the merit of synthetic clinical notes\ngenerated by statistical models, we propose a task\nsetup that consists of: (1) real de-identiﬁed clin-\nical notes datasets used to train models, which in\nturn generate synthetic notes; (2) privacy measures\nused to estimate the privacy preservation proper-\nties of the synthetic notes; and (3) utility bench-\nmarks used to estimate the usefulness of the notes.\nTo be considered successful, a model needs to\nscore well both on privacy and utility measures."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        536.1,
+        228.9,
+        547.0
+      ],
+      "text": "3.1\nOriginal Clinical Notes Data"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        555.9,
+        290.2,
+        688.8
+      ],
+      "text": "As our source for composing the real clini-\ncal notes datasets, we used MIMIC-III (v1.4)\n(Johnson et al.,\n2016),\na\nlarge\nde-identiﬁed\ndatabase that comprises nearly 60,000 hospital\nadmissions for 38,645 adult patients. Despite hav-\ning been stripped of patient identiﬁers, MIMIC’s\nrecords are available to researchers only under\nstrict terms of use that include careful access\nrestrictions and completion of sensitive data\ntraining3 due to privacy concerns."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        692.6,
+        290.2,
+        744.2
+      ],
+      "text": "Training language models is expensive in terms\nof time and compute power.\nIt is a common\npractice (Merity et al., 2017) to evaluate language\nmodels that were trained on both a small dataset"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        84.6,
+        754.7,
+        266.0,
+        765.2
+      ],
+      "text": "3https://mimic.physionet.org/gettingstarted/access/"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        65.6,
+        525.6,
+        266.1
+      ],
+      "text": "that is relatively quick to train on and a medium-\nsized dataset which can demonstrate some beneﬁts\nof scale while still being manageable. Therefore,\nwithin MIMIC-III, following Dernoncourt et al.\n(2017), we focused on the discharge summary\nnotes due to their content diversity and richness\nin natural language text.\nFurther, we followed\nthe recently introduced WikiText-2 and WikiText-\n103 datasets (Merity et al., 2017) to determine\nplausible size, splits and most of the preprocess-\ning of our datasets. These datasets include text\nfrom Wikipedia articles and are commonly used to\nbenchmark general-domain language models. We\nname our respective benchmarks, MedText-2 and\nMedText-103."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        269.3,
+        525.5,
+        483.3
+      ],
+      "text": "To create the MedText datasets, we ﬁrst ex-\ntracted the full text of the discharge summary\nnotes from the NOTEEVENTS table available\nfrom MIMIC-III. Since the text includes arbi-\ntrary line splits, presumably for formatting rea-\nsons, we merged lines and then performed sen-\ntence splitting and word tokenization using the\nNLP toolkit spaCy.4\nWe then randomly sam-\npled notes to create the MedText-2 and MedText-\n103 datasets.\nEach of these datasets was split\ninto train/validation/test subsets, with MedText-\n2 and MedText-103 comprising approximately 2\nand 103 million word train sets, respectively, and\nsharing the same ∼200K-word validation and test\nsets. Finally, we replaced all words with an occur-\nrence count below 3 with an unk token.5"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        486.5,
+        525.6,
+        714.1
+      ],
+      "text": "Table 1 describes more precise statistics of the\nresulting MedText datasets, compared to the re-\nspective WikiText datasets. As seen, compared to\nthe WikiText datasets, which are nearly identical\nin terms of word counts, we note that MedText ex-\nhibits notably smaller vocabulary sizes (24K vs.\n33K and 135K vs. 267K) and Out-Of-Vocabulary\n(OOV) rates (1.5% vs. 2.6% and 0.3% vs. 0.4%).\nWe hypothesize that this is one of the artifacts of\nMedText being more domain-speciﬁc than Wiki-\nText, as it is restricted only to discharge summary\nnotes.\nTo this end, we note that to the best of\nour knowledge, unlike the general domain where\npopular language modeling benchmarks, such as\nWikiText, PTB and WMT (Chelba et al., 2014),\nare commonly used, there are no equivalent bench-\nmarks speciﬁc to the medical domain. Therefore,"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        724.0,
+        525.5,
+        765.2
+      ],
+      "text": "4https://spacy.io/\n5This was done separately for MedText-2 and MedText-\n103 resulting in a discrepancy between their validation/test\nsets in terms of the unk tokens."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        92.5,
+        64.5,
+        283.0,
+        213.3
+      ],
+      "text": "Train\nValid\nTest\nMedText-2\nNotes\n1280\n128\n128\nWords\n2,259,966\n228,795\n219,650\nVocab\n24,052\nOOV\n1.5%\nMedText-103\nNotes\n59,396\n128\n128\nWords\n103,590,422\n228,795\n219,650\nVocab\n135,220\nOOV\n0.3%"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        307.9,
+        64.5,
+        504.8,
+        213.3
+      ],
+      "text": "Train\nValid\nTest\nWikiText-2\nArticles\n600\n60\n60\nWords\n2,088,628\n217,646\n245,569\nVocab\n33,278\nOOV\n2.6%\nWikiText-103\nArticles\n28,475\n60\n60\nWords\n103,227,021\n217,646\n245,569\nVocab\n267,735\nOOV\n0.4%"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        202.9,
+        225.9,
+        394.6,
+        235.9
+      ],
+      "text": "Table 1: MedText vs. WikiText dataset statistics"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        259.7,
+        290.2,
+        284.1
+      ],
+      "text": "as an independent contribution, we propose Med-\nText as such a benchmark."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        299.2,
+        196.0,
+        310.2
+      ],
+      "text": "3.2\nThe Privacy Measure"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        319.1,
+        290.2,
+        492.6
+      ],
+      "text": "As mentioned in the Background section, while\ntraditional de-identiﬁcation methods,\nsuch as\ndeleting patient identiﬁers, are an essential pre-\nrequisite to protecting the privacy of patient data,\nit is well understood that they are not sufﬁcient\nto provide strong privacy guarantees. To address\nthis, we propose to share the output of statisti-\ncal models that were trained to generate synthetic\ndata based on real de-identiﬁed data. While this\nintuitively seems to increase privacy preservation\ncompared to sharing the real data, it is still not\nnecessarily sufﬁcient, due to potential private in-\nformation leakage from such models."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        496.3,
+        290.2,
+        602.0
+      ],
+      "text": "To quantify the risk involved in sharing syn-\nthetic clinical notes, we propose to use an empir-\nical measure of private information leakage. This\nmeasure is meant to serve two purposes: (1) help\ndrive the development of synthetic clinical notes\ngeneration methods that preserve privacy; and (2)\ninform decision makers regarding the concrete risk\nin releasing any given synthetic notes dataset."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        605.7,
+        290.3,
+        765.7
+      ],
+      "text": "Our proposed measure is adopted from the ﬁeld\nof Differential Privacy (DP). Recently, Long et al.\n(2017) proposed an empirical differential pri-\nvacy measure, called Differential Training Pri-\nvacy (DTP). Unlike DP guarantees, which are ana-\nlyzed theoretically and apply only to speciﬁc mod-\nels designed for DP, DTP is a local property of any\nmodel and a concrete training set. It can be derived\nby means of empirical computation to any trained\nmodel regardless of whether it has theoretical DP\nguarantees, and provides an estimate of the pri-\nvacy risks associated with sharing the outputs of"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        259.7,
+        525.6,
+        324.8
+      ],
+      "text": "that concrete trained model. In this work, we base\nour privacy measures on the Pointwise Differen-\ntial Training Privacy (PDTP) metric (Long et al.,\n2017), a more computationally efﬁcient variant of\nDTP:"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        379.3,
+        333.5,
+        525.5,
+        346.4
+      ],
+      "text": "(1)\nPDTPM,T (t) ="
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        319.7,
+        354.2,
+        339.9,
+        365.1
+      ],
+      "text": "max"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        321.4,
+        353.9,
+        513.0,
+        372.3
+      ],
+      "text": "y∈Y (|log pM(T)(y|t) −log pM(T\\{t})(y|t)|)"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        379.2,
+        525.5,
+        498.7
+      ],
+      "text": "for a classiﬁcation model M, a set of possible class\npredictions Y , a training set T, and a speciﬁc tar-\nget record t ∈T for which the risk is measured.\nThe rationale for this measure is that to protect the\nprivacy of t, the difference in the predictions of\na model trained with t versus those of a model\ntrained without it, should be as small as possi-\nble, and in particular when it comes to predictions\nmade when the model is applied to t itself."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        501.5,
+        525.5,
+        554.7
+      ],
+      "text": "For the purpose of measuring privacy, we make\nthe assumption that the model M that was trained\nto generate the synthetic notes can be queried for\nthe conditional probability log pM(T)(wc"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        480.1,
+        540.3,
+        499.3,
+        555.4
+      ],
+      "text": "i|wc"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        542.1,
+        525.4,
+        566.6
+      ],
+      "text": "1..i−1),\nwhere wc"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        555.5,
+        525.4,
+        620.8
+      ],
+      "text": "i is the i-th word in clinical note c, which\nis our equivalent of a record. 6 We note that unlike\nin the setting of Long et al. (2017), where a single\nclass y is predicted for each record, for synthetic\nnotes, we can view every generated word wc"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        609.9,
+        525.6,
+        647.8
+      ],
+      "text": "i in\nc as a separate class prediction. Accordingly, we\npropose Sequential-PDTP:"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        512.9,
+        687.6,
+        525.5,
+        698.5
+      ],
+      "text": "(2)"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        338.9,
+        664.6,
+        422.9,
+        677.5
+      ],
+      "text": "S −PDTPM,T (c)"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        346.9,
+        683.8,
+        381.5,
+        694.7
+      ],
+      "text": "= max"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        358.4,
+        693.7,
+        384.4,
+        701.8
+      ],
+      "text": "i∈1..|c|"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        386.0,
+        679.6,
+        392.6,
+        699.2
+      ],
+      "text": "\u0010"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        392.5,
+        681.4,
+        455.1,
+        696.3
+      ],
+      "text": "|log pM(T)(wc"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        451.2,
+        681.4,
+        470.3,
+        696.6
+      ],
+      "text": "i|wc"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        466.4,
+        683.8,
+        494.0,
+        696.8
+      ],
+      "text": "1..i−1)"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        346.9,
+        708.1,
+        433.6,
+        722.9
+      ],
+      "text": "−log pM(T\\{c})(wc"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        429.7,
+        708.1,
+        449.0,
+        724.1
+      ],
+      "text": "i |wc"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        445.1,
+        706.2,
+        482.0,
+        725.8
+      ],
+      "text": "1..i−1)|\n\u0011"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        734.2,
+        525.5,
+        765.2
+      ],
+      "text": "6If M does not disclose this information, then the syn-\nthetic notes it generates could be used to train a language\nmodel M ′ that does, as an approximation for M."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 5,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        65.6,
+        290.2,
+        184.9
+      ],
+      "text": "S-PDTP estimates the privacy risk for clinical\nnote c as the largest absolute difference between\nthe conditional probability predictions made by\nM(T) and M(T \\ {c}) for any of the words in\nc given their preceding context. Finally, our pro-\nposed privacy score for notes generated by a model\nM trained on a benchmark dataset T, is the ex-\npected privacy risk, where a higher score indicates\na higher expected risk:"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 5,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        191.2,
+        290.2,
+        206.5
+      ],
+      "text": "(3)\nS −PDTPM,T = Ec∈T [S −PDTPM,T (c)]"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 5,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        216.5,
+        290.2,
+        335.8
+      ],
+      "text": "Intuitively, a high S-PDTP score means that\nthe output of the trained model is sensitive to the\npresence of at least some individual records in\nits training set and therefore revealing that output\nmay compromise the private information in those\nrecords. In practice, since it is challenging com-\nputationally to train and test |T| different models,\nwe use an estimated measure based on a sample of\n30 notes from T."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 5,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        346.9,
+        187.8,
+        357.8
+      ],
+      "text": "3.3\nUtility Benchmarks"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 5,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        364.4,
+        290.2,
+        402.4
+      ],
+      "text": "We compare the utility of synthetic vs. real clini-\ncal notes by using them as training data in the fol-\nlowing clinical NLP tasks."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 5,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        412.0,
+        290.6,
+        574.6
+      ],
+      "text": "3.3.1\nEstimating lexical-semantic association\nAs a measure of the quality of the lexical se-\nmantic information contained in clinical notes,\nwe use them to train word2vec embeddings\n(Mikolov et al., 2013) with 300 dimensions and a\n5-word window 7. Then, we evaluate these embed-\ndings on the medical word similarity and related-\nness benchmarks, UMNSRS-Sim and UMNSRS-\nRel (Pakhomov et al., 2010; Chiu et al., 2016).\nThese benchmarks comprise 566 and 587 word\npairs, which were manually rated with a similar-\nity and relatedness score, respectively."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 5,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        577.2,
+        290.2,
+        737.1
+      ],
+      "text": "To evaluate each set of embeddings, we com-\npute its estimated similarity scores, as the cosine\nsimilarity between the embeddings of the words in\neach pair. Since our MedText datasets are domain-\nspeciﬁc and not huge in size, our learned embed-\ndings do not include a representation for many of\nthe words in the UMNSRS benchmarks. There-\nfore, to ensure that we do have an embedding for\nevery word included in the evaluation, we limit our\ndatasets only to pairs, whose words occur at least\n20 times and 30 times in MedText-2 and MedText-\n103, respectively.\nAccordingly, the number of"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 5,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        744.7,
+        290.3,
+        765.2
+      ],
+      "text": "7We used default word2vec hyperparameters, except for\n10 negative samples and 10 iterations."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 5,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        65.6,
+        526.0,
+        157.8
+      ],
+      "text": "pairs we use from UMNSRS-Sim/UMNSRS-Rel\nis 110/105 in the case of MedText-2 and 317/305\nin the case of MedText-103. Finally, each set of\nembeddings is evaluated according to the Spear-\nman’s correlation between the pair rankings in-\nduced by the embeddings’ scores and the one in-\nduced by the manual scores."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 5,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        167.6,
+        525.6,
+        289.5
+      ],
+      "text": "3.3.2\nNatural language inference (NLI)\nWe also probe the utility of clinical notes for per-\nforming natural language inference (NLI) – a sen-\ntence level task. The task is to determine whether\na given hypothesis sentence can be inferred from\na given premise sentence. NLI, also known as rec-\nognizing textual entailment (RTE) (Dagan et al.,\n2013), is a fundamental popular task in natural lan-\nguage understanding."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 5,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        292.2,
+        525.6,
+        546.9
+      ],
+      "text": "For our NLI task,\nwe use MedNLI, the\nﬁrst clinical domain NLI dataset, recently re-\nleased by Romanov and Shivade (2018).\nThe\ndataset includes sentence pairs with annotated re-\nlations that are used to train evaluated models.\nRomanov and Shivade (2018) report the perfor-\nmance of various neural network based models\nthat typically beneﬁt from the use of unsuper-\nvised pre-trained word embeddings. In our bench-\nmark, we report the accuracy of their simple BOW\nmodel (also called sum of words) with input em-\nbeddings that are pre-trained on MedText clinical\nnotes and kept ﬁxed during the training with the\nMedNLI sentence pairs. The pre-trained embed-\ndings used were the same as the ones used for\nthe lexical-semantic association task.\nIn all of\nour experiments, we used the implementation of\nRomanov and Shivade (2018) with its default hy-\nperparameters .8"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 5,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        556.9,
+        525.6,
+        719.4
+      ],
+      "text": "3.3.3\nRecovering letter case information\nOur third task goes beyond word embeddings, us-\ning clinical notes to train a recurrent neural net-\nwork model end-to-end.\nMore speciﬁcally, we\nuse MedText to train letter casing (capitalization)\nmodels. These models are trained based on par-\nallel data comprising the original text and an all-\nlowered-case version of the same. Then, they are\nevaluated on their ability to recover casing for a\ntest lower-cased text. The appealing aspect of this\ntask is that the parallel data can be easily obtained\nin various languages and domains."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 5,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        722.0,
+        525.5,
+        746.5
+      ],
+      "text": "We note that sequential information is impor-\ntant in predicting the correct casing of words. The"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 5,
+      "section": "Abstract",
+      "bbox": [
+        319.9,
+        754.7,
+        442.5,
+        765.2
+      ],
+      "text": "8https://github.com/jgc128/mednli"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        65.6,
+        290.2,
+        239.1
+      ],
+      "text": "simplest example in English is that the ﬁrst word\nof every sentence usually begins with a capital\nletter, but title casing, and ambiguous words in\ncontext (such as the word ‘bid’ that may need to\nbe mapped to ‘BID’, i.e.\n’twice-a-day’, in the\nclinical prescription context), are other examples.\nArguably, for this reason, the state-of-the-art for\nthis task is achieved by sequential character-RNN\nmodels (Susanto et al., 2016). We use their imple-\nmentation9 with default hyperparameters for our\nevaluation.10\nWe use the dev and test splits of\nMedText to perform the letter case recovery task\nand report F1."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        250.6,
+        154.8,
+        262.5
+      ],
+      "text": "4\nExperiments"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        271.9,
+        290.2,
+        377.6
+      ],
+      "text": "In this section, we describe results obtained when\nusing various models to perform the clinical notes\ngeneration task. We ﬁrst generate synthetic clin-\nical notes and evaluate their privacy properties.\nThen, assuming these notes were shared with an-\nother party we evaluate their utility to that party in\ntraining various clinical NLP models compared to\nthat of the real notes."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        388.4,
+        189.4,
+        399.3
+      ],
+      "text": "4.1\nCompared Methods"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        406.1,
+        290.1,
+        444.1
+      ],
+      "text": "To generate the synthetic notes, we used primarily\na standard LSTM language model implementation\nby PyTorch. 11"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        446.7,
+        290.2,
+        498.3
+      ],
+      "text": "We trained 2-layer LSTM models with 650\nhidden-units on the train sets of MedText-2 and\nMedText-103, and tuned their hyperparameters\nbased on validation perplexity.12"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        500.9,
+        290.2,
+        538.9
+      ],
+      "text": "To get more perspective on the efﬁcacy of the\nLSTM models, we also trained a simple unigram\nbaseline with Lidstone smoothing:"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        76.7,
+        546.3,
+        290.2,
+        566.6
+      ],
+      "text": "(4)\npunigram(wi = u|w1..i−1) = count(u) + 1"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        217.2,
+        561.2,
+        255.3,
+        572.3
+      ],
+      "text": "N + |V |"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        580.2,
+        290.2,
+        605.0
+      ],
+      "text": "where wi is the word at position i, N is the to-\ntal number of words in the train set and |V | is the"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        612.5,
+        290.2,
+        643.9
+      ],
+      "text": "9https://github.com/raymondhs/char-rnn-truecase\n10We use their ‘small’ model conﬁguration for MedText-2\nand ‘large’ model conﬁguration for MedText-103."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        644.2,
+        290.3,
+        765.2
+      ],
+      "text": "11https://github.com/pytorch/examples/\n12For MedText-2, we trained for 20 epochs, beginning with\na learning rate of 20 and reducing it by a factor of 4 after ev-\nery epoch for which the validation loss did not go down com-\npared to the previous epoch. For the much larger MedText-\n103, we trained for 2 epochs, beginning with a learning rate\nof 20 and reducing it by a factor of 1.2 every\n1\n40 epoch if the\nvalidation loss did not go down by at least 0.1, but never go-\ning below a minimum learning rate of 0.1. In all runs, we\nused SGD with gradients clipped to 0.25, back-propagation-\nthrough-time 35 steps, a batch size of 20 and tied input and\noutput embeddings."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        65.6,
+        525.6,
+        184.9
+      ],
+      "text": "size of the vocabulary. As can clearly be seen, this\nis a very naive model that generates words based\non a smoothed unigram distribution, disregarding\nthe context of the word in the note. Therefore, we\nexpect that the utility of notes generated with this\nmodel would be low. However, on the other hand,\nsince it captures much less information about the\ntrain data, we also expect it to have better privacy\nproperties."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        189.2,
+        525.6,
+        349.2
+      ],
+      "text": "We then used the trained models to gener-\nate synthetic MedText-2-M and MedText-103-M\ndatasets with identical word counts to the respec-\ntive real note train datasets, and where M denotes\na generative model being used. To that end, we\niteratively sampled a next token from the model’s\npredicted conditional probability distribution and\nthen fed that token as input back to the model. We\nused an empty line as an indication of an end-of-\nnote, hence a collection of clinical notes is rep-\nresented by the model as a seamless sequence of\ntext."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        353.5,
+        525.6,
+        567.7
+      ],
+      "text": "We study the effect that using dropout regu-\nlarization (Srivastava et al., 2014; Zaremba et al.,\n2014) has on privacy and the tradeoffs between\nprivacy and utility. Dropout, like other regular-\nization methods, is a machine learning technique\ncommonly applied to neural networks to mini-\nmize their prediction error on unseen data by re-\nducing overﬁtting to the train data.\nIt has also\nbeen shown that avoiding overﬁtting using regu-\nlarization is helpful for protecting the privacy of\nthe train data (Jain et al., 2015; Shokri et al., 2017;\nYeom et al., 2017). Accordingly, we hypothesize\nthat the higher dropout values used in our models\nare, the better the privacy scores would be. Utility,\nhowever, typically has a dropout optimum value\nover which it begins to degrade."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        584.8,
+        447.8,
+        595.8
+      ],
+      "text": "4.2\nQualitative Observations"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        605.7,
+        525.5,
+        765.7
+      ],
+      "text": "We sought feedback from a clinician on the qual-\nity of the generated synthetic discharge summary\nnotes.\nA generated note comprises various rel-\nevant sections indicated by plain text headers.\nThese sections are mostly in the right order with\na typical order being: admission details, medi-\ncal history, treatment, medications and ﬁnally, dis-\ncharge details. The text of a section is mostly top-\nically coherent with its header. For instance, the\ntext generated for a medical history section often\nincludes sentences mentioning medical problems.\nOn the other hand, although local linguistic ex-"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        65.6,
+        290.3,
+        320.4
+      ],
+      "text": "pressions and phrases typically make sense, con-\ntinuity across consecutive sentences makes little\nclinical sense and many sentences are unclear due\nto incorrect grammar. A simple but obvious error\nis change of gender for the same patient (e.g. the\npronoun ‘he’ switches to ‘she’). A different ex-\nample for short range language modeling problem\nis generation of incorrect terms like “Hepatitis C\ndeﬁciency”. The quality of a generated section is\ntypically much better when it is backed by a struc-\nture as in a numbered list of medications. Yet, a\nnotable problem here is that lists frequently have\nrepeated entries (e.g. same symptom listed more\nthan once). In conclusion, to a human eye, the syn-\nthetic notes are clearly distinct from real ones, yet\nfrom a topical and shallow linguistic perspective\nthey do carry genuine properties of the original\ncontent. A sample snippet of a synthetic clinical\nnote is shown in Figure 1."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        81.4,
+        339.1,
+        281.0,
+        609.2
+      ],
+      "text": "Admission Date :\n⟨deidentiﬁed ⟩\nDischarge Date :\n⟨deidentiﬁed ⟩\nDate of Birth :\n⟨deidentiﬁed ⟩Sex :\nF\nService :\nSURGERY\nAllergies :\nPatient recorded as having No Known Allergies to\nDrugs\nAttending :\n⟨deidentiﬁed ⟩\nChief Complaint :\nDyspnea\nMajor Surgical or Invasive Procedure :\nMitral Valve Repair\nHistory of Present Illness :\nMs. ⟨deidentiﬁed ⟩is a 53 year old female who presents\nafter a large bleed rhythmically lag to 2 dose but the pa-\ntient was brought to the Emergency Department where\nhe underwent craniotomy with stenting of right foot un-\nder the LUL COPD and transferred to the OSH on ⟨\ndeidentiﬁed ⟩.\nThe patient will need a pigtail catheter to keep the sitter\ndaily ."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        77.0,
+        633.1,
+        285.3,
+        643.1
+      ],
+      "text": "Figure 1: Sample snippet of a synthetic clinical note"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        669.0,
+        130.5,
+        679.9
+      ],
+      "text": "4.3\nResults"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        687.0,
+        290.4,
+        765.7
+      ],
+      "text": "Table 2 shows the results we get when training\nthe LSTM language models with varied dropout\nvalues. Starting with perplexity, we see that gen-\nerally we achieve notably lower (better) perplexi-\nties on MedText, compared to results with LSTM\non WikiText, which are around 100 for WikiText-"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        63.9,
+        525.6,
+        417.1
+      ],
+      "text": "2 and 50 for WikiText-103.\n13\nWe hypothe-\nsize that this may be due to the highly domain-\nspeciﬁc medical jargon and repeating note tem-\nplate characteristics that are presumably more pre-\ndictable.\nWe also see that best perplexity re-\nsults are achieved with dropout values around 0.3-\n0.5 for MedText-2, and 0.0 (i.e. no dropout) for\nMedText-103, compared to the 0.5 dropout rate\ncommonly used in general-domain language mod-\neling (Zaremba et al., 2014; Merity et al., 2017).\nThese differences reinforce our proposal of Med-\nText as an interesting language modeling bench-\nmark for medical texts. As a reference for future\nwork, we report the perplexity results obtained on\nthe test set data: 12.88 on MedText-2 (dropout =\n0.5), and 8.15 on MedText-103 (dropout = 0.0).\nNext, looking at privacy, we see that as pre-\ndicted, more aggressive (higher) dropout values\nyield better (lower) privacy risk scores. We also\nsee that privacy scores on the large MedText-103\nare generally much better than the ones on the\nsmaller MedText-2. This observation is intuitive\nin the sense that we would expect to generally get\nbetter privacy protection when any single personal\nclinical note is mixed with more, rather than fewer,\nnotes in the train-set of a note-generating model."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        421.7,
+        525.5,
+        595.2
+      ],
+      "text": "For the utility evaluation, we chose three repre-\nsentative dropout values, for which we generated\nthe MedText-M notes and compared them against\nthe real MedText on the utility benchmarks. Look-\ning at the results, we ﬁrst see, as expected, that\nthe performance with MedText-M is consistently\nlower than that with MedText, i.e. real notes are\nmore useful than synthetic ones.\nHowever, the\nsynthetic notes do seem to bear useful informa-\ntion. In particular, in the case of the letter case\nrecovery task, they perform almost as well as the\nreal ones. We also see as suspected, that privacy\nusually comes at some expense of utility."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        599.7,
+        525.6,
+        719.0
+      ],
+      "text": "Finally, looking at the unigram baseline, we see\nas expected that perplexity and utility is by far\nworse than that achieved by the LSTM models,\nwhile privacy is much better. This is yet further\nevidence of the utility vs. privacy trade-off. We\nhope that future work could reveal better models\nthat can get closer to the privacy protection values\nexhibited by the unigram model, while achieving\nutility, which is closer to that of the real notes."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        734.8,
+        503.0,
+        765.2
+      ],
+      "text": "13https://www.salesforce.com/products/einstein/ai-\nresearch/the-wikitext-dependency-language-modeling-\ndataset/"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        85.1,
+        64.5,
+        512.3,
+        116.8
+      ],
+      "text": "note generation model\ndropout\nperplexity\nprivacy\nsimilarity\nrelatedness\nnli\ncase\nMedText-2\nBaseline: Real notes\n.459\n.381\n.713\n.910\nMedText-2-M"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        119.4,
+        147.0,
+        148.7,
+        157.9
+      ],
+      "text": "LSTM"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        115.7,
+        119.9,
+        512.3,
+        198.9
+      ],
+      "text": "0.0\n15.8\n11.7\n.227\n.125\n.678\n.895\n0.3\n12.5\n11.8\n0.5\n12.5\n9.6\n.259\n.160\n.692\n.895\n0.7\n15.4\n7.5\n0.8\n20.3\n6.6\n.146\n.016\n.699\n.883\nunigram\nN/A\n702.4\n0.9\n.027\n-.072\n.661\n.488"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        85.1,
+        216.9,
+        512.3,
+        269.6
+      ],
+      "text": "note generation model\ndropout\nperplexity\nprivacy\nsimilarity\nrelatedness\nnli\ncase\nMedText-103\nBaseline: Real notes\n.608\n.489\n.724\n.921\nMedText-103-M"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        119.4,
+        286.3,
+        148.7,
+        297.2
+      ],
+      "text": "LSTM"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        115.7,
+        272.7,
+        512.3,
+        324.7
+      ],
+      "text": "0.0\n7.8\n4.9\n.415\n.351\n.697\n.918\n0.2\n8.4\n4.0\n.401\n.337\n.702\n.915\n0.5\n10.2\n3.7\n.315\n.271\n.713\n.910\nunigram\nN/A\n803.5\n0.3\n.094\n.170\n.644\n.469"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        337.3,
+        525.7,
+        419.0
+      ],
+      "text": "Table 2: Experimental results with the real MedText and synthetic MedText-M. ‘dropout’ is the dropout value\nused to train different LSTM models on MedText and then generate the respective synthetic MedText-M datasets\n(0.0 means no dropout applied); ‘perplexity’ is the perplexity obtained on the real MedText validation set for\neach note generation model M; ‘privacy’ is our privacy measure (S −PDT PM,T for every M, where T is\nMedText); ‘similarity’/‘relatedness’ are UMNSRS word similarity/relatedness correlation results obtained using\nword embeddings trained on MedText and MedText-M; ‘nli’ is the accuracy obtained on the MedNLI test set using\ndifferent MedText pre-trained word embeddings; and ‘case’ is the case restoration F1 measure."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        442.6,
+        135.9,
+        453.6
+      ],
+      "text": "4.4\nAnalysis"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        460.7,
+        290.2,
+        580.0
+      ],
+      "text": "To better understand the factors determining our\nproposed privacy scores, we took a closer look\nat two note generating models, MedText-2-0 and\nMedText-103-0, which are the models trained on\nMedText-2 and MedText-103, respectively, with\ndropout=0.0. First, we note that in 30 out of 30\nand 25 out of 30 of the notes sampled to compute\nS −PDTPM,T(c) (Eq. 2) in MedText-2-0 and\nMedText-103-0, respectively, we observe that"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        591.9,
+        131.5,
+        606.8
+      ],
+      "text": "log pM(T)(wc"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        127.6,
+        591.9,
+        146.8,
+        607.1
+      ],
+      "text": "j|wc"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        142.9,
+        591.9,
+        277.0,
+        607.3
+      ],
+      "text": "1..j−1) > log pM(T\\{c})(wc\nj|wc"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        273.1,
+        594.4,
+        301.5,
+        607.3
+      ],
+      "text": "1..j−1)"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        619.5,
+        98.6,
+        630.4
+      ],
+      "text": "where"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        85.1,
+        639.5,
+        168.9,
+        652.3
+      ],
+      "text": "j = argmaxi∈1..|c|"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        169.3,
+        635.4,
+        175.8,
+        655.0
+      ],
+      "text": "\u0010"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        175.8,
+        637.4,
+        238.3,
+        652.3
+      ],
+      "text": "|log pM(T)(wc"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        234.4,
+        637.4,
+        253.6,
+        653.5
+      ],
+      "text": "i |wc"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        249.7,
+        639.8,
+        277.1,
+        652.7
+      ],
+      "text": "1..i−1)"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        113.9,
+        661.9,
+        200.0,
+        676.7
+      ],
+      "text": "−log pM(T\\{c})(wc"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        196.1,
+        661.9,
+        215.3,
+        677.9
+      ],
+      "text": "i |wc"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        211.4,
+        659.9,
+        248.3,
+        679.5
+      ],
+      "text": "1..i−1)|\n\u0011"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        687.0,
+        290.2,
+        765.8
+      ],
+      "text": "In other words, in the vast majority of the cases,\nthe maximum differences in probability predic-\ntions are due to the model trained on train-set T,\nwhich includes note c, estimating a higher condi-\ntional probability to a word in c than the one esti-\nmated by the model trained on T \\ {c}. This can"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        442.6,
+        525.5,
+        480.8
+      ],
+      "text": "be expected, since M(T) has seen all the text in c\nduring training, while M(T \\{c}) may or may not\nhave seen similar texts."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        485.0,
+        525.6,
+        592.4
+      ],
+      "text": "Furthermore, when looking at the actual text\npositions j that determine the privacy scores, we\nindeed see that the prediction differences that\ncontribute to the privacy risk measure, are typ-\nically due to rare words and/or sequences of\nwords in note c that have no similar counter-\nparts in T \\ {c}.\nMore speciﬁcally, several of\nthe cases where log pM(T\\{c})(wc"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        461.2,
+        578.0,
+        480.4,
+        593.1
+      ],
+      "text": "j|wc"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        579.9,
+        525.6,
+        605.9
+      ],
+      "text": "1..j−1)\n≪\nlog pM(T)(wc"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        362.9,
+        591.6,
+        382.0,
+        606.6
+      ],
+      "text": "j|wc"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        593.4,
+        525.3,
+        617.8
+      ],
+      "text": "1..j−1) occur when: (1) A partic-\nular rare word wc"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        606.8,
+        525.5,
+        685.7
+      ],
+      "text": "j, such as cutdown, appears only\nin a single clinical note c and never in T \\ {c}.\nThis happens, for example, in p(“cutdown” | “Left\npopliteal”);14 (2) The rare word is at position\nj −1 as is Ketamine in p(“gtt” | “On POD # 2\nKetamine,”); and (3) The word wc"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        674.7,
+        525.5,
+        739.9
+      ],
+      "text": "j is not rare, but\nusually does not appear right after the sequence\nw1..j−1 as in p(“mouth” | “foaming at”), where in\nT \\ {c} there is always a determiner or pronoun\nbefore the word mouth, or p(“pain” | “mild left"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        316.9,
+        754.7,
+        450.0,
+        765.2
+      ],
+      "text": "14POD stands for ‘postoperative day’"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        65.5,
+        269.1,
+        76.6
+      ],
+      "text": "should”), where should is a typo of shoulder."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        79.4,
+        290.2,
+        158.0
+      ],
+      "text": "These ﬁndings lead us to hypothesize that cases\nof PHI, such as full names of patients, inadver-\ntently left in de-identiﬁed notes, might desirably\nincrease the privacy risk measure output because\nof their rarity. This would be interesting to vali-\ndate in future work."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        160.9,
+        290.2,
+        266.6
+      ],
+      "text": "For risk mitigation, we hypothesize that us-\ning pre-trained word embeddings including rare\nwords and even more so, pre-training the lan-\nguage model on a larger public out-of-domain re-\nsource (Howard and Ruder, 2018), may help in re-\nducing some of the above discrepancies between\npM(T\\{c}) and pM(T) and hence improve the over-\nall privacy score of the models."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        279.4,
+        161.2,
+        291.3
+      ],
+      "text": "5\nRelated Work"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        301.7,
+        290.4,
+        394.0
+      ],
+      "text": "Recently, Choi et al. (2017) proposed medGAN,\na model for generating synthetic patient records\nthat are safer to share than the real ones due to\nstronger privacy properties. However, unlike our\nwork, their study is focused on discrete variable\nrecords and does not address the wealth of infor-\nmation embedded in natural language notes."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        396.8,
+        290.2,
+        516.2
+      ],
+      "text": "Boag et al.\n(2016)\ncreated\na corpus\nof\nsynthetically-identiﬁed clinical notes with the\npurpose of using this resource to train de-\nidentiﬁcation models.\nUnlike our synthetic\nnotes, their notes only populate the PHI in-\nstances with synthetic data (e.g. replacing “[**Pa-\ntient Name**] visited [**Hospital**]” with the\nrandomly sampled names “Mary Smith visited\nMGH.”"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        528.8,
+        244.0,
+        540.8
+      ],
+      "text": "6\nConclusions and Future Work"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        551.3,
+        290.2,
+        697.8
+      ],
+      "text": "We proposed synthetic clinical notes generation as\nmeans to promote open and collaborative medical\nNLP research. To have merit, the synthetic notes\nneed to be useful and at the same time better pre-\nserve the privacy of patients. To track progress\non this front, we suggested a privacy measure and\na few utility benchmarks. Our experiments using\nneural language models demonstrate the potential\nand challenges of this approach, reveal the ex-\npected trade-offs between privacy and utility, and\nprovide baselines for future work."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        700.5,
+        290.2,
+        765.7
+      ],
+      "text": "Further work is required to extend the range\nof clinical NLP tasks that can beneﬁt from the\nsynthetic notes as well as increase the levels of\nprivacy provided.\nMcMahan et al.\n(2018) in-\ntroduced an LSTM neural language model with"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        65.6,
+        525.5,
+        225.6
+      ],
+      "text": "differential privacy guarantees that has just been\npublicly released.15\nRadford et al.\n(2018) and\nDai et al. (2019) recently showed impressive im-\nprovement in language modeling performance us-\ning the novel attention-based Transformer archi-\ntecture and larger model scales. These methods\nare example candidates for evaluation on our pro-\nposed clinical notes generation task. With sufﬁ-\ncient progress, we hope that this line of research\nwould lead to useful large synthetic clinical notes\ndatasets that would be available more freely to a\nwider research community."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        237.2,
+        400.7,
+        249.2
+      ],
+      "text": "Acknowledgments"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        258.9,
+        525.4,
+        310.5
+      ],
+      "text": "We would like to thank Ken Barker and Vandana\nMukherjee for supporting this project. We would\nalso like to thank Thomas Steinke for helpful dis-\ncussions."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        334.9,
+        362.6,
+        346.9
+      ],
+      "text": "References"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        354.1,
+        525.6,
+        364.1
+      ],
+      "text": "Martin Abadi, Andy Chu, Ian Goodfellow, H Bren-"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        318.2,
+        365.1,
+        525.8,
+        418.9
+      ],
+      "text": "dan McMahan, Ilya Mironov, Kunal Talwar, and\nLi Zhang. 2016. Deep learning with differential pri-\nvacy.\nIn Proceedings of the 2016 ACM SIGSAC\nConference on Computer and Communications Se-\ncurity."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        428.5,
+        525.8,
+        438.5
+      ],
+      "text": "Naveed Afzal, Vishnu Priya Mallipeddi, Sunghwan"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        318.2,
+        439.4,
+        525.7,
+        504.2
+      ],
+      "text": "Sohn, Hongfang Liu, Rajeev Chaudhry, Christo-\npher G Scott, Iftikhar J Kullo, and Adelaide M\nArruda-Olson. 2018. Natural language processing\nof clinical notes for identiﬁcation of critical limb is-\nchemia. International Journal of Medical Informat-\nics, 111:83–89."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        513.8,
+        525.7,
+        523.8
+      ],
+      "text": "Elena Birman-Deych, Amy D Waterman, Yan Yan,"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        318.2,
+        524.7,
+        525.7,
+        567.6
+      ],
+      "text": "David S Nilasena, Martha J Radford, and Brian F\nGage. 2005. Accuracy of icd-9-cm codes for iden-\ntifying cardiovascular and stroke risk factors. Medi-\ncal Care, pages 480–485."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        577.2,
+        525.7,
+        587.1
+      ],
+      "text": "Willie Boag, Tristan Naumann, and Peter Szolovits."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        318.2,
+        588.1,
+        525.7,
+        630.9
+      ],
+      "text": "2016.\nTowards the creation of a large corpus of\nsynthetically-identiﬁed clinical notes.\nIn In Pro-\nceedings of Machine Learning for Health Workshop\nat NIPS."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        640.5,
+        525.6,
+        650.5
+      ],
+      "text": "C. Chelba, T. Mikolov, M.Schuster, Q. Ge, T. Brants,"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        318.2,
+        651.6,
+        525.7,
+        694.4
+      ],
+      "text": "P. Koehn, and T. Robinson. 2014.\nOne billion\nword benchmark for measuring progress in statisti-\ncal language modeling. In Proceedings of INTER-\nSPEECH."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        704.0,
+        525.8,
+        714.0
+      ],
+      "text": "Xie Chen, Tian Tan, Xunying Liu, Pierre Lanchantin,"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        318.2,
+        714.9,
+        525.8,
+        746.9
+      ],
+      "text": "Moquan Wan, Mark JF Gales, and Philip C Wood-\nland. 2015.\nRecurrent neural network language\nmodel adaptation for multi-genre broadcast speech"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        316.9,
+        754.7,
+        459.7,
+        765.2
+      ],
+      "text": "15https://github.com/tensorﬂow/privacy/"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        82.9,
+        66.3,
+        290.3,
+        87.2
+      ],
+      "text": "recognition. In Sixteenth Annual Conference of the\nInternational Speech Communication Association."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        96.1,
+        290.3,
+        106.1
+      ],
+      "text": "Billy Chiu, Gamal Crichton, Anna Korhonen, and"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        82.9,
+        107.0,
+        290.5,
+        149.9
+      ],
+      "text": "Sampo Pyysalo. 2016.\nHow to train good word\nembeddings for biomedical nlp. In Proceedings of\nthe 15th Workshop on Biomedical Natural Language\nProcessing."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        158.7,
+        290.5,
+        212.5
+      ],
+      "text": "Edward Choi,\nMohammad Taha Bahadori, Andy\nSchuetz, Walter F Stewart, and Jimeng Sun. 2016.\nDoctor ai: Predicting clinical events via recurrent\nneural networks. In Machine Learning for Health-\ncare Conference, pages 301–318."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        221.4,
+        290.3,
+        231.3
+      ],
+      "text": "Edward Choi, Siddharth Biswal, Bradley Malin, Jon"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        82.9,
+        232.3,
+        290.5,
+        275.1
+      ],
+      "text": "Duke, Walter F Stewart, and Jimeng Sun. 2017.\nGenerating multi-label discrete patient records using\ngenerative adversarial networks. In Proceedings of\nMachine Learning for Healthcare Conference."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        284.0,
+        290.2,
+        294.0
+      ],
+      "text": "Ido Dagan, Dan Roth, Mark Sammons, and Fabio Mas-"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        82.9,
+        295.1,
+        290.4,
+        326.9
+      ],
+      "text": "simo Zanzotto. 2013.\nRecognizing textual entail-\nment: Models and applications. Synthesis Lectures\non Human Language Technologies, 6(4):1–220."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        335.7,
+        290.3,
+        345.7
+      ],
+      "text": "Zihang Dai, Zhilin Yang, Yiming Yang, William W"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        82.9,
+        346.7,
+        290.4,
+        389.5
+      ],
+      "text": "Cohen, Jaime Carbonell, Quoc V Le, and Ruslan\nSalakhutdinov.2019. Transformer-xl: Attentive lan-\nguage models beyond a ﬁxed-length context. arXiv\npreprint arXiv:1901.02860."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        398.4,
+        290.5,
+        408.3
+      ],
+      "text": "Franck Dernoncourt, Ji Young Lee, Ozlem Uzuner,"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        82.9,
+        409.3,
+        290.5,
+        452.1
+      ],
+      "text": "and Peter Szolovits. 2017. De-identiﬁcation of pa-\ntient notes with recurrent neural networks. Journal\nof the American Medical Informatics Association,\n24(3):596–606."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        461.0,
+        290.2,
+        471.0
+      ],
+      "text": "Margaret Douglass, Gari D Clifford, Andrew Reis-"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        82.9,
+        472.1,
+        290.5,
+        514.9
+      ],
+      "text": "ner, George B Moody, and Roger G Mark. 2004.\nComputer-assisted de-identiﬁcation of free text in\nthe mimic ii database. In Computers in Cardiology,\n2004, pages 341–344. IEEE."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        523.7,
+        290.5,
+        533.6
+      ],
+      "text": "Cynthia Dwork. 2008. Differential privacy: A survey"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        82.9,
+        534.6,
+        290.2,
+        566.5
+      ],
+      "text": "of results. In Proceedings of International Confer-\nence on Theory and Applications of Models of Com-\nputation."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        575.4,
+        290.5,
+        585.3
+      ],
+      "text": "Khaled El Emam, Elizabeth Jonker, Luk Arbuckle,"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        82.9,
+        586.4,
+        290.4,
+        618.2
+      ],
+      "text": "and Bradley Malin. 2011. A systematic review of\nre-identiﬁcation attacks on health data. PloS One,\n6(12):e28071."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        627.1,
+        290.2,
+        637.1
+      ],
+      "text": "Aris Gkoulalas-Divanis, Grigorios Loukides, and Ji-"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        82.9,
+        638.0,
+        290.5,
+        680.9
+      ],
+      "text": "meng Sun. 2014. Publishing data from electronic\nhealth records while preserving privacy: A survey\nof algorithms. Journal of biomedical informatics,\n50:4–19."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        689.7,
+        290.4,
+        699.7
+      ],
+      "text": "Glenn T Gobbel, Jennifer Garvin, Ruth Reeves,"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        82.9,
+        700.7,
+        290.5,
+        765.5
+      ],
+      "text": "Robert\nM\nCronin,\nJulia\nHeavirland,\nJenifer\nWilliams, Allison Weaver, Shrimalini Jayaramaraja,\nDario Giuse, Theodore Speroff, et al. 2014.\nAs-\nsisted annotation of medical free text using raptat.\nJournal of the American Medical Informatics\nAssociation, 21(5):833–841."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        66.3,
+        525.6,
+        76.3
+      ],
+      "text": "David Hanauer, John Aberdeen, Samuel Bayer, Ben-"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        318.2,
+        77.3,
+        525.7,
+        131.0
+      ],
+      "text": "jamin Wellner, Cheryl Clark, Kai Zheng, and\nLynette Hirschman. 2013.\nBootstrapping a de-\nidentiﬁcation system for narrative patient records:\ncost-performance tradeoffs.\nInternational Journal\nof Medical Informatics, 82(9):821–831."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        141.9,
+        525.8,
+        151.9
+      ],
+      "text": "Jeremy Howard and Sebastian Ruder. 2018. Fine-tuned"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        318.2,
+        152.8,
+        525.7,
+        173.7
+      ],
+      "text": "language models for text classiﬁcation. In Proceed-\nings of ACL."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        184.7,
+        525.7,
+        194.6
+      ],
+      "text": "Prateek Jain, Vivek Kulkarni, Abhradeep Thakurta, and"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        318.2,
+        195.6,
+        525.8,
+        227.5
+      ],
+      "text": "Oliver Williams. 2015. To drop or not to drop: Ro-\nbustness, consistency and differential privacy prop-\nerties of dropout. arXiv preprint arXiv:1503.02031."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        238.3,
+        525.7,
+        248.3
+      ],
+      "text": "Alistair EW Johnson, Tom J Pollard, Lu Shen,"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        318.2,
+        249.3,
+        525.8,
+        303.1
+      ],
+      "text": "H\nLehman Li-wei,\nMengling Feng,\nMoham-\nmad Ghassemi, Benjamin Moody, Peter Szolovits,\nLeo Anthony Celi, and Roger G Mark. 2016.\nMIMIC-III, a freely accessible critical care database.\nScientiﬁc data, 3:160035."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        313.9,
+        525.7,
+        323.9
+      ],
+      "text": "R. Jozefowicz, O. Vinyals, M. Schuster, N. Shazeer,"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        318.2,
+        324.9,
+        525.8,
+        345.8
+      ],
+      "text": "and Y. Wu. 2016. Exploring the limits of language\nmodeling. arXiv preprint arXiv:1602.02410."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        356.6,
+        525.6,
+        366.6
+      ],
+      "text": "Felix K¨opcke, Benjamin Trinczek, Raphael W Ma-"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        318.2,
+        367.7,
+        525.8,
+        454.3
+      ],
+      "text": "jeed, Bj¨orn Schreiweis, Joachim Wenk, Thomas\nLeusch, Thomas Ganslandt, Christian Ohmann,\nBj¨orn Bergh, Rainer R¨ohrig, et al. 2013.\nEvalu-\nation of data completeness in the electronic health\nrecord for the purpose of patient recruitment into\nclinical trials: a retrospective analysis of element\npresence. BMC medical informatics and decision\nmaking, 13(1):37."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        465.1,
+        525.7,
+        475.1
+      ],
+      "text": "Jingshu Liu, Zachariah Zhang, and Narges Razavian."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        318.2,
+        476.1,
+        525.7,
+        497.0
+      ],
+      "text": "2018. Deep ehr: Chronic disease prediction using\nmedical notes. arXiv preprint arXiv:1808.04928."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        507.8,
+        525.7,
+        517.8
+      ],
+      "text": "Zengjian Liu, Buzhou Tang, Xiaolong Wang, and"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        318.2,
+        518.9,
+        525.8,
+        561.7
+      ],
+      "text": "Qingcai Chen. 2017.\nDe-identiﬁcation of clinical\nnotes via recurrent neural network and conditional\nrandom ﬁeld.\nJournal of Biomedical Informatics,\n75:S34–S42."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        572.5,
+        525.6,
+        582.5
+      ],
+      "text": "Yunhui Long, Vincent Bindschaedler, and Carl A"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        318.2,
+        583.5,
+        525.7,
+        604.4
+      ],
+      "text": "Gunter. 2017. Towards measuring membership pri-\nvacy. arXiv preprint arXiv:1712.09136."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        615.2,
+        525.6,
+        625.2
+      ],
+      "text": "Thang Luong, Michael Kayser, and Christopher D"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        318.2,
+        626.3,
+        525.7,
+        669.1
+      ],
+      "text": "Manning. 2015. Deep neural language models for\nmachine translation.\nIn Proceedings of the Nine-\nteenth Conference on Computational Natural Lan-\nguage Learning."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        679.9,
+        525.6,
+        689.9
+      ],
+      "text": "H Brendan McMahan, Daniel Ramage, Kunal Talwar,"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        318.2,
+        690.8,
+        525.7,
+        722.7
+      ],
+      "text": "and Li Zhang. 2018. Learning differentially private\nlanguage models without losing accuracy. In Pro-\nceedings of ICLR."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        733.5,
+        525.8,
+        743.5
+      ],
+      "text": "S. Merity, C. Xiong, J. Bradbury, and R. Socher. 2017."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        318.2,
+        744.5,
+        525.6,
+        765.5
+      ],
+      "text": "Pointer sentinel mixture models. In Proceedings of\nICLR."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        66.3,
+        290.3,
+        76.3
+      ],
+      "text": "T. Mikolov, I. Sutskever, K. Chen, G. Corrado, and"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        82.9,
+        77.3,
+        290.6,
+        109.2
+      ],
+      "text": "J. Dean. 2013. Distributed representations of words\nand phrases and their compositionality. In Advances\nin Neural Information Processing Systems."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        118.9,
+        290.5,
+        128.9
+      ],
+      "text": "Frances P Morrison, Li Li, Albert M Lai, and George"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        82.9,
+        129.8,
+        290.5,
+        172.7
+      ],
+      "text": "Hripcsak. 2009.\nRepurposing the clinical record:\ncan an existing natural language processing system\nde-identify clinical notes? Journal of the American\nMedical Informatics Association, 16(1):37–39."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        182.4,
+        290.5,
+        192.3
+      ],
+      "text": "Ishna Neamatullah, Margaret M Douglass, H Lehman"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        82.9,
+        193.4,
+        290.6,
+        258.1
+      ],
+      "text": "Li-wei,\nAndrew\nReisner,\nMauricio\nVillarroel,\nWilliam J Long, Peter Szolovits, George B Moody,\nRoger G Mark, and Gari D Clifford. 2008. Auto-\nmated de-identiﬁcation of free-text medical records.\nBMC Medical Informatics and Decision Making,\n8(1):32."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        267.9,
+        290.7,
+        299.7
+      ],
+      "text": "Paul Ohm. 2009.\nBroken promises of privacy: Re-\nsponding to the surprising failure of anonymization.\nUcla L. Rev., 57:1701."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        309.6,
+        290.4,
+        319.5
+      ],
+      "text": "Serguei Pakhomov, Bridget McInnes, Terrence Adam,"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        82.9,
+        320.5,
+        290.4,
+        363.3
+      ],
+      "text": "Ying Liu, Ted Pedersen, and Genevieve B Melton.\n2010. Semantic similarity and relatedness between\nclinical terms: an experimental study. In Proceed-\nings of AMIA."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        373.1,
+        290.3,
+        383.0
+      ],
+      "text": "Nicolas Papernot, Shuang Song, Ilya Mironov, Ananth"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        82.9,
+        383.0,
+        290.5,
+        417.1
+      ],
+      "text": "Raghunathan, Kunal Talwar, and ´Ulfar Erlingsson.\n2018. Scalable private learning with pate. In Pro-\nceedings of ICLR."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        426.8,
+        290.5,
+        436.8
+      ],
+      "text": "Alec Radford, Jeffrey Wu, Rewon Child, David Luan,"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        82.9,
+        437.7,
+        290.6,
+        469.7
+      ],
+      "text": "Dario Amodei, and Ilya Sutskever. 2018. Language\nmodels are unsupervised multitask learners. Techni-\ncal report, Technical report, OpenAi."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        479.4,
+        290.5,
+        489.3
+      ],
+      "text": "Preethi Raghavan, James L Chen, Eric Fosler-Lussier,"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        82.9,
+        490.4,
+        290.5,
+        544.2
+      ],
+      "text": "and Albert M Lai. 2014. How essential are unstruc-\ntured clinical narratives and information fusion to\nclinical trial recruitment? In Proceedings of AMIA\nSummits on Translational Science, volume 2014.\nAmerican Medical Informatics Association."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        553.9,
+        290.5,
+        585.8
+      ],
+      "text": "Alexey Romanov and\nChaitanya Shivade. 2018.\nLessons from natural language inference in the clin-\nical domain. In Proceedings of EMNLP."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        595.5,
+        290.3,
+        605.5
+      ],
+      "text": "S Trent Rosenbloom, Joshua C Denny, Hua Xu, Nancy"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        82.9,
+        606.5,
+        290.6,
+        660.3
+      ],
+      "text": "Lorenzi, William W Stead, and Kevin B Johnson.\n2011. Data from clinical notes: a perspective on the\ntension between structure and ﬂexible documenta-\ntion. Journal of the American Medical Informatics\nAssociation, 18(2):181–186."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        670.1,
+        290.3,
+        680.0
+      ],
+      "text": "Reza Shokri, Marco Stronati, Congzheng Song, and"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        82.9,
+        681.0,
+        290.4,
+        712.9
+      ],
+      "text": "Vitaly Shmatikov. 2017. Membership inference at-\ntacks against machine learning models. In Proceed-\nings of IEEE Symposium on Security and Privacy."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        722.6,
+        290.3,
+        732.6
+      ],
+      "text": "Jasvinder A Singh, Aaron R Holmgren, and Siamak"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        82.9,
+        733.5,
+        291.0,
+        765.5
+      ],
+      "text": "Noorbaloochi. 2004. Accuracy of veterans admin-\nistration databases for a diagnosis of rheumatoid\narthritis. Arthritis Care & Research, 51(6):952–957."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        66.3,
+        525.9,
+        76.3
+      ],
+      "text": "Nitish Srivastava, Geoffrey Hinton, Alex Krizhevsky,"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        318.2,
+        77.3,
+        525.8,
+        120.1
+      ],
+      "text": "Ilya Sutskever, and Ruslan Salakhutdinov. 2014.\nDropout: A simple way to prevent neural networks\nfrom overﬁtting. The Journal of Machine Learning\nResearch, 15(1):1929–1958."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        127.8,
+        525.7,
+        140.0
+      ],
+      "text": "Amber Stubbs, Christopher Kotﬁla, and ¨Ozlem Uzuner."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        318.2,
+        141.0,
+        525.8,
+        183.8
+      ],
+      "text": "2015. Automated systems for the de-identiﬁcation\nof longitudinal clinical narratives:\nOverview of\n2014 i2b2/uthealth shared task track 1. Journal of\nBiomedical Informatics, 58:S11–S19."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        193.8,
+        525.5,
+        203.7
+      ],
+      "text": "Raymond Hendy Susanto, Hai Leong Chieu, and Wei"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        318.2,
+        204.8,
+        525.8,
+        236.6
+      ],
+      "text": "Lu. 2016. Learning to capitalize with character-level\nrecurrent neural networks: An empirical study. In\nProceedings of EMNLP."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        246.6,
+        525.6,
+        256.5
+      ],
+      "text": "Ilya Sutskever, James Martens, and Geoffrey E Hin-"
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        318.2,
+        257.6,
+        525.6,
+        278.5
+      ],
+      "text": "ton. 2011. Generating text with recurrent neural net-\nworks. In Proceedings of ICML."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        288.5,
+        525.8,
+        298.4
+      ],
+      "text": "Samuel Yeom, Matt Fredrikson, and Somesh Jha. 2017."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        318.2,
+        299.4,
+        525.7,
+        331.3
+      ],
+      "text": "Privacy risk in machine learning: Analyzing the con-\nnection to overﬁtting. In Procedings of the IEEE\nComputer Security Foundations Symposium."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        341.3,
+        525.7,
+        351.2
+      ],
+      "text": "Wojciech Zaremba, Ilya Sutskever, and Oriol Vinyals."
+    },
+    {
+      "paper_id": "1905.07002",
+      "file_name": "1905.07002_Towards_Automatic_Generation_of_Shareabl.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        318.2,
+        352.2,
+        525.9,
+        373.2
+      ],
+      "text": "2014.\nRecurrent neural network regularization.\narXiv preprint arXiv:1409.2329."
+    }
+  ]
+}

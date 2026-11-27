@@ -1,0 +1,1907 @@
+{
+  "paper_id": "2610.20544",
+  "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+  "parser_used": "PyMuPDF_Layout_Engine",
+  "total_pages": 9,
+  "figures_count": 4,
+  "figures": [
+    {
+      "figure_id": "FIG-2610.20544-P4-1",
+      "page_number": 4,
+      "file_path": "data/figures\\2610.20544\\fig_p4_1.png",
+      "dimensions": "522x355",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2610.20544-P5-1",
+      "page_number": 5,
+      "file_path": "data/figures\\2610.20544\\fig_p5_1.png",
+      "dimensions": "521x433",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2610.20544-P5-2",
+      "page_number": 5,
+      "file_path": "data/figures\\2610.20544\\fig_p5_2.png",
+      "dimensions": "516x434",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2610.20544-P6-1",
+      "page_number": 6,
+      "file_path": "data/figures\\2610.20544\\fig_p6_1.png",
+      "dimensions": "602x413",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    }
+  ],
+  "vector_graphs_count": 0,
+  "vector_graphs": [],
+  "tables_count": 0,
+  "tables": [],
+  "full_text": "Detection of Potato Plant Leaf Diseases using\n\nConvolutional Neural Networks\n\nHaimanot Bitew Alemayehu1, Simachew Melaku Ayalew2,\n\nChilotie Desalew Mengesha3, Ayisheshim Almaw Bogale4\n\n, Anteneh Birhan Yenew5, Abrham Tegegne Bogale6\n\n6,5,4,3,2,1College of Engineering & Technology, Injibara University, Ethiopia\n1haimanot.bitew@inu.edu.et, 2simachew.melaku@inu.edu.et\n3chilotie.dessalew@inu.edu.et, 4ayisheshim.almaw@inu.edu.et\n5anteneh.birhan@inu.edu.et, 6abrham.tegegne@inu.edu.et\n\nOctober 15, 2026\n\nAbstract\n\nPotato is a food-security crop in Ethiopia but production is affected by foliar diseases, es-\npecially early blight and late blight. In farming areas disease identification still depends on\nvisual assessment or laboratory diagnosis approaches that can be slow or difficult to access.\nThis study develops a convolutional neural network (CNN) for recognizing three potato leaf\nconditions: healthy leaves, early blight and late blight. The proposed model was trained us-\ning 2,215 images from PlantVillage. Subsequently assessed with an independent field dataset\ncontaining 247 images collected from potato farms in Banja Awi Zone, Ethiopia. On PlantVil-\nlage the model obtained 99.04% training accuracy, 98.21% validation accuracy and 98.66%\ntest accuracy. On the field dataset, which represents controlled image-capture conditions\nthe model achieved 90.28% accuracy. The study also compares the proposed network with\nVGG16.\nMobilenetv2 using classification performance and computational characteristics.\nThe proposed model contains 446,787 parameters and has an approximate size of 1.70 MB.\nThe model’s training time was shorter, than the training time of VGG16 and MobileNetV2.\nThese results indicate that a compact CNN can provide potato disease classification while re-\nducing computational requirements with potential to benefit smallholder farmers in Ethiopia\nand similar agricultural contexts.\n\nKeywords: Potato leaf disease, neural network, Deep learning, Late blight, Early blight\n\n1\nIntroduction\n\nAgriculture is a part of food production and livelihoods in Ethiopia and potato is one of the im-\nportant root and tuber crops grown in the country. Potato production however faces constraints,\nincluding foliar diseases. Early blight, caused by Alternaria solani and late blight, caused by\nPhytophthora infestans are especially important because infections can reduce crop productiv-\nity. Previous work in Awi Zone has also reported the presence of late blight in potato-growing\ndistricts [1].\n\nIn farming communities people identify potato disease by looking at the leaves. Laboratory\ntests can give proof but are not always easy to get. Image-based automated classification can\ngive preliminary identification from leaf images.\n\nAnother challenge is that early and late blight symptoms look similar especially as they\ndevelop. This similarity makes it hard to tell them apart. Can influence disease management\ndecisions [2].\n\n1\n\narXiv:2610.20544v1  [cs.LG]  14 Oct 2026\n\nCNNs are widely used for image-based plant disease recognition because the convolutional\nlayers can learn patterns directly from training images. Researchers have used them for crops\nand disease types including potato leaf conditions [3].\n\nFor potato disease classification Mahapatra and Panda achieved 96.28% accuracy with a\nCNN on PlantVillage data [3]. Hoque et al. Achieved 99.14% accuracy with a lightweight CNN\n[4]. Dey et al. Described a CNN with 204,227 trainable parameters and reported 98.6% test\naccuracy [5].\n\nThese results show the potential of CNNs Performance on controlled image sets does not\nalways match performance on field images.\nThis difference motivates testing with collected\nimages along with benchmark data. This study focuses on a CNN that classifies three classes\nhealthy, early blight and late blight paying close attention to computational efficiency and testing\nin local field conditions.\n\nThe study notice that many existing potato-disease studies have limitations. They often\nuse datasets with uniform backgrounds and lighting. These conditions make classification easier\nthan when photos have varying light, background, leaf angle and symptom appearance. Also\nevidence specific to potato disease in farms is limited.\n\nSo the study. Tested a lightweight CNN that recognizes the three chosen potato leaf condi-\ntions and looked at how the model behaves on a benchmark dataset and on images taken from\nfarms in Awi Zone.\n\n2\nRelated Works\n\nThe study have seen that recent research focuses more on learning for plant disease recognition.\nIn a review Pacal et al. Covered many studies on deep-learning methods for plant diseases and\nhighlighted CNNs as a main way to classify images [7]. CNNs are useful because they learn\nfeature representations from images during training of needing all visual descriptors to be made\nmanually [8].\n\n2.1\nCNN-Based Approaches for Potato Disease Identification\n\nThe study see that studies on potato leaf classification have used custom CNNs and transfer-learning\nmodels. Mahapatra and Panda got 96.28 achieved accuracy using a CNN on PlantVillage im-\nages [3]. Hoque et al. Got 99.14 achieved accuracy using a CNN and included regularization\ntechniques, like dropout and batch normalization [4]. Dey et al. Created a CNN with 204,227\nparameters and said the test accuracy was 98.6 percent [5].\n\nMulugeta et al. Evaluated a CNN on PlantVillage images and field samples from Ethiopia.\nTheir study reported 85% accuracy 87% precision, 85% recall and 86% F1-score on the data [6].\nThese results show the performance gap that can happen when a model shifts, from controlled\n\nbenchmark images to field observations.\n\n2.2\nTransfer Learning in Potato Leaf Disease Classification\n\nTransfer learning is an used strategy for plant disease recognition. Architectures such as VGG16,\nMobileNetV2, ResNet50 InceptionV3 and DenseNet121 have been employed in image classifi-\ncation studies [9]. Ensemble methods have also merged pretrained networks [10]. Pretrained\nmodels can provide feature representations but their parameter counts and computational sig-\nnificantly vary a lot. This difference matters a lot when running them on hardware, with power.\nTransfer learning stays important because it helps balance how well a model performs with how\nresources it uses.\n\n2\n\n2.3\nReal-World Application of CNN Models\n\nA frequent concern in plant-disease classification is whether high benchmark accuracy can trans-\nfer to images taken in farm settings. Studies that use PlantVillage-style images might benefit\nfrom controlled capture conditions. For instance KWATCHNet reportedly achieved 99.81% on\nPlantVillage data and 93.34% on field-collected images [12]. This difference shows why an inde-\npendent field dataset is valuable when testing generalization. Plant-disease classification must\ntherefore be validated in real-world scenarios.\n\nResearch on potato disease recognition in Ethiopia is still growing. Existing studies have\nexplored CNN architectures and the classification of blight symptoms [13]. Further investigation\nthat uses collected images and computationally efficient models can help determine how well\nautomated approaches work under regional farming conditions [14].\n\n3\nMethodology\n\nAn experimental design was used to develop, train and evaluate the proposed CNN. The experi-\nmental procedure involved dataset preparation, image preprocessing and augmentation network\nconstruction, model training, performance measurement and comparison with transfer-learning\nbaselines. Both benchmark images and collected field images were included. The methodology\ncovers dataset collection and preprocessing, model architecture design, training and hyperpa-\nrameter optimization and thorough evaluation using both benchmark and collected datasets.\n\n3.1\nDataset\n\nThe main training and initial evaluation dataset includes 2,215 potato leaf images taken from\nPlantVillage [15]. These images belong to three classes: early blight and late blight. PlantVil-\nlage images were captured under controlled conditions with consistent lighting and uniform\nbackground.\n\n3.2\nField Validation Dataset\n\nTo assess performance under farm conditions 247 extra potato leaf photographs were collected\nfrom farms in Banja district Awi Zone, Ethiopia [16].\nThese photographs were taken with\nsmartphones in light. The images belong to the three target classes and their labels were verified\nby an agricultural extension expert. The field dataset was kept apart, from model training and\nvalidation. Was used for final field testing.\n\n3.3\nData Preprocessing\n\nPreprocessing was applied to make the images consistent with the CNN input requirements and\nto support stable model training. The same general preprocessing procedure was used for the\nbenchmark and field images.\n\n• Image resizing: each photograph was converted to the fixed spatial dimensions required\nby the network.\n\n• Pixel normalization: image intensity values were transformed to the interval [0, 1] before\nbeing supplied to the model.\n\n• Data augmentation: training images were varied using operations such as rotation, hor-\nizontal reflection, zooming, and brightness modification [17]. These transformations were\nintended to expose the model to greater visual variation during learning.\n\n3\n\n3.4\nProposed CNN Architecture\n\nThe proposed CNN was designed with a focus on a balance between classification performance\nand computational cost. Its relatively small parameter count was intended to make subsequent\nedge-oriented deployment more practical.\n\nFigure 1: Proposed CNN Architecture\n\nThe architecture contains approximately 446,787 trainable parameters and occupies about\n1.70 MB.These characteristics make the proposed network substantially smaller than the com-\npared transfer-learning configurations [18], while maintaining a lightweight architecture.\n\n4\nResults\n\n4.1\nModel Training Performance\n\nDuring training on PlantVillage, the accuracy curves showed convergence of the model on the\ntraining and validation data.\nTraining accuracy reached 99.04%, while validation accuracy\nreached 98.21%. The reported validation loss at the end of training was 0.0833.\n\n4.2\nModel Test Performance on PlantVillage\n\nEvaluation on the held-out PlantVillage test set produced an overall accuracy of 98.66%. The\nconfusion matrix (Table 1) indicates that most samples were assigned to their correct classes,\nwith a small number of errors distributed among the three categories.\n\n4\n\nFigure 2: Training and Validation Accuracy\n\nFigure 3: Training and Validation Accuracy\n\n5\n\nTable 1: Confusion matrix of the proposed model on the PlantVillage test set.\n\nHealthy\nEarly blight\nLate blight\n\nHealthy\n215\n1\n2\nEarly blight\n1\n214\n3\nLate blight\n2\n0\n214\n\nFigure 4: Confusion Matrix Visualization\n\n4.3\nValidation on the Field-Collected Dataset\n\nThe independent Banja field dataset was more varied than the benchmark images.\nThis is\nbecause the photographs were taken under light and showed different backgrounds and different\nways symptoms appeared. The model achieved 90.28% accuracy and a loss of 0.4615 on these\n247 images (Table 2).\n\nTable 2: Performance on the field-collected dataset.\n\nMetric\nValue\n\nAccuracy\n90.28%\nLoss\n0.4615\nDataset size\n247 images\n\n6\n\n4.4\nComparison, with Transfer Learning Models\n\nIn this section we compare the proposed CNN with transfer learning models. The proposed\nCNN was evaluated alongside VGG16 and MobileNetV2 after the comparison models had been\nfine-tuned using the potato-disease classification task. The results are presented in Tables 3\nand 4 allowing accuracy, loss, parameter count, model size and training time to be examined\ntogether.\n\nTable 3: Comparative model parameters and efficiency.\n\nModel\nTotal\nTrainable\nModel size\nAvg. time\nparams\nparams\n(MB)\n/epoch (s)\n\nVGG16\n2,261,827\n300,843\n8.63 (total), 0.015 (trainable)\n9.96\nMobileNetV2\n14,716,227\n100,539\n56.14 (total), 1.26 (trainable)\n7.68\nProposed\n446,787\n446,787\n1.70\n5.58\n\nFor the PlantVillage comparison the model achieved 99.04% training accuracy and a val-\nidation loss of 0.0268 in the experiment.\nThe losses reported for MobileNetV2 and VGG16\nwere 0.0916 and 0.1804. These values show differences, in the learning behaviour of the three\nconfigurations.\n\nTable 4: Comparative performance on both datasets.\n\nDataset\nMetric\nVGG16\nMobileNetV2\nProposed\n\nPlantVillage\n\nPrecision\n96\n98\n96\nRecall\n98\n98\n99\nAccuracy\n97\n97\n99.04\nF1-score\n97\n98\n97\nLoss\n0.1804\n0.0916\n0.0268\n\nField dataset\n\nPrecision\n84\n89\n91\nRecall\n83\n86\n91\nAccuracy\n82.59\n86.23\n90.28\nF1-score\n83\n86\n90\nLoss\n0.5691\n0.3816\n0.4615\n\nThe accuracy difference between the PlantVillage test evaluation and the field evaluation is\n8.38 percentage points for the proposed model. This accuracy difference shows that the field\nevaluation images are harder to classify than the controlled benchmark images and gives a\nmeasure of the proposed models performance, across different settings.\n\n4.5\nTraining Efficiency\n\nThe proposed model took 5.58 seconds per epoch in the comparison. VGG16 took 9.96 seconds.\nMobilenetv2 took 7.68 seconds. Therefore within the setup the proposed network needed less\ntraining time than both comparison configurations.\n\n5\nDiscussion\n\nThe paper found that the proposed lightweight CNN successfully completed the goal of detecting\npotato leaf disease. The model performed well on both the PlantVillage dataset and on the field\ncollected dataset.\n\nIn the reported experiments the proposed network reached 99.04% training accuracy, 98.21%\nvalidation accuracy and 98.66% PlantVillage test accuracy. The field evaluation yielded 90.28%\n\n7\n\naccuracy. The comparison tables show that the proposed configuration had a validation loss\nthan VGG16 and MobileNetV2 in the same experiment.\n\nThe gap between training and validation accuracy was small during the reported training\nrun. Yet the performance on the independent field dataset was lower than on PlantVillage. This\ndifference matches the visual variability that comes from field image capture and it shows that\nbenchmark performance should not be taken as the same as field performance.\n\nThe paper observed that the proposed architecture has 446,787 parameters and a size of about\n1.70 MB. Its epoch time was 5.58 seconds while VGG16 took 9.96 seconds. Mobilenetv2 took\n7.68 seconds. These measurements confirm that the proposed architecture is computationally\ncompact in the reported environment.\n\nThe paper noted that a compact model can be helpful where computing resources or con-\nnectivity are limited. In the field experiment the proposed model achieved 90.28% accuracy.\nMulugeta et al. Reported accuracy, on their collected Ethiopian dataset. Because these accu-\nracy results come from datasets and experimental settings results should be seen as findings,\nnot a direct comparison.\n\n6\nConclusion\n\nThis study developed and evaluated a lightweight CNN for classification of potato leaves into\nhealthy, early blight, and late blight categories. The proposed model achieved 98.66% test accu-\nracy on the selected PlantVillage test set and 90.28% accuracy on the independently collected\nBanja field dataset. The comparison experiments also examined VGG16 and MobileNetV2 in\nterms of performance and computational characteristics.\n\nThe main contributions of the present study are as follows:\n\n1. Proposing an automated system for the detection of potato leaf diseases using a lightweight\nCNN.\n\n2. The proposed configuration recorded 98.66% PlantVillage test accuracy, while the com-\nparative experiment reports a 0.0268 validation loss for the proposed model. These results\ndescribe the performance of the proposed configuration under the stated experimental setup.\n\n3. On the Banja field dataset, the proposed model obtained 90.28% accuracy. The difference\nbetween the PlantVillage test accuracy and the field accuracy was 8.38 percentage points\nwhen those two test results are compared directly.\n\n4. The model contains 446,787 trainable parameters and has an approximate size of 1.70 MB.\nThe reported training-time measurements also indicate a lower average epoch time than the\nVGG16 and MobileNetV2 configurations used for comparison.\n\nThe findings indicate that lightweight image-classification models may have practical rele-\nvance to precision-agriculture applications. A field-deployed system could provide preliminary\ndisease classification from leaf photographs, although operational treatment decisions should\nremain supported by appropriate agricultural expertise.\n\nThe results indicate potential for further investigation of deep-learning-based potato disease\nmanagement in Awi Zone. Future work will focus on:\n\n• Increasing the number of Banja field images used for future fine-tuning and evaluation.\n\n• Extending the class set to include additional potato diseases, including bacterial wilt and\nvirus-related symptoms, as well as healthy leaves affected by non-disease stress.\n\n• Developing a mobile application with a simple user interface and local-language support,\nincluding Amharic and Awign.\n\n• Combining image-based diagnosis with weather information to investigate an early-warning\nframework for disease risk.\n\n8\n\n• Assessing the practical and economic effects of the system through field-based evaluation\nwith farmers.\n\nReferences\n\n[1] T. D. Salka, “Plant leaf disease detection and classification using convolution neural networks model:\n\na review,” Artificial Intelligence Review, vol. 58, no. 322, 2025.\n\n[2] “Precision agriculture in the age of AI: A systematic review of machine learning methods for crop\n\ndisease detection,” ScienceDirect, 2025.\n\n[3] P. Mahapatra and M. Panda, “Convolutional neural network-based classification of potato leaf\n\ndiseases,” Taylor & Francis, 2025.\n\n[4] M. J. Hoque and M. S. Islam, “An explainable and lightweight CNN framework for robust potato\n\nleaf disease classification using Grad-CAM visualization,” Wiley Online Library, 2025.\n\n[5] T. K. Dey, J. Pradhan, and D. A. Khan, “Optimized potato leaf disease detection with an enhanced\n\nconvolutional neural network,” Taylor & Francis, vol. 70, pp. 1777–1790, 2025.\n\n[6] A. T. Mulugeta, W. Jifara, E. Bogale, T. Desiyo, and A. Mokonnen, “Early detection and classifi-\n\ncation of potato leaf disease using convolutional neural networks,” Wiley, 2025.\n\n[7] I. Pacal, I. Kunduracioglu, M. H. Alma, M. Deveci, and S. Kadry, “A systematic review of deep\n\nlearning techniques for plant diseases,” Artificial Intelligence Review, 2024.\n\n[8] “Deep learning in agriculture: Convolutional neural network-based classification of potato diseases\n\nfor enhanced crop management,” IEEE Xplore, 2024.\n\n[9] “Comparative evaluation of deep features and traditional classifiers in the detection of potato leaf\n\ndiseases,” Potato Research, 2026.\n\n[10] “Improved potato crop disease classification using ensembled convolutional neural network,” Europe\n\nPMC, 2025.\n\n[11] “A lightweight CNN-based explainable approach for potato disease detection with deep evaluation\n\nmetrics,” IEEE Xplore, 2026.\n\n[12] “KWATCHNet: Fusion of CNNs and BoVW-based features for potato leaf disease classification,”\n\nScienceDirect, 2026.\n\n[13] “A novel image-based disease detection model for potato leaves using CNN,” IEEE Xplore, 2025.\n\n[14] “Optimized CNN-based ensemble deep learning approach for potato leaf disease detection with data\n\naugmentation,” Scientific Reports, 2026.\n\n[15] “Deep learning-based potato leaf disease classification and severity assessment,” Discover Applied\n\nSciences, vol. 7, no. 649, 2025.\n\n[16] “A sustainable approach to plant disease detection using deep learning framework for energy-efficient\n\nagricultural consumer electronics,” ScienceDirect, 2026.\n\n[17] “Deep learning-based disease detection in potato and mango leaves: a comparative study of CNN,\n\nAlexNet, ResNet, and EfficientNet,” Scientific Reports, 2025.\n\n[18] “A lightweight hybrid model for scalable and robust plant leaf disease classification,” Scientific\n\nReports, 2025.\n\n9",
+  "chunks": [
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        103.2,
+        112.1,
+        492.2,
+        129.4
+      ],
+      "text": "Detection of Potato Plant Leaf Diseases using"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        163.7,
+        134.1,
+        431.7,
+        151.3
+      ],
+      "text": "Convolutional Neural Networks"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        149.4,
+        167.2,
+        445.8,
+        180.4
+      ],
+      "text": "Haimanot Bitew Alemayehu1, Simachew Melaku Ayalew2,"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        151.5,
+        183.5,
+        443.3,
+        196.7
+      ],
+      "text": "Chilotie Desalew Mengesha3, Ayisheshim Almaw Bogale4"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        163.7,
+        204.5,
+        431.1,
+        217.7
+      ],
+      "text": ", Anteneh Birhan Yenew5, Abrham Tegegne Bogale6"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        134.2,
+        227.0,
+        461.2,
+        280.1
+      ],
+      "text": "6,5,4,3,2,1College of Engineering & Technology, Injibara University, Ethiopia\n1haimanot.bitew@inu.edu.et, 2simachew.melaku@inu.edu.et\n3chilotie.dessalew@inu.edu.et, 4ayisheshim.almaw@inu.edu.et\n5anteneh.birhan@inu.edu.et, 6abrham.tegegne@inu.edu.et"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        253.9,
+        292.9,
+        341.4,
+        304.8
+      ],
+      "text": "October 15, 2026"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        275.7,
+        334.7,
+        319.6,
+        344.6
+      ],
+      "text": "Abstract"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        98.1,
+        352.9,
+        497.4,
+        542.2
+      ],
+      "text": "Potato is a food-security crop in Ethiopia but production is affected by foliar diseases, es-\npecially early blight and late blight. In farming areas disease identification still depends on\nvisual assessment or laboratory diagnosis approaches that can be slow or difficult to access.\nThis study develops a convolutional neural network (CNN) for recognizing three potato leaf\nconditions: healthy leaves, early blight and late blight. The proposed model was trained us-\ning 2,215 images from PlantVillage. Subsequently assessed with an independent field dataset\ncontaining 247 images collected from potato farms in Banja Awi Zone, Ethiopia. On PlantVil-\nlage the model obtained 99.04% training accuracy, 98.21% validation accuracy and 98.66%\ntest accuracy. On the field dataset, which represents controlled image-capture conditions\nthe model achieved 90.28% accuracy. The study also compares the proposed network with\nVGG16.\nMobilenetv2 using classification performance and computational characteristics.\nThe proposed model contains 446,787 parameters and has an approximate size of 1.70 MB.\nThe model’s training time was shorter, than the training time of VGG16 and MobileNetV2.\nThese results indicate that a compact CNN can provide potato disease classification while re-\nducing computational requirements with potential to benefit smallholder farmers in Ethiopia\nand similar agricultural contexts."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        553.9,
+        496.0,
+        564.9
+      ],
+      "text": "Keywords: Potato leaf disease, neural network, Deep learning, Late blight, Early blight"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        585.7,
+        183.9,
+        600.0
+      ],
+      "text": "1\nIntroduction"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        612.7,
+        524.7,
+        691.4
+      ],
+      "text": "Agriculture is a part of food production and livelihoods in Ethiopia and potato is one of the im-\nportant root and tuber crops grown in the country. Potato production however faces constraints,\nincluding foliar diseases. Early blight, caused by Alternaria solani and late blight, caused by\nPhytophthora infestans are especially important because infections can reduce crop productiv-\nity. Previous work in Awi Zone has also reported the presence of late blight in potato-growing\ndistricts [1]."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        694.0,
+        524.6,
+        732.0
+      ],
+      "text": "In farming communities people identify potato disease by looking at the leaves. Laboratory\ntests can give proof but are not always easy to get. Image-based automated classification can\ngive preliminary identification from leaf images."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        734.6,
+        524.6,
+        772.7
+      ],
+      "text": "Another challenge is that early and late blight symptoms look similar especially as they\ndevelop. This similarity makes it hard to tell them apart. Can influence disease management\ndecisions [2]."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        294.9,
+        792.4,
+        300.4,
+        803.3
+      ],
+      "text": "1"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        24.3,
+        247.6,
+        44.3,
+        594.2
+      ],
+      "text": "arXiv:2610.20544v1  [cs.LG]  14 Oct 2026"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        73.3,
+        524.7,
+        111.3
+      ],
+      "text": "CNNs are widely used for image-based plant disease recognition because the convolutional\nlayers can learn patterns directly from training images. Researchers have used them for crops\nand disease types including potato leaf conditions [3]."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        114.0,
+        524.6,
+        165.5
+      ],
+      "text": "For potato disease classification Mahapatra and Panda achieved 96.28% accuracy with a\nCNN on PlantVillage data [3]. Hoque et al. Achieved 99.14% accuracy with a lightweight CNN\n[4]. Dey et al. Described a CNN with 204,227 trainable parameters and reported 98.6% test\naccuracy [5]."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        168.2,
+        524.6,
+        233.3
+      ],
+      "text": "These results show the potential of CNNs Performance on controlled image sets does not\nalways match performance on field images.\nThis difference motivates testing with collected\nimages along with benchmark data. This study focuses on a CNN that classifies three classes\nhealthy, early blight and late blight paying close attention to computational efficiency and testing\nin local field conditions."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        235.9,
+        524.7,
+        287.5
+      ],
+      "text": "The study notice that many existing potato-disease studies have limitations. They often\nuse datasets with uniform backgrounds and lighting. These conditions make classification easier\nthan when photos have varying light, background, leaf angle and symptom appearance. Also\nevidence specific to potato disease in farms is limited."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        290.1,
+        524.6,
+        328.1
+      ],
+      "text": "So the study. Tested a lightweight CNN that recognizes the three chosen potato leaf condi-\ntions and looked at how the model behaves on a benchmark dataset and on images taken from\nfarms in Awi Zone."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        348.9,
+        199.7,
+        363.3
+      ],
+      "text": "2\nRelated Works"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        375.9,
+        524.7,
+        441.0
+      ],
+      "text": "The study have seen that recent research focuses more on learning for plant disease recognition.\nIn a review Pacal et al. Covered many studies on deep-learning methods for plant diseases and\nhighlighted CNNs as a main way to classify images [7]. CNNs are useful because they learn\nfeature representations from images during training of needing all visual descriptors to be made\nmanually [8]."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        458.5,
+        439.6,
+        470.5
+      ],
+      "text": "2.1\nCNN-Based Approaches for Potato Disease Identification"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        479.9,
+        538.2,
+        545.0
+      ],
+      "text": "The study see that studies on potato leaf classification have used custom CNNs and transfer-learning\nmodels. Mahapatra and Panda got 96.28 achieved accuracy using a CNN on PlantVillage im-\nages [3]. Hoque et al. Got 99.14 achieved accuracy using a CNN and included regularization\ntechniques, like dropout and batch normalization [4]. Dey et al. Created a CNN with 204,227\nparameters and said the test accuracy was 98.6 percent [5]."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        547.7,
+        524.6,
+        585.7
+      ],
+      "text": "Mulugeta et al. Evaluated a CNN on PlantVillage images and field samples from Ethiopia.\nTheir study reported 85% accuracy 87% precision, 85% recall and 86% F1-score on the data [6].\nThese results show the performance gap that can happen when a model shifts, from controlled"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        87.8,
+        588.3,
+        278.5,
+        599.2
+      ],
+      "text": "benchmark images to field observations."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        616.7,
+        425.3,
+        628.7
+      ],
+      "text": "2.2\nTransfer Learning in Potato Leaf Disease Classification"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        638.1,
+        524.7,
+        730.3
+      ],
+      "text": "Transfer learning is an used strategy for plant disease recognition. Architectures such as VGG16,\nMobileNetV2, ResNet50 InceptionV3 and DenseNet121 have been employed in image classifi-\ncation studies [9]. Ensemble methods have also merged pretrained networks [10]. Pretrained\nmodels can provide feature representations but their parameter counts and computational sig-\nnificantly vary a lot. This difference matters a lot when running them on hardware, with power.\nTransfer learning stays important because it helps balance how well a model performs with how\nresources it uses."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        294.9,
+        792.4,
+        300.4,
+        803.3
+      ],
+      "text": "2"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        72.5,
+        339.0,
+        84.5
+      ],
+      "text": "2.3\nReal-World Application of CNN Models"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        93.9,
+        524.7,
+        172.6
+      ],
+      "text": "A frequent concern in plant-disease classification is whether high benchmark accuracy can trans-\nfer to images taken in farm settings. Studies that use PlantVillage-style images might benefit\nfrom controlled capture conditions. For instance KWATCHNet reportedly achieved 99.81% on\nPlantVillage data and 93.34% on field-collected images [12]. This difference shows why an inde-\npendent field dataset is valuable when testing generalization. Plant-disease classification must\ntherefore be validated in real-world scenarios."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        175.2,
+        524.7,
+        226.8
+      ],
+      "text": "Research on potato disease recognition in Ethiopia is still growing. Existing studies have\nexplored CNN architectures and the classification of blight symptoms [13]. Further investigation\nthat uses collected images and computationally efficient models can help determine how well\nautomated approaches work under regional farming conditions [14]."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        247.6,
+        187.7,
+        261.9
+      ],
+      "text": "3\nMethodology"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        274.6,
+        524.7,
+        353.2
+      ],
+      "text": "An experimental design was used to develop, train and evaluate the proposed CNN. The experi-\nmental procedure involved dataset preparation, image preprocessing and augmentation network\nconstruction, model training, performance measurement and comparison with transfer-learning\nbaselines. Both benchmark images and collected field images were included. The methodology\ncovers dataset collection and preprocessing, model architecture design, training and hyperpa-\nrameter optimization and thorough evaluation using both benchmark and collected datasets."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        370.7,
+        146.8,
+        382.7
+      ],
+      "text": "3.1\nDataset"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        392.1,
+        524.7,
+        443.7
+      ],
+      "text": "The main training and initial evaluation dataset includes 2,215 potato leaf images taken from\nPlantVillage [15]. These images belong to three classes: early blight and late blight. PlantVil-\nlage images were captured under controlled conditions with consistent lighting and uniform\nbackground."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        461.2,
+        245.6,
+        473.1
+      ],
+      "text": "3.2\nField Validation Dataset"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        482.6,
+        524.7,
+        547.7
+      ],
+      "text": "To assess performance under farm conditions 247 extra potato leaf photographs were collected\nfrom farms in Banja district Awi Zone, Ethiopia [16].\nThese photographs were taken with\nsmartphones in light. The images belong to the three target classes and their labels were verified\nby an agricultural extension expert. The field dataset was kept apart, from model training and\nvalidation. Was used for final field testing."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        565.2,
+        216.2,
+        577.1
+      ],
+      "text": "3.3\nData Preprocessing"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        586.6,
+        524.7,
+        624.6
+      ],
+      "text": "Preprocessing was applied to make the images consistent with the CNN input requirements and\nto support stable model training. The same general preprocessing procedure was used for the\nbenchmark and field images."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        72.2,
+        630.2,
+        524.6,
+        654.7
+      ],
+      "text": "• Image resizing: each photograph was converted to the fixed spatial dimensions required\nby the network."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        72.2,
+        663.8,
+        524.6,
+        688.3
+      ],
+      "text": "• Pixel normalization: image intensity values were transformed to the interval [0, 1] before\nbeing supplied to the model."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        72.2,
+        697.3,
+        524.6,
+        735.4
+      ],
+      "text": "• Data augmentation: training images were varied using operations such as rotation, hor-\nizontal reflection, zooming, and brightness modification [17]. These transformations were\nintended to expose the model to greater visual variation during learning."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        294.9,
+        792.4,
+        300.4,
+        803.3
+      ],
+      "text": "3"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        72.5,
+        270.3,
+        84.5
+      ],
+      "text": "3.4\nProposed CNN Architecture"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        93.9,
+        524.7,
+        131.9
+      ],
+      "text": "The proposed CNN was designed with a focus on a balance between classification performance\nand computational cost. Its relatively small parameter count was intended to make subsequent\nedge-oriented deployment more practical."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        210.8,
+        462.6,
+        384.6,
+        472.6
+      ],
+      "text": "Figure 1: Proposed CNN Architecture"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        488.8,
+        524.6,
+        526.9
+      ],
+      "text": "The architecture contains approximately 446,787 trainable parameters and occupies about\n1.70 MB.These characteristics make the proposed network substantially smaller than the com-\npared transfer-learning configurations [18], while maintaining a lightweight architecture."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        547.7,
+        147.0,
+        562.0
+      ],
+      "text": "4\nResults"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        574.3,
+        271.2,
+        586.2
+      ],
+      "text": "4.1\nModel Training Performance"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        595.7,
+        524.7,
+        633.7
+      ],
+      "text": "During training on PlantVillage, the accuracy curves showed convergence of the model on the\ntraining and validation data.\nTraining accuracy reached 99.04%, while validation accuracy\nreached 98.21%. The reported validation loss at the end of training was 0.0833."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        651.2,
+        342.5,
+        663.1
+      ],
+      "text": "4.2\nModel Test Performance on PlantVillage"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        672.6,
+        524.7,
+        710.6
+      ],
+      "text": "Evaluation on the held-out PlantVillage test set produced an overall accuracy of 98.66%. The\nconfusion matrix (Table 1) indicates that most samples were assigned to their correct classes,\nwith a small number of errors distributed among the three categories."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        294.9,
+        792.4,
+        300.4,
+        803.3
+      ],
+      "text": "4"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 5,
+      "section": "Abstract",
+      "bbox": [
+        198.6,
+        383.5,
+        396.8,
+        393.5
+      ],
+      "text": "Figure 2: Training and Validation Accuracy"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 5,
+      "section": "Abstract",
+      "bbox": [
+        198.6,
+        737.6,
+        396.8,
+        747.6
+      ],
+      "text": "Figure 3: Training and Validation Accuracy"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 5,
+      "section": "Abstract",
+      "bbox": [
+        294.9,
+        792.4,
+        300.4,
+        803.3
+      ],
+      "text": "5"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        123.9,
+        71.4,
+        471.6,
+        81.4
+      ],
+      "text": "Table 1: Confusion matrix of the proposed model on the PlantVillage test set."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        235.8,
+        97.6,
+        428.7,
+        108.6
+      ],
+      "text": "Healthy\nEarly blight\nLate blight"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        166.7,
+        116.7,
+        406.7,
+        154.7
+      ],
+      "text": "Healthy\n215\n1\n2\nEarly blight\n1\n214\n3\nLate blight\n2\n0\n214"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        204.1,
+        504.7,
+        391.3,
+        514.7
+      ],
+      "text": "Figure 4: Confusion Matrix Visualization"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        548.0,
+        347.0,
+        559.9
+      ],
+      "text": "4.3\nValidation on the Field-Collected Dataset"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        569.4,
+        524.7,
+        620.9
+      ],
+      "text": "The independent Banja field dataset was more varied than the benchmark images.\nThis is\nbecause the photographs were taken under light and showed different backgrounds and different\nways symptoms appeared. The model achieved 90.28% accuracy and a loss of 0.4615 on these\n247 images (Table 2)."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        182.2,
+        634.8,
+        413.2,
+        644.7
+      ],
+      "text": "Table 2: Performance on the field-collected dataset."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        236.8,
+        661.0,
+        337.1,
+        671.9
+      ],
+      "text": "Metric\nValue"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        236.8,
+        680.0,
+        358.5,
+        718.0
+      ],
+      "text": "Accuracy\n90.28%\nLoss\n0.4615\nDataset size\n247 images"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        294.9,
+        792.4,
+        300.4,
+        803.3
+      ],
+      "text": "6"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        72.5,
+        362.8,
+        84.5
+      ],
+      "text": "4.4\nComparison, with Transfer Learning Models"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        93.9,
+        524.7,
+        159.0
+      ],
+      "text": "In this section we compare the proposed CNN with transfer learning models. The proposed\nCNN was evaluated alongside VGG16 and MobileNetV2 after the comparison models had been\nfine-tuned using the potato-disease classification task. The results are presented in Tables 3\nand 4 allowing accuracy, loss, parameter count, model size and training time to be examined\ntogether."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        174.4,
+        171.7,
+        421.0,
+        181.7
+      ],
+      "text": "Table 3: Comparative model parameters and efficiency."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        108.5,
+        197.5,
+        486.8,
+        219.5
+      ],
+      "text": "Model\nTotal\nTrainable\nModel size\nAvg. time\nparams\nparams\n(MB)\n/epoch (s)"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        108.5,
+        227.0,
+        469.6,
+        260.8
+      ],
+      "text": "VGG16\n2,261,827\n300,843\n8.63 (total), 0.015 (trainable)\n9.96\nMobileNetV2\n14,716,227\n100,539\n56.14 (total), 1.26 (trainable)\n7.68\nProposed\n446,787\n446,787\n1.70\n5.58"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        281.4,
+        524.7,
+        333.0
+      ],
+      "text": "For the PlantVillage comparison the model achieved 99.04% training accuracy and a val-\nidation loss of 0.0268 in the experiment.\nThe losses reported for MobileNetV2 and VGG16\nwere 0.0916 and 0.1804. These values show differences, in the learning behaviour of the three\nconfigurations."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        179.0,
+        345.7,
+        416.3,
+        355.6
+      ],
+      "text": "Table 4: Comparative performance on both datasets."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        149.0,
+        371.5,
+        446.2,
+        381.5
+      ],
+      "text": "Dataset\nMetric\nVGG16\nMobileNetV2\nProposed"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        149.0,
+        412.9,
+        202.9,
+        422.8
+      ],
+      "text": "PlantVillage"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        217.9,
+        388.9,
+        436.7,
+        446.7
+      ],
+      "text": "Precision\n96\n98\n96\nRecall\n98\n98\n99\nAccuracy\n97\n97\n99.04\nF1-score\n97\n98\n97\nLoss\n0.1804\n0.0916\n0.0268"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        149.0,
+        478.1,
+        206.0,
+        488.1
+      ],
+      "text": "Field dataset"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        217.9,
+        454.2,
+        436.7,
+        512.0
+      ],
+      "text": "Precision\n84\n89\n91\nRecall\n83\n86\n91\nAccuracy\n82.59\n86.23\n90.28\nF1-score\n83\n86\n90\nLoss\n0.5691\n0.3816\n0.4615"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        532.6,
+        524.7,
+        584.1
+      ],
+      "text": "The accuracy difference between the PlantVillage test evaluation and the field evaluation is\n8.38 percentage points for the proposed model. This accuracy difference shows that the field\nevaluation images are harder to classify than the controlled benchmark images and gives a\nmeasure of the proposed models performance, across different settings."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        601.4,
+        211.9,
+        613.3
+      ],
+      "text": "4.5\nTraining Efficiency"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        622.8,
+        524.7,
+        660.8
+      ],
+      "text": "The proposed model took 5.58 seconds per epoch in the comparison. VGG16 took 9.96 seconds.\nMobilenetv2 took 7.68 seconds. Therefore within the setup the proposed network needed less\ntraining time than both comparison configurations."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        681.3,
+        168.7,
+        695.6
+      ],
+      "text": "5\nDiscussion"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        708.3,
+        524.7,
+        746.3
+      ],
+      "text": "The paper found that the proposed lightweight CNN successfully completed the goal of detecting\npotato leaf disease. The model performed well on both the PlantVillage dataset and on the field\ncollected dataset."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        749.0,
+        524.6,
+        773.4
+      ],
+      "text": "In the reported experiments the proposed network reached 99.04% training accuracy, 98.21%\nvalidation accuracy and 98.66% PlantVillage test accuracy. The field evaluation yielded 90.28%"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        294.9,
+        792.4,
+        300.4,
+        803.3
+      ],
+      "text": "7"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        73.3,
+        524.6,
+        97.8
+      ],
+      "text": "accuracy. The comparison tables show that the proposed configuration had a validation loss\nthan VGG16 and MobileNetV2 in the same experiment."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        100.4,
+        524.7,
+        152.0
+      ],
+      "text": "The gap between training and validation accuracy was small during the reported training\nrun. Yet the performance on the independent field dataset was lower than on PlantVillage. This\ndifference matches the visual variability that comes from field image capture and it shows that\nbenchmark performance should not be taken as the same as field performance."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        154.6,
+        524.7,
+        206.2
+      ],
+      "text": "The paper observed that the proposed architecture has 446,787 parameters and a size of about\n1.70 MB. Its epoch time was 5.58 seconds while VGG16 took 9.96 seconds. Mobilenetv2 took\n7.68 seconds. These measurements confirm that the proposed architecture is computationally\ncompact in the reported environment."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        208.8,
+        524.7,
+        273.9
+      ],
+      "text": "The paper noted that a compact model can be helpful where computing resources or con-\nnectivity are limited. In the field experiment the proposed model achieved 90.28% accuracy.\nMulugeta et al. Reported accuracy, on their collected Ethiopian dataset. Because these accu-\nracy results come from datasets and experimental settings results should be seen as findings,\nnot a direct comparison."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        294.3,
+        172.3,
+        308.7
+      ],
+      "text": "6\nConclusion"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        321.3,
+        524.7,
+        386.4
+      ],
+      "text": "This study developed and evaluated a lightweight CNN for classification of potato leaves into\nhealthy, early blight, and late blight categories. The proposed model achieved 98.66% test accu-\nracy on the selected PlantVillage test set and 90.28% accuracy on the independently collected\nBanja field dataset. The comparison experiments also examined VGG16 and MobileNetV2 in\nterms of performance and computational characteristics."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        87.8,
+        389.1,
+        370.2,
+        400.0
+      ],
+      "text": "The main contributions of the present study are as follows:"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        74.4,
+        405.6,
+        524.6,
+        430.1
+      ],
+      "text": "1. Proposing an automated system for the detection of potato leaf diseases using a lightweight\nCNN."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        74.4,
+        439.8,
+        524.7,
+        477.8
+      ],
+      "text": "2. The proposed configuration recorded 98.66% PlantVillage test accuracy, while the com-\nparative experiment reports a 0.0268 validation loss for the proposed model. These results\ndescribe the performance of the proposed configuration under the stated experimental setup."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        74.4,
+        487.4,
+        524.7,
+        525.5
+      ],
+      "text": "3. On the Banja field dataset, the proposed model obtained 90.28% accuracy. The difference\nbetween the PlantVillage test accuracy and the field accuracy was 8.38 percentage points\nwhen those two test results are compared directly."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        74.4,
+        535.1,
+        524.6,
+        573.2
+      ],
+      "text": "4. The model contains 446,787 trainable parameters and has an approximate size of 1.70 MB.\nThe reported training-time measurements also indicate a lower average epoch time than the\nVGG16 and MobileNetV2 configurations used for comparison."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        578.8,
+        524.7,
+        630.3
+      ],
+      "text": "The findings indicate that lightweight image-classification models may have practical rele-\nvance to precision-agriculture applications. A field-deployed system could provide preliminary\ndisease classification from leaf photographs, although operational treatment decisions should\nremain supported by appropriate agricultural expertise."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        633.0,
+        524.7,
+        657.4
+      ],
+      "text": "The results indicate potential for further investigation of deep-learning-based potato disease\nmanagement in Awi Zone. Future work will focus on:"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        72.2,
+        663.1,
+        502.6,
+        674.0
+      ],
+      "text": "• Increasing the number of Banja field images used for future fine-tuning and evaluation."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        72.2,
+        682.7,
+        524.7,
+        707.1
+      ],
+      "text": "• Extending the class set to include additional potato diseases, including bacterial wilt and\nvirus-related symptoms, as well as healthy leaves affected by non-disease stress."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        72.2,
+        715.8,
+        524.6,
+        740.3
+      ],
+      "text": "• Developing a mobile application with a simple user interface and local-language support,\nincluding Amharic and Awign."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        72.2,
+        749.0,
+        524.6,
+        773.4
+      ],
+      "text": "• Combining image-based diagnosis with weather information to investigate an early-warning\nframework for disease risk."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        294.9,
+        792.4,
+        300.4,
+        803.3
+      ],
+      "text": "8"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        72.2,
+        73.3,
+        524.7,
+        97.8
+      ],
+      "text": "• Assessing the practical and economic effects of the system through field-based evaluation\nwith farmers."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        118.6,
+        146.4,
+        132.9
+      ],
+      "text": "References"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        77.3,
+        144.7,
+        524.6,
+        154.7
+      ],
+      "text": "[1] T. D. Salka, “Plant leaf disease detection and classification using convolution neural networks model:"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        93.3,
+        156.7,
+        367.0,
+        166.6
+      ],
+      "text": "a review,” Artificial Intelligence Review, vol. 58, no. 322, 2025."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        77.3,
+        177.6,
+        524.6,
+        187.6
+      ],
+      "text": "[2] “Precision agriculture in the age of AI: A systematic review of machine learning methods for crop"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        93.3,
+        189.6,
+        264.7,
+        199.5
+      ],
+      "text": "disease detection,” ScienceDirect, 2025."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        77.3,
+        210.5,
+        524.6,
+        220.4
+      ],
+      "text": "[3] P. Mahapatra and M. Panda, “Convolutional neural network-based classification of potato leaf"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        93.3,
+        222.4,
+        240.4,
+        232.4
+      ],
+      "text": "diseases,” Taylor & Francis, 2025."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        77.3,
+        243.4,
+        524.6,
+        253.3
+      ],
+      "text": "[4] M. J. Hoque and M. S. Islam, “An explainable and lightweight CNN framework for robust potato"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        93.3,
+        255.3,
+        469.1,
+        265.3
+      ],
+      "text": "leaf disease classification using Grad-CAM visualization,” Wiley Online Library, 2025."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        77.3,
+        276.2,
+        524.6,
+        286.2
+      ],
+      "text": "[5] T. K. Dey, J. Pradhan, and D. A. Khan, “Optimized potato leaf disease detection with an enhanced"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        93.3,
+        288.2,
+        435.8,
+        298.2
+      ],
+      "text": "convolutional neural network,” Taylor & Francis, vol. 70, pp. 1777–1790, 2025."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        77.3,
+        309.1,
+        524.6,
+        319.1
+      ],
+      "text": "[6] A. T. Mulugeta, W. Jifara, E. Bogale, T. Desiyo, and A. Mokonnen, “Early detection and classifi-"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        93.3,
+        321.1,
+        438.8,
+        331.0
+      ],
+      "text": "cation of potato leaf disease using convolutional neural networks,” Wiley, 2025."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        77.3,
+        342.0,
+        524.6,
+        352.0
+      ],
+      "text": "[7] I. Pacal, I. Kunduracioglu, M. H. Alma, M. Deveci, and S. Kadry, “A systematic review of deep"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        93.3,
+        353.9,
+        420.2,
+        363.9
+      ],
+      "text": "learning techniques for plant diseases,” Artificial Intelligence Review, 2024."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        77.3,
+        374.9,
+        524.6,
+        384.8
+      ],
+      "text": "[8] “Deep learning in agriculture: Convolutional neural network-based classification of potato diseases"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        93.3,
+        386.8,
+        325.5,
+        396.8
+      ],
+      "text": "for enhanced crop management,” IEEE Xplore, 2024."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        77.3,
+        407.7,
+        524.6,
+        417.7
+      ],
+      "text": "[9] “Comparative evaluation of deep features and traditional classifiers in the detection of potato leaf"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        93.3,
+        419.7,
+        237.0,
+        429.7
+      ],
+      "text": "diseases,” Potato Research, 2026."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        72.3,
+        440.6,
+        524.6,
+        450.6
+      ],
+      "text": "[10] “Improved potato crop disease classification using ensembled convolutional neural network,” Europe"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        93.3,
+        452.6,
+        145.2,
+        462.5
+      ],
+      "text": "PMC, 2025."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        72.3,
+        473.5,
+        524.6,
+        483.5
+      ],
+      "text": "[11] “A lightweight CNN-based explainable approach for potato disease detection with deep evaluation"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        93.3,
+        485.5,
+        220.9,
+        495.4
+      ],
+      "text": "metrics,” IEEE Xplore, 2026."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        72.3,
+        506.4,
+        524.6,
+        516.3
+      ],
+      "text": "[12] “KWATCHNet: Fusion of CNNs and BoVW-based features for potato leaf disease classification,”"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        93.3,
+        518.3,
+        180.7,
+        528.3
+      ],
+      "text": "ScienceDirect, 2026."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        72.3,
+        539.3,
+        517.1,
+        549.2
+      ],
+      "text": "[13] “A novel image-based disease detection model for potato leaves using CNN,” IEEE Xplore, 2025."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        72.3,
+        560.2,
+        524.6,
+        570.1
+      ],
+      "text": "[14] “Optimized CNN-based ensemble deep learning approach for potato leaf disease detection with data"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        93.3,
+        572.1,
+        268.5,
+        582.1
+      ],
+      "text": "augmentation,” Scientific Reports, 2026."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        72.3,
+        593.0,
+        524.6,
+        603.0
+      ],
+      "text": "[15] “Deep learning-based potato leaf disease classification and severity assessment,” Discover Applied"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        93.3,
+        605.0,
+        225.8,
+        615.0
+      ],
+      "text": "Sciences, vol. 7, no. 649, 2025."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        72.3,
+        625.9,
+        524.6,
+        635.9
+      ],
+      "text": "[16] “A sustainable approach to plant disease detection using deep learning framework for energy-efficient"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        93.3,
+        637.9,
+        335.1,
+        647.8
+      ],
+      "text": "agricultural consumer electronics,” ScienceDirect, 2026."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        72.3,
+        658.8,
+        524.6,
+        668.8
+      ],
+      "text": "[17] “Deep learning-based disease detection in potato and mango leaves: a comparative study of CNN,"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        93.3,
+        670.8,
+        359.4,
+        680.7
+      ],
+      "text": "AlexNet, ResNet, and EfficientNet,” Scientific Reports, 2025."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        72.3,
+        691.7,
+        524.6,
+        701.6
+      ],
+      "text": "[18] “A lightweight hybrid model for scalable and robust plant leaf disease classification,” Scientific"
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        93.3,
+        703.6,
+        154.7,
+        713.6
+      ],
+      "text": "Reports, 2025."
+    },
+    {
+      "paper_id": "2610.20544",
+      "file_name": "2610.20544_Detection_of_Potato_Plant_Leaf_Diseases_.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        294.9,
+        792.4,
+        300.4,
+        803.3
+      ],
+      "text": "9"
+    }
+  ]
+}

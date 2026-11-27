@@ -1,0 +1,868 @@
+{
+  "corpus_relevance": {
+    "is_insufficient": false,
+    "topic": "Leaf disease classification",
+    "paper_relevance": [
+      {
+        "paper_id": "1905.07002",
+        "title": "Towards Automatic Generation of Shareable Clinical Notes",
+        "status": "Irrelevant",
+        "reason": "Lacks thematic overlap with target research topic 'Leaf disease classification'; focuses on alternative domain.",
+        "matched_terms": [],
+        "relevance_ratio": 0.0
+      },
+      {
+        "paper_id": "2011.09625",
+        "title": "Exploring Text Specific and Blackbox Fairness",
+        "status": "Irrelevant",
+        "reason": "Lacks thematic overlap with target research topic 'Leaf disease classification'; focuses on alternative domain.",
+        "matched_terms": [],
+        "relevance_ratio": 0.0
+      },
+      {
+        "paper_id": "2104.12405",
+        "title": "A dissemination workshop for introducing different algorithms for sentence generation",
+        "status": "Irrelevant",
+        "reason": "Lacks thematic overlap with target research topic 'Leaf disease classification'; focuses on alternative domain.",
+        "matched_terms": [],
+        "relevance_ratio": 0.0
+      },
+      {
+        "paper_id": "2302.04725",
+        "title": "Lightweight Transformers for Clinical NLP",
+        "status": "Irrelevant",
+        "reason": "Lacks thematic overlap with target research topic 'Leaf disease classification'; focuses on alternative domain.",
+        "matched_terms": [],
+        "relevance_ratio": 0.0
+      },
+      {
+        "paper_id": "N/A",
+        "title": "Evaluating Data Augmentation Techniques for Coffee Leaf Disease",
+        "status": "Directly Relevant",
+        "reason": "Strong alignment with core topic 'Leaf disease classification'; contains key focus areas: classification, disease, leaf.",
+        "matched_terms": [
+          "classification",
+          "disease",
+          "leaf"
+        ],
+        "relevance_ratio": 1.0
+      },
+      {
+        "paper_id": "2402.12205",
+        "title": "Self-organized clustering prediction and differential equation modeling for Alzheimer's Disease progression",
+        "status": "Partially Relevant",
+        "reason": "Peripheral or domain-adjacent alignment with topic 'Leaf disease classification'; addresses disease.",
+        "matched_terms": [
+          "disease"
+        ],
+        "relevance_ratio": 0.33
+      },
+      {
+        "paper_id": "N/A",
+        "title": "How reproducible are data-driven subtypes of dementia progression and deployment.",
+        "status": "Partially Relevant",
+        "reason": "Peripheral or domain-adjacent alignment with topic 'Leaf disease classification'; addresses disease.",
+        "matched_terms": [
+          "disease"
+        ],
+        "relevance_ratio": 0.33
+      },
+      {
+        "paper_id": "2501.07923",
+        "title": "Aviation Safety Enhancement via NLP Deep Learning for Flight Phase Classification",
+        "status": "Partially Relevant",
+        "reason": "Peripheral or domain-adjacent alignment with topic 'Leaf disease classification'; addresses classification.",
+        "matched_terms": [
+          "classification"
+        ],
+        "relevance_ratio": 0.33
+      },
+      {
+        "paper_id": "N/A",
+        "title": "Uncertainty-Aware Genomic Classification of Alzheimer’s Disease: A Transformer-Based Ensemble",
+        "status": "Directly Relevant",
+        "reason": "Strong alignment with core topic 'Leaf disease classification'; contains key focus areas: classification, disease.",
+        "matched_terms": [
+          "classification",
+          "disease"
+        ],
+        "relevance_ratio": 0.67
+      },
+      {
+        "paper_id": "2607.18086",
+        "title": "Judge-dependent safety gains and model-specific helpfulness costs of evidence-sufficiency prompting in clinical LLMs",
+        "status": "Irrelevant",
+        "reason": "Lacks thematic overlap with target research topic 'Leaf disease classification'; focuses on alternative domain.",
+        "matched_terms": [],
+        "relevance_ratio": 0.0
+      },
+      {
+        "paper_id": "N/A",
+        "title": "Decoupling Disease, Covariates, and Individual Variability: A Unified Disentanglement Framework",
+        "status": "Directly Relevant",
+        "reason": "Strong alignment with core topic 'Leaf disease classification'; contains key focus areas: classification, disease.",
+        "matched_terms": [
+          "classification",
+          "disease"
+        ],
+        "relevance_ratio": 0.67
+      },
+      {
+        "paper_id": "N/A",
+        "title": "Detection of Potato Plant Leaf Diseases using CNN",
+        "status": "Directly Relevant",
+        "reason": "Strong alignment with core topic 'Leaf disease classification'; contains key focus areas: disease, leaf.",
+        "matched_terms": [
+          "disease",
+          "leaf"
+        ],
+        "relevance_ratio": 0.67
+      }
+    ],
+    "total_screened": 12,
+    "directly_relevant_count": 4,
+    "partially_relevant_count": 3,
+    "irrelevant_count": 5
+  },
+  "methodology": {
+    "corpus_name": "Leaf disease classification",
+    "categories": [
+      {
+        "id": "method_0",
+        "name": "LMs",
+        "description": "Language models (LMs) learn to estimate the probability of a next word given a context of pre-",
+        "paper_count": 1,
+        "representative_papers": [
+          {
+            "paper_id": "1905.07002",
+            "title": "Towards Automatic Generation of Shareable Clinical Notes",
+            "detail": "Technique: LMs",
+            "technique": "LMs",
+            "contribution_type": "Original Empirical & Methodological Contribution"
+          }
+        ],
+        "all_papers": [
+          {
+            "paper_id": "1905.07002",
+            "title": "Towards Automatic Generation of Shareable Clinical Notes",
+            "detail": "Technique: LMs",
+            "technique": "LMs",
+            "contribution_type": "Original Empirical & Methodological Contribution"
+          }
+        ]
+      },
+      {
+        "id": "method_1",
+        "name": "MIMIC-III",
+        "description": "Our work brings a novel perspective towards studying fairness algorithms for models which op- erate on both text and tabular data, in this case ap-...",
+        "paper_count": 1,
+        "representative_papers": [
+          {
+            "paper_id": "2011.09625",
+            "title": "Exploring Text Specific and Blackbox Fairness",
+            "detail": "Technique: MIMIC-III",
+            "technique": "MIMIC-III",
+            "contribution_type": "Original Empirical & Methodological Contribution"
+          }
+        ],
+        "all_papers": [
+          {
+            "paper_id": "2011.09625",
+            "title": "Exploring Text Specific and Blackbox Fairness",
+            "detail": "Technique: MIMIC-III",
+            "technique": "MIMIC-III",
+            "contribution_type": "Original Empirical & Methodological Contribution"
+          }
+        ]
+      },
+      {
+        "id": "method_2",
+        "name": "Methodology not identified",
+        "description": "Specific algorithmic or architectural methodology could not be confirmed from the parsed text.",
+        "paper_count": 1,
+        "representative_papers": [
+          {
+            "paper_id": "2104.12405",
+            "title": "A dissemination workshop for introducing different algorithms for sentence generation",
+            "detail": "Technique: Methodology not identified",
+            "technique": "Methodology not identified",
+            "contribution_type": "Original Empirical & Methodological Contribution"
+          }
+        ],
+        "all_papers": [
+          {
+            "paper_id": "2104.12405",
+            "title": "A dissemination workshop for introducing different algorithms for sentence generation",
+            "detail": "Technique: Methodology not identified",
+            "technique": "Methodology not identified",
+            "contribution_type": "Original Empirical & Methodological Contribution"
+          }
+        ]
+      },
+      {
+        "id": "method_3",
+        "name": "Transformer Architecture",
+        "description": "BioBERT (Sanh et al., 2019) and BioClinicalBERT (Alsentzer et al., 2019) are two examples of such models that have shown promise in medical NLP tasks.",
+        "paper_count": 3,
+        "representative_papers": [
+          {
+            "paper_id": "2302.04725",
+            "title": "Lightweight Transformers for Clinical NLP",
+            "detail": "Technique: BioBERT",
+            "technique": "BioBERT",
+            "contribution_type": "Original Empirical & Methodological Contribution"
+          },
+          {
+            "paper_id": "N/A",
+            "title": "Evaluating Data Augmentation Techniques for Coffee Leaf Disease",
+            "detail": "Technique: RoCoLe",
+            "technique": "RoCoLe",
+            "contribution_type": "Original Empirical & Methodological Contribution"
+          },
+          {
+            "paper_id": "N/A",
+            "title": "Uncertainty-Aware Genomic Classification of Alzheimer’s Disease: A Transformer-Based Ensemble",
+            "detail": "Technique: TrUE-Net",
+            "technique": "TrUE-Net",
+            "contribution_type": "Original Empirical & Methodological Contribution"
+          }
+        ],
+        "all_papers": [
+          {
+            "paper_id": "2302.04725",
+            "title": "Lightweight Transformers for Clinical NLP",
+            "detail": "Technique: BioBERT",
+            "technique": "BioBERT",
+            "contribution_type": "Original Empirical & Methodological Contribution"
+          },
+          {
+            "paper_id": "N/A",
+            "title": "Evaluating Data Augmentation Techniques for Coffee Leaf Disease",
+            "detail": "Technique: RoCoLe",
+            "technique": "RoCoLe",
+            "contribution_type": "Original Empirical & Methodological Contribution"
+          },
+          {
+            "paper_id": "N/A",
+            "title": "Uncertainty-Aware Genomic Classification of Alzheimer’s Disease: A Transformer-Based Ensemble",
+            "detail": "Technique: TrUE-Net",
+            "technique": "TrUE-Net",
+            "contribution_type": "Original Empirical & Methodological Contribution"
+          }
+        ]
+      },
+      {
+        "id": "method_4",
+        "name": "RCT",
+        "description": "development of an innovative randomized controlled trial (RCT) design aimed at mitigating the",
+        "paper_count": 1,
+        "representative_papers": [
+          {
+            "paper_id": "2402.12205",
+            "title": "Self-organized clustering prediction and differential equation modeling for Alzheimer's Disease progression",
+            "detail": "Technique: RCT",
+            "technique": "RCT",
+            "contribution_type": "Original Empirical & Methodological Contribution"
+          }
+        ],
+        "all_papers": [
+          {
+            "paper_id": "2402.12205",
+            "title": "Self-organized clustering prediction and differential equation modeling for Alzheimer's Disease progression",
+            "detail": "Technique: RCT",
+            "technique": "RCT",
+            "contribution_type": "Original Empirical & Methodological Contribution"
+          }
+        ]
+      },
+      {
+        "id": "method_5",
+        "name": "SuStaIn",
+        "description": "The Subtype and Stage Inference (SuStaIn) algorithm, an unsupervised machine-learning technique combining disease progression modeling and clustering, was used.",
+        "paper_count": 1,
+        "representative_papers": [
+          {
+            "paper_id": "N/A",
+            "title": "How reproducible are data-driven subtypes of dementia progression and deployment.",
+            "detail": "Technique: SuStaIn",
+            "technique": "SuStaIn",
+            "contribution_type": "Original Empirical & Methodological Contribution"
+          }
+        ],
+        "all_papers": [
+          {
+            "paper_id": "N/A",
+            "title": "How reproducible are data-driven subtypes of dementia progression and deployment.",
+            "detail": "Technique: SuStaIn",
+            "technique": "SuStaIn",
+            "contribution_type": "Original Empirical & Methodological Contribution"
+          }
+        ]
+      },
+      {
+        "id": "method_6",
+        "name": "Recurrent Neural Network (LSTM / GRU)",
+        "description": "This study employs Natural Language Processing (NLP) and Deep Learning models, including LSTM, CNN, Bidirectional LSTM (BLSTM), and simple Recurrent Neural Networks (sRNN), to classify...",
+        "paper_count": 1,
+        "representative_papers": [
+          {
+            "paper_id": "2501.07923",
+            "title": "Aviation Safety Enhancement via NLP Deep Learning for Flight Phase Classification",
+            "detail": "Technique: NLP",
+            "technique": "NLP",
+            "contribution_type": "Original Empirical & Methodological Contribution"
+          }
+        ],
+        "all_papers": [
+          {
+            "paper_id": "2501.07923",
+            "title": "Aviation Safety Enhancement via NLP Deep Learning for Flight Phase Classification",
+            "detail": "Technique: NLP",
+            "technique": "NLP",
+            "contribution_type": "Original Empirical & Methodological Contribution"
+          }
+        ]
+      },
+      {
+        "id": "method_7",
+        "name": "HealthBench",
+        "description": "Methods: In a retrospective public-data benchmark (Real-POCQi, HealthBench, MedRBench), four models (GPT-5.5, Claude Opus 4.8, Gemini 3.5 Flash, Grok 4.3) answered a fully paired common...",
+        "paper_count": 1,
+        "representative_papers": [
+          {
+            "paper_id": "2607.18086",
+            "title": "Judge-dependent safety gains and model-specific helpfulness costs of evidence-sufficiency prompting in clinical LLMs",
+            "detail": "Technique: HealthBench",
+            "technique": "HealthBench",
+            "contribution_type": "Original Empirical & Methodological Contribution"
+          }
+        ],
+        "all_papers": [
+          {
+            "paper_id": "2607.18086",
+            "title": "Judge-dependent safety gains and model-specific helpfulness costs of evidence-sufficiency prompting in clinical LLMs",
+            "detail": "Technique: HealthBench",
+            "technique": "HealthBench",
+            "contribution_type": "Original Empirical & Methodological Contribution"
+          }
+        ]
+      },
+      {
+        "id": "method_8",
+        "name": "MedIDL",
+        "description": "A generalized Medical Imaging Disentanglement Learning (MedIDL) framework that maps image features into three mutually orthogonal latent spaces using specialized heads: a disease classification head...",
+        "paper_count": 1,
+        "representative_papers": [
+          {
+            "paper_id": "N/A",
+            "title": "Decoupling Disease, Covariates, and Individual Variability: A Unified Disentanglement Framework",
+            "detail": "Technique: MedIDL",
+            "technique": "MedIDL",
+            "contribution_type": "Original Empirical & Methodological Contribution"
+          }
+        ],
+        "all_papers": [
+          {
+            "paper_id": "N/A",
+            "title": "Decoupling Disease, Covariates, and Individual Variability: A Unified Disentanglement Framework",
+            "detail": "Technique: MedIDL",
+            "technique": "MedIDL",
+            "contribution_type": "Original Empirical & Methodological Contribution"
+          }
+        ]
+      },
+      {
+        "id": "method_9",
+        "name": "Convolutional Neural Network (CNN)",
+        "description": "The model was compared against VGG16 and MobileNetV2.",
+        "paper_count": 1,
+        "representative_papers": [
+          {
+            "paper_id": "N/A",
+            "title": "Detection of Potato Plant Leaf Diseases using CNN",
+            "detail": "Technique: MobileNetV2",
+            "technique": "MobileNetV2",
+            "contribution_type": "Original Empirical & Methodological Contribution"
+          }
+        ],
+        "all_papers": [
+          {
+            "paper_id": "N/A",
+            "title": "Detection of Potato Plant Leaf Diseases using CNN",
+            "detail": "Technique: MobileNetV2",
+            "technique": "MobileNetV2",
+            "contribution_type": "Original Empirical & Methodological Contribution"
+          }
+        ]
+      }
+    ]
+  },
+  "thematic_clusters": {
+    "corpus_topic": "Leaf disease classification",
+    "themes": [
+      {
+        "id": "theme_dyn_0",
+        "name": "Like & Clinical Systems",
+        "title": "Like & Clinical Systems",
+        "theme_title": "Like & Clinical Systems",
+        "scientific_challenge": "Shared Scientific Challenge ([1905.07002], [2104.12405], [2302.04725], [N/A], [N/A]): Papers in this cluster collectively investigate like & clinical systems as evidenced by: Patient privacy concerns hinder the open dissemination of...; Determining the most likely ordering for a sentence...; Existing specialized pre-trained language models (like BioBERT and...; The need for efficient and less knowledge-intensive detection...; Slow or difficult access to disease identification in....",
+        "shared_rationale": "Evaluated publications ([1905.07002], [2104.12405], [2302.04725], [N/A], [N/A]) share common scientific objectives focusing on like & clinical systems to resolve operational constraints in Leaf disease classification.",
+        "technical_differences": "Techniques represented: LMs ([1905.07002]), Methodology not identified ([2104.12405]), BioBERT ([2302.04725]).",
+        "description": "Shared Scientific Challenge ([1905.07002], [2104.12405], [2302.04725], [N/A], [N/A]): Papers in this cluster collectively investigate like & clinical systems as evidenced by: Patient privacy concerns hinder the open dissemination of...; Determining the most likely ordering for a sentence...; Existing specialized pre-trained language models (like BioBERT and...; The need for efficient and less knowledge-intensive detection...; Slow or difficult access to disease identification in.... Evaluated publications ([1905.07002], [2104.12405], [2302.04725], [N/A], [N/A]) share common scientific objectives focusing on like & clinical systems to resolve operational constraints in Leaf disease classification. Techniques represented: LMs ([1905.07002]), Methodology not identified ([2104.12405]), BioBERT ([2302.04725]).",
+        "paper_count": 5,
+        "paper_ids": [
+          "1905.07002",
+          "2104.12405",
+          "2302.04725",
+          "N/A",
+          "N/A"
+        ],
+        "representative_papers": [
+          {
+            "paper_id": "1905.07002",
+            "title": "Towards Automatic Generation of Shareable Clinical Notes"
+          },
+          {
+            "paper_id": "2104.12405",
+            "title": "A dissemination workshop for introducing different algorithms for sentence generation"
+          },
+          {
+            "paper_id": "2302.04725",
+            "title": "Lightweight Transformers for Clinical NLP"
+          },
+          {
+            "paper_id": "N/A",
+            "title": "Evaluating Data Augmentation Techniques for Coffee Leaf Disease"
+          }
+        ],
+        "papers": [
+          {
+            "paper_id": "1905.07002",
+            "title": "Towards Automatic Generation of Shareable Clinical Notes",
+            "paper_title": "Towards Automatic Generation of Shareable Clinical Notes",
+            "finding": "Patient privacy concerns hinder the open dissemination of invaluable large-scale clinical data, and existing de-identification methods are susceptible to adversarial attacks.",
+            "citation": "[1905.07002]"
+          },
+          {
+            "paper_id": "2104.12405",
+            "title": "A dissemination workshop for introducing different algorithms for sentence generation",
+            "paper_title": "A dissemination workshop for introducing different algorithms for sentence generation",
+            "finding": "Determining the most likely ordering for a sentence given a set of words, especially when semantics are not accessible to simple NLP algorithms.",
+            "citation": "[2104.12405]"
+          },
+          {
+            "paper_id": "2302.04725",
+            "title": "Lightweight Transformers for Clinical NLP",
+            "paper_title": "Lightweight Transformers for Clinical NLP",
+            "finding": "Existing specialized pre-trained language models (like BioBERT and BioClinicalBERT) for medical NLP are often overparameterized and resource-intensive.",
+            "citation": "[2302.04725]"
+          },
+          {
+            "paper_id": "N/A",
+            "title": "Evaluating Data Augmentation Techniques for Coffee Leaf Disease",
+            "paper_title": "Evaluating Data Augmentation Techniques for Coffee Leaf Disease",
+            "finding": "The need for efficient and less knowledge-intensive detection and classification of diseases in Robusta coffee leaves, exacerbated by small and imbalanced datasets like RoCoLe.",
+            "citation": "[N/A]"
+          },
+          {
+            "paper_id": "N/A",
+            "title": "Detection of Potato Plant Leaf Diseases using CNN",
+            "paper_title": "Detection of Potato Plant Leaf Diseases using CNN",
+            "finding": "Slow or difficult access to disease identification in potato farming areas in Ethiopia, which is affected by foliar diseases like early blight and late blight.",
+            "citation": "[N/A]"
+          }
+        ]
+      },
+      {
+        "id": "theme_dyn_1",
+        "name": "Independent Research Focus: Exploring Text Specific And Blackbox Fairness",
+        "title": "Independent Research Focus: Exploring Text Specific And Blackbox Fairness",
+        "theme_title": "Independent Research Focus: Exploring Text Specific And Blackbox Fairness",
+        "scientific_challenge": "Independent Scientific Objective: Investigates Exploring Text Specific And Blackbox Fairness within Leaf disease classification.",
+        "shared_rationale": "Independent Methodological Inquiry: Paper [2011.09625] establishes a distinct empirical inquiry into Exploring Text Specific And Blackbox Fairness, operating as an independent methodological paradigm.",
+        "technical_differences": "Deploys MIMIC-III to evaluate empirical performance on Exploring Text Specific and Blackbox....",
+        "description": "Independent Scientific Objective: Investigates Exploring Text Specific And Blackbox Fairness within Leaf disease classification. Independent Methodological Inquiry: Paper [2011.09625] establishes a distinct empirical inquiry into Exploring Text Specific And Blackbox Fairness, operating as an independent methodological paradigm. Deploys MIMIC-III to evaluate empirical performance on Exploring Text Specific and Blackbox....",
+        "paper_count": 1,
+        "paper_ids": [
+          "2011.09625"
+        ],
+        "representative_papers": [
+          {
+            "paper_id": "2011.09625",
+            "title": "Exploring Text Specific and Blackbox Fairness"
+          }
+        ],
+        "papers": [
+          {
+            "paper_id": "2011.09625",
+            "title": "Exploring Text Specific and Blackbox Fairness",
+            "paper_title": "Exploring Text Specific and Blackbox Fairness",
+            "finding": "Ensuring fairness and preventing discrimination in multimodal clinical machine learning tasks, specifically addressing equalized odds on text and tabular data.",
+            "citation": "[2011.09625]"
+          }
+        ]
+      },
+      {
+        "id": "theme_dyn_2",
+        "name": "Limitations & Alzheimer Systems",
+        "title": "Limitations & Alzheimer Systems",
+        "theme_title": "Limitations & Alzheimer Systems",
+        "scientific_challenge": "Shared Scientific Challenge ([2402.12205], [N/A], [N/A]): Papers in this cluster collectively investigate limitations & alzheimer systems as evidenced by: Existing predictive methods for long-term cognitive trajectory in...; Limited success of traditional statistical models and polygenic...; Deep learning models struggle to disentangle disease-specific pathological....",
+        "shared_rationale": "Evaluated publications ([2402.12205], [N/A], [N/A]) share common scientific objectives focusing on limitations & alzheimer systems to resolve operational constraints in Leaf disease classification.",
+        "technical_differences": "Techniques represented: RCT ([2402.12205]), TrUE-Net ([N/A]), MedIDL ([N/A]).",
+        "description": "Shared Scientific Challenge ([2402.12205], [N/A], [N/A]): Papers in this cluster collectively investigate limitations & alzheimer systems as evidenced by: Existing predictive methods for long-term cognitive trajectory in...; Limited success of traditional statistical models and polygenic...; Deep learning models struggle to disentangle disease-specific pathological.... Evaluated publications ([2402.12205], [N/A], [N/A]) share common scientific objectives focusing on limitations & alzheimer systems to resolve operational constraints in Leaf disease classification. Techniques represented: RCT ([2402.12205]), TrUE-Net ([N/A]), MedIDL ([N/A]).",
+        "paper_count": 3,
+        "paper_ids": [
+          "2402.12205",
+          "N/A",
+          "N/A"
+        ],
+        "representative_papers": [
+          {
+            "paper_id": "2402.12205",
+            "title": "Self-organized clustering prediction and differential equation modeling for Alzheimer's Disease progression"
+          },
+          {
+            "paper_id": "N/A",
+            "title": "Uncertainty-Aware Genomic Classification of Alzheimer’s Disease: A Transformer-Based Ensemble"
+          },
+          {
+            "paper_id": "N/A",
+            "title": "Decoupling Disease, Covariates, and Individual Variability: A Unified Disentanglement Framework"
+          }
+        ],
+        "papers": [
+          {
+            "paper_id": "2402.12205",
+            "title": "Self-organized clustering prediction and differential equation modeling for Alzheimer's Disease progression",
+            "paper_title": "Self-organized clustering prediction and differential equation modeling for Alzheimer's Disease progression",
+            "finding": "Existing predictive methods for long-term cognitive trajectory in AD fall short of accurately forecasting future scores while accounting for disease progression patterns.",
+            "citation": "[2402.12205]"
+          },
+          {
+            "paper_id": "N/A",
+            "title": "Uncertainty-Aware Genomic Classification of Alzheimer’s Disease: A Transformer-Based Ensemble",
+            "paper_title": "Uncertainty-Aware Genomic Classification of Alzheimer’s Disease: A Transformer-Based Ensemble",
+            "finding": "Limited success of traditional statistical models and polygenic risk scores in AD prediction, and the lack of confidence indication in black-box deep learning models.",
+            "citation": "[N/A]"
+          },
+          {
+            "paper_id": "N/A",
+            "title": "Decoupling Disease, Covariates, and Individual Variability: A Unified Disentanglement Framework",
+            "paper_title": "Decoupling Disease, Covariates, and Individual Variability: A Unified Disentanglement Framework",
+            "finding": "Deep learning models struggle to disentangle disease-specific pathological signals from confounding covariates (e.g., age, gender, acquisition site, education level, scanner type) and individual variations in medical image classification.",
+            "citation": "[N/A]"
+          }
+        ]
+      },
+      {
+        "id": "theme_dyn_3",
+        "name": "Independent Research Focus: How Reproducible Are Data-Driven Subtypes Of",
+        "title": "Independent Research Focus: How Reproducible Are Data-Driven Subtypes Of",
+        "theme_title": "Independent Research Focus: How Reproducible Are Data-Driven Subtypes Of",
+        "scientific_challenge": "Independent Scientific Objective: Investigates How Reproducible Are Data-Driven Subtypes Of within Leaf disease classification.",
+        "shared_rationale": "Independent Methodological Inquiry: Paper [N/A] establishes a distinct empirical inquiry into How Reproducible Are Data-Driven Subtypes Of, operating as an independent methodological paradigm.",
+        "technical_differences": "Deploys SuStaIn to evaluate empirical performance on How reproducible are data-driven subtypes....",
+        "description": "Independent Scientific Objective: Investigates How Reproducible Are Data-Driven Subtypes Of within Leaf disease classification. Independent Methodological Inquiry: Paper [N/A] establishes a distinct empirical inquiry into How Reproducible Are Data-Driven Subtypes Of, operating as an independent methodological paradigm. Deploys SuStaIn to evaluate empirical performance on How reproducible are data-driven subtypes....",
+        "paper_count": 1,
+        "paper_ids": [
+          "N/A"
+        ],
+        "representative_papers": [
+          {
+            "paper_id": "N/A",
+            "title": "How reproducible are data-driven subtypes of dementia progression and deployment."
+          }
+        ],
+        "papers": [
+          {
+            "paper_id": "N/A",
+            "title": "How reproducible are data-driven subtypes of dementia progression and deployment.",
+            "paper_title": "How reproducible are data-driven subtypes of dementia progression and deployment.",
+            "finding": "Assessing the reproducibility and reliability of data-driven subtypes (identified by SuStaIn) in dementia progression modeling, especially when excluding control data or using less-structured datasets.",
+            "citation": "[N/A]"
+          }
+        ]
+      },
+      {
+        "id": "theme_dyn_4",
+        "name": "Independent Research Focus: Flight Phase Classification",
+        "title": "Independent Research Focus: Flight Phase Classification",
+        "theme_title": "Independent Research Focus: Flight Phase Classification",
+        "scientific_challenge": "Independent Scientific Objective: Investigates Flight Phase Classification within Leaf disease classification.",
+        "shared_rationale": "Independent Methodological Inquiry: Paper [2501.07923] establishes a distinct empirical inquiry into Flight Phase Classification, operating as an independent methodological paradigm.",
+        "technical_differences": "Deploys NLP to evaluate empirical performance on Aviation Safety Enhancement via NLP....",
+        "description": "Independent Scientific Objective: Investigates Flight Phase Classification within Leaf disease classification. Independent Methodological Inquiry: Paper [2501.07923] establishes a distinct empirical inquiry into Flight Phase Classification, operating as an independent methodological paradigm. Deploys NLP to evaluate empirical performance on Aviation Safety Enhancement via NLP....",
+        "paper_count": 1,
+        "paper_ids": [
+          "2501.07923"
+        ],
+        "representative_papers": [
+          {
+            "paper_id": "2501.07923",
+            "title": "Aviation Safety Enhancement via NLP Deep Learning for Flight Phase Classification"
+          }
+        ],
+        "papers": [
+          {
+            "paper_id": "2501.07923",
+            "title": "Aviation Safety Enhancement via NLP Deep Learning for Flight Phase Classification",
+            "paper_title": "Aviation Safety Enhancement via NLP Deep Learning for Flight Phase Classification",
+            "finding": "The need for precise and systematic analysis of safety occurrences during different flight phases from safety reports to enhance aviation safety.",
+            "citation": "[2501.07923]"
+          }
+        ]
+      },
+      {
+        "id": "theme_dyn_5",
+        "name": "Independent Research Focus: Judge-Dependent Safety Gains And Model-Specific Helpfulness",
+        "title": "Independent Research Focus: Judge-Dependent Safety Gains And Model-Specific Helpfulness",
+        "theme_title": "Independent Research Focus: Judge-Dependent Safety Gains And Model-Specific Helpfulness",
+        "scientific_challenge": "Independent Scientific Objective: Investigates Judge-Dependent Safety Gains And Model-Specific Helpfulness within Leaf disease classification.",
+        "shared_rationale": "Independent Methodological Inquiry: Paper [2607.18086] establishes a distinct empirical inquiry into Judge-Dependent Safety Gains And Model-Specific Helpfulness, operating as an independent methodological paradigm.",
+        "technical_differences": "Deploys HealthBench to evaluate empirical performance on Judge-dependent safety gains and model-specific....",
+        "description": "Independent Scientific Objective: Investigates Judge-Dependent Safety Gains And Model-Specific Helpfulness within Leaf disease classification. Independent Methodological Inquiry: Paper [2607.18086] establishes a distinct empirical inquiry into Judge-Dependent Safety Gains And Model-Specific Helpfulness, operating as an independent methodological paradigm. Deploys HealthBench to evaluate empirical performance on Judge-dependent safety gains and model-specific....",
+        "paper_count": 1,
+        "paper_ids": [
+          "2607.18086"
+        ],
+        "representative_papers": [
+          {
+            "paper_id": "2607.18086",
+            "title": "Judge-dependent safety gains and model-specific helpfulness costs of evidence-sufficiency prompting in clinical LLMs"
+          }
+        ],
+        "papers": [
+          {
+            "paper_id": "2607.18086",
+            "title": "Judge-dependent safety gains and model-specific helpfulness costs of evidence-sufficiency prompting in clinical LLMs",
+            "paper_title": "Judge-dependent safety gains and model-specific helpfulness costs of evidence-sufficiency prompting in clinical LLMs",
+            "finding": "Whether measured 'safety gains' from evidence-sufficiency prompting in clinical LLMs reflect real behavior change or are artifacts of the LLM judge's calibration, and what the associated helpfulness costs are.",
+            "citation": "[2607.18086]"
+          }
+        ]
+      }
+    ]
+  },
+  "research_gaps": {
+    "corpus_topic": "Leaf disease classification",
+    "gaps": [
+      {
+        "gap_id": "GAP-01",
+        "type": "author_stated_limitation",
+        "category_label": "Author-Stated Limitation",
+        "has_limitation": true,
+        "title": "Empirical Constraint in Towards Automatic Generation of Shareable...",
+        "explanation": "In [1905.07002] (Section: Abstract), authors identify an operational constraint: \"Utility, however, typically has a dropout optimum value over which it begins to degrade.\".",
+        "observed_limitation": "Utility, however, typically has a dropout optimum value over which it begins to degrade.",
+        "limitation_summary": "Utility, however, typically has a dropout optimum value over which it begins to degrade.",
+        "future_opportunity": "Address reported operational constraint: utility, however, typically has a dropout optimum value over which it begins to degrade..",
+        "supporting_papers": [
+          "1905.07002"
+        ],
+        "evidence": "[1905.07002]: \"Utility, however, typically has a dropout optimum value over which it begins to degrade.\"",
+        "source_section": "Abstract",
+        "confidence_level": "High (Direct author-stated limitation in Section: Abstract)",
+        "reasoning": "Directly extracted from primary paper text where authors explicitly acknowledge operational boundaries in Section 'Abstract'."
+      },
+      {
+        "gap_id": "GAP-02",
+        "type": "author_stated_limitation",
+        "category_label": "Author-Stated Limitation",
+        "has_limitation": true,
+        "title": "Empirical Constraint in Exploring Text Specific and Blackbox...",
+        "explanation": "In [2011.09625] (Section: results by noting the limitations of our real-world), authors identify an operational constraint: \"results by noting the limitations of our real-world dataset, which include signiﬁcant group and la- bel imbalance and...\".",
+        "observed_limitation": "results by noting the limitations of our real-world dataset, which include signiﬁcant group and la- bel imbalance and non-binary group labels, all of which impact the results of EO post-processing (see Appendix A.4).",
+        "limitation_summary": "results by noting the limitations of our real-world dataset, which include signiﬁcant group and la- bel...",
+        "future_opportunity": "Address reported operational constraint: results by noting the limitations of our real-world dataset, which include signiﬁcant group and la- bel imbalance and non-binary group labels, all of which impact the results of EO post-processing (see Appendix A.4)..",
+        "supporting_papers": [
+          "2011.09625"
+        ],
+        "evidence": "[2011.09625]: \"results by noting the limitations of our real-world dataset, which include signiﬁcant group and la- bel imbalance and non-binary group labels, all of which impact the results of EO post-processing (see Appendix A.4).\"",
+        "source_section": "results by noting the limitations of our real-world",
+        "confidence_level": "High (Direct author-stated limitation in Section: results by noting the limitations of our real-world)",
+        "reasoning": "Directly extracted from primary paper text where authors explicitly acknowledge operational boundaries in Section 'results by noting the limitations of our real-world'."
+      },
+      {
+        "gap_id": "GAP-03",
+        "type": "unavailable_evidence",
+        "category_label": "Unavailable Evidence",
+        "has_limitation": false,
+        "title": "Unspecified Operational Boundary in Inspected Sections (2104.12405)",
+        "explanation": "A research gap cannot be established from the available evidence in the inspected sections of [2104.12405].",
+        "observed_limitation": "No explicit author-stated limitation or future work identified within inspected sections.",
+        "limitation_summary": "No explicit author-stated limitation identified.",
+        "future_opportunity": "Empirical stress-testing is required to establish operational boundaries and formal research gaps for [2104.12405].",
+        "supporting_papers": [
+          "2104.12405"
+        ],
+        "evidence": "No verifiable evidence extracted",
+        "source_section": "N/A",
+        "confidence_level": "Unavailable Evidence (Not identified in inspected sections)",
+        "reasoning": "A research gap cannot be established from the available evidence in the inspected sections of [2104.12405]."
+      },
+      {
+        "gap_id": "GAP-04",
+        "type": "author_stated_limitation",
+        "category_label": "Author-Stated Limitation",
+        "has_limitation": true,
+        "title": "Empirical Constraint in Lightweight Transformers for Clinical NLP",
+        "explanation": "In [2302.04725] (Section: ABSTRACT), authors identify an operational constraint: \"1, issues like overparameterisation, computational overhead, and the negative environmental impact of large pre-trained language models have led...\".",
+        "observed_limitation": "1, issues like overparameterisation, computational overhead, and the negative environmental impact of large pre-trained language models have led researchers to develop strategies for compressing these models into smaller, faster, but almost equally performant versions (Sun et al., 2019).",
+        "limitation_summary": "1, issues like overparameterisation, computational overhead, and the negative environmental impact of large pre-trained language models...",
+        "future_opportunity": "Investigate model compression and sparse representations to mitigate computational overhead.",
+        "supporting_papers": [
+          "2302.04725"
+        ],
+        "evidence": "[2302.04725]: \"1, issues like overparameterisation, computational overhead, and the negative environmental impact of large pre-trained language models have led researchers to develop strategies for compressing these models into smaller, faster, but almost equally performant versions (Sun et al., 2019).\"",
+        "source_section": "ABSTRACT",
+        "confidence_level": "High (Direct author-stated limitation in Section: ABSTRACT)",
+        "reasoning": "Directly extracted from primary paper text where authors explicitly acknowledge operational boundaries in Section 'ABSTRACT'."
+      },
+      {
+        "gap_id": "GAP-05",
+        "type": "author_stated_limitation",
+        "category_label": "Author-Stated Limitation",
+        "has_limitation": true,
+        "title": "Empirical Constraint in Evaluating Data Augmentation Techniques for...",
+        "explanation": "In [N/A] (Section: Explicit Limitations), authors identify an operational constraint: \"The job requires extensive botanical knowledge and much wasted time; synthetic data has limitations.\".",
+        "observed_limitation": "The job requires extensive botanical knowledge and much wasted time; synthetic data has limitations.",
+        "limitation_summary": "The job requires extensive botanical knowledge and much wasted time; synthetic data has limitations.",
+        "future_opportunity": "Address reported operational constraint: the job requires extensive botanical knowledge and much wasted time; synthetic data has limitations..",
+        "supporting_papers": [
+          "N/A"
+        ],
+        "evidence": "[N/A]: \"The job requires extensive botanical knowledge and much wasted time; synthetic data has limitations.\"",
+        "source_section": "Explicit Limitations",
+        "confidence_level": "High (Direct author-stated limitation in Section: Explicit Limitations)",
+        "reasoning": "Directly extracted from primary paper text where authors explicitly acknowledge operational boundaries in Section 'Explicit Limitations'."
+      },
+      {
+        "gap_id": "GAP-06",
+        "type": "author_stated_limitation",
+        "category_label": "Author-Stated Limitation",
+        "has_limitation": true,
+        "title": "Empirical Constraint in Self-organized clustering prediction and differential...",
+        "explanation": "In [2402.12205] (Section: Results:), authors identify an operational constraint: \"Table 9 shows the bias and root mean square error (RMSE) of the difference\".",
+        "observed_limitation": "Table 9 shows the bias and root mean square error (RMSE) of the difference",
+        "limitation_summary": "Table 9 shows the bias and root mean square error (RMSE) of the difference",
+        "future_opportunity": "Address reported operational constraint: table 9 shows the bias and root mean square error (RMSE) of the difference.",
+        "supporting_papers": [
+          "2402.12205"
+        ],
+        "evidence": "[2402.12205]: \"Table 9 shows the bias and root mean square error (RMSE) of the difference\"",
+        "source_section": "Results:",
+        "confidence_level": "High (Direct author-stated limitation in Section: Results:)",
+        "reasoning": "Directly extracted from primary paper text where authors explicitly acknowledge operational boundaries in Section 'Results:'."
+      },
+      {
+        "gap_id": "GAP-07",
+        "type": "author_stated_limitation",
+        "category_label": "Author-Stated Limitation",
+        "has_limitation": true,
+        "title": "Empirical Constraint in How reproducible are data-driven subtypes...",
+        "explanation": "In [N/A] (Section: Explicit Limitations), authors identify an operational constraint: \"The use of 'lower-quality' MRI data was identified as a limitation.\".",
+        "observed_limitation": "The use of 'lower-quality' MRI data was identified as a limitation.",
+        "limitation_summary": "The use of 'lower-quality' MRI data was identified as a limitation.",
+        "future_opportunity": "Address reported operational constraint: the use of 'lower-quality' MRI data was identified as a limitation..",
+        "supporting_papers": [
+          "N/A"
+        ],
+        "evidence": "[N/A]: \"The use of 'lower-quality' MRI data was identified as a limitation.\"",
+        "source_section": "Explicit Limitations",
+        "confidence_level": "High (Direct author-stated limitation in Section: Explicit Limitations)",
+        "reasoning": "Directly extracted from primary paper text where authors explicitly acknowledge operational boundaries in Section 'Explicit Limitations'."
+      },
+      {
+        "gap_id": "GAP-08",
+        "type": "author_stated_limitation",
+        "category_label": "Author-Stated Limitation",
+        "has_limitation": true,
+        "title": "Empirical Constraint in Aviation Safety Enhancement via NLP...",
+        "explanation": "In [2501.07923] (Section: I. INTRODUCTION), authors identify an operational constraint: \"However, analyzing these reports manually is a resource-intensive task, often limited by human capacity, subjectivity, and the potential...\".",
+        "observed_limitation": "However,  analyzing these reports manually is a resource-intensive task,  often limited by human capacity, subjectivity, and the  potential for oversight [3].",
+        "limitation_summary": "However, analyzing these reports manually is a resource-intensive task, often limited by human capacity, subjectivity, and...",
+        "future_opportunity": "Address reported operational constraint: however,  analyzing these reports manually is a resource-intensive task,  often limited by human capacity, subjectivity, and the  potential for oversight [3]..",
+        "supporting_papers": [
+          "2501.07923"
+        ],
+        "evidence": "[2501.07923]: \"However,  analyzing these reports manually is a resource-intensive task,  often limited by human capacity, subjectivity, and the  potential for oversight [3].\"",
+        "source_section": "I. INTRODUCTION",
+        "confidence_level": "High (Direct author-stated limitation in Section: I. INTRODUCTION)",
+        "reasoning": "Directly extracted from primary paper text where authors explicitly acknowledge operational boundaries in Section 'I. INTRODUCTION'."
+      },
+      {
+        "gap_id": "GAP-09",
+        "type": "author_stated_limitation",
+        "category_label": "Author-Stated Limitation",
+        "has_limitation": true,
+        "title": "Empirical Constraint in Uncertainty-Aware Genomic Classification of Alzheimer’s...",
+        "explanation": "In [N/A] (Section: Explicit Limitations), authors identify an operational constraint: \"Nevertheless, several limitations remain.\".",
+        "observed_limitation": "Nevertheless, several limitations remain.",
+        "limitation_summary": "Nevertheless, several limitations remain.",
+        "future_opportunity": "Address reported operational constraint: nevertheless, several limitations remain..",
+        "supporting_papers": [
+          "N/A"
+        ],
+        "evidence": "[N/A]: \"Nevertheless, several limitations remain.\"",
+        "source_section": "Explicit Limitations",
+        "confidence_level": "High (Direct author-stated limitation in Section: Explicit Limitations)",
+        "reasoning": "Directly extracted from primary paper text where authors explicitly acknowledge operational boundaries in Section 'Explicit Limitations'."
+      },
+      {
+        "gap_id": "GAP-010",
+        "type": "author_stated_limitation",
+        "category_label": "Author-Stated Limitation",
+        "has_limitation": true,
+        "title": "Empirical Constraint in Judge-dependent safety gains and model-specific...",
+        "explanation": "In [2607.18086] (Section: Limitations), authors identify an operational constraint: \"Limitations Yes — nine enumerated Limitations\".",
+        "observed_limitation": "Limitations Yes — nine enumerated Limitations",
+        "limitation_summary": "Limitations Yes — nine enumerated Limitations",
+        "future_opportunity": "Address reported operational constraint: limitations Yes — nine enumerated Limitations.",
+        "supporting_papers": [
+          "2607.18086"
+        ],
+        "evidence": "[2607.18086]: \"Limitations Yes — nine enumerated Limitations\"",
+        "source_section": "Limitations",
+        "confidence_level": "High (Direct author-stated limitation in Section: Limitations)",
+        "reasoning": "Directly extracted from primary paper text where authors explicitly acknowledge operational boundaries in Section 'Limitations'."
+      },
+      {
+        "gap_id": "GAP-011",
+        "type": "author_stated_limitation",
+        "category_label": "Author-Stated Limitation",
+        "has_limitation": true,
+        "title": "Empirical Constraint in Decoupling Disease, Covariates, and Individual...",
+        "explanation": "In [N/A] (Section: Explicit Limitations), authors identify an operational constraint: \"The provided text mentions overcoming limitations by proposing MedIDL, but does not explicitly list inherent limitations of the...\".",
+        "observed_limitation": "The provided text mentions overcoming limitations by proposing MedIDL, but does not explicitly list inherent limitations of the proposed framework itself, only the challenge it addresses.",
+        "limitation_summary": "The provided text mentions overcoming limitations by proposing MedIDL, but does not explicitly list inherent limitations...",
+        "future_opportunity": "Address reported operational constraint: the provided text mentions overcoming limitations by proposing MedIDL, but does not explicitly list inherent limitations of the proposed framework itself, only the challenge it addresses..",
+        "supporting_papers": [
+          "N/A"
+        ],
+        "evidence": "[N/A]: \"The provided text mentions overcoming limitations by proposing MedIDL, but does not explicitly list inherent limitations of the proposed framework itself, only the challenge it addresses.\"",
+        "source_section": "Explicit Limitations",
+        "confidence_level": "High (Direct author-stated limitation in Section: Explicit Limitations)",
+        "reasoning": "Directly extracted from primary paper text where authors explicitly acknowledge operational boundaries in Section 'Explicit Limitations'."
+      },
+      {
+        "gap_id": "GAP-012",
+        "type": "author_stated_limitation",
+        "category_label": "Author-Stated Limitation",
+        "has_limitation": true,
+        "title": "Empirical Constraint in Detection of Potato Plant Leaf...",
+        "explanation": "In [N/A] (Section: Explicit Limitations), authors identify an operational constraint: \"The study notes that many existing potato-disease studies have limitations.\".",
+        "observed_limitation": "The study notes that many existing potato-disease studies have limitations.",
+        "limitation_summary": "The study notes that many existing potato-disease studies have limitations.",
+        "future_opportunity": "Address reported operational constraint: the study notes that many existing potato-disease studies have limitations..",
+        "supporting_papers": [
+          "N/A"
+        ],
+        "evidence": "[N/A]: \"The study notes that many existing potato-disease studies have limitations.\"",
+        "source_section": "Explicit Limitations",
+        "confidence_level": "High (Direct author-stated limitation in Section: Explicit Limitations)",
+        "reasoning": "Directly extracted from primary paper text where authors explicitly acknowledge operational boundaries in Section 'Explicit Limitations'."
+      }
+    ]
+  }
+}

@@ -1,0 +1,5442 @@
+{
+  "paper_id": "2506.00662",
+  "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+  "parser_used": "PyMuPDF_Layout_Engine",
+  "total_pages": 17,
+  "figures_count": 4,
+  "figures": [
+    {
+      "figure_id": "FIG-2506.00662-P14-1",
+      "page_number": 14,
+      "file_path": "data/figures\\2506.00662\\fig_p14_1.png",
+      "dimensions": "812x778",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2506.00662-P15-1",
+      "page_number": 15,
+      "file_path": "data/figures\\2506.00662\\fig_p15_1.png",
+      "dimensions": "678x627",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2506.00662-P16-1",
+      "page_number": 16,
+      "file_path": "data/figures\\2506.00662\\fig_p16_1.jpeg",
+      "dimensions": "834x812",
+      "format": "jpeg",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2506.00662-P17-1",
+      "page_number": 17,
+      "file_path": "data/figures\\2506.00662\\fig_p17_1.png",
+      "dimensions": "1445x661",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    }
+  ],
+  "vector_graphs_count": 1,
+  "vector_graphs": [
+    {
+      "page_number": 13,
+      "drawing_path_count": 84,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ]
+    }
+  ],
+  "tables_count": 0,
+  "tables": [],
+  "full_text": "Uncertainty-Aware Genomic Classification of Alzheimer’s Disease: A Transformer-Based Ensemble\n\nApproach with Monte Carlo Dropout\n\nTaeho Joa*, Eun Hye Leea and Alzheimer’s Disease Sequencing Project\n\na Indiana Alzheimer Disease Research Center and Center for Neuroimaging, Department of Radiology\n\nand Imaging Sciences, Indiana University School of Medicine, Indianapolis, IN 46202, USA\n\nCorresponding authors\n\nTaeho Jo, PhD*\n\nIndiana Alzheimer Disease Research Center and Center for Neuroimaging, Department of Radiology\n\nand Imaging Sciences, Indiana University School of Medicine, Indianapolis, IN 46202, USA\n\nTel.: +1-317-963-7504\n\nE-mail: tjo@iu.edu\n\nAbstract\n\nINTRODUCTION: Alzheimer’s disease (AD) is genetically complex, complicating robust classification\n\nfrom genomic data.\n\nMETHODS: We developed a transformer-based ensemble model (TrUE-Net) using Monte Carlo Dropout\n\nfor uncertainty estimation in AD classification from whole-genome sequencing (WGS). We combined a\n\ntransformer that preserves single-nucleotide polymorphism (SNP) sequence structure with a concurrent\n\nrandom forest using flattened genotypes. An uncertainty threshold separated samples into an uncertain\n\n(high-variance) group and a more certain (low-variance) group.\n\nRESULTS: We analyzed 1050 individuals, holding out half for testing. Overall accuracy and area under\n\nthe receiver operating characteristic (ROC) curve (AUC) were 0.6514 and 0.6636, respectively. Excluding\n\nthe uncertain group improved accuracy from 0.6263 to 0.7287 (10.24% increase) and F1 from 0.5843 to\n\n0.8205 (23.62% increase).\n\nDISCUSSION: Monte Carlo Dropout–driven uncertainty helps identify ambiguous cases that may require\n\nfurther clinical evaluation, thus improving reliability in AD genomic classification.\n\nKeywords: Alzheimer’s disease; Genomics; Deep learning; Transformer; Monte Carlo Dropout;\n\nUncertainty; Dementia classification\n\nAbbreviations\n\n• \nAD: Alzheimer’s disease\n\n• \nTrUE-Net: Transformer-based, Uncertainty-aware, Ensemble Network\n\n• \nSNP: single-nucleotide polymorphism\n\n• \nWGS: whole-genome sequencing\n\n• \nROC: receiver operating characteristic\n\n• \nAUC: area under the ROC curve\n\n• \nF1: F1-score\n\nIntroduction\n\nAlzheimer’s disease (AD) is a complex, progressive neurodegenerative disorder and the most common\n\ncause of dementia in the elderly. It represents a significant public health concern as populations age,\n\nwith tens of millions affected worldwide. From a genetic standpoint, AD has a highly polygenic\n\narchitecture: while rare familial early-onset AD may result from single-gene mutations (e.g. in APP,\n\nPSEN1, PSEN2) the more common late-onset AD involves dozens of risk-associated genetic variants,\n\neach conferring a modest effect (Bekris et al., 2010; Saykin et al., 2015). Twin studies estimate AD\n\nheritability at approximately 70%,(Gatz et al., 1997; M. Gatz et al., 2006) yet genome-wide association\n\nstudies (GWAS) have collectively identified over 80 loci (including more than 100 independent variants)\n\nthat influence AD risk (Andrews et al., 2023; Bellenguez et al., 2022; Jansen et al., 2019; Kunkle et al.,\n\n2019). This genetic complexity, along with gene–gene and gene–environment interactions, makes\n\ngenomic variant classification for AD prediction challenging. Individual variants typically have limited\n\npredictive power, and there is substantial “missing heritability,” indicating that many genetic factors and\n\ntheir effects remain uncertain.\n\nTraditional statistical models and polygenic risk scores have had limited success in AD prediction due\n\nto the high-dimensional, often noisy nature of genomic data.(Genomes Project et al., 2015) Recently,\n\nresearchers have turned to deep learning to capture nonlinear interactions among variants and improve\n\npredictive accuracy. For example, fully-connected neural networks have been applied to AD genomics\n\ndata, reporting moderate accuracy (~68-70%) in distinguishing AD dementia from controls (Jo et al.,\n\n2023; Shigemizu et al., 2023). Transformers, a deep learning architecture originally developed for natural\n\nlanguage processing, have shown notable ability to model long-range dependencies in sequential data\n\nand have been adapted to genomic sequences (Jo et al., 2025).\n\nWhile deep learning can yield improved accuracy, the reliability of predictions remains a major concern\n\nin medical applications. Black-box models often provide outputs without clearly indicating confidence\n\nlevels, and can exhibit overconfidence even when they are incorrect (Milanés-Hermosilla et al., 2021).\n\nThis issue is particularly critical in clinical genomics, where misclassification of a patient’s risk may lead\n\nto inappropriate interventions and reduce user trust (Ferrante et al., 2024; Nguyen et al., 2021). To\n\naddress these challenges, we propose an uncertainty-aware deep learning framework for AD genomic\n\nvariant classification that leverages Monte Carlo Dropout. We refer to this approach as TrUE-Net\n\n(Transformer-based, Uncertainty-aware, Ensemble Network). Monte Carlo Dropout is a Bayesian\n\napproximation technique that keeps dropout active at inference time to generate multiple stochastic\n\nforward passes, enabling an estimation of predictive variance.\n\nA notable aspect of the proposed method is its integration of a transformer-based genotype classifier\n\nwith a concurrently trained random forest model. Their respective probability outputs are aggregated\n\nthrough a learned weighting factor, thereby producing a single combined probability estimate. By\n\nmerging the transformer’s dropout-induced variance with the random forest’s estimator variance, the\n\nframework yields a comprehensive measure of predictive uncertainty for each sample. This unified\n\nuncertainty metric facilitates the identification of low-confidence predictions that warrant additional\n\nscrutiny, thereby enhancing overall reliability. Empirical evaluations indicate that excluding high-variance\n\npredictions can significantly improve classification performance on the remaining, more confidently\n\nassessed subset, providing a practical strategy for mitigating diagnostic risk in Alzheimer’s disease\n\ngenomics.\n\nMethods\n\nDataset and Genomic Preprocessing\n\nWe evaluated our approach using whole-genome sequencing (WGS) data from a total of 1,566\n\nparticipants, drawn from the Alzheimer’s Disease Neuroimaging Initiative (ADNI). Of these, 516\n\nindividuals diagnosed with mild cognitive impairment were excluded, resulting in a final case-control\n\nset of 443 cognitively normal (CN) participants and 607 with clinically confirmed AD dementia (Table1).\n\nDiagnostic criteria for ADNI participants are provided on the ADNI website (http://www.adni‐info.org).\n\nSequencing was performed on Illumina platforms with either 100-bp or 150-bp paired-end reads\n\naligned to the GRCh38 (hg38) reference genome using BWA-MEM,(Li & Durbin, 2009) followed by PCR\n\nduplicate marking, local realignment, and base quality score recalibration with the Genome Analysis\n\nToolkit (GATK). Joint variant calling proceeded via GATK HaplotypeCaller, and the Genome Center for\n\nAlzheimer’s Disease (GCAD) applied its Variant Calling Pipeline for standardized quality control,\n\nencompassing checks of single-nucleotide variant (SNV) concordance, sex mismatches, relatedness, and\n\ncontamination.\n\nSample-level quality control removed individuals exhibiting sex inconsistencies, call rates below 95%,\n\nor duplicated genetic profiles, and excluded those with high relatedness (Pihat > 0.4). Variant-level\n\nfiltering discarded SNPs with call rates under 95%, Hardy–Weinberg equilibrium p-values less than 1 ×\n\n10⁻⁶, or minor allele frequencies below 1%. Variants that appeared monomorphic, multi-allelic, or had\n\npoor genotype quality (GQ < 20), low read depth (DP < 10), or missingness exceeding 20% were also\n\nset aside. In parallel, population structure was implicitly managed because both ADNI and ADSP-FUS1-\n\nADNI-WGS-2 primarily included participants of European ancestry, and outliers had already been\n\nremoved during each study’s enrollment. We then applied a k-nearest neighbors (k-NN) imputation\n\nmethod (Jo et al., 2025) to address residual missing genotypes following these QC steps.\n\nAfter these procedures, approximately 100,000 common variants per individual—including those\n\nencompassing the APOE locus—were retained for the final analyses. Each variant was encoded as an\n\ninteger genotype (0, 1, or 2). We split the dataset into equally sized training and test sets, ensuring\n\nstratification by diagnostic label. We partitioned the dataset into training and test subsets, using a 5-\n\nfold stratified cross-validation on the training set to monitor variability and validate the chosen\n\nhyperparameters. Final assessments of generalization were subsequently carried out on the hold-out\n\ntest set.\n\nAn Ensemble Approach with Window-Based and Flattened Genomic Representations\n\nWe constructed a transformer-based classification model within the proposed TrUE-Net framework to\n\ndistinguish AD dementia cases from CN controls by translating each individual’s genomic data into a\n\nstructured sequence. In this approach, we segmented each individual’s array of single-nucleotide\n\npolymorphisms (SNPs) into non-overlapping tokens of length 100 to balance resolution and\n\ncomputational feasibility. These token-level representations were subsequently projected into a feature\n\ndimension of 128 through a linear embedding layer, followed by ReLU activation and dropout at a rate\n\nof 0.2.\n\nSubsequently, a stack of two transformer encoder layers processed the embedded windows in order to\n\ncapture relevant dependencies among the segments. Each encoder layer implemented four attention\n\nheads and employed a feed-forward sublayer of dimension 512, allowing the model to attend to both\n\nlocal interactions and more distant correlations across the genotypic windows. After the transformer\n\noperations, the representations of all windows for a given individual were averaged to form a single\n\nfeature vector. This pooled vector was then fed into a linear layer with two output units, whose logits\n\nwere trained to discriminate AD dementia from CN controls. We minimized the cross-entropy loss\n\nfunction to fit this model, and we applied a softmax function during inference to interpret the logits as\n\nclass probabilities. Throughout this pipeline, Monte Carlo Dropout remained active, enabling multiple\n\nstochastic forward passes for each sample at test time and facilitating the estimation of predictive\n\nvariance.\n\nIn parallel, we trained a random forest classifier to provide an alternative perspective on the same\n\ngenomic data. Instead of preserving any sequential arrangement of the SNP windows, this second\n\nmodel operated on a concatenated vector comprising the entire genotype profile, effectively flattening\n\nall windows into a single feature array. This arrangement treated each variant position as an independent\n\npredictor, disregarding explicit local ordering but potentially capturing broad, global patterns through\n\nthe aggregate of decision trees. To coordinate these two complementary classification strategies, we\n\nensured that both models were trained and evaluated on the same set of participants, which allowed\n\nsubsequent ensemble weighting.\n\nWithin the training set, we carried out a five-fold cross-validation procedure to identify optimal\n\nhyperparameters, including the weighting factor that merged outputs from the transformer and random\n\nforest models, along with a variance threshold to distinguish uncertain predictions. Specifically, we\n\naveraged the best weighting factors and threshold levels discovered across the five folds to arrive at\n\nthe final parameter settings. We subsequently retrained both the transformer-based model and the\n\nrandom forest on the entire training set, using an AdamW optimizer with a learning rate of 0.001 and\n\na batch size of 32 over five epochs. Throughout the training, the dropout-driven variance was monitored\n\nto encourage stable latent representations while preserving the stochasticity needed for uncertainty\n\nestimation.\n\nLastly, we applied the combined models to the test set to gauge the final predictive performance. For\n\neach individual in the test set, we computed a weighted average of the transformer’s probabilistic\n\noutput and the random forest’s prediction, using the previously determined combination weight.\n\nSimilarly, we merged the corresponding variance estimates to assign each sample either to an uncertain\n\nor a more confidently assessed category, depending on whether its variance exceeded or fell below the\n\nthreshold observed in cross-validation. This procedure enabled us to calculate separate metrics for the\n\nuncertain and more certain groups and provided insight into the reliability of the resulting ensemble\n\nmodel. By segregating test samples in this manner, we aimed to highlight the potential benefits of\n\nuncertainty quantification in identifying cases that may require additional clinical follow-up or expert\n\nreview.\n\nPredictive Variance for Uncertainty Estimation in AD Classification\n\nWithin the training set, a five-fold cross-validation procedure was carried out to generate out-of-fold\n\n(OOF) predictions from both a transformer-based model with Monte Carlo Dropout and a RandomForest\n\nclassifier, facilitating the discovery of key hyperparameters: the ensemble weight α and a variance\n\nthreshold to distinguish uncertain from more confidently classified samples. During training, the\n\nfollowing variance penalty was added to the cross-entropy objective:\n\nℒ= CrossEntropy(𝑦̂, 𝑦) + λ𝑢𝑛𝑐⋅mean(Var(logits))\n\nWhere Var(logits) quantifies the dropout-induced variance in the logit outputs over multiple forward\n\npasses, and λ𝑢𝑛𝑐 (for instance, 0.05) encourages the model to avoid excessive fluctuations. At inference,\n\nMonte Carlo Dropout remained active, producing an average probability 𝑃𝑡𝑟𝑎𝑛𝑠 and a per-sample\n\nvariance 𝑉𝑎𝑟𝑡𝑟𝑎𝑛𝑠.\n\nA RandomForest classifier was trained in parallel on a flattened representation of the same SNP data,\n\nproviding an independent probability, 𝑃𝑟𝑓, and an uncertainty measure, 𝑉𝑎𝑟𝑟𝑓, based on the variance\n\nin its aggregate of decision trees. To formulate a single matrix expression that merges these two models,\n\none can define the following 2×2 matrix and 1×2 vector:\n\n𝑀= (𝑃𝑡𝑟𝑎𝑛𝑠\n𝑉𝑎𝑟𝑡𝑟𝑎𝑛𝑠\n𝑃𝑟𝑓\n𝑉𝑎𝑟𝑟𝑓) ,\n𝑤= (α\n 1 −α)\n\nwhere α was selected to maximize accuracy on the OOF predictions. The final ensemble output,\n\n𝑂𝑒𝑛𝑠𝑒𝑚𝑏𝑙𝑒= 𝑤 ⋅𝑀\n\nthus produces a 1×2 vector whose first component is the ensemble probability 𝑃𝑒𝑛𝑠𝑒𝑚𝑏𝑙𝑒 and whose\n\nsecond component is the ensemble variance 𝑉𝑎𝑟𝑒𝑛𝑠𝑒𝑚𝑏𝑙𝑒. An extensive grid of candidate thresholds on\n\n𝑉𝑎𝑟𝑒𝑛𝑠𝑒𝑚𝑏𝑙𝑒 was evaluated (for instance, by partitioning the observed range of variance values into\n\nmultiple segments), and the threshold that optimized a chosen metric (e.g., the sum of AUCs in\n\nuncertain and more certain subsets) was recorded in each fold. Once all folds were completed, their\n\nbest hyperparameters were averaged to finalize α and the variance threshold.\n\nAfter collecting the OOF predictions, both models were retrained on the entire 50% training setusing\n\nthe final values of α and the variance threshold. Monte Carlo Dropout remained active for the\n\ntransformer in order to continue providing a mean probability and variance for each sample. Finally,\n\nthe refitted models were applied to the unseen 50% test set for an unbiased evaluation of predictive\n\nperformance. Each test sample’s ensemble variance was compared to the threshold, and any sample\n\nabove that threshold was classified as uncertain group, while the rest were deemed relatively certain.\n\nThis procedure facilitated an assessment of whether variance-based filtering effectively identified\n\nsamples that were more prone to misclassification, by comparing accuracy and related metrics across\n\nuncertain versus more confidently classified subsets.\n\nThe source code for this study is available at GitHub: https://github.com/taehojo/TrUE-Net\n\nResults\n\nA total of 525 test samples were used after training the TrUE-Net model on the remaining data. The\n\nfinal predictive run across these 525 samples, referred to here as the All group, achieved an overall\n\naccuracy of 0.6514, an area under the ROC curve of 0.6636, and an F1-score of 0.6679. Figure 1 presents\n\nthe test samples that divided into an uncertain group and a certain group by applying a threshold to\n\nthis score.Where the horizontal axis represents the predicted probability of AD dementia and the vertical\n\naxis shows the model’s variance estimate. 396 of the test samples, corresponding to 75.4 percent, were\n\nlabeled uncertain, while 129, corresponding to 24.6 percent, were categorized as certain. Figure 2 shows\n\naccuracy, area under the ROC curve, and F1 metrics for both groups. The uncertain group had values\n\nof 0.6263, 0.6268, and 0.5843 for these measures, while the certain group reached 0.7287, 0.6816, and\n\n0.8205. Figure 3 shows that uncertain samples cluster near the 0.3 to 0.5 range, whereas certain samples\n\nappear in more definitive ranges below 0.3 or above 0.6.\n\nTo optimize the relative weighting of the transformer and random forest outputs, multiple values of α\n\nwere evaluated in increments of 0.2, from 0 to 1. The highest AUC (0.6508) emerged at α = 0.6, whereas\n\nα = 1 yielded the lowest AUC (0.6283). Intermediate values (e.g., α = 0.4) resulted in slightly lower AUCs\n\n(0.6467) compared to the peak at α = 0.6. In parallel, a threshold parameter was varied to categorize\n\neach sample into uncertain versus certain subgroups. Ten candidate thresholds were selected by\n\ndividing the range between the minimum and maximum uncertainty values into equal intervals. Each\n\nthreshold was then used to compute a performance score reflecting the sum of the AUC values for the\n\nuncertain and certain subsets combined. As shown below, the highest combined score was achieved at\n\na threshold of 0.0741.\n\nFigure 4 compares two histograms for each diagnosis category: CN and AD dementia. Figure 4(A) shows\n\nthe final predicted probability of AD dementia. Here, the CN group exhibits a pronounced peak near\n\n0.4, whereas the AD dementia group’s distribution shifts to approximately 0.6. Despite some overlap\n\naround 0.4 to 0.6, CN samples are generally more prevalent in the lower-probability range, and AD\n\ndementia samples concentrate in the higher-probability range. In Figure 4(B), the same two groups are\n\ncompared in terms of model uncertainty. The CN group reaches its highest peak near 0.10, whereas the\n\nAD dementia group’s distribution is somewhat centered around 0.07 to 0.09. Although these peaks\n\nsuggest a slight difference between CN and AD dementia, both groups occupy similar variance ranges\n\noverall.\n\nDiscussion\n\nThis study investigated an uncertainty-aware genomic classification framework for AD by employing a\n\ntransformer-based model with Monte Carlo Dropout. Our TrUE-Net approach set variance-based\n\nthresholds to single out test samples associated with higher predictive variance, termed uncertain, from\n\nthose deemed more stable, termed certain. This separation provided a way to focus on reliably classified\n\nsamples while drawing attention to ambiguous cases in need of additional diagnostic steps. Moreover,\n\nperformance improved considerably for the certain group. These findings support earlier work\n\nsuggesting that a relatively small percentage of ambiguous genotypes can contribute disproportionately\n\nto overall errors, and that removing them from the main classification pipeline can yield marked gains\n\nin core metrics(Belloy et al., 2022; Escott-Price et al., 2019; Jo et al., 2022).\n\nThe final prediction results of All group presented moderate performance. This indicated that an all-or-\n\nnothing scenario does not fully exploit the advantages of variance-based filtering. However, an\n\nadditional analysis involving predictive variance revealed substantial differences in performance between\n\nsubsets of samples with high variance and those with low variance. Although improved performance\n\non a smaller subset is a recognized effect of uncertainty-driven approaches, the degree of improvement\n\nhere is notable. The uncertain group’s lower accuracy illustrated the complexity introduced by higher\n\npredictive variance. Probability estimates for these samples often hover near intermediate values,\n\nmaking the classification boundary less clear. Notably, these uncertain samples are distributed across\n\nboth CN and AD, indicating that the model’s predictive variance is not restricted to a single group.\n\nIdentifying these ambiguous cases allows clinicians or researchers to allocate additional diagnostic steps,\n\npotentially reducing diagnostic errors.\n\nIn a separate analysis that complements these results, excluding predictions tagged with high predictive\n\nvariance elevated accuracy and increased the area under the ROC curve. This observation demonstrates\n\nhow ignoring or postponing ambiguous classifications can lead to tangible benefits. The method also\n\nallows for more nuanced output than a simple binary label by providing an estimate of confidence\n\nthrough variance. This capacity can be valuable in clinical contexts, where errors carry weighty\n\nconsequences, since higher-variance cases can receive extra diagnostic attention such as neuroimaging\n\nor biomarker testing. Conversely, lower-variance classifications may be handled with more confidence,\n\npotentially increasing the efficiency of clinical workflows.\n\nNevertheless, several limitations remain. First, the dataset was primarily composed of 1050 individuals\n\nof European descent, which constrains generalization to other ancestral groups. Second, because mild\n\ncognitive impairment cases were omitted, the analysis offered only a binary comparison between\n\nindividuals without cognitive decline and those with established Alzheimer’s dementia. This design does\n\nnot capture subtle genetic features linked to early or transitional stages, and it does not incorporate\n\ngene interactions often observed in complex disorders. Third, the model architecture did not address\n\nrare variants that can strongly affect disease risk. Lastly, although variance-based filtering improved\n\nperformance on the less ambiguous subset, it reduced the total number of samples that could be\n\nconfidently classified, raising the need to balance completeness against the aim of higher accuracy and\n\nF1.\n\nFurther efforts may tackle these challenges by recruiting more diverse populations and including mild\n\nor preclinical states, enabling a broader evaluation of how variance-based methods perform across\n\ndifferent stages of Alzheimer’s disease. It would also be instructive to incorporate additional data types,\n\nsuch as transcriptomics, proteomics, or metabolomics, in order to capture a richer biological background.\n\nMethods that dynamically tune the variance threshold could reduce the proportion of excluded samples\n\nwhile sustaining performance gains. Taken together, these avenues can refine transformer-based models\n\nfor genomic risk prediction and strengthen confidence in their utility in clinical scenarios.\n\nConclusion\n\nIn this study, we applied TrUE-Net, a transformer-based classification model with Monte Carlo Dropout\n\nto estimate uncertainty in the genomic prediction of Alzheimer’s disease. Filtering out samples with\n\nelevated variance in their predicted probabilities led to higher accuracy and area under the ROC curve\n\non the retained subset, thereby demonstrating the practical benefits of an uncertainty-aware approach.\n\nThese results underscore the usefulness of explicitly modeling uncertainty for genomic classification\n\ntasks, where identifying ambiguous cases can direct further testing or evaluations. The proposed\n\npipeline can be integrated into existing diagnostic workflows for AD and provides a foundation for\n\nfuture research aimed at incorporating other data modalities, larger and more diverse populations, and\n\nmore advanced uncertainty estimation methods.\n\nConflict of Interest Statement\n\nDr. Taeho Jo serves as an Associate Editor of Genomics & Informatics, a Springer-Nature Journal, but\n\nhad no role in the editorial assessment or peer review of this manuscript. The authors declare no other\n\nconflicts of interest.\n\nFunding\n\nThis research was partially supported by the Alzheimer's Association (AA) under the grant number AARG\n\n22-974053 and the National Institutes of Health (NIH): P30 AG072976, U19 AG024904, U01 AG068057,\n\nU19 AG074879, U01 AG072177, U24 AG074855.\n\nConsent Statement\n\nConsent from human subjects was not necessary for this study.\n\nReferences\n\nAndrews, S. J., Renton, A. E., Fulton-Howard, B., Podlesny-Drabiniok, A., Marcora, E., & Goate, A. M.\n\n(2023). The complex genetic architecture of Alzheimer's disease: novel insights and future\n\ndirections. EBioMedicine, 90, 104511. https://doi.org/10.1016/j.ebiom.2023.104511\n\nBekris, L. M., Yu, C. E., Bird, T. D., & Tsuang, D. W. (2010). Genetics of Alzheimer disease. J Geriatr\n\nPsychiatry Neurol, 23(4), 213-227. https://doi.org/10.1177/0891988710383571\n\nBellenguez, C., Küçükali, F., Jansen, I. E., Kleineidam, L., Moreno-Grau, S., Amin, N., Naj, A. C., Campos-\n\nMartin, R., Grenier-Boley, B., Andrade, V., Holmans, P. A., Boland, A., Damotte, V., van der Lee, S.\n\nJ., Costa, M. R., Kuulasmaa, T., Yang, Q., de Rojas, I., Bis, J. C.,…Sánchez-Arjona, M. B. (2022). New\n\ninsights into the genetic etiology of Alzheimer’s disease and related dementias. Nature Genetics,\n\n54(4), 412-436. https://doi.org/10.1038/s41588-022-01024-z\n\nBelloy, M. E., Eger, S. J., Le Guen, Y., Damotte, V., Ahmad, S., Ikram, M. A., Ramirez, A., Tsolaki, A. C., Rossi,\n\nG., Jansen, I. E., de Rojas, I., Parveen, K., Sleegers, K., Ingelsson, M., Hiltunen, M., Amin, N.,\n\nAndreassen, O., Sánchez-Juan, P., Kehoe, P.,…Dementia, B. (2022). Challenges at the APOE locus:\n\na robust quality control approach for accurate APOE genotyping. Alzheimer's Research &\n\nTherapy, 14(1), 22. https://doi.org/10.1186/s13195-022-00962-4\n\nEscott-Price, V., Baker, E., Shoai, M., Leonenko, G., Myers, A. J., Huentelman, M., & Hardy, J. (2019). Genetic\n\nanalysis suggests high misassignment rates in clinical Alzheimer's cases and controls.\n\nNeurobiology \nof \nAging, \n77, \n178-182.\n\nhttps://doi.org/https://doi.org/10.1016/j.neurobiolaging.2018.12.002\n\nFerrante, M., Boccato, T., & Toschi, N. (2024). Enabling uncertainty estimation in neural networks through\n\nweight \nperturbation \nfor \nimproved \nAlzheimer's \ndisease \nclassification. \nFrontiers \nin\n\nNeuroinformatics, 18, 1346723.\n\nGatz, M., Pedersen, N. L., Berg, S., Johansson, B., Johansson, K., Mortimer, J. A., Posner, S. F., Viitanen, M.,\n\nWinblad, B., & Ahlbom, A. (1997). Heritability for Alzheimer's disease: the study of dementia in\n\nSwedish \ntwins. \nJ \nGerontol \nA \nBiol \nSci \nMed \nSci, \n52(2), \nM117-125.\n\nhttps://doi.org/10.1093/gerona/52a.2.m117\n\nGatz, M., Reynolds, C. A., Fratiglioni, L., Johansson, B., Mortimer, J. A., Berg, S., Fiske, A., & Pedersen, N.\n\nL. (2006). Role of genes and environments for explaining Alzheimer disease. Arch Gen Psychiatry,\n\n63(2), 168-174. https://doi.org/10.1001/archpsyc.63.2.168\n\nGatz, M., Reynolds, C. A., Fratiglioni, L., Johansson, B., Mortimer, J. A., Berg, S., Fiske, A., & Pedersen, N.\n\nL. (2006). Role of Genes and Environments for Explaining Alzheimer Disease. Archives of General\n\nPsychiatry, 63(2), 168-174. https://doi.org/10.1001/archpsyc.63.2.168\n\nGenomes Project, C., Auton, A., Brooks, L. D., Durbin, R. M., Garrison, E. P., Kang, H. M., Korbel, J. O.,\n\nMarchini, J. L., McCarthy, S., McVean, G. A., & Abecasis, G. R. (2015). A global reference for\n\nhuman genetic variation. Nature, 526(7571), 68-74. https://doi.org/10.1038/nature15393\n\nJansen, I. E., Savage, J. E., Watanabe, K., Bryois, J., Williams, D. M., Steinberg, S., Sealock, J., Karlsson, I. K.,\n\nHägg, S., Athanasiu, L., Voyle, N., Proitsi, P., Witoelar, A., Stringer, S., Aarsland, D., Almdahl, I. S.,\n\nAndersen, F., Bergh, S., Bettella, F.,…Posthuma, D. (2019). Genome-wide meta-analysis identifies\n\nnew loci and functional pathways influencing Alzheimer’s disease risk. Nature Genetics, 51(3),\n\n404-413. https://doi.org/10.1038/s41588-018-0311-9\n\nJo, T., Bice, P., Nho, K., Saykin, A. J., & Project, A. s. D. S. (2025). LD-informed deep learning for Alzheimer's\n\ngene loci detection using WGS data. Alzheimer's & Dementia: Translational Research & Clinical\n\nInterventions, 11(1), e70041. https://doi.org/https://doi.org/10.1002/trc2.70041\n\nJo, T., Nho, K., Bice, P., Saykin, A. J., & Initiative, A. s. D. N. (2022). Deep learning-based identification of\n\ngenetic variants: application to Alzheimer’s disease classification. Briefings in Bioinformatics,\n\n23(2), bbac022.\n\nJo, T., Nho, K., & Saykin, A. J. (2023). Deep learning‐based SWAT‐TAB approach for Identifying Genetic\n\nVariants using Whole Genome Sequencing. Alzheimer's & Dementia, 19, e079369.\n\nKunkle, B. W., Grenier-Boley, B., Sims, R., Bis, J. C., Damotte, V., Naj, A. C., Boland, A., Vronskaya, M., van\n\nder Lee, S. J., Amlie-Wolf, A., Bellenguez, C., Frizatti, A., Chouraki, V., Martin, E. R., Sleegers, K.,\n\nBadarinarayan, N., Jakobsdottir, J., Hamilton-Nelson, K. L., Moreno-Grau, S.,…Lieberman, A. P.\n\n(2019). Genetic meta-analysis of diagnosed Alzheimer’s disease identifies new risk loci and\n\nimplicates Aβ, tau, immunity and lipid processing. Nature Genetics, 51(3), 414-430.\n\nhttps://doi.org/10.1038/s41588-019-0358-2\n\nLi, H., & Durbin, R. (2009). Fast and accurate short read alignment with Burrows-Wheeler transform.\n\nBioinformatics, 25(14), 1754-1760. https://doi.org/10.1093/bioinformatics/btp324\n\nMilanés-Hermosilla, D., Trujillo Codorniú, R., López-Baracaldo, R., Sagaró-Zamora, R., Delisle-Rodriguez,\n\nD., Villarejo-Mayor, J. J., & Núñez-Álvarez, J. R. (2021). Monte Carlo Dropout for Uncertainty\n\nEstimation \nand \nMotor \nImagery \nClassification. \nSensors \n(Basel), \n21(21).\n\nhttps://doi.org/10.3390/s21217241\n\nNguyen, D., Sadeghnejad Barkousaraie, A., Bohara, G., Balagopal, A., McBeth, R., Lin, M. H., & Jiang, S.\n\n(2021). A comparison of Monte Carlo dropout and bootstrap aggregation on the performance\n\nand uncertainty estimation in radiation therapy dose prediction with deep learning neural\n\nnetworks. Phys Med Biol, 66(5), 054002. https://doi.org/10.1088/1361-6560/abe04f\n\nProject, \nA. \ns. \nD. \nS. \nAlzheimer's \nDisease \nSequencing \nProject \n(NG00067; \nVersion \n14).\n\nhttps://doi.org/10.60859/Z6Z9-9692\n\nSaykin, A. J., Shen, L., Yao, X., Kim, S., Nho, K., Risacher, S. L., Ramanan, V. K., Foroud, T. M., Faber, K. M.,\n\n& Sarwar, N. (2015). Genetic studies of quantitative MCI and AD phenotypes in ADNI: Progress,\n\nopportunities, and plans. Alzheimer's & Dementia, 11(7), 792-814.\n\nShigemizu, D., Akiyama, S., Suganuma, M., Furutani, M., Yamakawa, A., Nakano, Y., Ozaki, K., & Niida, S.\n\n(2023). Classification and deep-learning–based prediction of Alzheimer disease subtypes by\n\nusing genomic data. Translational Psychiatry, 13(1), 232. https://doi.org/10.1038/s41398-023-\n\n02531-1\n\nDiagnosis\n\nGroup\n\nSample\n\nSize\n\nMean\n\nAge\n\n(SD)\n\n% Males /\n\nFemales\n\nAPOE\n\nε2/ε2\n\nAPOE\n\nε2/ε3\n\nAPOE\n\nε2/ε4\n\nAPOE\n\nε3/ε3\n\nAPOE\n\nε3/ε4\n\nAPOE\n\nε4/ε4\n\nAPOE ε4\n\nCarriers\n\n(%)\n\nCognitive\n\nnormal (CN)\n\n443 \n72.63\n\n(6.31)\n\n53.05 /\n\n46.95 \n2 \n57 \n7 \n257 \n110 \n10 \n27.09\n\nAlzheimer’s\n\ndisease (AD)\n\n607 \n73.97\n\n(7.25)\n\n42.01 /\n\n57.99 \n1 \n19 \n14 \n194 \n278 \n101 \n62.44\n\nTable 1. This table shows demographic and APOE genotype data for the cognitively normal and\n\nAlzheimer’s disease groups. Among the 443 cognitively normal individuals, the mean age was 72.63\n\nyears, 53.05 percent were male, and 27.09 percent carried the APOE ε4 allele. Among the 607 individuals\n\nwith Alzheimer’s disease, the mean age was 73.97 years, 42.01 percent were male, and 62.44 percent\n\nwere ε4 carriers, consistent with the well-known association of APOE ε4 with higher Alzheimer’s disease\n\nrisk.\n\nFigure 1. This scatter plot compares the predicted probability for Alzheimer’s disease on the horizontal\n\naxis with the model’s uncertainty on the vertical axis. Lighter points labeled uncertain generally exhibit\n\nhigher uncertainty, while darker points labeled certain show lower uncertainty.\n\nFigure 2. This bar chart displays accuracy, area under the ROC curve, and F1-score for three subsets:\n\nuncertain, shown with the lightest bars, all test samples, shown with medium bars, and certain, shown\n\nwith the darkest bars. The uncertain subset has lower scores overall, while the certain subset achieves\n\nhigher values on each metric.\n\nFigure 3. This kernel density plot displays the distribution of predicted probabilities for uncertain in a\n\nlighter color and certain in a darker color. The uncertain group clusters near mid-range values around\n\n0.3 to 0.5, whereas the certain group appears at more extreme probabilities below 0.3 or above 0.6.\n\nFigure 4. (A) compares the distribution of final predicted probabilities for the cognitively normal (CN)\n\nand AD groups, showing that CN cases tend to peak near 0.4 while AD cases shift toward higher\n\nprobabilities around 0.6. (B) shows the distribution of model uncertainty, where CN reaches its highest\n\nfrequency near 0.10 and AD clusters slightly below that range, although substantial overlap remains\n\nbetween the two groups.",
+  "chunks": [
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        72.7,
+        74.1,
+        542.7,
+        87.8
+      ],
+      "text": "Uncertainty-Aware Genomic Classification of Alzheimer’s Disease: A Transformer-Based Ensemble"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        217.9,
+        92.7,
+        397.8,
+        105.6
+      ],
+      "text": "Approach with Monte Carlo Dropout"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        147.7,
+        119.4,
+        466.5,
+        133.0
+      ],
+      "text": "Taeho Joa*, Eun Hye Leea and Alzheimer’s Disease Sequencing Project"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        72.0,
+        146.1,
+        543.3,
+        159.0
+      ],
+      "text": "a Indiana Alzheimer Disease Research Center and Center for Neuroimaging, Department of Radiology"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        72.0,
+        164.6,
+        484.4,
+        177.5
+      ],
+      "text": "and Imaging Sciences, Indiana University School of Medicine, Indianapolis, IN 46202, USA"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        72.0,
+        218.0,
+        185.7,
+        230.9
+      ],
+      "text": "Corresponding authors"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        72.0,
+        244.7,
+        143.8,
+        257.5
+      ],
+      "text": "Taeho Jo, PhD*"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        72.0,
+        271.5,
+        543.1,
+        284.3
+      ],
+      "text": "Indiana Alzheimer Disease Research Center and Center for Neuroimaging, Department of Radiology"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        72.0,
+        290.1,
+        484.4,
+        302.9
+      ],
+      "text": "and Imaging Sciences, Indiana University School of Medicine, Indianapolis, IN 46202, USA"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        72.0,
+        316.7,
+        175.4,
+        329.5
+      ],
+      "text": "Tel.: +1-317-963-7504"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        72.0,
+        343.3,
+        158.7,
+        356.2
+      ],
+      "text": "E-mail: tjo@iu.edu"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        396.7,
+        115.4,
+        409.6
+      ],
+      "text": "Abstract"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 1,
+      "section": "INTRODUCTION: Alzheimer’s disease (AD) is genetically complex, complicating robust classification",
+      "bbox": [
+        72.0,
+        423.5,
+        543.2,
+        437.2
+      ],
+      "text": "INTRODUCTION: Alzheimer’s disease (AD) is genetically complex, complicating robust classification"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 1,
+      "section": "INTRODUCTION: Alzheimer’s disease (AD) is genetically complex, complicating robust classification",
+      "bbox": [
+        72.0,
+        442.1,
+        165.0,
+        454.9
+      ],
+      "text": "from genomic data."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 1,
+      "section": "INTRODUCTION: Alzheimer’s disease (AD) is genetically complex, complicating robust classification",
+      "bbox": [
+        72.0,
+        460.8,
+        543.4,
+        473.7
+      ],
+      "text": "METHODS: We developed a transformer-based ensemble model (TrUE-Net) using Monte Carlo Dropout"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 1,
+      "section": "INTRODUCTION: Alzheimer’s disease (AD) is genetically complex, complicating robust classification",
+      "bbox": [
+        72.0,
+        479.4,
+        543.4,
+        492.3
+      ],
+      "text": "for uncertainty estimation in AD classification from whole-genome sequencing (WGS). We combined a"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 1,
+      "section": "INTRODUCTION: Alzheimer’s disease (AD) is genetically complex, complicating robust classification",
+      "bbox": [
+        72.0,
+        498.2,
+        543.5,
+        511.0
+      ],
+      "text": "transformer that preserves single-nucleotide polymorphism (SNP) sequence structure with a concurrent"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 1,
+      "section": "INTRODUCTION: Alzheimer’s disease (AD) is genetically complex, complicating robust classification",
+      "bbox": [
+        72.0,
+        516.8,
+        543.3,
+        529.6
+      ],
+      "text": "random forest using flattened genotypes. An uncertainty threshold separated samples into an uncertain"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 1,
+      "section": "INTRODUCTION: Alzheimer’s disease (AD) is genetically complex, complicating robust classification",
+      "bbox": [
+        72.0,
+        535.5,
+        363.5,
+        548.3
+      ],
+      "text": "(high-variance) group and a more certain (low-variance) group."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 1,
+      "section": "RESULTS: We analyzed 1050 individuals, holding out half for testing. Overall accuracy and area under",
+      "bbox": [
+        72.0,
+        554.2,
+        543.0,
+        567.0
+      ],
+      "text": "RESULTS: We analyzed 1050 individuals, holding out half for testing. Overall accuracy and area under"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 1,
+      "section": "RESULTS: We analyzed 1050 individuals, holding out half for testing. Overall accuracy and area under",
+      "bbox": [
+        72.0,
+        572.8,
+        543.2,
+        585.6
+      ],
+      "text": "the receiver operating characteristic (ROC) curve (AUC) were 0.6514 and 0.6636, respectively. Excluding"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 1,
+      "section": "RESULTS: We analyzed 1050 individuals, holding out half for testing. Overall accuracy and area under",
+      "bbox": [
+        72.0,
+        591.5,
+        543.4,
+        604.4
+      ],
+      "text": "the uncertain group improved accuracy from 0.6263 to 0.7287 (10.24% increase) and F1 from 0.5843 to"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 1,
+      "section": "RESULTS: We analyzed 1050 individuals, holding out half for testing. Overall accuracy and area under",
+      "bbox": [
+        72.0,
+        610.1,
+        189.8,
+        623.0
+      ],
+      "text": "0.8205 (23.62% increase)."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 1,
+      "section": "DISCUSSION: Monte Carlo Dropout–driven uncertainty helps identify ambiguous cases that may require",
+      "bbox": [
+        72.0,
+        628.9,
+        543.3,
+        642.5
+      ],
+      "text": "DISCUSSION: Monte Carlo Dropout–driven uncertainty helps identify ambiguous cases that may require"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 1,
+      "section": "DISCUSSION: Monte Carlo Dropout–driven uncertainty helps identify ambiguous cases that may require",
+      "bbox": [
+        72.0,
+        647.3,
+        442.8,
+        660.2
+      ],
+      "text": "further clinical evaluation, thus improving reliability in AD genomic classification."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 1,
+      "section": "DISCUSSION: Monte Carlo Dropout–driven uncertainty helps identify ambiguous cases that may require",
+      "bbox": [
+        72.0,
+        674.1,
+        543.2,
+        687.7
+      ],
+      "text": "Keywords: Alzheimer’s disease; Genomics; Deep learning; Transformer; Monte Carlo Dropout;"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 1,
+      "section": "DISCUSSION: Monte Carlo Dropout–driven uncertainty helps identify ambiguous cases that may require",
+      "bbox": [
+        72.0,
+        692.7,
+        237.2,
+        705.5
+      ],
+      "text": "Uncertainty; Dementia classification"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 2,
+      "section": "DISCUSSION: Monte Carlo Dropout–driven uncertainty helps identify ambiguous cases that may require",
+      "bbox": [
+        72.0,
+        74.0,
+        141.5,
+        86.9
+      ],
+      "text": "Abbreviations"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 2,
+      "section": "DISCUSSION: Monte Carlo Dropout–driven uncertainty helps identify ambiguous cases that may require",
+      "bbox": [
+        90.0,
+        100.8,
+        219.6,
+        114.4
+      ],
+      "text": "• \nAD: Alzheimer’s disease"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 2,
+      "section": "DISCUSSION: Monte Carlo Dropout–driven uncertainty helps identify ambiguous cases that may require",
+      "bbox": [
+        90.0,
+        119.5,
+        420.9,
+        132.5
+      ],
+      "text": "• \nTrUE-Net: Transformer-based, Uncertainty-aware, Ensemble Network"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 2,
+      "section": "DISCUSSION: Monte Carlo Dropout–driven uncertainty helps identify ambiguous cases that may require",
+      "bbox": [
+        90.0,
+        138.1,
+        282.6,
+        151.1
+      ],
+      "text": "• \nSNP: single-nucleotide polymorphism"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 2,
+      "section": "DISCUSSION: Monte Carlo Dropout–driven uncertainty helps identify ambiguous cases that may require",
+      "bbox": [
+        90.0,
+        156.8,
+        262.8,
+        169.8
+      ],
+      "text": "• \nWGS: whole-genome sequencing"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 2,
+      "section": "DISCUSSION: Monte Carlo Dropout–driven uncertainty helps identify ambiguous cases that may require",
+      "bbox": [
+        90.0,
+        175.4,
+        282.1,
+        188.4
+      ],
+      "text": "• \nROC: receiver operating characteristic"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 2,
+      "section": "DISCUSSION: Monte Carlo Dropout–driven uncertainty helps identify ambiguous cases that may require",
+      "bbox": [
+        90.0,
+        194.1,
+        256.0,
+        207.1
+      ],
+      "text": "• \nAUC: area under the ROC curve"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 2,
+      "section": "DISCUSSION: Monte Carlo Dropout–driven uncertainty helps identify ambiguous cases that may require",
+      "bbox": [
+        90.0,
+        212.7,
+        166.1,
+        225.7
+      ],
+      "text": "• \nF1: F1-score"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 2,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        258.0,
+        134.7,
+        270.8
+      ],
+      "text": "Introduction"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 2,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        284.8,
+        543.0,
+        298.4
+      ],
+      "text": "Alzheimer’s disease (AD) is a complex, progressive neurodegenerative disorder and the most common"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 2,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        303.5,
+        543.1,
+        316.3
+      ],
+      "text": "cause of dementia in the elderly. It represents a significant public health concern as populations age,"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 2,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        322.1,
+        543.4,
+        334.9
+      ],
+      "text": "with tens of millions affected worldwide. From a genetic standpoint, AD has a highly polygenic"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 2,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        340.8,
+        543.6,
+        353.6
+      ],
+      "text": "architecture: while rare familial early-onset AD may result from single-gene mutations (e.g. in APP,"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 2,
+      "section": "Introduction",
+      "bbox": [
+        71.4,
+        359.4,
+        543.5,
+        372.2
+      ],
+      "text": "PSEN1, PSEN2) the more common late-onset AD involves dozens of risk-associated genetic variants,"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 2,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        378.1,
+        543.5,
+        391.0
+      ],
+      "text": "each conferring a modest effect (Bekris et al., 2010; Saykin et al., 2015). Twin studies estimate AD"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 2,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        396.9,
+        543.5,
+        409.7
+      ],
+      "text": "heritability at approximately 70%,(Gatz et al., 1997; M. Gatz et al., 2006) yet genome-wide association"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 2,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        415.5,
+        543.1,
+        428.3
+      ],
+      "text": "studies (GWAS) have collectively identified over 80 loci (including more than 100 independent variants)"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 2,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        434.2,
+        543.1,
+        447.0
+      ],
+      "text": "that influence AD risk (Andrews et al., 2023; Bellenguez et al., 2022; Jansen et al., 2019; Kunkle et al.,"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 2,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        452.8,
+        543.4,
+        466.4
+      ],
+      "text": "2019). This genetic complexity, along with gene–gene and gene–environment interactions, makes"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 2,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        471.5,
+        543.1,
+        484.3
+      ],
+      "text": "genomic variant classification for AD prediction challenging. Individual variants typically have limited"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 2,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        490.1,
+        543.5,
+        503.8
+      ],
+      "text": "predictive power, and there is substantial “missing heritability,” indicating that many genetic factors and"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 2,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        508.7,
+        211.8,
+        521.5
+      ],
+      "text": "their effects remain uncertain."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 2,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        535.5,
+        543.0,
+        548.3
+      ],
+      "text": "Traditional statistical models and polygenic risk scores have had limited success in AD prediction due"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 2,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        554.1,
+        543.6,
+        566.9
+      ],
+      "text": "to the high-dimensional, often noisy nature of genomic data.(Genomes Project et al., 2015) Recently,"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 2,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        572.8,
+        543.2,
+        585.6
+      ],
+      "text": "researchers have turned to deep learning to capture nonlinear interactions among variants and improve"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 2,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        591.5,
+        543.3,
+        604.4
+      ],
+      "text": "predictive accuracy. For example, fully-connected neural networks have been applied to AD genomics"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 2,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        610.1,
+        543.6,
+        623.0
+      ],
+      "text": "data, reporting moderate accuracy (~68-70%) in distinguishing AD dementia from controls (Jo et al.,"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 2,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        628.9,
+        543.2,
+        641.7
+      ],
+      "text": "2023; Shigemizu et al., 2023). Transformers, a deep learning architecture originally developed for natural"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 2,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        647.5,
+        543.5,
+        660.3
+      ],
+      "text": "language processing, have shown notable ability to model long-range dependencies in sequential data"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 2,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        666.1,
+        369.8,
+        678.9
+      ],
+      "text": "and have been adapted to genomic sequences (Jo et al., 2025)."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 2,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        692.8,
+        543.1,
+        705.6
+      ],
+      "text": "While deep learning can yield improved accuracy, the reliability of predictions remains a major concern"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 3,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        74.1,
+        543.2,
+        87.0
+      ],
+      "text": "in medical applications. Black-box models often provide outputs without clearly indicating confidence"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 3,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        92.9,
+        543.6,
+        106.5
+      ],
+      "text": "levels, and can exhibit overconfidence even when they are incorrect (Milanés-Hermosilla et al., 2021)."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 3,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        111.5,
+        543.5,
+        125.1
+      ],
+      "text": "This issue is particularly critical in clinical genomics, where misclassification of a patient’s risk may lead"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 3,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        130.2,
+        543.6,
+        143.0
+      ],
+      "text": "to inappropriate interventions and reduce user trust (Ferrante et al., 2024; Nguyen et al., 2021). To"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 3,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        148.8,
+        543.4,
+        161.6
+      ],
+      "text": "address these challenges, we propose an uncertainty-aware deep learning framework for AD genomic"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 3,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        167.5,
+        543.6,
+        180.3
+      ],
+      "text": "variant classification that leverages Monte Carlo Dropout. We refer to this approach as TrUE-Net"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 3,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        186.1,
+        543.4,
+        198.9
+      ],
+      "text": "(Transformer-based, Uncertainty-aware, Ensemble Network). Monte Carlo Dropout is a Bayesian"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 3,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        204.8,
+        543.0,
+        217.7
+      ],
+      "text": "approximation technique that keeps dropout active at inference time to generate multiple stochastic"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 3,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        223.3,
+        356.4,
+        236.1
+      ],
+      "text": "forward passes, enabling an estimation of predictive variance."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 3,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        250.1,
+        543.5,
+        262.9
+      ],
+      "text": "A notable aspect of the proposed method is its integration of a transformer-based genotype classifier"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 3,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        268.8,
+        543.1,
+        281.6
+      ],
+      "text": "with a concurrently trained random forest model. Their respective probability outputs are aggregated"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 3,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        287.5,
+        543.3,
+        300.4
+      ],
+      "text": "through a learned weighting factor, thereby producing a single combined probability estimate. By"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 3,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        306.1,
+        543.4,
+        319.8
+      ],
+      "text": "merging the transformer’s dropout-induced variance with the random forest’s estimator variance, the"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 3,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        324.9,
+        543.1,
+        337.7
+      ],
+      "text": "framework yields a comprehensive measure of predictive uncertainty for each sample. This unified"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 3,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        343.5,
+        543.4,
+        356.3
+      ],
+      "text": "uncertainty metric facilitates the identification of low-confidence predictions that warrant additional"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 3,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        362.2,
+        543.6,
+        375.0
+      ],
+      "text": "scrutiny, thereby enhancing overall reliability. Empirical evaluations indicate that excluding high-variance"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 3,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        380.8,
+        543.3,
+        393.6
+      ],
+      "text": "predictions can significantly improve classification performance on the remaining, more confidently"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 3,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        399.5,
+        543.6,
+        413.1
+      ],
+      "text": "assessed subset, providing a practical strategy for mitigating diagnostic risk in Alzheimer’s disease"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 3,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        418.0,
+        121.1,
+        430.8
+      ],
+      "text": "genomics."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 3,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        471.4,
+        117.6,
+        484.2
+      ],
+      "text": "Methods"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 3,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        498.0,
+        248.4,
+        510.9
+      ],
+      "text": "Dataset and Genomic Preprocessing"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 3,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        524.8,
+        543.3,
+        537.6
+      ],
+      "text": "We evaluated our approach using whole-genome sequencing (WGS) data from a total of 1,566"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 3,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        543.5,
+        543.5,
+        557.2
+      ],
+      "text": "participants, drawn from the Alzheimer’s Disease Neuroimaging Initiative (ADNI). Of these, 516"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 3,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        562.1,
+        543.6,
+        574.9
+      ],
+      "text": "individuals diagnosed with mild cognitive impairment were excluded, resulting in a final case-control"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 3,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        580.8,
+        543.6,
+        593.7
+      ],
+      "text": "set of 443 cognitively normal (CN) participants and 607 with clinically confirmed AD dementia (Table1)."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 3,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        599.5,
+        543.6,
+        612.5
+      ],
+      "text": "Diagnostic criteria for ADNI participants are provided on the ADNI website (http://www.adni‐info.org)."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 3,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        618.2,
+        543.6,
+        631.0
+      ],
+      "text": "Sequencing was performed on Illumina platforms with either 100-bp or 150-bp paired-end reads"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 3,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        636.8,
+        543.5,
+        649.6
+      ],
+      "text": "aligned to the GRCh38 (hg38) reference genome using BWA-MEM,(Li & Durbin, 2009) followed by PCR"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 3,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        655.5,
+        543.2,
+        668.3
+      ],
+      "text": "duplicate marking, local realignment, and base quality score recalibration with the Genome Analysis"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 3,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        674.1,
+        543.1,
+        686.9
+      ],
+      "text": "Toolkit (GATK). Joint variant calling proceeded via GATK HaplotypeCaller, and the Genome Center for"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 3,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        692.8,
+        543.1,
+        706.5
+      ],
+      "text": "Alzheimer’s Disease (GCAD) applied its Variant Calling Pipeline for standardized quality control,"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 4,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        74.1,
+        543.4,
+        87.0
+      ],
+      "text": "encompassing checks of single-nucleotide variant (SNV) concordance, sex mismatches, relatedness, and"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 4,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        92.7,
+        142.8,
+        105.6
+      ],
+      "text": "contamination."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 4,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        119.5,
+        543.0,
+        132.3
+      ],
+      "text": "Sample-level quality control removed individuals exhibiting sex inconsistencies, call rates below 95%,"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 4,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        138.1,
+        543.6,
+        150.9
+      ],
+      "text": "or duplicated genetic profiles, and excluded those with high relatedness (Pihat > 0.4). Variant-level"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 4,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        156.8,
+        543.6,
+        170.5
+      ],
+      "text": "filtering discarded SNPs with call rates under 95%, Hardy–Weinberg equilibrium p-values less than 1 ×"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 4,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        175.4,
+        543.5,
+        189.1
+      ],
+      "text": "10⁻⁶, or minor allele frequencies below 1%. Variants that appeared monomorphic, multi-allelic, or had"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 4,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        194.1,
+        542.9,
+        207.0
+      ],
+      "text": "poor genotype quality (GQ < 20), low read depth (DP < 10), or missingness exceeding 20% were also"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 4,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        212.7,
+        540.0,
+        225.6
+      ],
+      "text": "set aside. In parallel, population structure was implicitly managed because both ADNI and ADSP-FUS1-"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 4,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        231.5,
+        543.1,
+        244.3
+      ],
+      "text": "ADNI-WGS-2 primarily included participants of European ancestry, and outliers had already been"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 4,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        250.1,
+        543.5,
+        263.7
+      ],
+      "text": "removed during each study’s enrollment. We then applied a k-nearest neighbors (k-NN) imputation"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 4,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        268.7,
+        481.3,
+        281.5
+      ],
+      "text": "method (Jo et al., 2025) to address residual missing genotypes following these QC steps."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 4,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        295.5,
+        543.5,
+        309.1
+      ],
+      "text": "After these procedures, approximately 100,000 common variants per individual—including those"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 4,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        314.2,
+        543.2,
+        327.8
+      ],
+      "text": "encompassing the APOE locus—were retained for the final analyses. Each variant was encoded as an"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 4,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        332.8,
+        543.2,
+        345.6
+      ],
+      "text": "integer genotype (0, 1, or 2). We split the dataset into equally sized training and test sets, ensuring"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 4,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        351.5,
+        540.0,
+        364.3
+      ],
+      "text": "stratification by diagnostic label. We partitioned the dataset into training and test subsets, using a 5-"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 4,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        370.1,
+        543.3,
+        382.9
+      ],
+      "text": "fold stratified cross-validation on the training set to monitor variability and validate the chosen"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 4,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        388.8,
+        543.6,
+        401.6
+      ],
+      "text": "hyperparameters. Final assessments of generalization were subsequently carried out on the hold-out"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 4,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        407.3,
+        110.8,
+        420.1
+      ],
+      "text": "test set."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 4,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        434.1,
+        480.8,
+        446.9
+      ],
+      "text": "An Ensemble Approach with Window-Based and Flattened Genomic Representations"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 4,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        460.8,
+        543.6,
+        473.7
+      ],
+      "text": "We constructed a transformer-based classification model within the proposed TrUE-Net framework to"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 4,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        479.4,
+        543.5,
+        493.1
+      ],
+      "text": "distinguish AD dementia cases from CN controls by translating each individual’s genomic data into a"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 4,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        498.2,
+        543.5,
+        511.8
+      ],
+      "text": "structured sequence. In this approach, we segmented each individual’s array of single-nucleotide"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 4,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        516.8,
+        543.3,
+        529.6
+      ],
+      "text": "polymorphisms (SNPs) into non-overlapping tokens of length 100 to balance resolution and"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 4,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        535.5,
+        543.4,
+        548.3
+      ],
+      "text": "computational feasibility. These token-level representations were subsequently projected into a feature"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 4,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        554.1,
+        543.2,
+        566.9
+      ],
+      "text": "dimension of 128 through a linear embedding layer, followed by ReLU activation and dropout at a rate"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 4,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        572.7,
+        103.4,
+        585.5
+      ],
+      "text": "of 0.2."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 4,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        599.5,
+        543.1,
+        612.3
+      ],
+      "text": "Subsequently, a stack of two transformer encoder layers processed the embedded windows in order to"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 4,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        618.2,
+        543.1,
+        631.0
+      ],
+      "text": "capture relevant dependencies among the segments. Each encoder layer implemented four attention"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 4,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        636.8,
+        543.4,
+        649.6
+      ],
+      "text": "heads and employed a feed-forward sublayer of dimension 512, allowing the model to attend to both"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 4,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        655.5,
+        543.0,
+        668.3
+      ],
+      "text": "local interactions and more distant correlations across the genotypic windows. After the transformer"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 4,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        674.1,
+        543.0,
+        686.9
+      ],
+      "text": "operations, the representations of all windows for a given individual were averaged to form a single"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 4,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        692.8,
+        543.1,
+        705.6
+      ],
+      "text": "feature vector. This pooled vector was then fed into a linear layer with two output units, whose logits"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 5,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        74.1,
+        543.5,
+        87.0
+      ],
+      "text": "were trained to discriminate AD dementia from CN controls. We minimized the cross-entropy loss"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 5,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        92.9,
+        543.0,
+        105.7
+      ],
+      "text": "function to fit this model, and we applied a softmax function during inference to interpret the logits as"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 5,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        111.5,
+        543.0,
+        124.3
+      ],
+      "text": "class probabilities. Throughout this pipeline, Monte Carlo Dropout remained active, enabling multiple"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 5,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        130.2,
+        543.1,
+        143.0
+      ],
+      "text": "stochastic forward passes for each sample at test time and facilitating the estimation of predictive"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 5,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        148.7,
+        114.6,
+        161.5
+      ],
+      "text": "variance."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 5,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        175.4,
+        543.0,
+        188.3
+      ],
+      "text": "In parallel, we trained a random forest classifier to provide an alternative perspective on the same"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 5,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        194.1,
+        543.1,
+        207.0
+      ],
+      "text": "genomic data. Instead of preserving any sequential arrangement of the SNP windows, this second"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 5,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        212.7,
+        543.4,
+        225.6
+      ],
+      "text": "model operated on a concatenated vector comprising the entire genotype profile, effectively flattening"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 5,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        231.5,
+        543.3,
+        244.3
+      ],
+      "text": "all windows into a single feature array. This arrangement treated each variant position as an independent"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 5,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        250.1,
+        543.0,
+        262.9
+      ],
+      "text": "predictor, disregarding explicit local ordering but potentially capturing broad, global patterns through"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 5,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        268.8,
+        543.1,
+        281.6
+      ],
+      "text": "the aggregate of decision trees. To coordinate these two complementary classification strategies, we"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 5,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        287.5,
+        543.1,
+        300.4
+      ],
+      "text": "ensured that both models were trained and evaluated on the same set of participants, which allowed"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 5,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        306.0,
+        225.0,
+        318.8
+      ],
+      "text": "subsequent ensemble weighting."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 5,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        332.8,
+        543.4,
+        345.6
+      ],
+      "text": "Within the training set, we carried out a five-fold cross-validation procedure to identify optimal"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 5,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        351.5,
+        543.2,
+        364.3
+      ],
+      "text": "hyperparameters, including the weighting factor that merged outputs from the transformer and random"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 5,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        370.1,
+        543.5,
+        382.9
+      ],
+      "text": "forest models, along with a variance threshold to distinguish uncertain predictions. Specifically, we"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 5,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        388.8,
+        543.0,
+        401.6
+      ],
+      "text": "averaged the best weighting factors and threshold levels discovered across the five folds to arrive at"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 5,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        407.4,
+        543.5,
+        420.2
+      ],
+      "text": "the final parameter settings. We subsequently retrained both the transformer-based model and the"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 5,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        426.2,
+        542.9,
+        439.0
+      ],
+      "text": "random forest on the entire training set, using an AdamW optimizer with a learning rate of 0.001 and"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 5,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        444.8,
+        543.5,
+        457.6
+      ],
+      "text": "a batch size of 32 over five epochs. Throughout the training, the dropout-driven variance was monitored"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 5,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        463.5,
+        543.4,
+        476.3
+      ],
+      "text": "to encourage stable latent representations while preserving the stochasticity needed for uncertainty"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 5,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        482.1,
+        125.0,
+        494.9
+      ],
+      "text": "estimation."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 5,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        508.8,
+        542.8,
+        521.7
+      ],
+      "text": "Lastly, we applied the combined models to the test set to gauge the final predictive performance. For"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 5,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        527.4,
+        543.5,
+        541.1
+      ],
+      "text": "each individual in the test set, we computed a weighted average of the transformer’s probabilistic"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 5,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        546.2,
+        543.6,
+        559.8
+      ],
+      "text": "output and the random forest’s prediction, using the previously determined combination weight."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 5,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        564.8,
+        543.2,
+        577.6
+      ],
+      "text": "Similarly, we merged the corresponding variance estimates to assign each sample either to an uncertain"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 5,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        583.5,
+        543.1,
+        596.3
+      ],
+      "text": "or a more confidently assessed category, depending on whether its variance exceeded or fell below the"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 5,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        602.1,
+        543.3,
+        614.9
+      ],
+      "text": "threshold observed in cross-validation. This procedure enabled us to calculate separate metrics for the"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 5,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        620.8,
+        543.0,
+        633.7
+      ],
+      "text": "uncertain and more certain groups and provided insight into the reliability of the resulting ensemble"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 5,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        639.4,
+        543.4,
+        652.3
+      ],
+      "text": "model. By segregating test samples in this manner, we aimed to highlight the potential benefits of"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 5,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        658.1,
+        543.5,
+        671.0
+      ],
+      "text": "uncertainty quantification in identifying cases that may require additional clinical follow-up or expert"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 5,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        676.7,
+        106.0,
+        689.6
+      ],
+      "text": "review."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 5,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        703.4,
+        391.7,
+        716.2
+      ],
+      "text": "Predictive Variance for Uncertainty Estimation in AD Classification"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 6,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        74.1,
+        543.6,
+        87.0
+      ],
+      "text": "Within the training set, a five-fold cross-validation procedure was carried out to generate out-of-fold"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 6,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        92.9,
+        543.4,
+        105.7
+      ],
+      "text": "(OOF) predictions from both a transformer-based model with Monte Carlo Dropout and a RandomForest"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 6,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        111.5,
+        543.5,
+        124.3
+      ],
+      "text": "classifier, facilitating the discovery of key hyperparameters: the ensemble weight α and a variance"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 6,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        130.2,
+        543.1,
+        143.0
+      ],
+      "text": "threshold to distinguish uncertain from more confidently classified samples. During training, the"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 6,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        148.7,
+        389.6,
+        161.5
+      ],
+      "text": "following variance penalty was added to the cross-entropy objective:"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 6,
+      "section": "Introduction",
+      "bbox": [
+        197.9,
+        171.9,
+        417.7,
+        186.4
+      ],
+      "text": "ℒ= CrossEntropy(𝑦̂, 𝑦) + λ𝑢𝑛𝑐⋅mean(Var(logits))"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 6,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        196.1,
+        543.3,
+        209.1
+      ],
+      "text": "Where Var(logits) quantifies the dropout-induced variance in the logit outputs over multiple forward"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 6,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        214.8,
+        543.4,
+        229.2
+      ],
+      "text": "passes, and λ𝑢𝑛𝑐 (for instance, 0.05) encourages the model to avoid excessive fluctuations. At inference,"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 6,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        233.5,
+        543.6,
+        247.9
+      ],
+      "text": "Monte Carlo Dropout remained active, producing an average probability 𝑃𝑡𝑟𝑎𝑛𝑠 and a per-sample"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 6,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        252.0,
+        159.6,
+        266.4
+      ],
+      "text": "variance 𝑉𝑎𝑟𝑡𝑟𝑎𝑛𝑠."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 6,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        278.8,
+        543.1,
+        291.6
+      ],
+      "text": "A RandomForest classifier was trained in parallel on a flattened representation of the same SNP data,"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 6,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        297.5,
+        543.4,
+        311.9
+      ],
+      "text": "providing an independent probability, 𝑃𝑟𝑓, and an uncertainty measure, 𝑉𝑎𝑟𝑟𝑓, based on the variance"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 6,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        316.1,
+        543.2,
+        328.9
+      ],
+      "text": "in its aggregate of decision trees. To formulate a single matrix expression that merges these two models,"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 6,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        334.7,
+        332.6,
+        348.3
+      ],
+      "text": "one can define the following 2×2 matrix and 1×2 vector:"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 6,
+      "section": "Introduction",
+      "bbox": [
+        207.2,
+        359.7,
+        408.3,
+        383.1
+      ],
+      "text": "𝑀= (𝑃𝑡𝑟𝑎𝑛𝑠\n𝑉𝑎𝑟𝑡𝑟𝑎𝑛𝑠\n𝑃𝑟𝑓\n𝑉𝑎𝑟𝑟𝑓) ,\n𝑤= (α\n 1 −α)"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 6,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        393.7,
+        516.2,
+        406.6
+      ],
+      "text": "where α was selected to maximize accuracy on the OOF predictions. The final ensemble output,"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 6,
+      "section": "Introduction",
+      "bbox": [
+        265.7,
+        417.0,
+        349.9,
+        431.5
+      ],
+      "text": "𝑂𝑒𝑛𝑠𝑒𝑚𝑏𝑙𝑒= 𝑤 ⋅𝑀"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 6,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        441.2,
+        543.6,
+        455.6
+      ],
+      "text": "thus produces a 1×2 vector whose first component is the ensemble probability 𝑃𝑒𝑛𝑠𝑒𝑚𝑏𝑙𝑒 and whose"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 6,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        459.9,
+        543.6,
+        474.3
+      ],
+      "text": "second component is the ensemble variance 𝑉𝑎𝑟𝑒𝑛𝑠𝑒𝑚𝑏𝑙𝑒. An extensive grid of candidate thresholds on"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 6,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        478.6,
+        543.1,
+        493.0
+      ],
+      "text": "𝑉𝑎𝑟𝑒𝑛𝑠𝑒𝑚𝑏𝑙𝑒 was evaluated (for instance, by partitioning the observed range of variance values into"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 6,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        497.2,
+        543.0,
+        510.0
+      ],
+      "text": "multiple segments), and the threshold that optimized a chosen metric (e.g., the sum of AUCs in"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 6,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        515.9,
+        543.4,
+        528.7
+      ],
+      "text": "uncertain and more certain subsets) was recorded in each fold. Once all folds were completed, their"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 6,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        534.4,
+        437.5,
+        547.2
+      ],
+      "text": "best hyperparameters were averaged to finalize α and the variance threshold."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 6,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        561.2,
+        543.6,
+        574.0
+      ],
+      "text": "After collecting the OOF predictions, both models were retrained on the entire 50% training setusing"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 6,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        579.9,
+        543.1,
+        592.7
+      ],
+      "text": "the final values of α and the variance threshold. Monte Carlo Dropout remained active for the"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 6,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        598.5,
+        543.1,
+        611.3
+      ],
+      "text": "transformer in order to continue providing a mean probability and variance for each sample. Finally,"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 6,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        617.2,
+        543.5,
+        630.1
+      ],
+      "text": "the refitted models were applied to the unseen 50% test set for an unbiased evaluation of predictive"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 6,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        635.8,
+        543.2,
+        649.5
+      ],
+      "text": "performance. Each test sample’s ensemble variance was compared to the threshold, and any sample"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 6,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        654.5,
+        543.3,
+        667.4
+      ],
+      "text": "above that threshold was classified as uncertain group, while the rest were deemed relatively certain."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 6,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        673.3,
+        543.4,
+        686.1
+      ],
+      "text": "This procedure facilitated an assessment of whether variance-based filtering effectively identified"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 6,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        691.9,
+        543.1,
+        704.7
+      ],
+      "text": "samples that were more prone to misclassification, by comparing accuracy and related metrics across"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 7,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        74.0,
+        318.7,
+        86.9
+      ],
+      "text": "uncertain versus more confidently classified subsets."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 7,
+      "section": "Introduction",
+      "bbox": [
+        72.0,
+        100.7,
+        487.9,
+        113.5
+      ],
+      "text": "The source code for this study is available at GitHub: https://github.com/taehojo/TrUE-Net"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 7,
+      "section": "Results",
+      "bbox": [
+        72.0,
+        154.1,
+        109.2,
+        166.9
+      ],
+      "text": "Results"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 7,
+      "section": "Results",
+      "bbox": [
+        72.0,
+        180.8,
+        543.4,
+        193.7
+      ],
+      "text": "A total of 525 test samples were used after training the TrUE-Net model on the remaining data. The"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 7,
+      "section": "Results",
+      "bbox": [
+        72.0,
+        199.4,
+        543.0,
+        212.3
+      ],
+      "text": "final predictive run across these 525 samples, referred to here as the All group, achieved an overall"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 7,
+      "section": "Results",
+      "bbox": [
+        72.0,
+        218.1,
+        543.6,
+        231.0
+      ],
+      "text": "accuracy of 0.6514, an area under the ROC curve of 0.6636, and an F1-score of 0.6679. Figure 1 presents"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 7,
+      "section": "Results",
+      "bbox": [
+        72.0,
+        236.7,
+        543.5,
+        249.6
+      ],
+      "text": "the test samples that divided into an uncertain group and a certain group by applying a threshold to"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 7,
+      "section": "Results",
+      "bbox": [
+        72.0,
+        255.5,
+        543.5,
+        268.3
+      ],
+      "text": "this score.Where the horizontal axis represents the predicted probability of AD dementia and the vertical"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 7,
+      "section": "Results",
+      "bbox": [
+        72.0,
+        274.1,
+        543.4,
+        287.7
+      ],
+      "text": "axis shows the model’s variance estimate. 396 of the test samples, corresponding to 75.4 percent, were"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 7,
+      "section": "Results",
+      "bbox": [
+        72.0,
+        292.8,
+        543.6,
+        305.6
+      ],
+      "text": "labeled uncertain, while 129, corresponding to 24.6 percent, were categorized as certain. Figure 2 shows"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 7,
+      "section": "Results",
+      "bbox": [
+        72.0,
+        311.5,
+        543.4,
+        324.4
+      ],
+      "text": "accuracy, area under the ROC curve, and F1 metrics for both groups. The uncertain group had values"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 7,
+      "section": "Results",
+      "bbox": [
+        72.0,
+        330.1,
+        542.9,
+        343.0
+      ],
+      "text": "of 0.6263, 0.6268, and 0.5843 for these measures, while the certain group reached 0.7287, 0.6816, and"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 7,
+      "section": "Results",
+      "bbox": [
+        72.0,
+        348.9,
+        543.2,
+        361.7
+      ],
+      "text": "0.8205. Figure 3 shows that uncertain samples cluster near the 0.3 to 0.5 range, whereas certain samples"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 7,
+      "section": "Results",
+      "bbox": [
+        72.0,
+        367.3,
+        334.5,
+        380.2
+      ],
+      "text": "appear in more definitive ranges below 0.3 or above 0.6."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 7,
+      "section": "Results",
+      "bbox": [
+        72.0,
+        394.1,
+        543.6,
+        407.7
+      ],
+      "text": "To optimize the relative weighting of the transformer and random forest outputs, multiple values of α"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 7,
+      "section": "Results",
+      "bbox": [
+        72.0,
+        412.8,
+        543.6,
+        426.5
+      ],
+      "text": "were evaluated in increments of 0.2, from 0 to 1. The highest AUC (0.6508) emerged at α = 0.6, whereas"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 7,
+      "section": "Results",
+      "bbox": [
+        72.0,
+        431.4,
+        543.5,
+        445.1
+      ],
+      "text": "α = 1 yielded the lowest AUC (0.6283). Intermediate values (e.g., α = 0.4) resulted in slightly lower AUCs"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 7,
+      "section": "Results",
+      "bbox": [
+        72.0,
+        450.2,
+        543.3,
+        463.8
+      ],
+      "text": "(0.6467) compared to the peak at α = 0.6. In parallel, a threshold parameter was varied to categorize"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 7,
+      "section": "Results",
+      "bbox": [
+        72.0,
+        468.8,
+        543.1,
+        481.6
+      ],
+      "text": "each sample into uncertain versus certain subgroups. Ten candidate thresholds were selected by"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 7,
+      "section": "Results",
+      "bbox": [
+        72.0,
+        487.5,
+        543.1,
+        500.3
+      ],
+      "text": "dividing the range between the minimum and maximum uncertainty values into equal intervals. Each"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 7,
+      "section": "Results",
+      "bbox": [
+        72.0,
+        506.2,
+        543.1,
+        519.0
+      ],
+      "text": "threshold was then used to compute a performance score reflecting the sum of the AUC values for the"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 7,
+      "section": "Results",
+      "bbox": [
+        72.0,
+        524.8,
+        543.4,
+        537.6
+      ],
+      "text": "uncertain and certain subsets combined. As shown below, the highest combined score was achieved at"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 7,
+      "section": "Results",
+      "bbox": [
+        72.0,
+        543.4,
+        174.8,
+        556.2
+      ],
+      "text": "a threshold of 0.0741."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 7,
+      "section": "Results",
+      "bbox": [
+        72.0,
+        570.2,
+        543.6,
+        583.2
+      ],
+      "text": "Figure 4 compares two histograms for each diagnosis category: CN and AD dementia. Figure 4(A) shows"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 7,
+      "section": "Results",
+      "bbox": [
+        72.0,
+        588.8,
+        543.0,
+        601.6
+      ],
+      "text": "the final predicted probability of AD dementia. Here, the CN group exhibits a pronounced peak near"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 7,
+      "section": "Results",
+      "bbox": [
+        72.0,
+        607.5,
+        543.2,
+        621.1
+      ],
+      "text": "0.4, whereas the AD dementia group’s distribution shifts to approximately 0.6. Despite some overlap"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 7,
+      "section": "Results",
+      "bbox": [
+        72.0,
+        626.1,
+        543.6,
+        638.9
+      ],
+      "text": "around 0.4 to 0.6, CN samples are generally more prevalent in the lower-probability range, and AD"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 7,
+      "section": "Results",
+      "bbox": [
+        72.0,
+        644.8,
+        543.5,
+        657.7
+      ],
+      "text": "dementia samples concentrate in the higher-probability range. In Figure 4(B), the same two groups are"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 7,
+      "section": "Results",
+      "bbox": [
+        72.0,
+        663.4,
+        543.2,
+        676.3
+      ],
+      "text": "compared in terms of model uncertainty. The CN group reaches its highest peak near 0.10, whereas the"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 7,
+      "section": "Results",
+      "bbox": [
+        72.0,
+        682.1,
+        543.1,
+        695.8
+      ],
+      "text": "AD dementia group’s distribution is somewhat centered around 0.07 to 0.09. Although these peaks"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 7,
+      "section": "Results",
+      "bbox": [
+        72.0,
+        700.9,
+        543.4,
+        713.7
+      ],
+      "text": "suggest a slight difference between CN and AD dementia, both groups occupy similar variance ranges"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 8,
+      "section": "Results",
+      "bbox": [
+        72.0,
+        74.0,
+        112.5,
+        86.9
+      ],
+      "text": "overall."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 8,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        127.3,
+        125.6,
+        140.1
+      ],
+      "text": "Discussion"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 8,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        154.2,
+        543.5,
+        167.0
+      ],
+      "text": "This study investigated an uncertainty-aware genomic classification framework for AD by employing a"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 8,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        172.8,
+        543.6,
+        185.6
+      ],
+      "text": "transformer-based model with Monte Carlo Dropout. Our TrUE-Net approach set variance-based"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 8,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        191.5,
+        543.2,
+        204.3
+      ],
+      "text": "thresholds to single out test samples associated with higher predictive variance, termed uncertain, from"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 8,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        210.1,
+        543.2,
+        222.9
+      ],
+      "text": "those deemed more stable, termed certain. This separation provided a way to focus on reliably classified"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 8,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        228.8,
+        543.6,
+        241.7
+      ],
+      "text": "samples while drawing attention to ambiguous cases in need of additional diagnostic steps. Moreover,"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 8,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        247.5,
+        543.1,
+        260.3
+      ],
+      "text": "performance improved considerably for the certain group. These findings support earlier work"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 8,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        266.2,
+        543.1,
+        279.0
+      ],
+      "text": "suggesting that a relatively small percentage of ambiguous genotypes can contribute disproportionately"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 8,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        284.8,
+        543.4,
+        297.6
+      ],
+      "text": "to overall errors, and that removing them from the main classification pipeline can yield marked gains"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 8,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        303.4,
+        411.9,
+        316.2
+      ],
+      "text": "in core metrics(Belloy et al., 2022; Escott-Price et al., 2019; Jo et al., 2022)."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 8,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        330.1,
+        540.1,
+        343.0
+      ],
+      "text": "The final prediction results of All group presented moderate performance. This indicated that an all-or-"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 8,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        348.9,
+        543.6,
+        361.7
+      ],
+      "text": "nothing scenario does not fully exploit the advantages of variance-based filtering. However, an"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 8,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        367.5,
+        543.1,
+        380.3
+      ],
+      "text": "additional analysis involving predictive variance revealed substantial differences in performance between"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 8,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        386.2,
+        543.4,
+        399.0
+      ],
+      "text": "subsets of samples with high variance and those with low variance. Although improved performance"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 8,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        404.8,
+        543.4,
+        417.6
+      ],
+      "text": "on a smaller subset is a recognized effect of uncertainty-driven approaches, the degree of improvement"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 8,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        423.5,
+        543.6,
+        437.2
+      ],
+      "text": "here is notable. The uncertain group’s lower accuracy illustrated the complexity introduced by higher"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 8,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        442.1,
+        543.0,
+        454.9
+      ],
+      "text": "predictive variance. Probability estimates for these samples often hover near intermediate values,"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 8,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        460.8,
+        543.3,
+        473.7
+      ],
+      "text": "making the classification boundary less clear. Notably, these uncertain samples are distributed across"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 8,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        479.4,
+        548.5,
+        493.1
+      ],
+      "text": "both CN and AD, indicating that the model’s predictive variance is not restricted to a single group."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 8,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        498.2,
+        545.8,
+        511.0
+      ],
+      "text": "Identifying these ambiguous cases allows clinicians or researchers to allocate additional diagnostic steps,"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 8,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        516.6,
+        252.9,
+        529.5
+      ],
+      "text": "potentially reducing diagnostic errors."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 8,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        543.5,
+        543.1,
+        556.3
+      ],
+      "text": "In a separate analysis that complements these results, excluding predictions tagged with high predictive"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 8,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        562.1,
+        543.2,
+        574.9
+      ],
+      "text": "variance elevated accuracy and increased the area under the ROC curve. This observation demonstrates"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 8,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        580.8,
+        543.3,
+        593.7
+      ],
+      "text": "how ignoring or postponing ambiguous classifications can lead to tangible benefits. The method also"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 8,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        599.5,
+        543.1,
+        612.3
+      ],
+      "text": "allows for more nuanced output than a simple binary label by providing an estimate of confidence"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 8,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        618.2,
+        543.1,
+        631.0
+      ],
+      "text": "through variance. This capacity can be valuable in clinical contexts, where errors carry weighty"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 8,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        636.8,
+        543.2,
+        649.6
+      ],
+      "text": "consequences, since higher-variance cases can receive extra diagnostic attention such as neuroimaging"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 8,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        655.5,
+        543.3,
+        668.3
+      ],
+      "text": "or biomarker testing. Conversely, lower-variance classifications may be handled with more confidence,"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 8,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        674.0,
+        333.0,
+        686.8
+      ],
+      "text": "potentially increasing the efficiency of clinical workflows."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 8,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        700.9,
+        542.9,
+        713.7
+      ],
+      "text": "Nevertheless, several limitations remain. First, the dataset was primarily composed of 1050 individuals"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 9,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        74.1,
+        543.0,
+        87.0
+      ],
+      "text": "of European descent, which constrains generalization to other ancestral groups. Second, because mild"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 9,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        92.9,
+        543.0,
+        105.7
+      ],
+      "text": "cognitive impairment cases were omitted, the analysis offered only a binary comparison between"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 9,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        111.5,
+        543.5,
+        125.1
+      ],
+      "text": "individuals without cognitive decline and those with established Alzheimer’s dementia. This design does"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 9,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        130.2,
+        543.0,
+        143.0
+      ],
+      "text": "not capture subtle genetic features linked to early or transitional stages, and it does not incorporate"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 9,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        148.8,
+        543.0,
+        161.6
+      ],
+      "text": "gene interactions often observed in complex disorders. Third, the model architecture did not address"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 9,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        167.5,
+        543.5,
+        180.3
+      ],
+      "text": "rare variants that can strongly affect disease risk. Lastly, although variance-based filtering improved"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 9,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        186.1,
+        543.0,
+        198.9
+      ],
+      "text": "performance on the less ambiguous subset, it reduced the total number of samples that could be"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 9,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        204.8,
+        543.4,
+        217.7
+      ],
+      "text": "confidently classified, raising the need to balance completeness against the aim of higher accuracy and"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 9,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        223.3,
+        88.2,
+        236.1
+      ],
+      "text": "F1."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 9,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        250.1,
+        542.9,
+        262.9
+      ],
+      "text": "Further efforts may tackle these challenges by recruiting more diverse populations and including mild"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 9,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        268.8,
+        543.4,
+        281.6
+      ],
+      "text": "or preclinical states, enabling a broader evaluation of how variance-based methods perform across"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 9,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        287.5,
+        543.3,
+        301.2
+      ],
+      "text": "different stages of Alzheimer’s disease. It would also be instructive to incorporate additional data types,"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 9,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        306.1,
+        545.2,
+        319.0
+      ],
+      "text": "such as transcriptomics, proteomics, or metabolomics, in order to capture a richer biological background."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 9,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        324.9,
+        543.6,
+        337.7
+      ],
+      "text": "Methods that dynamically tune the variance threshold could reduce the proportion of excluded samples"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 9,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        343.5,
+        543.5,
+        356.3
+      ],
+      "text": "while sustaining performance gains. Taken together, these avenues can refine transformer-based models"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 9,
+      "section": "Discussion",
+      "bbox": [
+        72.0,
+        362.1,
+        481.9,
+        374.9
+      ],
+      "text": "for genomic risk prediction and strengthen confidence in their utility in clinical scenarios."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 9,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        415.4,
+        127.5,
+        428.2
+      ],
+      "text": "Conclusion"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 9,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        442.1,
+        543.4,
+        454.9
+      ],
+      "text": "In this study, we applied TrUE-Net, a transformer-based classification model with Monte Carlo Dropout"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 9,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        460.8,
+        543.4,
+        474.5
+      ],
+      "text": "to estimate uncertainty in the genomic prediction of Alzheimer’s disease. Filtering out samples with"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 9,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        479.4,
+        543.1,
+        492.3
+      ],
+      "text": "elevated variance in their predicted probabilities led to higher accuracy and area under the ROC curve"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 9,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        498.2,
+        543.5,
+        511.0
+      ],
+      "text": "on the retained subset, thereby demonstrating the practical benefits of an uncertainty-aware approach."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 9,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        516.8,
+        543.1,
+        529.6
+      ],
+      "text": "These results underscore the usefulness of explicitly modeling uncertainty for genomic classification"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 9,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        535.5,
+        543.1,
+        548.3
+      ],
+      "text": "tasks, where identifying ambiguous cases can direct further testing or evaluations. The proposed"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 9,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        554.1,
+        543.1,
+        566.9
+      ],
+      "text": "pipeline can be integrated into existing diagnostic workflows for AD and provides a foundation for"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 9,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        572.8,
+        543.4,
+        585.6
+      ],
+      "text": "future research aimed at incorporating other data modalities, larger and more diverse populations, and"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 9,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        591.4,
+        301.2,
+        604.3
+      ],
+      "text": "more advanced uncertainty estimation methods."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 9,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        644.8,
+        217.5,
+        657.7
+      ],
+      "text": "Conflict of Interest Statement"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 9,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        663.4,
+        543.5,
+        676.3
+      ],
+      "text": "Dr. Taeho Jo serves as an Associate Editor of Genomics & Informatics, a Springer-Nature Journal, but"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 9,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        682.1,
+        543.1,
+        695.0
+      ],
+      "text": "had no role in the editorial assessment or peer review of this manuscript. The authors declare no other"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 9,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        700.7,
+        164.3,
+        713.6
+      ],
+      "text": "conflicts of interest."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 10,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        74.0,
+        114.3,
+        86.9
+      ],
+      "text": "Funding"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 10,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        100.8,
+        543.1,
+        113.6
+      ],
+      "text": "This research was partially supported by the Alzheimer's Association (AA) under the grant number AARG"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 10,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        119.5,
+        543.0,
+        132.3
+      ],
+      "text": "22-974053 and the National Institutes of Health (NIH): P30 AG072976, U19 AG024904, U01 AG068057,"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 10,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        138.0,
+        293.4,
+        150.8
+      ],
+      "text": "U19 AG074879, U01 AG072177, U24 AG074855."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 10,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        191.4,
+        166.4,
+        204.2
+      ],
+      "text": "Consent Statement"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 10,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        218.0,
+        364.3,
+        230.9
+      ],
+      "text": "Consent from human subjects was not necessary for this study."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 10,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        271.3,
+        131.9,
+        284.2
+      ],
+      "text": "References"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 10,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        298.0,
+        543.4,
+        310.8
+      ],
+      "text": "Andrews, S. J., Renton, A. E., Fulton-Howard, B., Podlesny-Drabiniok, A., Marcora, E., & Goate, A. M."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 10,
+      "section": "Conclusion",
+      "bbox": [
+        108.0,
+        315.4,
+        543.0,
+        328.2
+      ],
+      "text": "(2023). The complex genetic architecture of Alzheimer's disease: novel insights and future"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 10,
+      "section": "Conclusion",
+      "bbox": [
+        108.0,
+        332.7,
+        489.2,
+        345.5
+      ],
+      "text": "directions. EBioMedicine, 90, 104511. https://doi.org/10.1016/j.ebiom.2023.104511"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 10,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        349.9,
+        547.2,
+        362.8
+      ],
+      "text": "Bekris, L. M., Yu, C. E., Bird, T. D., & Tsuang, D. W. (2010). Genetics of Alzheimer disease. J Geriatr"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 10,
+      "section": "Conclusion",
+      "bbox": [
+        107.4,
+        367.2,
+        469.7,
+        380.0
+      ],
+      "text": "Psychiatry Neurol, 23(4), 213-227. https://doi.org/10.1177/0891988710383571"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 10,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        384.5,
+        540.0,
+        397.3
+      ],
+      "text": "Bellenguez, C., Küçükali, F., Jansen, I. E., Kleineidam, L., Moreno-Grau, S., Amin, N., Naj, A. C., Campos-"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 10,
+      "section": "Conclusion",
+      "bbox": [
+        108.0,
+        401.8,
+        543.3,
+        414.6
+      ],
+      "text": "Martin, R., Grenier-Boley, B., Andrade, V., Holmans, P. A., Boland, A., Damotte, V., van der Lee, S."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 10,
+      "section": "Conclusion",
+      "bbox": [
+        108.0,
+        419.1,
+        543.4,
+        431.9
+      ],
+      "text": "J., Costa, M. R., Kuulasmaa, T., Yang, Q., de Rojas, I., Bis, J. C.,…Sánchez-Arjona, M. B. (2022). New"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 10,
+      "section": "Conclusion",
+      "bbox": [
+        108.0,
+        436.4,
+        547.2,
+        449.2
+      ],
+      "text": "insights into the genetic etiology of Alzheimer’s disease and related dementias. Nature Genetics,"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 10,
+      "section": "Conclusion",
+      "bbox": [
+        107.4,
+        453.8,
+        389.0,
+        466.6
+      ],
+      "text": "54(4), 412-436. https://doi.org/10.1038/s41588-022-01024-z"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 10,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        471.0,
+        543.2,
+        483.9
+      ],
+      "text": "Belloy, M. E., Eger, S. J., Le Guen, Y., Damotte, V., Ahmad, S., Ikram, M. A., Ramirez, A., Tsolaki, A. C., Rossi,"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 10,
+      "section": "Conclusion",
+      "bbox": [
+        108.0,
+        488.3,
+        543.1,
+        501.1
+      ],
+      "text": "G., Jansen, I. E., de Rojas, I., Parveen, K., Sleegers, K., Ingelsson, M., Hiltunen, M., Amin, N.,"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 10,
+      "section": "Conclusion",
+      "bbox": [
+        108.0,
+        505.6,
+        543.3,
+        518.4
+      ],
+      "text": "Andreassen, O., Sánchez-Juan, P., Kehoe, P.,…Dementia, B. (2022). Challenges at the APOE locus:"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 10,
+      "section": "Conclusion",
+      "bbox": [
+        108.0,
+        522.9,
+        547.1,
+        535.7
+      ],
+      "text": "a robust quality control approach for accurate APOE genotyping. Alzheimer's Research &"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 10,
+      "section": "Conclusion",
+      "bbox": [
+        107.4,
+        540.2,
+        405.5,
+        553.0
+      ],
+      "text": "Therapy, 14(1), 22. https://doi.org/10.1186/s13195-022-00962-4"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 10,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        557.4,
+        543.2,
+        570.3
+      ],
+      "text": "Escott-Price, V., Baker, E., Shoai, M., Leonenko, G., Myers, A. J., Huentelman, M., & Hardy, J. (2019). Genetic"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 10,
+      "section": "Conclusion",
+      "bbox": [
+        108.0,
+        574.7,
+        543.2,
+        587.5
+      ],
+      "text": "analysis suggests high misassignment rates in clinical Alzheimer's cases and controls."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 10,
+      "section": "Conclusion",
+      "bbox": [
+        107.4,
+        592.1,
+        543.6,
+        605.0
+      ],
+      "text": "Neurobiology \nof \nAging, \n77, \n178-182."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 10,
+      "section": "Conclusion",
+      "bbox": [
+        108.0,
+        609.4,
+        423.6,
+        622.3
+      ],
+      "text": "https://doi.org/https://doi.org/10.1016/j.neurobiolaging.2018.12.002"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 10,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        626.7,
+        543.2,
+        639.5
+      ],
+      "text": "Ferrante, M., Boccato, T., & Toschi, N. (2024). Enabling uncertainty estimation in neural networks through"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 10,
+      "section": "Conclusion",
+      "bbox": [
+        108.0,
+        644.0,
+        547.1,
+        656.8
+      ],
+      "text": "weight \nperturbation \nfor \nimproved \nAlzheimer's \ndisease \nclassification. \nFrontiers \nin"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 10,
+      "section": "Conclusion",
+      "bbox": [
+        107.4,
+        661.3,
+        257.8,
+        674.1
+      ],
+      "text": "Neuroinformatics, 18, 1346723."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 10,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        678.5,
+        543.3,
+        691.4
+      ],
+      "text": "Gatz, M., Pedersen, N. L., Berg, S., Johansson, B., Johansson, K., Mortimer, J. A., Posner, S. F., Viitanen, M.,"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 10,
+      "section": "Conclusion",
+      "bbox": [
+        108.0,
+        695.8,
+        543.1,
+        708.6
+      ],
+      "text": "Winblad, B., & Ahlbom, A. (1997). Heritability for Alzheimer's disease: the study of dementia in"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 11,
+      "section": "Conclusion",
+      "bbox": [
+        108.0,
+        74.0,
+        543.6,
+        86.9
+      ],
+      "text": "Swedish \ntwins. \nJ \nGerontol \nA \nBiol \nSci \nMed \nSci, \n52(2), \nM117-125."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 11,
+      "section": "Conclusion",
+      "bbox": [
+        108.0,
+        91.3,
+        312.1,
+        104.1
+      ],
+      "text": "https://doi.org/10.1093/gerona/52a.2.m117"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 11,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        108.6,
+        543.0,
+        121.4
+      ],
+      "text": "Gatz, M., Reynolds, C. A., Fratiglioni, L., Johansson, B., Mortimer, J. A., Berg, S., Fiske, A., & Pedersen, N."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 11,
+      "section": "Conclusion",
+      "bbox": [
+        108.0,
+        125.9,
+        547.2,
+        138.7
+      ],
+      "text": "L. (2006). Role of genes and environments for explaining Alzheimer disease. Arch Gen Psychiatry,"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 11,
+      "section": "Conclusion",
+      "bbox": [
+        107.4,
+        143.1,
+        374.7,
+        156.0
+      ],
+      "text": "63(2), 168-174. https://doi.org/10.1001/archpsyc.63.2.168"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 11,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        160.5,
+        543.0,
+        173.4
+      ],
+      "text": "Gatz, M., Reynolds, C. A., Fratiglioni, L., Johansson, B., Mortimer, J. A., Berg, S., Fiske, A., & Pedersen, N."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 11,
+      "section": "Conclusion",
+      "bbox": [
+        108.0,
+        177.8,
+        547.1,
+        190.7
+      ],
+      "text": "L. (2006). Role of Genes and Environments for Explaining Alzheimer Disease. Archives of General"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 11,
+      "section": "Conclusion",
+      "bbox": [
+        107.4,
+        195.1,
+        425.9,
+        207.9
+      ],
+      "text": "Psychiatry, 63(2), 168-174. https://doi.org/10.1001/archpsyc.63.2.168"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 11,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        212.4,
+        543.0,
+        225.2
+      ],
+      "text": "Genomes Project, C., Auton, A., Brooks, L. D., Durbin, R. M., Garrison, E. P., Kang, H. M., Korbel, J. O.,"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 11,
+      "section": "Conclusion",
+      "bbox": [
+        108.0,
+        229.7,
+        543.1,
+        242.5
+      ],
+      "text": "Marchini, J. L., McCarthy, S., McVean, G. A., & Abecasis, G. R. (2015). A global reference for"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 11,
+      "section": "Conclusion",
+      "bbox": [
+        108.0,
+        247.0,
+        516.1,
+        259.8
+      ],
+      "text": "human genetic variation. Nature, 526(7571), 68-74. https://doi.org/10.1038/nature15393"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 11,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        264.3,
+        543.3,
+        277.1
+      ],
+      "text": "Jansen, I. E., Savage, J. E., Watanabe, K., Bryois, J., Williams, D. M., Steinberg, S., Sealock, J., Karlsson, I. K.,"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 11,
+      "section": "Conclusion",
+      "bbox": [
+        108.0,
+        281.5,
+        543.1,
+        294.4
+      ],
+      "text": "Hägg, S., Athanasiu, L., Voyle, N., Proitsi, P., Witoelar, A., Stringer, S., Aarsland, D., Almdahl, I. S.,"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 11,
+      "section": "Conclusion",
+      "bbox": [
+        108.0,
+        298.9,
+        543.5,
+        311.8
+      ],
+      "text": "Andersen, F., Bergh, S., Bettella, F.,…Posthuma, D. (2019). Genome-wide meta-analysis identifies"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 11,
+      "section": "Conclusion",
+      "bbox": [
+        108.0,
+        316.2,
+        543.6,
+        329.0
+      ],
+      "text": "new loci and functional pathways influencing Alzheimer’s disease risk. Nature Genetics, 51(3),"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 11,
+      "section": "Conclusion",
+      "bbox": [
+        108.0,
+        333.5,
+        356.0,
+        346.3
+      ],
+      "text": "404-413. https://doi.org/10.1038/s41588-018-0311-9"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 11,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        350.8,
+        543.5,
+        363.6
+      ],
+      "text": "Jo, T., Bice, P., Nho, K., Saykin, A. J., & Project, A. s. D. S. (2025). LD-informed deep learning for Alzheimer's"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 11,
+      "section": "Conclusion",
+      "bbox": [
+        108.0,
+        368.1,
+        547.0,
+        380.9
+      ],
+      "text": "gene loci detection using WGS data. Alzheimer's & Dementia: Translational Research & Clinical"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 11,
+      "section": "Conclusion",
+      "bbox": [
+        107.4,
+        385.3,
+        472.5,
+        398.2
+      ],
+      "text": "Interventions, 11(1), e70041. https://doi.org/https://doi.org/10.1002/trc2.70041"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 11,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        402.6,
+        543.5,
+        415.4
+      ],
+      "text": "Jo, T., Nho, K., Bice, P., Saykin, A. J., & Initiative, A. s. D. N. (2022). Deep learning-based identification of"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 11,
+      "section": "Conclusion",
+      "bbox": [
+        108.0,
+        419.9,
+        547.2,
+        432.7
+      ],
+      "text": "genetic variants: application to Alzheimer’s disease classification. Briefings in Bioinformatics,"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 11,
+      "section": "Conclusion",
+      "bbox": [
+        107.4,
+        437.3,
+        185.3,
+        450.1
+      ],
+      "text": "23(2), bbac022."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 11,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        454.6,
+        543.4,
+        467.6
+      ],
+      "text": "Jo, T., Nho, K., & Saykin, A. J. (2023). Deep learning‐based SWAT‐TAB approach for Identifying Genetic"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 11,
+      "section": "Conclusion",
+      "bbox": [
+        108.0,
+        471.9,
+        489.5,
+        484.7
+      ],
+      "text": "Variants using Whole Genome Sequencing. Alzheimer's & Dementia, 19, e079369."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 11,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        489.2,
+        543.2,
+        502.0
+      ],
+      "text": "Kunkle, B. W., Grenier-Boley, B., Sims, R., Bis, J. C., Damotte, V., Naj, A. C., Boland, A., Vronskaya, M., van"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 11,
+      "section": "Conclusion",
+      "bbox": [
+        108.0,
+        506.4,
+        543.2,
+        519.3
+      ],
+      "text": "der Lee, S. J., Amlie-Wolf, A., Bellenguez, C., Frizatti, A., Chouraki, V., Martin, E. R., Sleegers, K.,"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 11,
+      "section": "Conclusion",
+      "bbox": [
+        108.0,
+        523.7,
+        543.4,
+        536.5
+      ],
+      "text": "Badarinarayan, N., Jakobsdottir, J., Hamilton-Nelson, K. L., Moreno-Grau, S.,…Lieberman, A. P."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 11,
+      "section": "Conclusion",
+      "bbox": [
+        108.0,
+        541.0,
+        543.2,
+        553.8
+      ],
+      "text": "(2019). Genetic meta-analysis of diagnosed Alzheimer’s disease identifies new risk loci and"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 11,
+      "section": "Conclusion",
+      "bbox": [
+        108.0,
+        558.3,
+        543.6,
+        571.1
+      ],
+      "text": "implicates Aβ, tau, immunity and lipid processing. Nature Genetics, 51(3), 414-430."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 11,
+      "section": "Conclusion",
+      "bbox": [
+        108.0,
+        575.7,
+        313.2,
+        588.5
+      ],
+      "text": "https://doi.org/10.1038/s41588-019-0358-2"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 11,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        593.0,
+        543.5,
+        605.8
+      ],
+      "text": "Li, H., & Durbin, R. (2009). Fast and accurate short read alignment with Burrows-Wheeler transform."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 11,
+      "section": "Conclusion",
+      "bbox": [
+        107.4,
+        610.3,
+        482.9,
+        623.1
+      ],
+      "text": "Bioinformatics, 25(14), 1754-1760. https://doi.org/10.1093/bioinformatics/btp324"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 11,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        627.5,
+        543.6,
+        640.4
+      ],
+      "text": "Milanés-Hermosilla, D., Trujillo Codorniú, R., López-Baracaldo, R., Sagaró-Zamora, R., Delisle-Rodriguez,"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 11,
+      "section": "Conclusion",
+      "bbox": [
+        108.0,
+        644.8,
+        543.2,
+        657.7
+      ],
+      "text": "D., Villarejo-Mayor, J. J., & Núñez-Álvarez, J. R. (2021). Monte Carlo Dropout for Uncertainty"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 11,
+      "section": "Conclusion",
+      "bbox": [
+        108.0,
+        662.1,
+        543.6,
+        674.9
+      ],
+      "text": "Estimation \nand \nMotor \nImagery \nClassification. \nSensors \n(Basel), \n21(21)."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 11,
+      "section": "Conclusion",
+      "bbox": [
+        108.0,
+        679.4,
+        273.3,
+        692.2
+      ],
+      "text": "https://doi.org/10.3390/s21217241"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 11,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        696.7,
+        543.2,
+        709.5
+      ],
+      "text": "Nguyen, D., Sadeghnejad Barkousaraie, A., Bohara, G., Balagopal, A., McBeth, R., Lin, M. H., & Jiang, S."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 12,
+      "section": "Conclusion",
+      "bbox": [
+        108.0,
+        74.0,
+        542.9,
+        86.9
+      ],
+      "text": "(2021). A comparison of Monte Carlo dropout and bootstrap aggregation on the performance"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 12,
+      "section": "Conclusion",
+      "bbox": [
+        108.0,
+        91.3,
+        543.1,
+        104.1
+      ],
+      "text": "and uncertainty estimation in radiation therapy dose prediction with deep learning neural"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 12,
+      "section": "Conclusion",
+      "bbox": [
+        108.0,
+        108.6,
+        492.2,
+        121.4
+      ],
+      "text": "networks. Phys Med Biol, 66(5), 054002. https://doi.org/10.1088/1361-6560/abe04f"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 12,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        125.9,
+        543.4,
+        138.7
+      ],
+      "text": "Project, \nA. \ns. \nD. \nS. \nAlzheimer's \nDisease \nSequencing \nProject \n(NG00067; \nVersion \n14)."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 12,
+      "section": "Conclusion",
+      "bbox": [
+        108.0,
+        143.1,
+        274.2,
+        156.0
+      ],
+      "text": "https://doi.org/10.60859/Z6Z9-9692"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 12,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        160.5,
+        543.2,
+        173.4
+      ],
+      "text": "Saykin, A. J., Shen, L., Yao, X., Kim, S., Nho, K., Risacher, S. L., Ramanan, V. K., Foroud, T. M., Faber, K. M.,"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 12,
+      "section": "Conclusion",
+      "bbox": [
+        108.0,
+        177.8,
+        543.1,
+        190.7
+      ],
+      "text": "& Sarwar, N. (2015). Genetic studies of quantitative MCI and AD phenotypes in ADNI: Progress,"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 12,
+      "section": "Conclusion",
+      "bbox": [
+        108.0,
+        195.1,
+        416.6,
+        207.9
+      ],
+      "text": "opportunities, and plans. Alzheimer's & Dementia, 11(7), 792-814."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 12,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        212.4,
+        543.2,
+        225.2
+      ],
+      "text": "Shigemizu, D., Akiyama, S., Suganuma, M., Furutani, M., Yamakawa, A., Nakano, Y., Ozaki, K., & Niida, S."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 12,
+      "section": "Conclusion",
+      "bbox": [
+        108.0,
+        229.7,
+        543.3,
+        242.5
+      ],
+      "text": "(2023). Classification and deep-learning–based prediction of Alzheimer disease subtypes by"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 12,
+      "section": "Conclusion",
+      "bbox": [
+        108.0,
+        247.0,
+        540.2,
+        259.8
+      ],
+      "text": "using genomic data. Translational Psychiatry, 13(1), 232. https://doi.org/10.1038/s41398-023-"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 12,
+      "section": "Conclusion",
+      "bbox": [
+        108.0,
+        264.3,
+        153.6,
+        277.1
+      ],
+      "text": "02531-1"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 13,
+      "section": "Conclusion",
+      "bbox": [
+        86.3,
+        107.7,
+        126.1,
+        118.0
+      ],
+      "text": "Diagnosis"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 13,
+      "section": "Conclusion",
+      "bbox": [
+        92.9,
+        121.5,
+        119.5,
+        131.8
+      ],
+      "text": "Group"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 13,
+      "section": "Conclusion",
+      "bbox": [
+        145.6,
+        107.7,
+        176.3,
+        118.0
+      ],
+      "text": "Sample"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 13,
+      "section": "Conclusion",
+      "bbox": [
+        152.1,
+        121.5,
+        169.9,
+        131.8
+      ],
+      "text": "Size"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 13,
+      "section": "Conclusion",
+      "bbox": [
+        190.2,
+        100.7,
+        214.4,
+        111.1
+      ],
+      "text": "Mean"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 13,
+      "section": "Conclusion",
+      "bbox": [
+        193.3,
+        114.6,
+        211.3,
+        125.0
+      ],
+      "text": "Age"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 13,
+      "section": "Conclusion",
+      "bbox": [
+        192.7,
+        128.4,
+        211.8,
+        138.8
+      ],
+      "text": "(SD)"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 13,
+      "section": "Conclusion",
+      "bbox": [
+        225.9,
+        107.7,
+        267.2,
+        118.0
+      ],
+      "text": "% Males /"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 13,
+      "section": "Conclusion",
+      "bbox": [
+        229.9,
+        121.5,
+        263.3,
+        131.8
+      ],
+      "text": "Females"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 13,
+      "section": "Conclusion",
+      "bbox": [
+        277.7,
+        107.7,
+        301.7,
+        118.0
+      ],
+      "text": "APOE"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 13,
+      "section": "Conclusion",
+      "bbox": [
+        278.2,
+        121.5,
+        301.3,
+        131.8
+      ],
+      "text": "ε2/ε2"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 13,
+      "section": "Conclusion",
+      "bbox": [
+        314.3,
+        107.7,
+        338.3,
+        118.0
+      ],
+      "text": "APOE"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 13,
+      "section": "Conclusion",
+      "bbox": [
+        314.8,
+        121.5,
+        337.9,
+        131.8
+      ],
+      "text": "ε2/ε3"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 13,
+      "section": "Conclusion",
+      "bbox": [
+        351.0,
+        107.7,
+        374.9,
+        118.0
+      ],
+      "text": "APOE"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 13,
+      "section": "Conclusion",
+      "bbox": [
+        351.4,
+        121.5,
+        374.5,
+        131.8
+      ],
+      "text": "ε2/ε4"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 13,
+      "section": "Conclusion",
+      "bbox": [
+        387.5,
+        107.7,
+        411.5,
+        118.0
+      ],
+      "text": "APOE"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 13,
+      "section": "Conclusion",
+      "bbox": [
+        388.0,
+        121.5,
+        411.1,
+        131.8
+      ],
+      "text": "ε3/ε3"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 13,
+      "section": "Conclusion",
+      "bbox": [
+        424.1,
+        107.7,
+        448.1,
+        118.0
+      ],
+      "text": "APOE"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 13,
+      "section": "Conclusion",
+      "bbox": [
+        424.6,
+        121.5,
+        447.7,
+        131.8
+      ],
+      "text": "ε3/ε4"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 13,
+      "section": "Conclusion",
+      "bbox": [
+        460.8,
+        107.7,
+        484.7,
+        118.0
+      ],
+      "text": "APOE"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 13,
+      "section": "Conclusion",
+      "bbox": [
+        461.2,
+        121.5,
+        484.4,
+        131.8
+      ],
+      "text": "ε4/ε4"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 13,
+      "section": "Conclusion",
+      "bbox": [
+        498.7,
+        100.7,
+        533.8,
+        111.1
+      ],
+      "text": "APOE ε4"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 13,
+      "section": "Conclusion",
+      "bbox": [
+        500.3,
+        114.6,
+        532.2,
+        125.0
+      ],
+      "text": "Carriers"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 13,
+      "section": "Conclusion",
+      "bbox": [
+        508.5,
+        128.4,
+        524.1,
+        138.8
+      ],
+      "text": "(%)"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 13,
+      "section": "Conclusion",
+      "bbox": [
+        86.7,
+        142.7,
+        125.6,
+        153.1
+      ],
+      "text": "Cognitive"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 13,
+      "section": "Conclusion",
+      "bbox": [
+        81.3,
+        156.6,
+        131.0,
+        167.0
+      ],
+      "text": "normal (CN)"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 13,
+      "section": "Conclusion",
+      "bbox": [
+        152.9,
+        142.7,
+        213.4,
+        160.0
+      ],
+      "text": "443 \n72.63"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 13,
+      "section": "Conclusion",
+      "bbox": [
+        190.9,
+        156.6,
+        213.6,
+        167.0
+      ],
+      "text": "(6.31)"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 13,
+      "section": "Conclusion",
+      "bbox": [
+        232.5,
+        142.7,
+        260.7,
+        153.1
+      ],
+      "text": "53.05 /"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 13,
+      "section": "Conclusion",
+      "bbox": [
+        235.5,
+        149.7,
+        527.3,
+        167.0
+      ],
+      "text": "46.95 \n2 \n57 \n7 \n257 \n110 \n10 \n27.09"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 13,
+      "section": "Conclusion",
+      "bbox": [
+        82.7,
+        170.9,
+        129.6,
+        181.3
+      ],
+      "text": "Alzheimer’s"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 13,
+      "section": "Conclusion",
+      "bbox": [
+        80.8,
+        184.7,
+        131.5,
+        195.1
+      ],
+      "text": "disease (AD)"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 13,
+      "section": "Conclusion",
+      "bbox": [
+        152.9,
+        170.9,
+        213.4,
+        188.2
+      ],
+      "text": "607 \n73.97"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 13,
+      "section": "Conclusion",
+      "bbox": [
+        190.9,
+        184.7,
+        213.6,
+        195.1
+      ],
+      "text": "(7.25)"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 13,
+      "section": "Conclusion",
+      "bbox": [
+        232.5,
+        170.9,
+        260.7,
+        181.3
+      ],
+      "text": "42.01 /"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 13,
+      "section": "Conclusion",
+      "bbox": [
+        235.5,
+        177.9,
+        527.3,
+        195.1
+      ],
+      "text": "57.99 \n1 \n19 \n14 \n194 \n278 \n101 \n62.44"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 13,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        226.3,
+        543.5,
+        239.1
+      ],
+      "text": "Table 1. This table shows demographic and APOE genotype data for the cognitively normal and"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 13,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        245.1,
+        543.0,
+        258.7
+      ],
+      "text": "Alzheimer’s disease groups. Among the 443 cognitively normal individuals, the mean age was 72.63"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 13,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        263.7,
+        543.4,
+        277.3
+      ],
+      "text": "years, 53.05 percent were male, and 27.09 percent carried the APOE ε4 allele. Among the 607 individuals"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 13,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        282.4,
+        543.1,
+        296.0
+      ],
+      "text": "with Alzheimer’s disease, the mean age was 73.97 years, 42.01 percent were male, and 62.44 percent"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 13,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        301.0,
+        543.6,
+        314.6
+      ],
+      "text": "were ε4 carriers, consistent with the well-known association of APOE ε4 with higher Alzheimer’s disease"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 13,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        319.6,
+        93.5,
+        332.4
+      ],
+      "text": "risk."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 14,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        337.1,
+        543.5,
+        350.7
+      ],
+      "text": "Figure 1. This scatter plot compares the predicted probability for Alzheimer’s disease on the horizontal"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 14,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        355.7,
+        543.1,
+        369.3
+      ],
+      "text": "axis with the model’s uncertainty on the vertical axis. Lighter points labeled uncertain generally exhibit"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 14,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        374.3,
+        437.5,
+        387.1
+      ],
+      "text": "higher uncertainty, while darker points labeled certain show lower uncertainty."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 15,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        372.7,
+        543.5,
+        385.6
+      ],
+      "text": "Figure 2. This bar chart displays accuracy, area under the ROC curve, and F1-score for three subsets:"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 15,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        391.3,
+        543.0,
+        404.2
+      ],
+      "text": "uncertain, shown with the lightest bars, all test samples, shown with medium bars, and certain, shown"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 15,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        410.1,
+        543.3,
+        422.9
+      ],
+      "text": "with the darkest bars. The uncertain subset has lower scores overall, while the certain subset achieves"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 15,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        428.6,
+        209.7,
+        441.4
+      ],
+      "text": "higher values on each metric."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 16,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        375.7,
+        542.9,
+        388.6
+      ],
+      "text": "Figure 3. This kernel density plot displays the distribution of predicted probabilities for uncertain in a"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 16,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        394.3,
+        543.5,
+        407.2
+      ],
+      "text": "lighter color and certain in a darker color. The uncertain group clusters near mid-range values around"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 16,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        413.0,
+        531.6,
+        425.8
+      ],
+      "text": "0.3 to 0.5, whereas the certain group appears at more extreme probabilities below 0.3 or above 0.6."
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 17,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        352.8,
+        543.1,
+        365.6
+      ],
+      "text": "Figure 4. (A) compares the distribution of final predicted probabilities for the cognitively normal (CN)"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 17,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        371.5,
+        543.0,
+        384.4
+      ],
+      "text": "and AD groups, showing that CN cases tend to peak near 0.4 while AD cases shift toward higher"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 17,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        390.3,
+        543.1,
+        403.1
+      ],
+      "text": "probabilities around 0.6. (B) shows the distribution of model uncertainty, where CN reaches its highest"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 17,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        408.9,
+        543.1,
+        421.7
+      ],
+      "text": "frequency near 0.10 and AD clusters slightly below that range, although substantial overlap remains"
+    },
+    {
+      "paper_id": "2506.00662",
+      "file_name": "2506.00662_Uncertainty-Aware_Genomic_Classification.pdf",
+      "page_number": 17,
+      "section": "Conclusion",
+      "bbox": [
+        72.0,
+        427.5,
+        189.8,
+        440.3
+      ],
+      "text": "between the two groups."
+    }
+  ]
+}

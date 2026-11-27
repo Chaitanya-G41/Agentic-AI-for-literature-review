@@ -1,0 +1,24 @@
+{
+  "paper_id": "2501.07923",
+  "paper_title": "Aviation Safety Enhancement via NLP Deep Learning for Flight Phase Classification",
+  "authors": [
+    "N/A"
+  ],
+  "venue": "N/A",
+  "core_problem": "The need for precise and systematic analysis of safety occurrences during different flight phases from safety reports to enhance aviation safety.",
+  "methodology_summary": "Employing Natural Language Processing (NLP) and Deep Learning models, including LSTM, CNN, Bidirectional LSTM (BLSTM), and simple Recurrent Neural Networks (sRNN), to classify flight phases from safety reports.",
+  "datasets_eval": [
+    "Safety reports from the Australian Transport Safety Bureau (ATSB)"
+  ],
+  "empirical_results": "LSTM achieved the highest performance with an accuracy of 87%, precision of 88%, recall of 87%, and F1 score of 88%.",
+  "explicit_limitations": "Manual analysis of safety occurrence reports is resource-intensive, limited by human capacity, subjectivity, and potential for oversight.",
+  "numerical_metrics": [],
+  "geographical_data": {},
+  "pipeline_steps": [
+    "Problem Formulation & Data Ingestion",
+    "Method Execution & Architecture",
+    "Empirical Evaluation & Benchmarking"
+  ],
+  "generation_mode": "GENUINE_LLM",
+  "model_name": "NVIDIA_NIM (nvidia/nemotron-3.5-bolt-e4b)"
+}

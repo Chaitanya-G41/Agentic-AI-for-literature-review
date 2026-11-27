@@ -1,0 +1,25 @@
+{
+  "paper_id": "N/A",
+  "paper_title": "How reproducible are data-driven subtypes of dementia progression and deployment.",
+  "authors": [
+    "N/A"
+  ],
+  "venue": "N/A",
+  "core_problem": "Assessing the reproducibility and reliability of data-driven subtypes (identified by SuStaIn) in dementia progression modeling, especially when excluding control data or using less-structured datasets.",
+  "methodology_summary": "The Subtype and Stage Inference (SuStaIn) algorithm, an unsupervised machine-learning technique combining disease progression modeling and clustering, was used. Eight models were created from cohorts in the ANMerge, OASIS, and ADNI databases. Model complexity was optimized for accuracy balance.",
+  "datasets_eval": [
+    "ADNI dataset (used for training and validation), ANMerge, OASIS, and ADNI databases."
+  ],
+  "empirical_results": "Eight distinct SuStaIn subtypes were identified across the experiments, including Typical, Cortical, Subcortical, and Mixed subtypes. The original three subtypes were reproduced across all eight experiments. The exclusion of control data often resulted in the Subcortical and/or Table 2 subtypes.",
+  "explicit_limitations": "The use of 'lower-quality' MRI data was identified as a limitation.",
+  "numerical_metrics": [],
+  "geographical_data": {},
+  "pipeline_steps": [
+    "Eight models were created, emerged from all cohorts.",
+    "Additionally, the algorithm also characterised rare and atypical progression modelling and big data [51].",
+    "Unlike traditional data-driven models that either assume a uni- ease progression models [72].",
+    "disease progression model by training an"
+  ],
+  "generation_mode": "GENUINE_LLM",
+  "model_name": "NVIDIA_NIM (nvidia/nemotron-3.5-bolt-e4b)"
+}

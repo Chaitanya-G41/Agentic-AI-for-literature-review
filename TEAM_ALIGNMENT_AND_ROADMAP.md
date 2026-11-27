@@ -21,11 +21,11 @@ This document serves as the **single source of truth** for our team, mapping the
 
 | Deliverable | Requirement Description | Current Implementation Status | Remaining Work for Team |
 | :--- | :--- | :--- | :--- |
-| **Deliverable 1** | **Agent Architecture & Multi-Agent Orchestration**: Roles, responsibilities, communication protocols, delegation diagrams, and fallback mechanisms. | **90% Complete**: 6 specialized agents implemented (`src/agents/`), deterministic Pydantic communication schemas, fallback from NVIDIA NIM to Gemini to Heuristics. | Surface dedicated interactive Multi-Agent Architecture panel in the UI reader; formalize communication protocol spec. |
-| **Deliverable 2** | **Tool Use, External APIs & PDF Processing Pipeline**: Toolset (arXiv API, PyMuPDF, GROBID TEI-XML) & structured JSON extraction for multi-column layouts, tables, and math. | **95% Complete**: Ingestion pipeline (`src/ingestion/`) with arXiv API search/download, dual GROBID TEI-XML and PyMuPDF fallback, table/figure extraction to `data/figures/`. | Document JSON schema specifications and benchmark extraction accuracy on tables/formulas. |
-| **Deliverable 3** | **PoC Scope & Benchmark Dataset**: Baseline task processing 10-20 papers, comparative summary table, defined target metrics (extraction accuracy, citation validity). | **85% Complete**: 12 foundational Agentic AI papers baseline corpus pre-configured, dynamic arXiv ingestion for arbitrary topics (e.g. Brain Tumor Segmentation), comparative matrix generation. | Build automated benchmark validation script (`eval_benchmark.py`) calculating exact citation mapping validity and precision. |
-| **Deliverable 4** | **Grounding, Citation Integrity & Hallucination Guardrails**: Fact-checking, traceability to page numbers/sections, cosine similarity validation, split-screen PDF verification. | **90% Complete**: Split-screen PDF viewer (`SplitScreenPdf.jsx`), interactive provenance inspector (`ProvenanceInspector.jsx`) with cosine similarity scores, `GENUINE_LLM` vs `HEURISTIC_FALLBACK` tracking. | Surface citation provenance indicators directly in the monograph stats header ("Citation Integrity Verified"). |
-| **Deliverable 5** | **Evaluation Framework for Autonomous Synthesis**: HITL + LLM-as-a-Judge rubric assessing Coverage, Logical Structure, Synthesis Quality, and Hallucination Rate. | **40% Complete**: Basic generation mode tracking exists, but human evaluation rubric and automated LLM-as-a-judge harness need formal UI and test scripts. | Implement `evaluation_framework.py` with 4-pillar LLM-as-a-judge scoring, and expose evaluation summary in UI. |
+| **Deliverable 1** | **Agent Architecture & Multi-Agent Orchestration**: Roles, responsibilities, communication protocols, delegation diagrams, and fallback mechanisms. | **100% Complete**: 6 specialized agents implemented (`src/agents/`), deterministic Pydantic communication schemas, fallback from NVIDIA NIM to Gemini to Heuristics. Interactive System Architecture modal in CommandBar with pipeline diagram and agent taxonomy. | Fully deployed and operational in `frontend_v2`. |
+| **Deliverable 2** | **Tool Use, External APIs & PDF Processing Pipeline**: Toolset (arXiv API, PyMuPDF, GROBID TEI-XML) & structured JSON extraction for multi-column layouts, tables, and math. | **100% Complete**: Ingestion pipeline (`src/ingestion/`) with arXiv API search/download, dual GROBID TEI-XML and PyMuPDF fallback, table/figure extraction to `data/figures/`. Live GROBID status monitor badge on UI (`/api/grobid-status`). | Document additional edge-case extraction schemas if needed. |
+| **Deliverable 3** | **PoC Scope & Benchmark Dataset**: Baseline task processing 10-20 papers, comparative summary table, defined target metrics (extraction accuracy, citation validity). | **100% Complete**: 12 foundational Agentic AI papers baseline corpus pre-configured, dynamic arXiv ingestion for arbitrary topics (e.g. Brain Tumor Segmentation, Clinical NLP), comparative matrix generation. Automated evaluation script (`eval_benchmark.py`). | Ready for final presentation demo. |
+| **Deliverable 4** | **Grounding, Citation Integrity & Hallucination Guardrails**: Fact-checking, traceability to page numbers/sections, cosine similarity validation, split-screen PDF verification. | **100% Complete**: Split-screen PDF viewer (`SplitScreenPdf.jsx`), interactive provenance inspector (`ProvenanceInspector.jsx`) with cosine similarity scores, `GENUINE_LLM` vs `HEURISTIC_FALLBACK` tracking, citation tags embedded in monograph. | Fully operational. |
+| **Deliverable 5** | **Evaluation Framework for Autonomous Synthesis**: HITL + LLM-as-a-Judge rubric assessing Coverage, Logical Structure, Synthesis Quality, and Hallucination Rate. | **100% Complete**: Offline benchmark script (`eval_benchmark.py`) with `--judge` option, automated scoring endpoint (`/api/evaluation-report`), and live Evaluation Scoreboard in the Evaluation Rubric modal (`ReviewInfoModal.jsx`). | Ready for mentor review. |
 
 ---
 
@@ -170,9 +170,11 @@ Raw PDF text is transformed into lossless structured JSON:
 - [x] Switch primary model to `nvidia/nemotron-3.5-bolt-e4b` for sub-35s response times.
 - [x] Configure fallback cascade: NVIDIA NIM $\rightarrow$ Gemini 2.5 Flash $\rightarrow$ Deterministic Heuristic Engine.
 - [x] Restrict all agent endpoints to active PDF corpus (`_get_active_corpus_ids()`) to prevent cross-topic data leaks.
-- [x] Expand `max_tokens` to 8192 in `llm_manager.py`.
-- [ ] Implement `tests/test_evaluation_rubric.py` implementing the Deliverable 5 LLM-as-a-judge scoring script.
-- [ ] Upgrade `LLM_SYNTHESIS_PROMPT` in `report_generator.py` with rigorous quantitative comparison mandates.
+- [x] Expand `max_tokens` to 8192 in `llm_manager.py` and increase timeout to 120s for long surveys.
+- [x] Implement automated evaluation benchmark suite (`eval_benchmark.py`) with `--judge` option.
+- [x] Upgrade `LLM_SYNTHESIS_PROMPT` in `report_evidence.py` with rigorous quantitative comparison mandates.
+- [x] Implement `/api/grobid-status` and `/api/evaluation-report` endpoints in `server.py`.
+- [x] Add cache for Stage 4 research gap analysis to eliminate redundant LLM calls in Stage 5.
 
 ### Frontend & UI Team (`frontend_v2`)
 - [x] Implement Monochrome Black/Ivory Editorial Magazine aesthetic.
@@ -180,8 +182,10 @@ Raw PDF text is transformed into lossless structured JSON:
 - [x] Implement in-app split-screen PDF viewer (`SplitScreenPdf.jsx`).
 - [x] Build dynamic provenance inspector with cosine similarity scores.
 - [x] Add interactive pillar lenses (Methodology, Datasets, Limitations, Research Gaps).
-- [ ] Add an "Evaluation & Benchmark Rubric" modal in the top CommandBar showcasing Deliverable 5 metrics.
-- [ ] Add an interactive "Agent Architecture & Pipeline" modal displaying the full 6-agent flowchart.
+- [x] Add an "Evaluation & Benchmark Rubric" modal in the top CommandBar with live scoreboard.
+- [x] Add an interactive "System Architecture" modal displaying the full 6-agent flowchart.
+- [x] Add real-time GROBID status badge (`GROBID: LIVE` / `GROBID: OFFLINE (PyMuPDF)`) in CommandBar.
+- [x] Surface pipeline errors explicitly with stage-specific error boundaries in WelcomeScreen.
 
 ---
 

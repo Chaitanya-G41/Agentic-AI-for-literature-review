@@ -1,8 +1,9 @@
-# Automated Literature Review: Synthesis of Brain Tumor
+# Automated Literature Review: Synthesis of Leaf disease classification
 
 ## Executive Summary
+This survey investigates the landscape of automated classification and prediction across diverse scientific domains, drawing from a corpus of seven identified research works, including studies on clinical NLP, Alzheimer's disease progression, aviation safety, and plant disease detection. The primary question addressed is how different methodological approaches—ranging from generative modeling and fairness constraints to lightweight transformer design and differential equation forecasting—address domain-specific challenges while managing inherent empirical limitations. Major findings indicate that while advanced techniques (e.g., LSTM in [2501.07923], Transformer ensembles in [N/A] uncertainty-aware work) achieve high performance in specific tasks, trade-offs between performance and fairness ([2011.09625]), model size ([2302.04725]), and data quality ([N/A] dementia subtypes) persist across domains. A significant evidence limitation is the lack of standardized reporting for computational benchmarks ([2607.18086]) and the reliance on retrospective or small-scale datasets across many studies.
 
-This literature review synthesizes findings from six recent computational studies concerning medical image segmentation, with a focused analysis on brain tumor delineation. The corpus reveals a strong trend toward leveraging 3D Convolutional Neural Networks (CNNs) for superior spatial context capture in brain tumor segmentation (BraTS challenges). Key architectural approaches include specialized 3D-CNN frameworks and modified U-Net variants (e.g., DR-Unet104). A critical tension exists between achieving high segmentation fidelity (e.g., Dice scores $\approx 0.88-0.97$) and managing the prohibitive computational cost associated with full 3D processing. Identified research gaps center on the need for computationally efficient, yet fully 3D, architectures ($\text{S01}$), robust uncertainty quantification ($\text{G02}$), and integrated boundary awareness ($\text{G03}$). Future research must prioritize lightweight 3D models that simultaneously yield high accuracy, provide clinically actionable uncertainty maps, and effectively manage biological variability ($\text{S03}$).
+System Methodology Note: arXiv/local PDF ingestion was performed, utilizing GROBID with PyMuPDF as a fallback for document parsing. Typed extraction was executed by NVIDIA NIM (nvidia/nemotron-3.5-bolt-e4b) with Gemini as a fallback mechanism. A deterministic summarizer and comparator (zero LLM calls) was employed for final synthesis, ensuring separation between deterministic schema validation and probabilistic extraction. Citation-ID validation does not prove factual correctness; source inspection remains necessary. Report actual extraction modes from evidence: GENUINE_LLM was the reported generation mode for all analyzed papers.
 
 ## 1. Corpus Overview & Scope
 
@@ -10,113 +11,121 @@ This literature review synthesizes findings from six recent computational studie
 
 ```mermaid
 %% diagram_id: themes_mindmap
-%%{init: {'theme': 'base', 'themeVariables': {'background': '#0E1117', 'darkBkgColor': '#0E1117', 'fontFamily': 'Inter, system-ui, sans-serif', 'fontSize': '12px'}, 'flowchart': {'nodeSpacing': 16, 'rankSpacing': 28, 'curve': 'basis', 'htmlLabels': true, 'padding': 16}}}%%
+%%{init: {'theme': 'base', 'themeVariables': {'background': '#FAF8F5', 'fontFamily': 'Plus Jakarta Sans, system-ui, sans-serif', 'fontSize': '12px'}, 'flowchart': {'nodeSpacing': 18, 'rankSpacing': 30, 'curve': 'basis'}}}%%
 flowchart LR
-    BN_L_0["Observed in 6 Papers"]:::bottleneckLeaf --- BN_S_0(["Computational<br/>Overhead &<br/>Scalability"]):::bottleneckSub
-    BN_S_0 --- BOTTLENECKS
-    BN_L_1["Observed in 6 Papers"]:::bottleneckLeaf --- BN_S_1(["Data Scarcity &<br/>Robustness"]):::bottleneckSub
-    BN_S_1 --- BOTTLENECKS
-    BN_L_2["Observed in 6 Papers"]:::bottleneckLeaf --- BN_S_2(["Domain<br/>Generalization<br/>Constraints"]):::bottleneckSub
-    BN_S_2 --- BOTTLENECKS
-    BN_L_3["Observed in 6 Papers"]:::bottleneckLeaf --- BN_S_3(["Evaluation &<br/>Validation<br/>Disparities"]):::bottleneckSub
-    BN_S_3 --- BOTTLENECKS
-    BOTTLENECKS["<b>Systemic Bottlenecks</b>"]:::bottleneckMain --- ROOT
-    ROOT(["<b>Brain Tumor<br/>Synthesis</b>"]):::centerRoot
-    ROOT --- PARADIGMS["<b>Architectural Paradigms</b>"]:::paradigmMain
-    PARADIGMS --- P_S_0(["Evaluation<br/>Benchmark / Testbed"]):::paradigmSub
-    P_S_0 --- P_L_0["1909.06684 3D"]:::paradigmLeaf
-    P_S_0 --- P_L_1["2011.02840 DR-Unet104"]:::paradigmLeaf
-    P_S_0 --- P_L_2["2411.01896 MBDRes-U-Net:"]:::paradigmLeaf
-    PARADIGMS --- P_S_1(["Specialized<br/>Framework"]):::paradigmSub
-    P_S_1 --- P_L_3["2009.12188 Brain"]:::paradigmLeaf
-    P_S_1 --- P_L_4["2011.11052 Efficient"]:::paradigmLeaf
-    ROOT --- BENCHMARKS["<b>Benchmark Environments</b><br/>(Quantitative Evaluations)"]:::benchmarkMain
-    BENCHMARKS --- BM_S_0(["2019 MICCAI KiTS<br/>Kidney Tumor<br/>Segmentation<br/>Challenge dataset"]):::benchmarkSub
-    BM_S_0 --- BM_L_0["Evaluated in 1909.06684"]:::benchmarkLeaf
-    BENCHMARKS --- BM_S_1(["Brain Tumor<br/>Segmentation<br/>(BraTS) challenge<br/>(started in 2012),<br/>specifically<br/>mentioning BraTS<br/>2020 training."]):::benchmarkSub
-    BM_S_1 --- BM_L_1["Evaluated in 2009.12188"]:::benchmarkLeaf
-    BENCHMARKS --- BM_S_2(["Multimodal Brain<br/>Tumor Segmentation<br/>(BraTS) 2020<br/>Challenge data<br/>(validation and<br/>testing sets)."]):::benchmarkSub
-    BM_S_2 --- BM_L_2["Evaluated in 2011.02840"]:::benchmarkLeaf
+    CORE(["<b>Leaf disease<br/>classification</b><br/><span style='font-size:10px;opacity:0.85;'>Research Clusters</span>"]):::coreStyle
+    CORE --> T0["<b>Like & Clinical<br/>Systems</b><br/><span style='font-size:10px;color:#0D9488;font-weight:600;'>5 Papers</span>"]:::themeStyle
+    T0 --> TP_0_0["<b>Towards Automatic<br/>Generation</b><br/><span style='font-size:9.5px;color:#64748B;'>1905.07002</span>"]:::paperStyle
+    T0 --> TP_0_1["<b>A dissemination<br/>workshop</b><br/><span style='font-size:9.5px;color:#64748B;'>2104.12405</span>"]:::paperStyle
+    T0 --> TP_0_2["<b>Lightweight<br/>Transformers for</b><br/><span style='font-size:9.5px;color:#64748B;'>2302.04725</span>"]:::paperStyle
+    T0 --> TP_0_3["<b>Evaluating Data<br/>Augmentation</b><br/><span style='font-size:9.5px;color:#64748B;'>N/A</span>"]:::paperStyle
+    CORE --> T1["<b>Independent Research<br/>Focus: Exploring Text<br/>Specific And Blackbox<br/>Fairness</b><br/><span style='font-size:10px;color:#0D9488;font-weight:600;'>1 Paper</span>"]:::themeStyle
+    T1 --> TP_1_0["<b>Exploring Text<br/>Specific</b><br/><span style='font-size:9.5px;color:#64748B;'>2011.09625</span>"]:::paperStyle
+    CORE --> T2["<b>Limitations &<br/>Alzheimer Systems</b><br/><span style='font-size:10px;color:#0D9488;font-weight:600;'>3 Papers</span>"]:::themeStyle
+    T2 --> TP_2_0["<b>Self-organized<br/>clustering<br/>prediction</b><br/><span style='font-size:9.5px;color:#64748B;'>2402.12205</span>"]:::paperStyle
+    T2 --> TP_2_1["<b>Uncertainty-Aware<br/>Genomic<br/>Classification</b><br/><span style='font-size:9.5px;color:#64748B;'>N/A</span>"]:::paperStyle
+    T2 --> TP_2_2["<b>Decoupling<br/>Disease,<br/>Covariates,</b><br/><span style='font-size:9.5px;color:#64748B;'>N/A</span>"]:::paperStyle
+    CORE --> T3["<b>Independent Research<br/>Focus: How Reproducible<br/>Are Data-Driven<br/>Subtypes Of</b><br/><span style='font-size:10px;color:#0D9488;font-weight:600;'>1 Paper</span>"]:::themeStyle
+    T3 --> TP_3_0["<b>How reproducible<br/>are</b><br/><span style='font-size:9.5px;color:#64748B;'>N/A</span>"]:::paperStyle
+    CORE --> T4["<b>Independent Research<br/>Focus: Flight Phase<br/>Classification</b><br/><span style='font-size:10px;color:#0D9488;font-weight:600;'>1 Paper</span>"]:::themeStyle
+    T4 --> TP_4_0["<b>Aviation Safety<br/>Enhancement</b><br/><span style='font-size:9.5px;color:#64748B;'>2501.07923</span>"]:::paperStyle
+    CORE --> T5["<b>Independent Research<br/>Focus: Judge-Dependent<br/>Safety Gains And<br/>Model-Specific<br/>Helpfulness</b><br/><span style='font-size:10px;color:#0D9488;font-weight:600;'>1 Paper</span>"]:::themeStyle
+    T5 --> TP_5_0["<b>Judge-dependent<br/>safety gains</b><br/><span style='font-size:9.5px;color:#64748B;'>2607.18086</span>"]:::paperStyle
 
-    classDef centerRoot fill:#3B82F6,stroke:#1D4ED8,stroke-width:2.5px,color:#FFFFFF,font-size:13px,font-weight:bold;
-    classDef paradigmMain fill:#2DD4BF,stroke:#0D9488,stroke-width:2px,color:#0F172A,font-size:12px,font-weight:bold;
-    classDef paradigmSub fill:#5EEAD4,stroke:#14B8A6,stroke-width:1.5px,color:#0F172A,font-size:11px,font-weight:600;
-    classDef paradigmLeaf fill:#CCFBF1,stroke:#2DD4BF,stroke-width:1.2px,color:#0F172A,font-size:11px;
-    classDef benchmarkMain fill:#FBBF24,stroke:#D97706,stroke-width:2px,color:#0F172A,font-size:12px,font-weight:bold;
-    classDef benchmarkSub fill:#FDE68A,stroke:#F59E0B,stroke-width:1.5px,color:#78350F,font-size:11px,font-weight:600;
-    classDef benchmarkLeaf fill:#FEF3C7,stroke:#FBBF24,stroke-width:1.2px,color:#78350F,font-size:11px;
-    classDef bottleneckMain fill:#A78BFA,stroke:#7C3AED,stroke-width:2px,color:#FFFFFF,font-size:12px,font-weight:bold;
-    classDef bottleneckSub fill:#DDD6FE,stroke:#8B5CF6,stroke-width:1.5px,color:#4C1D95,font-size:11px,font-weight:600;
-    classDef bottleneckLeaf fill:#EDE9FE,stroke:#A78BFA,stroke-width:1.2px,color:#4C1D95,font-size:11px;
-    linkStyle 0,1,2,3,4,5,6,7,8 stroke:#8B5CF6,stroke-width:1.8px;
-    linkStyle 9,10,11,12,13,14,15,16 stroke:#0D9488,stroke-width:1.8px;
-    linkStyle 17,18,19,20,21,22,23 stroke:#D97706,stroke-width:1.8px;
+    classDef coreStyle fill:#0F766E,stroke:#115E59,stroke-width:2px,color:#FFFFFF,font-size:12px,font-weight:bold,rx:6px,ry:6px;
+    classDef themeStyle fill:#F0FDFA,stroke:#0D9488,stroke-width:1.5px,color:#134E4A,font-size:11px,font-weight:600,rx:5px,ry:5px;
+    classDef divergenceStyle fill:#FFFBEB,stroke:#D97706,stroke-width:1.5px,color:#92400E,font-size:11px,font-weight:600,rx:5px,ry:5px;
+    classDef paperStyle fill:#FFFFFF,stroke:#CBD5E1,stroke-width:1px,color:#334155,font-size:10px,rx:4px,ry:4px;
+    linkStyle default stroke:#94A3B8,stroke-width:1.2px;
 ```
 
+The corpus under review comprises seven distinct research entries, covering applications from clinical data synthesis to agricultural diagnostics. The scope is intentionally broad, encompassing Natural Language Processing (NLP) in healthcare ([1905.07002], [2011.09625], [2302.04725], [2607.18086]), neurodegenerative disease modeling ([2402.12205], [N/A] dementia subtypes, [N/A] uncertainty-aware AD), aviation safety analysis ([2501.07923]), and plant disease classification ([N/A] coffee leaf, [N/A] potato leaf).
 
-The analyzed corpus spans general medical segmentation (kidney) and specialized brain tumor segmentation, utilizing various deep learning paradigms.
+The corpus exhibits significant domain heterogeneity. Clinical NLP studies ([1905.07002], [2011.09625], [2302.04725], [2607.18086]) focus on privacy, fairness, and model efficiency using datasets like MedText (from MIMIC-III) and Real-POCQi. In contrast, AD research ([2402.12205], [N/A] dementia subtypes, [N/A] uncertainty-aware AD) utilizes longitudinal clinical cohorts (ADNI, J-ADNI). Agricultural applications ([N/A] coffee leaf, [N/A] potato leaf) rely on image datasets (RoCoLe, PlantVillage).
 
-| Paper & Citation | Title | Venue | Mode |
+Corpus biases are evident: a strong representation of clinical/medical applications (4 out of 7 papers) and a reliance on established, yet sometimes limited, public datasets (MIMIC-III, ADNI). The thematic map reveals a progression from data generation/privacy ([1905.07002]) to ethical constraints ([2011.09625]), to model optimization ([2302.04725]), to complex temporal modeling ([2402.12205]), to specific domain applications (Aviation [2501.07923], Agriculture [N/A]s), and finally to LLM evaluation ([2607.18086]).
+
+| Paper ID | Title | Venue | Mode |
 | :--- | :--- | :--- | :--- |
-| 1909.06684 | 3D Kidneys and Kidney Tumor Semantic Segmentation | N/A | GENUINE_LLM |
-| 2009.12188 | Brain Tumor Segmentation using 3D-CNNs | N/A | GENUINE_LLM |
-| 2011.02840 | DR-Unet104 for Multimodal MRI brain tumor | N/A | GENUINE_LLM |
-| 2011.11052 | Efficient embedding network for 3D brain | N/A | GENUINE_LLM |
-| 2411.01896 | MBDRes-U-Net: Multi-Scale Lightweight Bra Tumor Segmentation | Not specified | GENUINE_LLM |
-| 2510.08617 | Reproducible Evaluation of Data Augmentation | N/A | GENUINE_LLM |
+| [1905.07002] | Towards Automatic Generation of Shareable Clinical Notes | N/A | GENUINE_LLM |
+| [2011.09625] | Exploring Text Specific and Blackbox Fairness | Not specified in text | GENUINE_LLM |
+| [2104.12405] | A dissemination workshop for introducing different algorithms for sentence generation | Not specified | GENUINE_LLM |
+| [2302.04725] | Lightweight Transformers for Clinical NLP | Not specified in context | GENUINE_LLM |
+| [N/A] | Evaluating Data Augmentation Techniques for Coffee Leaf Disease | N/A | GENUINE_LLM |
+| [2402.12205] | Self-organized clustering prediction and differential equation modeling for Alzheimer's Disease progression | Not specified in context | GENUINE_LLM |
+| [N/A] | How reproducible are data-driven subtypes of dementia progression and deployment. | N/A | GENUINE_LLM |
+| [2501.07923] | Aviation Safety Enhancement via NLP Deep Learning for Flight Phase Classification | N/A | GENUINE_LLM |
+| [N/A] | Uncertainty-Aware Genomic Classification of Alzheimer’s Disease: A Transformer-Based Ensemble | N/A | GENUINE_LLM |
+| [2607.18086] | Judge-dependent safety gains and model-specific helpfulness costs of evidence-sufficiency prompting in clinical LLMs | Not specified in text | GENUINE_LLM |
+| [N/A] | Decoupling Disease, Covariates, and Individual Variability: A Unified Disentanglement Framework | IEEE TRANSACTIONS MANUSCRIPT — PREPRINT | GENUINE_LLM |
+| [N/A] | Detection of Potato Plant Leaf Diseases using CNN | N/A | GENUINE_LLM |
 
-## 2. Architectural Paradigms & Methodological Analysis
+(A deterministic Mermaid map illustrating the thematic flow from Clinical Data $\rightarrow$ Fairness/Efficiency $\rightarrow$ Temporal/Genomic Modeling $\rightarrow$ Applied NLP/CV is inserted separately.)
 
-### Methodological Paradigm Taxonomy
+## 2. Methodological Taxonomy & Comparative Architecture
+The corpus presents a heterogeneous set of architectural approaches, primarily centered around NLP (Transformers, RNNs) and Computer Vision (CNNs), alongside specialized statistical/dynamical modeling (Differential Equations, SuStaIn).
 
-```mermaid
-%% diagram_id: methodology_flowchart
-%%{init: {'theme': 'base', 'themeVariables': {'background': '#0E1117', 'darkBkgColor': '#0E1117', 'clusterBkg': '#FFFBEB', 'clusterBorder': '#FDE68A', 'fontFamily': 'Inter, system-ui, sans-serif', 'fontSize': '12px'}, 'flowchart': {'nodeSpacing': 24, 'rankSpacing': 28, 'curve': 'basis', 'htmlLabels': true, 'padding': 14}}}%%
-flowchart TB
-    ROOT["<b>Brain Tumor Architectural Paradigms</b><br/><span style='font-size:12px;font-weight:normal;opacity:0.9;'>Corpus Taxonomy & Comparative<br/>Synthesis</span>"]:::rootStyle
-    ROOT --> P_0["<b>Tool-Augmented & Autonomous Frameworks</b>"]:::paradigmStyle
-    ROOT --> P_1["<b>Collaborative Multi-Agent Systems</b>"]:::paradigmStyle
-    subgraph Col_1 ["Tool Augmentation & Retrieval"]
-        direction TB
-        P_2009_12188["<b>Brain Tumor Segmentation using</b><br/><span style='font-size:11px;color:#475569;'>2009.12188</span><br/><span style='font-size:10px;color:#64748B;'>N/A et al., N/A</span>"]:::paperCard
-        P_2011_11052["<b>Efficient embedding<br/>network for</b><br/><span style='font-size:11px;color:#475569;'>2011.11052</span><br/><span style='font-size:10px;color:#64748B;'>N/A et al., N/A</span>"]:::paperCard
-        P_2009_12188 ~~~ P_2011_11052
-    end
-    P_0 --> Col_1
-    style Col_1 fill:#FFF2C6,stroke:#FDE68A,stroke-width:1.5px;
-    subgraph Col_2 ["Embodied Agents & Benchmarks"]
-        direction TB
-        P_1909_06684["<b>3D Kidneys and Kidney</b><br/><span style='font-size:11px;color:#475569;'>1909.06684</span><br/><span style='font-size:10px;color:#64748B;'>N/A et al., N/A</span>"]:::paperCard
-        P_2011_02840["<b>DR-Unet104 for<br/>Multimodal MRI</b><br/><span style='font-size:11px;color:#475569;'>2011.02840</span><br/><span style='font-size:10px;color:#64748B;'>N/A et al., N/A</span>"]:::paperCard
-        P_2411_01896["<b>MBDRes-U-Net:<br/>Multi-Scale Lightweight Bra</b><br/><span style='font-size:11px;color:#475569;'>2411.01896</span><br/><span style='font-size:10px;color:#64748B;'>specified et al., Not<br/>specified</span>"]:::paperCard
-        P_2510_08617["<b>Reproducible Evaluation<br/>of Data</b><br/><span style='font-size:11px;color:#475569;'>2510.08617</span><br/><span style='font-size:10px;color:#64748B;'>N/A et al., N/A</span>"]:::paperCard
-        P_1909_06684 ~~~ P_2011_02840
-        P_2011_02840 ~~~ P_2411_01896
-        P_2411_01896 ~~~ P_2510_08617
-    end
-    P_0 --> Col_2
-    style Col_2 fill:#FFF2C6,stroke:#FDE68A,stroke-width:1.5px;
+| Paper ID | Architecture Family | Input Modalities/Resolutions | Core Algorithmic Innovation | Memory/Computational Overhead |
+| :--- | :--- | :--- | :--- | :--- |
+| [1905.07002] | Generative Models (LLM) | Unstructured Natural Language (Clinical Notes) | Synthetic Data Generation | Not reported |
+| [2011.09625] | Ensemble/Post-processing | Text and Tabular Data (MIMIC-III) | Modality-agnostic Fairness (EO Post-processing) | Not reported |
+| [2104.12405] | Token Rearrangement | Word Tokens (Corpus) | Bigram Distribution Analysis | Not reported |
+| [2302.04725] | Lightweight Transformers | Clinical Text | Knowledge Distillation (KD) & Continual Learning | 15M to 65M parameters |
+| [N/A] | Deep Learning/GANs | Image (RoCoLe) | pix2pix & CycleGAN Augmentation | Not reported |
+| [2402.12205] | Dynamical Systems/Clustering | Clinical Scores (ADNI/J-ADNI) | Differential Equation Modeling | Not reported |
+| [N/A] | Unsupervised Clustering | Genomic/Clinical Data | SuStaIn (Subtype Inference) | Not reported |
+| [2501.07923] | Recurrent/CNN | Safety Reports (Text) | LSTM/BLSTM for Phase Classification | Not reported |
+| [N/A] | Transformer Ensemble | Genomic Data (WGS) | Monte Carlo Dropout for Uncertainty Awareness | Not reported |
+| [2607.18086] | Prompting/LLM Benchmarking | Text (Clinical Benchmarks) | Evidence-Sufficiency Prompting | Not reported |
+| [N/A] | Disentanglement Learning | Medical Images (7 datasets) | MedIDL (Orthogonal Latent Spaces) | Not reported |
+| [N/A] | CNN | Image (PlantVillage/Field) | CNN (vs VGG16, MobileNetV2) | 446,787 parameters, 1.70 MB |
 
-    classDef rootStyle fill:#1E3A8A,stroke:#3B82F6,stroke-width:2px,color:#FFFFFF,font-size:15px;
-    classDef paradigmStyle fill:#1E3A8A,stroke:#3B82F6,stroke-width:1.5px,color:#FFFFFF,font-weight:600,font-size:13px;
-    classDef paperCard fill:#FFFFFF,stroke:#CBD5E1,stroke-width:1.2px,color:#1E293B,font-size:12px;
-    linkStyle default stroke:#3B82F6,stroke-width:1.5px;
-```
+**Analysis of Architecture Families:**
+The **Generative/LLM** family ([1905.07002], [2607.18086]) focuses on synthetic data creation and prompt engineering for safety, respectively. The **Lightweight Transformer** family ([2302.04725]) addresses computational feasibility by reducing parameter counts (15M–65M), a direct trade-off against the representational power of larger models. The **Dynamical/Clustering** family ([2402.12205], [N/A] dementia subtypes) shifts focus from pattern recognition to trajectory forecasting, integrating continuous mathematical models (differential equations) with discrete clustering (SuStaIn).
 
+**Modality/Input Assumptions:**
+NLP-centric approaches ([1905.07002], [2501.07923]) assume text structure is sufficient for classification or generation. Image-based methods ([N/A] coffee leaf, [N/A] potato leaf, [N/A] MedIDL) require high-resolution visual input, where [N/A] potato leaf demonstrates efficiency (446,787 parameters, 1.70 MB) compared to larger CNNs. Genomic inputs ([N/A] uncertainty-aware AD) necessitate specialized feature extraction before transformer application.
 
-The reviewed literature employs two primary methodological streams: **Specialized Frameworks** (e.g., 3D-CNNs, Efficient Embedding Networks) designed for optimal performance on BraTS data, and **Evaluation Benchmarks/Testbeds** (e.g., DR-Unet104 analysis) focused on problem formulation and comparative validation.
+**Computational Trade-offs:**
+[2302.04725] explicitly quantifies a trade-off: achieving compactness (15M–65M parameters) while maintaining performance relative to BioBERT/ClinicalBioBERT. Conversely, [N/A] potato leaf shows low overhead (1.70 MB) compared to VGG16/MobileNetV2. [2501.07923] uses multiple RNN variants (LSTM, BLSTM, sRNN), implying a comparative study of sequential processing efficiency. Reported costs often reflect *achieved* efficiency rather than *theoretical* minimums; for instance, [2302.04725] notes the resulting models are "heavy in size... making them unsuitable for devices with limited memory," contradicting the goal of lightweight deployment.
 
-The reliance on 3D convolutions is evident in the pursuit of superior spatial context, as seen in the work on 3D-CNNs and the efficient 3D embedding network. However, a notable divergence exists: DR-Unet104 utilizes only 2D convolutions, presenting a trade-off where computational efficiency is gained at the potential cost of full volumetric fidelity. The emergence of lightweight architectures, such as MBDRes-U-Net (implied by the corpus structure), directly addresses the computational burden ($\text{G01}$).
+**Cross-Family Synthesis:**
+The comparison reveals that the choice of architecture is dictated by the primary constraint: privacy/utility ([1905.07002]), fairness ([2011.09625]), resource limits ([2302.04725], [N/A] potato leaf), or temporal complexity ([2402.12205]). For instance, while LLMs excel in unstructured text tasks ([1905.07002], [2607.18086]), specialized, smaller CNNs ([N/A] potato leaf) offer superior deployment efficiency for image tasks.
 
-A key methodological insight is the necessity of multimodal data integration, as demonstrated by the DR-Unet104 study utilizing BraTS 2020 multimodal MRI data. Furthermore, the corpus highlights the importance of rigorous evaluation, including the study on reproducible data augmentation ($\text{2510.08617}$), suggesting that methodological robustness extends beyond model architecture to encompass experimental design.
+*Mechanism Comparison (e.g., Attention vs. Skip-Connections):* This comparison is not supported by the evidence, as specific architectural details like attention gates versus skip-connections are not detailed for the listed papers, except implicitly within Transformer usage ([2302.04725], [N/A] uncertainty-aware AD).
+*Practical Implication:* Domain-specific constraints (e.g., low-resource agriculture vs. high-stakes clinical safety) dictate the optimal paradigm.
+*Counterargument:* Generalizing lightweight design ([2302.04725]) to all domains ignores the need for high-fidelity representation in complex tasks like genomic classification ([N/A] uncertainty-aware AD).
+*Remaining Uncertainty:* The precise relationship between parameter count and real-world inference latency across these diverse models remains largely unquantified in the provided data.
 
-## 3. Empirical Benchmark Analysis
+## 3. Empirical Benchmark Analysis & Quantitative Findings
+Empirical validation spans clinical NLP, AD progression, aviation safety, and plant disease. The evaluation protocols vary significantly, preventing direct ranking across all studies.
 
-The primary benchmark utilized across the brain tumor studies is the **BraTS challenge** (specifically BraTS 2020), involving complex multi-modal inputs (T1, T1Gd, T2, T2-FLAIR) across diverse tumor subtypes (HGG and LGG).
+| Paper ID | Benchmark Dataset | Reported Evaluation Metrics | Evaluation Split/Protocol | Relative Outperformance |
+| :--- | :--- | :--- | :--- | :--- |
+| [1905.07002] | MedText (from MIMIC-III) | Utility (vs. real notes), Privacy Preservation | Not specified | Utility close to real notes |
+| [2011.09625] | MIMIC-III clinical dataset | TP/TN rates, AUC | Not specified | Ensemble improves performance/mitigates unfairness vs. components |
+| [2104.12405] | Corpus used for bigrams' distribution | Not specified | Workshop adaptation (30-90 min) | N/A |
+| [2302.04725] | Standard clinical text-mining tasks (e.g., MedNLI) | Performance (vs. BioBERT/ClinicalBioBERT) | Not specified | Outperformed other compact models; ClinicalDistilBERT improved on MedNLI |
+| [N/A] | RoCoLe dataset | Classification Accuracy | Not specified | Transformer/CycleGAN effective in improving classification |
+| [2402.12205] | ADNI and J-ADNI cohorts | Predictive Accuracy (Long-term trajectory) | Not specified | Validated predictive accuracy; simultaneous evaluation of risk factors |
+| [N/A] | ANMerge, OASIS, ADNI databases | Subtype Reproduction | Not specified | Original three subtypes reproduced across eight experiments |
+| [2501.07923] | Safety reports from ATSB | Accuracy, Precision, Recall, F1 Score | Not specified | LSTM achieved 87% Acc, 88% Prec, 87% Rec, 88% F1 |
+| [N/A] | WGS data (1,566 individuals) | Accuracy, AUC, F1 | 1050 individuals (excluding uncertain group) | Accuracy 0.7287 (10.24% increase); F1 0.8205 (23.62% increase) |
+| [2607.18086] | Real-POCQi, HealthBench, MedRBench | Unsafe Overconfidence Reduction | Paired common panel (1,200 cells) | Reduced from 49.3% to 24.7% (24.7 point paired reduction, p<0.001) |
+| [N/A] | 7 datasets (diverse imaging) | Accuracy | Not specified | MedIDL outperforms state-of-the-art supervised/self-supervised |
+| [N/A] | PlantVillage (2,215 images) & Field (247 images) | Training/Validation/Test Accuracy | Not specified | PlantVillage: 99.04% Train, 98.21% Val, 98.66% Test; Field: 90.28% |
 
-Quantitative performance metrics are high, with reported mean Dice scores for whole tumor ranging around $0.8862$ (DR-Unet104) to potentially higher values in specialized 3D-CNN implementations. The kidney tumor study ($\text{1909.06684}$) sets a high standard for general medical segmentation, achieving a composite Dice score of $0.8923$.
+**Analysis of Metrics and Fairness:**
+Metrics vary fundamentally: [2501.07923] uses standard classification metrics (Accuracy, F1), while [2607.18086] uses a specific behavioral metric (Unsafe Overconfidence Reduction). [2011.09625] highlights the tension between performance (AUC) and fairness (TP/TN rates), noting that improving fairness via Equalized Odds (EO) post-processing *degrades* AUC. This is a critical finding regarding the inherent trade-off in equitable ML.
 
-Crucially, the limitations identified are not solely performance-based but also methodological: the lack of explicit uncertainty mapping in standard 3D-CNN approaches ($\text{2009.12188}$) and the difficulty in generalizing across tumor subtypes (LGG variability in $\text{2011.11052}$). This indicates that achieving high Dice scores alone is insufficient for clinical translation; robustness and interpretability are paramount.
+**Benchmark Fairness and Discrepancies:**
+Benchmark fairness is not uniformly assessed. [2011.09625] addresses group disparities on MIMIC-III, whereas [2607.18086] assesses *behavioral* fairness (overconfidence) across clinical LLMs using specific, paired benchmarks (Real-POCQi, HealthBench). The AD studies ([2402.12205], [N/A] dementia subtypes) focus on *reproducibility* of subtypes rather than standard classification fairness metrics.
+
+**Untested Risks (Hypotheses):**
+Hypothesis: The high performance reported on PlantVillage ([N/A] potato leaf, 98.66% test accuracy) may not generalize to the field dataset ([N/A] potato leaf, 90.28% accuracy), suggesting domain shift risk between controlled and real-world capture conditions. Hypothesis: The success of synthetic data in [1905.07002] is contingent on the utility metric chosen; high utility does not guarantee perfect privacy preservation, as noted by the dual focus.
+
+**What Cannot Be Concluded:**
+Absolute improvements cannot be ranked across tasks (e.g., 87% F1 in aviation vs. 0.7287 accuracy in genomics) because the underlying tasks, datasets, and evaluation protocols are incompatible. Furthermore, the quantitative results in [2402.12205] confirm *validated predictive accuracy* but do not provide the specific metric value (e.g., RMSE or AUC) against which this validation was achieved.
 
 ## 4. Cross-Paper Research Gaps & Unexplored Frontiers
 
@@ -124,64 +133,146 @@ Crucially, the limitations identified are not solely performance-based but also 
 
 ```mermaid
 %% diagram_id: research_gaps_flowchart
-%%{init: {'theme': 'base', 'themeVariables': {'background': '#0E1117', 'darkBkgColor': '#0E1117', 'fontFamily': 'Inter, system-ui, sans-serif', 'fontSize': '12px'}, 'flowchart': {'nodeSpacing': 20, 'rankSpacing': 40, 'subGraphTitleMargin': {'top': 10, 'bottom': 12}, 'curve': 'basis', 'htmlLabels': true, 'padding': 14}}}%%
-flowchart TB
-    subgraph Layer1 ["Layer 1: Observed Empirical Constraints & Limitations"]
-        direction LR
-        LT_0["<b>Inference Latency & Token<br/>Overhead</b><br/><span style='font-size:10px;color:#991B1B;'>Observed across 10 Frameworks</span>"]:::limitationStyle
-        LT_1["<b>Hallucination & Error<br/>Propagation</b><br/><span style='font-size:10px;color:#991B1B;'>Observed across 8 Frameworks</span>"]:::limitationStyle
-        LT_2["<b>Search Space Explosion &<br/>Horizon Trapping</b><br/><span style='font-size:10px;color:#991B1B;'>Observed across 4 Frameworks</span>"]:::limitationStyle
-        LT_3["<b>Inter-Agent Coordination<br/>Overhead</b><br/><span style='font-size:10px;color:#991B1B;'>Observed across 3 Multi-Agent Frameworks</span>"]:::limitationStyle
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'background': '#FAF8F5',
+    'fontFamily': 'Plus Jakarta Sans, system-ui, sans-serif',
+    'fontSize': '12.5px',
+    'primaryTextColor': '#0F172A',
+    'lineColor': '#64748B'
+  },
+  'flowchart': {
+    'curve': 'basis',
+    'nodeSpacing': 28,
+    'rankSpacing': 56,
+    'padding': 16,
+    'htmlLabels': true
+  }
+}}%%
+flowchart LR
+    subgraph STAGE1 ["<b>STAGE 1: AUTHOR-STATED LIMITATIONS</b><br/><span style='font-weight:normal;font-size:10.5px;color:#881337;'>Grouped by Thematic Empirical Boundaries</span>"]
+        INDEP_LIMS["<b>Independent Domain Scopes</b><br/><span style='font-size:11px;color:#475569;'>Isolated scopes without multi-paper overlap</span><br/><span style='font-size:10px;font-weight:600;color:#64748B;'>● 11 Isolated Scopes | Papers: 1905.07002, 2011.09625, 2104.12405, 2302.04725, 2402.12205, +3 more</span>"]:::indepThemeStyle
+    end
+    subgraph STAGE2 ["<b>STAGE 2: SYNTHESIZED RESEARCH GAPS</b><br/><span style='font-weight:normal;font-size:10.5px;color:#312E81;'>Cross-Paper Frontier Synthesis</span>"]
+    end
+    subgraph STAGE3 ["<b>STAGE 3: FUTURE OPPORTUNITIES</b><br/><span style='font-weight:normal;font-size:10.5px;color:#064E3B;'>Actionable Empirical Research Directions</span>"]
     end
 
-    subgraph Layer2_Author ["Layer 2: Author-Stated Research Gaps"]
-        direction LR
-        EG_0["<b>[GAP-01] Static Black-Box<br/>Reasoning Without External<br/>Grounding</b><br/><span style='font-size:10px;color:#0F766E;'>Author-Stated (2210.03629)</span>"]:::explicitStyle
-        EG_1["<b>[GAP-02] Inability to<br/>Access Real-Time External<br/>APIs & Tool Execution</b><br/><span style='font-size:10px;color:#0F766E;'>Author-Stated (2302.04761)</span>"]:::explicitStyle
-        EG_2["<b>[GAP-03] Inefficient<br/>Trial-and-Error Learning<br/>from Feedback Without<br/>Policy Updates</b><br/><span style='font-size:10px;color:#0F766E;'>Author-Stated (2303.11366)</span>"]:::explicitStyle
-    end
+    %% Evidence-backed transitions: Stage 1 -> Stage 2 -> Stage 3
 
-    subgraph Layer2_Synth ["Layer 2: Synthesized Frontier Gaps"]
-        direction LR
-        SG_0["<b>[GAP-SYN-01] Cross-System<br/>Scalability &<br/>Generalization Across<br/>Evaluated Architectures</b><br/><span style='font-size:10px;color:#6D28D9;'>Synthesized Frontier Gap (Corpus)</span>"]:::synthStyle
-    end
+    classDef limThemeStyle fill:#FFF1F2,stroke:#F43F5E,stroke-width:1.5px,color:#881337,rx:8px,ry:8px;
+    classDef indepThemeStyle fill:#F8FAFC,stroke:#94A3B8,stroke-width:1.5px,color:#334155,rx:8px,ry:8px;
+    classDef synthStyle fill:#EEF2FF,stroke:#6366F1,stroke-width:2px,color:#1E1B4B,rx:8px,ry:8px;
+    classDef oppStyle fill:#ECFDF5,stroke:#10B981,stroke-width:1.5px,color:#064E3B,rx:8px,ry:8px;
+    linkStyle default stroke:#64748B,stroke-width:1.5px;
+```
 
-    LT_1 --> EG_0
-    LT_2 --> EG_2
-    LT_1 -. "Thematic Link" .-> EG_1
-    LT_3 -. "Synthesized Frontier" .-> SG_0
+Author-stated limitations often focus on immediate implementation hurdles (e.g., manual analysis in [2501.07923], resource intensity in [2302.04725]), whereas synthesized systemic bottlenecks reveal deeper methodological issues.
 
-    classDef limitationStyle fill:#FFFFFF,stroke:#DC2626,stroke-width:1.4px,color:#991B1B,font-size:11px;
-    classDef explicitStyle fill:#FFFFFF,stroke:#0D9488,stroke-width:1.4px,color:#115E59,font-size:11px;
-    classDef synthStyle fill:#FFFFFF,stroke:#7C3AED,stroke-width:1.4px,color:#5B21B6,font-size:11px;
-    style Layer1 fill:#FEF2F2,stroke:#FECACA,stroke-width:1.5px;
-    style Layer2_Author fill:#F0FDF4,stroke:#A7F3D0,stroke-width:1.5px;
-    style Layer2_Synth fill:#FAF5FF,stroke:#DDD6FE,stroke-width:1.5px;
-    linkStyle default stroke:#64748B,stroke-width:1.4px,stroke-dasharray: 4 4;
+The most pervasive gap is the lack of standardized evaluation for LLM safety/behavior ([2607.18086], gap E9), where the study itself notes no established reporting guideline exists. This contrasts with the clear, albeit limited, quantitative results in aviation safety ([2501.07923]).
+
+Conflicting evidence is minimal, primarily revolving around the performance/fairness trade-off ([2011.09625]), where the degradation in AUC upon enforcing EO is a consistent finding, not a conflict. Uncertainty arises from the *absence* of detail: [2302.04725] claims lightweight models are "heavy," which is contradictory, suggesting a lack of precise computational characterization.
+
+The gap concerning data quality is multifaceted: [N/A] dementia subtypes highlights the impact of 'lower-quality' MRI data (gap E7), while [2402.12205] notes general limitations in clinical studies (gap E6). This suggests that data provenance and quality assessment must be integrated *before* model training, not just noted post-hoc.
+
+The gap in agricultural research ([N/A] coffee leaf, [N/A] potato leaf) is not just knowledge-intensive (gap E5) but also related to dataset imbalance and augmentation effectiveness, which requires more rigorous quantitative comparison than reported.
+
+## 5. Strategic Roadmap & Future Directions
+The following three directions address systemic bottlenecks identified across the corpus, moving beyond isolated domain fixes.
+
+### Proposal 1: Standardized Evaluation for LLM Safety and Helpfulness
+**Motivation:** The lack of reporting guidelines for computational LLM benchmarks ([2607.18086], gap E9) renders cross-model comparison unreliable. We need to move beyond retrospective perturbation studies.
+**Testable Hypothesis:** A standardized, non-interventional benchmark protocol incorporating matched scaffold controls will yield consistent, quantifiable safety gains across diverse LLM architectures, independent of the specific judge used.
+**Methodological Changes:** Develop a protocol based on [2607.18086]'s paired design but mandate standardized prompt templates and judge calibration checks across all participating models.
+**Dataset/Split Design:** Utilize a curated, multi-domain clinical benchmark (e.g., combining Real-POCQi with MedRBench).
+**Baseline/Ablation Plan:** Compare evidence-sufficiency prompting against standard prompting and a null control (no prompting).
+**Success Metrics:** Statistical significance ($p<0.001$) of paired reduction in unsafe overconfidence, coupled with a quantifiable, non-trivial helpfulness cost metric (e.g., token count increase vs. safety gain ratio).
+**Resource Constraints:** Requires access to multiple proprietary LLM APIs (GPT-5.5, Claude Opus 4.8, etc.).
+**Failure Criteria:** Inability to achieve statistically significant paired reduction, suggesting the observed gains are purely artifactual to the judge calibration.
+**Expected Contribution:** Establishing a rigorous, reproducible methodology for assessing LLM safety beyond anecdotal evidence.
+
+### Proposal 2: Unified Disentanglement for Multi-Modal Clinical Data
+**Motivation:** Clinical models struggle to separate disease pathology from confounding covariates (age, scanner type) ([N/A] MedIDL, gap E10), leading to brittle generalization.
+**Testable Hypothesis:** Integrating the MedIDL framework with uncertainty quantification (Monte Carlo Dropout, as in [N/A] uncertainty-aware AD) will yield latent representations that are both pathognomonic and robust to covariate shifts across diverse imaging and genomic inputs.
+**Methodological Changes:** Adapt MedIDL to accept heterogeneous inputs (e.g., image features + genomic embeddings) and enforce orthogonality across disease, covariate, and individual variation latent spaces simultaneously.
+**Dataset/Split Design:** Utilize the 7 diverse imaging datasets from [N/A] MedIDL, augmented with genomic data from WGS cohorts ([N/A] uncertainty-aware AD).
+**Baseline/Ablation Plan:** Compare MedIDL against standard supervised classification and self-supervised methods, and against the uncertainty-aware transformer ensemble.
+**Success Metrics:** Superior accuracy across all datasets *and* successful isolation confirmed by gradient-based interpretability aligning with clinical literature, alongside a measurable reduction in covariate influence on prediction variance.
+**Resource Constraints:** High computational cost associated with multi-modal feature fusion and orthogonal latent space optimization.
+**Failure Criteria:** Failure to localize pathognomonic patterns via interpretability, indicating latent space mixing rather than true disentanglement.
+**Expected Contribution:** A generalized framework for robust, interpretable clinical AI that mitigates bias from non-disease-related patient characteristics.
+
+### Proposal 3: Resource-Aware, Domain-Adaptive Model Compression
+**Motivation:** Lightweight models ([2302.04725]) are still too heavy for edge deployment, while high-accuracy models are impractical. We need compression tailored to domain-specific data characteristics (e.g., image vs. text).
+**Testable Hypothesis:** Knowledge Distillation, when guided by domain-specific data augmentation strategies (e.g., CycleGAN for images, context-aware masking for text), can achieve deployment-ready size (e.g., <10MB) without sacrificing performance relative to the source model in the target domain.
+**Methodological Changes:** Systematically apply KD, using domain-specific augmentations ([N/A] coffee leaf) as part of the distillation training, rather than generic augmentations.
+**Dataset/Split Design:** Test on the potato leaf task ([N/A] potato leaf) and a subset of clinical text tasks ([2302.04725]).
+**Baseline/Ablation Plan:** Compare KD-compressed models against standard fine-tuning and against the original large models (BioBERT/ClinicalBioBERT).
+**Success Metrics:** Achieving a target size (e.g., <10MB) while maintaining performance within 2% of the source model's performance on the target domain's test set.
+**Resource Constraints:** Requires access to both large source models and the specific domain datasets (RoCoLe, PlantVillage).
+**Failure Criteria:** Performance degradation exceeding 2% or failure to meet the size constraint, indicating the domain-specific knowledge cannot be effectively distilled.
+**Expected Contribution:** A practical, resource-efficient pipeline for deploying high-performing AI in low-resource, real-world settings like agriculture or remote clinical monitoring.
+
+## 6. References & Grounded Citation Anchors
+[1905.07002] Towards Automatic Generation of Shareable Clinical Notes, N/A, N/A
+[2011.09625] Exploring Text Specific and Blackbox Fairness, Not specified in text, Not specified in text
+[2104.12405] A dissemination workshop for introducing different algorithms for sentence generation, Not specified, Not specified
+[2302.04725] Lightweight Transformers for Clinical NLP, Not specified in context, Not specified in context
+[N/A] Evaluating Data Augmentation Techniques for Coffee Leaf Disease, N/A, N/A
+[2402.12205] Self-organized clustering prediction and differential equation modeling for Alzheimer's Disease progression, Not specified in context, Not specified in context
+[N/A] How reproducible are data-driven subtypes of dementia progression and deployment., N/A, N/A
+[2501.07923] Aviation Safety Enhancement via NLP Deep Learning for Flight Phase Classification, N/A, N/A
+[N/A] Uncertainty-Aware Genomic Classification of Alzheimer’s Disease: A Transformer-Based Ensemble, N/A, N/A
+[2607.18086] Judge-dependent safety gains and model-specific helpfulness costs of evidence-sufficiency prompting in clinical LLMs, Not specified in text, Not specified in text
+[N/A] Decoupling Disease, Covariates, and Individual Variability: A Unified Disentanglement Framework, N/A, IEEE TRANSACTIONS MANUSCRIPT — PREPRINT
+[N/A] Detection of Potato Plant Leaf Diseases using CNN, N/A, N/A
+
+### Methodological Paradigm Taxonomy
+
+```mermaid
+%% diagram_id: methodology_flowchart
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'background': '#FAF8F5',
+    'fontFamily': 'Plus Jakarta Sans, system-ui, sans-serif',
+    'fontSize': '12px',
+    'primaryTextColor': '#0F172A',
+    'lineColor': '#64748B'
+  },
+  'flowchart': {
+    'curve': 'basis',
+    'nodeSpacing': 16,
+    'rankSpacing': 38,
+    'padding': 12,
+    'htmlLabels': true
+  }
+}}%%
+flowchart LR
+    ROOT["<b>Leaf disease<br/>classification</b><br/><span style='font-size:10.5px;color:#93C5FD;'>8 Evaluated Papers</span><br/><span style='font-size:9.5px;opacity:0.75;color:#E2E8F0;'>Methodological Taxonomy</span>"]:::rootStyle
+    ROOT --> M0["<b>LMs</b><br/><span style='font-size:10px;color:#1E3A8A;font-weight:600;'>1 Paper</span><br/><span style='font-size:9.5px;color:#475569;'>Language models<br/>(LMs) learn</span>"]:::methodStyle
+    M0 --> P_0_0["<b>Towards Automatic<br/>Generation</b><br/><span style='font-size:10px;color:#2563EB;font-weight:600;'>[1905.07002]</span><br/><span style='font-size:9.5px;color:#475569;'>LMs</span>"]:::paperStyle
+    ROOT --> M1["<b>MIMIC-III</b><br/><span style='font-size:10px;color:#1E3A8A;font-weight:600;'>1 Paper</span><br/><span style='font-size:9.5px;color:#475569;'>Our work brings a</span>"]:::methodStyle
+    M1 --> P_1_0["<b>Exploring Text<br/>Specific</b><br/><span style='font-size:10px;color:#2563EB;font-weight:600;'>[2011.09625]</span><br/><span style='font-size:9.5px;color:#475569;'>MIMIC-III</span>"]:::paperStyle
+    ROOT --> M2["<b>Methodology not<br/>identified</b><br/><span style='font-size:10px;color:#1E3A8A;font-weight:600;'>1 Paper</span><br/><span style='font-size:9.5px;color:#475569;'>Specific<br/>algorithmic or<br/>architectural</span>"]:::methodStyle
+    M2 --> P_2_0["<b>A dissemination<br/>workshop</b><br/><span style='font-size:10px;color:#2563EB;font-weight:600;'>[2104.12405]</span><br/><span style='font-size:9.5px;color:#475569;'>Methodology not<br/>identified</span>"]:::paperStyle
+    ROOT --> M3["<b>Transformer<br/>Architecture</b><br/><span style='font-size:10px;color:#1E3A8A;font-weight:600;'>3 Papers</span><br/><span style='font-size:9.5px;color:#475569;'>BioBERT (Sanh et<br/>al.,</span>"]:::methodStyle
+    M3 --> P_3_0["<b>Lightweight<br/>Transformers for</b><br/><span style='font-size:10px;color:#2563EB;font-weight:600;'>[2302.04725]</span><br/><span style='font-size:9.5px;color:#475569;'>BioBERT</span>"]:::paperStyle
+    M3 --> P_3_1["<b>Evaluating Data<br/>Augmentation</b><br/><span style='font-size:10px;color:#2563EB;font-weight:600;'>[N/A]</span><br/><span style='font-size:9.5px;color:#475569;'>RoCoLe</span>"]:::paperStyle
+    M3 --> MORE_3["<b>+1 More Papers</b><br/><span style='font-size:9.5px;color:#64748B;'>N/A</span>"]:::moreStyle
+    ROOT --> M4["<b>RCT</b><br/><span style='font-size:10px;color:#1E3A8A;font-weight:600;'>1 Paper</span><br/><span style='font-size:9.5px;color:#475569;'>development of an<br/>innovative</span>"]:::methodStyle
+    M4 --> P_4_0["<b>Self-organized<br/>clustering<br/>prediction</b><br/><span style='font-size:10px;color:#2563EB;font-weight:600;'>[2402.12205]</span><br/><span style='font-size:9.5px;color:#475569;'>RCT</span>"]:::paperStyle
+    ROOT --> M5["<b>SuStaIn</b><br/><span style='font-size:10px;color:#1E3A8A;font-weight:600;'>1 Paper</span><br/><span style='font-size:9.5px;color:#475569;'>The Subtype and<br/>Stage</span>"]:::methodStyle
+    M5 --> P_5_0["<b>How reproducible<br/>are</b><br/><span style='font-size:10px;color:#2563EB;font-weight:600;'>[N/A]</span><br/><span style='font-size:9.5px;color:#475569;'>SuStaIn</span>"]:::paperStyle
+
+    classDef rootStyle fill:#0F172A,stroke:#1E293B,stroke-width:2px,color:#FFFFFF,font-size:12.5px,font-weight:bold,rx:6px,ry:6px;
+    classDef methodStyle fill:#F0F7FF,stroke:#3B82F6,stroke-width:1.5px,color:#1E3A8A,font-size:11.5px,font-weight:bold,rx:5px,ry:5px;
+    classDef auditStyle fill:#FEF2F2,stroke:#EF4444,stroke-width:1.3px,color:#991B1B,font-size:11px,font-weight:600,rx:5px,ry:5px;
+    classDef paperStyle fill:#FFFFFF,stroke:#CBD5E1,stroke-width:1.2px,color:#1E293B,font-size:10.5px,rx:4px,ry:4px;
+    classDef moreStyle fill:#F8FAFC,stroke:#94A3B8,stroke-width:1px,stroke-dasharray:3 3,color:#64748B,font-size:10px,rx:4px,ry:4px;
+    linkStyle default stroke:#64748B,stroke-width:1.3px;
 ```
 
 
-The synthesis of the corpus reveals several systemic bottlenecks that require focused research:
-
-1. **Computational Scalability vs. 3D Fidelity ($\text{G01}$ / $\text{S01}$):** The high cost of full 3D CNNs remains a deployment barrier. The literature has not converged on a universally efficient, yet fully volumetric, architecture.
-2. **Clinical Trust and Uncertainty ($\text{G02}$ / $\text{S02}$):** The absence of explicit voxel-wise uncertainty quantification prevents direct clinical risk assessment. Future models must integrate uncertainty estimation alongside segmentation masks.
-3. **Boundary Precision ($\text{G03}$):** While segmentation is performed, the need for robust, integrated boundary-aware techniques to refine delineation accuracy, particularly at tumor margins, is an open problem.
-4. **Biological Heterogeneity ($\text{S03}$):** The challenge of LGG variability and inter-observer inconsistency suggests that standard loss functions are inadequate; advanced, domain-aware data augmentation and feature learning are necessary for true generalization.
-
-## 5. Strategic Roadmap & Future Directions
-
-The research trajectory must pivot from maximizing Dice scores to maximizing **clinically actionable robustness**.
-
-1. **Lightweight 3D Design:** Prioritize research into efficient, parameter-reduced 3D architectures (e.g., attention-gated, sparse convolutions) that maintain full volumetric context ($\text{S01}$).
-2. **Uncertainty-Aware Segmentation:** Develop hybrid models that natively output both segmentation probability and associated epistemic/aleatoric uncertainty maps ($\text{S02}$).
-3. **Integrated Loss Functions:** Move beyond standard Dice/Cross-Entropy by incorporating boundary-aware terms (e.g., Hausdorff distance regularization) and uncertainty-aware loss functions ($\text{G03}$).
-4. **Domain Adaptation:** Implement advanced augmentation and domain generalization techniques ($\text{S03}$) to mitigate biological variability (LGG/HGG) and improve cross-site reproducibility.
-
-## 6. References & Citation Anchors
-
-*   **[1909.06684]:** Kidney Tumor Segmentation Benchmark.
-*   **[2009.12188]:** 3D-CNNs for Brain Tumor Segmentation (Focus on Entropy Limitation).
-*   **[2011.02840]:** DR-Unet104 (2D vs. 3D Trade-off).
-*   **[2011.11052]:** Efficient Embedding Network (LGG Variability Challenge).
-*   **[2411.01896]:** MBDRes-U-Net (Lightweight Architecture Focus).
-*   **[2510.08617]:** Reproducible Data Augmentation (Evaluation Rigor).
+> Synthesis quality note: this draft is below the 25,000-character survey target; expand and verify before publication.

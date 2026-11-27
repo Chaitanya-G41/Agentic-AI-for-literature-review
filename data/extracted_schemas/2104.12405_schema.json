@@ -1,0 +1,22 @@
+{
+  "paper_id": "2104.12405",
+  "paper_title": "A dissemination workshop for introducing different algorithms for sentence generation",
+  "authors": [
+    "Not specified"
+  ],
+  "venue": "Not specified",
+  "core_problem": "Determining the most likely ordering for a sentence given a set of words, especially when semantics are not accessible to simple NLP algorithms.",
+  "methodology_summary": "A workshop activity inspired by the word salad puzzle, where participants rearrange tokens (on cards/bracelets) based on bigrams' distribution in a corpus to form valid sentences.",
+  "datasets_eval": [
+    "Corpus used for bigrams' distribution"
+  ],
+  "empirical_results": "The workshop was adapted across various formats and time-slots (30 to 90 minutes).",
+  "explicit_limitations": "The core approach remained the same across all events, but materials were adapted.",
+  "numerical_metrics": [],
+  "geographical_data": {},
+  "pipeline_steps": [
+    "different algorithms for sentence generation."
+  ],
+  "generation_mode": "GENUINE_LLM",
+  "model_name": "NVIDIA_NIM (nvidia/nemotron-3.5-bolt-e4b)"
+}

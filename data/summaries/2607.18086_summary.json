@@ -1,0 +1,50 @@
+{
+  "paper_id": "2607.18086",
+  "paper_title": "Judge-dependent safety gains and model-specific helpfulness costs of evidence-sufficiency prompting in clinical LLMs",
+  "authors": [
+    "Not specified in text"
+  ],
+  "venue": "Not specified in text",
+  "grounded_citation": "[text et al., Not specified in text]",
+  "summary_source": "Heuristic Engine Fallback (Grounded Vector RAG Engine (Design Rule: 0 LLM calls))",
+  "problem_motivation": {
+    "problem_statement": "Whether measured 'safety gains' from evidence-sufficiency prompting in clinical LLMs reflect real behavior change or are artifacts of the LLM judge's calibration, and what the associated helpfulness costs are.",
+    "motivation": "Overcoming empirical and methodological bottlenecks in existing approaches to achieve validated outcomes in Judge-dependent safety gains and model-specific helpfulness costs of evidence-sufficiency prompting in clinical LLMs.",
+    "core_challenges": [
+      "Accurate representation and modeling within Judge-dependent safety gains and model-specific helpfulness costs of evidence-sufficiency prompting in clinical LLMs",
+      "Empirical validation across benchmarks: Real-POCQi, HealthBench",
+      "Addressing explicit constraints: The study is a retrospective public-data benchmark and perturbation study with p..."
+    ]
+  },
+  "proposed_methodology": {
+    "method_name": "Judge-dependent",
+    "core_architecture": "Retrospective public-data benchmark using a fully paired common panel (1,200 cells) comparing a standard prompt against an evidence-sufficiency wrapper across four models (GPT-5.5, Claude Opus 4.8, Gemini 3.5 Flash, Grok 4.3). Primary endpoint was paired reduction in unsafe overconfidence scored by GPT-5.4-nano, with secondary analyses involving other judges and blinded clinician review.",
+    "technical_innovations": [
+      "Problem Formulation & Data Ingestion",
+      "Method Execution & Architecture",
+      "Empirical Evaluation & Benchmarking"
+    ],
+    "key_algorithms": "Core pipeline execution parameterized across 3 methodological phases."
+  },
+  "empirical_results": {
+    "evaluated_datasets": [
+      "Real-POCQi",
+      "HealthBench",
+      "MedRBench"
+    ],
+    "key_metrics": [
+      "Accuracy / Success Rate (%)",
+      "Normalized Metric"
+    ],
+    "quantitative_results_summary": "Unsafe overconfidence reduced from 49.3% to 24.7% (24.7 point paired reduction, p<0.001). The magnitude of the gain was judge-dependent (e.g., Claude Sonnet halved the effect). The gain carried a model-specific helpfulness cost (e.g., near-free for GPT-5.5, near-total for Gemini). Matched scaffold controls showed genuine behavior change.",
+    "baseline_comparisons": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in Judge-dependent safety gains and model-specific helpfulness costs of evidence-sufficiency prompting in clinical LLMs."
+  },
+  "explicit_limitations": {
+    "stated_limitations": [
+      "The study is a retrospective public-data benchmark and perturbation study with paired repeated measures. No established reporting guideline covers non-interventional computational benchmarks of clinical LLM behavior. The findings do not establish clinical deployment readiness."
+    ],
+    "failure_modes": "Failure boundaries and error cases associated with The study is a retrospective public-data benchmark and perturbation study with paired repeated measures. No established .",
+    "computational_tradeoffs": "Computational requirements, runtime complexity, and data scaling constraints discussed in Judge-dependent safety gains and model-specific helpfulness costs of evidence-sufficiency prompting in clinical LLMs."
+  },
+  "markdown_full_summary": "# Grounded Literature Review Summary: Judge-dependent safety gains and model-specific helpfulness costs of evidence-sufficiency prompting in clinical LLMs\n\n**Citation Anchor:** [text et al., Not specified in text]  \n**Venue:** Not specified in text | **Authors:** Not specified in text  \n\n---\n\n### 1. Core Problem & Motivation\nWhether measured 'safety gains' from evidence-sufficiency prompting in clinical LLMs reflect real behavior change or are artifacts of the LLM judge's calibration, and what the associated helpfulness costs are.\n\n*Motivation & Gaps:* Overcoming empirical and methodological bottlenecks in existing approaches to achieve validated outcomes in Judge-dependent safety gains and model-specific helpfulness costs of evidence-sufficiency prompting in clinical LLMs.  \n*Key Challenges Tackled:*\n- Accurate representation and modeling within Judge-dependent safety gains and model-specific helpfulness costs of evidence-sufficiency prompting in clinical LLMs\n- Empirical validation across benchmarks: Real-POCQi, HealthBench\n\n---\n\n### 2. Proposed Methodology & Technical Architecture\n**Architecture Overview:**  \nRetrospective public-data benchmark using a fully paired common panel (1,200 cells) comparing a standard prompt against an evidence-sufficiency wrapper across four models (GPT-5.5, Claude Opus 4.8, Gemini 3.5 Flash, Grok 4.3). Primary endpoint was paired reduction in unsafe overconfidence scored by GPT-5.4-nano, with secondary analyses involving other judges and blinded clinician review.\n\n**Algorithmic Innovation:**  \nCore pipeline execution parameterized across 3 methodological phases.  \n\n*Core Technical Innovations:*\n- Problem Formulation & Data Ingestion\n- Method Execution & Architecture\n\n---\n\n### 3. Empirical Results & Benchmark Datasets\n**Evaluated Datasets:** Real-POCQi, HealthBench, MedRBench  \n**Key Metrics:** Accuracy / Success Rate (%), Normalized Metric  \n\n**Quantitative Findings:**  \nUnsafe overconfidence reduced from 49.3% to 24.7% (24.7 point paired reduction, p<0.001). The magnitude of the gain was judge-dependent (e.g., Claude Sonnet halved the effect). The gain carried a model-specific helpfulness cost (e.g., near-free for GPT-5.5, near-total for Gemini). Matched scaffold controls showed genuine behavior change.  \n\n**Baseline Comparison:**  \nDemonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in Judge-dependent safety gains and model-specific helpfulness costs of evidence-sufficiency prompting in clinical LLMs.\n\n---\n\n### 4. Explicit Limitations & Failure Modes\n**Stated Limitations:**  \nThe study is a retrospective public-data benchmark and perturbation study with paired repeated measures. No established reporting guideline covers non-interventional computational benchmarks of clinical LLM behavior. The findings do not establish clinical deployment readiness.  \n\n**Failure Modes & Bottlenecks:**  \nFailure boundaries and error cases associated with The study is a retrospective public-data benchmark and perturbation study with paired repeated measures. No established .  \n\n**Computational Trade-offs:**  \nComputational requirements, runtime complexity, and data scaling constraints discussed in Judge-dependent safety gains and model-specific helpfulness costs of evidence-sufficiency prompting in clinical LLMs.\n"
+}

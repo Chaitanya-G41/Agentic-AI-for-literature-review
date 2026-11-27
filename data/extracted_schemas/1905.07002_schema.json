@@ -1,0 +1,24 @@
+{
+  "paper_id": "1905.07002",
+  "paper_title": "Towards Automatic Generation of Shareable Clinical Notes",
+  "authors": [
+    "N/A"
+  ],
+  "venue": "N/A",
+  "core_problem": "Patient privacy concerns hinder the open dissemination of invaluable large-scale clinical data, and existing de-identification methods are susceptible to adversarial attacks.",
+  "methodology_summary": "Proposing to automatically generate synthetic clinical notes using generative models trained on real de-identified records, specifically focusing on unstructured natural language data from clinical notes.",
+  "datasets_eval": [
+    "MedText (extracted from MIMIC-III clinical database)"
+  ],
+  "empirical_results": "Neural language models yield synthetic notes whose utility is close to that of real notes in some clinical NLP tasks, while also measuring privacy preservation properties.",
+  "explicit_limitations": "The generated notes, while useful, still leave ample room for future improvements, and early naive models (e.g., unigram distribution) disregard word context.",
+  "numerical_metrics": [],
+  "geographical_data": {},
+  "pipeline_steps": [
+    "Problem Formulation & Data Ingestion",
+    "Method Execution & Architecture",
+    "Empirical Evaluation & Benchmarking"
+  ],
+  "generation_mode": "GENUINE_LLM",
+  "model_name": "NVIDIA_NIM (nvidia/nemotron-3.5-bolt-e4b)"
+}

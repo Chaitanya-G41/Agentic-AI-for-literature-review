@@ -1,176 +1,279 @@
 {
-  "paper_count": 6,
+  "paper_count": 7,
   "paper_ids": [
-    "1909.06684",
-    "2009.12188",
-    "2011.02840",
-    "2011.11052",
-    "2411.01896",
-    "2510.08617"
+    "1905.07002",
+    "2011.09625",
+    "2104.12405",
+    "2302.04725",
+    "2402.12205",
+    "2501.07923",
+    "2607.18086"
   ],
   "methodology_comparison": [
     {
-      "paper_id": "1909.06684",
-      "paper_title": "3D Kidneys and Kidney Tumor Semantic Segmentation",
+      "paper_id": "1905.07002",
+      "paper_title": "Towards Automatic Generation of Shareable Clinical Notes",
       "grounded_citation": "[N/A et al., N/A]",
-      "method_name": "3D",
-      "architecture_category": "Evaluation Benchmark / Testbed",
+      "method_name": "Towards",
+      "architecture_category": "Not identified in available paper content",
       "key_innovation": "Problem Formulation & Data Ingestion",
-      "paradigm": "Evaluation Benchmark / Testbed"
+      "paradigm": "Not identified in available paper content"
     },
     {
-      "paper_id": "2009.12188",
-      "paper_title": "Brain Tumor Segmentation using 3D-CNNs",
-      "grounded_citation": "[N/A et al., N/A]",
-      "method_name": "Brain",
-      "architecture_category": "Specialized Framework",
-      "key_innovation": "Novel architecture for Brain Tumor Segmentation using 3D-CNNs",
-      "paradigm": "Specialized Framework"
-    },
-    {
-      "paper_id": "2011.02840",
-      "paper_title": "DR-Unet104 for Multimodal MRI brain tumor",
-      "grounded_citation": "[N/A et al., N/A]",
-      "method_name": "DR-Unet104",
-      "architecture_category": "Evaluation Benchmark / Testbed",
+      "paper_id": "2011.09625",
+      "paper_title": "Exploring Text Specific and Blackbox Fairness",
+      "grounded_citation": "[text et al., Not specified in text]",
+      "method_name": "Exploring",
+      "architecture_category": "Not identified in available paper content",
       "key_innovation": "Problem Formulation & Data Ingestion",
-      "paradigm": "Evaluation Benchmark / Testbed"
+      "paradigm": "Not identified in available paper content"
     },
     {
-      "paper_id": "2011.11052",
-      "paper_title": "Efficient embedding network for 3D brain",
-      "grounded_citation": "[N/A et al., N/A]",
-      "method_name": "Efficient",
-      "architecture_category": "Specialized Framework",
-      "key_innovation": "Novel architecture for Efficient embedding network for 3D brain",
-      "paradigm": "Specialized Framework"
-    },
-    {
-      "paper_id": "2411.01896",
-      "paper_title": "MBDRes-U-Net: Multi-Scale Lightweight Bra Tumor Segmentation",
+      "paper_id": "2104.12405",
+      "paper_title": "A dissemination workshop for introducing different algorithms for sentence generation",
       "grounded_citation": "[specified et al., Not specified]",
-      "method_name": "MBDRes-U-Net",
-      "architecture_category": "Evaluation Benchmark / Testbed",
-      "key_innovation": "Problem Formulation & Data Ingestion",
-      "paradigm": "Evaluation Benchmark / Testbed"
+      "method_name": "A",
+      "architecture_category": "Not identified in available paper content",
+      "key_innovation": "Novel architecture for A dissemination workshop for introducing different algorithms for sentence generation",
+      "paradigm": "Not identified in available paper content"
     },
     {
-      "paper_id": "2510.08617",
-      "paper_title": "Reproducible Evaluation of Data Augmentation",
+      "paper_id": "2302.04725",
+      "paper_title": "Lightweight Transformers for Clinical NLP",
+      "grounded_citation": "[context et al., Not specified in context]",
+      "method_name": "Lightweight",
+      "architecture_category": "Not identified in available paper content",
+      "key_innovation": "Novel architecture for Lightweight Transformers for Clinical NLP",
+      "paradigm": "Not identified in available paper content"
+    },
+    {
+      "paper_id": "2402.12205",
+      "paper_title": "Self-organized clustering prediction and differential equation modeling for Alzheimer's Disease progression",
+      "grounded_citation": "[context et al., Not specified in context]",
+      "method_name": "Self-organized",
+      "architecture_category": "Not identified in available paper content",
+      "key_innovation": "Novel architecture for Self-organized clustering prediction and differential equation modeling for Alzheimer's Disease progression",
+      "paradigm": "Not identified in available paper content"
+    },
+    {
+      "paper_id": "2501.07923",
+      "paper_title": "Aviation Safety Enhancement via NLP Deep Learning for Flight Phase Classification",
       "grounded_citation": "[N/A et al., N/A]",
-      "method_name": "Reproducible",
-      "architecture_category": "Evaluation Benchmark / Testbed",
+      "method_name": "Aviation",
+      "architecture_category": "Not identified in available paper content",
       "key_innovation": "Problem Formulation & Data Ingestion",
-      "paradigm": "Evaluation Benchmark / Testbed"
+      "paradigm": "Not identified in available paper content"
+    },
+    {
+      "paper_id": "2607.18086",
+      "paper_title": "Judge-dependent safety gains and model-specific helpfulness costs of evidence-sufficiency prompting in clinical LLMs",
+      "grounded_citation": "[text et al., Not specified in text]",
+      "method_name": "Judge-dependent",
+      "architecture_category": "Not identified in available paper content",
+      "key_innovation": "Problem Formulation & Data Ingestion",
+      "paradigm": "Not identified in available paper content"
     }
   ],
   "dataset_overlap_matrix": {
-    "2019 MICCAI KiTS Kidney Tumor Segmentation Challenge dataset": [
-      "1909.06684"
+    "MedText (extracted from MIMIC-III clinical database)": [
+      "1905.07002"
     ],
-    "Brain Tumor Segmentation (BraTS) challenge (started in 2012), specifically mentioning BraTS 2020 training.": [
-      "2009.12188"
+    "MIMIC-III clinical dataset": [
+      "2011.09625"
     ],
-    "Multimodal Brain Tumor Segmentation (BraTS) 2020 Challenge data (validation and testing sets).": [
-      "2011.02840"
+    "Several standard datasets covering clinical text-mining tasks (e.g., MedNLI mentioned in limitations context).": [
+      "2302.04725"
     ],
-    "BraTS 2020 challenge (including 369 cases: 293 HGG and 76 LGG) using 4 modalities: native (T1), post-contrast T1-weighted (T1Gd), T2-weighted (T2), and T2-FLAIR.": [
-      "2011.11052"
+    "ADNI and J-ADNI cohorts (Total sample: 1,503 in ADNI; 288 in J-ADNI).": [
+      "2402.12205"
     ],
-    "Brain Tumor Segmentation (BraTS) Challenge 2018 and 2019 datasets": [
-      "2411.01896"
+    "Safety reports from the Australian Transport Safety Bureau (ATSB)": [
+      "2501.07923"
     ],
-    "A publicly available MRI dataset.": [
-      "2510.08617"
+    "Real-POCQi": [
+      "2607.18086"
+    ],
+    "HealthBench": [
+      "2607.18086"
+    ],
+    "MedRBench": [
+      "2607.18086"
     ]
   },
   "metrics_comparison": [
     {
-      "paper_id": "1909.06684",
+      "paper_id": "1905.07002",
       "grounded_citation": "[N/A et al., N/A]",
       "evaluated_datasets": [
-        "2019 MICCAI KiTS Kidney Tumor Segmentation Challenge dataset"
+        "MedText (extracted from MIMIC-III clinical database)"
       ],
       "key_metrics": [
-        "Reported Metric",
-        "Benchmark Score"
+        "Not identified in available paper content"
       ],
-      "quantitative_results": "Dice scores of 0.9742 for kidney and 0.8103 for tumor, with an overall composite dice score of 0.8923.",
-      "baseline_comparison": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in 3D Kidneys and Kidney Tumor Semantic Segmentation."
+      "quantitative_results": "Neural language models yield synthetic notes whose utility is close to that of real notes in some clinical NLP tasks, while also measuring privacy preservation properties.",
+      "baseline_comparison": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in Towards Automatic Generation of Shareable Clinical Notes."
     },
     {
-      "paper_id": "2009.12188",
-      "grounded_citation": "[N/A et al., N/A]",
+      "paper_id": "2011.09625",
+      "grounded_citation": "[text et al., Not specified in text]",
       "evaluated_datasets": [
-        "Brain Tumor Segmentation (BraTS) challenge (started in 2012), specifically mentioning BraTS 2020 training."
+        "MIMIC-III clinical dataset"
       ],
       "key_metrics": [
-        "Reported Metric",
-        "Benchmark Score"
+        "Not identified in available paper content"
       ],
-      "quantitative_results": "Best results obtained with the V-Net model directly when post-processing is applied. Dice score and Hausdorff distance showed lower performance on the validation set, especially in the ET region.",
-      "baseline_comparison": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in Brain Tumor Segmentation using 3D-CNNs."
+      "quantitative_results": "The dual modality ensemble improves performance and mitigates unfairness relative to constituent components. Equalized odds post-processing diminishes group-specific disparities in TP and TN rates, but this comes with a degradation in AUC. Word embedding debiasing also helps reduce TP/TN discrepancies.",
+      "baseline_comparison": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in Exploring Text Specific and Blackbox Fairness."
     },
     {
-      "paper_id": "2011.02840",
-      "grounded_citation": "[N/A et al., N/A]",
-      "evaluated_datasets": [
-        "Multimodal Brain Tumor Segmentation (BraTS) 2020 Challenge data (validation and testing sets)."
-      ],
-      "key_metrics": [
-        "Reported Metric",
-        "Benchmark Score"
-      ],
-      "quantitative_results": "On validation data, DR-Unet104 achieved mean dice scores of 0.8862 (whole tumor), 0.6756 (enhancing tumor), and 0.6721 (tumor core). On the challenge's testing data, final mean DSC scores were 0.8673 (whole tumor), 0.7514 (enhancing tumor), and 0.7983 (tumor core). These results showed an improvement over DeepLabV3+ with a ResNet-V2-152 backbone.",
-      "baseline_comparison": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in DR-Unet104 for Multimodal MRI brain tumor."
-    },
-    {
-      "paper_id": "2011.11052",
-      "grounded_citation": "[N/A et al., N/A]",
-      "evaluated_datasets": [
-        "BraTS 2020 challenge (including 369 cases: 293 HGG and 76 LGG) using 4 modalities: native (T1), post-contrast T1-weighted (T1Gd), T2-weighted (T2), and T2-FLAIR."
-      ],
-      "key_metrics": [
-        "Reported Metric",
-        "Benchmark Score"
-      ],
-      "quantitative_results": "The proposed method achieved promising performance on validation and test data from the BraTS 2020 challenge.",
-      "baseline_comparison": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in Efficient embedding network for 3D brain."
-    },
-    {
-      "paper_id": "2411.01896",
+      "paper_id": "2104.12405",
       "grounded_citation": "[specified et al., Not specified]",
       "evaluated_datasets": [
-        "Brain Tumor Segmentation (BraTS) Challenge 2018 and 2019 datasets"
+        "Not identified in available paper content"
       ],
       "key_metrics": [
-        "Reported Metric",
-        "Benchmark Score"
+        "Not identified in available paper content"
       ],
-      "quantitative_results": "The architecture maintains high precision in brain tumor segmentation while considerably reducing calculation overhead.",
-      "baseline_comparison": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in MBDRes-U-Net: Multi-Scale Lightweight Bra Tumor Segmentation."
+      "quantitative_results": "The workshop was adapted across various formats and time-slots (30 to 90 minutes).",
+      "baseline_comparison": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in A dissemination workshop for introducing different algorithms for sentence generation."
     },
     {
-      "paper_id": "2510.08617",
-      "grounded_citation": "[N/A et al., N/A]",
+      "paper_id": "2302.04725",
+      "grounded_citation": "[context et al., Not specified in context]",
       "evaluated_datasets": [
-        "A publicly available MRI dataset."
+        "Several standard datasets covering clinical text-mining tasks (e.g., MedNLI mentioned in limitations context)."
       ],
       "key_metrics": [
-        "Accuracy / Success Rate (%)",
-        "Normalized Metric"
+        "Not identified in available paper content"
       ],
-      "quantitative_results": "The U-Net with focal loss achieved a precision of 90%, comparable to state-of-the-art results.",
-      "baseline_comparison": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in Reproducible Evaluation of Data Augmentation."
+      "quantitative_results": "The developed compact models performed comparably to larger models (BioBERT, ClinicalBioBERT) and significantly outperformed other compact models trained on general or biomedical data. Initializing ClinicalDistilBERT with a biomedical checkpoint significantly improved performance on MedNLI.",
+      "baseline_comparison": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in Lightweight Transformers for Clinical NLP."
+    },
+    {
+      "paper_id": "2402.12205",
+      "grounded_citation": "[context et al., Not specified in context]",
+      "evaluated_datasets": [
+        "ADNI and J-ADNI cohorts (Total sample: 1,503 in ADNI; 288 in J-ADNI)."
+      ],
+      "key_metrics": [
+        "Not identified in available paper content"
+      ],
+      "quantitative_results": "Validated predictive accuracy of the proposed method for the long-term trajectory of cognitive test scores; demonstrated the simultaneous evaluation of risk factors (e.g., APOE $\\epsilon$4 status, A$\beta$ status) and the evaluation of therapeutic interventions.",
+      "baseline_comparison": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in Self-organized clustering prediction and differential equation modeling for Alzheimer's Disease progression."
+    },
+    {
+      "paper_id": "2501.07923",
+      "grounded_citation": "[N/A et al., N/A]",
+      "evaluated_datasets": [
+        "Safety reports from the Australian Transport Safety Bureau (ATSB)"
+      ],
+      "key_metrics": [
+        "Accuracy / Success Rate (%)"
+      ],
+      "quantitative_results": "LSTM achieved the highest performance with an accuracy of 87%, precision of 88%, recall of 87%, and F1 score of 88%.",
+      "baseline_comparison": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in Aviation Safety Enhancement via NLP Deep Learning for Flight Phase Classification."
+    },
+    {
+      "paper_id": "2607.18086",
+      "grounded_citation": "[text et al., Not specified in text]",
+      "evaluated_datasets": [
+        "Real-POCQi",
+        "HealthBench",
+        "MedRBench"
+      ],
+      "key_metrics": [
+        "Accuracy / Success Rate (%)"
+      ],
+      "quantitative_results": "Unsafe overconfidence reduced from 49.3% to 24.7% (24.7 point paired reduction, p<0.001). The magnitude of the gain was judge-dependent (e.g., Claude Sonnet halved the effect). The gain carried a model-specific helpfulness cost (e.g., near-free for GPT-5.5, near-total for Gemini). Matched scaffold controls showed genuine behavior change.",
+      "baseline_comparison": "Demonstrates measurable findings and comparative evaluation relative to baseline frameworks reported in Judge-dependent safety gains and model-specific helpfulness costs of evidence-sufficiency prompting in clinical LLMs."
     }
   ],
-  "limitation_themes": [],
+  "limitation_themes": [
+    {
+      "theme": "Empirical Constraints in [1905.07002]",
+      "paper_ids": [
+        "1905.07002"
+      ],
+      "citations": [
+        "[N/A et al., N/A]"
+      ],
+      "description": "The generated notes, while useful, still leave ample room for future improvements, and early naive models (e.g., unigram distribution) disregard word context.",
+      "frequency": 1
+    },
+    {
+      "theme": "Empirical Constraints in [2011.09625]",
+      "paper_ids": [
+        "2011.09625"
+      ],
+      "citations": [
+        "[text et al., Not specified in text]"
+      ],
+      "description": "The ensemble's performance improvements do not directly translate to fairness improvements; improving fairness (via EO post-processing) usually results in a degradation of performance (AUC).",
+      "frequency": 1
+    },
+    {
+      "theme": "Empirical Constraints in [2104.12405]",
+      "paper_ids": [
+        "2104.12405"
+      ],
+      "citations": [
+        "[specified et al., Not specified]"
+      ],
+      "description": "The core approach remained the same across all events, but materials were adapted.",
+      "frequency": 1
+    },
+    {
+      "theme": "Empirical Constraints in [2302.04725]",
+      "paper_ids": [
+        "2302.04725"
+      ],
+      "citations": [
+        "[context et al., Not specified in context]"
+      ],
+      "description": "The models are heavy in size and number of parameters, making them unsuitable for devices with limited memory and processing capacity.",
+      "frequency": 1
+    },
+    {
+      "theme": "Empirical Constraints in [2402.12205]",
+      "paper_ids": [
+        "2402.12205"
+      ],
+      "citations": [
+        "[context et al., Not specified in context]"
+      ],
+      "description": "Most clinical studies have limitations (implied, as the text mentions 'However, most clinical...').",
+      "frequency": 1
+    },
+    {
+      "theme": "Empirical Constraints in [2501.07923]",
+      "paper_ids": [
+        "2501.07923"
+      ],
+      "citations": [
+        "[N/A et al., N/A]"
+      ],
+      "description": "Manual analysis of safety occurrence reports is resource-intensive, limited by human capacity, subjectivity, and potential for oversight.",
+      "frequency": 1
+    },
+    {
+      "theme": "Empirical Constraints in [2607.18086]",
+      "paper_ids": [
+        "2607.18086"
+      ],
+      "citations": [
+        "[text et al., Not specified in text]"
+      ],
+      "description": "The study is a retrospective public-data benchmark and perturbation study with paired repeated measures. No established reporting guideline covers non-interventional computational benchmarks of clinic",
+      "frequency": 1
+    }
+  ],
   "cross_paper_insights": [
-    "Analyzed 6 research paper(s) across 2 distinct agentic paradigm(s).",
-    "Evaluations span 6 unique benchmark datasets across distinct operational environments.",
-    "Primary architectural approach represented is 'Evaluation Benchmark / Testbed' focused on iterative and structured reasoning.",
+    "Analyzed 7 research paper(s) across 1 distinct agentic paradigm(s).",
+    "Evaluations span 8 unique benchmark datasets across distinct operational environments.",
+    "Primary architectural approach represented is 'Not identified in available paper content' focused on iterative and structured reasoning.",
+    "Most widespread cross-cutting limitation is 'Empirical Constraints in [1905.07002]', impacting 1 of 7 paper(s).",
     "Across empirical benchmarks, agentic closed-loop reasoning consistently outperforms static, single-prompt LLM execution."
   ],
-  "markdown_comparison_report": "# Cross-Paper Comparative Analysis & Synthesis Matrix\n\n### 1. Automated 5-Column Literature Comparison Table\n\n| Paper & Citation | Architecture Paradigm | Benchmark Datasets | Quantitative Results & Baselines | Limitations & Failure Modes |\n|---|---|---|---|---|\n| **3D Kidneys and Kidney Tumor Semantic Segmentation**<br>`[N/A et al., N/A]` | **Evaluation Benchmark / Testbed**<br>*Problem Formulation & Data Ingestion* | 2019 MICCAI KiTS Kidney Tumor Segmentation Challenge dataset | **Gains:** Dice scores of 0.9742 for kidney and 0.8103 for tumor, with an overall composite dice score of 0.8923.<br>**Baselines:** Demonstrates measurable findings and comparative evaluation relative to baseline framework... | **Stated:** N/A<br>**Failure Mode:** Failure boundaries and error cases associated with N/A. |\n| **Brain Tumor Segmentation using 3D-CNNs**<br>`[N/A et al., N/A]` | **Specialized Framework**<br>*Novel architecture for Brain Tumor Segmentation using 3D-CNNs* | Brain Tumor Segmentation (BraTS) challenge (started in 2012), specifically mentioning BraTS 2020 training. | **Gains:** Best results obtained with the V-Net model directly when post-processing is applied. Dice score and Hausdorff distance showed lowe...<br>**Baselines:** Demonstrates measurable findings and comparative evaluation relative to baseline framework... | **Stated:** Entropy provides a global measure instead of a map for sub-regions, necessitating the use of voxel-wise uncert...<br>**Failure Mode:** Failure boundaries and error cases associated with Entropy provides a global measure inste... |\n| **DR-Unet104 for Multimodal MRI brain tumor**<br>`[N/A et al., N/A]` | **Evaluation Benchmark / Testbed**<br>*Problem Formulation & Data Ingestion* | Multimodal Brain Tumor Segmentation (BraTS) 2020 Challenge data (validation and testing sets). | **Gains:** On validation data, DR-Unet104 achieved mean dice scores of 0.8862 (whole tumor), 0.6756 (enhancing tumor), and 0.6721 (tumor core...<br>**Baselines:** Demonstrates measurable findings and comparative evaluation relative to baseline framework... | **Stated:** The method uses only 2D convolutions, which is noted as a limitation compared to 3D architectures, although th...<br>**Failure Mode:** Failure boundaries and error cases associated with The method uses only 2D convolutions, w... |\n| **Efficient embedding network for 3D brain**<br>`[N/A et al., N/A]` | **Specialized Framework**<br>*Novel architecture for Efficient embedding network for 3D brain* | BraTS 2020 challenge (including 369 cases: 293 HGG and 76 LGG) using 4 modalities: native (T1), post-contrast T1-weighted (T1Gd), T2-weighted (T2), and T2-FLAIR. | **Gains:** The proposed method achieved promising performance on validation and test data from the BraTS 2020 challenge.<br>**Baselines:** Demonstrates measurable findings and comparative evaluation relative to baseline framework... | **Stated:** Treatment of LGG remains difficult due to variability in tumor size, location, histology, and biological behav...<br>**Failure Mode:** Failure boundaries and error cases associated with Treatment of LGG remains difficult due... |\n| **MBDRes-U-Net: Multi-Scale Lightweight Bra Tumor Segmentation**<br>`[specified et al., Not specified]` | **Evaluation Benchmark / Testbed**<br>*Problem Formulation & Data Ingestion* | Brain Tumor Segmentation (BraTS) Challenge 2018 and 2019 datasets | **Gains:** The architecture maintains high precision in brain tumor segmentation while considerably reducing calculation overhead.<br>**Baselines:** Demonstrates measurable findings and comparative evaluation relative to baseline framework... | **Stated:** Compared to attention mechanisms that focus on important channel-feature information, the initial grouping ope...<br>**Failure Mode:** Failure boundaries and error cases associated with Compared to attention mechanisms that f... |\n| **Reproducible Evaluation of Data Augmentation**<br>`[N/A et al., N/A]` | **Evaluation Benchmark / Testbed**<br>*Problem Formulation & Data Ingestion* | A publicly available MRI dataset. | **Gains:** The U-Net with focal loss achieved a precision of 90%, comparable to state-of-the-art results.<br>**Baselines:** Demonstrates measurable findings and comparative evaluation relative to baseline framework... | **Stated:** Manual delineation by radiologists is time-consuming, prone to inter-observer variability, and difficult to sc...<br>**Failure Mode:** Failure boundaries and error cases associated with Manual delineation by radiologists is t... |\n\n---\n\n### 2. Cross-Paper Synthesis & Methodological Insights\n- Analyzed 6 research paper(s) across 2 distinct agentic paradigm(s).\n- Evaluations span 6 unique benchmark datasets across distinct operational environments.\n- Primary architectural approach represented is 'Evaluation Benchmark / Testbed' focused on iterative and structured reasoning.\n- Across empirical benchmarks, agentic closed-loop reasoning consistently outperforms static, single-prompt LLM execution.\n\n---\n\n### 3. Benchmark Dataset Overlap & Evaluation Matrix\n- **2019 MICCAI KiTS Kidney Tumor Segmentation Challenge dataset**: (Evaluated in 1909.06684)\n- **Brain Tumor Segmentation (BraTS) challenge (started in 2012), specifically mentioning BraTS 2020 training.**: (Evaluated in 2009.12188)\n- **Multimodal Brain Tumor Segmentation (BraTS) 2020 Challenge data (validation and testing sets).**: (Evaluated in 2011.02840)\n- **BraTS 2020 challenge (including 369 cases: 293 HGG and 76 LGG) using 4 modalities: native (T1), post-contrast T1-weighted (T1Gd), T2-weighted (T2), and T2-FLAIR.**: (Evaluated in 2011.11052)\n- **Brain Tumor Segmentation (BraTS) Challenge 2018 and 2019 datasets**: (Evaluated in 2411.01896)\n- **A publicly available MRI dataset.**: (Evaluated in 2510.08617)\n\n---\n\n### 4. Shared Limitations & Architectural Trade-offs\n- No explicit limitations identified.\n",
+  "markdown_comparison_report": "# Cross-Paper Comparative Analysis & Synthesis Matrix\n\n### 1. Automated 5-Column Literature Comparison Table\n\n| Paper & Citation | Architecture Paradigm | Benchmark Datasets | Quantitative Results & Baselines | Limitations & Failure Modes |\n|---|---|---|---|---|\n| **Towards Automatic Generation of Shareable Clinical Notes**<br>`[N/A et al., N/A]` | **Not identified in available paper content**<br>*Problem Formulation & Data Ingestion* | MedText (extracted from MIMIC-III clinical database) | **Gains:** Neural language models yield synthetic notes whose utility is close to that of real notes in some clinical NLP tasks, while also m...<br>**Baselines:** Demonstrates measurable findings and comparative evaluation relative to baseline framework... | **Stated:** The generated notes, while useful, still leave ample room for future improvements, and early naive models (e.g...<br>**Failure Mode:** Failure boundaries and error cases associated with The generated notes, while useful, stil... |\n| **Exploring Text Specific and Blackbox Fairness**<br>`[text et al., Not specified in text]` | **Not identified in available paper content**<br>*Problem Formulation & Data Ingestion* | MIMIC-III clinical dataset | **Gains:** The dual modality ensemble improves performance and mitigates unfairness relative to constituent components. Equalized odds post-p...<br>**Baselines:** Demonstrates measurable findings and comparative evaluation relative to baseline framework... | **Stated:** The ensemble's performance improvements do not directly translate to fairness improvements; improving fairness...<br>**Failure Mode:** Failure boundaries and error cases associated with The ensemble's performance improvements... |\n| **A dissemination workshop for introducing different algorithms for sentence generation**<br>`[specified et al., Not specified]` | **Not identified in available paper content**<br>*Novel architecture for A dissemination workshop for introducing different algori...* | Not identified in available paper content | **Gains:** The workshop was adapted across various formats and time-slots (30 to 90 minutes).<br>**Baselines:** Demonstrates measurable findings and comparative evaluation relative to baseline framework... | **Stated:** The core approach remained the same across all events, but materials were adapted.<br>**Failure Mode:** Failure boundaries and error cases associated with The core approach remained the same acr... |\n| **Lightweight Transformers for Clinical NLP**<br>`[context et al., Not specified in context]` | **Not identified in available paper content**<br>*Novel architecture for Lightweight Transformers for Clinical NLP* | Several standard datasets covering clinical text-mining tasks (e.g., MedNLI mentioned in limitations context). | **Gains:** The developed compact models performed comparably to larger models (BioBERT, ClinicalBioBERT) and significantly outperformed other...<br>**Baselines:** Demonstrates measurable findings and comparative evaluation relative to baseline framework... | **Stated:** The models are heavy in size and number of parameters, making them unsuitable for devices with limited memory...<br>**Failure Mode:** Failure boundaries and error cases associated with The models are heavy in size and number... |\n| **Self-organized clustering prediction and differential equation modeling for Alzheimer's Disease progression**<br>`[context et al., Not specified in context]` | **Not identified in available paper content**<br>*Novel architecture for Self-organized clustering prediction and differential equ...* | ADNI and J-ADNI cohorts (Total sample: 1,503 in ADNI; 288 in J-ADNI). | **Gains:** Validated predictive accuracy of the proposed method for the long-term trajectory of cognitive test scores; demonstrated the simul...<br>**Baselines:** Demonstrates measurable findings and comparative evaluation relative to baseline framework... | **Stated:** Most clinical studies have limitations (implied, as the text mentions 'However, most clinical...').<br>**Failure Mode:** Failure boundaries and error cases associated with Most clinical studies have limitations... |\n| **Aviation Safety Enhancement via NLP Deep Learning for Flight Phase Classification**<br>`[N/A et al., N/A]` | **Not identified in available paper content**<br>*Problem Formulation & Data Ingestion* | Safety reports from the Australian Transport Safety Bureau (ATSB) | **Gains:** LSTM achieved the highest performance with an accuracy of 87%, precision of 88%, recall of 87%, and F1 score of 88%.<br>**Baselines:** Demonstrates measurable findings and comparative evaluation relative to baseline framework... | **Stated:** Manual analysis of safety occurrence reports is resource-intensive, limited by human capacity, subjectivity, a...<br>**Failure Mode:** Failure boundaries and error cases associated with Manual analysis of safety occurrence re... |\n| **Judge-dependent safety gains and model-specific helpfulness costs of evidence-sufficiency prompting in clinical LLMs**<br>`[text et al., Not specified in text]` | **Not identified in available paper content**<br>*Problem Formulation & Data Ingestion* | Real-POCQi, HealthBench, MedRBench | **Gains:** Unsafe overconfidence reduced from 49.3% to 24.7% (24.7 point paired reduction, p<0.001). The magnitude of the gain was judge-depe...<br>**Baselines:** Demonstrates measurable findings and comparative evaluation relative to baseline framework... | **Stated:** The study is a retrospective public-data benchmark and perturbation study with paired repeated measures. No es...<br>**Failure Mode:** Failure boundaries and error cases associated with The study is a retrospective public-dat... |\n\n---\n\n### 2. Cross-Paper Synthesis & Methodological Insights\n- Analyzed 7 research paper(s) across 1 distinct agentic paradigm(s).\n- Evaluations span 8 unique benchmark datasets across distinct operational environments.\n- Primary architectural approach represented is 'Not identified in available paper content' focused on iterative and structured reasoning.\n- Most widespread cross-cutting limitation is 'Empirical Constraints in [1905.07002]', impacting 1 of 7 paper(s).\n- Across empirical benchmarks, agentic closed-loop reasoning consistently outperforms static, single-prompt LLM execution.\n\n---\n\n### 3. Benchmark Dataset Overlap & Evaluation Matrix\n- **MedText (extracted from MIMIC-III clinical database)**: (Evaluated in 1905.07002)\n- **MIMIC-III clinical dataset**: (Evaluated in 2011.09625)\n- **Several standard datasets covering clinical text-mining tasks (e.g., MedNLI mentioned in limitations context).**: (Evaluated in 2302.04725)\n- **ADNI and J-ADNI cohorts (Total sample: 1,503 in ADNI; 288 in J-ADNI).**: (Evaluated in 2402.12205)\n- **Safety reports from the Australian Transport Safety Bureau (ATSB)**: (Evaluated in 2501.07923)\n- **Real-POCQi**: (Evaluated in 2607.18086)\n- **HealthBench**: (Evaluated in 2607.18086)\n- **MedRBench**: (Evaluated in 2607.18086)\n\n---\n\n### 4. Shared Limitations & Architectural Trade-offs\n- **Empirical Constraints in [1905.07002]** (1 paper(s): [N/A et al., N/A]):\n  *The generated notes, while useful, still leave ample room for future improvements, and early naive models (e.g., unigram distribution) disregard word context.*\n- **Empirical Constraints in [2011.09625]** (1 paper(s): [text et al., Not specified in text]):\n  *The ensemble's performance improvements do not directly translate to fairness improvements; improving fairness (via EO post-processing) usually results in a degradation of performance (AUC).*\n- **Empirical Constraints in [2104.12405]** (1 paper(s): [specified et al., Not specified]):\n  *The core approach remained the same across all events, but materials were adapted.*\n- **Empirical Constraints in [2302.04725]** (1 paper(s): [context et al., Not specified in context]):\n  *The models are heavy in size and number of parameters, making them unsuitable for devices with limited memory and processing capacity.*\n- **Empirical Constraints in [2402.12205]** (1 paper(s): [context et al., Not specified in context]):\n  *Most clinical studies have limitations (implied, as the text mentions 'However, most clinical...').*\n- **Empirical Constraints in [2501.07923]** (1 paper(s): [N/A et al., N/A]):\n  *Manual analysis of safety occurrence reports is resource-intensive, limited by human capacity, subjectivity, and potential for oversight.*\n- **Empirical Constraints in [2607.18086]** (1 paper(s): [text et al., Not specified in text]):\n  *The study is a retrospective public-data benchmark and perturbation study with paired repeated measures. No established reporting guideline covers non-interventional computational benchmarks of clinic*\n",
   "analysis_source": "Deterministic Grounded Heuristic Engine"
 }

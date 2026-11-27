@@ -1,0 +1,1760 @@
+{
+  "paper_id": "2501.07923",
+  "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+  "parser_used": "PyMuPDF_Layout_Engine",
+  "total_pages": 6,
+  "figures_count": 6,
+  "figures": [
+    {
+      "figure_id": "FIG-2501.07923-P2-1",
+      "page_number": 2,
+      "file_path": "data/figures\\2501.07923\\fig_p2_1.png",
+      "dimensions": "686x449",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2501.07923-P3-1",
+      "page_number": 3,
+      "file_path": "data/figures\\2501.07923\\fig_p3_1.png",
+      "dimensions": "445x219",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2501.07923-P4-1",
+      "page_number": 4,
+      "file_path": "data/figures\\2501.07923\\fig_p4_1.png",
+      "dimensions": "627x404",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2501.07923-P4-2",
+      "page_number": 4,
+      "file_path": "data/figures\\2501.07923\\fig_p4_2.png",
+      "dimensions": "627x404",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2501.07923-P4-3",
+      "page_number": 4,
+      "file_path": "data/figures\\2501.07923\\fig_p4_3.png",
+      "dimensions": "562x301",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2501.07923-P5-1",
+      "page_number": 5,
+      "file_path": "data/figures\\2501.07923\\fig_p5_1.png",
+      "dimensions": "713x548",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    }
+  ],
+  "vector_graphs_count": 2,
+  "vector_graphs": [
+    {
+      "page_number": 3,
+      "drawing_path_count": 70,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9199829101562
+      ]
+    },
+    {
+      "page_number": 4,
+      "drawing_path_count": 143,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        595.3200073242188,
+        841.9199829101562
+      ]
+    }
+  ],
+  "tables_count": 3,
+  "tables": [
+    {
+      "table_id": "TAB-2501.07923-P3-1",
+      "page_number": 3,
+      "rows_count": 5,
+      "cols_count": 3,
+      "data": [
+        [
+          "Metrics",
+          "Formula",
+          "Evaluation focus"
+        ],
+        [
+          "Precision\n(p)",
+          "𝑻𝑷\n𝑻𝑷+ 𝑭𝑷",
+          "Correctly predicted\npositives in a positive class"
+        ],
+        [
+          "Recall (r)",
+          "𝑻𝑷\n𝑻𝑷+ 𝑻𝑵",
+          "Fraction of positive\npatterns correctly classified"
+        ],
+        [
+          "F1-score\n(F)",
+          "𝟐∗𝒑𝒓𝒆𝒄𝒊𝒔𝒊𝒐𝒏∗𝒓𝒆𝒄𝒂𝒂𝒍\n𝒑𝒓𝒆𝒄𝒊𝒔𝒊𝒐𝒏+ 𝒓𝒆𝒄𝒂𝒍𝒍",
+          "Weighted average score of\nprecision and recall"
+        ],
+        [
+          "Accuracy\n(acc)",
+          "𝑻𝑷+ 𝑻𝑵\n𝑻𝑷+ 𝑭𝑷+ 𝑻𝑵+ 𝑭𝑵",
+          "Total number of instances\npredicted correctly"
+        ]
+      ]
+    },
+    {
+      "table_id": "TAB-2501.07923-P4-1",
+      "page_number": 4,
+      "rows_count": 3,
+      "cols_count": 3,
+      "data": [
+        [
+          "Actual Value",
+          "Predicted Value",
+          ""
+        ],
+        [
+          "",
+          "TN",
+          "FP"
+        ],
+        [
+          "",
+          "FN",
+          "TP"
+        ]
+      ]
+    },
+    {
+      "table_id": "TAB-2501.07923-P4-2",
+      "page_number": 4,
+      "rows_count": 5,
+      "cols_count": 5,
+      "data": [
+        [
+          "Models",
+          "Precision\n(%)",
+          "Recall (%)",
+          "F1 (%)",
+          "Accuracy\n(%)"
+        ],
+        [
+          "LSTM",
+          "88",
+          "87",
+          "88",
+          "87.4"
+        ],
+        [
+          "sRNN",
+          "78",
+          "77",
+          "77",
+          "77.0"
+        ],
+        [
+          "BLSTM",
+          "88",
+          "87",
+          "87",
+          "87.3"
+        ],
+        [
+          "CNN",
+          "87",
+          "87",
+          "87",
+          "86.5"
+        ]
+      ]
+    }
+  ],
+  "full_text": "XXX-X-XXXX-XXXX-X/XX/$XX.00 ©20XX IEEE\n\nAviation Safety Enhancement via NLP & Deep \nLearning: Classifying Flight Phases in ATSB Safety\n\nReports\n\nAziida Nanyonga  \nSchool of Engineering and Information\n\nTechnology \nUniversity of New South Wales\n\nCanberra, Australia \na.nanyonga@adfa.edu.au\n\nHassan Wasswa \nSchool of Engineering and Information\n\nTechnology \nUniversity of New South Wales\n\nCanberra, Australia \nh.wasswa@adfa.edu.au\n\nGraham Wild \nSchool of Engineering and Information\n\nTechnology \nUniversity of New South Wales\n\nCanberra, Australia \ng.wild@adfa.edu.au\n\nAbstract— Aviation safety is paramount, demanding precise \nanalysis of safety occurrences during different flight phases. \nThis study employs Natural Language Processing (NLP) and \nDeep Learning models, including LSTM, CNN, Bidirectional \nLSTM (BLSTM), and simple Recurrent Neural Networks \n(sRNN), to classify flight phases in safety reports from the \nAustralian Transport Safety Bureau (ATSB). The models \nexhibited high accuracy, precision, recall, and F1 scores, with \nLSTM achieving the highest performance of 87%, 88%, 87%, \nand 88%, respectively. This performance highlights their \neffectiveness in automating safety occurrence analysis. The \nintegration of NLP and Deep Learning technologies promises \ntransformative enhancements in aviation safety analysis, \nenabling targeted safety measures and streamlined report \nhandling.\n\nKeywords— NLP, Aviation Safety, ATSB, Deep learning, \nFlight phase\n\nI. INTRODUCTION\n\nThe aviation industry is one of the most regulated and \nsafety-conscious sectors globally, driven by a commitment to \nensuring passenger safety and operational excellence. To \nmaintain and improve aviation safety, it is crucial to \ninvestigate and analyze safety occurrences systematically [1]. \nThese occurrences range from technical malfunctions to \nhuman errors, and they occur throughout different phases of \nflight, including pre-flight, take-off, climb, cruise, descent, \napproach, and landing. Understanding when and where these \noccurrences are more likely to happen is vital for targeted \nsafety measures [2]. Historically, safety occurrence reports \nhave been a valuable resource for aviation safety analysis. \nThey provide detailed narratives of incidents, accidents, and \nnear-miss events, offering valuable context and information \nabout what transpired during these events. However, \nanalyzing these reports manually is a resource-intensive task, \noften limited by human capacity, subjectivity, and the \npotential for oversight [3].\n\nThe motivation behind this research stems from the need \nto automate and streamline the analysis of safety occurrence \nreports, specifically in the context of flight phase \nclassification. Effective classification of safety occurrences \ninto their corresponding flight phases can lead to a more \nprecise understanding of when and where these incidents are \nlikely to occur. This knowledge, in turn, enables the \ndevelopment of targeted safety protocols and preventative \nmeasures to reduce the frequency and severity of incidents. \nMoreover, by automating this process, aviation safety \nauthorities can handle a higher volume of reports efficiently, \nensuring that critical information is not overlooked, and safety\n\nenhancements are implemented promptly [4]. This research \nharnesses the potential of NLP and Deep Learning to achieve \nthis goal, promising to revolutionize aviation safety analysis \n[5].\n\nThe primary objective of this study is to investigate the \neffectiveness of NLP and Deep Learning techniques in \nclassifying flight phases within safety occurrence reports \nobtained from the ATSB. To achieve this, we employed \nadvanced deep learning architectures, including LSTM, CNN, \nBLSTM, and sRNN models [6], [7]. These models are trained \nto infer flight phase information from the unstructured text \nnarratives in the safety occurrence reports. Evaluation metrics \nincluding accuracy, precision, recall, and F1-score were used \nfor measuring model performance. The goal is to demonstrate \nthat NLP and Deep Learning models can effectively infer \nflight phase information from raw text narratives, providing a \nfoundation for more comprehensive safety occurrence \nanalysis.\n\nThe structure of this paper is as follows: Section II \nprovides a review of the existing literature, highlighting the \nsignificance of flight phase classification in aviation safety \nresearch and discussing relevant prior work. Section III gives \nan account of the methodology employed in this study, \nincluding data preprocessing, model selection, training, and \nevaluation. Section IV presents the results of our experiments, \nshowcasing the performance of the deep learning models in \nflight phase classification and discussing the interpretation of \nresults, potential limitations, and implications for aviation \nsafety. Finally, Section V concludes the paper by summarizing \nthe key findings and their significance in enhancing aviation \nsafety.\n\nII. RELATED WORK\n\nThe classification of flight phases within safety occurrence \nreports using NLP and Deep Learning techniques represents a \nsignificant advancement in aviation safety analysis [7]–[11]. \nThis section explores prior work related to flight phase \nclassification, emphasizing the growing importance of \nautomated methods.\n\nUnderstanding \nthe \nsignificance \nof \nflight \nphase \nclassification within aviation safety analysis is critical. \nResearchers have long recognized the importance of \nassociating safety occurrences with specific flight phases to \ntarget preventive measures effectively [12], [13].\n\nHistorically, the classification of safety occurrences into \nflight phases has been a labor-intensive, manual process. \nAviation safety experts and investigators typically reviewed\n\nincident narratives and categorized them based on their \nexpertise and experience. This approach, while valuable, is \nlimited by subjectivity and resource constraints [3]. \nComparative studies have been conducted to evaluate the \nperformance of various classification methods. Study [14] \ncompared traditional rule-based classification with machine \nlearning \napproaches, \nfinding \nthat \nmachine \nlearning \noutperformed rule-based methods in accuracy and efficiency. \nHowever, the study did not explore the full potential of Deep \nLearning techniques.\n\nThe International Civil Aviation Organization (ICAO) \nintroduced a taxonomy system for flight phase classification, \nproviding \na \nstandardized \nframework \nfor \nmanual \ncategorization. While this system has been widely adopted, its \neffectiveness depends on the availability of expert human \nresources [15]. The emergence of NLP and Deep Learning has \nrevolutionized the way safety occurrences are classified by \nenabling automated and scalable solutions. Researchers have \nexplored various approaches to automate flight phase \nclassification [16].\n\nIn research [17] a study was conducted on aviation safety \nand emphasized the need for precise classification of incidents \nby flight phases based on visual scanning strategies using \nSVM. The study found that incidents occurring during take-\noff and landing phases tend to have different causation factors \nthan those during cruising, highlighting the importance of \ncontext-aware analysis.\n\nAlso, [16] employed two deep learning techniques, \nResNet and sRNN, to classify flight phases based on textual \ndata extracted from the NTSB dataset.  Impressively, their \nmodels achieved an accuracy exceeding 68%, significantly \nsurpassing the random guess rate of 14% for a seven-class \nclassification problem. Moreover, these models demonstrated \nexceptional precision, recall, and F1 scores, with sRNN \nnotably outperforming the simplified ResNet architecture.\n\nOur study extends the existing work in several ways. \nFirstly, we explore the use of advanced Deep Learning models \nin flight phase classification, including LSTM, CNN, \nBLSTM, and sRNN [7], which have not been extensively \nstudied in this context. Secondly, we employ a substantial \ndataset of 53,275 safety occurrence reports from the ATSB to \nevaluate the performance of these models rigorously. Thirdly, \nwe focus on comprehensive evaluation metrics, including \naccuracy, precision, recall, and F1-score, to provide a holistic \nassessment of the models’ performance.\n\nIII. METHODOLOGY \nIn this section, we outline the methodology employed in \nthis research to classify flight phases within safety occurrence \nreports from the ATSB using NLP and Deep Learning \ntechniques. Our approach involves data preprocessing, model \nselection, training, and evaluation as depicted in Fig. 1.\n\nFig. 1. Methodological framework\n\nA. Data Acquisition\n\nAviation incident/accident investigation reports are \ncollected and published by various organizations such as \nATSB, the Aviation Safety Reporting System (ASRS), and the \nNational Transportation Safety Board (NTSB). For this study, \nthe researchers utilized the ATSB aviation incident/accident \ninvestigation reports. Depending on the nature of the problem, \nwe considered text narratives and phase(s) of flight that were \nrecorded in Australia for the period of 10 years resulting in a \ndataset with 53,275 records where the data was sourced \ndirectly from the ATSB investigation authorities spanning \nfrom 1/01/2013 to 12/31/2022. Moreover, the researchers \nfocused on phase (s) of flight, resulting in a dataset comprising \n50,778 records following data preprocessing and cleaning. \nFrom each report, the ‘Summary’ and ‘phase (s) of flight’ \nfields were extracted for training and validation of deep \nlearning models.\n\nB. Text Processing\n\nText preprocessing plays a crucial role in preparing \nunstructured text data for machine learning models. In this \nstudy, we leveraged the Keras deep learning library for its \nextensive collection of deep learning models and model \nlayers. Additionally, Keras provides advanced modules for \ntext preprocessing. Specifically, we utilized the Tokenizer \nmodule, which efficiently generates tokens and sequence \nvectors from input text. To encode categorical data, such as \nphase (s) of flight labels (e.g., take-off, initial climb, approach, \nlanding, manoeuvring, cruise, descent, standing, taxiing, and \nothers), we employed the tocategorical module in Keras, \nmapping these categorical entries to numerical values using \none-hot encoding for each data instance.\n\nTo address challenges related to special characters, \npunctuation, and stop words, as well as to perform word \nlemmatization, we harnessed the capabilities of the spacy \nlibrary. Spacy is a Python library tailored for text-processing \ntasks, encompassing functionalities like named entity \nrecognition and word tagging. It maintains an extensive list of \nspecial characters, punctuation marks, and stop words and \nundergoes regular updates whenever necessary to remain \ncurrent.\n\nWith the aforementioned tools at our disposal, each input \ntext narrative underwent a comprehensive preprocessing \npipeline, ultimately being transformed into a representative \nsequence or vector with a fixed length of 2000. For narratives \nwith fewer than 2000 words, we padded the numeric \nsequences with zeros, ensuring uniformity. In contrast,\n\nnarratives exceeding 2000 words were truncated to meet this \nstandardized length. The vocabulary size of the text corpus \nwas set to 100,000, accommodating a broad range of terms.\n\nTo partition the dataset into training (80%), and testing \n(20%) sets, we utilized the train-test-split module from scikit-\nlearn. All experiments conducted in this study were \nimplemented using the Python programming language, with \nJupyter Notebook serving as the chosen code editor. This \nrigorous text preprocessing framework laid the foundation for \nsubsequent model training and evaluation, enabling the \naccurate classification of phase (s) of flight based on \nunstructured safety occurrence narratives from the ATSB \ndataset.\n\nC. Text Classification\n\nTo ensure model robustness and prevent overfitting during \nthe training, 10% of the train-set was set aside for model \nvalidation in each training epoch. This practice facilitated \ncontinuous evaluation and refinement of the models. Four \ndistinct deep learning architectures, namely LSTM, BLSTM, \nCNN, and sRNN, were trained on this data, each offering \nunique capabilities for text classification tasks. Model \noptimization was accomplished using the Adam optimizer, \nchosen for its efficiency in gradient-based optimization. It is \nnoteworthy that this study did not focus explicitly on \nidentifying the best optimizer, thus allowing for the \nexploration of alternative optimization techniques in future \nresearch endeavours.\n\nD. Deep Learning Model Architecture\n\nFor consistency and comparability across all models, a \nshared architecture served as the foundation, with slight \nadjustments for each model. This standardized architecture \ncomprised three key components: an embedding layer, hidden \nlayers, and an output layer. To introduce non-linearity and \ncapture complex relationships in the data, the Rectified Linear \nUnit (ReLU) activation function was applied to all hidden \nlayers. Meanwhile, the SoftMax activation function was \nadopted for the output layer, facilitating multi-class \nclassification. The final predicted class was determined using \nthe argmax function, which identifies the index associated \nwith the highest probability in the SoftMax output. For a \nvisual representation of the deep learning architectures \nemployed in this study, please refer to Fig. 2.\n\nFig. 2. Deep learning architectures\n\nThis consistent architecture provided a solid foundation \nfor training and evaluation of the deep learning models, \nenabling a fair comparison of their performance and the \naccurate classification of flight phases based on unstructured \nsafety occurrence narratives.\n\nE. Model Performance Evaluation\n\nThis section elucidates the evaluation criteria utilized in \nthis study to assess the models’ performance. The primary \nfocus of this research is multi-class classification, and as such, \nperformance was gauged based on the accuracy of predictions \nacross various classes. To comprehensively evaluate model \nperformance, we employed a suite of standard prediction \nperformance metrics, including precision, recall, F1-score, \nand accuracy, as cited in prior literature [18], [19]. These \nmetrics, explained in Table 1, provide a comprehensive \nassessment of the models’ classification performance.\n\nTABLE I.  \nSUMMARY OF EVALUATION METRICS\n\nMetrics  \nFormula \nEvaluation focus\n\nPrecision\n\n(p)\n\n𝑻𝑷\n𝑻𝑷+ 𝑭𝑷 \nCorrectly predicted\n\npositives in a positive class\n\nRecall (r) \n𝑻𝑷\n𝑻𝑷+ 𝑻𝑵 \nFraction of positive\n\npatterns correctly classified\n\nF1-score\n\n(F)\n\n𝟐∗𝒑𝒓𝒆𝒄𝒊𝒔𝒊𝒐𝒏∗𝒓𝒆𝒄𝒂𝒂𝒍\n\n𝒑𝒓𝒆𝒄𝒊𝒔𝒊𝒐𝒏+ 𝒓𝒆𝒄𝒂𝒍𝒍 \nWeighted average score of\n\nprecision and recall\n\nAccuracy\n\n(acc)\n\n𝑻𝑷+ 𝑻𝑵\n𝑻𝑷+ 𝑭𝑷+ 𝑻𝑵+ 𝑭𝑵 \nTotal number of instances\n\npredicted correctly\n\n1) Confusion matrix  \nA confusion matrix is an invaluable tool for visually \nassessing model performance in a classification task. As \nillustrated in Table II, it is a square matrix in the dimensional \nspace, m, where m is the number of unique entries in the \ndependent variable, essentially reflecting instances distributed \namong class labels during the testing phase of the AI model. \nThe confusion matrix provides a clear visualization of the \nmodels’ performance, serving as a yardstick to gauge their\n\neffectiveness. In the matrix shown in Table II, diagonal cells \ndenote correct predictions, including true positives (TP) and \ntrue negatives (TN), while off-diagonal cells indicate incorrect \npredictions, encompassing false negatives (FN) and false \npositives (FP) [20].\n\nTABLE II.  \nCONFUSION MATRIX\n\nActual Value\n\nPredicted Value\n\nTN \nFP\n\nFN \nTP\n\nThis robust evaluation approach enabled us to \ncomprehensively assess the models’ classification accuracy, \nprecision, recall, and F1 score, providing a holistic \nunderstanding of its performance in classifying flight phases. \n[7].\n\nIV. RESULTS AND DISCUSSION \nIn this study, we have explored the application of NLP and \nDeep Learning techniques to enhance aviation safety analysis \nby classifying flight phases within safety occurrence reports. \nLeveraging a substantial dataset of 50,778 safety occurrence \nreports provided by ATSB, we evaluated the performance of \nadvanced Deep Learning models, including LSTM, CNN, \nBLSTM, and sRNN, using a variety of performance metrics.\n\nA. Model Performance\n\nOur findings reveal the remarkable capabilities of these \nmodels in accurately classifying flight phases within \nunstructured text narratives. Table III shows the key \nperformance results for each model.\n\nTABLE III.  \nDEEP LEARNING MODEL PERFORMANCE\n\nModels   \nPrecision\n\n(%)\n\nRecall (%) \nF1 (%) \nAccuracy\n\n(%)\n\nLSTM \n 88 \n87 \n88 \n87.4\n\nsRNN \n 78 \n77 \n77 \n77.0\n\nBLSTM \n88 \n87 \n87 \n87.3\n\nCNN \n87 \n87 \n87 \n86.5\n\nThese results clearly demonstrate the effectiveness of NLP \nand Deep Learning models in handling the complexity of \naviation safety reports and inferring crucial flight phase \ninformation. Notably, the LSTM and BLSTM models \nexhibited the highest accuracy and precision, indicating their \nsuitability for this task.\n\nBoth Fig. 3 and Fig. 4, illustrate the training behavior and \nperformance of the four deep learning models (SRNN, BLTM, \nCNN, and LSTM) in terms of validation accuracy and \nvalidation loss, respectively, over a range of training epochs. \nThese visualizations provide valuable information for  \nassessing and comparing the models' capabilities in solving \nthe classification problem at hand.\n\nFig. 3. Validation accuracy performance\n\nFig. 4. Validation Loss\n\nFig. 5. Classification report for the best model (LSTM)\n\nThe extract in Fig. 5 shows the classification report \nin terms of accuracy, precision, recall, and F1 score for \nthe LSTM model. The extract also gives an account of \nthe test instance distribution among distinct phase(s) \nof flight entries as evidenced in the support column. \nOn the other hand, Fig. 6 gives a visual account of how \nthe LSTM model distributes test instances in the form \nof a confusion matrix\n\nFig. 6. Confusion Matrix\n\nV. CONCLUSION\n\nIn an era where aviation safety is paramount, the \nautomation and precision of safety occurrence analysis take \ncenter stage. This research has showcased the immense \npotential of Natural Language Processing (NLP) and Deep \nLearning techniques in revolutionizing the classification of \nflight phases within safety occurrence reports. Leveraging a \ndataset of 50,778 reports from the Australian Transport \nSafety Bureau (ATSB), we employed advanced Deep \nLearning architectures, including Long Short-Term Memory \n(LSTM), \nConvolutional \nNeural \nNetwork \n(CNN), \nBidirectional LSTM (BLSTM), and simple Recurrent Neural \nNetwork (sRNN), to infer critical flight phase information \nfrom unstructured text narratives.\n\nOur findings are not only promising but \ntransformative. The LSTM, BLSTM, and CNN models \nexhibited remarkable performance, as evidenced by high \nprecision, recall, and F1-score values. This exceptional \nperformance underscores the capacity of NLP and Deep \nLearning models to handle the complexity of aviation safety \nreports, facilitating precise flight phase classification.\n\nThe implications of this research extend beyond the \nacademic realm. The integration of NLP and Deep Learning \ntechnologies into aviation safety analysis promises to \nstreamline the identification of safety trends, enhance \ncontextual awareness, and inform targeted safety measures. \nThe ability to associate safety occurrences with specific flight \nphases allows regulatory authorities and aviation industry \nstakeholders to develop proactive and context-aware safety \nprotocols. Furthermore, the scalability and automation of this \napproach empower aviation safety experts to handle a higher \nvolume of reports efficiently. This ensures that critical safety \ninformation is not overlooked and that safety enhancements \ncan be implemented promptly, contributing to a safer aviation \nenvironment.\n\nTherefore, the findings presented in this research \nsignify a transformative shift in aviation safety analysis. The \nsynergy of NLP and Deep Learning technologies not only\n\naugments the efficiency of safety occurrence analysis but also \nelevates the precision and contextual understanding of \naviation safety incidents. Future work in this field holds great \npromise, including further model refinement, the integration \nof multimodal data sources, real-time analysis capabilities, \ncross-dataset validation, improved model interpretability, and \nthe development of human-in-the-loop systems. As we \ncontinue to explore these avenues, we are poised to \nstrengthen aviation safety measures and contribute to the \nongoing mission of safer skies for all.\n\nREFERENCES\n\n[1] F. Netjasov and M. Janic, “A review of research on risk and safety\n\nmodelling in civil aviation,” J Air Transp Manag, vol. 14, no. 4, pp. \n213–220, Jul. 2008, doi: 10.1016/j.jairtraman.2008.04.008. \n[2] Nanyonga, A., Wasswa, H., & Wild, G. (2023, December). Phase of\n\nFlight Classification in Aviation Safety Using LSTM, GRU, and \nBiLSTM: A Case Study with ASN Dataset. In 2023 International \nConference on High Performance Big Data and Intelligent Systems \n(HDIS) (pp. 24-28). IEEE. \n[3] Nanyonga, A., Wasswa, H., & Wild, G. (2023, December). Topic\n\nModeling Analysis of Aviation Accident Reports: A Comparative \nStudy between LDA and NMF Models. In 2023 3rd International \nConference on Smart Generation Computing, Communication and \nNetworking (SMART GENCON) (pp. 1-2). IEEE. \n[4] G. Wild, “Airbus A32x vs Boeing 737 Safety Occurrences,” IEEE\n\nAerospace and Electronic Systems Magazine, Aug. 2023, doi: \n10.1109/MAES.2023.3276347. \n[5] R. Socher, Y. Bengio, and C. Manning, “Deep Learning for NLP\n\n(without Magic),” 2012. \n[6] Nanyonga, A., & Wild, G. (2023, December). Impact of Dataset Size\n\n& Data Source on Aviation Safety Incident Prediction Models with \nNatural Language Processing. In 2023 Global Conference on \nInformation Technologies and Communications (GCITC) (pp. 1-7). \nIEEE. \n[7] A. Nanyonga, H. Wasswa, U. Turhan, O. Molloy, and G. Wild,\n\n“Sequential Classification of Aviation Safety Occurrences with Natural \nLanguage Processing,” in In AIAA AVIATION 2023 Forum , \nAmerican Institute of Aeronautics and Astronautics (AIAA), Jun. \n2023, p. 4325. doi: 10.2514/6.2023-4325. \n[8] T. Young, D. Hazarika, S. Poria, and E. Cambria, “Recent trends in\n\ndeep learning based natural language processing [Review Article],” \nIEEE Computational Intelligence Magazine, vol. 13, no. 3. Institute of \nElectrical and Electronics Engineers Inc., pp. 55–75, Aug. 01, 2018. \ndoi: 10.1109/MCI.2018.2840738. \n[9] Nanyonga, A., Wasswa, H., Turhan, U., Joiner, K., & Wild, G. (2024,\n\nMarch). Comparative Analysis of Topic Modeling Techniques on \nATSB Text Narratives Using Natural Language Processing. In 2024 \n3rd International Conference for Innovation in Technology (INOCON) \n(pp. 1-7). IEEE. \n[10] A. Chanen, “Deep Learning For Extracting Word-Level Meaning From\n\nSafety Report Narratives,”. Ieee, 2016. \n[11] A. O. Alkhamisi and R. Mehmood, “An Ensemble Machine and Deep\n\nLearning Model for Risk Prediction in Aviation Systems,” in \nProceedings - 2020 6th Conference on Data Science and Machine \nLearning Applications, CDMA 2020, Institute of Electrical and \nElectronics \nEngineers \nInc., \nMar. \n2020, \npp. \n54–59. \ndoi: \n10.1109/CDMA47397.2020.00015. \n[12] G. Wild, K. Gavin, J. Murry, J. Silva, and G. Baxter, “A post-accident\n\nanalysis of civil remotely-piloted aircraft system accidents and \nincidents,” Journal of Aerospace Technology and Management, vol. 9, \nno. 2, pp. 148–159, 2017, doi: 10.5028/jatm.v9i2.701. \n[13] Nanyonga, A., Wasswa, H., Turhan, U., Joiner, K., & Wild, G. (2024,\n\nSeptember). Exploring Aviation Incident Narratives Using Topic \nModeling and Clustering Techniques. In 2024 IEEE Region 10 \nSymposium (TENSYMP) (pp. 1-6). IEEE. \n[14] K. Darveau, D. Hannon, and C. Foster, “A Comparison of Rule-Based\n\nand Machine Learning Models for Classification of Human Factors \nAviation Safety Event Reports,” Proceedings of the Human Factors and \nErgonomics Society Annual Meeting, vol. 64, no. 1, pp. 129–133, Dec. \n2020, doi: 10.1177/1071181320641034.\n\n[15] I. S. Stojić, I. P. Vittek, I. V. Plos, and I. A. Lališ, “Taxonomies and\n\ntheir role in the aviation Safety Management Systems,” exclusive \ne_journal, vol. 1339, no. 4509, p. 1, 2015. \n[16] Nanyonga, A., Wasswa, H., & Wild, G. (2024, March). Comparative\n\nStudy of Deep Learning Architectures for Textual Damage Level \nClassification. In 2024 11th International Conference on Signal \nProcessing and Integrated Networks (SPIN) (pp. 421-426). IEEE. \n[17] V. Peysakhovich, W. Ledegang, M. Houben, and E. Groen,\n\n“Classification of flight phases based on pilots’ visual scanning \nstrategies,” in Eye Tracking Research and Applications Symposium \n(ETRA), Association for Computing Machinery, Jun. 2022. doi: \n10.1145/3517031.3529641.\n\n[18] M. L. Baptista, E. M. P. Henriques, and H. Prendinger, “Classification\n\nprognostics approaches in aviation,” Measurement (Lond), vol. 182, \nSep. 2021, doi: 10.1016/j.measurement.2021.109756. \n[19] X. Zhang, P. Srinivasan, and S. Mahadevan, “Sequential deep learning\n\nfrom NTSB reports for aviation safety prognosis,” Saf Sci, vol. 142, \nOct. 2021, doi: 10.1016/j.ssci.2021.105390. \n[20] H. M and S. M.N, “A Review on Evaluation Metrics for Data\n\nClassification Evaluations,” International Journal of Data Mining & \nKnowledge Management Process, vol. 5, no. 2, pp. 01–11, Mar. 2015, \ndoi: 10.5121/ijdkp.2015.5201.",
+  "chunks": [
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        44.6,
+        797.2,
+        220.9,
+        806.1
+      ],
+      "text": "XXX-X-XXXX-XXXX-X/XX/$XX.00 ©20XX IEEE"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        48.2,
+        28.1,
+        552.9,
+        82.2
+      ],
+      "text": "Aviation Safety Enhancement via NLP & Deep \nLearning: Classifying Flight Phases in ATSB Safety"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        260.3,
+        83.3,
+        341.0,
+        109.8
+      ],
+      "text": "Reports"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        46.1,
+        124.2,
+        189.8,
+        144.5
+      ],
+      "text": "Aziida Nanyonga  \nSchool of Engineering and Information"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        59.4,
+        144.9,
+        176.6,
+        165.2
+      ],
+      "text": "Technology \nUniversity of New South Wales"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        71.4,
+        165.6,
+        164.6,
+        185.9
+      ],
+      "text": "Canberra, Australia \na.nanyonga@adfa.edu.au"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        226.9,
+        124.2,
+        370.6,
+        144.5
+      ],
+      "text": "Hassan Wasswa \nSchool of Engineering and Information"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        240.2,
+        144.9,
+        357.4,
+        165.2
+      ],
+      "text": "Technology \nUniversity of New South Wales"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        255.4,
+        165.6,
+        342.2,
+        185.9
+      ],
+      "text": "Canberra, Australia \nh.wasswa@adfa.edu.au"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        407.5,
+        124.2,
+        551.2,
+        144.5
+      ],
+      "text": "Graham Wild \nSchool of Engineering and Information"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        420.8,
+        144.9,
+        538.0,
+        165.2
+      ],
+      "text": "Technology \nUniversity of New South Wales"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        442.1,
+        165.6,
+        515.8,
+        185.9
+      ],
+      "text": "Canberra, Australia \ng.wild@adfa.edu.au"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 1,
+      "section": "Abstract— Aviation safety is paramount, demanding precise",
+      "bbox": [
+        45.4,
+        223.0,
+        291.0,
+        378.0
+      ],
+      "text": "Abstract— Aviation safety is paramount, demanding precise \nanalysis of safety occurrences during different flight phases. \nThis study employs Natural Language Processing (NLP) and \nDeep Learning models, including LSTM, CNN, Bidirectional \nLSTM (BLSTM), and simple Recurrent Neural Networks \n(sRNN), to classify flight phases in safety reports from the \nAustralian Transport Safety Bureau (ATSB). The models \nexhibited high accuracy, precision, recall, and F1 scores, with \nLSTM achieving the highest performance of 87%, 88%, 87%, \nand 88%, respectively. This performance highlights their \neffectiveness in automating safety occurrence analysis. The \nintegration of NLP and Deep Learning technologies promises \ntransformative enhancements in aviation safety analysis, \nenabling targeted safety measures and streamlined report \nhandling."
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 1,
+      "section": "Abstract— Aviation safety is paramount, demanding precise",
+      "bbox": [
+        45.4,
+        388.3,
+        290.9,
+        408.6
+      ],
+      "text": "Keywords— NLP, Aviation Safety, ATSB, Deep learning, \nFlight phase"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 1,
+      "section": "I. INTRODUCTION",
+      "bbox": [
+        128.2,
+        416.9,
+        205.5,
+        428.1
+      ],
+      "text": "I. INTRODUCTION"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 1,
+      "section": "I. INTRODUCTION",
+      "bbox": [
+        45.4,
+        432.1,
+        291.3,
+        628.9
+      ],
+      "text": "The aviation industry is one of the most regulated and \nsafety-conscious sectors globally, driven by a commitment to \nensuring passenger safety and operational excellence. To \nmaintain and improve aviation safety, it is crucial to \ninvestigate and analyze safety occurrences systematically [1]. \nThese occurrences range from technical malfunctions to \nhuman errors, and they occur throughout different phases of \nflight, including pre-flight, take-off, climb, cruise, descent, \napproach, and landing. Understanding when and where these \noccurrences are more likely to happen is vital for targeted \nsafety measures [2]. Historically, safety occurrence reports \nhave been a valuable resource for aviation safety analysis. \nThey provide detailed narratives of incidents, accidents, and \nnear-miss events, offering valuable context and information \nabout what transpired during these events. However, \nanalyzing these reports manually is a resource-intensive task, \noften limited by human capacity, subjectivity, and the \npotential for oversight [3]."
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 1,
+      "section": "I. INTRODUCTION",
+      "bbox": [
+        45.4,
+        634.8,
+        291.2,
+        765.9
+      ],
+      "text": "The motivation behind this research stems from the need \nto automate and streamline the analysis of safety occurrence \nreports, specifically in the context of flight phase \nclassification. Effective classification of safety occurrences \ninto their corresponding flight phases can lead to a more \nprecise understanding of when and where these incidents are \nlikely to occur. This knowledge, in turn, enables the \ndevelopment of targeted safety protocols and preventative \nmeasures to reduce the frequency and severity of incidents. \nMoreover, by automating this process, aviation safety \nauthorities can handle a higher volume of reports efficiently, \nensuring that critical information is not overlooked, and safety"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 1,
+      "section": "I. INTRODUCTION",
+      "bbox": [
+        306.6,
+        222.6,
+        552.3,
+        266.4
+      ],
+      "text": "enhancements are implemented promptly [4]. This research \nharnesses the potential of NLP and Deep Learning to achieve \nthis goal, promising to revolutionize aviation safety analysis \n[5]."
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 1,
+      "section": "I. INTRODUCTION",
+      "bbox": [
+        306.6,
+        272.3,
+        552.5,
+        425.3
+      ],
+      "text": "The primary objective of this study is to investigate the \neffectiveness of NLP and Deep Learning techniques in \nclassifying flight phases within safety occurrence reports \nobtained from the ATSB. To achieve this, we employed \nadvanced deep learning architectures, including LSTM, CNN, \nBLSTM, and sRNN models [6], [7]. These models are trained \nto infer flight phase information from the unstructured text \nnarratives in the safety occurrence reports. Evaluation metrics \nincluding accuracy, precision, recall, and F1-score were used \nfor measuring model performance. The goal is to demonstrate \nthat NLP and Deep Learning models can effectively infer \nflight phase information from raw text narratives, providing a \nfoundation for more comprehensive safety occurrence \nanalysis."
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 1,
+      "section": "I. INTRODUCTION",
+      "bbox": [
+        306.6,
+        431.2,
+        552.4,
+        573.4
+      ],
+      "text": "The structure of this paper is as follows: Section II \nprovides a review of the existing literature, highlighting the \nsignificance of flight phase classification in aviation safety \nresearch and discussing relevant prior work. Section III gives \nan account of the methodology employed in this study, \nincluding data preprocessing, model selection, training, and \nevaluation. Section IV presents the results of our experiments, \nshowcasing the performance of the deep learning models in \nflight phase classification and discussing the interpretation of \nresults, potential limitations, and implications for aviation \nsafety. Finally, Section V concludes the paper by summarizing \nthe key findings and their significance in enhancing aviation \nsafety."
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 1,
+      "section": "II. RELATED WORK",
+      "bbox": [
+        379.3,
+        581.7,
+        475.3,
+        592.9
+      ],
+      "text": "II. RELATED WORK"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 1,
+      "section": "II. RELATED WORK",
+      "bbox": [
+        306.6,
+        596.8,
+        552.5,
+        662.5
+      ],
+      "text": "The classification of flight phases within safety occurrence \nreports using NLP and Deep Learning techniques represents a \nsignificant advancement in aviation safety analysis [7]–[11]. \nThis section explores prior work related to flight phase \nclassification, emphasizing the growing importance of \nautomated methods."
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 1,
+      "section": "II. RELATED WORK",
+      "bbox": [
+        306.6,
+        668.4,
+        552.4,
+        723.1
+      ],
+      "text": "Understanding \nthe \nsignificance \nof \nflight \nphase \nclassification within aviation safety analysis is critical. \nResearchers have long recognized the importance of \nassociating safety occurrences with specific flight phases to \ntarget preventive measures effectively [12], [13]."
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 1,
+      "section": "II. RELATED WORK",
+      "bbox": [
+        306.6,
+        729.0,
+        552.4,
+        761.8
+      ],
+      "text": "Historically, the classification of safety occurrences into \nflight phases has been a labor-intensive, manual process. \nAviation safety experts and investigators typically reviewed"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 2,
+      "section": "II. RELATED WORK",
+      "bbox": [
+        45.4,
+        54.0,
+        291.3,
+        163.3
+      ],
+      "text": "incident narratives and categorized them based on their \nexpertise and experience. This approach, while valuable, is \nlimited by subjectivity and resource constraints [3]. \nComparative studies have been conducted to evaluate the \nperformance of various classification methods. Study [14] \ncompared traditional rule-based classification with machine \nlearning \napproaches, \nfinding \nthat \nmachine \nlearning \noutperformed rule-based methods in accuracy and efficiency. \nHowever, the study did not explore the full potential of Deep \nLearning techniques."
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 2,
+      "section": "II. RELATED WORK",
+      "bbox": [
+        45.4,
+        169.2,
+        291.3,
+        278.7
+      ],
+      "text": "The International Civil Aviation Organization (ICAO) \nintroduced a taxonomy system for flight phase classification, \nproviding \na \nstandardized \nframework \nfor \nmanual \ncategorization. While this system has been widely adopted, its \neffectiveness depends on the availability of expert human \nresources [15]. The emergence of NLP and Deep Learning has \nrevolutionized the way safety occurrences are classified by \nenabling automated and scalable solutions. Researchers have \nexplored various approaches to automate flight phase \nclassification [16]."
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 2,
+      "section": "II. RELATED WORK",
+      "bbox": [
+        45.4,
+        284.6,
+        291.1,
+        361.1
+      ],
+      "text": "In research [17] a study was conducted on aviation safety \nand emphasized the need for precise classification of incidents \nby flight phases based on visual scanning strategies using \nSVM. The study found that incidents occurring during take-\noff and landing phases tend to have different causation factors \nthan those during cruising, highlighting the importance of \ncontext-aware analysis."
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 2,
+      "section": "II. RELATED WORK",
+      "bbox": [
+        45.4,
+        367.0,
+        291.3,
+        454.5
+      ],
+      "text": "Also, [16] employed two deep learning techniques, \nResNet and sRNN, to classify flight phases based on textual \ndata extracted from the NTSB dataset.  Impressively, their \nmodels achieved an accuracy exceeding 68%, significantly \nsurpassing the random guess rate of 14% for a seven-class \nclassification problem. Moreover, these models demonstrated \nexceptional precision, recall, and F1 scores, with sRNN \nnotably outperforming the simplified ResNet architecture."
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 2,
+      "section": "II. RELATED WORK",
+      "bbox": [
+        45.4,
+        460.4,
+        291.2,
+        569.7
+      ],
+      "text": "Our study extends the existing work in several ways. \nFirstly, we explore the use of advanced Deep Learning models \nin flight phase classification, including LSTM, CNN, \nBLSTM, and sRNN [7], which have not been extensively \nstudied in this context. Secondly, we employ a substantial \ndataset of 53,275 safety occurrence reports from the ATSB to \nevaluate the performance of these models rigorously. Thirdly, \nwe focus on comprehensive evaluation metrics, including \naccuracy, precision, recall, and F1-score, to provide a holistic \nassessment of the models’ performance."
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 2,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        45.4,
+        578.1,
+        291.1,
+        647.8
+      ],
+      "text": "III. METHODOLOGY \nIn this section, we outline the methodology employed in \nthis research to classify flight phases within safety occurrence \nreports from the ATSB using NLP and Deep Learning \ntechniques. Our approach involves data preprocessing, model \nselection, training, and evaluation as depicted in Fig. 1."
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 2,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        371.1,
+        218.7,
+        487.5,
+        227.7
+      ],
+      "text": "Fig. 1. Methodological framework"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 2,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        306.6,
+        238.0,
+        391.6,
+        249.1
+      ],
+      "text": "A. Data Acquisition"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 2,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        306.6,
+        252.1,
+        552.5,
+        427.1
+      ],
+      "text": "Aviation incident/accident investigation reports are \ncollected and published by various organizations such as \nATSB, the Aviation Safety Reporting System (ASRS), and the \nNational Transportation Safety Board (NTSB). For this study, \nthe researchers utilized the ATSB aviation incident/accident \ninvestigation reports. Depending on the nature of the problem, \nwe considered text narratives and phase(s) of flight that were \nrecorded in Australia for the period of 10 years resulting in a \ndataset with 53,275 records where the data was sourced \ndirectly from the ATSB investigation authorities spanning \nfrom 1/01/2013 to 12/31/2022. Moreover, the researchers \nfocused on phase (s) of flight, resulting in a dataset comprising \n50,778 records following data preprocessing and cleaning. \nFrom each report, the ‘Summary’ and ‘phase (s) of flight’ \nfields were extracted for training and validation of deep \nlearning models."
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 2,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        306.6,
+        433.4,
+        387.8,
+        444.5
+      ],
+      "text": "B. Text Processing"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 2,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        306.6,
+        447.4,
+        552.5,
+        589.6
+      ],
+      "text": "Text preprocessing plays a crucial role in preparing \nunstructured text data for machine learning models. In this \nstudy, we leveraged the Keras deep learning library for its \nextensive collection of deep learning models and model \nlayers. Additionally, Keras provides advanced modules for \ntext preprocessing. Specifically, we utilized the Tokenizer \nmodule, which efficiently generates tokens and sequence \nvectors from input text. To encode categorical data, such as \nphase (s) of flight labels (e.g., take-off, initial climb, approach, \nlanding, manoeuvring, cruise, descent, standing, taxiing, and \nothers), we employed the tocategorical module in Keras, \nmapping these categorical entries to numerical values using \none-hot encoding for each data instance."
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 2,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        306.6,
+        595.5,
+        552.5,
+        693.9
+      ],
+      "text": "To address challenges related to special characters, \npunctuation, and stop words, as well as to perform word \nlemmatization, we harnessed the capabilities of the spacy \nlibrary. Spacy is a Python library tailored for text-processing \ntasks, encompassing functionalities like named entity \nrecognition and word tagging. It maintains an extensive list of \nspecial characters, punctuation marks, and stop words and \nundergoes regular updates whenever necessary to remain \ncurrent."
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 2,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        306.6,
+        699.8,
+        552.4,
+        765.4
+      ],
+      "text": "With the aforementioned tools at our disposal, each input \ntext narrative underwent a comprehensive preprocessing \npipeline, ultimately being transformed into a representative \nsequence or vector with a fixed length of 2000. For narratives \nwith fewer than 2000 words, we padded the numeric \nsequences with zeros, ensuring uniformity. In contrast,"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        45.4,
+        54.0,
+        291.1,
+        86.9
+      ],
+      "text": "narratives exceeding 2000 words were truncated to meet this \nstandardized length. The vocabulary size of the text corpus \nwas set to 100,000, accommodating a broad range of terms."
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        45.4,
+        92.8,
+        291.3,
+        202.1
+      ],
+      "text": "To partition the dataset into training (80%), and testing \n(20%) sets, we utilized the train-test-split module from scikit-\nlearn. All experiments conducted in this study were \nimplemented using the Python programming language, with \nJupyter Notebook serving as the chosen code editor. This \nrigorous text preprocessing framework laid the foundation for \nsubsequent model training and evaluation, enabling the \naccurate classification of phase (s) of flight based on \nunstructured safety occurrence narratives from the ATSB \ndataset."
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        45.4,
+        208.3,
+        137.5,
+        219.5
+      ],
+      "text": "C. Text Classification"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        45.4,
+        222.5,
+        291.3,
+        364.7
+      ],
+      "text": "To ensure model robustness and prevent overfitting during \nthe training, 10% of the train-set was set aside for model \nvalidation in each training epoch. This practice facilitated \ncontinuous evaluation and refinement of the models. Four \ndistinct deep learning architectures, namely LSTM, BLSTM, \nCNN, and sRNN, were trained on this data, each offering \nunique capabilities for text classification tasks. Model \noptimization was accomplished using the Adam optimizer, \nchosen for its efficiency in gradient-based optimization. It is \nnoteworthy that this study did not focus explicitly on \nidentifying the best optimizer, thus allowing for the \nexploration of alternative optimization techniques in future \nresearch endeavours."
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        45.4,
+        371.0,
+        203.1,
+        382.1
+      ],
+      "text": "D. Deep Learning Model Architecture"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        45.4,
+        385.1,
+        291.3,
+        538.1
+      ],
+      "text": "For consistency and comparability across all models, a \nshared architecture served as the foundation, with slight \nadjustments for each model. This standardized architecture \ncomprised three key components: an embedding layer, hidden \nlayers, and an output layer. To introduce non-linearity and \ncapture complex relationships in the data, the Rectified Linear \nUnit (ReLU) activation function was applied to all hidden \nlayers. Meanwhile, the SoftMax activation function was \nadopted for the output layer, facilitating multi-class \nclassification. The final predicted class was determined using \nthe argmax function, which identifies the index associated \nwith the highest probability in the SoftMax output. For a \nvisual representation of the deep learning architectures \nemployed in this study, please refer to Fig. 2."
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        371.0,
+        296.9,
+        487.6,
+        305.9
+      ],
+      "text": "Fig. 2. Deep learning architectures"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        306.6,
+        315.8,
+        552.3,
+        370.5
+      ],
+      "text": "This consistent architecture provided a solid foundation \nfor training and evaluation of the deep learning models, \nenabling a fair comparison of their performance and the \naccurate classification of flight phases based on unstructured \nsafety occurrence narratives."
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        306.6,
+        376.7,
+        450.3,
+        387.9
+      ],
+      "text": "E. Model Performance Evaluation"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        306.6,
+        390.9,
+        552.5,
+        500.2
+      ],
+      "text": "This section elucidates the evaluation criteria utilized in \nthis study to assess the models’ performance. The primary \nfocus of this research is multi-class classification, and as such, \nperformance was gauged based on the accuracy of predictions \nacross various classes. To comprehensively evaluate model \nperformance, we employed a suite of standard prediction \nperformance metrics, including precision, recall, F1-score, \nand accuracy, as cited in prior literature [18], [19]. These \nmetrics, explained in Table 1, provide a comprehensive \nassessment of the models’ classification performance."
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        341.2,
+        511.6,
+        517.5,
+        520.6
+      ],
+      "text": "TABLE I.  \nSUMMARY OF EVALUATION METRICS"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        318.3,
+        527.3,
+        530.0,
+        536.2
+      ],
+      "text": "Metrics  \nFormula \nEvaluation focus"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        315.5,
+        541.5,
+        349.2,
+        550.4
+      ],
+      "text": "Precision"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        326.6,
+        555.3,
+        338.3,
+        564.2
+      ],
+      "text": "(p)"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        387.2,
+        541.4,
+        532.5,
+        560.9
+      ],
+      "text": "𝑻𝑷\n𝑻𝑷+ 𝑭𝑷 \nCorrectly predicted"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        455.9,
+        555.3,
+        545.0,
+        564.2
+      ],
+      "text": "positives in a positive class"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        315.3,
+        569.6,
+        532.8,
+        589.1
+      ],
+      "text": "Recall (r) \n𝑻𝑷\n𝑻𝑷+ 𝑻𝑵 \nFraction of positive"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        455.5,
+        583.5,
+        545.5,
+        592.4
+      ],
+      "text": "patterns correctly classified"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        316.8,
+        597.8,
+        348.1,
+        606.7
+      ],
+      "text": "F1-score"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        326.4,
+        611.6,
+        338.6,
+        620.5
+      ],
+      "text": "(F)"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        361.1,
+        597.9,
+        443.9,
+        605.9
+      ],
+      "text": "𝟐∗𝒑𝒓𝒆𝒄𝒊𝒔𝒊𝒐𝒏∗𝒓𝒆𝒄𝒂𝒂𝒍"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        367.1,
+        597.8,
+        544.2,
+        617.5
+      ],
+      "text": "𝒑𝒓𝒆𝒄𝒊𝒔𝒊𝒐𝒏+ 𝒓𝒆𝒄𝒂𝒍𝒍 \nWeighted average score of"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        468.1,
+        611.6,
+        532.8,
+        620.5
+      ],
+      "text": "precision and recall"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        315.2,
+        625.9,
+        349.7,
+        634.8
+      ],
+      "text": "Accuracy"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        323.2,
+        639.7,
+        341.7,
+        648.6
+      ],
+      "text": "(acc)"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        366.5,
+        625.7,
+        543.1,
+        645.3
+      ],
+      "text": "𝑻𝑷+ 𝑻𝑵\n𝑻𝑷+ 𝑭𝑷+ 𝑻𝑵+ 𝑭𝑵 \nTotal number of instances"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        469.3,
+        639.7,
+        531.5,
+        648.6
+      ],
+      "text": "predicted correctly"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 3,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        306.6,
+        671.1,
+        552.5,
+        770.0
+      ],
+      "text": "1) Confusion matrix  \nA confusion matrix is an invaluable tool for visually \nassessing model performance in a classification task. As \nillustrated in Table II, it is a square matrix in the dimensional \nspace, m, where m is the number of unique entries in the \ndependent variable, essentially reflecting instances distributed \namong class labels during the testing phase of the AI model. \nThe confusion matrix provides a clear visualization of the \nmodels’ performance, serving as a yardstick to gauge their"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 4,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        45.4,
+        54.0,
+        291.2,
+        108.7
+      ],
+      "text": "effectiveness. In the matrix shown in Table II, diagonal cells \ndenote correct predictions, including true positives (TP) and \ntrue negatives (TN), while off-diagonal cells indicate incorrect \npredictions, encompassing false negatives (FN) and false \npositives (FP) [20]."
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 4,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        107.3,
+        120.1,
+        228.9,
+        129.1
+      ],
+      "text": "TABLE II.  \nCONFUSION MATRIX"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 4,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        79.2,
+        153.8,
+        90.3,
+        212.1
+      ],
+      "text": "Actual Value"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 4,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        150.5,
+        135.9,
+        221.7,
+        146.9
+      ],
+      "text": "Predicted Value"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 4,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        140.7,
+        167.5,
+        232.3,
+        178.6
+      ],
+      "text": "TN \nFP"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 4,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        140.9,
+        201.3,
+        232.6,
+        212.3
+      ],
+      "text": "FN \nTP"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 4,
+      "section": "III. METHODOLOGY",
+      "bbox": [
+        45.4,
+        250.3,
+        291.3,
+        305.2
+      ],
+      "text": "This robust evaluation approach enabled us to \ncomprehensively assess the models’ classification accuracy, \nprecision, recall, and F1 score, providing a holistic \nunderstanding of its performance in classifying flight phases. \n[7]."
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 4,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        45.4,
+        313.5,
+        291.2,
+        405.2
+      ],
+      "text": "IV. RESULTS AND DISCUSSION \nIn this study, we have explored the application of NLP and \nDeep Learning techniques to enhance aviation safety analysis \nby classifying flight phases within safety occurrence reports. \nLeveraging a substantial dataset of 50,778 safety occurrence \nreports provided by ATSB, we evaluated the performance of \nadvanced Deep Learning models, including LSTM, CNN, \nBLSTM, and sRNN, using a variety of performance metrics."
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 4,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        45.4,
+        411.4,
+        142.6,
+        422.6
+      ],
+      "text": "A. Model Performance"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 4,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        45.4,
+        425.6,
+        291.1,
+        469.4
+      ],
+      "text": "Our findings reveal the remarkable capabilities of these \nmodels in accurately classifying flight phases within \nunstructured text narratives. Table III shows the key \nperformance results for each model."
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 4,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        45.4,
+        480.7,
+        254.8,
+        489.7
+      ],
+      "text": "TABLE III.  \nDEEP LEARNING MODEL PERFORMANCE"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 4,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        59.9,
+        496.3,
+        140.0,
+        505.2
+      ],
+      "text": "Models   \nPrecision"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 4,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        117.1,
+        505.5,
+        131.1,
+        514.4
+      ],
+      "text": "(%)"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 4,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        159.0,
+        496.3,
+        280.9,
+        505.2
+      ],
+      "text": "Recall (%) \nF1 (%) \nAccuracy"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 4,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        257.6,
+        505.5,
+        271.6,
+        514.4
+      ],
+      "text": "(%)"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 4,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        61.0,
+        518.4,
+        272.7,
+        527.3
+      ],
+      "text": "LSTM \n 88 \n87 \n88 \n87.4"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 4,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        62.2,
+        533.6,
+        272.7,
+        542.5
+      ],
+      "text": "sRNN \n 78 \n77 \n77 \n77.0"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 4,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        58.3,
+        547.7,
+        272.7,
+        556.6
+      ],
+      "text": "BLSTM \n88 \n87 \n87 \n87.3"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 4,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        53.0,
+        561.9,
+        272.7,
+        586.1
+      ],
+      "text": "CNN \n87 \n87 \n87 \n86.5"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 4,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        45.4,
+        592.0,
+        291.2,
+        657.7
+      ],
+      "text": "These results clearly demonstrate the effectiveness of NLP \nand Deep Learning models in handling the complexity of \naviation safety reports and inferring crucial flight phase \ninformation. Notably, the LSTM and BLSTM models \nexhibited the highest accuracy and precision, indicating their \nsuitability for this task."
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 4,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        45.4,
+        663.6,
+        293.8,
+        740.1
+      ],
+      "text": "Both Fig. 3 and Fig. 4, illustrate the training behavior and \nperformance of the four deep learning models (SRNN, BLTM, \nCNN, and LSTM) in terms of validation accuracy and \nvalidation loss, respectively, over a range of training epochs. \nThese visualizations provide valuable information for  \nassessing and comparing the models' capabilities in solving \nthe classification problem at hand."
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 4,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        361.8,
+        198.2,
+        497.0,
+        207.2
+      ],
+      "text": "Fig. 3. Validation accuracy performance"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 4,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        389.6,
+        390.7,
+        469.2,
+        399.7
+      ],
+      "text": "Fig. 4. Validation Loss"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 4,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        338.1,
+        568.1,
+        520.5,
+        577.1
+      ],
+      "text": "Fig. 5. Classification report for the best model (LSTM)"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 4,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        333.3,
+        587.5,
+        552.5,
+        679.1
+      ],
+      "text": "The extract in Fig. 5 shows the classification report \nin terms of accuracy, precision, recall, and F1 score for \nthe LSTM model. The extract also gives an account of \nthe test instance distribution among distinct phase(s) \nof flight entries as evidenced in the support column. \nOn the other hand, Fig. 6 gives a visual account of how \nthe LSTM model distributes test instances in the form \nof a confusion matrix"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 5,
+      "section": "IV. RESULTS AND DISCUSSION",
+      "bbox": [
+        125.2,
+        281.9,
+        211.0,
+        290.9
+      ],
+      "text": "Fig. 6. Confusion Matrix"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 5,
+      "section": "V. CONCLUSION",
+      "bbox": [
+        124.5,
+        320.6,
+        207.1,
+        331.7
+      ],
+      "text": "V. CONCLUSION"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 5,
+      "section": "V. CONCLUSION",
+      "bbox": [
+        45.4,
+        336.2,
+        291.2,
+        485.2
+      ],
+      "text": "In an era where aviation safety is paramount, the \nautomation and precision of safety occurrence analysis take \ncenter stage. This research has showcased the immense \npotential of Natural Language Processing (NLP) and Deep \nLearning techniques in revolutionizing the classification of \nflight phases within safety occurrence reports. Leveraging a \ndataset of 50,778 reports from the Australian Transport \nSafety Bureau (ATSB), we employed advanced Deep \nLearning architectures, including Long Short-Term Memory \n(LSTM), \nConvolutional \nNeural \nNetwork \n(CNN), \nBidirectional LSTM (BLSTM), and simple Recurrent Neural \nNetwork (sRNN), to infer critical flight phase information \nfrom unstructured text narratives."
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 5,
+      "section": "V. CONCLUSION",
+      "bbox": [
+        45.4,
+        485.7,
+        291.1,
+        565.7
+      ],
+      "text": "Our findings are not only promising but \ntransformative. The LSTM, BLSTM, and CNN models \nexhibited remarkable performance, as evidenced by high \nprecision, recall, and F1-score values. This exceptional \nperformance underscores the capacity of NLP and Deep \nLearning models to handle the complexity of aviation safety \nreports, facilitating precise flight phase classification."
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 5,
+      "section": "V. CONCLUSION",
+      "bbox": [
+        45.4,
+        566.2,
+        291.3,
+        726.8
+      ],
+      "text": "The implications of this research extend beyond the \nacademic realm. The integration of NLP and Deep Learning \ntechnologies into aviation safety analysis promises to \nstreamline the identification of safety trends, enhance \ncontextual awareness, and inform targeted safety measures. \nThe ability to associate safety occurrences with specific flight \nphases allows regulatory authorities and aviation industry \nstakeholders to develop proactive and context-aware safety \nprotocols. Furthermore, the scalability and automation of this \napproach empower aviation safety experts to handle a higher \nvolume of reports efficiently. This ensures that critical safety \ninformation is not overlooked and that safety enhancements \ncan be implemented promptly, contributing to a safer aviation \nenvironment."
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 5,
+      "section": "V. CONCLUSION",
+      "bbox": [
+        45.4,
+        727.2,
+        291.0,
+        761.2
+      ],
+      "text": "Therefore, the findings presented in this research \nsignify a transformative shift in aviation safety analysis. The \nsynergy of NLP and Deep Learning technologies not only"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 5,
+      "section": "V. CONCLUSION",
+      "bbox": [
+        306.6,
+        54.5,
+        552.5,
+        169.0
+      ],
+      "text": "augments the efficiency of safety occurrence analysis but also \nelevates the precision and contextual understanding of \naviation safety incidents. Future work in this field holds great \npromise, including further model refinement, the integration \nof multimodal data sources, real-time analysis capabilities, \ncross-dataset validation, improved model interpretability, and \nthe development of human-in-the-loop systems. As we \ncontinue to explore these avenues, we are poised to \nstrengthen aviation safety measures and contribute to the \nongoing mission of safer skies for all."
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 5,
+      "section": "V. CONCLUSION",
+      "bbox": [
+        402.5,
+        177.5,
+        456.7,
+        188.5
+      ],
+      "text": "REFERENCES"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 5,
+      "section": "V. CONCLUSION",
+      "bbox": [
+        306.6,
+        192.4,
+        551.8,
+        201.4
+      ],
+      "text": "[1] F. Netjasov and M. Janic, “A review of research on risk and safety"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 5,
+      "section": "V. CONCLUSION",
+      "bbox": [
+        306.6,
+        201.5,
+        551.8,
+        231.0
+      ],
+      "text": "modelling in civil aviation,” J Air Transp Manag, vol. 14, no. 4, pp. \n213–220, Jul. 2008, doi: 10.1016/j.jairtraman.2008.04.008. \n[2] Nanyonga, A., Wasswa, H., & Wild, G. (2023, December). Phase of"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 5,
+      "section": "V. CONCLUSION",
+      "bbox": [
+        306.6,
+        231.1,
+        551.8,
+        278.5
+      ],
+      "text": "Flight Classification in Aviation Safety Using LSTM, GRU, and \nBiLSTM: A Case Study with ASN Dataset. In 2023 International \nConference on High Performance Big Data and Intelligent Systems \n(HDIS) (pp. 24-28). IEEE. \n[3] Nanyonga, A., Wasswa, H., & Wild, G. (2023, December). Topic"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 5,
+      "section": "V. CONCLUSION",
+      "bbox": [
+        306.6,
+        278.6,
+        551.9,
+        326.0
+      ],
+      "text": "Modeling Analysis of Aviation Accident Reports: A Comparative \nStudy between LDA and NMF Models. In 2023 3rd International \nConference on Smart Generation Computing, Communication and \nNetworking (SMART GENCON) (pp. 1-2). IEEE. \n[4] G. Wild, “Airbus A32x vs Boeing 737 Safety Occurrences,” IEEE"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 5,
+      "section": "V. CONCLUSION",
+      "bbox": [
+        306.6,
+        326.1,
+        551.9,
+        355.4
+      ],
+      "text": "Aerospace and Electronic Systems Magazine, Aug. 2023, doi: \n10.1109/MAES.2023.3276347. \n[5] R. Socher, Y. Bengio, and C. Manning, “Deep Learning for NLP"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 5,
+      "section": "V. CONCLUSION",
+      "bbox": [
+        306.6,
+        355.5,
+        551.8,
+        375.9
+      ],
+      "text": "(without Magic),” 2012. \n[6] Nanyonga, A., & Wild, G. (2023, December). Impact of Dataset Size"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 5,
+      "section": "V. CONCLUSION",
+      "bbox": [
+        306.6,
+        376.0,
+        552.1,
+        423.5
+      ],
+      "text": "& Data Source on Aviation Safety Incident Prediction Models with \nNatural Language Processing. In 2023 Global Conference on \nInformation Technologies and Communications (GCITC) (pp. 1-7). \nIEEE. \n[7] A. Nanyonga, H. Wasswa, U. Turhan, O. Molloy, and G. Wild,"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 5,
+      "section": "V. CONCLUSION",
+      "bbox": [
+        306.6,
+        423.6,
+        551.8,
+        471.0
+      ],
+      "text": "“Sequential Classification of Aviation Safety Occurrences with Natural \nLanguage Processing,” in In AIAA AVIATION 2023 Forum , \nAmerican Institute of Aeronautics and Astronautics (AIAA), Jun. \n2023, p. 4325. doi: 10.2514/6.2023-4325. \n[8] T. Young, D. Hazarika, S. Poria, and E. Cambria, “Recent trends in"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 5,
+      "section": "V. CONCLUSION",
+      "bbox": [
+        306.6,
+        471.1,
+        552.0,
+        518.5
+      ],
+      "text": "deep learning based natural language processing [Review Article],” \nIEEE Computational Intelligence Magazine, vol. 13, no. 3. Institute of \nElectrical and Electronics Engineers Inc., pp. 55–75, Aug. 01, 2018. \ndoi: 10.1109/MCI.2018.2840738. \n[9] Nanyonga, A., Wasswa, H., Turhan, U., Joiner, K., & Wild, G. (2024,"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 5,
+      "section": "V. CONCLUSION",
+      "bbox": [
+        306.6,
+        518.6,
+        552.0,
+        566.0
+      ],
+      "text": "March). Comparative Analysis of Topic Modeling Techniques on \nATSB Text Narratives Using Natural Language Processing. In 2024 \n3rd International Conference for Innovation in Technology (INOCON) \n(pp. 1-7). IEEE. \n[10] A. Chanen, “Deep Learning For Extracting Word-Level Meaning From"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 5,
+      "section": "V. CONCLUSION",
+      "bbox": [
+        306.6,
+        566.1,
+        551.8,
+        586.4
+      ],
+      "text": "Safety Report Narratives,”. Ieee, 2016. \n[11] A. O. Alkhamisi and R. Mehmood, “An Ensemble Machine and Deep"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 5,
+      "section": "V. CONCLUSION",
+      "bbox": [
+        306.6,
+        586.5,
+        552.0,
+        643.0
+      ],
+      "text": "Learning Model for Risk Prediction in Aviation Systems,” in \nProceedings - 2020 6th Conference on Data Science and Machine \nLearning Applications, CDMA 2020, Institute of Electrical and \nElectronics \nEngineers \nInc., \nMar. \n2020, \npp. \n54–59. \ndoi: \n10.1109/CDMA47397.2020.00015. \n[12] G. Wild, K. Gavin, J. Murry, J. Silva, and G. Baxter, “A post-accident"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 5,
+      "section": "V. CONCLUSION",
+      "bbox": [
+        306.6,
+        643.1,
+        551.9,
+        681.5
+      ],
+      "text": "analysis of civil remotely-piloted aircraft system accidents and \nincidents,” Journal of Aerospace Technology and Management, vol. 9, \nno. 2, pp. 148–159, 2017, doi: 10.5028/jatm.v9i2.701. \n[13] Nanyonga, A., Wasswa, H., Turhan, U., Joiner, K., & Wild, G. (2024,"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 5,
+      "section": "V. CONCLUSION",
+      "bbox": [
+        306.6,
+        681.6,
+        552.1,
+        720.0
+      ],
+      "text": "September). Exploring Aviation Incident Narratives Using Topic \nModeling and Clustering Techniques. In 2024 IEEE Region 10 \nSymposium (TENSYMP) (pp. 1-6). IEEE. \n[14] K. Darveau, D. Hannon, and C. Foster, “A Comparison of Rule-Based"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 5,
+      "section": "V. CONCLUSION",
+      "bbox": [
+        324.7,
+        720.1,
+        552.0,
+        756.0
+      ],
+      "text": "and Machine Learning Models for Classification of Human Factors \nAviation Safety Event Reports,” Proceedings of the Human Factors and \nErgonomics Society Annual Meeting, vol. 64, no. 1, pp. 129–133, Dec. \n2020, doi: 10.1177/1071181320641034."
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 6,
+      "section": "V. CONCLUSION",
+      "bbox": [
+        45.4,
+        53.9,
+        290.4,
+        62.9
+      ],
+      "text": "[15] I. S. Stojić, I. P. Vittek, I. V. Plos, and I. A. Lališ, “Taxonomies and"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 6,
+      "section": "V. CONCLUSION",
+      "bbox": [
+        45.4,
+        63.0,
+        290.5,
+        92.5
+      ],
+      "text": "their role in the aviation Safety Management Systems,” exclusive \ne_journal, vol. 1339, no. 4509, p. 1, 2015. \n[16] Nanyonga, A., Wasswa, H., & Wild, G. (2024, March). Comparative"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 6,
+      "section": "V. CONCLUSION",
+      "bbox": [
+        45.4,
+        92.6,
+        290.6,
+        131.0
+      ],
+      "text": "Study of Deep Learning Architectures for Textual Damage Level \nClassification. In 2024 11th International Conference on Signal \nProcessing and Integrated Networks (SPIN) (pp. 421-426). IEEE. \n[17] V. Peysakhovich, W. Ledegang, M. Houben, and E. Groen,"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 6,
+      "section": "V. CONCLUSION",
+      "bbox": [
+        63.4,
+        131.1,
+        290.6,
+        167.0
+      ],
+      "text": "“Classification of flight phases based on pilots’ visual scanning \nstrategies,” in Eye Tracking Research and Applications Symposium \n(ETRA), Association for Computing Machinery, Jun. 2022. doi: \n10.1145/3517031.3529641."
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 6,
+      "section": "V. CONCLUSION",
+      "bbox": [
+        306.6,
+        53.9,
+        551.8,
+        62.9
+      ],
+      "text": "[18] M. L. Baptista, E. M. P. Henriques, and H. Prendinger, “Classification"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 6,
+      "section": "V. CONCLUSION",
+      "bbox": [
+        306.6,
+        63.0,
+        551.9,
+        92.5
+      ],
+      "text": "prognostics approaches in aviation,” Measurement (Lond), vol. 182, \nSep. 2021, doi: 10.1016/j.measurement.2021.109756. \n[19] X. Zhang, P. Srinivasan, and S. Mahadevan, “Sequential deep learning"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 6,
+      "section": "V. CONCLUSION",
+      "bbox": [
+        306.6,
+        92.6,
+        551.8,
+        122.0
+      ],
+      "text": "from NTSB reports for aviation safety prognosis,” Saf Sci, vol. 142, \nOct. 2021, doi: 10.1016/j.ssci.2021.105390. \n[20] H. M and S. M.N, “A Review on Evaluation Metrics for Data"
+    },
+    {
+      "paper_id": "2501.07923",
+      "file_name": "2501.07923_Aviation_Safety_Enhancement_via_NLP_Deep.pdf",
+      "page_number": 6,
+      "section": "V. CONCLUSION",
+      "bbox": [
+        306.6,
+        122.1,
+        552.0,
+        160.5
+      ],
+      "text": "Classification Evaluations,” International Journal of Data Mining & \nKnowledge Management Process, vol. 5, no. 2, pp. 01–11, Mar. 2015, \ndoi: 10.5121/ijdkp.2015.5201."
+    }
+  ]
+}

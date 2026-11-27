@@ -1,0 +1,4174 @@
+{
+  "paper_id": "2011.09625",
+  "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+  "parser_used": "PyMuPDF_Layout_Engine",
+  "total_pages": 12,
+  "figures_count": 5,
+  "figures": [
+    {
+      "figure_id": "FIG-2011.09625-P2-1",
+      "page_number": 2,
+      "file_path": "data/figures\\2011.09625\\fig_p2_1.png",
+      "dimensions": "1232x427",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2011.09625-P3-1",
+      "page_number": 3,
+      "file_path": "data/figures\\2011.09625\\fig_p3_1.png",
+      "dimensions": "640x480",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2011.09625-P5-1",
+      "page_number": 5,
+      "file_path": "data/figures\\2011.09625\\fig_p5_1.png",
+      "dimensions": "1200x440",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2011.09625-P9-1",
+      "page_number": 9,
+      "file_path": "data/figures\\2011.09625\\fig_p9_1.png",
+      "dimensions": "640x480",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2011.09625-P12-1",
+      "page_number": 12,
+      "file_path": "data/figures\\2011.09625\\fig_p12_1.png",
+      "dimensions": "1200x459",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    }
+  ],
+  "vector_graphs_count": 4,
+  "vector_graphs": [
+    {
+      "page_number": 3,
+      "drawing_path_count": 75,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        595.2760009765625,
+        841.8900146484375
+      ]
+    },
+    {
+      "page_number": 4,
+      "drawing_path_count": 56,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        595.2760009765625,
+        841.8900146484375
+      ]
+    },
+    {
+      "page_number": 8,
+      "drawing_path_count": 165,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        595.2760009765625,
+        841.8900146484375
+      ]
+    },
+    {
+      "page_number": 12,
+      "drawing_path_count": 87,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        595.2760009765625,
+        841.8900146484375
+      ]
+    }
+  ],
+  "tables_count": 6,
+  "tables": [
+    {
+      "table_id": "TAB-2011.09625-P3-1",
+      "page_number": 3,
+      "rows_count": 4,
+      "cols_count": 4,
+      "data": [
+        [
+          "Sensitive\nGroup",
+          "Train\nCount",
+          "Test\nCount",
+          "% of Test"
+        ],
+        [
+          "F\nM",
+          "7940\n9708",
+          "1415\n1778",
+          "44.0 %\n56.0 %"
+        ],
+        [
+          "ASIAN\nBLACK\nHISPANIC\nOTHER\nWHITE",
+          "408\n1658\n521\n2655\n12406",
+          "60\n285\n107\n459\n2282",
+          "1.9 %\n8.9 %\n3.3 %\n14.4 %\n71.5 %"
+        ],
+        [
+          "Government\nMedicaid\nMedicare\nPrivate\nSelf Pay\nUNKNOWN",
+          "356\n1362\n9857\n4946\n133\n994",
+          "74\n205\n1757\n932\n33\n192",
+          "2.3 %\n6.4 %\n55.0 %\n29.2 %\n1.0 %\n6.1 %"
+        ]
+      ]
+    },
+    {
+      "table_id": "TAB-2011.09625-P4-1",
+      "page_number": 4,
+      "rows_count": 8,
+      "cols_count": 5,
+      "data": [
+        [
+          "",
+          "IHM",
+          "",
+          "Phenotyping",
+          ""
+        ],
+        [
+          "",
+          "AUC\nPRC",
+          "AUC\nROC",
+          "Macro\nAUCROC",
+          "Overall\nAUCROC"
+        ],
+        [
+          "Harutyunyan et. al\n(2019) – No Text",
+          "0.515",
+          "0.862",
+          "0.776",
+          "0.825"
+        ],
+        [
+          "Khadanga et. al\n(2019) – Ensemble",
+          "0.525",
+          "0.865",
+          "–",
+          "–"
+        ],
+        [
+          "Ours – Text Only",
+          "0.472",
+          "0.815",
+          "0.766",
+          "0.829"
+        ],
+        [
+          "Ours – Text Only\n+ BioWordVec",
+          "0.489",
+          "0.841",
+          "0.771",
+          "0.837"
+        ],
+        [
+          "Ours – Ensemble",
+          "0.582",
+          "0.880",
+          "0.822",
+          "0.861"
+        ],
+        [
+          "Ours – Ensemble\n+ BioWordVec",
+          "0.582",
+          "0.886",
+          "0.829",
+          "0.870"
+        ]
+      ]
+    },
+    {
+      "table_id": "TAB-2011.09625-P8-1",
+      "page_number": 8,
+      "rows_count": 4,
+      "cols_count": 4,
+      "data": [
+        [
+          "Sensitive\nGroup",
+          "Train\nCount",
+          "Test\nCount",
+          "% of Test"
+        ],
+        [
+          "F\nM",
+          "7940\n9708",
+          "1415\n1778",
+          "44.0 %\n56.0 %"
+        ],
+        [
+          "ASIAN\nBLACK\nHISPANIC\nOTHER\nWHITE",
+          "408\n1658\n521\n2655\n12406",
+          "60\n285\n107\n459\n2282",
+          "1.9 %\n8.9 %\n3.3 %\n14.4 %\n71.5 %"
+        ],
+        [
+          "Government\nMedicaid\nMedicare\nPrivate\nSelf Pay\nUNKNOWN",
+          "356\n1362\n9857\n4946\n133\n994",
+          "74\n205\n1757\n932\n33\n192",
+          "2.3 %\n6.4 %\n55.0 %\n29.2 %\n1.0 %\n6.1 %"
+        ]
+      ]
+    },
+    {
+      "table_id": "TAB-2011.09625-P8-2",
+      "page_number": 8,
+      "rows_count": 4,
+      "cols_count": 4,
+      "data": [
+        [
+          "Sensitive\nGroup",
+          "Train\nCount",
+          "Test\nCount",
+          "% of Test"
+        ],
+        [
+          "F\nM",
+          "15638\n19803",
+          "2750\n3504",
+          "44%\n56%"
+        ],
+        [
+          "ASIAN\nBLACK\nHISPANIC\nOTHER\nWHITE",
+          "826\n3378\n1158\n5004\n25075",
+          "133\n575\n206\n854\n4486",
+          "2.1 %\n9.1 %\n3.3 %\n13.7 %\n71.7 %"
+        ],
+        [
+          "Government\nMedicaid\nMedicare\nPrivate\nSelf Pay\nUNKNOWN",
+          "845\n2850\n18702\n10784\n380\n1880",
+          "150\n433\n3298\n1923\n73\n377",
+          "2.4 %\n6.9 %\n52.7 %\n30.7 %\n1.2 %\n6.0 %"
+        ]
+      ]
+    },
+    {
+      "table_id": "TAB-2011.09625-P8-3",
+      "page_number": 8,
+      "rows_count": 2,
+      "cols_count": 3,
+      "data": [
+        [
+          "Label",
+          "Train Set Count",
+          "Test Set Count"
+        ],
+        [
+          "0\n1",
+          "15337\n2311",
+          "2829\n364"
+        ]
+      ]
+    },
+    {
+      "table_id": "TAB-2011.09625-P12-1",
+      "page_number": 12,
+      "rows_count": 10,
+      "cols_count": 7,
+      "data": [
+        [
+          "",
+          "IHM",
+          "",
+          "Phenotyping",
+          "",
+          "Decompen.",
+          ""
+        ],
+        [
+          "",
+          "AUC\nPRC",
+          "AUC\nROC",
+          "Macro\nAUC\nROC",
+          "Micro\nAUC\nROC",
+          "AUC\nPRC",
+          "AUC\nROC"
+        ],
+        [
+          "Harutyunyan\net. al\n(2019)\n– No Text",
+          "0.515",
+          "0.862",
+          "0.776",
+          "0.825",
+          "0.344",
+          "0.911"
+        ],
+        [
+          "Khadanga\net. al\n(2019)\n– Ensemble",
+          "0.525",
+          "0.865",
+          "–",
+          "–",
+          "0.345",
+          "0.907"
+        ],
+        [
+          "Ours\n– Text Only",
+          "0.472",
+          "0.815",
+          "0.766",
+          "0.829",
+          "0.235",
+          "0.867"
+        ],
+        [
+          "Ours\n– Text Only\n+ BioWordVec",
+          "0.489",
+          "0.841",
+          "0.771",
+          "0.837",
+          "0.225",
+          "0.879"
+        ],
+        [
+          "Ours\n– Text Only\n+ BioWordVec\n+ Debiasing",
+          "0.392",
+          "0.790",
+          "0.831",
+          "0.874",
+          "0.265",
+          "0.331"
+        ],
+        [
+          "Ours\n– Ensemble",
+          "0.582",
+          "0.880",
+          "0.822",
+          "0.861",
+          "0.399",
+          "0.917"
+        ],
+        [
+          "Ours\n– Ensemble\n+ BioWordVec",
+          "0.582",
+          "0.886",
+          "0.829",
+          "0.870",
+          "0.404",
+          "0.920"
+        ],
+        [
+          "Ours\n– Ensemble\n+ BioWordVec\n+ Debiasing",
+          "0.539",
+          "0.870",
+          "0.854",
+          "0.888",
+          "0.405",
+          "0.922"
+        ]
+      ]
+    }
+  ],
+  "full_text": "Exploring Text Speciﬁc and Blackbox Fairness Algorithms\n\nin Multimodal Clinical NLP\n\nJohn Chen1,2, Ian Berlot-Attwell 1,2, Safwan Hossain 1,2, Xindi Wang 2,3, Frank Rudzicz 1,2,4\n\n1 University of Toronto, 2 Vector Institute, 3 University of Western Ontario, 4 St. Michael's Hospital\n\n{johnc, ianberlot, hossa120, frank }@cs.toronto.edu\n\nxwang842@uwo.ca\n\nAbstract\n\nClinical machine learning is increasingly mul-\ntimodal, collected in both structured tabular\nformats and unstructured forms such as free\ntext. We propose a novel task of exploring fair-\nness on a multimodal clinical dataset, adopting\nequalized odds for the downstream medical\nprediction tasks. To this end, we investigate\na modality-agnostic fairness algorithm - equal-\nized odds post processing - and compare it to a\ntext-speciﬁc fairness algorithm: debiased clin-\nical word embeddings. Despite the fact that de-\nbiased word embeddings do not explicitly ad-\ndress equalized odds of protected groups, we\nshow that a text-speciﬁc approach to fairness\nmay simultaneously achieve a good balance\nof performance and classical notions of fair-\nness. We hope that our paper inspires future\ncontributions at the critical intersection of clin-\nical NLP and fairness. The full source code\nis available here: https://github.com/\njohntiger1/multimodal_fairness\n\n1\nIntroduction\n\nNatural language processing is increasingly lever-\naged in sensitive domains like healthcare. For such\ncritical tasks, the need to prevent discrimination\nand bias is imperative. Indeed, ensuring equal-\nity of health outcomes across different groups has\nlong been a guiding principle of modern health\ncare systems (Culyer and Wagstaff, 1993). More-\nover, medical data presents a unique opportunity\nto work with different modalities, speciﬁcally text\n(e.g., patient narratives, admission notes, and dis-\ncharge summaries) and numerical or categorical\ndata (often denoted tabular data, e.g., clinical mea-\nsurements such as blood pressure, weight, or demo-\ngraphic information like ethnicity). Multi-modal\ndata is not only reﬂective of many real-world set-\ntings, but machine learning models which lever-\nage both structured and unstructured data often\nachieve greater performance than their individual\n\nconstituents (Horng et al., 2017). While prior work\nstudied fairness in the text and tabular modalities\nin isolation, there is little work on applying notions\nof algorithmic fairness in the broader multimodal\nsetting (Zhang et al., 2020; Chen et al., 2018).\n\nOur work brings a novel perspective towards\nstudying fairness algorithms for models which op-\nerate on both text and tabular data, in this case ap-\nplied to the MIMIC-III clinical dataset (MIMIC-III)\n(Johnson et al., 2016). We evaluate two fairness al-\ngorithms: equalized-odds through post-processing,\nwhich is agnostic to the underlying classiﬁer, and\nword embedding debiasing which is a text-speciﬁc\ntechnique. We show that ensembling classiﬁers\ntrained on structured and unstructured data, along\nwith the aforementioned fairness algorithms, can\nboth improve performance and mitigate unfairness\nrelative to their constituent components. We also\nachieve strong results on several MIMIC-III clini-\ncal benchmark prediction tasks using a dual modal-\nity ensemble; these results may be of broader in-\nterest in clinical machine learning (Harutyunyan\net al., 2019; Khadanga et al., 2019).\n\n2\nBackground\n\n2.1\nCombining Text and Tabular Data in\nClinical Machine Learning\n\nPrior work has shown that combining unstruc-\ntured text with vital sign time series data improves\nperformance on clinical prediction tasks. Horng\net al. (2017) showed that augmenting an SVM with\ntext information in addition to vital signs data im-\nproved retrospective sepsis detection. Akbilgic\net al. (2019) showed that using a text-based risk\nscore improves performance on prediction of death\nafter surgery for a pediatric dataset. Closest to our\nwork, Khadanga et al. (2019) introduced a joint-\nmodality neural network which outperforms single-\nmodality neural networks on several benchmark\n\narXiv:2011.09625v2  [cs.CL]  10 Jun 2021\n\nprediction tasks for MIMIC-III.\n\n2.2\nClassical fairness metrics\n\nMany algorithmic fairness notions fall into one of\ntwo broad categories: individual fairness enforcing\nfairness across individual samples, and group fair-\nness seeking fairness across protected groups (e.g.\nrace or gender). We focus on a popular group-level\nfairness metric: Equalized Odds (EO) (Hardt et al.,\n2016). Instead of arguing that average classiﬁca-\ntion probability should be equal across all groups\n(also known as Demographic Parity) – which may\nbe unfair if the underlying group-speciﬁc base rates\nare unequal – EO allows for classiﬁcation proba-\nbilities to differ across groups only through the\nunderlying ground truth. Formally, a binary clas-\nsiﬁer bY satisﬁes EO for a set of groups S if, for\nground truth Y and group membership A:\n\nPr( ˆY = 1 | Y = y, A = a) = Pr( ˆY = 1 | Y = y, A = a′)\n\n∀y ∈{0, 1}, ∀a, a′ ∈S\n\nIn short, the true positive (TP) and true negative\n(TN) rates should be equal across groups.\n\n2.3\nEqualized Odds Post Processing\n\nHardt et al. (2016) proposed a model-agnostic post-\nprocessing algorithm that minimizes this group\nspeciﬁc error discrepancy while considering per-\nformance. Brieﬂy, the post-processing algorithm\ndetermines group-speciﬁc random thresholds based\non the intersection of group-speciﬁc ROC curves.\nThe multi-modality of our underlying data and the\nimportance of privacy concerns in the clinical set-\nting make post-processing especially attractive as it\nallows fairness to be achieved agnostic to the inner\nworkings of the base classiﬁer.\n\n2.4\nDebiasing word embeddings\n\nPretrained word embeddings encode the societal\nbiases of the underlying text on which they are\ntrained, including gender roles and racial stereo-\ntypes (Bolukbasi et al., 2016; Zhao et al., 2018;\nManzini et al., 2019). Recent work has attempted to\nmitigate this bias in context-free embeddings while\npreserving the utility of the embeddings. Bolukbasi\net al. (2016) analyzed gender subspaces by compar-\ning distances between word vectors with pairs of\ngender-speciﬁc words to remove bias from gender-\nneutral words. Manzini et al. (2019) extended this\nwork to the multi-class setting, enabling debias-\ning in race and religion. Concurrent to their work,\n(Ravfogel et al., 2020) propose iterative null space\n\nFigure 1: Experimental setup and ensemble architec-\nture. Fairness approaches are indicated in dotted boxes.\n\nprojection as a technique to hide information about\nprotected attributes by casting it into the null space\nof the classiﬁer. Following the recent popularity of\nBERT and ELMo, Liang et al. (2020) consider ex-\ntending debiasing to sentence-level, contextualized\nrepresentations.\n\n3\nExperimental Setup\n\n3.1\nClinical Prediction Tasks\n\nMIMIC-III contains deidentiﬁed health data asso-\nciated with 60,000 intensive care unit (ICU) ad-\nmissions (Johnson et al., 2016). It contains both\nunstructured textual data (in the form of clinical\nnotes) and structured data (in the form of clini-\ncal time series data and demographic, insurance,\nand other related meta-data). We focus on two\nbenchmark binary prediction tasks for ICU stays\npreviously proposed by Harutyunyan et al. (2019):\nin-hospital mortality prediction (IHM), which aims\nto predict mortality based on the ﬁrst 48 hours of\na patient’s ICU stay, and phenotyping, which aims\nto retrospectively predict the acute-care conditions\nthat impacted the patient. Following Khadanga\net al. (2019) we extend the prediction tasks to lever-\nage clinical text linked to their ICU stay. For both\ntasks the classes are higly imbalanced: in the IHM\ntask only 13.1% of training examples are positive,\nand the relative imbalance of the labels in the phe-\nnotyping class can be seen in Figure 2. To account\nfor the label imbalance we evaluate performance\nusing AUC ROC and AUC PRC. More details can\nbe found in Appendix A.\n\n3.2\nFairness Deﬁnition\n\nNext, we consider how we can extend a deﬁni-\ntion of fairness to this multimodal task. Following\nwork by Zhang et al. (2020) in the single-modality\nsetting, we examine True Positive and True Nega-\ntive rates on our clinical prediction task between\ndifferent protected groups. Attempting to equal-\nize these rates corresponds to satisfying Equalized\n\nFigure 2: Percentage of positive train cases for each of\nthe 25 phenotyping tasks. The critical care conditions\ncorresponding to the task codes can be found in Table\n3 of the Appendix\n\nOdds. EO satisﬁes many desiderata within clini-\ncal settings, and has been used in previous clini-\ncal fairness work (Pfohl et al., 2019a; Garb, 1997;\nPfohl et al., 2019b). While EO does not explic-\nitly incorporate the multimodality of our data, it\naccurately emphasizes the importance of the down-\nstream clinical prediction task on the protected\ngroups. Nonetheless, we acknowledge that EO\nalone is insufﬁcient for practical deployment; na¨ıve\napplication can result in unacceptable performance\nlosses and thus consultations with physicians and\nstakeholders must be held (Rajkomar et al., 2018).\n\n3.3\nClassiﬁcation Models\n\nWe provide brief descriptions below with details\n\navailable in Appendix B.\n\n• Structured Data Model: Following Haru-\ntyunyan et al. (2019), we use a channel-wise\nbidirectional Long Short Term Memory net-\nwork (bi-LSTM).\n\n• Unstructured Textual Data: We use a CNN\nencoder to extract the semantic features from\nclinical notes. Importantly, we experiment\nwith training word embeddings from scratch\nand utilizing pre-trained BioWordVec embed-\ndings (Zhang et al., 2019).\n\n• Ensemble: We perform logistic regression on\nthe output binary classiﬁcation probabilities\nfrom the previous models.\n\nSensitive\n\nGroup\n\nTrain\nCount\n\nTest\nCount\n% of Test\n\nF\n7940\n1415\n44.0 %\nM\n9708\n1778\n56.0 %\nASIAN\n408\n60\n1.9 %\nBLACK\n1658\n285\n8.9 %\nHISPANIC\n521\n107\n3.3 %\nOTHER\n2655\n459\n14.4 %\nWHITE\n12406\n2282\n71.5 %\nGovernment\n356\n74\n2.3 %\nMedicaid\n1362\n205\n6.4 %\nMedicare\n9857\n1757\n55.0 %\nPrivate\n4946\n932\n29.2 %\nSelf Pay\n133\n33\n1.0 %\nUNKNOWN\n994\n192\n6.1 %\n\nTable 1: Distribution of sensitive-attributes over train\nand test data for the In-Hospital Mortality task\n\n4\nFairness Setup\n\n4.1\nSensitive groups\n\nRecall that EO explicitly ensures fairness with re-\nspect to sensitive groups while debiasing implic-\nitly depends upon it. Leveraging the demographic\ndata in MIMIC-III, we consider ethnicity (divided\ninto Asian, Black, Hispanic, White and other), bi-\nological sex (divided into male and female), and\ninsurance type (divided into government, medicare,\nmedicaid, self-pay, private, and unknown). With\nthe exception of biological sex, the sensitive groups\nare highly imbalanced (see Table 1). Note that\ninsurance-type has been shown to be a proxy for\nsocioeconomic status (SES) (Chen et al., 2019).\n\n4.2\nEqualized Odds Post-Processing\n\nWe apply our equalized-odds post processing al-\n\ngorithm on the predictions of the trained single-\nmodality classiﬁers (physiological signal LSTM\nmodel as well as text-only CNN model) as well\nas the trained ensemble classiﬁer. Note that we\napply EO postprocessing only once for each exper-\niment: either on the outputs of the single-modality\nmodel, or on the ensemble predictions. The fair-\nness approaches are mutually exclusive: we do not\nconsider applying EO postprocessing together with\ndebiased word embeddings. We consider using\nboth soft prediction scores (interpretable as prob-\nabilities) as well as thresholded hard predictions\nas input to the post-processing algorithm. These\nchoices impact the fairness performance trade-off\nas discussed further in Section 5.\n\n4.3\nSocially Debiased Clinical Word\nEmbeddings\n\nWhile clinically pre-trained word embeddings may\n\nimprove downstream task performance, they are\nnot immune from societal bias (Khattak et al.,\n2019). We socially debias these clinical word em-\nbeddings following Manzini et al. (2019). We man-\nually select sets of social-speciﬁc words (see Ap-\npendix C) to identify the fairness-relevant social\nbias subspace. Formally, having identiﬁed the basis\nvectors {b1, b2, ..., bn} of the social bias subspace\nB, we can ﬁnd the projection wB of a word embed-\nding w:\n\nwB =\n\nn\nX\n\ni=1\n\n⟨w, bi⟩bi\n\nNext we apply hard debiasing, which will re-\nmove bias from existing word embeddings by sub-\ntracting wB, their component in this fairness sub-\nspace. This yields w′, our socially debiased word\nembedding:\n\nw′ =\nw −wB\n∥w −wB∥\n\nWe consider debiasing with respect to race and\ngender. The race debiased embeddings are re-used\nfor insurance tasks as empiric research has indi-\ncated that the use of proxy groups in fairness can\nbe effective (Gupta et al., 2018) and SES is strongly\nrelated to race (Williams et al., 2016).\n\n5\nResults and Analysis\n\nIHM\nPhenotyping\nAUC\n\nPRC\n\nAUC\nROC\n\nMacro\nAUCROC\n\nOverall\nAUCROC\nHarutyunyan et. al\n\n(2019) – No Text\n0.515\n0.862\n0.776\n0.825\n\nKhadanga et. al\n(2019) – Ensemble\n0.525\n0.865\n–\n–\n\nOurs – Text Only\n0.472\n0.815\n0.766\n0.829\nOurs – Text Only\n\n+ BioWordVec\n0.489\n0.841\n0.771\n0.837\n\nOurs – Ensemble\n0.582\n0.880\n0.822\n0.861\nOurs – Ensemble\n\n+ BioWordVec\n0.582\n0.886\n0.829\n0.870\n\nTable 2:\nLeveraging clinical pretrained word em-\nbeddings improves performance compared to training\nword embeddings from scratch in the text-only model.\nEnsembling the text-only model with the clinical time\nseries classiﬁer improves performance further.\n\n5.1\nEnsembling clinical word embeddings\nwith structured data improves\nperformance\n\nEmpirically, we observe superior performance to\nprior literature on a suite of clinical prediction tasks\nin Table 2; more tasks are evaluated in Appendix\nTable A. Full hyperparameter settings and code for\nreproducibility can be found here 1. The ensem-\nble model outperforms both constituent classiﬁers\n(AUC plot on Figure 3). This holds even when fair-\nness/debiasing techniques are applied, emphasizing\nthe overall effectiveness of leveraging multi-modal\ndata. However, the ensemble’s improvements in\nperformance do not directly translate to improve-\nments in fairness; see the True Positive (TP) graph\nin Figure 3, where the maximum TP gap remains\nconsistent under the ensemble.\n\n5.2\nDebiased word embeddings and the\nfairness performance trade-off\n\nImproving fairness usually comes at the cost of re-\nduced performance (Menon and Williamson, 2018).\nIndeed, across all tasks, fairness groups and classi-\nﬁers, we observe the group-speciﬁc disparities of\nTP and TN rates generally diminish when equalized\nodds post-processing is used (see Appendix F for\nadditional results). However, this post-processing\nalso leads to a degradation in the AUC. Note that\nwe apply EO-post processing on hard (thresholded)\npredictions of the classiﬁers. If instead soft predic-\ntion scores are used as inputs to the post-processing\nstep, both the performance degradation and the fair-\nness improvement are softened (Hardt et al., 2016).\n\nGenerally, word embedding debiasing (WED)\nalso helps reduce TP/TN discrepancies, although\nnot to the same extent as EO postprocessing. Re-\nmarkably, in certain tasks, WED also yields a\nperformance improvement, even compared to the\nfairness-free, unconstrained ensemble classiﬁer. In\nparticular, for the AUC graph in Figure 3, leverag-\ning debiased word embeddings improves the per-\nformance of the ensemble; at the same time, the\nTP and TN group discrepancy ranges are improved.\nHowever, we stress that this outcome was not con-\nsistently observed and further investigation is war-\nranted.\n\nWe emphasize that EO and WED serve differ-\nent purposes with different motivations. While\nEO explicitly seeks to minimize the TP/TN range\n\n1https://github.com/johntiger1/\nmultimodal_fairness/clinicalnlp\n\nFigure 3: Plots of TP Rate, TN Rate, and AUC on phenotyping task M for groups deﬁned by sensitive attribute of\nrace. Each vertical black line represents a classiﬁer (line style indicating modality); the length of the line represents\nthe range of scores over fairness groups. In the TP/TN graphs, a shorter line represents better fairness; there is\nless discrepancy between the maximum and minimum group-speciﬁc TP/TN rates. In the AUC graph (far right),\nthe higher the vertical position of the line, the better the performance. EO is effective at reducing the spread in\nTP/TN rates for the ensemble classiﬁer (ﬁrst two graphs) at the cost of performance (far right) graph. Meanwhile,\ndebiased word embeddings both improves fairness, reducing the length of the line in the ﬁrst two graphs, while\nachieving superior performance in AUC graph\n\nbetween sensitive groups (reﬂected in its perfor-\nmance on the ﬁrst two plots in Figure 3), WED\nseeks to neutralize text-speciﬁc bias in the word-\nembeddings. Despite the difference in goals, and\ndespite operating only on the text-modality of the\ndataset, WED is still able to reduce the group-\nspeciﬁc TP/TN range; recent work on proxy fair-\nness in text has shown that indirect correlation be-\ntween bias in text and protected attributes may be\nuseful in achieving parity (Romanov et al., 2019).\n\nAlthough WED demonstrate some good proper-\nties with respect to both fairness and performance\nfor our speciﬁc dataset and task, we caution that\nthey represent only one approach to fairness in NLP\n(Blodgett et al., 2020). Indeed, WED suffers from\nshortcomings related to intersectional fairness (Go-\nnen and Goldberg, 2019), and we encourage further\ndiscussion into concretely deﬁning fair, real-world\nNLP tasks and developing novel algorithms.\n\nOur results highlight the important role practi-\ntioners and stakeholders play in algorithmic fair-\nness on clinical applications. The trade-off between\nperformance and fairness, whether between the soft\nand hard labels used for EO, or between EO and de-\nbiased word embeddings, must be balanced based\non numerous real world factors.\n\n6\nDiscussion\n\nIn this paper, we propose a novel multimodal fair-\nness task for the MIMIC-III dataset, based on equal-\n\nized odds. We provide two baselines: a classiﬁer-\nagnostic fairness algorithm (equalized odds post-\nprocessing) and a text-speciﬁc fairness algorithm\n(debiased word embeddings).\nWe observe that\nboth methods generally follow the fairness per-\nformance tradeoff seen in single-modality tasks.\nEO is more effective at reducing the disparities in\ngroup-speciﬁc error rates while word-embedding\ndebiasing has better performance. Future work\ncan consider more generalized notions of fairness\nsuch as preferences-based frameworks, or extend\ntext-speciﬁc fairness to contextualized word em-\nbeddings (Hossain et al., 2020; Zhang et al., 2020).\nFurther analysis of the fairness performance trade-\noff, especially in multimodal settings, will facilitate\nequitable decision making in the clinical domain.\n\n7\nAcknowledgements\n\nWe would like to acknowledge Vector Institute\n\nfor ofﬁce and compute resources. We would also\nlike to thank Matt Gardner for his help with an-\nswering questions when using AllenNLP (Gard-\nner et al., 2017). John Chen and Safwan Hos-\nsain are funded by an Ontario Graduate Scholar-\nship and a Vector Institute Research Grant. Ian\nBerlot-Attwell is funded by a Canada Graduate\nScholarships-Master’s, and a Vector Institute Re-\nsearch Grant. Frank Rudzicz is supported by a\nCIFAR Chair in AI.\n\nReferences\n\nOguz Akbilgic, Ramin Homayouni, Kevin Heinrich,\n\nMax Raymond Langham, and Robert Lowell Davis.\n2019. Unstructured text in EMR improves predic-\ntion of death after surgery in children. In Informat-\nics, volume 6, page 4. Multidisciplinary Digital Pub-\nlishing Institute.\n\nSu Lin Blodgett, Solon Barocas, Hal Daum´e III, and\n\nHanna Wallach. 2020.\nLanguage (technology) is\npower: A critical survey of” bias” in nlp.\narXiv\npreprint arXiv:2005.14050.\n\nTolga\nBolukbasi,\nKai-Wei\nChang,\nJames\nZou,\nVenkatesh Saligrama, and Adam Tauman Kalai.\n2016. Man is to computer programmer as woman\nis to homemaker? Debiasing word embeddings. In\nNIPS.\n\nI. Y. Chen, P. Szolovits, and M. Ghassemi. 2019. Can\n\nAI Help Reduce Disparities in General Medical and\nMental Health Care? AMA J Ethics, 21(2):167–179.\n\nIrene Chen, Fredrik D Johansson, and David Sontag.\n\n2018. Why is my classiﬁer discriminatory? In Ad-\nvances in Neural Information Processing Systems,\npages 3539–3550.\n\nAJ Culyer and A Wagstaff. 1993. Equity and equal-\n\nity in health and health care. Journal of health eco-\nnomics, 12(4):431–457.\n\nHoward N. Garb. 1997. Race bias, social class bias,\n\nand gender bias in clinical judgment. Clinical Psy-\nchology: Science and Practice, 4(2):99–120.\n\nMatt Gardner, Joel Grus, Mark Neumann, Oyvind\n\nTafjord, Pradeep Dasigi, Nelson F. Liu, Matthew\nPeters, Michael Schmitz, and Luke S. Zettlemoyer.\n2017. Allennlp: A deep semantic natural language\nprocessing platform.\n\nHila Gonen and Yoav Goldberg. 2019. Lipstick on a\n\npig: Debiasing methods cover up systematic gender\nbiases in word embeddings but do not remove them.\nIn Proceedings of the 2019 Conference of the North\nAmerican Chapter of the Association for Computa-\n\ntional Linguistics: Human Language Technologies,\nVolume 1 (Long and Short Papers), pages 609–614.\n\nMaya R. Gupta, Andrew Cotter, Mahdi Milani Fard,\n\nand Serena Wang. 2018.\nProxy fairness.\nCoRR,\nabs/1806.11212.\n\nMoritz Hardt, Eric Price, Eric Price, and Nati Srebro.\n\n2016. Equality of opportunity in supervised learn-\ning.\nIn D. D. Lee, M. Sugiyama, U. V. Luxburg,\nI. Guyon, and R. Garnett, editors, Advances in Neu-\nral Information Processing Systems 29, pages 3315–\n3323. Curran Associates, Inc.\n\nHrayr Harutyunyan, Hrant Khachatrian, David C. Kale,\n\nGreg Ver Steeg, and Aram Galstyan. 2019. Multi-\ntask learning and benchmarking with clinical time\nseries data. Scientiﬁc Data, 6(1):96.\n\nSteven Horng, David A Sontag, Yoni Halpern, Yacine\n\nJernite, Nathan I Shapiro, and Larry A Nathanson.\n2017. Creating an automated trigger for sepsis clini-\ncal decision support at emergency department triage\nusing machine learning. PloS one, 12(4).\n\nSafwan Hossain, Andjela Mladenovic, and Nisarg\n\nShah. 2020. Designing fairly fair classiﬁers via eco-\nnomic fairness notions. In Proceedings of The Web\nConference 2020, pages 1559–1569.\n\nAlistair Johnson, Tom Pollard, Lu Shen, Li-wei\n\nLehman, Mengling Feng, Mohammad Ghassemi,\nBenjamin Moody, Peter Szolovits, Leo Celi, and\nRoger Mark. 2016. MIMIC-III, a freely accessible\ncritical care database. Scientiﬁc Data, 3:160035.\n\nSwaraj Khadanga, Karan Aggarwal, Shaﬁq Joty, and\n\nJaideep Srivastava. 2019. Using clinical notes with\ntime series data for icu management. arXiv preprint\narXiv:1909.09702.\n\nFaiza Khan Khattak, Serena Jeblee, Chlo´e Pou-Prom,\n\nMohamed Abdalla, Christopher Meaney, and Frank\nRudzicz. 2019. A survey of word embeddings for\nclinical text. Journal of Biomedical Informatics: X,\npage 100057.\n\nYoon\nKim.\n2014.\nConvolutional\nneural\nnet-\nworks for sentence classiﬁcation.\narXiv preprint\narXiv:1408.5882.\n\nPaul Pu Liang, Irene Mengze Li, Emily Zheng,\n\nYao\nChong\nLim,\nRuslan\nSalakhutdinov,\nand\nLouis-Philippe Morency. 2020.\nTowards debi-\nasing sentence representations.\narXiv preprint\narXiv:2007.08100.\n\nThomas Manzini, Lim Yao Chong, Alan W Black,\n\nand Yulia Tsvetkov. 2019.\nBlack is to criminal\nas caucasian is to police: Detecting and removing\nmulticlass bias in word embeddings.\nIn Proceed-\nings of the 2019 Conference of the North American\nChapter of the Association for Computational Lin-\nguistics: Human Language Technologies, Volume 1\n(Long and Short Papers), pages 615–621, Minneapo-\n\nlis, Minnesota. Association for Computational Lin-\nguistics.\n\nAditya Krishna Menon and Robert C Williamson. 2018.\n\nThe cost of fairness in binary classiﬁcation. In Pro-\nceedings of the 1st Conference on Fairness, Account-\nability and Transparency, volume 81 of Proceed-\nings of Machine Learning Research, pages 107–118,\nNew York, NY, USA. PMLR.\n\nF. Pedregosa, G. Varoquaux, A. Gramfort, V. Michel,\n\nB. Thirion, O. Grisel, M. Blondel, P. Prettenhofer,\nR. Weiss, V. Dubourg, J. Vanderplas, A. Passos,\nD. Cournapeau, M. Brucher, M. Perrot, and E. Duch-\nesnay. 2011.\nScikit-learn:\nMachine learning in\nPython.\nJournal of Machine Learning Research,\n12:2825–2830.\n\nStephen Pfohl, Ben Maraﬁno, Adrien Coulet, Fatima\n\nRodriguez, Latha Palaniappan, and Nigam H. Shah.\n2019a. Creating fair models of atherosclerotic car-\ndiovascular disease risk. In Proceedings of the 2019\nAAAI/ACM Conference on AI, Ethics, and Society,\nAIES ’19, page 271–278, New York, NY, USA. As-\nsociation for Computing Machinery.\n\nStephen R. Pfohl, Tony Duan, Daisy Yi Ding, and\n\nNigam H. Shah. 2019b. Counterfactual reasoning\nfor fair clinical risk prediction. In Proceedings of\nthe 4th Machine Learning for Healthcare Confer-\nence, volume 106 of Proceedings of Machine Learn-\ning Research, pages 325–358, Ann Arbor, Michigan.\nPMLR.\n\nAlvin Rajkomar, Michaela Hardt, Michael D. Howell,\n\nGreg Corrado, and Marshall H. Chin. 2018. Ensur-\ning fairness in machine learning to advance health\nequity. Annals of Internal Medicine, 169(12):866–\n872.\n\nShauli Ravfogel, Yanai Elazar, Hila Gonen, Michael\n\nTwiton, and Yoav Goldberg. 2020.\nNull it out:\nGuarding protected attributes by iterative nullspace\nprojection. arXiv preprint arXiv:2004.07667.\n\nAlexey Romanov, Maria De-Arteaga, Hanna Wal-\n\nlach, Jennifer Chayes, Christian Borgs, Alexan-\ndra Chouldechova, Sahin Geyik, Krishnaram Ken-\nthapadi, Anna Rumshisky, and Adam Kalai. 2019.\nWhat’s in a name? reducing bias in bios without ac-\ncess to protected attributes. In Proceedings of the\n2019 Conference of the North American Chapter of\nthe Association for Computational Linguistics: Hu-\nman Language Technologies, Volume 1 (Long and\nShort Papers), pages 4187–4195.\n\nDavid R. Williams, Naomi Priest, and Norman B. An-\n\nderson. 2016.\nUnderstanding associations among\nrace, socioeconomic status, and health:\nPatterns\nand prospects.\nHealth psychology :\nofﬁcial\njournal of the Division of Health Psychology,\nAmerican Psychological Association, 35(4):407–\n411. 27018733[pmid].\n\nHaoran Zhang,\nAmy X. Lu,\nMohamed Abdalla,\nMatthew McDermott, and Marzyeh Ghassemi. 2020.\nHurtful words: Quantifying biases in clinical con-\ntextual word embeddings.\nIn Proceedings of the\nACM Conference on Health, Inference, and Learn-\n\ning, CHIL ’20, page 110–120, New York, NY, USA.\nAssociation for Computing Machinery.\n\nYe Zhang and Byron Wallace. 2015. A sensitivity anal-\n\nysis of (and practitioners’ guide to) convolutional\nneural networks for sentence classiﬁcation.\narXiv\npreprint arXiv:1510.03820.\n\nYijia Zhang, Qingyu Chen, Zhihao Yang, Hongfei Lin,\n\nand Zhiyong Lu. 2019.\nBiowordvec, improving\nbiomedical word embeddings with subword infor-\nmation and mesh. Scientiﬁc data, 6(1):1–9.\n\nJieyu Zhao, Yichao Zhou, Zeyu Li, Wei Wang, and Kai-\n\nWei Chang. 2018.\nLearning gender-neutral word\nembeddings. In Proceedings of the 2018 Conference\non Empirical Methods in Natural Language Process-\ning, pages 4847–4853, Brussels, Belgium. Associa-\ntion for Computational Linguistics.\n\nA\nDetails on Clinical Prediction Tasks\n\nA.1\nDeﬁning the Multimodal MIMIC-III\nBenchmark Prediction Tasks\n\nExisting work by (Harutyunyan et al., 2019) previ-\nously deﬁned four benchmark clinical prediction\ntasks on ICU stays information from the large\nMIMIC-III database.\nThey produce a derived\ndataset, focusing on 17 timeseries clinical features,\nwithout text. The goal is predict the task speciﬁc\noutcome (mortality, phenotyping, decompensation,\nlength-of-stay) for the given ICU stay. We utilize\ntheir derived dataset directly, which provides train-\ning and test examples for all four tasks, but join\nthe derived dataset back with the original to obtain\nlinked clinical text. We make the key choice that\nwe drop examples without relevant (i.e. no causal\nleakage) extracted clinical notes, as in (Khadanga\net al., 2019). Thus, we concretely deﬁne the Com-\nbined Modality MIMIC-III Benchmark Prediction\nTask as extending the benchmark clinical predic-\ntion task by (Harutyunyan et al., 2019) to include\nlinked clinical text. If there are no notes associated\nwith an example, then we remove this instance from\nthe task. Note that we also drop ICU stays which\nonly have unusable notes due to causal leakage; for\ninstance death reports for mortality prediction.\n\nA.2\nNote extraction\n\nTo extract relevant notes, we build a mapping from\nthe derived dataset provided by (Harutyunyan et al.,\n2019) and the MIMIC-III database. For each train-\ning and test instance in each task, we ﬁnd the clini-\ncal notes in the MIMIC-III database. For the IHM\ntask, if we do not ﬁnd any notes within the ﬁrst\n48 hours of their stay, we drop the patient, since\nthere is no relevant textual information. Note that\nthis is consistent with the original task formulation\nby (Harutyunyan et al., 2019) of in-hospital mor-\ntality prediction using at most the ﬁrst 48 hours of\nclinical data. Furthermore, this follows (Khadanga\net al., 2019).\n\nFor the phenotyping task, which is not covered\nby (Khadanga et al., 2019), we relax this time con-\ndition. In the original formulation of the task, phe-\nnotyping is a retrospective multilabel multiclass\nclassiﬁcation task, meaning that all vital signs data\nassociated with the ICU stay is provided and can\nbe used by the model. Therefore, we only drop the\npatient if there are no notes for the entire ICU stay.\n\nA.3\nPreprocessing\n\nWe use the same preprocessing as in (Khadanga\n\net al., 2019), ﬁnding it to be mildly beneﬁcial for\nperformance.\n\nA.4\nCohort statistics\n\nIn the medical literature, cohort selection is the\nprocess of selecting the population of patients for\ninclusion in a study. These patients will then pro-\nvide the training instances for the clinical predic-\ntion task. We report the cohort statistics for our\nbinary clinical prediction multimodal tasks.\n\nA.4.1\nIn-Hospital Mortality\nSensitive\n\nGroup\n\nTrain\nCount\n\nTest\nCount\n% of Test\n\nF\n7940\n1415\n44.0 %\nM\n9708\n1778\n56.0 %\nASIAN\n408\n60\n1.9 %\nBLACK\n1658\n285\n8.9 %\nHISPANIC\n521\n107\n3.3 %\nOTHER\n2655\n459\n14.4 %\nWHITE\n12406\n2282\n71.5 %\nGovernment\n356\n74\n2.3 %\nMedicaid\n1362\n205\n6.4 %\nMedicare\n9857\n1757\n55.0 %\nPrivate\n4946\n932\n29.2 %\nSelf Pay\n133\n33\n1.0 %\nUNKNOWN\n994\n192\n6.1 %\n\nA.4.2\nPhenotyping\nSensitive\n\nGroup\n\nTrain\nCount\n\nTest\nCount\n% of Test\n\nF\n15638\n2750\n44%\nM\n19803\n3504\n56%\nASIAN\n826\n133\n2.1 %\nBLACK\n3378\n575\n9.1 %\nHISPANIC\n1158\n206\n3.3 %\nOTHER\n5004\n854\n13.7 %\nWHITE\n25075\n4486\n71.7 %\nGovernment\n845\n150\n2.4 %\nMedicaid\n2850\n433\n6.9 %\nMedicare\n18702\n3298\n52.7 %\nPrivate\n10784\n1923\n30.7 %\nSelf Pay\n380\n73\n1.2 %\nUNKNOWN\n1880\n377\n6.0 %\n\nA.5\nTask Statistics\n\nA.5.1\nIn-Hospital Mortality\nLabel\nTrain Set Count\nTest Set Count\n0\n15337\n2829\n1\n2311\n364\n\nA.5.2\nPhenotyping\nPlots of the prevalance of the 25 critical care con-\nditions can be found in Figures 4 and 2 for the test\nand train sets respectively, a legend that doubles\nas the full list of phenotyping tasks is available in\nTable 3.\n\nFigure 4: Percentage of positive test cases for each of\nthe 25 phenotyping tasks\n\nB\nModel Details\n\nB.1\nStructured Data Model\n\nWe use the baseline developed by Harutyunyan\n\net al. (2019). The structured data model takes as in-\nput a time-series of 17 clinical variables, which\nare extracted features for the benchmark tasks\nintroduced in the same paper.\nThe model is a\nchannel-wise LSTM where each clinical variable is\ntranscoded by a bidirectional LSTM, concatenated\nwith the other transcoded sequences and passed to\na ﬁnal LSTM for prediction.\n\nB.2\nUnstructured Data Model\n\nWe implement a simple CNN-based encoder (Kim,\n\n2014; Zhang and Wallace, 2015) to process the\nclinical notes and produce a task-speciﬁc predic-\ntion. We experiment with various settings including\nmodel architecture, word embedding dimension,\npreprocessing, varying the maximum number of\ntokens, L2 regularization and batch size. Below,\nwe report the ﬁnal hyperparameters and settings\nused to generate all plots and reported throughout.\n\nOur CNNEncoder is built using the AllenNLP\nframework (Gardner et al., 2017). We use 1D ker-\nnel (n-gram) ﬁlter sizes of 2, 3 and 5, learning\n5 ﬁlters for each ﬁlter size. Convolution is done\non word embedding representations of the input,\nacross n-gram windows of the sequence, and are\n\nCode\nTask\nA\nAcute and unspeciﬁed renal fail-\nure\nB\nAcute cerebrovascular disease\nC\nAcute myocardial infarction\nD\nCardiac dysrhythmias\nE\nChronic kidney disease\nF\nChronic obstructive pulmonary\ndisease and bronchiectasis\nG\nComplications of surgical proce-\ndures or medical care\nH\nConduction disorders\nI\nCongestive heart failure\nJ\nCoronary atherosclerosis and\nother heart disease\nK\nDiabetes mellitus with complica-\ntions\nL\nDiabetes mellitus without com-\nplication\nM\nDisorders of lipid metabolism\nN\nEssential hypertension\nO\nFluid and electrolyte disorders\nP\nGastrointestinal hemorrhage\nQ\nHypertension with complications\nand secondary hypertension\nR\nnonhypertensive\nS\nOther liver diseases\nT\nOther lower respiratory disease\nU\nOther upper respiratory disease\nV\nPleurisy\nW\nPneumonia (except that caused\nby tuberculosis or sexually trans-\nmitted disease)\nX\npneumothorax\nY\npulmonary collapse\n\nTable 3: List of critical care conditions in the phenotyp-\ning task, and their corresponding alphabetic codes.\n\npooled before being combined. The CNNEncoder\nproduces a single ﬁxed size vector, and we use a\nsimple linear layer on top to perform the classiﬁca-\ntion.\n\nFor all multimodal tasks, we limit the maximum\nnumber of tokens input to 1536, taking the most\nrecent notes ﬁrst (taking care to avoid causal leak-\nage as described in 3.1), and apply preprocessing\nas in (Khadanga et al., 2019). For the decompen-\nsation task, we subsample the number of training\ninstances due to engineering and efﬁciency reasons.\nFrom 2 million possible training instances, we sam-\nple 50 000 examples, with weighting to balance\nthe number of positive and negatively training in-\nstances in a 50/50 split.\n\nWe train for up to 50 epochs, using Adam op-\ntimizer with learning rate set to 0.001. When we\nuse pretrained word embeddings (either debiased\nor not), we do not ﬁnetune or update them. We\ndo not use any L2 regularization or dropout, in-\nstead employing early stopping with patience of 5\nepochs, using validation loss as the stopping crite-\nrion. We use batch size 256. Training is completed\non 1 NVIDIA Titan Xp with 12 GB of memory.\n\nB.3\nEnsemble Model\n\nWe use scikit-learn (Pedregosa et al., 2011) with\n\nthe default setting of L2 regularization with C = 1\n\nC\nSets of social-speciﬁc Words\n\nC.1\nSets of Gender-speciﬁc Words\n\n• {”he”, ”she”}\n\n• {”his”, ”hers”}\n\n• {”son”, ”daughter”}\n\n• {”father”, ”mother”}\n\n• {”male”, ”female”}\n\n• {”boy”, ”girl”}\n\n• {”uncle”, ”aunt”}\n\nC.2\nSets of Racial-speciﬁc Words\n\n• {”black”, ”caucasian”, ”asian”, ”hispanics”}\n\n• {”african”, ”caucasian”, ”asian”, ”hispan-\nics”}\n\n• {”black”, ”white”, ”asian”, ”hispanics”}\n\n• {”africa”, ”america”, ”asia”, ”hispanics”}\n\n• {”africa”, ”america”, ”china”, ”hispanics”}\n\n• {”africa”, ”europe”, ”asia”, ”hispanics”}\n\n• {”black”, ”caucasian”, ”asian”, ”latino”}\n\n• {”african”, ”caucasian”, ”asian”, ”latino”}\n\n• {”black”, ”white”, ”asian”, ”latino”}\n\n• {”africa”, ”america”, ”asia”, ”latino”}\n\n• {”africa”, ”america”, ”china”, ”latino”}\n\n• {”africa”, ”europe”, ”asia”, ”latino”}\n\n• {”black”, ”caucasian”, ”asian”, ”spanish”}\n\n• {”african”, ”caucasian”, ”asian”, ”spanish”}\n\n• {”black”, ”white”, ”asian”, ”spanish”}\n\n• {”africa”, ”america”, ”asia”, ”spanish”}\n\n• {”africa”, ”america”, ”china”, ”spanish”}\n\n• {”africa”, ”europe”, ”asia”, ”spanish”}\n\nD\nHard Debiasing\n\nHard debiasing is a debiasing algorithm which in-\nvolves two steps: neutralize and equalize. Neutral-\nization ensures that all the social-neural words in\nthe social subspace do not contain bias (e.g. doc-\ntors and nurses). Equalization forces that social-\nspeciﬁc words are equidistant to all words in each\nequality set (e.g. the bias components in man and\nwoman are in opposite directions but with same\nmagnitude) (Bolukbasi et al., 2016; Manzini et al.,\n2019). Following Manzini et al. (2019), hard debi-\nasing is formulated as follows: given a bias social\nsubspace B spanned by the vectors {b1, b2, ..., bn},\nthe embedding of a word in this subspace is:\n\nwB =\n\nn\nX\n\ni=1\n\n⟨w, bi⟩bi\n\nTo neutralize, each word w ∈N, where N is the\nset of social-neural words, remove the bias compo-\nnents from the word and the re-embedded word −→\nw\nis obtained as:\n\n−→\nw =\nw −wB\n∥w −wB ∥\n\nTo equalize, for an equality set E, let µ be the mean\nembeddings of the equlity set E, which is deﬁned\nas:\n\nµ = w\n\nE\n\nX\n\nw∈E\n\nFor each word w ∈E, the equalization is deﬁned\nas:\n\nˆw = (µ −µB) +\n\np\n\n1−∥µ −µB ∥2\nw −wB\n∥w −wB ∥\n\nWhen doing racial debiasing, we divide ethnicity\n\ninto groups: White, Black, Asian, and Hispanics.\nWe do not contain the ”other” group as it hard to\n\ndeﬁne social-speciﬁc sets and analogies for ”other”.\n\nE\nPhenotyping Task\n\nIn Figure 3 we plot performance and fairness for\nthe phenotyping task, speciﬁcally the detection of\ndisorders of lipid metabolism. This task was se-\nlected as it is the phenotyping task with the most\nbalanced labels with 16855 negative instances and\n12239 positive instances in the training data. Thus,\nit should be more amenable to EO postprocessing.\nAs expected we see that EO postprocessing suc-\nceeds in reducing the TP/TN ranges at the cost of\nAUC. We also again see that ensembling improves\nperformance both before and after postprocessing.\nFor this task speciﬁcally we observe that using de-\nbiased word embeddings improves AUC compared\nto the non-debiased word embeddings.\n\nF\nFull Results\n\nOur experiment universe consisted of the cross\nproduct between choice of protected attribute (gen-\nder, ethnicity, insurance status), task (phenotyping,\nin-hospital mortality prediction, decompensation),\nhard vs soft EO postprocessing and word embed-\nding vs debiased word embedding.\n\nF.1\nFairness/Performance on the In-Hospital\nMortality Task\n\nWe provide a more detailed set of graphs for an\n\nin-hospital mortality prediction task, where we\nused hard EO postprocessing on protected groups\ndeﬁned by insurance status.\nWe illustrate the\nTP/TN/AUC metrics for each protected group in\nFigure 5.\n\nIn this task conﬁguration, as well as the task con-\nﬁguration in Figure 3 EO postprocessing is applied\nto hard classiﬁcation of the three classiﬁers in the\nBase Classiﬁer column, to produce the EO Classi-\nﬁer column. The Debiased Word Embedding (WE)\ncolumn contains an unstructured classiﬁer using\nword embeddings debiased for 4 ethnicities, and an\nensemble created by merging the aforementioned\nclassiﬁer with the structured base classiﬁer. We\nutilize debiasing on ethnicity type as a proxy for\ninsurance status, as mentioned in the Discussion.\n\nNote that EO post-processing sometimes wors-\nens the TP/TN spread, as in the TP graph for the\nstructured classiﬁer. We therefore qualify our EO\n\nresults by noting the limitations of our real-world\ndataset, which include signiﬁcant group and la-\nbel imbalance and non-binary group labels, all of\nwhich impact the results of EO post-processing\n(see Appendix A.4).\n\nFinally, on this task conﬁguration, we observe\nthat debiased word embeddings are not a panacea.\nWe note that WED has slightly worsened the TP\n\ngap, and does not offer a clear cut performance\nimprovement as on the phenotyping task M. There-\nfore, further research is needed to explore when\nand why debiased word embeddings may simulta-\nneously improve fairness and performance. Ulti-\nmately, domain expertise and focus on the down-\nstream impact on the patient experience will be\ncritical for leveraging any of these fair machine\nlearning models in clinical applications.\n\nF.2\nFull table of results\n\nThe performance for all model and tasks tried can\nbe found in Table 4. Note that debiased word em-\nbeddings can improve the performance (micro and\nmacro AUC), even compared to an unconstrained\nclassiﬁer using clinically relevant BioWordVecem-\nbeddings.\n\nFigure 5: Plot of Fairness and Performance on the in-hospital mortality task. Note that debiased word embeddings\nslightly worsen the TP gap in this task (left most graph), while improving the TN gap (middle graph). EO reduces\nboth gaps, at a major cost in performance (right most graph).\n\nIHM\nPhenotyping\nDecompen.\n\nAUC\n\nPRC\n\nAUC\nROC\n\nMacro\n\nAUC\nROC\n\nMicro\n\nAUC\nROC\n\nAUC\n\nPRC\n\nAUC\nROC\n\nHarutyunyan\n\net. al\n(2019)\n– No Text\n\n0.515\n0.862\n0.776\n0.825\n0.344\n0.911\n\nKhadanga\n\net. al\n(2019)\n– Ensemble\n\n0.525\n0.865\n–\n–\n0.345\n0.907\n\nOurs\n– Text Only\n0.472\n0.815\n0.766\n0.829\n0.235\n0.867\n\nOurs\n– Text Only\n+ BioWordVec\n\n0.489\n0.841\n0.771\n0.837\n0.225\n0.879\n\nOurs\n– Text Only\n+ BioWordVec\n\n+ Debiasing\n\n0.392\n0.790\n0.831\n0.874\n0.265\n0.331\n\nOurs\n– Ensemble\n0.582\n0.880\n0.822\n0.861\n0.399\n0.917\n\nOurs\n– Ensemble\n+ BioWordVec\n\n0.582\n0.886\n0.829\n0.870\n0.404\n0.920\n\nOurs\n– Ensemble\n+ BioWordVec\n\n+ Debiasing\n\n0.539\n0.870\n0.854\n0.888\n0.405\n0.922\n\nTable 4:\nLeveraging clinical pretrained word em-\nbeddings improves performance compared to training\nword embeddings from scratch in the text-only model.\nEnsembling the text-only model with the clinical time\nseries classiﬁer improves performance further. As with\nKhadanga et al. (2019), our results are not directly com-\nparable with Harutyunyan et al. (2019) since we ignore\npatients without any clinical notes.",
+  "chunks": [
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        120.0,
+        70.7,
+        477.6,
+        85.0
+      ],
+      "text": "Exploring Text Speciﬁc and Blackbox Fairness Algorithms"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        212.9,
+        86.6,
+        384.7,
+        101.0
+      ],
+      "text": "in Multimodal Clinical NLP"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        98.1,
+        124.8,
+        508.2,
+        137.5
+      ],
+      "text": "John Chen1,2, Ian Berlot-Attwell 1,2, Safwan Hossain 1,2, Xindi Wang 2,3, Frank Rudzicz 1,2,4"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        102.5,
+        138.1,
+        497.9,
+        151.4
+      ],
+      "text": "1 University of Toronto, 2 Vector Institute, 3 University of Western Ontario, 4 St. Michael's Hospital"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        163.9,
+        156.0,
+        436.7,
+        165.1
+      ],
+      "text": "{johnc, ianberlot, hossa120, frank }@cs.toronto.edu"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        259.9,
+        169.9,
+        340.6,
+        178.9
+      ],
+      "text": "xwang842@uwo.ca"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        158.9,
+        224.3,
+        203.4,
+        236.3
+      ],
+      "text": "Abstract"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        89.0,
+        244.8,
+        274.9,
+        493.3
+      ],
+      "text": "Clinical machine learning is increasingly mul-\ntimodal, collected in both structured tabular\nformats and unstructured forms such as free\ntext. We propose a novel task of exploring fair-\nness on a multimodal clinical dataset, adopting\nequalized odds for the downstream medical\nprediction tasks. To this end, we investigate\na modality-agnostic fairness algorithm - equal-\nized odds post processing - and compare it to a\ntext-speciﬁc fairness algorithm: debiased clin-\nical word embeddings. Despite the fact that de-\nbiased word embeddings do not explicitly ad-\ndress equalized odds of protected groups, we\nshow that a text-speciﬁc approach to fairness\nmay simultaneously achieve a good balance\nof performance and classical notions of fair-\nness. We hope that our paper inspires future\ncontributions at the critical intersection of clin-\nical NLP and fairness. The full source code\nis available here: https://github.com/\njohntiger1/multimodal_fairness"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        503.1,
+        154.8,
+        515.0
+      ],
+      "text": "1\nIntroduction"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        71.6,
+        524.3,
+        292.1,
+        765.6
+      ],
+      "text": "Natural language processing is increasingly lever-\naged in sensitive domains like healthcare. For such\ncritical tasks, the need to prevent discrimination\nand bias is imperative. Indeed, ensuring equal-\nity of health outcomes across different groups has\nlong been a guiding principle of modern health\ncare systems (Culyer and Wagstaff, 1993). More-\nover, medical data presents a unique opportunity\nto work with different modalities, speciﬁcally text\n(e.g., patient narratives, admission notes, and dis-\ncharge summaries) and numerical or categorical\ndata (often denoted tabular data, e.g., clinical mea-\nsurements such as blood pressure, weight, or demo-\ngraphic information like ethnicity). Multi-modal\ndata is not only reﬂective of many real-world set-\ntings, but machine learning models which lever-\nage both structured and unstructured data often\nachieve greater performance than their individual"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        225.3,
+        525.8,
+        290.3
+      ],
+      "text": "constituents (Horng et al., 2017). While prior work\nstudied fairness in the text and tabular modalities\nin isolation, there is little work on applying notions\nof algorithmic fairness in the broader multimodal\nsetting (Zhang et al., 2020; Chen et al., 2018)."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        306.9,
+        293.6,
+        527.4,
+        535.0
+      ],
+      "text": "Our work brings a novel perspective towards\nstudying fairness algorithms for models which op-\nerate on both text and tabular data, in this case ap-\nplied to the MIMIC-III clinical dataset (MIMIC-III)\n(Johnson et al., 2016). We evaluate two fairness al-\ngorithms: equalized-odds through post-processing,\nwhich is agnostic to the underlying classiﬁer, and\nword embedding debiasing which is a text-speciﬁc\ntechnique. We show that ensembling classiﬁers\ntrained on structured and unstructured data, along\nwith the aforementioned fairness algorithms, can\nboth improve performance and mitigate unfairness\nrelative to their constituent components. We also\nachieve strong results on several MIMIC-III clini-\ncal benchmark prediction tasks using a dual modal-\nity ensemble; these results may be of broader in-\nterest in clinical machine learning (Harutyunyan\net al., 2019; Khadanga et al., 2019)."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        549.5,
+        388.1,
+        561.4
+      ],
+      "text": "2\nBackground"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        573.1,
+        503.9,
+        597.5
+      ],
+      "text": "2.1\nCombining Text and Tabular Data in\nClinical Machine Learning"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        306.9,
+        605.6,
+        527.4,
+        765.6
+      ],
+      "text": "Prior work has shown that combining unstruc-\ntured text with vital sign time series data improves\nperformance on clinical prediction tasks. Horng\net al. (2017) showed that augmenting an SVM with\ntext information in addition to vital signs data im-\nproved retrospective sepsis detection. Akbilgic\net al. (2019) showed that using a text-based risk\nscore improves performance on prediction of death\nafter surgery for a pediatric dataset. Closest to our\nwork, Khadanga et al. (2019) introduced a joint-\nmodality neural network which outperforms single-\nmodality neural networks on several benchmark"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        10.9,
+        265.5,
+        37.6,
+        609.9
+      ],
+      "text": "arXiv:2011.09625v2  [cs.CL]  10 Jun 2021"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        65.5,
+        210.2,
+        76.4
+      ],
+      "text": "prediction tasks for MIMIC-III."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        87.4,
+        213.9,
+        98.4
+      ],
+      "text": "2.2\nClassical fairness metrics"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        71.6,
+        105.0,
+        292.2,
+        305.6
+      ],
+      "text": "Many algorithmic fairness notions fall into one of\ntwo broad categories: individual fairness enforcing\nfairness across individual samples, and group fair-\nness seeking fairness across protected groups (e.g.\nrace or gender). We focus on a popular group-level\nfairness metric: Equalized Odds (EO) (Hardt et al.,\n2016). Instead of arguing that average classiﬁca-\ntion probability should be equal across all groups\n(also known as Demographic Parity) – which may\nbe unfair if the underlying group-speciﬁc base rates\nare unequal – EO allows for classiﬁcation proba-\nbilities to differ across groups only through the\nunderlying ground truth. Formally, a binary clas-\nsiﬁer bY satisﬁes EO for a set of groups S if, for\nground truth Y and group membership A:"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        75.9,
+        314.5,
+        286.4,
+        325.9
+      ],
+      "text": "Pr( ˆY = 1 | Y = y, A = a) = Pr( ˆY = 1 | Y = y, A = a′)"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        199.4,
+        326.9,
+        285.7,
+        340.3
+      ],
+      "text": "∀y ∈{0, 1}, ∀a, a′ ∈S"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        71.6,
+        350.5,
+        290.3,
+        374.9
+      ],
+      "text": "In short, the true positive (TP) and true negative\n(TN) rates should be equal across groups."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        386.0,
+        245.5,
+        396.9
+      ],
+      "text": "2.3\nEqualized Odds Post Processing"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        71.6,
+        403.6,
+        292.2,
+        549.9
+      ],
+      "text": "Hardt et al. (2016) proposed a model-agnostic post-\nprocessing algorithm that minimizes this group\nspeciﬁc error discrepancy while considering per-\nformance. Brieﬂy, the post-processing algorithm\ndetermines group-speciﬁc random thresholds based\non the intersection of group-speciﬁc ROC curves.\nThe multi-modality of our underlying data and the\nimportance of privacy concerns in the clinical set-\nting make post-processing especially attractive as it\nallows fairness to be achieved agnostic to the inner\nworkings of the base classiﬁer."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        561.0,
+        228.0,
+        571.9
+      ],
+      "text": "2.4\nDebiasing word embeddings"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        71.6,
+        578.5,
+        292.1,
+        765.6
+      ],
+      "text": "Pretrained word embeddings encode the societal\nbiases of the underlying text on which they are\ntrained, including gender roles and racial stereo-\ntypes (Bolukbasi et al., 2016; Zhao et al., 2018;\nManzini et al., 2019). Recent work has attempted to\nmitigate this bias in context-free embeddings while\npreserving the utility of the embeddings. Bolukbasi\net al. (2016) analyzed gender subspaces by compar-\ning distances between word vectors with pairs of\ngender-speciﬁc words to remove bias from gender-\nneutral words. Manzini et al. (2019) extended this\nwork to the multi-class setting, enabling debias-\ning in race and religion. Concurrent to their work,\n(Ravfogel et al., 2020) propose iterative null space"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        149.2,
+        527.2,
+        171.1
+      ],
+      "text": "Figure 1: Experimental setup and ensemble architec-\nture. Fairness approaches are indicated in dotted boxes."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        196.4,
+        527.4,
+        275.0
+      ],
+      "text": "projection as a technique to hide information about\nprotected attributes by casting it into the null space\nof the classiﬁer. Following the recent popularity of\nBERT and ELMo, Liang et al. (2020) consider ex-\ntending debiasing to sentence-level, contextualized\nrepresentations."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        289.3,
+        427.2,
+        301.3
+      ],
+      "text": "3\nExperimental Setup"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        312.7,
+        448.2,
+        323.7
+      ],
+      "text": "3.1\nClinical Prediction Tasks"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        331.6,
+        527.4,
+        640.7
+      ],
+      "text": "MIMIC-III contains deidentiﬁed health data asso-\nciated with 60,000 intensive care unit (ICU) ad-\nmissions (Johnson et al., 2016). It contains both\nunstructured textual data (in the form of clinical\nnotes) and structured data (in the form of clini-\ncal time series data and demographic, insurance,\nand other related meta-data). We focus on two\nbenchmark binary prediction tasks for ICU stays\npreviously proposed by Harutyunyan et al. (2019):\nin-hospital mortality prediction (IHM), which aims\nto predict mortality based on the ﬁrst 48 hours of\na patient’s ICU stay, and phenotyping, which aims\nto retrospectively predict the acute-care conditions\nthat impacted the patient. Following Khadanga\net al. (2019) we extend the prediction tasks to lever-\nage clinical text linked to their ICU stay. For both\ntasks the classes are higly imbalanced: in the IHM\ntask only 13.1% of training examples are positive,\nand the relative imbalance of the labels in the phe-\nnotyping class can be seen in Figure 2. To account\nfor the label imbalance we evaluate performance\nusing AUC ROC and AUC PRC. More details can\nbe found in Appendix A."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        654.5,
+        419.6,
+        665.4
+      ],
+      "text": "3.2\nFairness Deﬁnition"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        306.9,
+        673.3,
+        527.4,
+        765.6
+      ],
+      "text": "Next, we consider how we can extend a deﬁni-\ntion of fairness to this multimodal task. Following\nwork by Zhang et al. (2020) in the single-modality\nsetting, we examine True Positive and True Nega-\ntive rates on our clinical prediction task between\ndifferent protected groups. Attempting to equal-\nize these rates corresponds to satisfying Equalized"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        237.3,
+        290.3,
+        283.1
+      ],
+      "text": "Figure 2: Percentage of positive train cases for each of\nthe 25 phenotyping tasks. The critical care conditions\ncorresponding to the task codes can be found in Table\n3 of the Appendix"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        71.6,
+        313.5,
+        292.1,
+        473.7
+      ],
+      "text": "Odds. EO satisﬁes many desiderata within clini-\ncal settings, and has been used in previous clini-\ncal fairness work (Pfohl et al., 2019a; Garb, 1997;\nPfohl et al., 2019b). While EO does not explic-\nitly incorporate the multimodality of our data, it\naccurately emphasizes the importance of the down-\nstream clinical prediction task on the protected\ngroups. Nonetheless, we acknowledge that EO\nalone is insufﬁcient for practical deployment; na¨ıve\napplication can result in unacceptable performance\nlosses and thus consultations with physicians and\nstakeholders must be held (Rajkomar et al., 2018)."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        497.0,
+        195.6,
+        507.9
+      ],
+      "text": "3.3\nClassiﬁcation Models"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        71.5,
+        521.3,
+        290.3,
+        532.3
+      ],
+      "text": "We provide brief descriptions below with details"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        534.9,
+        180.6,
+        545.8
+      ],
+      "text": "available in Appendix B."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        85.0,
+        571.1,
+        292.1,
+        622.7
+      ],
+      "text": "• Structured Data Model: Following Haru-\ntyunyan et al. (2019), we use a channel-wise\nbidirectional Long Short Term Memory net-\nwork (bi-LSTM)."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        85.0,
+        635.7,
+        292.1,
+        714.5
+      ],
+      "text": "• Unstructured Textual Data: We use a CNN\nencoder to extract the semantic features from\nclinical notes. Importantly, we experiment\nwith training word embeddings from scratch\nand utilizing pre-trained BioWordVec embed-\ndings (Zhang et al., 2019)."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        85.0,
+        727.5,
+        290.3,
+        765.6
+      ],
+      "text": "• Ensemble: We perform logistic regression on\nthe output binary classiﬁcation probabilities\nfrom the previous models."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        330.9,
+        64.4,
+        370.5,
+        75.3
+      ],
+      "text": "Sensitive"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        336.7,
+        78.0,
+        364.6,
+        88.9
+      ],
+      "text": "Group"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        391.5,
+        64.4,
+        418.2,
+        88.9
+      ],
+      "text": "Train\nCount"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        430.4,
+        64.4,
+        510.7,
+        88.9
+      ],
+      "text": "Test\nCount\n% of Test"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        322.1,
+        91.9,
+        505.4,
+        266.2
+      ],
+      "text": "F\n7940\n1415\n44.0 %\nM\n9708\n1778\n56.0 %\nASIAN\n408\n60\n1.9 %\nBLACK\n1658\n285\n8.9 %\nHISPANIC\n521\n107\n3.3 %\nOTHER\n2655\n459\n14.4 %\nWHITE\n12406\n2282\n71.5 %\nGovernment\n356\n74\n2.3 %\nMedicaid\n1362\n205\n6.4 %\nMedicare\n9857\n1757\n55.0 %\nPrivate\n4946\n932\n29.2 %\nSelf Pay\n133\n33\n1.0 %\nUNKNOWN\n994\n192\n6.1 %"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        307.0,
+        278.8,
+        525.5,
+        300.7
+      ],
+      "text": "Table 1: Distribution of sensitive-attributes over train\nand test data for the In-Hospital Mortality task"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        323.4,
+        400.1,
+        335.3
+      ],
+      "text": "4\nFairness Setup"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        345.0,
+        407.5,
+        355.9
+      ],
+      "text": "4.1\nSensitive groups"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        362.5,
+        527.4,
+        522.6
+      ],
+      "text": "Recall that EO explicitly ensures fairness with re-\nspect to sensitive groups while debiasing implic-\nitly depends upon it. Leveraging the demographic\ndata in MIMIC-III, we consider ethnicity (divided\ninto Asian, Black, Hispanic, White and other), bi-\nological sex (divided into male and female), and\ninsurance type (divided into government, medicare,\nmedicaid, self-pay, private, and unknown). With\nthe exception of biological sex, the sensitive groups\nare highly imbalanced (see Table 1). Note that\ninsurance-type has been shown to be a proxy for\nsocioeconomic status (SES) (Chen et al., 2019)."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        533.9,
+        481.7,
+        544.8
+      ],
+      "text": "4.2\nEqualized Odds Post-Processing"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        306.8,
+        551.4,
+        527.4,
+        562.4
+      ],
+      "text": "We apply our equalized-odds post processing al-"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        564.9,
+        527.4,
+        765.6
+      ],
+      "text": "gorithm on the predictions of the trained single-\nmodality classiﬁers (physiological signal LSTM\nmodel as well as text-only CNN model) as well\nas the trained ensemble classiﬁer. Note that we\napply EO postprocessing only once for each exper-\niment: either on the outputs of the single-modality\nmodel, or on the ensemble predictions. The fair-\nness approaches are mutually exclusive: we do not\nconsider applying EO postprocessing together with\ndebiased word embeddings. We consider using\nboth soft prediction scores (interpretable as prob-\nabilities) as well as thresholded hard predictions\nas input to the post-processing algorithm. These\nchoices impact the fairness performance trade-off\nas discussed further in Section 5."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        65.4,
+        246.3,
+        89.9
+      ],
+      "text": "4.3\nSocially Debiased Clinical Word\nEmbeddings"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        71.5,
+        98.5,
+        290.7,
+        109.3
+      ],
+      "text": "While clinically pre-trained word embeddings may"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        71.7,
+        111.9,
+        292.1,
+        244.8
+      ],
+      "text": "improve downstream task performance, they are\nnot immune from societal bias (Khattak et al.,\n2019). We socially debias these clinical word em-\nbeddings following Manzini et al. (2019). We man-\nually select sets of social-speciﬁc words (see Ap-\npendix C) to identify the fairness-relevant social\nbias subspace. Formally, having identiﬁed the basis\nvectors {b1, b2, ..., bn} of the social bias subspace\nB, we can ﬁnd the projection wB of a word embed-\nding w:"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        140.2,
+        258.0,
+        165.7,
+        270.6
+      ],
+      "text": "wB ="
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        168.8,
+        246.6,
+        184.5,
+        266.4
+      ],
+      "text": "n\nX"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        169.8,
+        273.3,
+        183.5,
+        281.3
+      ],
+      "text": "i=1"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        184.5,
+        257.8,
+        221.6,
+        269.9
+      ],
+      "text": "⟨w, bi⟩bi"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        291.5,
+        292.1,
+        356.6
+      ],
+      "text": "Next we apply hard debiasing, which will re-\nmove bias from existing word embeddings by sub-\ntracting wB, their component in this fairness sub-\nspace. This yields w′, our socially debiased word\nembedding:"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        143.5,
+        381.0,
+        217.6,
+        407.9
+      ],
+      "text": "w′ =\nw −wB\n∥w −wB∥"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        422.1,
+        292.1,
+        500.8
+      ],
+      "text": "We consider debiasing with respect to race and\ngender. The race debiased embeddings are re-used\nfor insurance tasks as empiric research has indi-\ncated that the use of proxy groups in fairness can\nbe effective (Gupta et al., 2018) and SES is strongly\nrelated to race (Williams et al., 2016)."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        516.0,
+        195.6,
+        527.9
+      ],
+      "text": "5\nResults and Analysis"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        149.4,
+        551.1,
+        260.2,
+        569.1
+      ],
+      "text": "IHM\nPhenotyping\nAUC"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        150.1,
+        571.1,
+        165.3,
+        579.2
+      ],
+      "text": "PRC"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        176.4,
+        561.1,
+        192.9,
+        579.2
+      ],
+      "text": "AUC\nROC"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        202.5,
+        561.1,
+        235.4,
+        579.2
+      ],
+      "text": "Macro\nAUCROC"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        79.0,
+        561.1,
+        277.0,
+        589.2
+      ],
+      "text": "Overall\nAUCROC\nHarutyunyan et. al"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        81.3,
+        586.1,
+        269.7,
+        599.2
+      ],
+      "text": "(2019) – No Text\n0.515\n0.862\n0.776\n0.825"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        78.4,
+        601.1,
+        262.6,
+        619.2
+      ],
+      "text": "Khadanga et. al\n(2019) – Ensemble\n0.525\n0.865\n–\n–"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        81.1,
+        621.1,
+        269.7,
+        639.2
+      ],
+      "text": "Ours – Text Only\n0.472\n0.815\n0.766\n0.829\nOurs – Text Only"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        85.1,
+        636.2,
+        269.7,
+        649.2
+      ],
+      "text": "+ BioWordVec\n0.489\n0.841\n0.771\n0.837"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        81.3,
+        651.1,
+        269.7,
+        669.3
+      ],
+      "text": "Ours – Ensemble\n0.582\n0.880\n0.822\n0.861\nOurs – Ensemble"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        85.1,
+        666.1,
+        269.7,
+        679.3
+      ],
+      "text": "+ BioWordVec\n0.582\n0.886\n0.829\n0.870"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        71.6,
+        691.1,
+        292.0,
+        748.9
+      ],
+      "text": "Table 2:\nLeveraging clinical pretrained word em-\nbeddings improves performance compared to training\nword embeddings from scratch in the text-only model.\nEnsembling the text-only model with the clinical time\nseries classiﬁer improves performance further."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        65.4,
+        508.4,
+        103.4
+      ],
+      "text": "5.1\nEnsembling clinical word embeddings\nwith structured data improves\nperformance"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        306.9,
+        111.0,
+        527.4,
+        298.1
+      ],
+      "text": "Empirically, we observe superior performance to\nprior literature on a suite of clinical prediction tasks\nin Table 2; more tasks are evaluated in Appendix\nTable A. Full hyperparameter settings and code for\nreproducibility can be found here 1. The ensem-\nble model outperforms both constituent classiﬁers\n(AUC plot on Figure 3). This holds even when fair-\nness/debiasing techniques are applied, emphasizing\nthe overall effectiveness of leveraging multi-modal\ndata. However, the ensemble’s improvements in\nperformance do not directly translate to improve-\nments in fairness; see the True Positive (TP) graph\nin Figure 3, where the maximum TP gap remains\nconsistent under the ensemble."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        311.1,
+        497.2,
+        335.6
+      ],
+      "text": "5.2\nDebiased word embeddings and the\nfairness performance trade-off"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        306.9,
+        343.2,
+        527.5,
+        516.7
+      ],
+      "text": "Improving fairness usually comes at the cost of re-\nduced performance (Menon and Williamson, 2018).\nIndeed, across all tasks, fairness groups and classi-\nﬁers, we observe the group-speciﬁc disparities of\nTP and TN rates generally diminish when equalized\nodds post-processing is used (see Appendix F for\nadditional results). However, this post-processing\nalso leads to a degradation in the AUC. Note that\nwe apply EO-post processing on hard (thresholded)\npredictions of the classiﬁers. If instead soft predic-\ntion scores are used as inputs to the post-processing\nstep, both the performance degradation and the fair-\nness improvement are softened (Hardt et al., 2016)."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        306.9,
+        519.8,
+        527.4,
+        693.4
+      ],
+      "text": "Generally, word embedding debiasing (WED)\nalso helps reduce TP/TN discrepancies, although\nnot to the same extent as EO postprocessing. Re-\nmarkably, in certain tasks, WED also yields a\nperformance improvement, even compared to the\nfairness-free, unconstrained ensemble classiﬁer. In\nparticular, for the AUC graph in Figure 3, leverag-\ning debiased word embeddings improves the per-\nformance of the ensemble; at the same time, the\nTP and TN group discrepancy ranges are improved.\nHowever, we stress that this outcome was not con-\nsistently observed and further investigation is war-\nranted."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        696.4,
+        527.4,
+        734.5
+      ],
+      "text": "We emphasize that EO and WED serve differ-\nent purposes with different motivations. While\nEO explicitly seeks to minimize the TP/TN range"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 4,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        744.7,
+        484.8,
+        764.7
+      ],
+      "text": "1https://github.com/johntiger1/\nmultimodal_fairness/clinicalnlp"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 5,
+      "section": "Abstract",
+      "bbox": [
+        71.7,
+        239.9,
+        526.8,
+        333.5
+      ],
+      "text": "Figure 3: Plots of TP Rate, TN Rate, and AUC on phenotyping task M for groups deﬁned by sensitive attribute of\nrace. Each vertical black line represents a classiﬁer (line style indicating modality); the length of the line represents\nthe range of scores over fairness groups. In the TP/TN graphs, a shorter line represents better fairness; there is\nless discrepancy between the maximum and minimum group-speciﬁc TP/TN rates. In the AUC graph (far right),\nthe higher the vertical position of the line, the better the performance. EO is effective at reducing the spread in\nTP/TN rates for the ensemble classiﬁer (ﬁrst two graphs) at the cost of performance (far right) graph. Meanwhile,\ndebiased word embeddings both improves fairness, reducing the length of the line in the ﬁrst two graphs, while\nachieving superior performance in AUC graph"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 5,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        357.2,
+        292.1,
+        490.2
+      ],
+      "text": "between sensitive groups (reﬂected in its perfor-\nmance on the ﬁrst two plots in Figure 3), WED\nseeks to neutralize text-speciﬁc bias in the word-\nembeddings. Despite the difference in goals, and\ndespite operating only on the text-modality of the\ndataset, WED is still able to reduce the group-\nspeciﬁc TP/TN range; recent work on proxy fair-\nness in text has shown that indirect correlation be-\ntween bias in text and protected attributes may be\nuseful in achieving parity (Romanov et al., 2019)."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 5,
+      "section": "Abstract",
+      "bbox": [
+        71.6,
+        492.9,
+        292.1,
+        612.2
+      ],
+      "text": "Although WED demonstrate some good proper-\nties with respect to both fairness and performance\nfor our speciﬁc dataset and task, we caution that\nthey represent only one approach to fairness in NLP\n(Blodgett et al., 2020). Indeed, WED suffers from\nshortcomings related to intersectional fairness (Go-\nnen and Goldberg, 2019), and we encourage further\ndiscussion into concretely deﬁning fair, real-world\nNLP tasks and developing novel algorithms."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 5,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        614.8,
+        292.1,
+        707.1
+      ],
+      "text": "Our results highlight the important role practi-\ntioners and stakeholders play in algorithmic fair-\nness on clinical applications. The trade-off between\nperformance and fairness, whether between the soft\nand hard labels used for EO, or between EO and de-\nbiased word embeddings, must be balanced based\non numerous real world factors."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 5,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        719.2,
+        143.7,
+        731.2
+      ],
+      "text": "6\nDiscussion"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 5,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        741.1,
+        292.1,
+        765.6
+      ],
+      "text": "In this paper, we propose a novel multimodal fair-\nness task for the MIMIC-III dataset, based on equal-"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 5,
+      "section": "Abstract",
+      "bbox": [
+        306.9,
+        357.2,
+        527.5,
+        571.5
+      ],
+      "text": "ized odds. We provide two baselines: a classiﬁer-\nagnostic fairness algorithm (equalized odds post-\nprocessing) and a text-speciﬁc fairness algorithm\n(debiased word embeddings).\nWe observe that\nboth methods generally follow the fairness per-\nformance tradeoff seen in single-modality tasks.\nEO is more effective at reducing the disparities in\ngroup-speciﬁc error rates while word-embedding\ndebiasing has better performance. Future work\ncan consider more generalized notions of fairness\nsuch as preferences-based frameworks, or extend\ntext-speciﬁc fairness to contextualized word em-\nbeddings (Hossain et al., 2020; Zhang et al., 2020).\nFurther analysis of the fairness performance trade-\noff, especially in multimodal settings, will facilitate\nequitable decision making in the clinical domain."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 5,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        583.7,
+        424.0,
+        595.6
+      ],
+      "text": "7\nAcknowledgements"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 5,
+      "section": "Abstract",
+      "bbox": [
+        306.8,
+        605.6,
+        525.5,
+        616.6
+      ],
+      "text": "We would like to acknowledge Vector Institute"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 5,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        619.1,
+        527.4,
+        752.1
+      ],
+      "text": "for ofﬁce and compute resources. We would also\nlike to thank Matt Gardner for his help with an-\nswering questions when using AllenNLP (Gard-\nner et al., 2017). John Chen and Safwan Hos-\nsain are funded by an Ontario Graduate Scholar-\nship and a Vector Institute Research Grant. Ian\nBerlot-Attwell is funded by a Canada Graduate\nScholarships-Master’s, and a Vector Institute Re-\nsearch Grant. Frank Rudzicz is supported by a\nCIFAR Chair in AI."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        64.6,
+        127.5,
+        76.5
+      ],
+      "text": "References"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        84.0,
+        291.5,
+        94.0
+      ],
+      "text": "Oguz Akbilgic, Ramin Homayouni, Kevin Heinrich,"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        82.9,
+        95.0,
+        292.0,
+        148.8
+      ],
+      "text": "Max Raymond Langham, and Robert Lowell Davis.\n2019. Unstructured text in EMR improves predic-\ntion of death after surgery in children. In Informat-\nics, volume 6, page 4. Multidisciplinary Digital Pub-\nlishing Institute."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        159.0,
+        290.3,
+        169.0
+      ],
+      "text": "Su Lin Blodgett, Solon Barocas, Hal Daum´e III, and"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        82.9,
+        170.0,
+        290.3,
+        201.9
+      ],
+      "text": "Hanna Wallach. 2020.\nLanguage (technology) is\npower: A critical survey of” bias” in nlp.\narXiv\npreprint arXiv:2005.14050."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        212.1,
+        292.0,
+        265.9
+      ],
+      "text": "Tolga\nBolukbasi,\nKai-Wei\nChang,\nJames\nZou,\nVenkatesh Saligrama, and Adam Tauman Kalai.\n2016. Man is to computer programmer as woman\nis to homemaker? Debiasing word embeddings. In\nNIPS."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        276.1,
+        290.3,
+        286.1
+      ],
+      "text": "I. Y. Chen, P. Szolovits, and M. Ghassemi. 2019. Can"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        82.6,
+        287.1,
+        291.6,
+        308.0
+      ],
+      "text": "AI Help Reduce Disparities in General Medical and\nMental Health Care? AMA J Ethics, 21(2):167–179."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        318.2,
+        292.0,
+        328.2
+      ],
+      "text": "Irene Chen, Fredrik D Johansson, and David Sontag."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        82.9,
+        329.0,
+        291.9,
+        361.1
+      ],
+      "text": "2018. Why is my classiﬁer discriminatory? In Ad-\nvances in Neural Information Processing Systems,\npages 3539–3550."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        371.3,
+        291.9,
+        381.2
+      ],
+      "text": "AJ Culyer and A Wagstaff. 1993. Equity and equal-"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        82.9,
+        382.1,
+        291.9,
+        403.2
+      ],
+      "text": "ity in health and health care. Journal of health eco-\nnomics, 12(4):431–457."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        413.4,
+        291.5,
+        423.3
+      ],
+      "text": "Howard N. Garb. 1997. Race bias, social class bias,"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        82.9,
+        424.2,
+        291.9,
+        445.3
+      ],
+      "text": "and gender bias in clinical judgment. Clinical Psy-\nchology: Science and Practice, 4(2):99–120."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        455.5,
+        290.3,
+        465.5
+      ],
+      "text": "Matt Gardner, Joel Grus, Mark Neumann, Oyvind"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        82.6,
+        466.4,
+        292.0,
+        509.3
+      ],
+      "text": "Tafjord, Pradeep Dasigi, Nelson F. Liu, Matthew\nPeters, Michael Schmitz, and Luke S. Zettlemoyer.\n2017. Allennlp: A deep semantic natural language\nprocessing platform."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        519.5,
+        290.3,
+        529.5
+      ],
+      "text": "Hila Gonen and Yoav Goldberg. 2019. Lipstick on a"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        82.3,
+        530.5,
+        292.0,
+        573.1
+      ],
+      "text": "pig: Debiasing methods cover up systematic gender\nbiases in word embeddings but do not remove them.\nIn Proceedings of the 2019 Conference of the North\nAmerican Chapter of the Association for Computa-"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        82.3,
+        574.1,
+        292.0,
+        595.2
+      ],
+      "text": "tional Linguistics: Human Language Technologies,\nVolume 1 (Long and Short Papers), pages 609–614."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        605.4,
+        291.5,
+        615.4
+      ],
+      "text": "Maya R. Gupta, Andrew Cotter, Mahdi Milani Fard,"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        82.9,
+        616.2,
+        291.5,
+        637.3
+      ],
+      "text": "and Serena Wang. 2018.\nProxy fairness.\nCoRR,\nabs/1806.11212."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        647.6,
+        292.0,
+        657.5
+      ],
+      "text": "Moritz Hardt, Eric Price, Eric Price, and Nati Srebro."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        82.9,
+        658.5,
+        291.9,
+        712.3
+      ],
+      "text": "2016. Equality of opportunity in supervised learn-\ning.\nIn D. D. Lee, M. Sugiyama, U. V. Luxburg,\nI. Guyon, and R. Garnett, editors, Advances in Neu-\nral Information Processing Systems 29, pages 3315–\n3323. Curran Associates, Inc."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        722.5,
+        291.5,
+        732.5
+      ],
+      "text": "Hrayr Harutyunyan, Hrant Khachatrian, David C. Kale,"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        82.9,
+        733.5,
+        291.9,
+        765.4
+      ],
+      "text": "Greg Ver Steeg, and Aram Galstyan. 2019. Multi-\ntask learning and benchmarking with clinical time\nseries data. Scientiﬁc Data, 6(1):96."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        66.2,
+        525.5,
+        76.2
+      ],
+      "text": "Steven Horng, David A Sontag, Yoni Halpern, Yacine"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        318.0,
+        77.2,
+        527.3,
+        120.0
+      ],
+      "text": "Jernite, Nathan I Shapiro, and Larry A Nathanson.\n2017. Creating an automated trigger for sepsis clini-\ncal decision support at emergency department triage\nusing machine learning. PloS one, 12(4)."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        133.0,
+        525.5,
+        143.0
+      ],
+      "text": "Safwan Hossain, Andjela Mladenovic, and Nisarg"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        317.9,
+        144.0,
+        527.2,
+        175.9
+      ],
+      "text": "Shah. 2020. Designing fairly fair classiﬁers via eco-\nnomic fairness notions. In Proceedings of The Web\nConference 2020, pages 1559–1569."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        188.9,
+        525.5,
+        198.9
+      ],
+      "text": "Alistair Johnson, Tom Pollard, Lu Shen, Li-wei"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        318.2,
+        199.9,
+        526.8,
+        242.7
+      ],
+      "text": "Lehman, Mengling Feng, Mohammad Ghassemi,\nBenjamin Moody, Peter Szolovits, Leo Celi, and\nRoger Mark. 2016. MIMIC-III, a freely accessible\ncritical care database. Scientiﬁc Data, 3:160035."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        255.8,
+        525.5,
+        265.7
+      ],
+      "text": "Swaraj Khadanga, Karan Aggarwal, Shaﬁq Joty, and"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        318.0,
+        266.7,
+        525.5,
+        298.6
+      ],
+      "text": "Jaideep Srivastava. 2019. Using clinical notes with\ntime series data for icu management. arXiv preprint\narXiv:1909.09702."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        311.6,
+        526.8,
+        321.6
+      ],
+      "text": "Faiza Khan Khattak, Serena Jeblee, Chlo´e Pou-Prom,"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        318.2,
+        322.6,
+        526.8,
+        365.4
+      ],
+      "text": "Mohamed Abdalla, Christopher Meaney, and Frank\nRudzicz. 2019. A survey of word embeddings for\nclinical text. Journal of Biomedical Informatics: X,\npage 100057."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        378.5,
+        527.2,
+        410.4
+      ],
+      "text": "Yoon\nKim.\n2014.\nConvolutional\nneural\nnet-\nworks for sentence classiﬁcation.\narXiv preprint\narXiv:1408.5882."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        423.4,
+        526.8,
+        433.4
+      ],
+      "text": "Paul Pu Liang, Irene Mengze Li, Emily Zheng,"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        317.6,
+        434.4,
+        527.2,
+        477.2
+      ],
+      "text": "Yao\nChong\nLim,\nRuslan\nSalakhutdinov,\nand\nLouis-Philippe Morency. 2020.\nTowards debi-\nasing sentence representations.\narXiv preprint\narXiv:2007.08100."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        490.2,
+        526.8,
+        500.2
+      ],
+      "text": "Thomas Manzini, Lim Yao Chong, Alan W Black,"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        317.5,
+        501.2,
+        527.2,
+        576.9
+      ],
+      "text": "and Yulia Tsvetkov. 2019.\nBlack is to criminal\nas caucasian is to police: Detecting and removing\nmulticlass bias in word embeddings.\nIn Proceed-\nings of the 2019 Conference of the North American\nChapter of the Association for Computational Lin-\nguistics: Human Language Technologies, Volume 1\n(Long and Short Papers), pages 615–621, Minneapo-"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        318.2,
+        577.9,
+        527.2,
+        598.8
+      ],
+      "text": "lis, Minnesota. Association for Computational Lin-\nguistics."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        611.9,
+        527.3,
+        621.8
+      ],
+      "text": "Aditya Krishna Menon and Robert C Williamson. 2018."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        317.9,
+        622.6,
+        527.2,
+        676.6
+      ],
+      "text": "The cost of fairness in binary classiﬁcation. In Pro-\nceedings of the 1st Conference on Fairness, Account-\nability and Transparency, volume 81 of Proceed-\nings of Machine Learning Research, pages 107–118,\nNew York, NY, USA. PMLR."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        689.7,
+        526.8,
+        699.6
+      ],
+      "text": "F. Pedregosa, G. Varoquaux, A. Gramfort, V. Michel,"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 6,
+      "section": "Abstract",
+      "bbox": [
+        317.4,
+        700.6,
+        527.2,
+        765.4
+      ],
+      "text": "B. Thirion, O. Grisel, M. Blondel, P. Prettenhofer,\nR. Weiss, V. Dubourg, J. Vanderplas, A. Passos,\nD. Cournapeau, M. Brucher, M. Perrot, and E. Duch-\nesnay. 2011.\nScikit-learn:\nMachine learning in\nPython.\nJournal of Machine Learning Research,\n12:2825–2830."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        66.2,
+        290.3,
+        76.2
+      ],
+      "text": "Stephen Pfohl, Ben Maraﬁno, Adrien Coulet, Fatima"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        82.3,
+        77.2,
+        292.0,
+        141.9
+      ],
+      "text": "Rodriguez, Latha Palaniappan, and Nigam H. Shah.\n2019a. Creating fair models of atherosclerotic car-\ndiovascular disease risk. In Proceedings of the 2019\nAAAI/ACM Conference on AI, Ethics, and Society,\nAIES ’19, page 271–278, New York, NY, USA. As-\nsociation for Computing Machinery."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        155.1,
+        290.3,
+        165.1
+      ],
+      "text": "Stephen R. Pfohl, Tony Duan, Daisy Yi Ding, and"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        82.9,
+        166.1,
+        292.0,
+        230.8
+      ],
+      "text": "Nigam H. Shah. 2019b. Counterfactual reasoning\nfor fair clinical risk prediction. In Proceedings of\nthe 4th Machine Learning for Healthcare Confer-\nence, volume 106 of Proceedings of Machine Learn-\ning Research, pages 325–358, Ann Arbor, Michigan.\nPMLR."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        244.0,
+        291.5,
+        254.0
+      ],
+      "text": "Alvin Rajkomar, Michaela Hardt, Michael D. Howell,"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        82.9,
+        254.9,
+        291.9,
+        297.8
+      ],
+      "text": "Greg Corrado, and Marshall H. Chin. 2018. Ensur-\ning fairness in machine learning to advance health\nequity. Annals of Internal Medicine, 169(12):866–\n872."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        311.0,
+        290.3,
+        320.9
+      ],
+      "text": "Shauli Ravfogel, Yanai Elazar, Hila Gonen, Michael"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        82.6,
+        321.9,
+        291.7,
+        353.8
+      ],
+      "text": "Twiton, and Yoav Goldberg. 2020.\nNull it out:\nGuarding protected attributes by iterative nullspace\nprojection. arXiv preprint arXiv:2004.07667."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        367.0,
+        291.9,
+        376.9
+      ],
+      "text": "Alexey Romanov, Maria De-Arteaga, Hanna Wal-"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        82.4,
+        377.9,
+        292.0,
+        475.6
+      ],
+      "text": "lach, Jennifer Chayes, Christian Borgs, Alexan-\ndra Chouldechova, Sahin Geyik, Krishnaram Ken-\nthapadi, Anna Rumshisky, and Adam Kalai. 2019.\nWhat’s in a name? reducing bias in bios without ac-\ncess to protected attributes. In Proceedings of the\n2019 Conference of the North American Chapter of\nthe Association for Computational Linguistics: Hu-\nman Language Technologies, Volume 1 (Long and\nShort Papers), pages 4187–4195."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        488.7,
+        291.9,
+        498.7
+      ],
+      "text": "David R. Williams, Naomi Priest, and Norman B. An-"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        82.3,
+        499.7,
+        292.0,
+        564.5
+      ],
+      "text": "derson. 2016.\nUnderstanding associations among\nrace, socioeconomic status, and health:\nPatterns\nand prospects.\nHealth psychology :\nofﬁcial\njournal of the Division of Health Psychology,\nAmerican Psychological Association, 35(4):407–\n411. 27018733[pmid]."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        577.6,
+        292.0,
+        631.3
+      ],
+      "text": "Haoran Zhang,\nAmy X. Lu,\nMohamed Abdalla,\nMatthew McDermott, and Marzyeh Ghassemi. 2020.\nHurtful words: Quantifying biases in clinical con-\ntextual word embeddings.\nIn Proceedings of the\nACM Conference on Health, Inference, and Learn-"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        82.6,
+        632.2,
+        292.0,
+        653.3
+      ],
+      "text": "ing, CHIL ’20, page 110–120, New York, NY, USA.\nAssociation for Computing Machinery."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        666.5,
+        291.9,
+        676.5
+      ],
+      "text": "Ye Zhang and Byron Wallace. 2015. A sensitivity anal-"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        82.7,
+        677.5,
+        290.3,
+        709.4
+      ],
+      "text": "ysis of (and practitioners’ guide to) convolutional\nneural networks for sentence classiﬁcation.\narXiv\npreprint arXiv:1510.03820."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        722.5,
+        291.5,
+        732.5
+      ],
+      "text": "Yijia Zhang, Qingyu Chen, Zhihao Yang, Hongfei Lin,"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        82.9,
+        733.5,
+        291.9,
+        765.4
+      ],
+      "text": "and Zhiyong Lu. 2019.\nBiowordvec, improving\nbiomedical word embeddings with subword infor-\nmation and mesh. Scientiﬁc data, 6(1):1–9."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        66.2,
+        527.2,
+        76.2
+      ],
+      "text": "Jieyu Zhao, Yichao Zhou, Zeyu Li, Wei Wang, and Kai-"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 7,
+      "section": "Abstract",
+      "bbox": [
+        317.7,
+        77.2,
+        527.2,
+        131.0
+      ],
+      "text": "Wei Chang. 2018.\nLearning gender-neutral word\nembeddings. In Proceedings of the 2018 Conference\non Empirical Methods in Natural Language Process-\ning, pages 4847–4853, Brussels, Belgium. Associa-\ntion for Computational Linguistics."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        64.6,
+        273.9,
+        76.5
+      ],
+      "text": "A\nDetails on Clinical Prediction Tasks"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        92.7,
+        269.6,
+        117.2
+      ],
+      "text": "A.1\nDeﬁning the Multimodal MIMIC-III\nBenchmark Prediction Tasks"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        71.6,
+        129.0,
+        292.1,
+        438.0
+      ],
+      "text": "Existing work by (Harutyunyan et al., 2019) previ-\nously deﬁned four benchmark clinical prediction\ntasks on ICU stays information from the large\nMIMIC-III database.\nThey produce a derived\ndataset, focusing on 17 timeseries clinical features,\nwithout text. The goal is predict the task speciﬁc\noutcome (mortality, phenotyping, decompensation,\nlength-of-stay) for the given ICU stay. We utilize\ntheir derived dataset directly, which provides train-\ning and test examples for all four tasks, but join\nthe derived dataset back with the original to obtain\nlinked clinical text. We make the key choice that\nwe drop examples without relevant (i.e. no causal\nleakage) extracted clinical notes, as in (Khadanga\net al., 2019). Thus, we concretely deﬁne the Com-\nbined Modality MIMIC-III Benchmark Prediction\nTask as extending the benchmark clinical predic-\ntion task by (Harutyunyan et al., 2019) to include\nlinked clinical text. If there are no notes associated\nwith an example, then we remove this instance from\nthe task. Note that we also drop ICU stays which\nonly have unusable notes due to causal leakage; for\ninstance death reports for mortality prediction."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        458.4,
+        170.8,
+        469.3
+      ],
+      "text": "A.2\nNote extraction"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        71.6,
+        481.2,
+        292.1,
+        654.6
+      ],
+      "text": "To extract relevant notes, we build a mapping from\nthe derived dataset provided by (Harutyunyan et al.,\n2019) and the MIMIC-III database. For each train-\ning and test instance in each task, we ﬁnd the clini-\ncal notes in the MIMIC-III database. For the IHM\ntask, if we do not ﬁnd any notes within the ﬁrst\n48 hours of their stay, we drop the patient, since\nthere is no relevant textual information. Note that\nthis is consistent with the original task formulation\nby (Harutyunyan et al., 2019) of in-hospital mor-\ntality prediction using at most the ﬁrst 48 hours of\nclinical data. Furthermore, this follows (Khadanga\net al., 2019)."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        659.8,
+        292.2,
+        765.6
+      ],
+      "text": "For the phenotyping task, which is not covered\nby (Khadanga et al., 2019), we relax this time con-\ndition. In the original formulation of the task, phe-\nnotyping is a retrospective multilabel multiclass\nclassiﬁcation task, meaning that all vital signs data\nassociated with the ICU stay is provided and can\nbe used by the model. Therefore, we only drop the\npatient if there are no notes for the entire ICU stay."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        65.4,
+        399.3,
+        76.3
+      ],
+      "text": "A.3\nPreprocessing"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        306.8,
+        83.0,
+        525.5,
+        94.0
+      ],
+      "text": "We use the same preprocessing as in (Khadanga"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        96.6,
+        525.7,
+        121.1
+      ],
+      "text": "et al., 2019), ﬁnding it to be mildly beneﬁcial for\nperformance."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        132.7,
+        410.3,
+        143.6
+      ],
+      "text": "A.4\nCohort statistics"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        307.0,
+        150.1,
+        527.4,
+        229.0
+      ],
+      "text": "In the medical literature, cohort selection is the\nprocess of selecting the population of patients for\ninclusion in a study. These patients will then pro-\nvide the training instances for the clinical predic-\ntion task. We report the cohort statistics for our\nbinary clinical prediction multimodal tasks."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        239.2,
+        443.3,
+        265.8
+      ],
+      "text": "A.4.1\nIn-Hospital Mortality\nSensitive"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        327.9,
+        268.5,
+        355.8,
+        279.4
+      ],
+      "text": "Group"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        382.7,
+        254.9,
+        409.4,
+        279.4
+      ],
+      "text": "Train\nCount"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        421.6,
+        254.9,
+        501.9,
+        279.4
+      ],
+      "text": "Test\nCount\n% of Test"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        313.3,
+        282.4,
+        496.5,
+        456.7
+      ],
+      "text": "F\n7940\n1415\n44.0 %\nM\n9708\n1778\n56.0 %\nASIAN\n408\n60\n1.9 %\nBLACK\n1658\n285\n8.9 %\nHISPANIC\n521\n107\n3.3 %\nOTHER\n2655\n459\n14.4 %\nWHITE\n12406\n2282\n71.5 %\nGovernment\n356\n74\n2.3 %\nMedicaid\n1362\n205\n6.4 %\nMedicare\n9857\n1757\n55.0 %\nPrivate\n4946\n932\n29.2 %\nSelf Pay\n133\n33\n1.0 %\nUNKNOWN\n994\n192\n6.1 %"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        466.3,
+        401.2,
+        492.9
+      ],
+      "text": "A.4.2\nPhenotyping\nSensitive"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        327.9,
+        495.6,
+        355.8,
+        506.5
+      ],
+      "text": "Group"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        382.7,
+        482.0,
+        409.4,
+        506.5
+      ],
+      "text": "Train\nCount"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        421.6,
+        482.0,
+        501.9,
+        506.5
+      ],
+      "text": "Test\nCount\n% of Test"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        313.3,
+        509.5,
+        496.5,
+        683.8
+      ],
+      "text": "F\n15638\n2750\n44%\nM\n19803\n3504\n56%\nASIAN\n826\n133\n2.1 %\nBLACK\n3378\n575\n9.1 %\nHISPANIC\n1158\n206\n3.3 %\nOTHER\n5004\n854\n13.7 %\nWHITE\n25075\n4486\n71.7 %\nGovernment\n845\n150\n2.4 %\nMedicaid\n2850\n433\n6.9 %\nMedicare\n18702\n3298\n52.7 %\nPrivate\n10784\n1923\n30.7 %\nSelf Pay\n380\n73\n1.2 %\nUNKNOWN\n1880\n377\n6.0 %"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        694.8,
+        400.8,
+        705.8
+      ],
+      "text": "A.5\nTask Statistics"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 8,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        712.4,
+        495.4,
+        766.6
+      ],
+      "text": "A.5.1\nIn-Hospital Mortality\nLabel\nTrain Set Count\nTest Set Count\n0\n15337\n2829\n1\n2311\n364"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        71.7,
+        65.4,
+        292.1,
+        146.6
+      ],
+      "text": "A.5.2\nPhenotyping\nPlots of the prevalance of the 25 critical care con-\nditions can be found in Figures 4 and 2 for the test\nand train sets respectively, a legend that doubles\nas the full list of phenotyping tasks is available in\nTable 3."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        329.8,
+        290.3,
+        351.7
+      ],
+      "text": "Figure 4: Percentage of positive test cases for each of\nthe 25 phenotyping tasks"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        378.2,
+        162.7,
+        390.1
+      ],
+      "text": "B\nModel Details"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        399.5,
+        206.6,
+        410.4
+      ],
+      "text": "B.1\nStructured Data Model"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        71.5,
+        417.0,
+        290.3,
+        428.0
+      ],
+      "text": "We use the baseline developed by Harutyunyan"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        71.6,
+        430.7,
+        292.1,
+        536.4
+      ],
+      "text": "et al. (2019). The structured data model takes as in-\nput a time-series of 17 clinical variables, which\nare extracted features for the benchmark tasks\nintroduced in the same paper.\nThe model is a\nchannel-wise LSTM where each clinical variable is\ntranscoded by a bidirectional LSTM, concatenated\nwith the other transcoded sequences and passed to\na ﬁnal LSTM for prediction."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        547.4,
+        218.8,
+        558.3
+      ],
+      "text": "B.2\nUnstructured Data Model"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        71.5,
+        565.1,
+        291.6,
+        575.9
+      ],
+      "text": "We implement a simple CNN-based encoder (Kim,"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        71.6,
+        578.5,
+        292.1,
+        684.3
+      ],
+      "text": "2014; Zhang and Wallace, 2015) to process the\nclinical notes and produce a task-speciﬁc predic-\ntion. We experiment with various settings including\nmodel architecture, word embedding dimension,\npreprocessing, varying the maximum number of\ntokens, L2 regularization and batch size. Below,\nwe report the ﬁnal hyperparameters and settings\nused to generate all plots and reported throughout."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        686.9,
+        292.1,
+        765.6
+      ],
+      "text": "Our CNNEncoder is built using the AllenNLP\nframework (Gardner et al., 2017). We use 1D ker-\nnel (n-gram) ﬁlter sizes of 2, 3 and 5, learning\n5 ﬁlters for each ﬁlter size. Convolution is done\non word embedding representations of the input,\nacross n-gram windows of the sequence, and are"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        324.8,
+        159.9,
+        509.2,
+        631.8
+      ],
+      "text": "Code\nTask\nA\nAcute and unspeciﬁed renal fail-\nure\nB\nAcute cerebrovascular disease\nC\nAcute myocardial infarction\nD\nCardiac dysrhythmias\nE\nChronic kidney disease\nF\nChronic obstructive pulmonary\ndisease and bronchiectasis\nG\nComplications of surgical proce-\ndures or medical care\nH\nConduction disorders\nI\nCongestive heart failure\nJ\nCoronary atherosclerosis and\nother heart disease\nK\nDiabetes mellitus with complica-\ntions\nL\nDiabetes mellitus without com-\nplication\nM\nDisorders of lipid metabolism\nN\nEssential hypertension\nO\nFluid and electrolyte disorders\nP\nGastrointestinal hemorrhage\nQ\nHypertension with complications\nand secondary hypertension\nR\nnonhypertensive\nS\nOther liver diseases\nT\nOther lower respiratory disease\nU\nOther upper respiratory disease\nV\nPleurisy\nW\nPneumonia (except that caused\nby tuberculosis or sexually trans-\nmitted disease)\nX\npneumothorax\nY\npulmonary collapse"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 9,
+      "section": "Abstract",
+      "bbox": [
+        307.0,
+        644.4,
+        527.2,
+        666.4
+      ],
+      "text": "Table 3: List of critical care conditions in the phenotyp-\ning task, and their corresponding alphabetic codes."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        65.5,
+        292.1,
+        117.1
+      ],
+      "text": "pooled before being combined. The CNNEncoder\nproduces a single ﬁxed size vector, and we use a\nsimple linear layer on top to perform the classiﬁca-\ntion."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        120.0,
+        292.2,
+        266.3
+      ],
+      "text": "For all multimodal tasks, we limit the maximum\nnumber of tokens input to 1536, taking the most\nrecent notes ﬁrst (taking care to avoid causal leak-\nage as described in 3.1), and apply preprocessing\nas in (Khadanga et al., 2019). For the decompen-\nsation task, we subsample the number of training\ninstances due to engineering and efﬁciency reasons.\nFrom 2 million possible training instances, we sam-\nple 50 000 examples, with weighting to balance\nthe number of positive and negatively training in-\nstances in a 50/50 split."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        269.1,
+        292.1,
+        388.5
+      ],
+      "text": "We train for up to 50 epochs, using Adam op-\ntimizer with learning rate set to 0.001. When we\nuse pretrained word embeddings (either debiased\nor not), we do not ﬁnetune or update them. We\ndo not use any L2 regularization or dropout, in-\nstead employing early stopping with patience of 5\nepochs, using validation loss as the stopping crite-\nrion. We use batch size 256. Training is completed\non 1 NVIDIA Titan Xp with 12 GB of memory."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        400.7,
+        176.2,
+        411.6
+      ],
+      "text": "B.3\nEnsemble Model"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        71.5,
+        418.6,
+        290.3,
+        429.7
+      ],
+      "text": "We use scikit-learn (Pedregosa et al., 2011) with"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        432.0,
+        291.4,
+        443.2
+      ],
+      "text": "the default setting of L2 regularization with C = 1"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        455.9,
+        235.5,
+        467.9
+      ],
+      "text": "C\nSets of social-speciﬁc Words"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        478.2,
+        238.0,
+        489.1
+      ],
+      "text": "C.1\nSets of Gender-speciﬁc Words"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        85.0,
+        495.9,
+        154.4,
+        507.2
+      ],
+      "text": "• {”he”, ”she”}"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        85.0,
+        514.3,
+        160.5,
+        525.6
+      ],
+      "text": "• {”his”, ”hers”}"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        85.0,
+        532.7,
+        182.9,
+        544.0
+      ],
+      "text": "• {”son”, ”daughter”}"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        85.0,
+        551.1,
+        185.8,
+        562.4
+      ],
+      "text": "• {”father”, ”mother”}"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        85.0,
+        569.5,
+        180.4,
+        580.8
+      ],
+      "text": "• {”male”, ”female”}"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        85.0,
+        587.9,
+        161.0,
+        599.2
+      ],
+      "text": "• {”boy”, ”girl”}"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        85.0,
+        606.3,
+        172.0,
+        617.6
+      ],
+      "text": "• {”uncle”, ”aunt”}"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        631.1,
+        233.0,
+        642.0
+      ],
+      "text": "C.2\nSets of Racial-speciﬁc Words"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        85.0,
+        648.8,
+        288.9,
+        660.1
+      ],
+      "text": "• {”black”, ”caucasian”, ”asian”, ”hispanics”}"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        85.0,
+        667.2,
+        292.1,
+        692.0
+      ],
+      "text": "• {”african”, ”caucasian”, ”asian”, ”hispan-\nics”}"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        85.0,
+        699.1,
+        270.7,
+        710.4
+      ],
+      "text": "• {”black”, ”white”, ”asian”, ”hispanics”}"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        85.0,
+        717.5,
+        276.8,
+        728.8
+      ],
+      "text": "• {”africa”, ”america”, ”asia”, ”hispanics”}"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        85.0,
+        735.9,
+        283.4,
+        747.2
+      ],
+      "text": "• {”africa”, ”america”, ”china”, ”hispanics”}"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        85.0,
+        754.3,
+        271.9,
+        765.6
+      ],
+      "text": "• {”africa”, ”europe”, ”asia”, ”hispanics”}"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        320.3,
+        65.1,
+        508.4,
+        76.4
+      ],
+      "text": "• {”black”, ”caucasian”, ”asian”, ”latino”}"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        320.3,
+        83.3,
+        515.1,
+        94.6
+      ],
+      "text": "• {”african”, ”caucasian”, ”asian”, ”latino”}"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        320.3,
+        101.6,
+        490.3,
+        112.9
+      ],
+      "text": "• {”black”, ”white”, ”asian”, ”latino”}"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        320.3,
+        119.8,
+        496.3,
+        131.1
+      ],
+      "text": "• {”africa”, ”america”, ”asia”, ”latino”}"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        320.3,
+        138.1,
+        502.9,
+        149.4
+      ],
+      "text": "• {”africa”, ”america”, ”china”, ”latino”}"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        320.3,
+        156.3,
+        491.4,
+        167.6
+      ],
+      "text": "• {”africa”, ”europe”, ”asia”, ”latino”}"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        320.3,
+        174.6,
+        516.3,
+        185.9
+      ],
+      "text": "• {”black”, ”caucasian”, ”asian”, ”spanish”}"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        320.3,
+        192.8,
+        522.9,
+        204.1
+      ],
+      "text": "• {”african”, ”caucasian”, ”asian”, ”spanish”}"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        320.3,
+        211.0,
+        498.1,
+        222.3
+      ],
+      "text": "• {”black”, ”white”, ”asian”, ”spanish”}"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        320.3,
+        229.3,
+        504.2,
+        240.6
+      ],
+      "text": "• {”africa”, ”america”, ”asia”, ”spanish”}"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        320.3,
+        247.5,
+        510.8,
+        258.8
+      ],
+      "text": "• {”africa”, ”america”, ”china”, ”spanish”}"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        320.3,
+        265.8,
+        499.3,
+        277.1
+      ],
+      "text": "• {”africa”, ”europe”, ”asia”, ”spanish”}"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        289.9,
+        408.6,
+        301.8
+      ],
+      "text": "D\nHard Debiasing"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        306.9,
+        312.0,
+        527.4,
+        485.6
+      ],
+      "text": "Hard debiasing is a debiasing algorithm which in-\nvolves two steps: neutralize and equalize. Neutral-\nization ensures that all the social-neural words in\nthe social subspace do not contain bias (e.g. doc-\ntors and nurses). Equalization forces that social-\nspeciﬁc words are equidistant to all words in each\nequality set (e.g. the bias components in man and\nwoman are in opposite directions but with same\nmagnitude) (Bolukbasi et al., 2016; Manzini et al.,\n2019). Following Manzini et al. (2019), hard debi-\nasing is formulated as follows: given a bias social\nsubspace B spanned by the vectors {b1, b2, ..., bn},\nthe embedding of a word in this subspace is:"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        375.4,
+        507.4,
+        401.0,
+        520.0
+      ],
+      "text": "wB ="
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        404.1,
+        496.0,
+        419.8,
+        515.7
+      ],
+      "text": "n\nX"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        405.1,
+        522.7,
+        418.8,
+        530.7
+      ],
+      "text": "i=1"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        419.8,
+        507.2,
+        456.9,
+        519.3
+      ],
+      "text": "⟨w, bi⟩bi"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        306.9,
+        541.3,
+        527.4,
+        593.2
+      ],
+      "text": "To neutralize, each word w ∈N, where N is the\nset of social-neural words, remove the bias compo-\nnents from the word and the re-embedded word −→\nw\nis obtained as:"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        376.3,
+        600.8,
+        455.4,
+        628.3
+      ],
+      "text": "−→\nw =\nw −wB\n∥w −wB ∥"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        306.9,
+        638.4,
+        525.5,
+        676.7
+      ],
+      "text": "To equalize, for an equality set E, let µ be the mean\nembeddings of the equlity set E, which is deﬁned\nas:"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        390.1,
+        672.2,
+        420.5,
+        690.5
+      ],
+      "text": "µ = w"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        412.4,
+        687.0,
+        420.5,
+        697.9
+      ],
+      "text": "E"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        425.5,
+        677.0,
+        441.3,
+        687.9
+      ],
+      "text": "X"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        424.1,
+        695.0,
+        442.3,
+        703.1
+      ],
+      "text": "w∈E"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        307.3,
+        709.7,
+        525.5,
+        734.6
+      ],
+      "text": "For each word w ∈E, the equalization is deﬁned\nas:"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        309.2,
+        749.6,
+        384.0,
+        761.6
+      ],
+      "text": "ˆw = (µ −µB) +"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        386.4,
+        747.6,
+        397.3,
+        758.5
+      ],
+      "text": "p"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 10,
+      "section": "Abstract",
+      "bbox": [
+        397.3,
+        742.2,
+        522.4,
+        769.6
+      ],
+      "text": "1−∥µ −µB ∥2\nw −wB\n∥w −wB ∥"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        71.5,
+        65.4,
+        290.6,
+        76.4
+      ],
+      "text": "When doing racial debiasing, we divide ethnicity"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        71.5,
+        79.0,
+        292.2,
+        103.5
+      ],
+      "text": "into groups: White, Black, Asian, and Hispanics.\nWe do not contain the ”other” group as it hard to"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        106.2,
+        292.2,
+        117.0
+      ],
+      "text": "deﬁne social-speciﬁc sets and analogies for ”other”."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        129.8,
+        183.5,
+        141.8
+      ],
+      "text": "E\nPhenotyping Task"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        71.2,
+        152.1,
+        292.2,
+        339.2
+      ],
+      "text": "In Figure 3 we plot performance and fairness for\nthe phenotyping task, speciﬁcally the detection of\ndisorders of lipid metabolism. This task was se-\nlected as it is the phenotyping task with the most\nbalanced labels with 16855 negative instances and\n12239 positive instances in the training data. Thus,\nit should be more amenable to EO postprocessing.\nAs expected we see that EO postprocessing suc-\nceeds in reducing the TP/TN ranges at the cost of\nAUC. We also again see that ensembling improves\nperformance both before and after postprocessing.\nFor this task speciﬁcally we observe that using de-\nbiased word embeddings improves AUC compared\nto the non-debiased word embeddings."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        352.0,
+        152.0,
+        363.9
+      ],
+      "text": "F\nFull Results"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        374.3,
+        292.1,
+        453.0
+      ],
+      "text": "Our experiment universe consisted of the cross\nproduct between choice of protected attribute (gen-\nder, ethnicity, insurance status), task (phenotyping,\nin-hospital mortality prediction, decompensation),\nhard vs soft EO postprocessing and word embed-\nding vs debiased word embedding."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        465.2,
+        286.2,
+        489.7
+      ],
+      "text": "F.1\nFairness/Performance on the In-Hospital\nMortality Task"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        71.5,
+        496.7,
+        290.3,
+        507.7
+      ],
+      "text": "We provide a more detailed set of graphs for an"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        71.7,
+        510.3,
+        290.3,
+        575.5
+      ],
+      "text": "in-hospital mortality prediction task, where we\nused hard EO postprocessing on protected groups\ndeﬁned by insurance status.\nWe illustrate the\nTP/TN/AUC metrics for each protected group in\nFigure 5."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        71.6,
+        578.4,
+        292.1,
+        724.7
+      ],
+      "text": "In this task conﬁguration, as well as the task con-\nﬁguration in Figure 3 EO postprocessing is applied\nto hard classiﬁcation of the three classiﬁers in the\nBase Classiﬁer column, to produce the EO Classi-\nﬁer column. The Debiased Word Embedding (WE)\ncolumn contains an unstructured classiﬁer using\nword embeddings debiased for 4 ethnicities, and an\nensemble created by merging the aforementioned\nclassiﬁer with the structured base classiﬁer. We\nutilize debiasing on ethnicity type as a proxy for\ninsurance status, as mentioned in the Discussion."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 11,
+      "section": "Abstract",
+      "bbox": [
+        72.0,
+        727.3,
+        292.1,
+        765.6
+      ],
+      "text": "Note that EO post-processing sometimes wors-\nens the TP/TN spread, as in the TP graph for the\nstructured classiﬁer. We therefore qualify our EO"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 11,
+      "section": "results by noting the limitations of our real-world",
+      "bbox": [
+        306.9,
+        65.4,
+        527.4,
+        130.6
+      ],
+      "text": "results by noting the limitations of our real-world\ndataset, which include signiﬁcant group and la-\nbel imbalance and non-binary group labels, all of\nwhich impact the results of EO post-processing\n(see Appendix A.4)."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 11,
+      "section": "results by noting the limitations of our real-world",
+      "bbox": [
+        306.8,
+        133.2,
+        527.5,
+        171.3
+      ],
+      "text": "Finally, on this task conﬁguration, we observe\nthat debiased word embeddings are not a panacea.\nWe note that WED has slightly worsened the TP"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 11,
+      "section": "results by noting the limitations of our real-world",
+      "bbox": [
+        307.3,
+        173.8,
+        527.4,
+        293.2
+      ],
+      "text": "gap, and does not offer a clear cut performance\nimprovement as on the phenotyping task M. There-\nfore, further research is needed to explore when\nand why debiased word embeddings may simulta-\nneously improve fairness and performance. Ulti-\nmately, domain expertise and focus on the down-\nstream impact on the patient experience will be\ncritical for leveraging any of these fair machine\nlearning models in clinical applications."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 11,
+      "section": "results by noting the limitations of our real-world",
+      "bbox": [
+        307.3,
+        304.6,
+        421.6,
+        315.5
+      ],
+      "text": "F.2\nFull table of results"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 11,
+      "section": "results by noting the limitations of our real-world",
+      "bbox": [
+        306.9,
+        322.1,
+        527.4,
+        400.8
+      ],
+      "text": "The performance for all model and tasks tried can\nbe found in Table 4. Note that debiased word em-\nbeddings can improve the performance (micro and\nmacro AUC), even compared to an unconstrained\nclassiﬁer using clinically relevant BioWordVecem-\nbeddings."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 12,
+      "section": "results by noting the limitations of our real-world",
+      "bbox": [
+        72.0,
+        247.1,
+        525.5,
+        280.9
+      ],
+      "text": "Figure 5: Plot of Fairness and Performance on the in-hospital mortality task. Note that debiased word embeddings\nslightly worsen the TP gap in this task (left most graph), while improving the TN gap (middle graph). EO reduces\nboth gaps, at a major cost in performance (right most graph)."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 12,
+      "section": "results by noting the limitations of our real-world",
+      "bbox": [
+        144.8,
+        340.4,
+        274.1,
+        348.0
+      ],
+      "text": "IHM\nPhenotyping\nDecompen."
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 12,
+      "section": "results by noting the limitations of our real-world",
+      "bbox": [
+        131.8,
+        354.5,
+        147.2,
+        362.0
+      ],
+      "text": "AUC"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 12,
+      "section": "results by noting the limitations of our real-world",
+      "bbox": [
+        132.4,
+        363.8,
+        146.6,
+        371.3
+      ],
+      "text": "PRC"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 12,
+      "section": "results by noting the limitations of our real-world",
+      "bbox": [
+        156.9,
+        354.5,
+        172.4,
+        371.3
+      ],
+      "text": "AUC\nROC"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 12,
+      "section": "results by noting the limitations of our real-world",
+      "bbox": [
+        181.3,
+        349.8,
+        201.0,
+        357.3
+      ],
+      "text": "Macro"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 12,
+      "section": "results by noting the limitations of our real-world",
+      "bbox": [
+        183.4,
+        359.1,
+        198.9,
+        376.0
+      ],
+      "text": "AUC\nROC"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 12,
+      "section": "results by noting the limitations of our real-world",
+      "bbox": [
+        209.2,
+        349.8,
+        227.6,
+        357.3
+      ],
+      "text": "Micro"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 12,
+      "section": "results by noting the limitations of our real-world",
+      "bbox": [
+        210.7,
+        359.1,
+        226.1,
+        376.0
+      ],
+      "text": "AUC\nROC"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 12,
+      "section": "results by noting the limitations of our real-world",
+      "bbox": [
+        236.6,
+        354.5,
+        252.0,
+        362.0
+      ],
+      "text": "AUC"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 12,
+      "section": "results by noting the limitations of our real-world",
+      "bbox": [
+        237.2,
+        363.8,
+        251.4,
+        371.3
+      ],
+      "text": "PRC"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 12,
+      "section": "results by noting the limitations of our real-world",
+      "bbox": [
+        261.7,
+        354.5,
+        277.2,
+        371.3
+      ],
+      "text": "AUC\nROC"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 12,
+      "section": "results by noting the limitations of our real-world",
+      "bbox": [
+        80.8,
+        377.8,
+        120.0,
+        385.3
+      ],
+      "text": "Harutyunyan"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 12,
+      "section": "results by noting the limitations of our real-world",
+      "bbox": [
+        85.5,
+        387.1,
+        115.3,
+        413.3
+      ],
+      "text": "et. al\n(2019)\n– No Text"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 12,
+      "section": "results by noting the limitations of our real-world",
+      "bbox": [
+        131.0,
+        391.8,
+        277.9,
+        399.3
+      ],
+      "text": "0.515\n0.862\n0.776\n0.825\n0.344\n0.911"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 12,
+      "section": "results by noting the limitations of our real-world",
+      "bbox": [
+        85.2,
+        415.2,
+        115.6,
+        422.7
+      ],
+      "text": "Khadanga"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 12,
+      "section": "results by noting the limitations of our real-world",
+      "bbox": [
+        82.7,
+        424.5,
+        118.0,
+        450.7
+      ],
+      "text": "et. al\n(2019)\n– Ensemble"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 12,
+      "section": "results by noting the limitations of our real-world",
+      "bbox": [
+        131.0,
+        429.2,
+        277.9,
+        436.7
+      ],
+      "text": "0.525\n0.865\n–\n–\n0.345\n0.907"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 12,
+      "section": "results by noting the limitations of our real-world",
+      "bbox": [
+        82.5,
+        452.5,
+        277.9,
+        469.4
+      ],
+      "text": "Ours\n– Text Only\n0.472\n0.815\n0.766\n0.829\n0.235\n0.867"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 12,
+      "section": "results by noting the limitations of our real-world",
+      "bbox": [
+        78.0,
+        471.2,
+        122.8,
+        497.4
+      ],
+      "text": "Ours\n– Text Only\n+ BioWordVec"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 12,
+      "section": "results by noting the limitations of our real-world",
+      "bbox": [
+        131.0,
+        480.6,
+        277.9,
+        488.1
+      ],
+      "text": "0.489\n0.841\n0.771\n0.837\n0.225\n0.879"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 12,
+      "section": "results by noting the limitations of our real-world",
+      "bbox": [
+        78.0,
+        499.2,
+        122.8,
+        525.4
+      ],
+      "text": "Ours\n– Text Only\n+ BioWordVec"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 12,
+      "section": "results by noting the limitations of our real-world",
+      "bbox": [
+        82.1,
+        527.2,
+        118.7,
+        534.8
+      ],
+      "text": "+ Debiasing"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 12,
+      "section": "results by noting the limitations of our real-world",
+      "bbox": [
+        131.0,
+        513.2,
+        277.9,
+        520.8
+      ],
+      "text": "0.392\n0.790\n0.831\n0.874\n0.265\n0.331"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 12,
+      "section": "results by noting the limitations of our real-world",
+      "bbox": [
+        82.7,
+        536.6,
+        277.9,
+        553.4
+      ],
+      "text": "Ours\n– Ensemble\n0.582\n0.880\n0.822\n0.861\n0.399\n0.917"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 12,
+      "section": "results by noting the limitations of our real-world",
+      "bbox": [
+        78.0,
+        555.3,
+        122.8,
+        581.5
+      ],
+      "text": "Ours\n– Ensemble\n+ BioWordVec"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 12,
+      "section": "results by noting the limitations of our real-world",
+      "bbox": [
+        131.0,
+        564.5,
+        277.9,
+        572.1
+      ],
+      "text": "0.582\n0.886\n0.829\n0.870\n0.404\n0.920"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 12,
+      "section": "results by noting the limitations of our real-world",
+      "bbox": [
+        78.0,
+        583.3,
+        122.8,
+        609.5
+      ],
+      "text": "Ours\n– Ensemble\n+ BioWordVec"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 12,
+      "section": "results by noting the limitations of our real-world",
+      "bbox": [
+        82.1,
+        611.3,
+        118.7,
+        618.8
+      ],
+      "text": "+ Debiasing"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 12,
+      "section": "results by noting the limitations of our real-world",
+      "bbox": [
+        131.0,
+        597.2,
+        277.9,
+        604.8
+      ],
+      "text": "0.539\n0.870\n0.854\n0.888\n0.405\n0.922"
+    },
+    {
+      "paper_id": "2011.09625",
+      "file_name": "2011.09625_Exploring_Text_Specific_and_Blackbox_Fai.pdf",
+      "page_number": 12,
+      "section": "results by noting the limitations of our real-world",
+      "bbox": [
+        71.6,
+        630.6,
+        292.0,
+        724.2
+      ],
+      "text": "Table 4:\nLeveraging clinical pretrained word em-\nbeddings improves performance compared to training\nword embeddings from scratch in the text-only model.\nEnsembling the text-only model with the clinical time\nseries classiﬁer improves performance further. As with\nKhadanga et al. (2019), our results are not directly com-\nparable with Harutyunyan et al. (2019) since we ignore\npatients without any clinical notes."
+    }
+  ]
+}

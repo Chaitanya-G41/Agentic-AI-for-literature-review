@@ -1,0 +1,24 @@
+{
+  "paper_id": "N/A",
+  "paper_title": "Evaluating Data Augmentation Techniques for Coffee Leaf Disease",
+  "authors": [
+    "N/A"
+  ],
+  "venue": "N/A",
+  "core_problem": "The need for efficient and less knowledge-intensive detection and classification of diseases in Robusta coffee leaves, exacerbated by small and imbalanced datasets like RoCoLe.",
+  "methodology_summary": "Deep learning approaches using the RoCoLe dataset, incorporating pix2pix for segmentation and CycleGAN for data augmentation, and evaluating Transformer-based models alongside online and offline augmentations.",
+  "datasets_eval": [
+    "Robusta Coffee Leaf (RoCoLe) dataset"
+  ],
+  "empirical_results": "Transformer-based models, online augmentations, and CycleGAN augmentation were shown to be effective in improving leaf disease classification, with synthetic data complementing real data to enhance performance.",
+  "explicit_limitations": "The job requires extensive botanical knowledge and much wasted time; synthetic data has limitations.",
+  "numerical_metrics": [],
+  "geographical_data": {},
+  "pipeline_steps": [
+    "Problem Formulation & Data Ingestion",
+    "Method Execution & Architecture",
+    "Empirical Evaluation & Benchmarking"
+  ],
+  "generation_mode": "GENUINE_LLM",
+  "model_name": "NVIDIA_NIM (nvidia/nemotron-3.5-bolt-e4b)"
+}

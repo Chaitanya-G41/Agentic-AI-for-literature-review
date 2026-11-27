@@ -1,0 +1,22 @@
+{
+  "paper_id": "2402.12205",
+  "paper_title": "Self-organized clustering prediction and differential equation modeling for Alzheimer's Disease progression",
+  "authors": [
+    "Not specified in context"
+  ],
+  "venue": "Not specified in context",
+  "core_problem": "Existing predictive methods for long-term cognitive trajectory in AD fall short of accurately forecasting future scores while accounting for disease progression patterns.",
+  "methodology_summary": "Development of a novel, self-organized prediction methodology that integrates differential equation modeling to forecast long-term cognitive test scores, validated against nonlinear mixed-effects models.",
+  "datasets_eval": [
+    "ADNI and J-ADNI cohorts (Total sample: 1,503 in ADNI; 288 in J-ADNI)."
+  ],
+  "empirical_results": "Validated predictive accuracy of the proposed method for the long-term trajectory of cognitive test scores; demonstrated the simultaneous evaluation of risk factors (e.g., APOE $\\epsilon$4 status, A$\beta$ status) and the evaluation of therapeutic interventions.",
+  "explicit_limitations": "Most clinical studies have limitations (implied, as the text mentions 'However, most clinical...').",
+  "numerical_metrics": [],
+  "geographical_data": {},
+  "pipeline_steps": [
+    "However, these nonlinear mixed-effects models provided during parameter estimation."
+  ],
+  "generation_mode": "GENUINE_LLM",
+  "model_name": "NVIDIA_NIM (nvidia/nemotron-3.5-bolt-e4b)"
+}

@@ -1,0 +1,24 @@
+{
+  "paper_id": "N/A",
+  "paper_title": "Detection of Potato Plant Leaf Diseases using CNN",
+  "authors": [
+    "N/A"
+  ],
+  "venue": "N/A",
+  "core_problem": "Slow or difficult access to disease identification in potato farming areas in Ethiopia, which is affected by foliar diseases like early blight and late blight.",
+  "methodology_summary": "Development of a convolutional neural network (CNN) to recognize three potato leaf conditions: healthy leaves, early blight, and late blight. The model was compared against VGG16 and MobileNetV2.",
+  "datasets_eval": [
+    "PlantVillage (2,215 images) and an independent field dataset from Banja Awi Zone, Ethiopia (247 images)."
+  ],
+  "empirical_results": "On PlantVillage: 99.04% training accuracy, 98.21% validation accuracy, 98.66% test accuracy. On the field dataset: 90.28% accuracy. The proposed model has 446,787 parameters, is 1.70 MB, and has a shorter training time than VGG16 and MobileNetV2. (Note: Mahapatra and Panda achieved 96.28% accuracy with a CNN on PlantVil).",
+  "explicit_limitations": "The study notes that many existing potato-disease studies have limitations.",
+  "numerical_metrics": [],
+  "geographical_data": {},
+  "pipeline_steps": [
+    "The proposed model was trained us-\ning 2,215 images from PlantVillage.",
+    "On PlantVil-\nlage the model obtained 99.04% training accuracy, 98.21% validation accuracy and 98.66%\ntest accuracy.",
+    "On the field dataset, which represents controlled image-capture conditions\nthe model achieved 90.28% accuracy."
+  ],
+  "generation_mode": "GENUINE_LLM",
+  "model_name": "NVIDIA_NIM (nvidia/nemotron-3.5-bolt-e4b)"
+}

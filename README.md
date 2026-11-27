@@ -133,6 +133,9 @@ npm run dev
 - **Split-Screen In-App PDF Reader:** Click any paper or citation in the monograph to view the original PDF side-by-side with automatic page jumping.
 - **Zero-Hallucination Provenance Inspector:** Inspect source text snippets, cosine similarity scores ($94\%+$), and generation mode tags (`GENUINE_LLM` vs `HEURISTIC_FALLBACK`).
 - **Interactive Mermaid Visualizations:** Deep zoom and inspection of methodological taxonomy trees and research gap causal flowcharts.
+- **Live GROBID Status Monitor:** Monochrome status badge in CommandBar polling `/api/grobid-status` indicating live TEI-XML vs PyMuPDF fallback extraction.
+- **Automated Evaluation Scoreboard:** Integrated Deliverable 5 evaluation panel in the Evaluation Rubric modal polling `/api/evaluation-report` (Section coverage %, citation integrity %, word count, diagram count).
+- **Resilient Pipeline Orchestration:** Strict error boundaries with explicit stage error logs preventing silent failures and empty reports.
 
 ---
 

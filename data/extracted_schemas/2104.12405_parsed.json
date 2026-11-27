@@ -1,0 +1,763 @@
+{
+  "paper_id": "2104.12405",
+  "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+  "parser_used": "PyMuPDF_Layout_Engine",
+  "total_pages": 3,
+  "figures_count": 4,
+  "figures": [
+    {
+      "figure_id": "FIG-2104.12405-P2-1",
+      "page_number": 2,
+      "file_path": "data/figures\\2104.12405\\fig_p2_1.png",
+      "dimensions": "671x152",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2104.12405-P2-2",
+      "page_number": 2,
+      "file_path": "data/figures\\2104.12405\\fig_p2_2.jpeg",
+      "dimensions": "4797x1860",
+      "format": "jpeg",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2104.12405-P2-3",
+      "page_number": 2,
+      "file_path": "data/figures\\2104.12405\\fig_p2_3.jpeg",
+      "dimensions": "5179x2601",
+      "format": "jpeg",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2104.12405-P3-1",
+      "page_number": 3,
+      "file_path": "data/figures\\2104.12405\\fig_p3_1.jpeg",
+      "dimensions": "1600x1200",
+      "format": "jpeg",
+      "type": "raster_figure_or_diagram"
+    }
+  ],
+  "vector_graphs_count": 0,
+  "vector_graphs": [],
+  "tables_count": 0,
+  "tables": [],
+  "full_text": "A dissemination workshop for introducing young Italian students to NLP\n\nLucio Messina\nIndependent Researcher\nlucio.messina@autistici.org\n\nLucia Busso\nAston University\nl.busso@aston.ac.uk\n\nClaudia Roberta Combei\n\nUniversity of Bologna\nclaudiaroberta.combei@unibo.it\n\nLudovica Pannitto\nUniversity of Trento\nludovica.pannitto@unitn.it\n\nAlessio Miaschi\nUniversity of Pisa\nalessio.miaschi@phd.unipi.it\n\nGabriele Sarti\nUniversity of Trieste\n\ngsarti@sissa.it\n\nMalvina Nissim\nUniversity of Groningen\n\nm.nissim@rug.nl\n\nAbstract\n\nWe describe and make available the game-\nbased material developed for a laboratory run\nat several Italian science festivals to popularize\nNLP among young students.\n\n1\nIntroduction\n\nThe present paper aims at describing in detail the\nteaching materials developed and used for a series\nof interactive dissemination workshops on NLP\nand computational linguistics1. These workshops\nwere designed and delivered by the authors on be-\nhalf of the Italian Association for Computational\nLinguistics (AILC, www.ai-lc.it), with the\naim of popularizing Natural Language Processing\n(NLP) among young Italian students (13+) and the\ngeneral public. The workshops were run in the\ncontext of nationwide popular science festivals and\nopen-day events both onsite (at BergamoScienza,\nand Scuola Internazionale Superiore di Studi Avan-\nzati [SISSA], Trieste) and online (at Festival della\nScienza di Genova, the BRIGHT European Re-\nsearchers’ Night, high school ITS Tullio Buzzi in\nPrato and the second edition of Science Web Festi-\nval, engaging over 700 participants in Center and\nNorthern Italy from 2019 to 2021.2\n\nThe core approach of the workshop remained\nthe same throughout all the events. However, the\nmaterials and activities were adapted to a variety\nof different formats and time-slots, ranging from\n30 to 90 minutes. We ﬁnd that this workshop –\n\n1In this discussion, and throughout the paper, we conﬂate\nthe terms Natural Language Processing and Computational\nLinguistics and use them interchangeably.\n\n2Links to events are in the repository’s README ﬁle.\n\nthanks to its modular nature – can ﬁt different tar-\nget audiences and different time slots, depending\non the level of interactive engagement required\nfrom participants and on the level of granularity\nof the presentation itself. Other than on the level\nof engagement expected of participants, time re-\nquired can also vary depending on the participants’\nbackground and metalinguistic awareness.\n\nOur interactive workshops took the form of mod-\nular games where participants, guided by trained\ntutors, acted as if they were computers that had to\nrecognize speech and text, as well as to generate\nwritten sentences in a mysterious language they\nknew nothing about.\n\nThe present contribution only describes the\nteaching materials and provide a general outline\nof the activities composing the workshop. For a\ndetailed discussion and reﬂection on the workshop\ngenesis and goals and on how it was received by\nthe participants see (Pannitto et al., 2021).\n\nThe teaching support consist in an interactive\npresentation plus hands-on material, either in hard-\ncopy or digital form. We share a sample presen-\ntation3 and an open-access repository4 containing\nboth printable materials to download and scripts to\nreproduce them on different input data.\n\n2\nWorkshop and materials\n\nThe activity contains both more theoretical and\nhands-on parts, which are cast as games.\n\n3https://docs.google.com/presentation/\nd/1ebES_K8o3I2ND_1iMyBlQmrH733eQ6m_\nK8a0tON8reo/edit?usp=sharing\n\n4https://bitbucket.org/melfnt/\nmalvisindi\n\narXiv:2104.12405v2  [cs.CL]  14 May 2021\n\nAwareness\nThe ﬁrst part consists of a brief intro-\nduction to (computational) linguistics, focusing on\nsome common misconceptions (slides 3-5), and on\nexamples of linguistic questions (slides 6-12). Due\nto their increasing popularity, we chose vocal as-\nsistants as practical examples of NLP technologies\naccounting for how humans and machines differ\nin processing speech in particular and language in\ngeneral (slides 20-39).\n\nGames\nThe core of the activity is inspired by the\nword salad puzzle (Radev and Pustejovsky, 2013)\nand is organized as a game revolving around a fun-\ndamental problem in NLP: given a set of words,\nparticipants are asked to determine the most likely\nordering for a sentence containing those words.\nThis is a trivial problem when approached in a\nknown language (i.e., consider reordering the to-\nkens garden, my, is, the, in, dog), but an apparently\nimpossible task when semantics is not accessible,\nwhich is the most common situation for simple\nNLP algorithms.\n\nTo make participants deal with language as a\ncomputer would do, we asked them to compose\nsentences using tokens obtained by transliterating\nand annotating 60 sentences from the well known\nfairy tale \"Snow White\" to a set of symbols. We\nproduced two possible versions of the masked ma-\nterials: either replacing each word with a random\nsequence of DINGs (e.g. ?o§= for the word morn-\ning) or replacing them with a corresponding non-\nword (for example croto for the word morning).\nThe grammatical structure of each sentence is repre-\nsented by horizontal lines on top of it representing\nphrases (such as noun or verb phrases), while the\nparts of speech are indicated by numbers from 0 to\n9 placed as superscripts on each word (Figure 1).\n\nFigure 1: The ﬁrst sentence of the corpus \"on a\nsnowy day a queen was sewing by her\nwindow\" translated using DINGs (above) and using\nnon-words (below)\n\nParticipants were divided into two teams, one\nteam would be working on masked Italian and the\nother on masked English. Both teams were given\nthe corpus in A3 format and were told that the texts\nare written in a ﬁctional language.\n\nTwo activities were then run, focusing on two\n\nFigure 2: Example cards, both showing a word. Left:\na card for the ﬁrst activity, with a button loop to thread\nit in a sentence. Right: a card for the second activity,\nwith part of speech (number) at the bottom.\n\nFigure 3: Possible rules extracted from the corpus.\nEach rule is made of felt strips for phrases, cards with\nnumbers for parts of speech, and “=” cards.\n\ndifferent algorithms for sentence generation. In\nthe ﬁrst, participants received a deck of cards each\nequipped with a button loop (Figure 2) and show-\ning a token from the corpus. Participants had to\ncreate new valid sentences by rearranging the cards\naccording to the bigrams’ distribution in the cor-\npus. Using the bracelet method (slides 52-61), they\ncould physically thread tokens into sentences.\n\nIn the second activity (slides 63-92), the partici-\npants extracted grammatical rules from the corpus,\nand used them to generate new sentences. In or-\nder to write the grammar, participants were given\nfelt strips reproducing the colors of the annotation,\na deck of cards with numbers (identifying parts\nof speech) and a deck of “=” symbols (Figure 3).\nWith a new deck of words (Figure 2), not all present\n\nin the corpus, participants had to generate a sen-\ntence using the previously composed rules.\n\nReﬂection and Outlook\nBy superimposing a\nplexiglass frame on the A3 corpus pages (Figure 4),\nthe true nature of the corpora was eventually re-\nvealed. The participants could see the original texts\n(in Italian and English) and translate the sentences\nthey had created previously.\n\nThe activity ended with a discussion of recent\nNLP technologies and their commercial applica-\ntions (slides 93-96), and of what it takes to become\na computational linguist today (slides 97-99).\n\nFigure 4: A session of the workshop: the original lan-\nguage of the corpus has just been revealed by superim-\nposing plexiglass supports on the corpus tables.\n\n3\nActivity Preparation\n\nThe preparation of the activity consists of several\nsteps: (1) creating and tagging the corpora with\nmorpho-syntactic and syntactic categories as de-\nscribed in the repository; (2) choosing the words to\ninclude in the card decks: these must be manually\nselected but scripts are provided to generate possi-\nble sentences based on bigram co-occurrences, and\nto extract all the possible grammar rules present in\nthe annotation; (3) when the produced sentences\nand grammar are satisfactory, scripts are provided\nto generate (i) the printable formats of corpora and\ndecks of cards, (ii) a dictionary to support the trans-\nlation of sentences in the last part of the work-\nshop, and (iii) clear-text corpora; (4) sentences\nfrom the clear-text corpora have to be manually\ncut and glued on a transparent support that can be\nsuperimposed on the printed corpora to reveal the\nsentences; (5) ﬁnally, some manual work is neces-\nsary: producing strips of felt or any material with\nthe same colors used in the corpus; cutting threads;\nattaching a button loop to the relevant cards, etc.\n\n4\nReusability\n\nIn the spirit of open science and to encourage the\npopularization of NLP, the teaching materials and\nsource code are freely available in our repository\n(see footnotes 2-3 for the links). The print-ready\nmaterial is released under CC BY-NC; the source\ncode is distributed under the GNU gpl license ver-\nsion 3. All scripts work for Python versions 3.6 or\nabove and the overall process requires python3,\nlualatex, pdftk and pdfnup as detailed in\nthe README.md ﬁle in the repository, which con-\ntains all necessary instructions.\n\nAcknowledgements\n\nWe would like to thank the board of the Italian As-\n\nsociation for Computational Linguistics (AILC) for\nthe support given to the workshop development and\ndelivery. We are also grateful to BergamoScienza,\nFestival della Scienza di Genova, Science Web Fes-\ntival for hosting the activity during the festivals; to\nILC-CNR “Antonio Zampolli\" and ColingLab (Uni-\nversity of Pisa) for hosting us during the European\nNight of Research; and to the Scuola Internazionale\nSuperiore di Studi Avanzati (SISSA) and ITI Tullio\nBuzzi for hosting our activities with their students.\nWe also thank Dr. Mirko Lai, who has collaborated\n\non the development of the web interface for the\nonline versions of our activity.\n\nReferences\n\nLudovica Pannitto, Lucia Busso, Claudia Roberta\n\nCombei, Lucio Messina, Alessio Miaschi, Gabriele\nSarti, and Malvina Nissim. 2021.\nTeaching NLP\nwith bracelets and restaurant menus: An interactive\nworkshop for italian students. In Proceedings of the\nFifth Workshop on Teaching NLP and CL, Online\n\nevent. Association for Computational Linguistics.\n\nDragomir Radev and James Pustejovsky. 2013. Puzzles\n\nin logic, languages and computation: the red book.\nSpringer.",
+  "chunks": [
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        74.2,
+        76.7,
+        520.6,
+        91.0
+      ],
+      "text": "A dissemination workshop for introducing young Italian students to NLP"
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        102.7,
+        104.8,
+        296.4,
+        144.1
+      ],
+      "text": "Lucio Messina\nIndependent Researcher\nlucio.messina@autistici.org"
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        329.1,
+        104.8,
+        465.4,
+        144.1
+      ],
+      "text": "Lucia Busso\nAston University\nl.busso@aston.ac.uk"
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        134.0,
+        163.5,
+        262.1,
+        175.5
+      ],
+      "text": "Claudia Roberta Combei"
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        79.7,
+        177.6,
+        294.9,
+        202.9
+      ],
+      "text": "University of Bologna\nclaudiaroberta.combei@unibo.it"
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        304.0,
+        163.5,
+        490.5,
+        202.9
+      ],
+      "text": "Ludovica Pannitto\nUniversity of Trento\nludovica.pannitto@unitn.it"
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        37.1,
+        222.3,
+        237.9,
+        261.6
+      ],
+      "text": "Alessio Miaschi\nUniversity of Pisa\nalessio.miaschi@phd.unipi.it"
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        252.8,
+        222.3,
+        351.5,
+        248.3
+      ],
+      "text": "Gabriele Sarti\nUniversity of Trieste"
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        254.6,
+        249.7,
+        362.2,
+        261.6
+      ],
+      "text": "gsarti@sissa.it"
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        388.5,
+        222.3,
+        505.6,
+        248.3
+      ],
+      "text": "Malvina Nissim\nUniversity of Groningen"
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        393.2,
+        249.7,
+        500.8,
+        261.6
+      ],
+      "text": "m.nissim@rug.nl"
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        157.8,
+        285.2,
+        202.2,
+        297.2
+      ],
+      "text": "Abstract"
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        87.9,
+        312.2,
+        273.8,
+        358.0
+      ],
+      "text": "We describe and make available the game-\nbased material developed for a laboratory run\nat several Italian science festivals to popularize\nNLP among young students."
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        373.7,
+        153.7,
+        385.7
+      ],
+      "text": "1\nIntroduction"
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        70.5,
+        397.3,
+        291.0,
+        652.2
+      ],
+      "text": "The present paper aims at describing in detail the\nteaching materials developed and used for a series\nof interactive dissemination workshops on NLP\nand computational linguistics1. These workshops\nwere designed and delivered by the authors on be-\nhalf of the Italian Association for Computational\nLinguistics (AILC, www.ai-lc.it), with the\naim of popularizing Natural Language Processing\n(NLP) among young Italian students (13+) and the\ngeneral public. The workshops were run in the\ncontext of nationwide popular science festivals and\nopen-day events both onsite (at BergamoScienza,\nand Scuola Internazionale Superiore di Studi Avan-\nzati [SISSA], Trieste) and online (at Festival della\nScienza di Genova, the BRIGHT European Re-\nsearchers’ Night, high school ITS Tullio Buzzi in\nPrato and the second edition of Science Web Festi-\nval, engaging over 700 participants in Center and\nNorthern Italy from 2019 to 2021.2"
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        655.5,
+        290.8,
+        720.7
+      ],
+      "text": "The core approach of the workshop remained\nthe same throughout all the events. However, the\nmaterials and activities were adapted to a variety\nof different formats and time-slots, ranging from\n30 to 90 minutes. We ﬁnd that this workshop –"
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        731.9,
+        289.1,
+        762.3
+      ],
+      "text": "1In this discussion, and throughout the paper, we conﬂate\nthe terms Natural Language Processing and Computational\nLinguistics and use them interchangeably."
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        83.5,
+        762.7,
+        277.7,
+        773.2
+      ],
+      "text": "2Links to events are in the repository’s README ﬁle."
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        306.1,
+        286.1,
+        526.2,
+        391.9
+      ],
+      "text": "thanks to its modular nature – can ﬁt different tar-\nget audiences and different time slots, depending\non the level of interactive engagement required\nfrom participants and on the level of granularity\nof the presentation itself. Other than on the level\nof engagement expected of participants, time re-\nquired can also vary depending on the participants’\nbackground and metalinguistic awareness."
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        305.7,
+        396.2,
+        526.2,
+        474.7
+      ],
+      "text": "Our interactive workshops took the form of mod-\nular games where participants, guided by trained\ntutors, acted as if they were computers that had to\nrecognize speech and text, as well as to generate\nwritten sentences in a mysterious language they\nknew nothing about."
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        306.1,
+        478.8,
+        524.8,
+        557.5
+      ],
+      "text": "The present contribution only describes the\nteaching materials and provide a general outline\nof the activities composing the workshop. For a\ndetailed discussion and reﬂection on the workshop\ngenesis and goals and on how it was received by\nthe participants see (Pannitto et al., 2021)."
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        306.1,
+        561.6,
+        526.2,
+        640.4
+      ],
+      "text": "The teaching support consist in an interactive\npresentation plus hands-on material, either in hard-\ncopy or digital form. We share a sample presen-\ntation3 and an open-access repository4 containing\nboth printable materials to download and scripts to\nreproduce them on different input data."
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        306.1,
+        657.6,
+        450.0,
+        669.5
+      ],
+      "text": "2\nWorkshop and materials"
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        305.8,
+        683.1,
+        524.4,
+        707.6
+      ],
+      "text": "The activity contains both more theoretical and\nhands-on parts, which are cast as games."
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        306.1,
+        721.9,
+        521.3,
+        751.9
+      ],
+      "text": "3https://docs.google.com/presentation/\nd/1ebES_K8o3I2ND_1iMyBlQmrH733eQ6m_\nK8a0tON8reo/edit?usp=sharing"
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        306.1,
+        752.7,
+        478.3,
+        772.7
+      ],
+      "text": "4https://bitbucket.org/melfnt/\nmalvisindi"
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 1,
+      "section": "Abstract",
+      "bbox": [
+        10.9,
+        256.6,
+        37.6,
+        609.9
+      ],
+      "text": "arXiv:2104.12405v2  [cs.CL]  14 May 2021"
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        73.5,
+        290.9,
+        192.9
+      ],
+      "text": "Awareness\nThe ﬁrst part consists of a brief intro-\nduction to (computational) linguistics, focusing on\nsome common misconceptions (slides 3-5), and on\nexamples of linguistic questions (slides 6-12). Due\nto their increasing popularity, we chose vocal as-\nsistants as practical examples of NLP technologies\naccounting for how humans and machines differ\nin processing speech in particular and language in\ngeneral (slides 20-39)."
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        70.5,
+        202.4,
+        291.0,
+        362.5
+      ],
+      "text": "Games\nThe core of the activity is inspired by the\nword salad puzzle (Radev and Pustejovsky, 2013)\nand is organized as a game revolving around a fun-\ndamental problem in NLP: given a set of words,\nparticipants are asked to determine the most likely\nordering for a sentence containing those words.\nThis is a trivial problem when approached in a\nknown language (i.e., consider reordering the to-\nkens garden, my, is, the, in, dog), but an apparently\nimpossible task when semantics is not accessible,\nwhich is the most common situation for simple\nNLP algorithms."
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        70.5,
+        365.0,
+        291.0,
+        565.7
+      ],
+      "text": "To make participants deal with language as a\ncomputer would do, we asked them to compose\nsentences using tokens obtained by transliterating\nand annotating 60 sentences from the well known\nfairy tale \"Snow White\" to a set of symbols. We\nproduced two possible versions of the masked ma-\nterials: either replacing each word with a random\nsequence of DINGs (e.g. ?o§= for the word morn-\ning) or replacing them with a corresponding non-\nword (for example croto for the word morning).\nThe grammatical structure of each sentence is repre-\nsented by horizontal lines on top of it representing\nphrases (such as noun or verb phrases), while the\nparts of speech are indicated by numbers from 0 to\n9 placed as superscripts on each word (Figure 1)."
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        70.6,
+        633.3,
+        289.1,
+        679.6
+      ],
+      "text": "Figure 1: The ﬁrst sentence of the corpus \"on a\nsnowy day a queen was sewing by her\nwindow\" translated using DINGs (above) and using\nnon-words (below)"
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        694.9,
+        289.1,
+        760.1
+      ],
+      "text": "Participants were divided into two teams, one\nteam would be working on masked Italian and the\nother on masked English. Both teams were given\nthe corpus in A3 format and were told that the texts\nare written in a ﬁctional language."
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        81.8,
+        762.7,
+        289.1,
+        773.7
+      ],
+      "text": "Two activities were then run, focusing on two"
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        305.8,
+        152.0,
+        525.8,
+        197.8
+      ],
+      "text": "Figure 2: Example cards, both showing a word. Left:\na card for the ﬁrst activity, with a button loop to thread\nit in a sentence. Right: a card for the second activity,\nwith part of speech (number) at the bottom."
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        306.1,
+        298.9,
+        526.2,
+        332.7
+      ],
+      "text": "Figure 3: Possible rules extracted from the corpus.\nEach rule is made of felt strips for phrases, cards with\nnumbers for parts of speech, and “=” cards."
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        306.1,
+        365.3,
+        526.2,
+        471.1
+      ],
+      "text": "different algorithms for sentence generation. In\nthe ﬁrst, participants received a deck of cards each\nequipped with a button loop (Figure 2) and show-\ning a token from the corpus. Participants had to\ncreate new valid sentences by rearranging the cards\naccording to the bigrams’ distribution in the cor-\npus. Using the bracelet method (slides 52-61), they\ncould physically thread tokens into sentences."
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        305.6,
+        478.2,
+        526.3,
+        583.9
+      ],
+      "text": "In the second activity (slides 63-92), the partici-\npants extracted grammatical rules from the corpus,\nand used them to generate new sentences. In or-\nder to write the grammar, participants were given\nfelt strips reproducing the colors of the annotation,\na deck of cards with numbers (identifying parts\nof speech) and a deck of “=” symbols (Figure 3).\nWith a new deck of words (Figure 2), not all present"
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        306.1,
+        586.5,
+        526.2,
+        611.0
+      ],
+      "text": "in the corpus, participants had to generate a sen-\ntence using the previously composed rules."
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        305.8,
+        636.3,
+        526.2,
+        715.0
+      ],
+      "text": "Reﬂection and Outlook\nBy superimposing a\nplexiglass frame on the A3 corpus pages (Figure 4),\nthe true nature of the corpora was eventually re-\nvealed. The participants could see the original texts\n(in Italian and English) and translate the sentences\nthey had created previously."
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 2,
+      "section": "Abstract",
+      "bbox": [
+        306.1,
+        722.0,
+        526.2,
+        773.7
+      ],
+      "text": "The activity ended with a discussion of recent\nNLP technologies and their commercial applica-\ntions (slides 93-96), and of what it takes to become\na computational linguist today (slides 97-99)."
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        183.7,
+        290.8,
+        217.6
+      ],
+      "text": "Figure 4: A session of the workshop: the original lan-\nguage of the corpus has just been revealed by superim-\nposing plexiglass supports on the corpus tables."
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        249.9,
+        193.7,
+        261.9
+      ],
+      "text": "3\nActivity Preparation"
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        70.5,
+        283.4,
+        291.0,
+        565.4
+      ],
+      "text": "The preparation of the activity consists of several\nsteps: (1) creating and tagging the corpora with\nmorpho-syntactic and syntactic categories as de-\nscribed in the repository; (2) choosing the words to\ninclude in the card decks: these must be manually\nselected but scripts are provided to generate possi-\nble sentences based on bigram co-occurrences, and\nto extract all the possible grammar rules present in\nthe annotation; (3) when the produced sentences\nand grammar are satisfactory, scripts are provided\nto generate (i) the printable formats of corpora and\ndecks of cards, (ii) a dictionary to support the trans-\nlation of sentences in the last part of the work-\nshop, and (iii) clear-text corpora; (4) sentences\nfrom the clear-text corpora have to be manually\ncut and glued on a transparent support that can be\nsuperimposed on the printed corpora to reveal the\nsentences; (5) ﬁnally, some manual work is neces-\nsary: producing strips of felt or any material with\nthe same colors used in the corpus; cutting threads;\nattaching a button loop to the relevant cards, etc."
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        70.9,
+        593.7,
+        146.6,
+        605.7
+      ],
+      "text": "4\nReusability"
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        70.5,
+        627.2,
+        292.4,
+        773.7
+      ],
+      "text": "In the spirit of open science and to encourage the\npopularization of NLP, the teaching materials and\nsource code are freely available in our repository\n(see footnotes 2-3 for the links). The print-ready\nmaterial is released under CC BY-NC; the source\ncode is distributed under the GNU gpl license ver-\nsion 3. All scripts work for Python versions 3.6 or\nabove and the overall process requires python3,\nlualatex, pdftk and pdfnup as detailed in\nthe README.md ﬁle in the repository, which con-\ntains all necessary instructions."
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        306.1,
+        72.6,
+        405.0,
+        84.6
+      ],
+      "text": "Acknowledgements"
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        305.6,
+        94.5,
+        526.2,
+        105.4
+      ],
+      "text": "We would like to thank the board of the Italian As-"
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        305.6,
+        108.1,
+        526.3,
+        254.4
+      ],
+      "text": "sociation for Computational Linguistics (AILC) for\nthe support given to the workshop development and\ndelivery. We are also grateful to BergamoScienza,\nFestival della Scienza di Genova, Science Web Fes-\ntival for hosting the activity during the festivals; to\nILC-CNR “Antonio Zampolli\" and ColingLab (Uni-\nversity of Pisa) for hosting us during the European\nNight of Research; and to the Scuola Internazionale\nSuperiore di Studi Avanzati (SISSA) and ITI Tullio\nBuzzi for hosting our activities with their students.\nWe also thank Dr. Mirko Lai, who has collaborated"
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        306.1,
+        257.0,
+        524.4,
+        281.5
+      ],
+      "text": "on the development of the web interface for the\nonline versions of our activity."
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        306.1,
+        306.2,
+        361.7,
+        318.1
+      ],
+      "text": "References"
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        306.1,
+        325.5,
+        524.4,
+        335.4
+      ],
+      "text": "Ludovica Pannitto, Lucia Busso, Claudia Roberta"
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        316.4,
+        336.4,
+        524.4,
+        390.2
+      ],
+      "text": "Combei, Lucio Messina, Alessio Miaschi, Gabriele\nSarti, and Malvina Nissim. 2021.\nTeaching NLP\nwith bracelets and restaurant menus: An interactive\nworkshop for italian students. In Proceedings of the\nFifth Workshop on Teaching NLP and CL, Online"
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        317.1,
+        391.2,
+        515.3,
+        401.2
+      ],
+      "text": "event. Association for Computational Linguistics."
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        306.1,
+        411.0,
+        524.4,
+        421.1
+      ],
+      "text": "Dragomir Radev and James Pustejovsky. 2013. Puzzles"
+    },
+    {
+      "paper_id": "2104.12405",
+      "file_name": "2104.12405_A_dissemination_workshop_for_introducing.pdf",
+      "page_number": 3,
+      "section": "Abstract",
+      "bbox": [
+        317.1,
+        421.9,
+        526.2,
+        443.0
+      ],
+      "text": "in logic, languages and computation: the red book.\nSpringer."
+    }
+  ]
+}

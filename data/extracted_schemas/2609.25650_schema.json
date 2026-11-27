@@ -1,0 +1,22 @@
+{
+  "paper_id": "N/A",
+  "paper_title": "Decoupling Disease, Covariates, and Individual Variability: A Unified Disentanglement Framework",
+  "authors": [
+    "N/A"
+  ],
+  "venue": "IEEE TRANSACTIONS MANUSCRIPT — PREPRINT",
+  "core_problem": "Deep learning models struggle to disentangle disease-specific pathological signals from confounding covariates (e.g., age, gender, acquisition site, education level, scanner type) and individual variations in medical image classification.",
+  "methodology_summary": "A generalized Medical Imaging Disentanglement Learning (MedIDL) framework that maps image features into three mutually orthogonal latent spaces using specialized heads: a disease classification head (supervised loss), a covariate-alignment head (cross-subject similarity matching), and a Gaussian head (absorbing individual variations).",
+  "datasets_eval": [
+    "7 datasets encompassing diverse imaging modalities."
+  ],
+  "empirical_results": "MedIDL outperforms state-of-the-art supervised and self-supervised classification methods in accuracy across all datasets. Association analyses confirm successful isolation of target-specific latent representations, and gradient-based interpretability localizes pathognomonic patterns aligning with clinical literature.",
+  "explicit_limitations": "The provided text mentions overcoming limitations by proposing MedIDL, but does not explicitly list inherent limitations of the proposed framework itself, only the challenge it addresses.",
+  "numerical_metrics": [],
+  "geographical_data": {},
+  "pipeline_steps": [
+    "We evaluated\nour framework across 7 datasets encompassing diverse imaging\nmodalities."
+  ],
+  "generation_mode": "GENUINE_LLM",
+  "model_name": "NVIDIA_NIM (nvidia/nemotron-3.5-bolt-e4b)"
+}

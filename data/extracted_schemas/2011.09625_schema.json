@@ -1,0 +1,24 @@
+{
+  "paper_id": "2011.09625",
+  "paper_title": "Exploring Text Specific and Blackbox Fairness",
+  "authors": [
+    "Not specified in text"
+  ],
+  "venue": "Not specified in text",
+  "core_problem": "Ensuring fairness and preventing discrimination in multimodal clinical machine learning tasks, specifically addressing equalized odds on text and tabular data.",
+  "methodology_summary": "Investigating a modality-agnostic fairness algorithm (equalized odds post-processing) and a text-specific fairness algorithm (debiased clinical word embeddings). The core approach involves ensembling classifiers trained on structured and unstructured data.",
+  "datasets_eval": [
+    "MIMIC-III clinical dataset"
+  ],
+  "empirical_results": "The dual modality ensemble improves performance and mitigates unfairness relative to constituent components. Equalized odds post-processing diminishes group-specific disparities in TP and TN rates, but this comes with a degradation in AUC. Word embedding debiasing also helps reduce TP/TN discrepancies.",
+  "explicit_limitations": "The ensemble's performance improvements do not directly translate to fairness improvements; improving fairness (via EO post-processing) usually results in a degradation of performance (AUC).",
+  "numerical_metrics": [],
+  "geographical_data": {},
+  "pipeline_steps": [
+    "Problem Formulation & Data Ingestion",
+    "Method Execution & Architecture",
+    "Empirical Evaluation & Benchmarking"
+  ],
+  "generation_mode": "GENUINE_LLM",
+  "model_name": "NVIDIA_NIM (nvidia/nemotron-3.5-bolt-e4b)"
+}

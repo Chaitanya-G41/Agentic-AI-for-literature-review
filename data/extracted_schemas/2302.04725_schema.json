@@ -1,0 +1,22 @@
+{
+  "paper_id": "2302.04725",
+  "paper_title": "Lightweight Transformers for Clinical NLP",
+  "authors": [
+    "Not specified in context"
+  ],
+  "venue": "Not specified in context",
+  "core_problem": "Existing specialized pre-trained language models (like BioBERT and BioClinicalBERT) for medical NLP are often overparameterized and resource-intensive.",
+  "methodology_summary": "Development of efficient lightweight clinical transformers using Knowledge Distillation (KD) and continual learning, with parameter counts ranging from 15 million to 65 million.",
+  "datasets_eval": [
+    "Several standard datasets covering clinical text-mining tasks (e.g., MedNLI mentioned in limitations context)."
+  ],
+  "empirical_results": "The developed compact models performed comparably to larger models (BioBERT, ClinicalBioBERT) and significantly outperformed other compact models trained on general or biomedical data. Initializing ClinicalDistilBERT with a biomedical checkpoint significantly improved performance on MedNLI.",
+  "explicit_limitations": "The models are heavy in size and number of parameters, making them unsuitable for devices with limited memory and processing capacity.",
+  "numerical_metrics": [],
+  "geographical_data": {},
+  "pipeline_steps": [
+    "In this work, we speciﬁcally focus on devel-\nopment of compact language models for processing clinical texts (i.e."
+  ],
+  "generation_mode": "GENUINE_LLM",
+  "model_name": "NVIDIA_NIM (nvidia/nemotron-3.5-bolt-e4b)"
+}

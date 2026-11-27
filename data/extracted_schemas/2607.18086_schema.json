@@ -1,0 +1,26 @@
+{
+  "paper_id": "2607.18086",
+  "paper_title": "Judge-dependent safety gains and model-specific helpfulness costs of evidence-sufficiency prompting in clinical LLMs",
+  "authors": [
+    "Not specified in text"
+  ],
+  "venue": "Not specified in text",
+  "core_problem": "Whether measured 'safety gains' from evidence-sufficiency prompting in clinical LLMs reflect real behavior change or are artifacts of the LLM judge's calibration, and what the associated helpfulness costs are.",
+  "methodology_summary": "Retrospective public-data benchmark using a fully paired common panel (1,200 cells) comparing a standard prompt against an evidence-sufficiency wrapper across four models (GPT-5.5, Claude Opus 4.8, Gemini 3.5 Flash, Grok 4.3). Primary endpoint was paired reduction in unsafe overconfidence scored by GPT-5.4-nano, with secondary analyses involving other judges and blinded clinician review.",
+  "datasets_eval": [
+    "Real-POCQi",
+    "HealthBench",
+    "MedRBench"
+  ],
+  "empirical_results": "Unsafe overconfidence reduced from 49.3% to 24.7% (24.7 point paired reduction, p<0.001). The magnitude of the gain was judge-dependent (e.g., Claude Sonnet halved the effect). The gain carried a model-specific helpfulness cost (e.g., near-free for GPT-5.5, near-total for Gemini). Matched scaffold controls showed genuine behavior change.",
+  "explicit_limitations": "The study is a retrospective public-data benchmark and perturbation study with paired repeated measures. No established reporting guideline covers non-interventional computational benchmarks of clinical LLM behavior. The findings do not establish clinical deployment readiness.",
+  "numerical_metrics": [],
+  "geographical_data": {},
+  "pipeline_steps": [
+    "Problem Formulation & Data Ingestion",
+    "Method Execution & Architecture",
+    "Empirical Evaluation & Benchmarking"
+  ],
+  "generation_mode": "GENUINE_LLM",
+  "model_name": "NVIDIA_NIM (nvidia/nemotron-3.5-bolt-e4b)"
+}

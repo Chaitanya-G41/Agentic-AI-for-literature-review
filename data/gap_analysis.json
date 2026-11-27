@@ -1,0 +1,104 @@
+{
+  "explicit_gaps": [
+    {
+      "gap_id": "E1",
+      "title": "Room for improvement in synthetic clinical notes generation",
+      "category": "Data Privacy/Generation",
+      "description": "The generated synthetic clinical notes, while useful, still leave ample room for future improvements.",
+      "affected_papers": [
+        "1905.07002"
+      ]
+    },
+    {
+      "gap_id": "E2",
+      "title": "Performance/Fairness trade-off in ensemble methods",
+      "category": "Fairness/ML Evaluation",
+      "description": "Improving fairness (via EO post-processing) usually results in a degradation of performance (AUC), and ensemble performance improvements do not directly translate to fairness improvements.",
+      "affected_papers": [
+        "2011.09625"
+      ]
+    },
+    {
+      "gap_id": "E3",
+      "title": "Limited scope of sentence generation approach",
+      "category": "NLP Methodology",
+      "description": "The core approach (rearranging tokens based on bigrams) remained the same across all events, despite material adaptation.",
+      "affected_papers": [
+        "2104.12405"
+      ]
+    },
+    {
+      "gap_id": "E4",
+      "title": "Model size/resource intensity for deployment",
+      "category": "Model Efficiency",
+      "description": "The lightweight clinical transformers are still heavy in size and number of parameters, making them unsuitable for devices with limited memory and processing capacity.",
+      "affected_papers": [
+        "2302.04725"
+      ]
+    },
+    {
+      "gap_id": "E5",
+      "title": "Requirement for extensive domain knowledge and time waste",
+      "category": "Domain Knowledge/Efficiency",
+      "description": "The disease detection job requires extensive botanical knowledge and results in much wasted time.",
+      "affected_papers": [
+        "N/A"
+      ]
+    },
+    {
+      "gap_id": "E6",
+      "title": "Implied limitations in clinical study data",
+      "category": "Clinical Data Quality",
+      "description": "Most clinical studies have limitations regarding long-term cognitive trajectory forecasting.",
+      "affected_papers": [
+        "2402.12205"
+      ]
+    },
+    {
+      "gap_id": "E7",
+      "title": "Impact of lower-quality MRI data on subtype reproducibility",
+      "category": "Data Quality/Reproducibility",
+      "description": "The use of 'lower-quality' MRI data was identified as a limitation in assessing data-driven dementia subtypes.",
+      "affected_papers": [
+        "N/A"
+      ]
+    },
+    {
+      "gap_id": "E8",
+      "title": "Resource intensity and subjectivity of manual analysis",
+      "category": "Data Collection/Annotation",
+      "description": "Manual analysis of safety occurrence reports is resource-intensive, limited by human capacity, subjectivity, and potential for oversight.",
+      "affected_papers": [
+        "2501.07923"
+      ]
+    },
+    {
+      "gap_id": "E9",
+      "title": "Lack of established reporting guidelines for computational benchmarks",
+      "category": "Evaluation Methodology",
+      "description": "No established reporting guideline covers non-interventional computational benchmarks of clinical LLM behavior.",
+      "affected_papers": [
+        "2607.18086"
+      ]
+    },
+    {
+      "gap_id": "E10",
+      "title": "Unspecified inherent limitations of the MedIDL framework",
+      "category": "Methodology Completeness",
+      "description": "The provided text does not explicitly list inherent limitations of the proposed MedIDL framework itself.",
+      "affected_papers": [
+        "N/A"
+      ]
+    },
+    {
+      "gap_id": "E11",
+      "title": "Limitations in existing potato disease studies",
+      "category": "Literature Review Context",
+      "description": "Many existing potato-disease studies have limitations.",
+      "affected_papers": [
+        "N/A"
+      ]
+    }
+  ],
+  "synthesized_gaps": []
+}

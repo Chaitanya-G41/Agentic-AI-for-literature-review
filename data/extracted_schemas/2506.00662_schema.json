@@ -1,0 +1,24 @@
+{
+  "paper_id": "N/A",
+  "paper_title": "Uncertainty-Aware Genomic Classification of Alzheimer’s Disease: A Transformer-Based Ensemble",
+  "authors": [
+    "N/A"
+  ],
+  "venue": "N/A",
+  "core_problem": "Limited success of traditional statistical models and polygenic risk scores in AD prediction, and the lack of confidence indication in black-box deep learning models.",
+  "methodology_summary": "A transformer-based ensemble model (TrUE-Net) utilizing Monte Carlo Dropout for uncertainty awareness, integrating a transformer-based genotype classifier with a concurrently trained random forest model, and aggregating their probability outputs.",
+  "datasets_eval": [
+    "Whole-genome sequencing (WGS) data from a total of 1,566 individuals (after excluding those with mild cognitive impairment)."
+  ],
+  "empirical_results": "Overall accuracy of 0.6514 and AUC of 0.6636 on 1050 individuals. Excluding the uncertain group improved accuracy to 0.7287 (10.24% increase) and F1 to 0.8205 (23.62% increase).",
+  "explicit_limitations": "Nevertheless, several limitations remain.",
+  "numerical_metrics": [],
+  "geographical_data": {},
+  "pipeline_steps": [
+    "Problem Formulation & Data Ingestion",
+    "Method Execution & Architecture",
+    "Empirical Evaluation & Benchmarking"
+  ],
+  "generation_mode": "GENUINE_LLM",
+  "model_name": "NVIDIA_NIM (nvidia/nemotron-3.5-bolt-e4b)"
+}

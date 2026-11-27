@@ -1,0 +1,2657 @@
+{
+  "paper_id": "2401.05768",
+  "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+  "parser_used": "PyMuPDF_Layout_Engine",
+  "total_pages": 11,
+  "figures_count": 8,
+  "figures": [
+    {
+      "figure_id": "FIG-2401.05768-P3-1",
+      "page_number": 3,
+      "file_path": "data/figures\\2401.05768\\fig_p3_1.png",
+      "dimensions": "744x496",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2401.05768-P3-2",
+      "page_number": 3,
+      "file_path": "data/figures\\2401.05768\\fig_p3_2.png",
+      "dimensions": "1182x513",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2401.05768-P8-1",
+      "page_number": 8,
+      "file_path": "data/figures\\2401.05768\\fig_p8_1.png",
+      "dimensions": "902x1166",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2401.05768-P8-2",
+      "page_number": 8,
+      "file_path": "data/figures\\2401.05768\\fig_p8_2.png",
+      "dimensions": "1389x886",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2401.05768-P8-3",
+      "page_number": 8,
+      "file_path": "data/figures\\2401.05768\\fig_p8_3.png",
+      "dimensions": "723x509",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2401.05768-P8-4",
+      "page_number": 8,
+      "file_path": "data/figures\\2401.05768\\fig_p8_4.png",
+      "dimensions": "1600x1178",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2401.05768-P9-1",
+      "page_number": 9,
+      "file_path": "data/figures\\2401.05768\\fig_p9_1.png",
+      "dimensions": "1314x1079",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    },
+    {
+      "figure_id": "FIG-2401.05768-P9-2",
+      "page_number": 9,
+      "file_path": "data/figures\\2401.05768\\fig_p9_2.png",
+      "dimensions": "1819x1033",
+      "format": "png",
+      "type": "raster_figure_or_diagram"
+    }
+  ],
+  "vector_graphs_count": 2,
+  "vector_graphs": [
+    {
+      "page_number": 6,
+      "drawing_path_count": 85,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        595.2760009765625,
+        841.8900146484375
+      ]
+    },
+    {
+      "page_number": 7,
+      "drawing_path_count": 138,
+      "type": "vector_chart_or_graph",
+      "rect": [
+        0.0,
+        0.0,
+        595.2760009765625,
+        841.8900146484375
+      ]
+    }
+  ],
+  "tables_count": 5,
+  "tables": [
+    {
+      "table_id": "TAB-2401.05768-P6-1",
+      "page_number": 6,
+      "rows_count": 2,
+      "cols_count": 7,
+      "data": [
+        [
+          "Dropout",
+          "Augmented",
+          "Learning rate",
+          "Accuracy",
+          "Precision",
+          "Recall",
+          "F1"
+        ],
+        [
+          "No\nNo\nNo\nNo\nYes\nYes\nYes\nYes",
+          "Yes\nNo\nYes\nNo\nYes\nNo\nYes\nNo",
+          "0.001\n0.001\n0.0002\n0.0002\n0.001\n0.001\n0.0002\n0.0002",
+          "64.1\n51.9\n73.1\n75.0\n57.1\n59.6\n73.7\n64.7",
+          "54.4\n32.3\n58.5\n61.6\n42.3\n36.2\n59.1\n47.3",
+          "56.9\n32\n54.9\n58.3\n43.5\n36.6\n56.5\n47.1",
+          "55.0\n32.1\n55.7\n59.4\n42.0\n36.2\n57.2\n46.3"
+        ]
+      ]
+    },
+    {
+      "table_id": "TAB-2401.05768-P6-2",
+      "page_number": 6,
+      "rows_count": 2,
+      "cols_count": 6,
+      "data": [
+        [
+          "Model",
+          "Augmented",
+          "Accuracy",
+          "Precision",
+          "Recall",
+          "F1"
+        ],
+        [
+          "ResNet-50V2\nResNet-50V2\nResNet-101V2\nResNet-101V2",
+          "Yes\nNo\nYes\nNo",
+          "69.2\n62.8\n61.5\n48.7",
+          "48.7\n43.8\n43.6\n31.9",
+          "47.9\n44.5\n42.3\n31.3",
+          "47.7\n43.9\n42.6\n31.5"
+        ]
+      ]
+    },
+    {
+      "table_id": "TAB-2401.05768-P7-1",
+      "page_number": 7,
+      "rows_count": 2,
+      "cols_count": 6,
+      "data": [
+        [
+          "Method",
+          "Accuracy",
+          "Top-2 Accuracy",
+          "Precision",
+          "Recall",
+          "F1"
+        ],
+        [
+          "TRTR\nTRTS\nTSTR\nTSTS",
+          "62.8\n62.3\n55.1\n96.9",
+          "86.5\n84.0\n76.3\n99.6",
+          "45.9\n60.1\n34.2\n97.1",
+          "45.7\n55.7\n30.6\n96.2",
+          "44.1\n55.4\n29.0\n96.6"
+        ]
+      ]
+    },
+    {
+      "table_id": "TAB-2401.05768-P7-2",
+      "page_number": 7,
+      "rows_count": 2,
+      "cols_count": 6,
+      "data": [
+        [
+          "Augmentation",
+          "Accuracy",
+          "Top-2 Accuracy",
+          "Precision",
+          "Recall",
+          "F1"
+        ],
+        [
+          "Rotation+Flips\nMixUp\nCutMix\nCutout\nFMix\nRotation+Flips+MixUp\nRotation+Flips+CutMix\nRotation+Flips+Cutout\nRotation+Flips+FMix",
+          "73.7\n73.7\n76.3\n69.2\n74.4\n69.9\n73.7\n76.3\n77.6",
+          "91.7\n88.5\n88.5\n89.1\n89.7\n93.6\n88.5\n92.3\n91.0",
+          "68.3\n60.1\n62.9\n53.7\n64.2\n52.2\n66.4\n68.1\n71.6",
+          "65.1\n57.4\n59.9\n51.6\n57.8\n50.1\n57.5\n65.5\n67.1",
+          "62.7\n57.0\n59.7\n51.3\n59.1\n49.4\n59.3\n63.3\n67.7"
+        ]
+      ]
+    },
+    {
+      "table_id": "TAB-2401.05768-P7-3",
+      "page_number": 7,
+      "rows_count": 2,
+      "cols_count": 6,
+      "data": [
+        [
+          "Augmentation Accuracy",
+          "",
+          "Top-2 Accuracy",
+          "Precision",
+          "Recall",
+          "F1"
+        ],
+        [
+          "Augmented\nNon-augmented\nMixUp\nCutMix\nCutout\nFMix\nRotation+Flips+MixUp\nRotation+Flips+CutMix\nRotation+Flips+Cutout\nRotation+Flips+FMix",
+          "76.3\n59.0\n75.0\n71.2\n75.0\n75.0\n76.3\n75.0\n78.2\n76.9",
+          "91.7\n80.8\n89.7\n84.6\n92.9\n85.9\n89.7\n91.0\n92.9\n91.0",
+          "62.1\n43.4\n55.6\n55.9\n61.1\n60.5\n63.2\n58.9\n66.1\n61.5",
+          "58.9\n44.2\n53.6\n54.3\n60.6\n60.8\n62.6\n60.4\n64.3\n63.0",
+          "60.2\n43.4\n54.1\n54.8\n60.6\n59.8\n62.8\n58.9\n63.4\n61.0"
+        ]
+      ]
+    }
+  ],
+  "full_text": "Evaluating Data Augmentation Techniques for Coffee Leaf Disease\n\nClassification\n\nAdrian Gheorghiu1∗, Iulian-Marius T˘aiatu1∗, Dumitru-Clementin Cercel1a, Iuliana Marin2,\n\nand Florin Pop1,3,4\n\n1 Computer Science and Engineering Department, National University of Science and Technology POLITEHNICA Bucharest\n2 Faculty of Engineering in Foreign Languages, National University of Science and Technology POLITEHNICA Bucharest\n3 National Institute for Research and Development in Informatics - ICI Bucharest, Romania\n4 Academy of Romanian Scientists, Bucharest, Romania\n{adrian.gheorghiu00, iulian.taiatu}@stud.acs.upb.ro, {dumitru.cercel, iuliana.marin, florin.pop}@upb.ro\n\nKeywords:\npix2pix, CycleGAN, Augmentations, Image Classification, Vision Transformers, Leaf Diseases.\n\nAbstract:\nThe detection and classification of diseases in Robusta coffee leaves are essential to ensure that plants are healthy\nand the crop yield is kept high. However, this job requires extensive botanical knowledge and much wasted time.\nTherefore, this task and others similar to it have been extensively researched subjects in image classification.\nRegarding leaf disease classification, most approaches have used the more popular PlantVillage dataset while\ncompletely disregarding other datasets, like the Robusta Coffee Leaf (RoCoLe) dataset. As the RoCoLe dataset\nis imbalanced and does not have many samples, fine-tuning of pre-trained models and multiple augmentation\ntechniques need to be used. The current paper uses the RoCoLe dataset and approaches based on deep learning\nfor classifying coffee leaf diseases from images, incorporating the pix2pix model for segmentation and cycle-\ngenerative adversarial network (CycleGAN) for augmentation. Our study demonstrates the effectiveness of\nTransformer-based models, online augmentations, and CycleGAN augmentation in improving leaf disease\nclassification. While synthetic data has limitations, it complements real data, enhancing model performance.\nThese findings contribute to developing robust techniques for plant disease detection and classification.\n\n1\nIntroduction\n\nThe Robusta coffee plant (also called Coffea\nCanephora) is a species of coffee that is susceptible to\nmany diseases. Whether those diseases are caused by\ninsects or fungi, they can have a major impact on crop\nyields and even cause complete crop destruction if left\nuntreated. The detection of diseases from images has\nbeen a significant focus in the research of classifica-\ntion tasks for many years, starting with diseases in\nhumans [Ding et al., 2023, Sun et al., 2023, Lungu-\nStan et al., 2023] and then moving to animals [Stauber\net al., 2008,Nääs et al., 2020,Nam and Dong, 2023]\nand plants [Dawod and Dobre, 2022a,Dawod and Do-\nbre, 2022b, Dawod and Dobre, 2022c, Echim et al.,\n2023].\nGenerally, detecting diseases requires expert\nknowledge and a lot of time spent analyzing images to\ndetermine the severity of the disease. For this reason,\n\naCorresponding author.\n*Equal contributions.\n\nthere have been many research interests in developing\nmachine learning tools that anyone can use to detect\nand classify diseases [Kamal et al., 2019,Dawod and\nDobre, 2021]. These tools must be easy to use, ac-\ncurate, and not overly confident when making wrong\npredictions.\n\nIn this paper, we use the Robusta Coffee Leaf\n(RoCoLe) dataset [Parraga-Alava et al., 2019] for\nwhich the main issues are the small number of avail-\nable images and the class imbalance. These are both\nwidespread problems that arise in the field of ma-\nchine learning and for which multiple approaches exist.\nTherefore, several methods were tested and compared\nto determine which solution fits the RoCoLe dataset\nthe best, with the main contributions of our work being\nas follows:\n\n• We test offline and online augmentations of the\ndataset conjointly with different combinations of\nmodels and hyperparameters. The main focuses of\nthese comparisons are the performance evaluations\nof the augmentations, followed by the assessment\n\narXiv:2401.05768v1  [cs.CV]  11 Jan 2024\n\nof Transformer [Vaswani et al., 2017]-based mod-\nels compared to a state-of-the-art convolutional\nmodel.\n\n• We employ different visualization and explain-\nability techniques [Zhou et al., 2016,Hinton and\nRoweis, 2002] to better understand why the models\nperform in certain ways.\n\n• To the best of our knowledge, we are the first to\naugment the RoCoLe dataset and use it for training\nand testing Transformer-based models.\n\n2\nRelated Work\n\nMost leaf disease classification approaches used large\ndatasets comprising tens of thousands of images [Mo-\nhameth et al., 2020,Thakur et al., 2023]. Only some\nworks used the RoCoLe dataset; if they do, it is not\nthe primary training dataset and is mainly used for\nevaluation [Tassis et al., 2021,Rodriguez-Gallo et al.,\n2023,Faisal et al., 2023]. The approaches used vary,\nwith both deep learning and classical machine learning\nmodels being employed [Brahimi et al., 2017,Tassis\net al., 2021].\n\nTherefore, Brahimi et al. [Brahimi et al., 2017]\nused a deep learning approach by testing two tra-\nditional convolutional neural network (CNN) [Kim,\n2014] architectures: AlexNet [Krizhevsky et al., 2017]\nand GoogLeNet [Szegedy et al., 2015]. Traditional\nmachine learning models, specifically support vector\nmachines (SVMs) and Random Forest, are also tested.\nThe work compares pre-trained models to models with-\nout pre-training, as well as deep models trained on raw\ndata to shallow models trained on manually extracted\nfeatures. Feature activation visualization is also used\nas a more rudimentary technique. For this, regions of\nthe image are sequentially occluded, after which the\nclassification model is used to get the prediction. The\nnegative log-likelihood is then used to estimate the\nimportance of the occluded region. This method has\nthe disadvantage of inefficiency and is only feasible\nwhen generating extremely low dimensional activation\nmaps comprised of only a few pixels. For the SVM\nand Random Forest shallow models, the images are\nfirst transformed from the RGB color space to another\ncolor space, after which manual features such as the\ncolor moment, wavelet transform, and gray level co-\noccurrence matrix are extracted and used in training\nthe classifiers.\n\nTassis et al. [Tassis et al., 2021] used a multi-stage\npipeline of three different models to segment and clas-\nsify the leaf diseases. Thus, a Mask R-CNN model [He\net al., 2017] is first used for instance segmentation.\n\nThis model is trained to mask the background and only\nhighlight the leaves in images. After that, either a\nU-Net [Ronneberger et al., 2015] or a PSPNet [Zhao\net al., 2017] is used for semantic segmentation. This\nmodel highlights the relevant areas of the studied im-\nage, specifically diseased regions. Those regions are\nthen cropped and fed into a ResNet classifier [He et al.,\n2016], and the predictions are used to estimate the\nseverity of the disease. The models were trained using\nrandom rotations and color variations as augmenta-\ntions. As a training dataset, the authors used images\nscraped from the web. The RoCoLe dataset was also\nused to evaluate the instance segmentation model.\n\nMohameth et al. [Mohameth et al., 2020] employed\nthe popular PlantVillage dataset [Mohanty et al., 2016]\nto train their proposed models. For training, both trans-\nfer learning and deep feature extraction methods are\nused. For transfer learning, only the classification head\nof a pre-trained model is trained from scratch, with\nthe rest of the layers having their weights frozen. Us-\ning this method, the authors test multiple CNN-based\nmodels: VGG16 [Simonyan and Zisserman, 2015],\nGoogLeNet, and ResNet. When deep feature extrac-\ntion is utilized, these models only extract the features\nbefore the classification head. Those features are then\nused to train an SVM or a k-nearest neighbor classifier.\n\n3\nDataset\n\n3.1\nRelabeling\n\nBy performing exploratory data analysis on the Ro-\nCoLe dataset, it becomes evident that the classes are\nimbalanced. This is a significant problem for any\nclassifier architecture, as the model will overfit the\nmost frequent class and rarely predict the less frequent\nclasses.\n\nIt is easy to notice that the labels corresponding\nto the two most severe cases of rust are also the least\nfrequent. The rust_level_3 and rust_level_4 labels\nboth represent high levels of rust, and even by com-\nbining them, they still make up fewer samples than\nany other label. Therefore, the first step towards al-\nleviating class imbalance is to relabel the samples as\nfollows: healthy and red_spider_mite stay the same,\nrust_level_1 becomes rust_level_low, rust_level_2 be-\ncomes rust_level_medium, and both rust_level_3 and\nrust_level_4 become rust_level_high.\n\n3.2\nPreprocessing\n\nBefore further addressing the class imbalance, the next\nstep was to analyze the images from the RoCoLe\n\ndataset. We notice that the photos were taken with\na smartphone camera and, therefore, have a high res-\nolution, 1152x2048, to be more precise. Using im-\nages at this resolution for deep learning models would\nconsume many computational resources without the\nmodels benefiting much from the increased resolution.\nTherefore, the images were rescaled to the less de-\nmanding and more common 256x256 resolution. The\nimages in the dataset also come with a mask, repre-\nsented by the points that comprise the mask polygon.\nThis mask was plotted, rescaled, and saved with its\nrelated image.\n\n3.3\nSplit\n\nThe initial dataset is randomly split into train, devel-\nopment (dev), and test sets as shown in Figure 1. The\nsplit is done as follows: 80% goes to the train set, with\nthe rest of 20% being split equally between the dev\nand test sets. After the split, the train and dev sets\nare augmented together and then split back with an\n80%-10% ratio. We do not augment the test set since\nthe model metrics computed on the test set must only\nreflect the performance on data from the real input\ndistribution.\n\nFigure 1: Statistics of the number of samples in the relabeled\ndataset.\n\n4\nMethod\n\n4.1\nSegmentation\n\nAs can be seen from the examples in Figure 2, the\nbackgrounds of the images are very random and do\nnot provide any additional information. Therefore, it\nonly makes sense to use masked images to train classi-\nfiers. For training a classifier, it is trivial to apply the\nmask that comes with the image. Unfortunately, the\n\nissue is for the examples that do not already come seg-\nmented. The segmentation problem involves learning\na mapping from an input distribution to the distribu-\ntion that represents the mask of the inputs. Because\nof the pairwise nature of the segmentation problem,\nthe pix2pix model [Isola et al., 2017] is the perfect\nfit for it. Furthermore, pix2pix is based on the U-Net\narchitecture, which is state of the art in image segmen-\ntation [Siddique et al., 2021]. The pix2pix model was\nthus trained on image-mask pairs from the RoCoLe\ndataset.\n\nTo improve the quality of the predicted segmenta-\ntion masks, online augmentation was also used to crop\nand flip the image randomly. After training, the mask\nwas inferred for each image in the dataset and then ap-\nplied to the image to only contain the area of interest,\nnamely the leaf in the foreground. The reason segmen-\ntation of the dataset is done using the trained pix2pix\nmodel and not using the already provided masks is\nbecause the inferred masks are slightly different from\nthe provided ones. Training a classifier on images seg-\nmented with the provided masks but segmenting the\ntest images with pix2pix will affect the quality of the\npredictions as the input distribution for the classifier\nwill be slightly different.\n\nFigure 2: Examples of rescaled images from each class and\nthe associated masks.\n\n4.2\nOffline Augmentations\n\nIn order to alleviate the class imbalance, image gener-\nation was used to supplement the less frequent classes,\nthus making the dataset perfectly balanced. The class\nfrequencies show that the healthy class is the most\nfrequent. This means that it can augment the other\nclasses by transferring the style of the images with\ndiseased leaves onto the images with healthy leaves.\nThe cycle-generative adversarial network (CycleGAN)\nmodel [Zhu et al., 2017] has been proven to be effec-\ntive for style transfer tasks [Liu et al., 2020]. Also,\nCycleGAN is a good fit for the augmentation task\n\nsince it does not require paired inputs and works just\nas well with unpaired inputs, which is the case for the\naugmentation task.\n\nIn addition to learning the mapping from the source\ndomain X to the target domain Y, CycleGAN also\nlearns the inverse mapping from the target domain to\nthe source domain [Zhu et al., 2017]. In this sense,\ntwo generators and two discriminators are used, one\nof each type for each mapping: G and DY for the di-\nrect mapping G : X →Y, as well as F and DX for the\ninverse mapping F : Y →X. Furthermore, CycleGAN\nintroduces another objective, called cycle consistency\nloss, in addition to the classic GAN objectives [Good-\nfellow et al., 2014]. Intuitively, this novel objective\nuses the L1 norm to enforce the consistency of the in-\nverse mapping, canceling the direct mapping, as shown\nin Eq. (1).\n\nLcyc(G,F) = Ex∼pdata(x)[||F(G(x))−x||1]+\n\n+Ey∼pdata(y)[||G(F(y))−y||1]\n(1)\n\nWhen passing an image from X through generator\nF or an image from Y through generator G, the out-\nput is expected to be the same provided image since\nthe input already comes from the output distribution.\nTherefore, a second regularization loss called the iden-\ntity loss is used to constrain the model. This loss uses\nthe same L1 norm as the cycle consistency loss and\ncan be expressed through Eq. (2).\n\nLidentity(G,F) = Ex∼pdata(x)[||F(x)−x||1]+\n\n+Ey∼pdata(y)[||G(y)−y||1]\n(2)\n\nBy combining the identity and cycle consistency\nlosses with the standard GAN objectives, the final loss\nbecomes as described by Eq. (3).\n\nL(G,F,DX,DY) = LGAN(G,DY,X,Y)+\n\n+LGAN(F,DX,Y,X)+λ1Lcyc(G,F)+\n\n+λ2Lidentity(G,F)\n(3)\n\nTherefore, we train the CycleGAN model on our\ndataset of segmented images for each combination\nof healthy and diseased classes. This means that four\nCycleGAN models were trained in total. After training,\nthe models were used on every segmented image of the\nhealthy class to generate its diseased counterpart. The\ndataset was augmented using those generated diseased\nimages by supplementing every diseased class such\nthat the number of samples in each class is equal. For\nthis, the required number of images was randomly\npicked from the generated images.\n\n4.3\nOnline Augmentations\n\nDuring training, online augmentation of the dataset\nwas also tested. The most basic augmentations that\nhave been tested are horizontal and vertical flips, as\nwell as random rotations. Therefore, an image is ro-\ntated with a random angle between 0 and 180 degrees,\nafter which random horizontal and vertical flips are\napplied with a probability of 25% each.\n\nMore advanced techniques include MixUp [Zhang\net al., 2018], CutMix [Yun et al., 2019], Cutout [De-\nVries and Taylor, 2017], and FMix [Harris et al., 2020].\nThese augmentations are applied during the batching\nprocess so that the training dataset will differ with\neach epoch. For the batched augmentations, there is a\n50% probability that the augmentation will be applied;\notherwise, the batch is left unmodified. Furthermore,\nall batched augmentations use a random parameter λ,\nsampled from the beta distribution each time the aug-\nmentation is applied. For FMix, the beta distribution’s\nα and β parameters are set to 1, while for the other\nbatched augmentations, both parameters are set to 0.8.\nWith CutMix and Cutout, the square that is cut out\nis chosen to have the center at least one-quarter away\nfrom the edge of the image, as most images have the\nleaf centered in the middle of the image.\n\n4.4\nClassification Models\n\nAfter segmentation and augmentation, the dataset\nis ready for training classification models.\nThus,\nTransformer-based architectures (i.e., ViT [Dosovit-\nskiy et al., 2020] and CvT [Wu et al., 2021]) were\ntested using different hyperparameters, sizes, and aug-\nmentation techniques. In order to compare these mod-\nels to convolutional state-of-the-art models, ResNet\nwas tested in some scenarios.\n\n5\nExperimental Setup\n\n5.1\nPerformance Metrics\n\nFor model evaluation, macro-averaging was used to\ncombine accuracy, precision, recall, and F1-score bi-\nnary classification metrics into multiclass metrics.\n\nApart from the initial ViT and ResNet tests, all\ntests also feature the top-k accuracy metric. Top-k\naccuracy means that when calculating the accuracy\nscore, a prediction is considered accurate if any of the\ntop-k outputs with the highest confidence is correct.\nFor testing, the top-2 accuracy was used in addition to\nthe classic accuracy metric.\n\n5.2\nHyperparameters\n\n5.2.1\nPix2pix Setup\n\nThe pix2pix model was trained using the Adam opti-\nmizer [Kingma and Ba, 2014] with a learning rate of\n2∗10−4 and the momentum parameters β1 and β2 set\nto 0.5 and 0.999, respectively. These parameters are\nthe same as in the pix2pix paper [Isola et al., 2017].\nOther parameters taken from the paper are the batch\nsize of 1, a value shown to work best for the pix2pix\nmodel, and the L1 loss weight, λ, set to 100. For the\ndiscriminator, we used the PatchGAN [Li and Wand,\n2016, Isola et al., 2017] of output size 30x30. The\nmodel was trained on the whole dataset for 25 epochs.\n\n5.2.2\nCycleGAN Setup\n\nFor training the CycleGAN models, the Adam opti-\nmizer was used along with the same learning rate, mo-\nmentum parameters, and batch size as for the pix2pix\nmodel. The weights for the cycle consistency loss and\nidentity loss were also taken from the CycleGAN pa-\nper [Zhu et al., 2017], specifically from the “Monet\npaintings to photos” experiment, and were set to 10\nand 5, respectively. From an architectural point of\nview, the generator with nine residual blocks from the\npaper was used, along with the 70x70 PatchGAN dis-\ncriminator, also from the paper [Zhu et al., 2017]. Each\nmodel was trained on the whole segmented dataset for\n100 epochs.\n\n5.2.3\nClassification Model Setup\n\nAll models were trained using a batch size of 32, with a\nfew exceptions where batch sizes of 16 were used due\nto limited resources. The Adam optimizer was used,\nalong with a learning rate scheduler that multiplies the\nlearning rate by 0.25 every 15 epochs.\n\n6\nQuantitative Results\n\n6.1\nResults for Offline Augmentations\n\nInitially, we tested a ViT-small model with a patch size\nof 16 and an input size of 224. The tests aim to com-\npare different models and augmentation techniques, so\nthe first tests involve finding the optimum hyperparam-\neters at which to train the following models. Therefore,\nthe model is first tested with and without dropout and\nlearning rates of 0.001 and 0.0002 for 50 epochs to\nobserve how hyperparameters affect the scores and the\nevolution of train and dev losses.\n\nThe augmentations improve performance in al-\nmost all cases.\nAs can be observed from Table 1,\nthe scores in most cases are higher when the model\nis trained on the augmented dataset than the non-\naugmented dataset. In the case of the fifth and sixth\nrows, the model has higher accuracy when trained on\nthe non-augmented dataset, but all the other scores\nare low. The explanation is that the model overfits\nthe most frequent class because of the imbalanced na-\nture of the non-augmented dataset. However, for the\nthird and fourth rows, all the scores are higher for the\nnon-augmented model than all the others. As the differ-\nences are not that big, this anomaly can be explained\nby the small dimension of the test set.\n\nThe ViT-small model performs better when\ntrained using a lower learning rate.\nIn Table 1,\nin the case of no dropout and a learning rate of 0.001,\nthe model presents worse performance on both aug-\nmented and non-augmented datasets compared to the\ncases when a learning rate of 0.0002 is used. This\nmeans the lower learning rate is the correct choice,\nas the model presents better learning abilities regard-\nless of the dataset. Another observation in our tests\nis that introducing dropout reduces overfitting mostly\non the augmented dataset, with the losses on the non-\naugmented dataset remaining almost unchanged. Us-\ning a learning rate of 0.0002 and enabling dropout, the\noverfitting on the augmented dataset almost disappears,\nwhile it is greatly improved on the non-augmented\ndataset.\n\nThe ResNet-50V2 and ResNet-101V2 models were\ntested to compare how augmentation affects traditional\nconvolutional neural networks. Like the ViT, these\nmodels are pre-trained on the ImageNet datasets [Deng\net al., 2009]. A learning rate of 0.001 was used to test\nboth augmented and non-augmented datasets, while\nall other settings were kept as before.\n\nBigger models encourage overfitting.\nIn Table\n2, it can be noticed how ResNet performs worse in\nthe case of the bigger model, as the higher number\nof parameters worsens overfitting. Furthermore, per-\nformance is better on the augmented dataset for both\nversions of ResNet, as the larger dataset discourages\noverfitting.\n\nViT has better performance than ResNet.\nWhen comparing the scores of the ViT-small with en-\nabled dropout, augmentation, and a learning rate of\n0.0002 to the ResNet-50V2 model with augmentation,\nit can be observed that the Transformer-based model\nperforms better compared to the convolutional-based\nmodel.\n\nBy analyzing the loss evolution of the models, it\ncould be noticed how the models started overfitting\nmostly around 20 to 30 epochs. For this reason, all\n\nTable 1: ViT-small scores for different combinations of hyperparameters.\n\nDropout\nAugmented\nLearning rate\nAccuracy\nPrecision\nRecall\nF1\nNo\nYes\n0.001\n64.1\n54.4\n56.9\n55.0\nNo\nNo\n0.001\n51.9\n32.3\n32\n32.1\nNo\nYes\n0.0002\n73.1\n58.5\n54.9\n55.7\nNo\nNo\n0.0002\n75.0\n61.6\n58.3\n59.4\nYes\nYes\n0.001\n57.1\n42.3\n43.5\n42.0\nYes\nNo\n0.001\n59.6\n36.2\n36.6\n36.2\nYes\nYes\n0.0002\n73.7\n59.1\n56.5\n57.2\nYes\nNo\n0.0002\n64.7\n47.3\n47.1\n46.3\n\nTable 2: ResNet scores for different variants and augmentations.\n\nModel\nAugmented\nAccuracy\nPrecision\nRecall\nF1\nResNet-50V2\nYes\n69.2\n48.7\n47.9\n47.7\nResNet-50V2\nNo\n62.8\n43.8\n44.5\n43.9\nResNet-101V2\nYes\n61.5\n43.6\n42.3\n42.6\nResNet-101V2\nNo\n48.7\n31.9\n31.3\n31.5\n\ntests described from now on will be done using 25\nepochs. Regarding the other hyperparameters, enabled\ndropout, a learning rate of 0.0002, and the augmented\ndataset will be used. Until another model is tested, the\nViT-small model will be used.\n\nIn order to further test how well the synthetically\ngenerated data captures the distribution of the real data,\nwe compared the Train on Real - Test on Real (TRTR),\nTrain on Real - Test on Synthetic (TRTS), Train on\nSynthetic - Test on Real (TSTR), and Train on Syn-\nthetic - Test on Synthetic (TSTS) scenarios [Fekri et al.,\n2019]. As the names suggest, these methods train and\ntest the model on combinations of either the original\ndataset with real images or a dataset consisting of only\nsynthetic images with no real images in the augmented\nclasses. The synthetic data was thus extracted and split\ninto train, dev, and test using the same ratios as before.\n\nSynthetic data poorly captures the distribution\nof the real data.\nTable 3 shows how, to a certain\nextent, the synthetic data captures the distribution of\nthe real data rather poorly. The discrepancy between\nTRTR and TSTS especially shows this. The model\nperforms much better on synthetic data and learns by\noverfitting the specific properties of each generated\nclass. As there is still one real class among the syn-\nthetic images, the healthy class, as well as all other\nsynthetic classes being generated with different trained\ninstances of CycleGAN, the model learns to distin-\nguish between the classes by learning the different\nfootprints left in the generated images.\n\nModels trained only on synthetic data gener-\nalize poorly to real data.\nThe slight difference\nbetween TRTR and TRTS shows how a model trained\non real data generalizes just as well to synthetic data,\nas the model learns the actual distribution without\noverfitting. The poor performance of TSTR compared\nto TSTS further emphasizes how the model overfits\nspecific properties in the synthetic data and does not\n\ngeneralize well to real data.\n\n6.2\nResults for Online Augmentations\n\nOnline augmentations improve performance in al-\nmost all cases.\nIt can be observed in Table 4 how,\nwith a few exceptions, online augmentations further\nimprove the performance when compared to the equiv-\nalent configuration in Table 1, specifically the second\nto last row. One of the exceptions is Cutout, which has\nno other augmentations.\n\nCutout with no augmentations offers the worst\nperformance.\nBecause the segmented images have\nmost pixels set to 0, cutting out additional parts of\nthe image erases essential information. Adding other\naugmentations seems to counteract this, as the Cutout\nmodel with random rotations and flips is among the\nbetter-performing models.\n\nFMix features the best all-around performance.\nCutMix and FMix have similar performances, with\nFMix taking the lead, especially when adding rotations\nand flips. Rotations and flips seem to improve all\nmetrics except accuracy, while batched augmentations\nhave more of an effect on the standard accuracy metric.\n\nFinally, we tested the CvT model [Wu et al., 2021]\non the augmented dataset, non-augmented dataset, and\nthe various combinations of online augmentations also\ntested up until now. By analyzing the loss evolution,\nwe observed that CvT is more prone to overfitting,\nbeing a bigger model than ViT. The augmented dataset\nhelped with overfitting, as did the augmentations with\nrandom rotations and flips. The choice of batched\naugmentation did not impact overfitting much, but\nCutMix and FMix had slightly better performance in\nthat aspect.\n\nCvT has similar performance to ViT.\nAs seen\nin Table 5, the performances of CvT are similar to ViT,\nwith rotation and flip augmentations making the model\n\nTable 3: ViT-small scores for TRTR, TRTS, TSTR, and TSTS.\n\nMethod\nAccuracy\nTop-2 Accuracy\nPrecision\nRecall\nF1\nTRTR\n62.8\n86.5\n45.9\n45.7\n44.1\nTRTS\n62.3\n84.0\n60.1\n55.7\n55.4\nTSTR\n55.1\n76.3\n34.2\n30.6\n29.0\nTSTS\n96.9\n99.6\n97.1\n96.2\n96.6\n\nTable 4: ViT-small scores for different online augmentations.\n\nAugmentation\nAccuracy\nTop-2 Accuracy\nPrecision\nRecall\nF1\nRotation+Flips\n73.7\n91.7\n68.3\n65.1\n62.7\nMixUp\n73.7\n88.5\n60.1\n57.4\n57.0\nCutMix\n76.3\n88.5\n62.9\n59.9\n59.7\nCutout\n69.2\n89.1\n53.7\n51.6\n51.3\nFMix\n74.4\n89.7\n64.2\n57.8\n59.1\nRotation+Flips+MixUp\n69.9\n93.6\n52.2\n50.1\n49.4\nRotation+Flips+CutMix\n73.7\n88.5\n66.4\n57.5\n59.3\nRotation+Flips+Cutout\n76.3\n92.3\n68.1\n65.5\n63.3\nRotation+Flips+FMix\n77.6\n91.0\n71.6\n67.1\n67.7\n\nTable 5: CvT scores for the offline augmented dataset (first row), the non-augmented dataset (second row), and the augmented\ndataset with combinations of online augmentations (from third to last row).\n\nAugmentation\nAccuracy\nTop-2 Accuracy\nPrecision\nRecall\nF1\nAugmented\n76.3\n91.7\n62.1\n58.9\n60.2\nNon-augmented\n59.0\n80.8\n43.4\n44.2\n43.4\nMixUp\n75.0\n89.7\n55.6\n53.6\n54.1\nCutMix\n71.2\n84.6\n55.9\n54.3\n54.8\nCutout\n75.0\n92.9\n61.1\n60.6\n60.6\nFMix\n75.0\n85.9\n60.5\n60.8\n59.8\nRotation+Flips+MixUp\n76.3\n89.7\n63.2\n62.6\n62.8\nRotation+Flips+CutMix\n75.0\n91.0\n58.9\n60.4\n58.9\nRotation+Flips+Cutout\n78.2\n92.9\n66.1\n64.3\n63.4\nRotation+Flips+FMix\n76.9\n91.0\n61.5\n63.0\n61.0\n\ncarry out better. In the case of CvT, the versions where\nCutout is used have similar performance and perform\nbetter than the other batched augmentations. While\nViT favored CutMix over MixUp, the performances\nare flipped with CvT, such that CutMix outperforms\nMixUp. FMix seems to be the most robust, with its\nperformance having smaller fluctuations than the rest\nof the batched augmentations, regardless of the model\nor the other online augmentations used. Using the non-\naugmented dataset has the same performance impact\non CvT as it had on ViT.\n\n7\nQualitative Results\n\n7.1\nPix2pix Examples\n\nPredicted masks are smoother than hand-drawn\nmasks.\nAs can be seen in the first and second ex-\namples of Figure 3, the predicted mask is smoother\naround the edges compared to the ground truth mask,\nalbeit less close to the outline of the leaf. The fourth\nexample shows that the model could generate a mask\nthat surpasses the ground truth in the correct condi-\ntions.\n\nPredicted masks sometimes include background\n\nleaves.\nThe third image shows how certain back-\nground leaves hinder the model’s ability to find an\noutline that follows the exact shape of the leaf, out-\nputting a smoother segmentation instead. Therefore,\nin areas where the outline is less visible, the model\nalso includes the background leaves when performing\nsegmentation.\n\nThe model has trouble segmenting leaves\nagainst specific backgrounds.\nBecause the pix2pix\nmodel was trained on images that mostly contain back-\ngrounds of other leaves combined with grass and dirt, it\nhas trouble segmenting images of leaves taken against\nbackgrounds such as asphalt and concrete. Surpris-\ningly, the model is good at segmenting images of\nleaves taken against plain or solid color backgrounds.\n\n7.2\nCycleGAN Examples\n\nSome synthetic images contain noisy holes.\nAs\nshown in the first example of Figure 4, the generated\nred_spider_mite image features a big hole in the leaf.\nWhile the hole is an excellent example of leaf dam-\nage, there is also a lot of noise surrounding it, which\ndecays the quality of the sample. Better-looking hole\nexamples are found in the high rust-level image gener-\nated from the second healthy leaf, the synthetic image\nfeaturing small holes around the edges of the leaf.\n\nFigure 3: Examples of pix2pix predicted masks compared to\nthe ground truth masks.\n\nThe low rust-level synthetic images feature al-\nmost no discernible modifications.\nFor the low\nrust level, there is little discernible difference between\nthe healthy and diseased images. This might be be-\ncause this level of rust has a minimal impact on the\nappearance of the leaf, making it look almost identical\nto a healthy leaf in most cases. In comparison, the\nmedium and high levels of rust have the most visible\neffects. As expected, the first and third examples show\nmore severe rust stains for the high level than for the\nmedium level, while the second example shows more\nholes.\n\nFigure 4: Examples of diseased leaf images generated from\nhealthy leaf images.\n\n7.3\nT-SNE Visualizations\n\nIn order to show how the generated diseased leaf im-\nages are close to the actual images in the input distri-\nbution space, latent features are first extracted from\nthe images by passing them through a ViT. This vision\n\nTransformer is pre-trained on the ImageNet-21k and\nImageNet-1k datasets [Deng et al., 2009], so it should\nextract distinctive features out of the leaf images with-\nout prior knowledge about the input distribution. In\norder to visualize those latent features, the t-distributed\nstochastic neighbor embedding (t-SNE) dimensional-\nity reduction technique [Hinton and Roweis, 2002] is\nused.\n\nIn Figure 5, it is easy to notice how the different\nclasses are each spread into their clusters, with the\nclusters also overlapping each other a bit. This is ex-\npected from a model pre-trained on a generic image\ndataset without prior knowledge of the plant leaf clas-\nsification task. It can still be observed how there are\nno evident outliers for any class, with the synthetic\nimages seemingly blending into the real images.\n\nIn Figure 6, for the most part, the synthetic image\nrepresentations surround the real images representa-\ntions, except for the red_spider_mite class, where the\nreal and synthetic images overlap almost perfectly.\n\nFigure 5: 2D t-SNE representations of each class’s images,\nboth synthetic and real.\n\nFigure 6: 2D t-SNE visualizations of each class, comparing\nreal and synthetic images.\n\n7.4\nCAM Visualizations\n\nModels trained with certain online augmentations\nfocus better on the critical parts of leaves.\nFor the\nMixUp strategy, the model focuses more on the area\nwhere the two images overlap, and there are no rust\nspots (see Figure 7). Interestingly, the big rust region\nis mainly ignored, with the model focusing more on\nthe small rust spots on the left side of the rusty leaf.\nFor CutMix, the model learned to ignore the areas that\nencompass the transitions from one image to another\nwhile also focusing on the essential elements in both\nimages. With Cutout, even when a big area is cut\nout in the image, the model learns to ignore it and\nfocuses instead on the unobstructed regions. FMix\nCAM is similar to CutMix CAM, the model ignoring\nthe transitions, especially in regions where one image\ntransitions to the background of the other image.\n\nModels trained on synthetic data focus more on\nthe background and edges of leaves.\nThe CAMs in\nFigure 8 show how the model trained on the synthetic\ndataset focuses the most on the edges of the leaves,\nwhere more artifacts were left by the CycleGAN model\nwhen generating the images. Also, the TSTS model\nseems to focus surprisingly much on the background,\nwhich can be explained because the CycleGAN model\nleaves noise in the background of the generated image.\nThe model trained on the augmented dataset focuses\nthe most on areas where the leaf is affected by rust.\n\nModels trained using online augmentations fo-\ncus on the image as a whole.\nBy comparing the\nvisualizations in Figure 7 to the visualizations in Fig-\nure 8, it can be observed that the models trained using\nonline augmentations direct their attention more to-\nward the background of the image compared to the\nmodel trained without online augmentations. This is\nbecause the models trained using online augmentations\nlearn to focus on the image as a whole, not only on the\ncenter part.\n\n8\nConclusions and Future Work\n\nThis paper presented a deep learning pipeline for\nthe task of leaf disease classification on the RoCoLe\ndataset. Consequently, image leaf segmentation was\nperformed using a pix2pix model, and CycleGAN was\nused to augment the diseased classes in the dataset.\nAlso, Transformer-based image classification models\nwere trained on the augmented dataset using various\nonline augmentations.\n\nThis approach of using augmentations combined\nwith Transformer models increased the classification\nperformance compared to approaches using convolu-\n\nFigure 7: CAM visualizations for batched augmentation\ntechniques.\n\nFigure 8: CAM visualizations for synthetic (left) and real\n(right) for the TSTS model (TSTS CAM) and a model trained\nnormally on the augmented dataset (Augmented CAM). All\nimages are part of the rust_level_high class.\n\ntional models or without augmentations. Even though\nthe results of the TRTR, TRTS, TSTR, and TSTS sce-\nnarios showed that the synthetic data only vaguely\ncaptures the distribution of the real data, the increased\nperformance of the models trained on the augmented\ndataset proved that the CycleGAN augmentations were\nhelpful.\n\nThe presented approach can still be improved, with\nbetter alternatives being viable in most parts of the\narchitecture. Therefore, the main improvement that\ncan be implemented is the use of the StarGAN [Choi\net al., 2018] multi-domain image translation model for\naugmenting the RoCoLe dataset. This approach would\nbenefit from needing only one model to be trained for\naugmenting all diseased classes. Other GAN variations\ncan also be tested, such as the Wasserstein GAN [Ar-\njovsky et al., 2017], which has proven more stable than\nother GANs.\n\nThe leaf segmentation could also be improved\nby using semantic segmentation [Tassis et al., 2021].\nHowever, this would increase computational costs. A\n\ncheaper alternative would be to implement semantic\nsegmentation using either the previously presented\nCAM method or the better GradCAM variant [Sel-\nvaraju et al., 2017].\n\nFinally, a Swin Transformer [Liu et al., 2021] can\nbe used as a classifier instead of the ViT or CvT. An-\nother alternative would be to use vision-language mod-\nels [Yu et al., 2022], which are the current state of\nthe art in image classification. Models like the con-\ntrastive captioner [Yu et al., 2022] use encoder-decoder\narchitectures to learn captions for images, so the en-\ncoder could be fine-tuned to classify images from the\nRoCoLe dataset.\n\nACKNOWLEDGEMENTS\n\nThis work was supported by GNAC ARUT 2023.\n\nREFERENCES\n\nArjovsky, M., Chintala, S., and Bottou, L. (2017). Wasser-\n\nstein generative adversarial networks.\nIn Interna-\ntional conference on machine learning, pages 214–223.\nPMLR.\nBrahimi, M., Boukhalfa, K., and Moussaoui, A. (2017).\n\nDeep learning for tomato diseases: classification and\nsymptoms visualization. Applied Artificial Intelligence,\n31(4):299–315.\nChoi, Y., Choi, M., Kim, M., Ha, J.-W., Kim, S., and Choo,\n\nJ. (2018). Stargan: Unified generative adversarial net-\nworks for multi-domain image-to-image translation.\nIn Proceedings of the IEEE conference on computer\nvision and pattern recognition, pages 8789–8797.\nDawod, R. G. and Dobre, C. (2021).\nClassification of\nsunflower foliar diseases using convolutional neural\nnetwork. In 2021 23rd International Conference on\nControl Systems and Computer Science (CSCS), pages\n476–481. IEEE.\nDawod, R. G. and Dobre, C. (2022a). Automatic segmen-\n\ntation and classification system for foliar diseases in\nsunflower. Sustainability, 14(18):11312.\nDawod, R. G. and Dobre, C. (2022b). Resnet interpretation\n\nmethods applied to the classification of foliar diseases\nin sunflower. Journal of Agriculture and Food Re-\nsearch, 9:100323.\nDawod, R. G. and Dobre, C. (2022c). Upper and lower leaf\n\nside detection with machine learning methods. Sensors,\n22(7):2696.\nDeng, J., Dong, W., Socher, R., Li, L.-J., Li, K., and Fei-Fei,\n\nL. (2009). Imagenet: A large-scale hierarchical image\ndatabase. In 2009 IEEE conference on computer vision\nand pattern recognition, pages 248–255. Ieee.\nDeVries, T. and Taylor, G. W. (2017). Improved regular-\n\nization of convolutional neural networks with cutout.\narXiv preprint arXiv:1708.04552.\n\nDing, S., Wang, J., Li, J., and Shi, J. (2023). Multi-scale\n\nprototypical transformer for whole slide image classifi-\ncation. In International conference on medical image\ncomputing and computer-assisted intervention, pages\n602–611. Springer.\nDosovitskiy, A., Beyer, L., Kolesnikov, A., Weissenborn,\n\nD., Zhai, X., Unterthiner, T., Dehghani, M., Minderer,\nM., Heigold, G., Gelly, S., et al. (2020). An image is\nworth 16x16 words: Transformers for image recogni-\ntion at scale. In International Conference on Learning\nRepresentations.\nEchim, S.-V., T˘aiatu, I.-M., Cercel, D.-C., and Pop, F. (2023).\n\nExplainability-driven leaf disease classification using\nadversarial training and knowledge distillation.\nFaisal, M., Leu, J.-S., and Darmawan, J. T. (2023). Model\n\nselection of hybrid feature fusion for coffee leaf disease\nclassification. IEEE Access.\nFekri, M. N., Ghosh, A. M., and Grolinger, K. (2019). Gen-\n\nerating energy data for machine learning with recurrent\ngenerative adversarial networks. Energies, 13(1):130.\nGoodfellow, I., Pouget-Abadie, J., Mirza, M., Xu, B., Warde-\n\nFarley, D., Ozair, S., Courville, A., and Bengio, Y.\n(2014). Generative adversarial nets. Advances in neural\ninformation processing systems, 27.\nHarris, E., Marcu, A., Painter, M., Niranjan, M., Prügel-\n\nBennett, A., and Hare, J. (2020).\nFmix: Enhanc-\ning mixed sample data augmentation. arXiv preprint\narXiv:2002.12047.\nHe, K., Gkioxari, G., Dollár, P., and Girshick, R. (2017).\n\nMask r-cnn. arxiv e-prints, page.\narXiv preprint\narXiv:1703.06870.\nHe, K., Zhang, X., Ren, S., and Sun, J. (2016). Deep resid-\n\nual learning for image recognition. In Proceedings of\nthe IEEE conference on computer vision and pattern\nrecognition, pages 770–778.\nHinton, G. E. and Roweis, S. (2002). Stochastic neighbor\n\nembedding. In Becker, S., Thrun, S., and Obermayer,\nK., editors, Advances in Neural Information Process-\ning Systems, volume 15. MIT Press.\nIsola, P., Zhu, J.-Y., Zhou, T., and Efros, A. A. (2017). Image-\n\nto-image translation with conditional adversarial net-\nworks.\nIn Proceedings of the IEEE conference on\ncomputer vision and pattern recognition, pages 1125–\n1134.\nKamal, K., Yin, Z., Wu, M., and Wu, Z. (2019). Depthwise\n\nseparable convolution architectures for plant disease\nclassification. Computers and electronics in agricul-\nture, 165:104948.\nKim, Y. (2014). Convolutional neural networks for sentence\n\nclassification. In Proceedings of the 2014 Conference\non Empirical Methods in Natural Language Processing\n(EMNLP). Association for Computational Linguistics.\nKingma,\nD. P. and Ba,\nJ. (2014).\nAdam:\nA\nmethod for stochastic optimization. arXiv preprint\narXiv:1412.6980.\nKrizhevsky, A., Sutskever, I., and Hinton, G. E. (2017).\n\nImagenet classification with deep convolutional neural\nnetworks. Communications of the ACM, 60(6):84–90.\nLi, C. and Wand, M. (2016). Combining markov random\n\nfields and convolutional neural networks for image\n\nsynthesis. In Proceedings of the IEEE conference on\ncomputer vision and pattern recognition, pages 2479–\n2486.\nLiu, C., Chang, X., and Shen, Y.-D. (2020). Unity style\n\ntransfer for person re-identification. In Proceedings\nof the IEEE/CVF conference on computer vision and\npattern recognition, pages 6887–6896.\nLiu, Z., Lin, Y., Cao, Y., Hu, H., Wei, Y., Zhang, Z., Lin,\n\nS., and Guo, B. (2021). Swin transformer: Hierar-\nchical vision transformer using shifted windows. In\nProceedings of the IEEE/CVF international conference\non computer vision, pages 10012–10022.\nLungu-Stan, V.-C., Cercel, D.-C., and Pop, F. (2023).\n\nSkindistilvit: Lightweight vision transformer for skin\nlesion classification. In International Conference on\nArtificial Neural Networks, pages 268–280. Springer.\nMohameth, F., Bingcai, C., and Sada, K. A. (2020). Plant\n\ndisease detection with deep learning and feature ex-\ntraction using plant village. Journal of Computer and\nCommunications, 8(6):10–22.\nMohanty, S. P., Hughes, D. P., and Salathé, M. (2016). Using\n\ndeep learning for image-based plant disease detection.\nFrontiers in Plant Science, 7.\nNääs, I. A., Garcia, R. G., and Caldara, F. R. (2020). In-\n\nfrared thermal image for assessing animal health and\nwelfare. Journal of Animal Behaviour and Biometeo-\nrology, 2(3):66–72.\nNam, M. G. and Dong, S.-Y. (2023). Classification of com-\n\npanion animals’ ocular diseases: Domain adversarial\nlearning for imbalanced data. IEEE Access.\nParraga-Alava, J., Cusme, K., Loor, A., and Santander, E.\n\n(2019). Rocole: A robusta coffee leaf images dataset\nfor evaluation of machine learning based methods in\nplant diseases recognition. Data in brief, 25:104414.\nRodriguez-Gallo, Y., Escobar-Benitez, B., and Rodriguez-\n\nLainez, J. (2023). Robust coffee rust detection us-\ning uav-based aerial rgb imagery. AgriEngineering,\n5(3):1415–1431.\nRonneberger, O., Fischer, P., and Brox, T. (2015).\nU-\nnet: Convolutional networks for biomedical image\nsegmentation.\nIn Medical Image Computing and\nComputer-Assisted Intervention–MICCAI 2015: 18th\nInternational Conference, Munich, Germany, October\n5-9, 2015, Proceedings, Part III 18, pages 234–241.\nSpringer.\nSelvaraju, R. R., Cogswell, M., Das, A., Vedantam, R.,\n\nParikh, D., and Batra, D. (2017). Grad-cam: Visual\nexplanations from deep networks via gradient-based\nlocalization. In 2017 IEEE International Conference\non Computer Vision (ICCV), pages 618–626.\nSiddique, N., Paheding, S., Elkin, C. P., and Devabhaktuni,\n\nV. (2021). U-net and its variants for medical image\nsegmentation: A review of theory and applications.\nIeee Access, 9:82031–82057.\nSimonyan, K. and Zisserman, A. (2015). Very deep con-\n\nvolutional networks for large-scale image recognition.\nIn 3rd International Conference on Learning Repre-\nsentations (ICLR 2015). Computational and Biological\nLearning Society.\n\nStauber, J., Lemaire, R., Franck, J., Bonnel, D., Croix,\n\nD., Day, R., Wisztorski, M., Fournier, I., and Salzet,\nM. (2008). Maldi imaging of formalin-fixed paraffin-\nembedded tissues: application to model animals of\nparkinson disease for biomarker hunting. Journal of\nProteome Research, 7(3):969–978.\nSun, M., Huang, W., and Zheng, Y. (2023). Instance-aware\n\ndiffusion model for gland segmentation in colon histol-\nogy images. In International Conference on Medical\nImage Computing and Computer-Assisted Intervention,\npages 662–672. Springer.\nSzegedy, C., Liu, W., Jia, Y., Sermanet, P., Reed, S.,\n\nAnguelov, D., Erhan, D., Vanhoucke, V., and Rabi-\nnovich, A. (2015). Going deeper with convolutions.\nIn Proceedings of the IEEE conference on computer\nvision and pattern recognition, pages 1–9.\nTassis, L. M., de Souza, J. E. T., and Krohling, R. A. (2021).\n\nA deep learning approach combining instance and se-\nmantic segmentation to identify diseases and pests of\ncoffee leaves from in-field images. Computers and\nElectronics in Agriculture, 186:106191.\nThakur, P. S., Sheorey, T., and Ojha, A. (2023). Vgg-icnn: A\n\nlightweight cnn model for crop disease identification.\nMultimedia Tools and Applications, 82(1):497–520.\nVaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones,\n\nL., Gomez, A. N., Kaiser, Ł., and Polosukhin, I. (2017).\nAttention is all you need. Advances in neural informa-\ntion processing systems, 30.\nWu, H., Xiao, B., Codella, N., Liu, M., Dai, X., Yuan, L.,\n\nand Zhang, L. (2021). Cvt: Introducing convolutions to\nvision transformers. In Proceedings of the IEEE/CVF\nInternational Conference on Computer Vision, pages\n22–31.\nYu, J., Wang, Z., Vasudevan, V., Yeung, L., Seyedhosseini,\n\nM., and Wu, Y. (2022). Coca: Contrastive caption-\ners are image-text foundation models. arXiv preprint\narXiv:2205.01917.\nYun, S., Han, D., Oh, S. J., Chun, S., Choe, J., and Yoo, Y.\n\n(2019). Cutmix: Regularization strategy to train strong\nclassifiers with localizable features. In Proceedings of\nthe IEEE/CVF international conference on computer\nvision, pages 6023–6032.\nZhang, H., Cisse, M., Dauphin, Y. N., and Lopez-Paz, D.\n\n(2018). mixup: Beyond empirical risk minimization.\nIn International Conference on Learning Representa-\ntions.\nZhao, H., Shi, J., Qi, X., Wang, X., and Jia, J. (2017). Pyra-\n\nmid scene parsing network. In Proceedings of the IEEE\nconference on computer vision and pattern recognition,\npages 2881–2890.\nZhou, B., Khosla, A., Lapedriza, A., Oliva, A., and Torralba,\n\nA. (2016). Learning deep features for discriminative\nlocalization. In Proceedings of the IEEE conference on\ncomputer vision and pattern recognition, pages 2921–\n2929.\nZhu, J.-Y., Park, T., Isola, P., and Efros, A. A. (2017).\n\nUnpaired image-to-image translation using cycle-\nconsistent adversarial networks. In Proceedings of\nthe IEEE international conference on computer vision,\npages 2223–2232.",
+  "chunks": [
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        93.5,
+        93.6,
+        501.8,
+        107.9
+      ],
+      "text": "Evaluating Data Augmentation Techniques for Coffee Leaf Disease"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        256.6,
+        109.5,
+        338.7,
+        123.8
+      ],
+      "text": "Classification"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        90.2,
+        149.2,
+        487.9,
+        161.9
+      ],
+      "text": "Adrian Gheorghiu1∗, Iulian-Marius T˘aiatu1∗, Dumitru-Clementin Cercel1a, Iuliana Marin2,"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        257.1,
+        162.3,
+        338.0,
+        174.9
+      ],
+      "text": "and Florin Pop1,3,4"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        76.8,
+        175.0,
+        520.6,
+        237.0
+      ],
+      "text": "1 Computer Science and Engineering Department, National University of Science and Technology POLITEHNICA Bucharest\n2 Faculty of Engineering in Foreign Languages, National University of Science and Technology POLITEHNICA Bucharest\n3 National Institute for Research and Development in Informatics - ICI Bucharest, Romania\n4 Academy of Romanian Scientists, Bucharest, Romania\n{adrian.gheorghiu00, iulian.taiatu}@stud.acs.upb.ro, {dumitru.cercel, iuliana.marin, florin.pop}@upb.ro"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 1,
+      "section": "Abstract / Introduction",
+      "bbox": [
+        73.7,
+        286.7,
+        473.5,
+        295.8
+      ],
+      "text": "Keywords:\npix2pix, CycleGAN, Augmentations, Image Classification, Vision Transformers, Leaf Diseases."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 1,
+      "section": "Abstract:",
+      "bbox": [
+        73.6,
+        310.0,
+        523.0,
+        439.4
+      ],
+      "text": "Abstract:\nThe detection and classification of diseases in Robusta coffee leaves are essential to ensure that plants are healthy\nand the crop yield is kept high. However, this job requires extensive botanical knowledge and much wasted time.\nTherefore, this task and others similar to it have been extensively researched subjects in image classification.\nRegarding leaf disease classification, most approaches have used the more popular PlantVillage dataset while\ncompletely disregarding other datasets, like the Robusta Coffee Leaf (RoCoLe) dataset. As the RoCoLe dataset\nis imbalanced and does not have many samples, fine-tuning of pre-trained models and multiple augmentation\ntechniques need to be used. The current paper uses the RoCoLe dataset and approaches based on deep learning\nfor classifying coffee leaf diseases from images, incorporating the pix2pix model for segmentation and cycle-\ngenerative adversarial network (CycleGAN) for augmentation. Our study demonstrates the effectiveness of\nTransformer-based models, online augmentations, and CycleGAN augmentation in improving leaf disease\nclassification. While synthetic data has limitations, it complements real data, enhancing model performance.\nThese findings contribute to developing robust techniques for plant disease detection and classification."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 1,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        471.1,
+        163.4,
+        484.0
+      ],
+      "text": "1\nIntroduction"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 1,
+      "section": "Abstract:",
+      "bbox": [
+        73.4,
+        496.8,
+        288.0,
+        690.2
+      ],
+      "text": "The Robusta coffee plant (also called Coffea\nCanephora) is a species of coffee that is susceptible to\nmany diseases. Whether those diseases are caused by\ninsects or fungi, they can have a major impact on crop\nyields and even cause complete crop destruction if left\nuntreated. The detection of diseases from images has\nbeen a significant focus in the research of classifica-\ntion tasks for many years, starting with diseases in\nhumans [Ding et al., 2023, Sun et al., 2023, Lungu-\nStan et al., 2023] and then moving to animals [Stauber\net al., 2008,Nääs et al., 2020,Nam and Dong, 2023]\nand plants [Dawod and Dobre, 2022a,Dawod and Do-\nbre, 2022b, Dawod and Dobre, 2022c, Echim et al.,\n2023].\nGenerally, detecting diseases requires expert\nknowledge and a lot of time spent analyzing images to\ndetermine the severity of the disease. For this reason,"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 1,
+      "section": "Abstract:",
+      "bbox": [
+        87.6,
+        701.6,
+        171.8,
+        723.3
+      ],
+      "text": "aCorresponding author.\n*Equal contributions."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 1,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        473.5,
+        523.3,
+        540.7
+      ],
+      "text": "there have been many research interests in developing\nmachine learning tools that anyone can use to detect\nand classify diseases [Kamal et al., 2019,Dawod and\nDobre, 2021]. These tools must be easy to use, ac-\ncurate, and not overly confident when making wrong\npredictions."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 1,
+      "section": "Abstract:",
+      "bbox": [
+        308.6,
+        542.1,
+        523.4,
+        655.3
+      ],
+      "text": "In this paper, we use the Robusta Coffee Leaf\n(RoCoLe) dataset [Parraga-Alava et al., 2019] for\nwhich the main issues are the small number of avail-\nable images and the class imbalance. These are both\nwidespread problems that arise in the field of ma-\nchine learning and for which multiple approaches exist.\nTherefore, several methods were tested and compared\nto determine which solution fits the RoCoLe dataset\nthe best, with the main contributions of our work being\nas follows:"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 1,
+      "section": "Abstract:",
+      "bbox": [
+        315.5,
+        661.7,
+        521.6,
+        717.6
+      ],
+      "text": "• We test offline and online augmentations of the\ndataset conjointly with different combinations of\nmodels and hyperparameters. The main focuses of\nthese comparisons are the performance evaluations\nof the augmentations, followed by the assessment"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 1,
+      "section": "Abstract:",
+      "bbox": [
+        10.9,
+        264.4,
+        37.6,
+        609.9
+      ],
+      "text": "arXiv:2401.05768v1  [cs.CV]  11 Jan 2024"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 2,
+      "section": "Abstract:",
+      "bbox": [
+        88.6,
+        97.1,
+        288.0,
+        130.0
+      ],
+      "text": "of Transformer [Vaswani et al., 2017]-based mod-\nels compared to a state-of-the-art convolutional\nmodel."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 2,
+      "section": "Abstract:",
+      "bbox": [
+        80.2,
+        135.4,
+        288.0,
+        179.8
+      ],
+      "text": "• We employ different visualization and explain-\nability techniques [Zhou et al., 2016,Hinton and\nRoweis, 2002] to better understand why the models\nperform in certain ways."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 2,
+      "section": "Abstract:",
+      "bbox": [
+        80.2,
+        185.2,
+        286.3,
+        218.1
+      ],
+      "text": "• To the best of our knowledge, we are the first to\naugment the RoCoLe dataset and use it for training\nand testing Transformer-based models."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 2,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        244.6,
+        170.2,
+        257.6
+      ],
+      "text": "2\nRelated Work"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 2,
+      "section": "Abstract:",
+      "bbox": [
+        73.3,
+        270.5,
+        288.0,
+        383.5
+      ],
+      "text": "Most leaf disease classification approaches used large\ndatasets comprising tens of thousands of images [Mo-\nhameth et al., 2020,Thakur et al., 2023]. Only some\nworks used the RoCoLe dataset; if they do, it is not\nthe primary training dataset and is mainly used for\nevaluation [Tassis et al., 2021,Rodriguez-Gallo et al.,\n2023,Faisal et al., 2023]. The approaches used vary,\nwith both deep learning and classical machine learning\nmodels being employed [Brahimi et al., 2017,Tassis\net al., 2021]."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 2,
+      "section": "Abstract:",
+      "bbox": [
+        73.3,
+        384.9,
+        288.1,
+        669.9
+      ],
+      "text": "Therefore, Brahimi et al. [Brahimi et al., 2017]\nused a deep learning approach by testing two tra-\nditional convolutional neural network (CNN) [Kim,\n2014] architectures: AlexNet [Krizhevsky et al., 2017]\nand GoogLeNet [Szegedy et al., 2015]. Traditional\nmachine learning models, specifically support vector\nmachines (SVMs) and Random Forest, are also tested.\nThe work compares pre-trained models to models with-\nout pre-training, as well as deep models trained on raw\ndata to shallow models trained on manually extracted\nfeatures. Feature activation visualization is also used\nas a more rudimentary technique. For this, regions of\nthe image are sequentially occluded, after which the\nclassification model is used to get the prediction. The\nnegative log-likelihood is then used to estimate the\nimportance of the occluded region. This method has\nthe disadvantage of inefficiency and is only feasible\nwhen generating extremely low dimensional activation\nmaps comprised of only a few pixels. For the SVM\nand Random Forest shallow models, the images are\nfirst transformed from the RGB color space to another\ncolor space, after which manual features such as the\ncolor moment, wavelet transform, and gray level co-\noccurrence matrix are extracted and used in training\nthe classifiers."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 2,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        671.5,
+        288.1,
+        715.8
+      ],
+      "text": "Tassis et al. [Tassis et al., 2021] used a multi-stage\npipeline of three different models to segment and clas-\nsify the leaf diseases. Thus, a Mask R-CNN model [He\net al., 2017] is first used for instance segmentation."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 2,
+      "section": "Abstract:",
+      "bbox": [
+        308.7,
+        97.2,
+        523.3,
+        244.5
+      ],
+      "text": "This model is trained to mask the background and only\nhighlight the leaves in images. After that, either a\nU-Net [Ronneberger et al., 2015] or a PSPNet [Zhao\net al., 2017] is used for semantic segmentation. This\nmodel highlights the relevant areas of the studied im-\nage, specifically diseased regions. Those regions are\nthen cropped and fed into a ResNet classifier [He et al.,\n2016], and the predictions are used to estimate the\nseverity of the disease. The models were trained using\nrandom rotations and color variations as augmenta-\ntions. As a training dataset, the authors used images\nscraped from the web. The RoCoLe dataset was also\nused to evaluate the instance segmentation model."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 2,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        246.1,
+        523.4,
+        393.4
+      ],
+      "text": "Mohameth et al. [Mohameth et al., 2020] employed\nthe popular PlantVillage dataset [Mohanty et al., 2016]\nto train their proposed models. For training, both trans-\nfer learning and deep feature extraction methods are\nused. For transfer learning, only the classification head\nof a pre-trained model is trained from scratch, with\nthe rest of the layers having their weights frozen. Us-\ning this method, the authors test multiple CNN-based\nmodels: VGG16 [Simonyan and Zisserman, 2015],\nGoogLeNet, and ResNet. When deep feature extrac-\ntion is utilized, these models only extract the features\nbefore the classification head. Those features are then\nused to train an SVM or a k-nearest neighbor classifier."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 2,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        419.7,
+        370.1,
+        432.7
+      ],
+      "text": "3\nDataset"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 2,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        447.2,
+        390.4,
+        459.1
+      ],
+      "text": "3.1\nRelabeling"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 2,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        470.9,
+        523.3,
+        538.2
+      ],
+      "text": "By performing exploratory data analysis on the Ro-\nCoLe dataset, it becomes evident that the classes are\nimbalanced. This is a significant problem for any\nclassifier architecture, as the model will overfit the\nmost frequent class and rarely predict the less frequent\nclasses."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 2,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        539.6,
+        523.3,
+        664.2
+      ],
+      "text": "It is easy to notice that the labels corresponding\nto the two most severe cases of rust are also the least\nfrequent. The rust_level_3 and rust_level_4 labels\nboth represent high levels of rust, and even by com-\nbining them, they still make up fewer samples than\nany other label. Therefore, the first step towards al-\nleviating class imbalance is to relabel the samples as\nfollows: healthy and red_spider_mite stay the same,\nrust_level_1 becomes rust_level_low, rust_level_2 be-\ncomes rust_level_medium, and both rust_level_3 and\nrust_level_4 become rust_level_high."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 2,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        678.3,
+        407.2,
+        690.3
+      ],
+      "text": "3.2\nPreprocessing"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 2,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        702.2,
+        521.6,
+        723.6
+      ],
+      "text": "Before further addressing the class imbalance, the next\nstep was to analyze the images from the RoCoLe"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 3,
+      "section": "Abstract:",
+      "bbox": [
+        73.4,
+        97.0,
+        288.1,
+        233.1
+      ],
+      "text": "dataset. We notice that the photos were taken with\na smartphone camera and, therefore, have a high res-\nolution, 1152x2048, to be more precise. Using im-\nages at this resolution for deep learning models would\nconsume many computational resources without the\nmodels benefiting much from the increased resolution.\nTherefore, the images were rescaled to the less de-\nmanding and more common 256x256 resolution. The\nimages in the dataset also come with a mask, repre-\nsented by the points that comprise the mask polygon.\nThis mask was plotted, rescaled, and saved with its\nrelated image."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 3,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        247.4,
+        124.5,
+        259.3
+      ],
+      "text": "3.3\nSplit"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 3,
+      "section": "Abstract:",
+      "bbox": [
+        73.4,
+        271.4,
+        288.0,
+        384.5
+      ],
+      "text": "The initial dataset is randomly split into train, devel-\nopment (dev), and test sets as shown in Figure 1. The\nsplit is done as follows: 80% goes to the train set, with\nthe rest of 20% being split equally between the dev\nand test sets. After the split, the train and dev sets\nare augmented together and then split back with an\n80%-10% ratio. We do not augment the test set since\nthe model metrics computed on the test set must only\nreflect the performance on data from the real input\ndistribution."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 3,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        539.5,
+        286.3,
+        558.4
+      ],
+      "text": "Figure 1: Statistics of the number of samples in the relabeled\ndataset."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 3,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        595.4,
+        136.3,
+        608.3
+      ],
+      "text": "4\nMethod"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 3,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        623.0,
+        170.3,
+        635.0
+      ],
+      "text": "4.1\nSegmentation"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 3,
+      "section": "Abstract:",
+      "bbox": [
+        73.3,
+        647.0,
+        288.0,
+        714.3
+      ],
+      "text": "As can be seen from the examples in Figure 2, the\nbackgrounds of the images are very random and do\nnot provide any additional information. Therefore, it\nonly makes sense to use masked images to train classi-\nfiers. For training a classifier, it is trivial to apply the\nmask that comes with the image. Unfortunately, the"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 3,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        97.2,
+        523.3,
+        221.6
+      ],
+      "text": "issue is for the examples that do not already come seg-\nmented. The segmentation problem involves learning\na mapping from an input distribution to the distribu-\ntion that represents the mask of the inputs. Because\nof the pairwise nature of the segmentation problem,\nthe pix2pix model [Isola et al., 2017] is the perfect\nfit for it. Furthermore, pix2pix is based on the U-Net\narchitecture, which is state of the art in image segmen-\ntation [Siddique et al., 2021]. The pix2pix model was\nthus trained on image-mask pairs from the RoCoLe\ndataset."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 3,
+      "section": "Abstract:",
+      "bbox": [
+        308.6,
+        223.1,
+        523.3,
+        382.0
+      ],
+      "text": "To improve the quality of the predicted segmenta-\ntion masks, online augmentation was also used to crop\nand flip the image randomly. After training, the mask\nwas inferred for each image in the dataset and then ap-\nplied to the image to only contain the area of interest,\nnamely the leaf in the foreground. The reason segmen-\ntation of the dataset is done using the trained pix2pix\nmodel and not using the already provided masks is\nbecause the inferred masks are slightly different from\nthe provided ones. Training a classifier on images seg-\nmented with the provided masks but segmenting the\ntest images with pix2pix will affect the quality of the\npredictions as the input distribution for the classifier\nwill be slightly different."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 3,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        526.8,
+        521.6,
+        545.7
+      ],
+      "text": "Figure 2: Examples of rescaled images from each class and\nthe associated masks."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 3,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        568.4,
+        451.2,
+        580.4
+      ],
+      "text": "4.2\nOffline Augmentations"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 3,
+      "section": "Abstract:",
+      "bbox": [
+        308.7,
+        592.5,
+        523.4,
+        717.0
+      ],
+      "text": "In order to alleviate the class imbalance, image gener-\nation was used to supplement the less frequent classes,\nthus making the dataset perfectly balanced. The class\nfrequencies show that the healthy class is the most\nfrequent. This means that it can augment the other\nclasses by transferring the style of the images with\ndiseased leaves onto the images with healthy leaves.\nThe cycle-generative adversarial network (CycleGAN)\nmodel [Zhu et al., 2017] has been proven to be effec-\ntive for style transfer tasks [Liu et al., 2020]. Also,\nCycleGAN is a good fit for the augmentation task"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 4,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        97.0,
+        286.3,
+        130.0
+      ],
+      "text": "since it does not require paired inputs and works just\nas well with unpaired inputs, which is the case for the\naugmentation task."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 4,
+      "section": "Abstract:",
+      "bbox": [
+        73.5,
+        131.5,
+        288.0,
+        290.4
+      ],
+      "text": "In addition to learning the mapping from the source\ndomain X to the target domain Y, CycleGAN also\nlearns the inverse mapping from the target domain to\nthe source domain [Zhu et al., 2017]. In this sense,\ntwo generators and two discriminators are used, one\nof each type for each mapping: G and DY for the di-\nrect mapping G : X →Y, as well as F and DX for the\ninverse mapping F : Y →X. Furthermore, CycleGAN\nintroduces another objective, called cycle consistency\nloss, in addition to the classic GAN objectives [Good-\nfellow et al., 2014]. Intuitively, this novel objective\nuses the L1 norm to enforce the consistency of the in-\nverse mapping, canceling the direct mapping, as shown\nin Eq. (1)."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 4,
+      "section": "Abstract:",
+      "bbox": [
+        83.7,
+        310.9,
+        256.9,
+        325.7
+      ],
+      "text": "Lcyc(G,F) = Ex∼pdata(x)[||F(G(x))−x||1]+"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 4,
+      "section": "Abstract:",
+      "bbox": [
+        145.9,
+        326.8,
+        287.0,
+        341.6
+      ],
+      "text": "+Ey∼pdata(y)[||G(F(y))−y||1]\n(1)"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 4,
+      "section": "Abstract:",
+      "bbox": [
+        73.4,
+        347.4,
+        288.1,
+        437.8
+      ],
+      "text": "When passing an image from X through generator\nF or an image from Y through generator G, the out-\nput is expected to be the same provided image since\nthe input already comes from the output distribution.\nTherefore, a second regularization loss called the iden-\ntity loss is used to constrain the model. This loss uses\nthe same L1 norm as the cycle consistency loss and\ncan be expressed through Eq. (2)."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 4,
+      "section": "Abstract:",
+      "bbox": [
+        83.7,
+        446.8,
+        255.3,
+        461.7
+      ],
+      "text": "Lidentity(G,F) = Ex∼pdata(x)[||F(x)−x||1]+"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 4,
+      "section": "Abstract:",
+      "bbox": [
+        160.5,
+        462.7,
+        287.0,
+        477.6
+      ],
+      "text": "+Ey∼pdata(y)[||G(y)−y||1]\n(2)"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 4,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        483.5,
+        286.7,
+        516.4
+      ],
+      "text": "By combining the identity and cycle consistency\nlosses with the standard GAN objectives, the final loss\nbecomes as described by Eq. (3)."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 4,
+      "section": "Abstract:",
+      "bbox": [
+        83.7,
+        527.5,
+        242.7,
+        538.9
+      ],
+      "text": "L(G,F,DX,DY) = LGAN(G,DY,X,Y)+"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 4,
+      "section": "Abstract:",
+      "bbox": [
+        104.7,
+        541.9,
+        256.7,
+        553.3
+      ],
+      "text": "+LGAN(F,DX,Y,X)+λ1Lcyc(G,F)+"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 4,
+      "section": "Abstract:",
+      "bbox": [
+        191.1,
+        556.3,
+        287.0,
+        567.7
+      ],
+      "text": "+λ2Lidentity(G,F)\n(3)"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 4,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        575.1,
+        287.6,
+        699.7
+      ],
+      "text": "Therefore, we train the CycleGAN model on our\ndataset of segmented images for each combination\nof healthy and diseased classes. This means that four\nCycleGAN models were trained in total. After training,\nthe models were used on every segmented image of the\nhealthy class to generate its diseased counterpart. The\ndataset was augmented using those generated diseased\nimages by supplementing every diseased class such\nthat the number of samples in each class is equal. For\nthis, the required number of images was randomly\npicked from the generated images."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 4,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        95.5,
+        450.5,
+        107.4
+      ],
+      "text": "4.3\nOnline Augmentations"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 4,
+      "section": "Abstract:",
+      "bbox": [
+        308.6,
+        119.4,
+        523.3,
+        198.2
+      ],
+      "text": "During training, online augmentation of the dataset\nwas also tested. The most basic augmentations that\nhave been tested are horizontal and vertical flips, as\nwell as random rotations. Therefore, an image is ro-\ntated with a random angle between 0 and 180 degrees,\nafter which random horizontal and vertical flips are\napplied with a probability of 25% each."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 4,
+      "section": "Abstract:",
+      "bbox": [
+        308.5,
+        199.7,
+        523.4,
+        393.0
+      ],
+      "text": "More advanced techniques include MixUp [Zhang\net al., 2018], CutMix [Yun et al., 2019], Cutout [De-\nVries and Taylor, 2017], and FMix [Harris et al., 2020].\nThese augmentations are applied during the batching\nprocess so that the training dataset will differ with\neach epoch. For the batched augmentations, there is a\n50% probability that the augmentation will be applied;\notherwise, the batch is left unmodified. Furthermore,\nall batched augmentations use a random parameter λ,\nsampled from the beta distribution each time the aug-\nmentation is applied. For FMix, the beta distribution’s\nα and β parameters are set to 1, while for the other\nbatched augmentations, both parameters are set to 0.8.\nWith CutMix and Cutout, the square that is cut out\nis chosen to have the center at least one-quarter away\nfrom the edge of the image, as most images have the\nleaf centered in the middle of the image."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 4,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        407.3,
+        444.5,
+        419.2
+      ],
+      "text": "4.4\nClassification Models"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 4,
+      "section": "Abstract:",
+      "bbox": [
+        308.6,
+        431.3,
+        523.3,
+        521.5
+      ],
+      "text": "After segmentation and augmentation, the dataset\nis ready for training classification models.\nThus,\nTransformer-based architectures (i.e., ViT [Dosovit-\nskiy et al., 2020] and CvT [Wu et al., 2021]) were\ntested using different hyperparameters, sizes, and aug-\nmentation techniques. In order to compare these mod-\nels to convolutional state-of-the-art models, ResNet\nwas tested in some scenarios."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 4,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        548.0,
+        438.9,
+        561.0
+      ],
+      "text": "5\nExperimental Setup"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 4,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        575.7,
+        443.9,
+        587.6
+      ],
+      "text": "5.1\nPerformance Metrics"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 4,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        599.6,
+        523.3,
+        632.6
+      ],
+      "text": "For model evaluation, macro-averaging was used to\ncombine accuracy, precision, recall, and F1-score bi-\nnary classification metrics into multiclass metrics."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 4,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        634.0,
+        523.4,
+        712.8
+      ],
+      "text": "Apart from the initial ViT and ResNet tests, all\ntests also feature the top-k accuracy metric. Top-k\naccuracy means that when calculating the accuracy\nscore, a prediction is considered accurate if any of the\ntop-k outputs with the highest confidence is correct.\nFor testing, the top-2 accuracy was used in addition to\nthe classic accuracy metric."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 5,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        95.5,
+        191.4,
+        107.4
+      ],
+      "text": "5.2\nHyperparameters"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 5,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        119.4,
+        162.5,
+        129.4
+      ],
+      "text": "5.2.1\nPix2pix Setup"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 5,
+      "section": "Abstract:",
+      "bbox": [
+        73.4,
+        140.8,
+        288.1,
+        265.4
+      ],
+      "text": "The pix2pix model was trained using the Adam opti-\nmizer [Kingma and Ba, 2014] with a learning rate of\n2∗10−4 and the momentum parameters β1 and β2 set\nto 0.5 and 0.999, respectively. These parameters are\nthe same as in the pix2pix paper [Isola et al., 2017].\nOther parameters taken from the paper are the batch\nsize of 1, a value shown to work best for the pix2pix\nmodel, and the L1 loss weight, λ, set to 100. For the\ndiscriminator, we used the PatchGAN [Li and Wand,\n2016, Isola et al., 2017] of output size 30x30. The\nmodel was trained on the whole dataset for 25 epochs."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 5,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        276.8,
+        176.4,
+        286.8
+      ],
+      "text": "5.2.2\nCycleGAN Setup"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 5,
+      "section": "Abstract:",
+      "bbox": [
+        73.0,
+        298.3,
+        288.0,
+        445.8
+      ],
+      "text": "For training the CycleGAN models, the Adam opti-\nmizer was used along with the same learning rate, mo-\nmentum parameters, and batch size as for the pix2pix\nmodel. The weights for the cycle consistency loss and\nidentity loss were also taken from the CycleGAN pa-\nper [Zhu et al., 2017], specifically from the “Monet\npaintings to photos” experiment, and were set to 10\nand 5, respectively. From an architectural point of\nview, the generator with nine residual blocks from the\npaper was used, along with the 70x70 PatchGAN dis-\ncriminator, also from the paper [Zhu et al., 2017]. Each\nmodel was trained on the whole segmented dataset for\n100 epochs."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 5,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        457.1,
+        217.1,
+        467.1
+      ],
+      "text": "5.2.3\nClassification Model Setup"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 5,
+      "section": "Abstract:",
+      "bbox": [
+        73.3,
+        478.7,
+        287.6,
+        534.4
+      ],
+      "text": "All models were trained using a batch size of 32, with a\nfew exceptions where batch sizes of 16 were used due\nto limited resources. The Adam optimizer was used,\nalong with a learning rate scheduler that multiplies the\nlearning rate by 0.25 every 15 epochs."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 5,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        561.0,
+        206.2,
+        573.9
+      ],
+      "text": "6\nQuantitative Results"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 5,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        588.6,
+        274.0,
+        600.6
+      ],
+      "text": "6.1\nResults for Offline Augmentations"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 5,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        612.7,
+        288.0,
+        714.3
+      ],
+      "text": "Initially, we tested a ViT-small model with a patch size\nof 16 and an input size of 224. The tests aim to com-\npare different models and augmentation techniques, so\nthe first tests involve finding the optimum hyperparam-\neters at which to train the following models. Therefore,\nthe model is first tested with and without dropout and\nlearning rates of 0.001 and 0.0002 for 50 epochs to\nobserve how hyperparameters affect the scores and the\nevolution of train and dev losses."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 5,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        97.0,
+        523.3,
+        256.0
+      ],
+      "text": "The augmentations improve performance in al-\nmost all cases.\nAs can be observed from Table 1,\nthe scores in most cases are higher when the model\nis trained on the augmented dataset than the non-\naugmented dataset. In the case of the fifth and sixth\nrows, the model has higher accuracy when trained on\nthe non-augmented dataset, but all the other scores\nare low. The explanation is that the model overfits\nthe most frequent class because of the imbalanced na-\nture of the non-augmented dataset. However, for the\nthird and fourth rows, all the scores are higher for the\nnon-augmented model than all the others. As the differ-\nences are not that big, this anomaly can be explained\nby the small dimension of the test set."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 5,
+      "section": "Abstract:",
+      "bbox": [
+        308.6,
+        257.3,
+        523.3,
+        439.3
+      ],
+      "text": "The ViT-small model performs better when\ntrained using a lower learning rate.\nIn Table 1,\nin the case of no dropout and a learning rate of 0.001,\nthe model presents worse performance on both aug-\nmented and non-augmented datasets compared to the\ncases when a learning rate of 0.0002 is used. This\nmeans the lower learning rate is the correct choice,\nas the model presents better learning abilities regard-\nless of the dataset. Another observation in our tests\nis that introducing dropout reduces overfitting mostly\non the augmented dataset, with the losses on the non-\naugmented dataset remaining almost unchanged. Us-\ning a learning rate of 0.0002 and enabling dropout, the\noverfitting on the augmented dataset almost disappears,\nwhile it is greatly improved on the non-augmented\ndataset."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 5,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        440.9,
+        521.6,
+        519.5
+      ],
+      "text": "The ResNet-50V2 and ResNet-101V2 models were\ntested to compare how augmentation affects traditional\nconvolutional neural networks. Like the ViT, these\nmodels are pre-trained on the ImageNet datasets [Deng\net al., 2009]. A learning rate of 0.001 was used to test\nboth augmented and non-augmented datasets, while\nall other settings were kept as before."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 5,
+      "section": "Abstract:",
+      "bbox": [
+        308.7,
+        521.0,
+        523.3,
+        599.7
+      ],
+      "text": "Bigger models encourage overfitting.\nIn Table\n2, it can be noticed how ResNet performs worse in\nthe case of the bigger model, as the higher number\nof parameters worsens overfitting. Furthermore, per-\nformance is better on the augmented dataset for both\nversions of ResNet, as the larger dataset discourages\noverfitting."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 5,
+      "section": "Abstract:",
+      "bbox": [
+        308.5,
+        601.0,
+        523.4,
+        679.9
+      ],
+      "text": "ViT has better performance than ResNet.\nWhen comparing the scores of the ViT-small with en-\nabled dropout, augmentation, and a learning rate of\n0.0002 to the ResNet-50V2 model with augmentation,\nit can be observed that the Transformer-based model\nperforms better compared to the convolutional-based\nmodel."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 5,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        681.3,
+        521.6,
+        714.3
+      ],
+      "text": "By analyzing the loss evolution of the models, it\ncould be noticed how the models started overfitting\nmostly around 20 to 30 epochs. For this reason, all"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 6,
+      "section": "Abstract:",
+      "bbox": [
+        166.6,
+        90.9,
+        428.5,
+        99.8
+      ],
+      "text": "Table 1: ViT-small scores for different combinations of hyperparameters."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 6,
+      "section": "Abstract:",
+      "bbox": [
+        168.5,
+        105.2,
+        426.2,
+        183.0
+      ],
+      "text": "Dropout\nAugmented\nLearning rate\nAccuracy\nPrecision\nRecall\nF1\nNo\nYes\n0.001\n64.1\n54.4\n56.9\n55.0\nNo\nNo\n0.001\n51.9\n32.3\n32\n32.1\nNo\nYes\n0.0002\n73.1\n58.5\n54.9\n55.7\nNo\nNo\n0.0002\n75.0\n61.6\n58.3\n59.4\nYes\nYes\n0.001\n57.1\n42.3\n43.5\n42.0\nYes\nNo\n0.001\n59.6\n36.2\n36.6\n36.2\nYes\nYes\n0.0002\n73.7\n59.1\n56.5\n57.2\nYes\nNo\n0.0002\n64.7\n47.3\n47.1\n46.3"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 6,
+      "section": "Abstract:",
+      "bbox": [
+        182.2,
+        192.2,
+        412.9,
+        201.2
+      ],
+      "text": "Table 2: ResNet scores for different variants and augmentations."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 6,
+      "section": "Abstract:",
+      "bbox": [
+        169.5,
+        206.7,
+        425.5,
+        256.0
+      ],
+      "text": "Model\nAugmented\nAccuracy\nPrecision\nRecall\nF1\nResNet-50V2\nYes\n69.2\n48.7\n47.9\n47.7\nResNet-50V2\nNo\n62.8\n43.8\n44.5\n43.9\nResNet-101V2\nYes\n61.5\n43.6\n42.3\n42.6\nResNet-101V2\nNo\n48.7\n31.9\n31.3\n31.5"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 6,
+      "section": "Abstract:",
+      "bbox": [
+        73.3,
+        279.6,
+        286.3,
+        335.4
+      ],
+      "text": "tests described from now on will be done using 25\nepochs. Regarding the other hyperparameters, enabled\ndropout, a learning rate of 0.0002, and the augmented\ndataset will be used. Until another model is tested, the\nViT-small model will be used."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 6,
+      "section": "Abstract:",
+      "bbox": [
+        73.3,
+        336.8,
+        288.0,
+        472.9
+      ],
+      "text": "In order to further test how well the synthetically\ngenerated data captures the distribution of the real data,\nwe compared the Train on Real - Test on Real (TRTR),\nTrain on Real - Test on Synthetic (TRTS), Train on\nSynthetic - Test on Real (TSTR), and Train on Syn-\nthetic - Test on Synthetic (TSTS) scenarios [Fekri et al.,\n2019]. As the names suggest, these methods train and\ntest the model on combinations of either the original\ndataset with real images or a dataset consisting of only\nsynthetic images with no real images in the augmented\nclasses. The synthetic data was thus extracted and split\ninto train, dev, and test using the same ratios as before."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 6,
+      "section": "Abstract:",
+      "bbox": [
+        73.4,
+        474.3,
+        288.0,
+        621.8
+      ],
+      "text": "Synthetic data poorly captures the distribution\nof the real data.\nTable 3 shows how, to a certain\nextent, the synthetic data captures the distribution of\nthe real data rather poorly. The discrepancy between\nTRTR and TSTS especially shows this. The model\nperforms much better on synthetic data and learns by\noverfitting the specific properties of each generated\nclass. As there is still one real class among the syn-\nthetic images, the healthy class, as well as all other\nsynthetic classes being generated with different trained\ninstances of CycleGAN, the model learns to distin-\nguish between the classes by learning the different\nfootprints left in the generated images."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 6,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        623.2,
+        288.0,
+        713.5
+      ],
+      "text": "Models trained only on synthetic data gener-\nalize poorly to real data.\nThe slight difference\nbetween TRTR and TRTS shows how a model trained\non real data generalizes just as well to synthetic data,\nas the model learns the actual distribution without\noverfitting. The poor performance of TSTR compared\nto TSTS further emphasizes how the model overfits\nspecific properties in the synthetic data and does not"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 6,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        279.6,
+        418.8,
+        289.6
+      ],
+      "text": "generalize well to real data."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 6,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        303.9,
+        508.7,
+        315.9
+      ],
+      "text": "6.2\nResults for Online Augmentations"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 6,
+      "section": "Abstract:",
+      "bbox": [
+        308.6,
+        327.8,
+        523.3,
+        406.7
+      ],
+      "text": "Online augmentations improve performance in al-\nmost all cases.\nIt can be observed in Table 4 how,\nwith a few exceptions, online augmentations further\nimprove the performance when compared to the equiv-\nalent configuration in Table 1, specifically the second\nto last row. One of the exceptions is Cutout, which has\nno other augmentations."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 6,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        408.0,
+        521.8,
+        486.9
+      ],
+      "text": "Cutout with no augmentations offers the worst\nperformance.\nBecause the segmented images have\nmost pixels set to 0, cutting out additional parts of\nthe image erases essential information. Adding other\naugmentations seems to counteract this, as the Cutout\nmodel with random rotations and flips is among the\nbetter-performing models."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 6,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        488.3,
+        523.4,
+        555.6
+      ],
+      "text": "FMix features the best all-around performance.\nCutMix and FMix have similar performances, with\nFMix taking the lead, especially when adding rotations\nand flips. Rotations and flips seem to improve all\nmetrics except accuracy, while batched augmentations\nhave more of an effect on the standard accuracy metric."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 6,
+      "section": "Abstract:",
+      "bbox": [
+        308.6,
+        557.2,
+        522.9,
+        681.6
+      ],
+      "text": "Finally, we tested the CvT model [Wu et al., 2021]\non the augmented dataset, non-augmented dataset, and\nthe various combinations of online augmentations also\ntested up until now. By analyzing the loss evolution,\nwe observed that CvT is more prone to overfitting,\nbeing a bigger model than ViT. The augmented dataset\nhelped with overfitting, as did the augmentations with\nrandom rotations and flips. The choice of batched\naugmentation did not impact overfitting much, but\nCutMix and FMix had slightly better performance in\nthat aspect."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 6,
+      "section": "Abstract:",
+      "bbox": [
+        308.6,
+        683.1,
+        522.9,
+        716.0
+      ],
+      "text": "CvT has similar performance to ViT.\nAs seen\nin Table 5, the performances of CvT are similar to ViT,\nwith rotation and flip augmentations making the model"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 7,
+      "section": "Abstract:",
+      "bbox": [
+        185.4,
+        90.9,
+        409.7,
+        99.8
+      ],
+      "text": "Table 3: ViT-small scores for TRTR, TRTS, TSTR, and TSTS."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 7,
+      "section": "Abstract:",
+      "bbox": [
+        169.7,
+        105.3,
+        425.4,
+        156.0
+      ],
+      "text": "Method\nAccuracy\nTop-2 Accuracy\nPrecision\nRecall\nF1\nTRTR\n62.8\n86.5\n45.9\n45.7\n44.1\nTRTS\n62.3\n84.0\n60.1\n55.7\n55.4\nTSTR\n55.1\n76.3\n34.2\n30.6\n29.0\nTSTS\n96.9\n99.6\n97.1\n96.2\n96.6"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 7,
+      "section": "Abstract:",
+      "bbox": [
+        188.1,
+        165.5,
+        407.0,
+        174.4
+      ],
+      "text": "Table 4: ViT-small scores for different online augmentations."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 7,
+      "section": "Abstract:",
+      "bbox": [
+        168.3,
+        179.8,
+        426.4,
+        264.2
+      ],
+      "text": "Augmentation\nAccuracy\nTop-2 Accuracy\nPrecision\nRecall\nF1\nRotation+Flips\n73.7\n91.7\n68.3\n65.1\n62.7\nMixUp\n73.7\n88.5\n60.1\n57.4\n57.0\nCutMix\n76.3\n88.5\n62.9\n59.9\n59.7\nCutout\n69.2\n89.1\n53.7\n51.6\n51.3\nFMix\n74.4\n89.7\n64.2\n57.8\n59.1\nRotation+Flips+MixUp\n69.9\n93.6\n52.2\n50.1\n49.4\nRotation+Flips+CutMix\n73.7\n88.5\n66.4\n57.5\n59.3\nRotation+Flips+Cutout\n76.3\n92.3\n68.1\n65.5\n63.3\nRotation+Flips+FMix\n77.6\n91.0\n71.6\n67.1\n67.7"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 7,
+      "section": "Abstract:",
+      "bbox": [
+        73.4,
+        273.5,
+        521.6,
+        292.4
+      ],
+      "text": "Table 5: CvT scores for the offline augmented dataset (first row), the non-augmented dataset (second row), and the augmented\ndataset with combinations of online augmentations (from third to last row)."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 7,
+      "section": "Abstract:",
+      "bbox": [
+        168.3,
+        297.7,
+        426.4,
+        390.6
+      ],
+      "text": "Augmentation\nAccuracy\nTop-2 Accuracy\nPrecision\nRecall\nF1\nAugmented\n76.3\n91.7\n62.1\n58.9\n60.2\nNon-augmented\n59.0\n80.8\n43.4\n44.2\n43.4\nMixUp\n75.0\n89.7\n55.6\n53.6\n54.1\nCutMix\n71.2\n84.6\n55.9\n54.3\n54.8\nCutout\n75.0\n92.9\n61.1\n60.6\n60.6\nFMix\n75.0\n85.9\n60.5\n60.8\n59.8\nRotation+Flips+MixUp\n76.3\n89.7\n63.2\n62.6\n62.8\nRotation+Flips+CutMix\n75.0\n91.0\n58.9\n60.4\n58.9\nRotation+Flips+Cutout\n78.2\n92.9\n66.1\n64.3\n63.4\nRotation+Flips+FMix\n76.9\n91.0\n61.5\n63.0\n61.0"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 7,
+      "section": "Abstract:",
+      "bbox": [
+        73.3,
+        414.1,
+        288.0,
+        538.6
+      ],
+      "text": "carry out better. In the case of CvT, the versions where\nCutout is used have similar performance and perform\nbetter than the other batched augmentations. While\nViT favored CutMix over MixUp, the performances\nare flipped with CvT, such that CutMix outperforms\nMixUp. FMix seems to be the most robust, with its\nperformance having smaller fluctuations than the rest\nof the batched augmentations, regardless of the model\nor the other online augmentations used. Using the non-\naugmented dataset has the same performance impact\non CvT as it had on ViT."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 7,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        565.1,
+        198.3,
+        578.0
+      ],
+      "text": "7\nQualitative Results"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 7,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        592.7,
+        191.9,
+        604.7
+      ],
+      "text": "7.1\nPix2pix Examples"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 7,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        616.6,
+        288.0,
+        706.9
+      ],
+      "text": "Predicted masks are smoother than hand-drawn\nmasks.\nAs can be seen in the first and second ex-\namples of Figure 3, the predicted mask is smoother\naround the edges compared to the ground truth mask,\nalbeit less close to the outline of the leaf. The fourth\nexample shows that the model could generate a mask\nthat surpasses the ground truth in the correct condi-\ntions."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 7,
+      "section": "Abstract:",
+      "bbox": [
+        87.9,
+        708.4,
+        286.3,
+        718.3
+      ],
+      "text": "Predicted masks sometimes include background"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 7,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        413.9,
+        523.3,
+        492.7
+      ],
+      "text": "leaves.\nThe third image shows how certain back-\nground leaves hinder the model’s ability to find an\noutline that follows the exact shape of the leaf, out-\nputting a smoother segmentation instead. Therefore,\nin areas where the outline is less visible, the model\nalso includes the background leaves when performing\nsegmentation."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 7,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        494.1,
+        523.3,
+        584.4
+      ],
+      "text": "The model has trouble segmenting leaves\nagainst specific backgrounds.\nBecause the pix2pix\nmodel was trained on images that mostly contain back-\ngrounds of other leaves combined with grass and dirt, it\nhas trouble segmenting images of leaves taken against\nbackgrounds such as asphalt and concrete. Surpris-\ningly, the model is good at segmenting images of\nleaves taken against plain or solid color backgrounds."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 7,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        598.3,
+        443.8,
+        610.3
+      ],
+      "text": "7.2\nCycleGAN Examples"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 7,
+      "section": "Abstract:",
+      "bbox": [
+        308.5,
+        621.7,
+        523.4,
+        723.5
+      ],
+      "text": "Some synthetic images contain noisy holes.\nAs\nshown in the first example of Figure 4, the generated\nred_spider_mite image features a big hole in the leaf.\nWhile the hole is an excellent example of leaf dam-\nage, there is also a lot of noise surrounding it, which\ndecays the quality of the sample. Better-looking hole\nexamples are found in the high rust-level image gener-\nated from the second healthy leaf, the synthetic image\nfeaturing small holes around the edges of the leaf."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 8,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        291.3,
+        286.3,
+        310.2
+      ],
+      "text": "Figure 3: Examples of pix2pix predicted masks compared to\nthe ground truth masks."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 8,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        320.6,
+        288.0,
+        456.7
+      ],
+      "text": "The low rust-level synthetic images feature al-\nmost no discernible modifications.\nFor the low\nrust level, there is little discernible difference between\nthe healthy and diseased images. This might be be-\ncause this level of rust has a minimal impact on the\nappearance of the leaf, making it look almost identical\nto a healthy leaf in most cases. In comparison, the\nmedium and high levels of rust have the most visible\neffects. As expected, the first and third examples show\nmore severe rust stains for the high level than for the\nmedium level, while the second example shows more\nholes."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 8,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        605.5,
+        286.3,
+        624.5
+      ],
+      "text": "Figure 4: Examples of diseased leaf images generated from\nhealthy leaf images."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 8,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        649.3,
+        209.0,
+        661.2
+      ],
+      "text": "7.3\nT-SNE Visualizations"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 8,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        673.2,
+        288.0,
+        717.6
+      ],
+      "text": "In order to show how the generated diseased leaf im-\nages are close to the actual images in the input distri-\nbution space, latent features are first extracted from\nthe images by passing them through a ViT. This vision"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 8,
+      "section": "Abstract:",
+      "bbox": [
+        308.7,
+        97.0,
+        523.3,
+        187.2
+      ],
+      "text": "Transformer is pre-trained on the ImageNet-21k and\nImageNet-1k datasets [Deng et al., 2009], so it should\nextract distinctive features out of the leaf images with-\nout prior knowledge about the input distribution. In\norder to visualize those latent features, the t-distributed\nstochastic neighbor embedding (t-SNE) dimensional-\nity reduction technique [Hinton and Roweis, 2002] is\nused."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 8,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        188.7,
+        523.3,
+        278.9
+      ],
+      "text": "In Figure 5, it is easy to notice how the different\nclasses are each spread into their clusters, with the\nclusters also overlapping each other a bit. This is ex-\npected from a model pre-trained on a generic image\ndataset without prior knowledge of the plant leaf clas-\nsification task. It can still be observed how there are\nno evident outliers for any class, with the synthetic\nimages seemingly blending into the real images."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 8,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        280.4,
+        523.3,
+        324.7
+      ],
+      "text": "In Figure 6, for the most part, the synthetic image\nrepresentations surround the real images representa-\ntions, except for the red_spider_mite class, where the\nreal and synthetic images overlap almost perfectly."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 8,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        489.6,
+        522.7,
+        508.6
+      ],
+      "text": "Figure 5: 2D t-SNE representations of each class’s images,\nboth synthetic and real."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 8,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        688.8,
+        521.6,
+        707.7
+      ],
+      "text": "Figure 6: 2D t-SNE visualizations of each class, comparing\nreal and synthetic images."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 9,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        95.5,
+        203.4,
+        107.4
+      ],
+      "text": "7.4\nCAM Visualizations"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 9,
+      "section": "Abstract:",
+      "bbox": [
+        73.3,
+        119.4,
+        288.1,
+        301.3
+      ],
+      "text": "Models trained with certain online augmentations\nfocus better on the critical parts of leaves.\nFor the\nMixUp strategy, the model focuses more on the area\nwhere the two images overlap, and there are no rust\nspots (see Figure 7). Interestingly, the big rust region\nis mainly ignored, with the model focusing more on\nthe small rust spots on the left side of the rusty leaf.\nFor CutMix, the model learned to ignore the areas that\nencompass the transitions from one image to another\nwhile also focusing on the essential elements in both\nimages. With Cutout, even when a big area is cut\nout in the image, the model learns to ignore it and\nfocuses instead on the unobstructed regions. FMix\nCAM is similar to CutMix CAM, the model ignoring\nthe transitions, especially in regions where one image\ntransitions to the background of the other image."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 9,
+      "section": "Abstract:",
+      "bbox": [
+        73.3,
+        302.8,
+        288.1,
+        427.3
+      ],
+      "text": "Models trained on synthetic data focus more on\nthe background and edges of leaves.\nThe CAMs in\nFigure 8 show how the model trained on the synthetic\ndataset focuses the most on the edges of the leaves,\nwhere more artifacts were left by the CycleGAN model\nwhen generating the images. Also, the TSTS model\nseems to focus surprisingly much on the background,\nwhich can be explained because the CycleGAN model\nleaves noise in the background of the generated image.\nThe model trained on the augmented dataset focuses\nthe most on areas where the leaf is affected by rust."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 9,
+      "section": "Abstract:",
+      "bbox": [
+        73.3,
+        428.7,
+        288.0,
+        541.9
+      ],
+      "text": "Models trained using online augmentations fo-\ncus on the image as a whole.\nBy comparing the\nvisualizations in Figure 7 to the visualizations in Fig-\nure 8, it can be observed that the models trained using\nonline augmentations direct their attention more to-\nward the background of the image compared to the\nmodel trained without online augmentations. This is\nbecause the models trained using online augmentations\nlearn to focus on the image as a whole, not only on the\ncenter part."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 9,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        568.4,
+        260.0,
+        581.4
+      ],
+      "text": "8\nConclusions and Future Work"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 9,
+      "section": "Abstract:",
+      "bbox": [
+        73.3,
+        594.1,
+        288.1,
+        684.4
+      ],
+      "text": "This paper presented a deep learning pipeline for\nthe task of leaf disease classification on the RoCoLe\ndataset. Consequently, image leaf segmentation was\nperformed using a pix2pix model, and CycleGAN was\nused to augment the diseased classes in the dataset.\nAlso, Transformer-based image classification models\nwere trained on the augmented dataset using various\nonline augmentations."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 9,
+      "section": "Abstract:",
+      "bbox": [
+        73.3,
+        685.8,
+        288.0,
+        718.8
+      ],
+      "text": "This approach of using augmentations combined\nwith Transformer models increased the classification\nperformance compared to approaches using convolu-"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 9,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        273.4,
+        521.6,
+        292.4
+      ],
+      "text": "Figure 7: CAM visualizations for batched augmentation\ntechniques."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 9,
+      "section": "Abstract:",
+      "bbox": [
+        308.7,
+        428.2,
+        521.6,
+        467.1
+      ],
+      "text": "Figure 8: CAM visualizations for synthetic (left) and real\n(right) for the TSTS model (TSTS CAM) and a model trained\nnormally on the augmented dataset (Augmented CAM). All\nimages are part of the rust_level_high class."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 9,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        477.7,
+        523.3,
+        556.4
+      ],
+      "text": "tional models or without augmentations. Even though\nthe results of the TRTR, TRTS, TSTR, and TSTS sce-\nnarios showed that the synthetic data only vaguely\ncaptures the distribution of the real data, the increased\nperformance of the models trained on the augmented\ndataset proved that the CycleGAN augmentations were\nhelpful."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 9,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        558.0,
+        523.3,
+        682.4
+      ],
+      "text": "The presented approach can still be improved, with\nbetter alternatives being viable in most parts of the\narchitecture. Therefore, the main improvement that\ncan be implemented is the use of the StarGAN [Choi\net al., 2018] multi-domain image translation model for\naugmenting the RoCoLe dataset. This approach would\nbenefit from needing only one model to be trained for\naugmenting all diseased classes. Other GAN variations\ncan also be tested, such as the Wasserstein GAN [Ar-\njovsky et al., 2017], which has proven more stable than\nother GANs."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 9,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        683.8,
+        523.4,
+        716.8
+      ],
+      "text": "The leaf segmentation could also be improved\nby using semantic segmentation [Tassis et al., 2021].\nHowever, this would increase computational costs. A"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 10,
+      "section": "Abstract:",
+      "bbox": [
+        73.5,
+        97.0,
+        288.0,
+        141.4
+      ],
+      "text": "cheaper alternative would be to implement semantic\nsegmentation using either the previously presented\nCAM method or the better GradCAM variant [Sel-\nvaraju et al., 2017]."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 10,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        142.9,
+        288.0,
+        244.5
+      ],
+      "text": "Finally, a Swin Transformer [Liu et al., 2021] can\nbe used as a classifier instead of the ViT or CvT. An-\nother alternative would be to use vision-language mod-\nels [Yu et al., 2022], which are the current state of\nthe art in image classification. Models like the con-\ntrastive captioner [Yu et al., 2022] use encoder-decoder\narchitectures to learn captions for images, so the en-\ncoder could be fine-tuned to classify images from the\nRoCoLe dataset."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 10,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        271.0,
+        224.9,
+        284.0
+      ],
+      "text": "ACKNOWLEDGEMENTS"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 10,
+      "section": "Abstract:",
+      "bbox": [
+        73.4,
+        296.8,
+        270.2,
+        306.8
+      ],
+      "text": "This work was supported by GNAC ARUT 2023."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 10,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        333.3,
+        160.8,
+        346.3
+      ],
+      "text": "REFERENCES"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 10,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        358.3,
+        287.8,
+        367.4
+      ],
+      "text": "Arjovsky, M., Chintala, S., and Bottou, L. (2017). Wasser-"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 10,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        368.1,
+        287.9,
+        409.2
+      ],
+      "text": "stein generative adversarial networks.\nIn Interna-\ntional conference on machine learning, pages 214–223.\nPMLR.\nBrahimi, M., Boukhalfa, K., and Moussaoui, A. (2017)."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 10,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        410.1,
+        287.4,
+        451.0
+      ],
+      "text": "Deep learning for tomato diseases: classification and\nsymptoms visualization. Applied Artificial Intelligence,\n31(4):299–315.\nChoi, Y., Choi, M., Kim, M., Ha, J.-W., Kim, S., and Choo,"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 10,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        452.0,
+        287.9,
+        554.6
+      ],
+      "text": "J. (2018). Stargan: Unified generative adversarial net-\nworks for multi-domain image-to-image translation.\nIn Proceedings of the IEEE conference on computer\nvision and pattern recognition, pages 8789–8797.\nDawod, R. G. and Dobre, C. (2021).\nClassification of\nsunflower foliar diseases using convolutional neural\nnetwork. In 2021 23rd International Conference on\nControl Systems and Computer Science (CSCS), pages\n476–481. IEEE.\nDawod, R. G. and Dobre, C. (2022a). Automatic segmen-"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 10,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        555.6,
+        286.3,
+        586.5
+      ],
+      "text": "tation and classification system for foliar diseases in\nsunflower. Sustainability, 14(18):11312.\nDawod, R. G. and Dobre, C. (2022b). Resnet interpretation"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 10,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        587.5,
+        287.8,
+        628.3
+      ],
+      "text": "methods applied to the classification of foliar diseases\nin sunflower. Journal of Agriculture and Food Re-\nsearch, 9:100323.\nDawod, R. G. and Dobre, C. (2022c). Upper and lower leaf"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 10,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        629.3,
+        287.4,
+        660.2
+      ],
+      "text": "side detection with machine learning methods. Sensors,\n22(7):2696.\nDeng, J., Dong, W., Socher, R., Li, L.-J., Li, K., and Fei-Fei,"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 10,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        661.3,
+        287.8,
+        702.1
+      ],
+      "text": "L. (2009). Imagenet: A large-scale hierarchical image\ndatabase. In 2009 IEEE conference on computer vision\nand pattern recognition, pages 248–255. Ieee.\nDeVries, T. and Taylor, G. W. (2017). Improved regular-"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 10,
+      "section": "Abstract:",
+      "bbox": [
+        93.6,
+        703.0,
+        287.9,
+        722.0
+      ],
+      "text": "ization of convolutional neural networks with cutout.\narXiv preprint arXiv:1708.04552."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 10,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        97.8,
+        521.6,
+        106.8
+      ],
+      "text": "Ding, S., Wang, J., Li, J., and Shi, J. (2023). Multi-scale"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 10,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        107.9,
+        523.1,
+        158.6
+      ],
+      "text": "prototypical transformer for whole slide image classifi-\ncation. In International conference on medical image\ncomputing and computer-assisted intervention, pages\n602–611. Springer.\nDosovitskiy, A., Beyer, L., Kolesnikov, A., Weissenborn,"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 10,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        159.5,
+        523.2,
+        220.2
+      ],
+      "text": "D., Zhai, X., Unterthiner, T., Dehghani, M., Minderer,\nM., Heigold, G., Gelly, S., et al. (2020). An image is\nworth 16x16 words: Transformers for image recogni-\ntion at scale. In International Conference on Learning\nRepresentations.\nEchim, S.-V., T˘aiatu, I.-M., Cercel, D.-C., and Pop, F. (2023)."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 10,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        221.2,
+        521.6,
+        252.0
+      ],
+      "text": "Explainability-driven leaf disease classification using\nadversarial training and knowledge distillation.\nFaisal, M., Leu, J.-S., and Darmawan, J. T. (2023). Model"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 10,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        253.1,
+        523.1,
+        283.8
+      ],
+      "text": "selection of hybrid feature fusion for coffee leaf disease\nclassification. IEEE Access.\nFekri, M. N., Ghosh, A. M., and Grolinger, K. (2019). Gen-"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 10,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        284.9,
+        523.1,
+        315.6
+      ],
+      "text": "erating energy data for machine learning with recurrent\ngenerative adversarial networks. Energies, 13(1):130.\nGoodfellow, I., Pouget-Abadie, J., Mirza, M., Xu, B., Warde-"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 10,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        316.6,
+        523.2,
+        357.4
+      ],
+      "text": "Farley, D., Ozair, S., Courville, A., and Bengio, Y.\n(2014). Generative adversarial nets. Advances in neural\ninformation processing systems, 27.\nHarris, E., Marcu, A., Painter, M., Niranjan, M., Prügel-"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 10,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        358.3,
+        523.2,
+        399.2
+      ],
+      "text": "Bennett, A., and Hare, J. (2020).\nFmix: Enhanc-\ning mixed sample data augmentation. arXiv preprint\narXiv:2002.12047.\nHe, K., Gkioxari, G., Dollár, P., and Girshick, R. (2017)."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 10,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        399.9,
+        523.1,
+        431.0
+      ],
+      "text": "Mask r-cnn. arxiv e-prints, page.\narXiv preprint\narXiv:1703.06870.\nHe, K., Zhang, X., Ren, S., and Sun, J. (2016). Deep resid-"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 10,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        431.8,
+        521.8,
+        472.7
+      ],
+      "text": "ual learning for image recognition. In Proceedings of\nthe IEEE conference on computer vision and pattern\nrecognition, pages 770–778.\nHinton, G. E. and Roweis, S. (2002). Stochastic neighbor"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 10,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        473.7,
+        523.1,
+        514.5
+      ],
+      "text": "embedding. In Becker, S., Thrun, S., and Obermayer,\nK., editors, Advances in Neural Information Process-\ning Systems, volume 15. MIT Press.\nIsola, P., Zhu, J.-Y., Zhou, T., and Efros, A. A. (2017). Image-"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 10,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        515.4,
+        523.1,
+        566.2
+      ],
+      "text": "to-image translation with conditional adversarial net-\nworks.\nIn Proceedings of the IEEE conference on\ncomputer vision and pattern recognition, pages 1125–\n1134.\nKamal, K., Yin, Z., Wu, M., and Wu, Z. (2019). Depthwise"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 10,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        567.1,
+        523.1,
+        607.9
+      ],
+      "text": "separable convolution architectures for plant disease\nclassification. Computers and electronics in agricul-\nture, 165:104948.\nKim, Y. (2014). Convolutional neural networks for sentence"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 10,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        608.8,
+        523.2,
+        681.5
+      ],
+      "text": "classification. In Proceedings of the 2014 Conference\non Empirical Methods in Natural Language Processing\n(EMNLP). Association for Computational Linguistics.\nKingma,\nD. P. and Ba,\nJ. (2014).\nAdam:\nA\nmethod for stochastic optimization. arXiv preprint\narXiv:1412.6980.\nKrizhevsky, A., Sutskever, I., and Hinton, G. E. (2017)."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 10,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        682.6,
+        522.3,
+        713.3
+      ],
+      "text": "Imagenet classification with deep convolutional neural\nnetworks. Communications of the ACM, 60(6):84–90.\nLi, C. and Wand, M. (2016). Combining markov random"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 10,
+      "section": "Abstract:",
+      "bbox": [
+        328.9,
+        714.3,
+        521.6,
+        723.3
+      ],
+      "text": "fields and convolutional neural networks for image"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 11,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        97.6,
+        287.7,
+        138.7
+      ],
+      "text": "synthesis. In Proceedings of the IEEE conference on\ncomputer vision and pattern recognition, pages 2479–\n2486.\nLiu, C., Chang, X., and Shen, Y.-D. (2020). Unity style"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 11,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        139.5,
+        287.4,
+        180.6
+      ],
+      "text": "transfer for person re-identification. In Proceedings\nof the IEEE/CVF conference on computer vision and\npattern recognition, pages 6887–6896.\nLiu, Z., Lin, Y., Cao, Y., Hu, H., Wei, Y., Zhang, Z., Lin,"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 11,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        181.5,
+        287.9,
+        232.4
+      ],
+      "text": "S., and Guo, B. (2021). Swin transformer: Hierar-\nchical vision transformer using shifted windows. In\nProceedings of the IEEE/CVF international conference\non computer vision, pages 10012–10022.\nLungu-Stan, V.-C., Cercel, D.-C., and Pop, F. (2023)."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 11,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        233.3,
+        286.3,
+        274.2
+      ],
+      "text": "Skindistilvit: Lightweight vision transformer for skin\nlesion classification. In International Conference on\nArtificial Neural Networks, pages 268–280. Springer.\nMohameth, F., Bingcai, C., and Sada, K. A. (2020). Plant"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 11,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        275.1,
+        287.8,
+        316.0
+      ],
+      "text": "disease detection with deep learning and feature ex-\ntraction using plant village. Journal of Computer and\nCommunications, 8(6):10–22.\nMohanty, S. P., Hughes, D. P., and Salathé, M. (2016). Using"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 11,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        317.0,
+        287.9,
+        347.9
+      ],
+      "text": "deep learning for image-based plant disease detection.\nFrontiers in Plant Science, 7.\nNääs, I. A., Garcia, R. G., and Caldara, F. R. (2020). In-"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 11,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        348.8,
+        287.8,
+        389.7
+      ],
+      "text": "frared thermal image for assessing animal health and\nwelfare. Journal of Animal Behaviour and Biometeo-\nrology, 2(3):66–72.\nNam, M. G. and Dong, S.-Y. (2023). Classification of com-"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 11,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        390.7,
+        287.9,
+        421.6
+      ],
+      "text": "panion animals’ ocular diseases: Domain adversarial\nlearning for imbalanced data. IEEE Access.\nParraga-Alava, J., Cusme, K., Loor, A., and Santander, E."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 11,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        422.6,
+        287.8,
+        463.5
+      ],
+      "text": "(2019). Rocole: A robusta coffee leaf images dataset\nfor evaluation of machine learning based methods in\nplant diseases recognition. Data in brief, 25:104414.\nRodriguez-Gallo, Y., Escobar-Benitez, B., and Rodriguez-"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 11,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        464.4,
+        287.9,
+        577.1
+      ],
+      "text": "Lainez, J. (2023). Robust coffee rust detection us-\ning uav-based aerial rgb imagery. AgriEngineering,\n5(3):1415–1431.\nRonneberger, O., Fischer, P., and Brox, T. (2015).\nU-\nnet: Convolutional networks for biomedical image\nsegmentation.\nIn Medical Image Computing and\nComputer-Assisted Intervention–MICCAI 2015: 18th\nInternational Conference, Munich, Germany, October\n5-9, 2015, Proceedings, Part III 18, pages 234–241.\nSpringer.\nSelvaraju, R. R., Cogswell, M., Das, A., Vedantam, R.,"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 11,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        578.0,
+        287.4,
+        628.9
+      ],
+      "text": "Parikh, D., and Batra, D. (2017). Grad-cam: Visual\nexplanations from deep networks via gradient-based\nlocalization. In 2017 IEEE International Conference\non Computer Vision (ICCV), pages 618–626.\nSiddique, N., Paheding, S., Elkin, C. P., and Devabhaktuni,"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 11,
+      "section": "Abstract:",
+      "bbox": [
+        73.7,
+        629.8,
+        287.9,
+        670.7
+      ],
+      "text": "V. (2021). U-net and its variants for medical image\nsegmentation: A review of theory and applications.\nIeee Access, 9:82031–82057.\nSimonyan, K. and Zisserman, A. (2015). Very deep con-"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 11,
+      "section": "Abstract:",
+      "bbox": [
+        93.4,
+        671.7,
+        287.9,
+        710.5
+      ],
+      "text": "volutional networks for large-scale image recognition.\nIn 3rd International Conference on Learning Repre-\nsentations (ICLR 2015). Computational and Biological\nLearning Society."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 11,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        97.8,
+        522.7,
+        106.8
+      ],
+      "text": "Stauber, J., Lemaire, R., Franck, J., Bonnel, D., Croix,"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 11,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        107.7,
+        523.1,
+        168.6
+      ],
+      "text": "D., Day, R., Wisztorski, M., Fournier, I., and Salzet,\nM. (2008). Maldi imaging of formalin-fixed paraffin-\nembedded tissues: application to model animals of\nparkinson disease for biomarker hunting. Journal of\nProteome Research, 7(3):969–978.\nSun, M., Huang, W., and Zheng, Y. (2023). Instance-aware"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 11,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        169.6,
+        523.1,
+        220.4
+      ],
+      "text": "diffusion model for gland segmentation in colon histol-\nogy images. In International Conference on Medical\nImage Computing and Computer-Assisted Intervention,\npages 662–672. Springer.\nSzegedy, C., Liu, W., Jia, Y., Sermanet, P., Reed, S.,"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 11,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        221.3,
+        523.2,
+        272.1
+      ],
+      "text": "Anguelov, D., Erhan, D., Vanhoucke, V., and Rabi-\nnovich, A. (2015). Going deeper with convolutions.\nIn Proceedings of the IEEE conference on computer\nvision and pattern recognition, pages 1–9.\nTassis, L. M., de Souza, J. E. T., and Krohling, R. A. (2021)."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 11,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        273.1,
+        523.1,
+        323.9
+      ],
+      "text": "A deep learning approach combining instance and se-\nmantic segmentation to identify diseases and pests of\ncoffee leaves from in-field images. Computers and\nElectronics in Agriculture, 186:106191.\nThakur, P. S., Sheorey, T., and Ojha, A. (2023). Vgg-icnn: A"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 11,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        324.9,
+        523.2,
+        355.8
+      ],
+      "text": "lightweight cnn model for crop disease identification.\nMultimedia Tools and Applications, 82(1):497–520.\nVaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones,"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 11,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        356.9,
+        523.2,
+        397.7
+      ],
+      "text": "L., Gomez, A. N., Kaiser, Ł., and Polosukhin, I. (2017).\nAttention is all you need. Advances in neural informa-\ntion processing systems, 30.\nWu, H., Xiao, B., Codella, N., Liu, M., Dai, X., Yuan, L.,"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 11,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        398.7,
+        522.7,
+        449.5
+      ],
+      "text": "and Zhang, L. (2021). Cvt: Introducing convolutions to\nvision transformers. In Proceedings of the IEEE/CVF\nInternational Conference on Computer Vision, pages\n22–31.\nYu, J., Wang, Z., Vasudevan, V., Yeung, L., Seyedhosseini,"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 11,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        450.4,
+        523.2,
+        491.3
+      ],
+      "text": "M., and Wu, Y. (2022). Coca: Contrastive caption-\ners are image-text foundation models. arXiv preprint\narXiv:2205.01917.\nYun, S., Han, D., Oh, S. J., Chun, S., Choe, J., and Yoo, Y."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 11,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        492.3,
+        523.2,
+        543.1
+      ],
+      "text": "(2019). Cutmix: Regularization strategy to train strong\nclassifiers with localizable features. In Proceedings of\nthe IEEE/CVF international conference on computer\nvision, pages 6023–6032.\nZhang, H., Cisse, M., Dauphin, Y. N., and Lopez-Paz, D."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 11,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        544.0,
+        523.2,
+        584.9
+      ],
+      "text": "(2018). mixup: Beyond empirical risk minimization.\nIn International Conference on Learning Representa-\ntions.\nZhao, H., Shi, J., Qi, X., Wang, X., and Jia, J. (2017). Pyra-"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 11,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        585.8,
+        522.7,
+        626.7
+      ],
+      "text": "mid scene parsing network. In Proceedings of the IEEE\nconference on computer vision and pattern recognition,\npages 2881–2890.\nZhou, B., Khosla, A., Lapedriza, A., Oliva, A., and Torralba,"
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 11,
+      "section": "Abstract:",
+      "bbox": [
+        309.0,
+        627.7,
+        523.2,
+        678.5
+      ],
+      "text": "A. (2016). Learning deep features for discriminative\nlocalization. In Proceedings of the IEEE conference on\ncomputer vision and pattern recognition, pages 2921–\n2929.\nZhu, J.-Y., Park, T., Isola, P., and Efros, A. A. (2017)."
+    },
+    {
+      "paper_id": "2401.05768",
+      "file_name": "2401.05768_Evaluating_Data_Augmentation_Techniques_.pdf",
+      "page_number": 11,
+      "section": "Abstract:",
+      "bbox": [
+        328.9,
+        679.4,
+        523.1,
+        718.4
+      ],
+      "text": "Unpaired image-to-image translation using cycle-\nconsistent adversarial networks. In Proceedings of\nthe IEEE international conference on computer vision,\npages 2223–2232."
+    }
+  ]
+}
