@@ -224,9 +224,13 @@ export default function WelcomeScreen({ onStartReview, onLoadBenchmark, existing
       addLog('Identified research gaps.')
 
       setPipelineStage('5/5: Monograph Report Compilation')
-      addLog('Agent 6: Generating editorial literature review & Mermaid diagrams...')
-      await fetch('/api/run-agent/report', { method: 'POST' }).catch(() => {})
-      addLog('Monograph ready!')
+      addLog('Agent 6: Generating publication-grade monograph & Mermaid diagrams (~45–60s on NVIDIA NIM)...')
+      const repRes = await fetch('/api/run-agent/report', { method: 'POST' })
+      if (!repRes.ok) {
+        const errTxt = await repRes.text().catch(() => '')
+        throw new Error(`Report compilation failed (${repRes.status}): ${errTxt || 'Unknown error'}`)
+      }
+      addLog('Monograph and architecture diagrams compiled successfully!')
 
       if (onStartReview) await onStartReview()
     } catch (err) {

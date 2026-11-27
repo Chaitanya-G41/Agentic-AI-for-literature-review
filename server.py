@@ -535,6 +535,7 @@ def clear_corpus_api():
         os.path.join(DATA_DIR, "active_review.json"),
         os.path.join(DATA_DIR, "active_query.json"),
         os.path.join(DATA_DIR, "screening_results.json"),
+        os.path.join(DATA_DIR, "gap_analysis.json"),
         os.path.join(REPORTS_DIR, "diagram_data.json"),
         os.path.join(REPORTS_DIR, "literature_review_report.md"),
     ]:
@@ -678,7 +679,13 @@ def run_research_gap_agent_api():
         raise HTTPException(status_code=400, detail="No schemas found for research gap analysis.")
 
     gap_analysis = run_research_gap_agent(schemas)
-    return {"status": "completed", "gaps": gap_analysis.dict() if hasattr(gap_analysis, "dict") else gap_analysis}
+    gaps_dict = gap_analysis.dict() if hasattr(gap_analysis, "dict") else (gap_analysis.model_dump() if hasattr(gap_analysis, "model_dump") else gap_analysis)
+    try:
+        with open(os.path.join(DATA_DIR, "gap_analysis.json"), "w", encoding="utf-8") as gf:
+            json.dump(gaps_dict, gf, indent=2)
+    except Exception:
+        pass
+    return {"status": "completed", "gaps": gaps_dict}
 
 
 @app.post("/api/run-agent/report")
@@ -717,7 +724,18 @@ def run_report_agent_api():
             summaries.append(ComprehensivePaperSummary(**json.load(f)))
 
     comp = run_comparative_analysis(target_paper_ids=active_ids if active_ids else None)
-    gaps = run_research_gap_agent(schemas)
+    
+    # Use cached gap analysis from Stage 4 if available to avoid duplicate LLM invocation
+    gaps = None
+    gap_cache = os.path.join(DATA_DIR, "gap_analysis.json")
+    if os.path.exists(gap_cache):
+        try:
+            with open(gap_cache, "r", encoding="utf-8") as gf:
+                gaps = json.load(gf)
+        except Exception:
+            pass
+    if not gaps:
+        gaps = run_research_gap_agent(schemas)
 
     report = generate_literature_review(schemas, summaries, comp, gaps)
 

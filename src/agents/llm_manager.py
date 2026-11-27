@@ -120,7 +120,7 @@ class LLMManager:
                 client = OpenAI(
                     base_url="https://integrate.api.nvidia.com/v1",
                     api_key=key,
-                    timeout=60.0
+                    timeout=120.0
                 )
                 messages = []
                 if system_instruction:
