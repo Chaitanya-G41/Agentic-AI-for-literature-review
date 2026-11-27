@@ -192,6 +192,24 @@ export default function WelcomeScreen({ onStartReview, onLoadBenchmark, existing
       setPipelineLogs(prev => [...prev, { time: new Date().toLocaleTimeString(), msg }])
     }
 
+    // Wrapper: runs a fetch, throws with a readable message on HTTP error or network failure
+    const runStage = async (label, url, opts = {}) => {
+      let res
+      try {
+        res = await fetch(url, { method: 'POST', ...opts })
+      } catch (netErr) {
+        throw new Error(`${label} — network error: ${netErr.message}`)
+      }
+      if (!res.ok) {
+        let detail = ''
+        try { const j = await res.json(); detail = j.detail || JSON.stringify(j) } catch (_) {
+          try { detail = await res.text() } catch (_) { detail = `HTTP ${res.status}` }
+        }
+        throw new Error(`${label} failed (${res.status}): ${detail}`)
+      }
+      return res
+    }
+
     try {
       if (downloadPromise) {
         setPipelineStage('Initializing Workspace')
@@ -205,36 +223,33 @@ export default function WelcomeScreen({ onStartReview, onLoadBenchmark, existing
 
       setPipelineStage('1/5: GROBID Schema Extraction')
       addLog('Agent 2: Parsing TEI-XML structure & extracting structured methodology...')
-      await fetch('/api/run-agent/extraction', { method: 'POST' }).catch(() => {})
+      await runStage('Schema Extraction', '/api/run-agent/extraction')
       addLog('Schema extraction complete with zero-hallucination grounding.')
 
       setPipelineStage('2/5: Single-Paper Summaries')
       addLog('Agent 3: Deterministic Pydantic summaries (0 LLM calls)...')
-      await fetch('/api/run-agent/summarizer', { method: 'POST' }).catch(() => {})
+      await runStage('Summarizer', '/api/run-agent/summarizer')
       addLog('Summaries compiled.')
 
       setPipelineStage('3/5: Comparative Analysis Matrix')
       addLog('Agent 4: Aligning cross-paper architectures & evaluation benchmarks...')
-      await fetch('/api/run-agent/comparative', { method: 'POST' }).catch(() => {})
+      await runStage('Comparative Analysis', '/api/run-agent/comparative')
       addLog('Comparative matrix constructed.')
 
       setPipelineStage('4/5: Research Gap Synthesis')
       addLog('Agent 5: Synthesizing systemic bottlenecks & research frontiers (1 LLM call)...')
-      await fetch('/api/run-agent/research-gap', { method: 'POST' }).catch(() => {})
+      await runStage('Research Gap Synthesis', '/api/run-agent/research-gap')
       addLog('Identified research gaps.')
 
       setPipelineStage('5/5: Monograph Report Compilation')
-      addLog('Agent 6: Generating publication-grade monograph & Mermaid diagrams (~45–60s on NVIDIA NIM)...')
-      const repRes = await fetch('/api/run-agent/report', { method: 'POST' })
-      if (!repRes.ok) {
-        const errTxt = await repRes.text().catch(() => '')
-        throw new Error(`Report compilation failed (${repRes.status}): ${errTxt || 'Unknown error'}`)
-      }
+      addLog('Agent 6: Generating publication-grade monograph & Mermaid diagrams (~45–90s on NVIDIA NIM)...')
+      await runStage('Monograph Compilation', '/api/run-agent/report')
       addLog('Monograph and architecture diagrams compiled successfully!')
 
       if (onStartReview) await onStartReview()
     } catch (err) {
-      addLog(`Error: ${err.message}`)
+      addLog(`❌ Pipeline Error: ${err.message}`)
+      setPipelineStage('Pipeline Error — check trace above')
     } finally {
       setPipelineRunning(false)
     }
@@ -246,7 +261,13 @@ export default function WelcomeScreen({ onStartReview, onLoadBenchmark, existing
     const p = fetch('/api/download-papers', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ papers: selected }),
+      body: JSON.stringify({ papers: selected, query: query.trim() }),
+    }).then(async res => {
+      if (!res.ok) {
+        const j = await res.json().catch(() => ({}))
+        throw new Error(`Download failed (${res.status}): ${j.detail || 'unknown'}`)
+      }
+      return res
     })
     runPipelineWithStep(p)
   }

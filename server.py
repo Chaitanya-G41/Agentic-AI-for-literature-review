@@ -93,6 +93,76 @@ def get_status():
     }
 
 
+@app.get("/api/grobid-status")
+def get_grobid_status():
+    """Pings the local GROBID service to report its availability."""
+    import urllib.request
+    try:
+        with urllib.request.urlopen("http://localhost:8070/api/isalive", timeout=2) as r:
+            alive = r.status == 200
+    except Exception:
+        alive = False
+    return {"alive": alive, "mode": "GROBID (TEI-XML)" if alive else "PyMuPDF (fallback)"}
+
+
+@app.get("/api/evaluation-report")
+def get_evaluation_report():
+    """Returns automated benchmark evaluation scores for the current report."""
+    report_path = os.path.join(REPORTS_DIR, "literature_review_report.md")
+    if not os.path.exists(report_path):
+        return {"available": False, "message": "No report generated yet."}
+
+    with open(report_path, "r", encoding="utf-8") as f:
+        report_text = f.read()
+
+    # Citation integrity: count grounded [PAPER_ID] citations in the report
+    citation_refs = re.findall(r'\[(\d{4}\.\d{4,5})\]', report_text)
+    schema_files = glob.glob(os.path.join(SCHEMAS_DIR, "*_schema.json"))
+    valid_ids = set()
+    for sf in schema_files:
+        try:
+            with open(sf, "r", encoding="utf-8") as f:
+                d = json.load(f)
+                pid = d.get("paper_id", "")
+                if pid:
+                    valid_ids.add(pid)
+        except Exception:
+            pass
+
+    total_citations = len(citation_refs)
+    valid_citations = sum(1 for c in citation_refs if c in valid_ids)
+    citation_integrity = round((valid_citations / total_citations * 100) if total_citations else 0, 1)
+
+    # Section coverage: check for required sections
+    required_sections = [
+        "Executive Summary", "Corpus Overview", "Methodolog",
+        "Empirical", "Research Gap", "Strategic Roadmap", "References"
+    ]
+    sections_found = [s for s in required_sections if s.lower() in report_text.lower()]
+    coverage_pct = round(len(sections_found) / len(required_sections) * 100, 1)
+
+    # Word count (excluding code blocks)
+    clean_text = re.sub(r"```[\s\S]*?```", "", report_text)
+    word_count = len(clean_text.split())
+
+    # Mermaid diagram count
+    diagram_count = len(re.findall(r"```mermaid", report_text))
+
+    return {
+        "available": True,
+        "word_count": word_count,
+        "citation_integrity_pct": citation_integrity,
+        "total_citations": total_citations,
+        "valid_citations": valid_citations,
+        "section_coverage_pct": coverage_pct,
+        "sections_found": sections_found,
+        "sections_required": required_sections,
+        "diagram_count": diagram_count,
+        "paper_count": len(schema_files),
+        "report_chars": len(report_text),
+    }
+
+
 def classify_paradigm(title: str, abstract: str = "") -> Dict[str, str]:
     """Classifies paper into aesthetic pastel badge paradigm."""
     text = f"{title} {abstract}".lower()

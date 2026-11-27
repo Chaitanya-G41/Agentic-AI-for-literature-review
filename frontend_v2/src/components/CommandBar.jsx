@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Download, Plus, RotateCcw, Cpu, Award, Sliders } from 'lucide-react'
 import ReviewInfoModal from './ReviewInfoModal'
 import styles from './CommandBar.module.css'
@@ -24,6 +24,23 @@ export default function CommandBar({
   onStartFresh,
 }) {
   const [infoModal, setInfoModal] = useState(null)
+  const [grobidAlive, setGrobidAlive] = useState(null) // null=checking, true=live, false=offline
+
+  useEffect(() => {
+    let cancelled = false
+    const check = async () => {
+      try {
+        const r = await fetch('/api/grobid-status')
+        const d = await r.json()
+        if (!cancelled) setGrobidAlive(d.alive)
+      } catch {
+        if (!cancelled) setGrobidAlive(false)
+      }
+    }
+    check()
+    return () => { cancelled = true }
+  }, [])
+
   const togglePillar = (key) => {
     setActivePillars((p) => ({ ...p, [key]: !p[key] }))
   }
@@ -72,6 +89,27 @@ export default function CommandBar({
           <Sliders size={10} style={{ marginRight: 4 }} />
           <span>Screening</span>
         </button>
+        {/* GROBID status badge */}
+        <span
+          className={styles.grobidBadge}
+          title={grobidAlive ? 'GROBID service is live — full TEI-XML extraction active' : 'GROBID offline — using PyMuPDF fallback extraction'}
+          style={{
+            marginLeft: 8,
+            fontSize: '9px',
+            fontFamily: 'var(--font-mono)',
+            letterSpacing: '0.08em',
+            padding: '2px 6px',
+            border: '1px solid var(--ink)',
+            borderRadius: 2,
+            opacity: grobidAlive === null ? 0.4 : 1,
+            background: grobidAlive ? 'var(--ink)' : 'transparent',
+            color: grobidAlive ? 'var(--paper)' : 'var(--ink)',
+            cursor: 'default',
+            userSelect: 'none',
+          }}
+        >
+          {grobidAlive === null ? 'GROBID ···' : grobidAlive ? 'GROBID: LIVE' : 'GROBID: OFFLINE'}
+        </span>
       </div>
 
       {/* Center: Pillar Lenses (Pure Black & Ivory Monochrome) */}

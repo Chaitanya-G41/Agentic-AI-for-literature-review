@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { X } from 'lucide-react'
 import MermaidDiagrams from './MermaidDiagrams'
 import { extractionStats, citationStats } from './reviewStats'
@@ -33,6 +33,18 @@ export default function ReviewInfoModal({ kind, onClose, corpus, content }) {
   const stats = extractionStats(corpus)
   const citations = citationStats(content, corpus)
   const architecture = kind === 'architecture'
+
+  // Fetch live evaluation report from backend
+  const [evalData, setEvalData] = useState(null)
+  const [evalLoading, setEvalLoading] = useState(false)
+  useEffect(() => {
+    if (kind !== 'evaluation') return
+    setEvalLoading(true)
+    fetch('/api/evaluation-report')
+      .then(r => r.json())
+      .then(d => { setEvalData(d); setEvalLoading(false) })
+      .catch(() => setEvalLoading(false))
+  }, [kind])
   useEffect(() => {
     const previous = document.activeElement
     const el = dialog.current
@@ -55,13 +67,37 @@ export default function ReviewInfoModal({ kind, onClose, corpus, content }) {
           <h2 id="review-info-title">{architecture ? 'System Architecture' : 'Evaluation Rubric'}</h2></div>
         <button autoFocus onClick={onClose} aria-label="Close dialog"><X size={20} /></button>
       </div>
-      {architecture ? <>
-        <p>Six specialized agents communicate through structured JSON and Pydantic models. NVIDIA NIM uses <code>nvidia/nemotron-3.5-bolt-e4b</code>; Gemini 2.5 Flash is the secondary provider.</p>
+      {architecture ? <>        <p>Six specialized agents communicate through structured JSON and Pydantic models. NVIDIA NIM uses <code>nvidia/nemotron-3.5-bolt-e4b</code>; Gemini 2.5 Flash is the secondary provider.</p>
         <MermaidDiagrams diagrams={{ 'Six-agent pipeline': PIPELINE }} />
         <div className={styles.tableWrap}><table><thead><tr><th>Agent</th><th>Responsibility</th><th>Communication schema</th><th>Fallback</th></tr></thead>
           <tbody>{AGENTS.map(row => <tr key={row[0]}>{row.map(cell => <td key={cell}>{cell}</td>)}</tr>)}</tbody></table></div>
         <p>Call counts describe logical requests per stage; provider retries and fallback attempts can add API calls. Typed validation checks structure, not scientific truth.</p>
       </> : <>
+        {/* ── LIVE BENCHMARK SCOREBOARD ── */}
+        {evalLoading && <p style={{ fontFamily: 'var(--font-mono)', fontSize: 11, opacity: 0.5 }}>Loading evaluation scores…</p>}
+        {evalData?.available && (
+          <div className={styles.stats} style={{ marginBottom: '1rem' }}>
+            <div>
+              <strong>{evalData.section_coverage_pct}%</strong>
+              <span>Section Coverage ({evalData.sections_found?.length}/{evalData.sections_required?.length} required sections)</span>
+            </div>
+            <div>
+              <strong>{evalData.citation_integrity_pct}%</strong>
+              <span>Citation Integrity ({evalData.valid_citations}/{evalData.total_citations} grounded citations)</span>
+            </div>
+            <div>
+              <strong>{evalData.word_count?.toLocaleString()}</strong>
+              <span>Words in report · {evalData.report_chars?.toLocaleString()} chars</span>
+            </div>
+            <div>
+              <strong>{evalData.diagram_count}</strong>
+              <span>Mermaid diagrams embedded · {evalData.paper_count} corpus papers</span>
+            </div>
+          </div>
+        )}
+        {evalData?.available === false && (
+          <p style={{ fontFamily: 'var(--font-mono)', fontSize: 11, opacity: 0.6 }}>⚠ {evalData.message}</p>
+        )}
         <div className={styles.stats}>
           <div><strong>{stats.total}</strong><span>Active papers</span></div>
           <div><strong>{stats.percent === null ? 'N/A' : `${stats.percent}%`}</strong><span>Genuine LLM extractions ({stats.llm}/{stats.total})</span></div>
