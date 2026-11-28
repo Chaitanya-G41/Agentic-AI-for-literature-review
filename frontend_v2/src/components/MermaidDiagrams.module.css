@@ -57,6 +57,8 @@
   background: #E2E8F0;
   padding: 3px;
   border-radius: 4px;
+  position: relative;
+  z-index: 5;
 }
 
 .viewBtn, .viewBtnActive {
@@ -67,7 +69,14 @@
   border: none;
   border-radius: 3px;
   cursor: pointer;
+  pointer-events: auto;
+  user-select: none;
   transition: all 0.15s;
+}
+
+.viewBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .viewBtn {
@@ -737,7 +746,8 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 10px;
+  flex-wrap: wrap;
+  gap: 8px;
   padding: 6px 12px;
   background: #F8FAFC;
   border: 1px solid #E2E8F0;

@@ -62,60 +62,242 @@ class ComparativeAnalysis(BaseModel):
 # Generic Paradigm & Classification Rules (Content-driven, no paper names)
 # ============================================================================
 
-def classify_paradigm_generic(summary_dict: Dict[str, Any]) -> str:
+def is_valid_methodology_category(category: str, paper_titles: Optional[List[str]] = None) -> bool:
+    """
+    Validates that a category label:
+    1. Is not empty or a generic placeholder.
+    2. Is not an unprocessed paper title or title snippet.
+    3. Represents a recognized or standardized methodology paradigm.
+    """
+    if not category:
+        return False
+    c_clean = category.strip()
+    c_lower = c_clean.lower()
+    if c_lower in [
+        "", "abstract", "methodology not specified", "methodology not explicitly stated",
+        "not identified in available paper content", "unclassified methodology"
+    ]:
+        return False
+    if paper_titles:
+        for t in paper_titles:
+            t_clean = (t or "").strip().lower()
+            if not t_clean:
+                continue
+            # Exactly identical or category is an unprocessed copy of full title
+            if c_lower == t_clean:
+                return False
+            if len(c_lower) >= 15:
+                # Category is an unprocessed prefix snippet of the paper title (e.g. t[:35])
+                if t_clean.startswith(c_lower):
+                    return False
+                if (c_lower in t_clean or t_clean in c_lower) and abs(len(c_lower) - len(t_clean)) < 8:
+                    return False
+    return True
+
+
+def extract_structured_methodology(summary_dict: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Extracts structured, orthogonal methodology dimensions from paper content:
+    - Model architecture (CNN, Transformer, GNN, GAN, etc.)
+    - Learning paradigm (Supervised, Unsupervised/Self-Supervised, Reinforcement, Federated)
+    - Imaging / data modality (MRI, PET, Multimodal MRI+PET, CT, EHR, Text, etc.)
+    - Research design (RCT, Retrospective Cohort, Prospective Clinical, Benchmark Evaluation)
+    - Statistical or computational technique
+    - Overarching paradigm (Machine Learning Approach, Experimental Approach, Computational Method, Theoretical Framework, Hybrid Method)
+    Guarantees that an RCT is classified under Experimental Approach and never as a computational method.
+    """
+    if not isinstance(summary_dict, dict):
+        return {
+            "model_architecture": "Architecture not specified / Model-agnostic",
+            "learning_paradigm": "Learning paradigm not specified",
+            "data_modality": "Modality not specified",
+            "research_design": "Research design not specified",
+            "computational_technique": "Empirical Computational Technique",
+            "overarching_paradigm": "Computational Method",
+            "primary_category": "Methodology not specified"
+        }
+
+    title = str(summary_dict.get("paper_title") or summary_dict.get("title") or "")
+    meth_summary = str(summary_dict.get("methodology_summary") or summary_dict.get("methodology") or "")
+    core_prob = str(summary_dict.get("core_problem") or summary_dict.get("abstract") or summary_dict.get("problem_motivation") or "")
+    results = str(summary_dict.get("empirical_results") or summary_dict.get("results") or "")
+
+    meth = summary_dict.get("proposed_methodology") or summary_dict.get("proposed_method") or {}
+    if not isinstance(meth, dict):
+        meth = {"method_name": str(meth)}
+
+    comb = f"{title} {meth_summary} {core_prob} {results} {meth.get('method_name', '')} {meth.get('core_architecture', '')}".lower()
+
+    has_substantive_content = bool(
+        (meth_summary and len(meth_summary.strip()) > 5) or
+        (core_prob and len(core_prob.strip()) > 10 and not any(k in core_prob.lower() for k in ["theoretical bounds", "abstract"])) or
+        (results and len(results.strip()) > 5) or
+        meth.get("method_name") or meth.get("core_architecture")
+    )
+    if not has_substantive_content and not any(k in comb for k in ["randomized controlled trial", " rct "]):
+        return {
+            "model_architecture": "Architecture not specified / Model-agnostic",
+            "learning_paradigm": "Learning paradigm not specified",
+            "data_modality": "Modality not specified",
+            "research_design": "Research design not specified",
+            "computational_technique": "Empirical Computational Technique",
+            "overarching_paradigm": "Computational Method",
+            "primary_category": "Methodology not specified"
+        }
+
+    # 1. Research Design (Orthogonal Dimension)
+    if any(k in comb for k in ["randomized controlled trial", " rct ", "placebo-controlled", "double-blind", "clinical trial phase"]):
+        design = "Randomized Controlled Trial (RCT)"
+    elif any(k in comb for k in ["prospective cohort", "prospective study", "prospective clinical", "longitudinal prospective"]):
+        design = "Prospective Clinical Study"
+    elif any(k in comb for k in ["retrospective cohort", "retrospective study", "retrospective analysis", "adni cohort", "adni database", "cohort study", "oasis", "anmerge"]):
+        design = "Retrospective Cohort Study"
+    elif any(k in comb for k in ["observational study", "cross-sectional", "case-control"]):
+        design = "Observational Study"
+    elif any(k in comb for k in ["systematic review", "meta-analysis", "mapping study", "literature survey"]):
+        design = "Systematic Review & Meta-Analysis"
+    else:
+        design = "Algorithmic Benchmark Evaluation"
+
+    # 2. Model Architecture (Orthogonal Dimension)
+    if any(k in comb for k in ["vision transformer", "vit", "transformer", "attention mechanism", "multi-head attention", "self-attention"]):
+        arch = "Vision Transformer (ViT) / Transformer"
+    elif any(k in comb for k in ["u-net", "unet", "3d-unet", "convolutional", "cnn", "resnet", "vgg", "densenet", "dr-unet", "mbdres-u-net"]):
+        arch = "Convolutional Neural Network (CNN)"
+    elif any(k in comb for k in ["graph neural network", "gnn", "graph convolutional", "gcn", "spatio-temporal graph", "gat"]):
+        arch = "Graph Neural Network (GNN)"
+    elif any(k in comb for k in ["gan", "generative adversarial", "wgan", "cwgan", "generator-discriminator"]):
+        arch = "Generative Adversarial Network (GAN)"
+    elif any(k in comb for k in ["diffusion model", "score-based", "denoising diffusion", "ddpm"]):
+        arch = "Diffusion Model"
+    elif any(k in comb for k in ["random forest", "xgboost", "decision tree", "gradient boosting", "lightgbm"]):
+        arch = "Ensemble / Tree-based Model"
+    elif any(k in comb for k in ["sustain", "clustering algorithm", "subtyping algorithm", "k-means", "spectral clustering"]):
+        arch = "Clustering & Subtyping Algorithm"
+    elif any(k in comb for k in ["large language model", "llm", "foundation model", "gpt", "rag", "retrieval-augmented"]):
+        arch = "Large Language Model (LLM)"
+    else:
+        arch = "Architecture not specified / Model-agnostic"
+
+    # 3. Learning Paradigm (Orthogonal Dimension)
+    if any(k in comb for k in ["federated learning", "fedavg", "fedprox", "decentralized learning"]):
+        paradigm_learning = "Federated / Decentralized Learning"
+    elif any(k in comb for k in ["reinforcement learning", "drl", "policy gradient", "q-learning", "actor-critic"]):
+        paradigm_learning = "Reinforcement Learning"
+    elif any(k in comb for k in ["self-supervised", "contrastive learning", "unsupervised", "clustering"]):
+        paradigm_learning = "Self-Supervised / Unsupervised Learning"
+    elif any(k in comb for k in ["supervised learning", "supervised training", "cross-entropy"]):
+        paradigm_learning = "Supervised Learning"
+    elif any(k in comb for k in ["semi-supervised", "pseudo-labeling"]):
+        paradigm_learning = "Semi-Supervised Learning"
+    else:
+        paradigm_learning = "Learning paradigm not specified"
+
+    # 4. Data Modality (Orthogonal Dimension)
+    has_mri = bool(re.search(r"\b(mri|magnetic resonance|structural mri|t1|t2|flair|dti)\b", comb))
+    has_pet = bool(re.search(r"\b(pet|positron emission|fdg-pet|amyloid|tau)\b", comb))
+    if has_mri and has_pet:
+        modality = "Multimodal (MRI + PET)"
+    elif has_mri:
+        modality = "Magnetic Resonance Imaging (MRI)"
+    elif has_pet:
+        modality = "Positron Emission Tomography (PET)"
+    elif any(k in comb for k in ["ct scan", "computed tomography"]):
+        modality = "Computed Tomography (CT)"
+    elif any(k in comb for k in ["ehr", "electronic health", "clinical record", "patient records", "tabular"]):
+        modality = "Clinical Tabular / EHR Records"
+    elif any(k in comb for k in ["literature", "corpus", "scientific text", "documents"]):
+        modality = "Text / Scientific Literature"
+    elif any(k in comb for k in ["sensor", "telemetry", "time-series", "signals"]):
+        modality = "Sensor Telemetry / Time-Series"
+    else:
+        modality = "Modality not specified"
+
+    # 5. Statistical or Computational Technique
+    if "gan" in arch.lower():
+        technique = "Adversarial Generation & Distribution Modeling"
+    elif "sde" in comb or "differential equation" in comb:
+        technique = "Stochastic Differential Equations & Trajectory Modeling"
+    elif "clustering" in arch.lower() or "subtyping" in arch.lower():
+        technique = "Probabilistic Subtyping & Stage Inference"
+    elif "transformer" in arch.lower() or "attention" in comb:
+        technique = "Cross-Attention & Multi-Head Feature Fusion"
+    elif "convolutional" in arch.lower() or "cnn" in arch.lower():
+        technique = "Multiscale Volumetric Feature Extraction"
+    elif "federated" in paradigm_learning.lower():
+        technique = "Decentralized Aggregation & Optimization"
+    elif any(k in comb for k in ["bayesian", "mcmc", "posterior"]):
+        technique = "Bayesian Parameter Estimation"
+    else:
+        technique = "Empirical Computational Technique"
+
+    # 6. Overarching Paradigm
+    # Strict rule: RCT is an Experimental Approach, NEVER a Computational Method
+    if design == "Randomized Controlled Trial (RCT)":
+        overarching = "Experimental Approach"
+    elif modality == "Multimodal (MRI + PET)" or any(k in comb for k in ["multimodal learning", "multimodal fusion", "hybrid quantum"]):
+        overarching = "Hybrid Method"
+    elif arch != "Architecture not specified / Model-agnostic" or "learning" in paradigm_learning.lower():
+        overarching = "Machine Learning Approach"
+    elif design in ["Prospective Clinical Study", "Retrospective Cohort Study", "Observational Study"]:
+        overarching = "Experimental Approach"
+    elif any(k in comb for k in ["theorem", "formal proof", "mathematical bounds", "theoretical framework"]):
+        overarching = "Theoretical Framework"
+    else:
+        overarching = "Computational Method"
+
+    # Primary Category: The most specific, accurate scientific category
+    if design == "Randomized Controlled Trial (RCT)":
+        primary = "Randomized Controlled Trial (RCT)"
+    elif any(k in comb for k in ["carbon footprint", "energy consumption", "power consumption", "environmental assessment"]):
+        primary = "Empirical Computational & Environmental Assessment"
+    elif any(k in comb for k in ["write literature review", "automated literature review", "review the scientific literature", "synthesis architecture"]):
+        primary = "Automated Literature Review & Synthesis Architecture"
+    elif any(k in comb for k in ["systematic survey", "literature survey", "comprehensive survey of scientific", "systematic mapping"]):
+        primary = "Comprehensive Literature Survey & Systematic Mapping"
+    elif any(k in comb for k in ["tumor mri segmentation", "brain mri segmentation", "lesion segmentation", "medical segmentation"]):
+        primary = "Deep Neural Feature Extraction & Medical Segmentation"
+    elif arch != "Architecture not specified / Model-agnostic":
+        primary = arch
+    elif "federated" in paradigm_learning.lower():
+        primary = "Federated Learning Architecture"
+    elif design != "Algorithmic Benchmark Evaluation":
+        primary = design
+    else:
+        primary = "Empirical Computational Method"
+
+    return {
+        "model_architecture": arch,
+        "learning_paradigm": paradigm_learning,
+        "data_modality": modality,
+        "research_design": design,
+        "computational_technique": technique,
+        "overarching_paradigm": overarching,
+        "primary_category": primary
+    }
+
+
+def classify_paradigm_generic(summary_dict: Dict[str, Any], paper_titles: Optional[List[str]] = None) -> str:
     """
     Classifies the methodology paradigm generically using real technical content
     from methodology, algorithms, and models without hardcoding paper names.
-    If methodology cannot be identified, returns 'Not identified in available paper content'.
+    Never returns a paper title or raw title snippet.
     """
-    title = str(summary_dict.get("paper_title", "")).lower()
-    meth = summary_dict.get("proposed_methodology", {})
-    prob = summary_dict.get("problem_motivation", {})
-    
-    text_corpus = " ".join([
-        title,
-        str(meth.get("method_name", "")),
-        str(meth.get("core_architecture", "")),
-        " ".join([str(x) for x in meth.get("technical_innovations", [])]),
-        str(meth.get("key_algorithms", "")),
-        str(prob.get("problem_statement", "")),
-        str(prob.get("motivation", ""))
-    ]).lower()
+    if not isinstance(summary_dict, dict):
+        return "Methodology not specified"
 
-    if re.search(r"\b(cryptograph|zero[- ]knowledge|token[- ]based delegation|ed25519|public key|provenance protocol)\b", text_corpus):
-        return "Cryptographic Delegation & Verification Protocol"
-    if re.search(r"\b(attribute[- ]based access control|abac|multi[- ]tenant|enterprise rag|vector database|authorization gating)\b", text_corpus):
-        return "Access Control & Secure Multi-Tenant Architecture"
-    if re.search(r"\b(trustworthy|prompt injection|safety benchmark|red[- ]teaming|jailbreak|failure taxonomy)\b", text_corpus):
-        return "Trustworthy & Empirical Safety Evaluation"
-    if re.search(r"\b(typed planning|back[- ]office|governed execution|dsl|type system|scheduler)\b", text_corpus):
-        return "Typed Planning & Governed Execution Engine"
-    if re.search(r"\b(generalized additive|gam|multi[- ]objective optimization|pareto|interpretab|shapley)\b", text_corpus):
-        return "Multi-Objective Interpretable Neural Architecture"
-    if re.search(r"\b(u[- ]net|segmentation|mri|convolutional|residual block|attention mechanism|3d[- ]unet)\b", text_corpus):
-        return "Deep Neural Feature Extraction & Segmentation Architecture"
-    if re.search(r"\b(dataflow|quantum[- ]classical|hybrid quantum|row type|graph execution)\b", text_corpus):
-        return "Dataflow Execution Engine for Hybrid Systems"
-    if re.search(r"\b(rolling horizon|v2x|vehicle[- ]to[- ]everything|optimization|gru|dynamic programming)\b", text_corpus):
-        return "Dynamic Rolling Horizon Optimization & Predictive Modeling"
-    if re.search(r"\b(power electronics|energy storage|pees|dynamic modeling|stability analysis|siso|mimo)\b", text_corpus):
-        return "Dynamic Analytical Modeling & Stability Framework"
-    if re.search(r"\b(energy system model|techno[- ]economic|linear optimization|cost modeling|decarbonization)\b", text_corpus):
-        return "Techno-Economic Simulation & Energy System Modeling"
-    if re.search(r"\b(telescope|dark energy|cosmolog|survey|simulation challenge)\b", text_corpus):
-        return "Astrophysical Survey & Cosmological Analysis Pipeline"
-    if re.search(r"\b(multi[- ]agent|chatdev|metagpt|autogen|collaborative agents|inter[- ]agent)\b", text_corpus):
-        return "Collaborative Multi-Agent Architecture"
-    if re.search(r"\b(react|reasoning trace|thought[- ]action)\b", text_corpus):
-        return "Reasoning & Action (ReAct)"
-    if re.search(r"\b(tree of thoughts|mcts|search tree)\b", text_corpus):
-        return "Tree / Graph Search & Planning"
-    if re.search(r"\b(reflexion|self[- ]reflection|verbal reinforcement)\b", text_corpus):
-        return "Self-Reflection & Refinement"
-    if re.search(r"\b(toolformer|api integration|tool use)\b", text_corpus):
-        return "Tool-Augmented Execution"
+    structured = extract_structured_methodology(summary_dict)
+    primary = structured["primary_category"]
 
-    return "Not identified in available paper content"
+    all_titles = list(paper_titles or [])
+    raw_title = str(summary_dict.get("paper_title") or summary_dict.get("title") or "")
+    if raw_title:
+        all_titles.append(raw_title)
+
+    if not is_valid_methodology_category(primary, all_titles):
+        return "Methodology not specified"
+
+    return primary
 
 
 # ============================================================================
@@ -123,7 +305,7 @@ def classify_paradigm_generic(summary_dict: Dict[str, Any]) -> str:
 # ============================================================================
 
 def sanitize_cell(text: Any, max_len: Optional[int] = None) -> str:
-    """
+    r"""
     Sanitizes string for Markdown table cells:
     - Replaces newlines and carriage returns with spaces
     - Escapes literal pipe '|' characters as '\|' to preserve exact column counts
@@ -602,7 +784,8 @@ def generate_llm_comparative_analysis(
 def run_comparative_analysis(
     target_paper_ids: Optional[List[str]] = None,
     output_path: str = "data/comparative_analysis.json",
-    api_keys: Optional[str] = None
+    api_keys: Optional[str] = None,
+    active_topic: Optional[str] = None
 ) -> ComparativeAnalysis:
     """
     Executes Step 4 Comparative Analysis Agent.
@@ -610,11 +793,47 @@ def run_comparative_analysis(
     saves data/comparative_analysis.json, and registers output with Global Memory.
     
     Supports single-paper gracefully without crashing.
+    Filters out papers evaluated as Irrelevant to the active research topic.
     """
     mem_store = get_global_memory_store()
     all_summaries = mem_store.get_all_summaries()
 
-    # Filter by target paper IDs if specified
+    # Determine active topic if not explicitly passed
+    if not active_topic:
+        try:
+            from src.agents.run_manager import RunManager
+            active_run = RunManager.get_active_run()
+            if active_run and active_run.topic:
+                active_topic = active_run.topic
+        except Exception:
+            pass
+
+    if not active_topic:
+        for aq_file in ["data/active_query.json", "data/active_review.json"]:
+            if os.path.exists(aq_file):
+                try:
+                    with open(aq_file, "r", encoding="utf-8") as af:
+                        d = json.load(af)
+                        q = d.get("query") or d.get("topic")
+                        if q:
+                            active_topic = q.strip()
+                            break
+                except Exception:
+                    pass
+
+    # Filter by target paper IDs if specified; check active review run to prevent cross-topic leakage
+    if not target_paper_ids:
+        ar_file = "data/active_review.json"
+        if os.path.exists(ar_file):
+            try:
+                with open(ar_file, "r", encoding="utf-8") as arf:
+                    ar_data = json.load(arf)
+                    ar_pids = ar_data.get("active_paper_ids") or ar_data.get("paper_ids")
+                    if ar_pids:
+                        target_paper_ids = [str(p).strip() for p in ar_pids if str(p).strip()]
+            except Exception:
+                pass
+
     if target_paper_ids:
         summaries = {pid: all_summaries[pid] for pid in target_paper_ids if pid in all_summaries}
     else:
@@ -640,6 +859,30 @@ def run_comparative_analysis(
     if not summaries:
         raise ValueError("No paper summaries available to compare. Please run Step 3 Summarizer first.")
 
+    # Exclude papers evaluated as Irrelevant to the active topic
+    if active_topic and summaries:
+        try:
+            from src.ingestion.screening_agent import validate_corpus_relevance
+            schema_candidates = [
+                {
+                    "paper_id": pid,
+                    "paper_title": s.get("paper_title", pid),
+                    "core_problem": s.get("problem_motivation", ""),
+                    "methodology_summary": str(s.get("proposed_methodology", {})),
+                    "empirical_results": str(s.get("empirical_results", {}))
+                }
+                for pid, s in summaries.items()
+            ]
+            relevance_eval = validate_corpus_relevance(schema_candidates, active_topic)
+            rejected_pids = {p["paper_id"] for p in relevance_eval.get("rejected_papers", [])}
+            if rejected_pids:
+                filtered_summaries = {pid: s for pid, s in summaries.items() if pid not in rejected_pids}
+                if filtered_summaries:
+                    summaries = filtered_summaries
+                    print(f"   [RELEVANCE-GATE] Excluded {len(rejected_pids)} irrelevant paper(s) from comparative analysis: {list(rejected_pids)}")
+        except Exception as e:
+            print(f"   [RELEVANCE-GATE] Note: {e}")
+
     paper_count = len(summaries)
     print("==================================================")
     print("Step 4: Running Comparative Analysis Agent")
@@ -657,6 +900,15 @@ def run_comparative_analysis(
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(analysis_obj.model_dump(), f, indent=2, ensure_ascii=False)
     print(f"   [SAVED] Output saved to: {output_path}")
+
+    # Mirror into active run directory if available
+    try:
+        from src.agents.run_manager import RunManager
+        active_run = RunManager.get_active_run()
+        if active_run:
+            active_run.save_artifact("comparative_analysis.json", analysis_obj.model_dump())
+    except Exception:
+        pass
 
     # Register in Global Memory Store
     mem_store.register_comparative_analysis(analysis_obj.model_dump())

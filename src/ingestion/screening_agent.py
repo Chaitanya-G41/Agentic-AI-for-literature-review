@@ -429,21 +429,46 @@ class RelevanceScreeningAgent:
         return saved_paths
 
 
+
 def validate_corpus_relevance(schemas: List[Any], topic: str) -> Dict[str, Any]:
     """
-    Evaluates paper relevance against a reference topic and scope.
-    Distinguishes Directly Relevant, Partially Relevant, and Irrelevant papers
-    with clear justifications based on title, core problem, and abstract content.
-    Does not delete papers; supports transparent review and PRISMA screening.
+    Evaluates paper relevance against a reference topic.
+    Distinguishes Directly Relevant, Partially Relevant, and Irrelevant papers.
+    Keeps all screening decisions available for transparent review.
     """
+
     if not schemas:
-        return {"is_insufficient": True, "paper_relevance": [], "directly_relevant_count": 0}
+        return {
+            "is_insufficient": True,
+            "topic": topic,
+            "paper_relevance": [],
+            "accepted_papers": [],
+            "directly_relevant_papers": [],
+            "partially_relevant_papers": [],
+            "rejected_papers": [],
+            "has_directly_relevant": False,
+            "total_screened": 0,
+            "directly_relevant_count": 0,
+            "partially_relevant_count": 0,
+            "irrelevant_count": 0
+        }
 
     topic_clean = (topic or "").lower().strip()
-    # Normalize topic words
-    topic_words = set(re.findall(r'\b[a-zA-Z]{3,}\b', topic_clean)) - {
-        "and", "the", "for", "with", "from", "into", "towards", "study", "review", "paper"
+
+    stop_words = {
+        "and", "the", "for", "with", "from", "into", "towards",
+        "study", "review", "paper", "using", "based", "analysis",
+        "approach", "approaches", "method", "methods", "system",
+        "systems", "results", "research", "new", "novel",
+        "comparative", "investigation", "framework", "evaluation",
+        "evaluating", "survey", "overview", "application", "applications",
+        "comprehensive", "automated", "systematic"
     }
+
+    topic_words = (
+        set(re.findall(r'\b[a-zA-Z]{3,}\b', topic_clean))
+        - stop_words
+    )
 
     paper_evals = []
     directly_relevant_count = 0
@@ -457,50 +482,110 @@ def validate_corpus_relevance(schemas: List[Any], topic: str) -> Dict[str, Any]:
             prob = str(s.get("core_problem") or s.get("abstract") or "")
             meth = str(s.get("methodology_summary") or "")
         else:
-            pid = str(getattr(s, "paper_id", ""))
-            title = str(getattr(s, "paper_title", ""))
-            prob = str(getattr(s, "core_problem", ""))
+            pid = str(
+                getattr(s, "paper_id", "")
+                or getattr(s, "arxiv_id", "")
+            )
+            title = str(
+                getattr(s, "paper_title", "")
+                or getattr(s, "title", "")
+            )
+            prob = str(
+                getattr(s, "core_problem", "")
+                or getattr(s, "abstract", "")
+            )
             meth = str(getattr(s, "methodology_summary", ""))
 
-        text = f"{title} {prob} {meth}".lower()
-        matched_words = [w for w in topic_words if w in text]
+        parsed_chunks_text = ""
+        if pid:
+            parsed_path = f"data/extracted_schemas/{pid}_parsed.json"
+            if os.path.exists(parsed_path):
+                try:
+                    with open(parsed_path, "r", encoding="utf-8") as pf:
+                        p_d = json.load(pf)
+                        c_texts = [c.get("text", "") for c in p_d.get("chunks", [])[:10]]
+                        parsed_chunks_text = " ".join(c_texts)
+                except Exception:
+                    pass
+
+        text = f"{title} {prob} {meth} {parsed_chunks_text}".lower()
+
+        paper_words = set(
+            re.findall(r'\b[a-zA-Z]{3,}\b', text)
+        )
+
+        matched_words = sorted(topic_words & paper_words)
         match_ratio = len(matched_words) / max(len(topic_words), 1)
 
-        # Relevance scoring logic
-        if match_ratio >= 0.50 or any(topic_phrase in text for topic_phrase in [topic_clean] if len(topic_phrase) > 5):
+        if (topic_clean and topic_clean in text) or match_ratio >= 0.40 or len(matched_words) >= 4:
             status = "Directly Relevant"
-            reason = f"Strong alignment with core topic '{topic}'; contains key focus areas: {', '.join(matched_words[:4])}."
+            reason = (
+                f"Strong alignment with topic '{topic}'. "
+                f"Matched terms: {', '.join(matched_words[:5])}."
+            )
             directly_relevant_count += 1
-        elif match_ratio >= 0.20 or len(matched_words) >= 1:
+
+        elif len(matched_words) >= 2:
             status = "Partially Relevant"
-            reason = f"Peripheral or domain-adjacent alignment with topic '{topic}'; addresses {', '.join(matched_words[:3])}."
+            reason = (
+                f"Partial thematic alignment with topic '{topic}'. "
+                f"Matched terms: {', '.join(matched_words[:5])}."
+            )
             partially_relevant_count += 1
+
         else:
             status = "Irrelevant"
-            reason = f"Lacks thematic overlap with target research topic '{topic}'; focuses on alternative domain."
+            reason = (
+                f"Insufficient meaningful thematic overlap with "
+                f"research topic '{topic}'."
+            )
             irrelevant_count += 1
 
         paper_evals.append({
             "paper_id": pid,
             "title": title,
             "status": status,
+            "relevance_level": status,
             "reason": reason,
             "matched_terms": matched_words,
             "relevance_ratio": round(match_ratio, 2)
         })
 
-    is_insufficient = (directly_relevant_count + partially_relevant_count) == 0
+    directly_relevant_papers = [
+        p for p in paper_evals
+        if p["status"] == "Directly Relevant"
+    ]
+
+    partially_relevant_papers = [
+        p for p in paper_evals
+        if p["status"] == "Partially Relevant"
+    ]
+
+    rejected_papers = [
+        p for p in paper_evals
+        if p["status"] == "Irrelevant"
+    ]
+
+    accepted_papers = (
+        directly_relevant_papers + partially_relevant_papers
+    )
+
+    is_insufficient = len(accepted_papers) == 0
 
     return {
         "is_insufficient": is_insufficient,
         "topic": topic,
         "paper_relevance": paper_evals,
+        "accepted_papers": accepted_papers,
+        "directly_relevant_papers": directly_relevant_papers,
+        "partially_relevant_papers": partially_relevant_papers,
+        "rejected_papers": rejected_papers,
+        "has_directly_relevant": directly_relevant_count > 0,
         "total_screened": len(schemas),
         "directly_relevant_count": directly_relevant_count,
         "partially_relevant_count": partially_relevant_count,
         "irrelevant_count": irrelevant_count
     }
-
 
 def screen_and_download_topic_papers(
     topic: str,
