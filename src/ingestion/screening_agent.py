@@ -212,47 +212,83 @@ class RelevanceScreeningAgent:
 
         active_weight = recency_weight if recency_weight is not None else kwargs.get("recency_weight", self.recency_weight)
 
-        # 1. Build text corpus for vectorization: query + (title * 2 + abstract) for each paper
-        corpus = [user_query]
-        for c in candidates:
-            paper_text = f"{c['title']} {c['title']} {c['abstract']}"
-            corpus.append(paper_text)
+        from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
 
-        # 2. Vector similarity using TF-IDF with sublinear tf and character/word ngrams
-        try:
-            vectorizer = TfidfVectorizer(
-                stop_words="english",
-                ngram_range=(1, 2),
-                sublinear_tf=True
-            )
-            tfidf_matrix = vectorizer.fit_transform(corpus)
-            
-            query_vec = tfidf_matrix[0:1]
-            paper_vecs = tfidf_matrix[1:]
-            sim_scores = cosine_similarity(query_vec, paper_vecs)[0]
-        except Exception as e:
-            print(f"   [WARN] TF-IDF computation fallback ({e}). Using uniform similarity.")
-            sim_scores = np.array([0.5] * len(candidates))
+        def stem_prefix(w: str) -> str:
+            w = w.lower()
+            for suff in ['ation', 'tions', 'tion', 'ting', 'sion', 'ment', 'ing', 'ies', 'es', 'ed', 's']:
+                if len(w) > len(suff) + 3 and w.endswith(suff):
+                    return w[:-len(suff)]
+            return w
 
-        # 3. Calculate Recency Bonus
+        # 1. Clean query tokens (remove standard stop words)
+        q_tokens = [w.lower() for w in re.findall(r'[a-zA-Z0-9_-]{2,}', user_query) if w.lower() not in ENGLISH_STOP_WORDS and len(w) > 2]
+        if not q_tokens:
+            q_tokens = [w.lower() for w in user_query.split() if w.strip()]
+        q_stems = [stem_prefix(w) for w in q_tokens]
+        clean_topic = user_query.strip().lower()
+
         current_year = datetime.datetime.now().year
         scored_candidates = []
+        total_cand = max(1, len(candidates))
 
         for idx, c in enumerate(candidates):
-            raw_semantic_score = float(sim_scores[idx])
+            title = c.get("title", "")
+            abstract = c.get("abstract", "")
+            t_clean = title.lower()
+            a_clean = abstract.lower()
 
-            years_old = max(0, current_year - c["published_year"])
-            recency_factor = max(0.0, 1.0 - (years_old * 0.15))
+            t_words = [stem_prefix(w) for w in re.findall(r'[a-zA-Z0-9_-]{2,}', t_clean)]
+            a_words = [stem_prefix(w) for w in re.findall(r'[a-zA-Z0-9_-]{2,}', a_clean)]
 
-            composite_score = ((1.0 - active_weight) * raw_semantic_score) + (active_weight * recency_factor)
+            # Token overlap in title and abstract
+            t_matches = [s for s in q_stems if any(s == tw or (len(s) >= 4 and tw.startswith(s)) for tw in t_words)]
+            a_matches = [s for s in q_stems if any(s == aw or (len(s) >= 4 and aw.startswith(s)) for aw in a_words)]
+
+            t_ratio = len(t_matches) / max(1, len(q_stems))
+            a_ratio = len(a_matches) / max(1, len(q_stems))
+
+            # Phrase bonus: exact phrase or key bigrams in title / abstract
+            phrase_bonus = 0.0
+            if clean_topic in t_clean:
+                phrase_bonus += 0.25
+            elif clean_topic in a_clean:
+                phrase_bonus += 0.15
+            else:
+                bigrams = [' '.join(q_tokens[i:i+2]) for i in range(len(q_tokens)-1)]
+                if bigrams:
+                    b_in_t = sum(1 for b in bigrams if b in t_clean)
+                    b_in_a = sum(1 for b in bigrams if b in a_clean)
+                    phrase_bonus += min(0.20, (b_in_t * 0.10) + (b_in_a * 0.05))
+
+            # arXiv initial relevance rank signal
+            rank_signal = max(0.0, 1.0 - (idx / total_cand)) * 0.10
+
+            raw_semantic = min(1.0, (t_ratio * 0.45) + (a_ratio * 0.30) + phrase_bonus + rank_signal)
+
+            # Smooth recency factor with floor of 0.60
+            pub_year = c.get("published_year") or current_year
+            years_old = max(0, current_year - pub_year)
+            if years_old <= 2:
+                recency_factor = 1.0
+            elif years_old <= 4:
+                recency_factor = 0.90
+            elif years_old <= 6:
+                recency_factor = 0.80
+            elif years_old <= 8:
+                recency_factor = 0.70
+            else:
+                recency_factor = 0.60
+
+            composite_score = ((1.0 - active_weight) * raw_semantic) + (active_weight * recency_factor)
             pct_score = round(composite_score * 100, 1)
 
             c_scored = dict(c)
-            c_scored["semantic_score"] = round(raw_semantic_score * 100, 1)
+            c_scored["semantic_score"] = round(raw_semantic * 100, 1)
             c_scored["recency_factor"] = round(recency_factor * 100, 1)
             c_scored["relevance_score"] = pct_score
             c_scored["composite_score"] = composite_score
-            c_scored["year"] = c["published_year"]
+            c_scored["year"] = pub_year
             scored_candidates.append(c_scored)
 
         # 4. Sort descending by composite relevance score
@@ -291,25 +327,25 @@ class RelevanceScreeningAgent:
                 item["decision"] = "Exclude"
                 item["screening_reason"] = f"Excluded: Matches exclusion criterion '{', '.join(matched_exc)}'."
             elif inc_terms:
-                if matched_inc and score >= 45.0:
+                if matched_inc and score >= 40.0:
                     item["decision"] = "Include"
                     item["screening_reason"] = f"Included: Satisfies inclusion criteria ({', '.join(matched_inc)}) with strong relevance ({score}%)."
-                elif score >= 60.0:
+                elif matched_inc or score >= 50.0:
                     item["decision"] = "Include"
                     item["screening_reason"] = f"Included: High thematic relevance ({score}%) to topic '{user_query}'."
-                elif matched_inc or score >= 35.0:
+                elif score >= 30.0:
                     item["decision"] = "Maybe"
                     item["screening_reason"] = f"Maybe: Borderline alignment ({score}%). Recommend secondary reviewer evaluation."
                 else:
                     item["decision"] = "Exclude"
                     item["screening_reason"] = f"Excluded: Below relevance threshold ({score}%) and lacks specified inclusion criteria."
             else:
-                if score >= 55.0:
+                if score >= 45.0:
                     item["decision"] = "Include"
-                    item["screening_reason"] = f"Included: High semantic relevance ({score}%) to target topic."
-                elif score >= 35.0:
+                    item["screening_reason"] = f"Included: Strong semantic relevance ({score}%) to topic '{user_query}'."
+                elif score >= 30.0:
                     item["decision"] = "Maybe"
-                    item["screening_reason"] = f"Maybe: Moderate relevance ({score}%). Candidate for exploratory synthesis."
+                    item["screening_reason"] = f"Maybe: Moderate relevance ({score}%). Candidate for exploratory review."
                 else:
                     item["decision"] = "Exclude"
                     item["screening_reason"] = f"Excluded: Low relevance ({score}%) to research topic '{user_query}'."
