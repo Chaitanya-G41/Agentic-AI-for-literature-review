@@ -43,7 +43,7 @@ ACADEMIC_STOPWORDS = {
     'when', 'what', 'which', 'who', 'whom', 'whose', 'why', 'how', 'here', 'there'
 }
 
-def _extract_author_limitation_sentence(text: str, pid: str) -> str:
+def _extract_author_limitation_sentence(text: str, pid: str = "") -> str:
   if not text:
     return ""
   clean = re.sub(
@@ -55,12 +55,22 @@ def _extract_author_limitation_sentence(text: str, pid: str) -> str:
     r'\b(however|but|yet|nevertheless|nonetheless|although|while|despite|limitation|bottleneck|drawback|suffer|struggles?|fails?|inability|challenge|trade[- ]offs?|expensive|overhead|cost|leakage|attack|drift|uncertainty|untested|degrade)\b',
     re.I
   )
+  solution_re = re.compile(
+    r'\b(?:we|our\s+method|our\s+framework|our\s+approach|to)\s+'
+    r'(?:overcome|overcomes|address|addresses|resolve|resolves|mitigate|mitigates|tackle|tackles|solve|solves|propose|proposes)\s+'
+    r'(?:this|these|the|such)?\s*(?:limitation|limitations|drawback|drawbacks|challenge|challenges|bottleneck|bottlenecks)\b'
+    r'|\b(?:this|these)\s+limitations?\s+motivates?\s+(?:our|consideration|the)\b',
+    re.I
+  )
   for s in sentences:
     if contrast_re.search(s):
+      if solution_re.search(s):
+        continue  # Reject author contribution / solution statement
       clean_s = re.sub(r'^(however|but|yet|nevertheless|nonetheless|although|while|despite),?\s*', '', s, flags=re.I).strip()
       return clean_s
-  if sentences:
-    return sentences[0]
+  for s in sentences:
+    if not solution_re.search(s):
+      return s
   return ""
 
 def _extract_domain_keywords(text: str) -> List[str]:

@@ -338,8 +338,123 @@ def stream_pdf(filename: str):
     )
 
 
+def _clean_mermaid(diag: Any) -> str:
+    """Strips markdown code fences from mermaid diagram string."""
+    if not diag:
+        return ""
+    code = str(diag).strip()
+    code = re.sub(r"^```mermaid\s*\n?", "", code, flags=re.IGNORECASE)
+    code = re.sub(r"\n?```\s*$", "", code)
+    return code.strip()
+
+
+def _get_active_topic(topic: Optional[str] = None) -> str:
+    """Deterministically resolves the user-submitted research topic without generic fallbacks."""
+    generic_placeholders = {
+        "scientific research", "research", "research corpus", "corpus overview",
+        "benchmark testbed", "testbed benchmark", "untitled report", "abilities",
+        "specialized specialized", "specialized", "not specified", "general literature review",
+        "method computational", "computational method", "literature review", "topic not identified",
+        "synthesis of scientific research"
+    }
+    if topic and str(topic).strip() and str(topic).strip().lower() not in generic_placeholders:
+        return str(topic).strip()
+    for filename in ["active_review.json", "active_query.json", "screening_results.json"]:
+        fpath = os.path.join(DATA_DIR, filename)
+        if os.path.exists(fpath):
+            try:
+                with open(fpath, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                    t = str(data.get("topic") or data.get("query") or "").strip()
+                    if t and t.lower() not in generic_placeholders:
+                        return t
+            except Exception:
+                pass
+    report_path = os.path.join(REPORTS_DIR, "literature_review_report.md")
+    if os.path.exists(report_path):
+        try:
+            with open(report_path, "r", encoding="utf-8") as f:
+                head = f.read(600)
+                m = re.search(r'^\s*#+\s*(?:Automated\s+|Comprehensive\s+Systematic\s+)?Literature\s+Review:\s*(.+)$', head, re.M | re.I)
+                if m:
+                    t = m.group(1).strip().strip("#* ")
+                    if t and t.lower() not in generic_placeholders:
+                        return t
+        except Exception:
+            pass
+    return ""
+
+
+def _load_paper_schemas(active_ids: Optional[List[str]] = None) -> List[Any]:
+    """Loads PaperSchema objects for specified or active corpus paper IDs with explicit error reporting."""
+    from src.agents.extraction import PaperSchema
+    if active_ids is None:
+        active_ids = _get_active_corpus_ids()
+    if active_ids:
+        schema_files = [os.path.join(SCHEMAS_DIR, f"{pid}_schema.json") for pid in active_ids if os.path.exists(os.path.join(SCHEMAS_DIR, f"{pid}_schema.json"))]
+    else:
+        schema_files = sorted(glob.glob(os.path.join(SCHEMAS_DIR, "*_schema.json")))
+    loaded_schemas = []
+    for sf in schema_files:
+        try:
+            with open(sf, "r", encoding="utf-8") as s_file:
+                raw_data = json.load(s_file)
+                loaded_schemas.append(PaperSchema(**raw_data))
+        except json.JSONDecodeError as jde:
+            print(f"[SchemaLoader] Malformed JSON in schema file '{sf}': {jde}")
+        except Exception as e:
+            print(f"[SchemaLoader] Error parsing schema from '{sf}': {e}")
+    return loaded_schemas
+
+
+def _extract_declared_diagram_topic(diag_code: str) -> Optional[str]:
+    """Extracts topic or corpus name declared in mermaid diagram root/diagnostic nodes."""
+    if not diag_code:
+        return None
+    # Pattern 1: Diagnostic Assessment: <topic>
+    m = re.search(r'Diagnostic\s+Assessment:\s*([^<"\]\n]+)', diag_code, re.IGNORECASE)
+    if m:
+        return m.group(1).strip()
+    # Pattern 2: CORPUS(["<b><topic></b>..."]) or CORE(["<b><topic></b>..."])
+    m = re.search(r'(?:CORPUS|CORE)\(\["<b>(.*?)</b>', diag_code, re.IGNORECASE | re.DOTALL)
+    if m:
+        clean = re.sub(r'<br\s*/?>', ' ', m.group(1))
+        return clean.strip()
+    # Pattern 3: mindmap root((<topic>)) or root["<topic>"]
+    m = re.search(r'root(?:\(\(|\(\[|\["|\()([^\)\"\n]+)', diag_code, re.IGNORECASE)
+    if m:
+        clean = re.sub(r'<br\s*/?>', ' ', m.group(1))
+        return clean.strip()
+    return None
+
+
+def _topic_conflicts_with_active(declared_topic: str, active_topic: str) -> bool:
+    """Checks whether a diagram's declared topic belongs to a different research topic."""
+    if not declared_topic or not active_topic:
+        return False
+    dec_clean = declared_topic.strip().lower()
+    act_clean = active_topic.strip().lower()
+
+    if dec_clean == act_clean:
+        return False
+    if dec_clean in act_clean or act_clean in dec_clean:
+        return False
+
+    dec_words = set(re.findall(r'\b[a-z]{4,}\b', dec_clean))
+    act_words = set(re.findall(r'\b[a-z]{4,}\b', act_clean))
+
+    stopwords = {"assessment", "diagnostic", "research", "scientific", "study", "corpus", "analysis", "scope", "overview"}
+    dec_sig = dec_words - stopwords
+    act_sig = act_words - stopwords
+
+    # If declared topic has significant words and none overlap with active topic, it belongs to another topic
+    if dec_sig and act_sig and not (dec_sig & act_sig):
+        return True
+    return False
+
+
 @app.get("/api/report")
-def get_report():
+def get_report(topic: Optional[str] = Query(None)):
     """Returns final synthesized Literature Review Report, Mermaid diagrams, and structured diagram_data."""
     report_path = os.path.join(REPORTS_DIR, "literature_review_report.md")
     if not os.path.exists(report_path):
@@ -352,16 +467,20 @@ def get_report():
     pattern = r"```mermaid\s*\n(.*?)\n```"
     blocks = re.findall(pattern, markdown_text, re.DOTALL)
     for block in blocks:
-        id_match = re.search(r"%%\s*diagram_id:\s*([a-zA-Z0-9_\-]+)", block)
-        if id_match:
-            diagrams[id_match.group(1)] = block.strip()
-        else:
-            if "mindmap" in block or "paradigmMain" in block or "benchmarkMain" in block:
-                diagrams.setdefault("themes_mindmap", block.strip())
-            elif "Layer1" in block or "Layer2" in block or "research_gaps" in block:
-                diagrams.setdefault("research_gaps_flowchart", block.strip())
-            elif "rootStyle" in block or "paperCard" in block:
-                diagrams.setdefault("methodology_flowchart", block.strip())
+        b_clean = block.strip()
+        id_match = re.search(r"%%\s*(?:diagram_id:\s*)?([a-zA-Z0-9_\-]+)", b_clean)
+        if id_match and id_match.group(1) in ["methodology_flowchart", "themes_mindmap", "research_gaps_flowchart"]:
+            diagrams[id_match.group(1)] = b_clean
+        elif "mindmap" in b_clean or "paradigmMain" in b_clean or "benchmarkMain" in b_clean or "themes_mindmap" in b_clean:
+            diagrams.setdefault("themes_mindmap", b_clean)
+        elif "Layer1" in b_clean or "Layer2" in b_clean or "research_gaps" in b_clean:
+            diagrams.setdefault("research_gaps_flowchart", b_clean)
+        elif "rootStyle" in b_clean or "paperCard" in b_clean or "methodology" in b_clean:
+            diagrams.setdefault("methodology_flowchart", b_clean)
+
+    active_topic = _get_active_topic(topic)
+    active_ids = _get_active_corpus_ids()
+    loaded_schemas = _load_paper_schemas(active_ids)
 
     # Load persisted structured diagram_data or generate dynamically from active review
     diag_data = {}
@@ -370,28 +489,174 @@ def get_report():
         try:
             with open(diag_data_file, "r", encoding="utf-8") as f:
                 diag_data = json.load(f)
-        except Exception:
-            pass
+        except Exception as e:
+            print(f"[DiagramCache] Could not read cached diagram_data.json: {e}")
+            diag_data = {}
 
-    if not diag_data:
+    generic_placeholders = {
+        "scientific research", "research", "research corpus", "corpus overview",
+        "benchmark testbed", "testbed benchmark", "untitled report", "abilities",
+        "specialized specialized", "specialized", "not specified", "general literature review",
+        "method computational", "computational method", "literature review", "topic not identified",
+        "synthesis of scientific research"
+    }
+
+    def _safe_str(val: Any) -> str:
+        if val is None or isinstance(val, (bool, list, dict)):
+            return ""
+        return str(val).strip()
+
+    def _get_sec_dict(data: Any, key: str) -> Optional[Dict[str, Any]]:
+        if isinstance(data, dict):
+            sec = data.get(key)
+            if isinstance(sec, dict):
+                return sec
+        return None
+
+    # Defensive cache validation: handles missing, None, numeric, and malformed entries safely
+    is_stale = False
+    if not isinstance(diag_data, dict) or not diag_data:
+        is_stale = True
+    else:
+        try:
+            cr_sec = _get_sec_dict(diag_data, "corpus_relevance")
+            meth_sec = _get_sec_dict(diag_data, "methodology")
+            theme_sec = _get_sec_dict(diag_data, "thematic_clusters")
+            gaps_sec = _get_sec_dict(diag_data, "research_gaps")
+
+            cr_topic = _safe_str(cr_sec.get("topic") if cr_sec else "")
+            m_topic = _safe_str(meth_sec.get("corpus_name") if meth_sec else "")
+            tc_topic = _safe_str(theme_sec.get("corpus_topic") if theme_sec else "")
+            rg_topic = _safe_str(gaps_sec.get("corpus_topic") if gaps_sec else "")
+
+            cached_topics = [t for t in [cr_topic, m_topic, tc_topic, rg_topic] if t]
+
+            # 1. Topic validation: treat missing cached topic as stale when active topic exists
+            if active_topic and not cached_topics:
+                is_stale = True
+            elif active_topic and any(t.lower() != active_topic.lower() for t in cached_topics):
+                is_stale = True
+            elif any(t.lower() in generic_placeholders for t in cached_topics):
+                is_stale = True
+            else:
+                # 2. Section validation: each required section must be a dictionary
+                if meth_sec is None or theme_sec is None or gaps_sec is None:
+                    is_stale = True
+                else:
+                    # Methodology validation: distinguish genuine corruption from legitimate empty diagnostic state
+                    categories = meth_sec.get("categories")
+                    is_legitimate_empty = (
+                        meth_sec.get("is_insufficient") is True
+                        or (cr_sec and cr_sec.get("is_insufficient") is True)
+                        or diag_data.get("is_insufficient") is True
+                    )
+                    if categories is None or not isinstance(categories, list):
+                        is_stale = True
+                    elif loaded_schemas and len(categories) == 0 and not is_legitimate_empty:
+                        is_stale = True
+
+                    # Thematic clusters validation (reject legacy pseudo-cluster defect)
+                    themes = theme_sec.get("themes")
+                    if themes is None or not isinstance(themes, list):
+                        is_stale = True
+                    elif any(isinstance(th, dict) and _safe_str(th.get("title")) == "Insufficient Evidence for Thematic Clustering" for th in themes):
+                        is_stale = True
+
+                    # Research gaps validation
+                    gaps = gaps_sec.get("gaps")
+                    if gaps is None or not isinstance(gaps, list):
+                        is_stale = True
+                    elif any(not isinstance(g, dict) for g in gaps):
+                        is_stale = True
+        except Exception as e:
+            print(f"[DiagramCache] Malformed cache structure detected: {e}")
+            is_stale = True
+
+    was_cache_invalidated = is_stale
+
+    if is_stale:
         try:
             from src.agents.report_generator import build_dynamic_diagram_data
-            from src.agents.extraction import PaperSchema
-            active_ids = _get_active_corpus_ids()
-            if active_ids:
-                schema_files = [os.path.join(SCHEMAS_DIR, f"{pid}_schema.json") for pid in active_ids if os.path.exists(os.path.join(SCHEMAS_DIR, f"{pid}_schema.json"))]
-            else:
-                schema_files = sorted(glob.glob(os.path.join(SCHEMAS_DIR, "*_schema.json")))
-            loaded_schemas = []
-            for sf in schema_files:
+            diag_data = build_dynamic_diagram_data(schemas=loaded_schemas, report_title=active_topic)
+            if diag_data:
                 try:
-                    with open(sf, "r", encoding="utf-8") as s_file:
-                        loaded_schemas.append(PaperSchema(**json.load(s_file)))
-                except Exception:
-                    pass
-            diag_data = build_dynamic_diagram_data(schemas=loaded_schemas)
-        except Exception:
+                    with open(diag_data_file, "w", encoding="utf-8") as df:
+                        json.dump(diag_data, df, indent=2, ensure_ascii=False)
+                except Exception as e:
+                    print(f"[DiagramCache] Failed to write refreshed diagram_data.json: {e}")
+        except Exception as e:
+            print(f"[DiagramCache] Error building dynamic diagram data: {e}")
             diag_data = {}
+
+    from src.agents.report_generator import (
+        generate_methodology_flowchart,
+        generate_themes_mindmap,
+        generate_research_gaps_flowchart,
+    )
+
+    # Validate diagram freshness against active topic and structured diagram data
+    def _is_diagram_stale_or_missing(diag_key: str, diag_code: Optional[str]) -> bool:
+        if not diag_code or not str(diag_code).strip():
+            return True
+        if was_cache_invalidated:
+            return True
+        code_str = str(diag_code)
+        code_lower = code_str.lower()
+
+        # 1. Check for generic placeholder strings
+        for ph in ["synthesis of scientific research", "method computational"]:
+            if ph in code_lower:
+                return True
+
+        # 2. Detect diagrams belonging to a different active research topic
+        if active_topic:
+            declared_topic = _extract_declared_diagram_topic(code_str)
+            if declared_topic and _topic_conflicts_with_active(declared_topic, active_topic):
+                return True
+
+        # 3. Reject legacy defective pseudo-cluster in thematic mindmap
+        if diag_key == "themes_mindmap" and "insufficient evidence for thematic clustering" in code_lower:
+            return True
+
+        # 4. Consistency with current structured diag_data
+        if isinstance(diag_data, dict):
+            if diag_key == "methodology_flowchart":
+                has_cats = bool(_get_sec_dict(diag_data, "methodology") and _get_sec_dict(diag_data, "methodology").get("categories"))
+                is_diag = "diagnostic assessment" in code_lower
+                if has_cats and is_diag:
+                    return True
+                if not has_cats and not is_diag and "categoryStyle" in code_str:
+                    return True
+            elif diag_key == "themes_mindmap":
+                has_themes = bool(_get_sec_dict(diag_data, "thematic_clusters") and _get_sec_dict(diag_data, "thematic_clusters").get("themes"))
+                is_diag = "diagnostic assessment" in code_lower
+                if has_themes and is_diag:
+                    return True
+                if not has_themes and not is_diag and "themeStyle" in code_str:
+                    return True
+            elif diag_key == "research_gaps_flowchart":
+                has_gaps = bool(_get_sec_dict(diag_data, "research_gaps") and _get_sec_dict(diag_data, "research_gaps").get("gaps"))
+                is_diag = "diagnostic assessment" in code_lower
+                if has_gaps and is_diag:
+                    return True
+                if not has_gaps and not is_diag and "STAGE 1" in code_str:
+                    return True
+
+        return False
+
+    # Regenerate strictly missing or stale diagrams, preserving valid diagrams for current topic
+    if _is_diagram_stale_or_missing("methodology_flowchart", diagrams.get("methodology_flowchart")):
+        diagrams["methodology_flowchart"] = _clean_mermaid(
+            generate_methodology_flowchart(schemas=loaded_schemas, report_title=active_topic, diag_data=diag_data)
+        )
+    if _is_diagram_stale_or_missing("themes_mindmap", diagrams.get("themes_mindmap")):
+        diagrams["themes_mindmap"] = _clean_mermaid(
+            generate_themes_mindmap(schemas=loaded_schemas, report_title=active_topic, diag_data=diag_data)
+        )
+    if _is_diagram_stale_or_missing("research_gaps_flowchart", diagrams.get("research_gaps_flowchart")):
+        diagrams["research_gaps_flowchart"] = _clean_mermaid(
+            generate_research_gaps_flowchart(schemas=loaded_schemas, report_title=active_topic, diag_data=diag_data)
+        )
 
     return {
         "content": markdown_text,
@@ -869,7 +1134,8 @@ def run_report_agent_api():
     if not gaps:
         gaps = run_research_gap_agent(schemas)
 
-    report = generate_literature_review(schemas, summaries, comp, gaps)
+    active_topic = _get_active_topic()
+    report = generate_literature_review(schemas, summaries, comp, gaps, report_title=active_topic)
 
     # Persist structured diagram_data alongside report
     diag_data = report.diagram_data if hasattr(report, "diagram_data") and report.diagram_data else {}

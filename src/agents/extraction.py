@@ -185,6 +185,10 @@ def extract_candidate_blocks(parsed_json):
         sentences = [s.strip() for s in re.split(r'(?<=[.!?])\s+', chunk) if len(s.strip()) > 20]
         for s in sentences:
             s_low = s.lower()
+            # Reject author contributions / overcoming statements (e.g. "We overcome this limitation by...")
+            if re.search(r'\b(?:we|our\s+method|our\s+framework|our\s+approach|to)\s+(?:overcome|overcomes|address|addresses|resolve|resolves|mitigate|mitigates|tackle|tackles|solve|solves|propose|proposes)\s+(?:this|these|the|such)?\s*(?:limitation|limitations|drawback|drawbacks|challenge|challenges|bottleneck|bottlenecks)\b|\b(?:this|these)\s+limitations?\s+motivates?\s+(?:our|consideration|the)\b', s_low):
+                continue
+
             if any(k in s_low for k in ["limitation", "threat to validity", "trade-off", "however", "drawback", "remains a challenge", "future work will", "not without limitations", "constrained by", "inability to"]):
                 # Avoid intro praise or pure background
                 if not any(s_low.startswith(bad) for bad in ["in section", "the remainder", "we introduce", "this section"]):

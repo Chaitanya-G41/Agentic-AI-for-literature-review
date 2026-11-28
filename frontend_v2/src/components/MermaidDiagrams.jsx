@@ -26,6 +26,61 @@ const LABELS = {
 
 let renderSequence = 0
 
+function applySvgDimensions(svgEl, zoom) {
+  if (!svgEl) return
+  svgEl.style.height = 'auto'
+  svgEl.style.transition = 'width 0.2s ease, max-width 0.2s ease, transform 0.2s ease'
+
+  let vbWidth = 0
+  if (svgEl.viewBox && svgEl.viewBox.baseVal && svgEl.viewBox.baseVal.width > 0) {
+    vbWidth = svgEl.viewBox.baseVal.width
+  } else {
+    const vbAttr = svgEl.getAttribute('viewBox')
+    if (vbAttr) {
+      const parts = vbAttr.split(/[\s,]+/)
+      if (parts.length >= 4) {
+        vbWidth = parseFloat(parts[2]) || 0
+      }
+    }
+  }
+
+  // Diagnostic assessment diagrams (single card) or narrow compact charts
+  // should render as readable, well-proportioned horizontal cards rather than collapsing into narrow pillars
+  const isDiagnostic = !!(
+    svgEl.querySelector('.diagStyle') ||
+    svgEl.querySelector('[class*="diagStyle"]') ||
+    svgEl.textContent?.includes('Diagnostic Assessment')
+  )
+
+  if (isDiagnostic) {
+    const scale = zoom === 'fit' ? 1.0 : zoom
+    const targetWidth = Math.min(Math.max(Math.round(vbWidth * scale), 580), 760)
+    svgEl.style.width = `${targetWidth}px`
+    svgEl.style.maxWidth = '100%'
+    svgEl.style.margin = '16px auto'
+    svgEl.style.display = 'block'
+  } else if (vbWidth > 0 && vbWidth < 650) {
+    const scale = zoom === 'fit' ? 1.0 : zoom
+    const targetWidth = Math.min(Math.round(vbWidth * scale), 700)
+    svgEl.style.width = `${targetWidth}px`
+    svgEl.style.maxWidth = '100%'
+    svgEl.style.margin = '0 auto'
+    svgEl.style.display = 'block'
+  } else {
+    if (zoom === 'fit') {
+      svgEl.style.maxWidth = '100%'
+      svgEl.style.width = '100%'
+      svgEl.style.margin = '0 auto'
+      svgEl.style.display = 'block'
+    } else {
+      svgEl.style.maxWidth = 'none'
+      svgEl.style.width = `${Math.round(zoom * 100)}%`
+      svgEl.style.margin = '0 auto'
+      svgEl.style.display = 'block'
+    }
+  }
+}
+
 function Chart({ code, id }) {
   const ref = useRef(null)
   const [err, setErr] = useState(null)
@@ -55,15 +110,7 @@ function Chart({ code, id }) {
 
             const svgEl = ref.current.querySelector('svg')
             if (svgEl) {
-              svgEl.style.height = 'auto'
-              svgEl.style.transition = 'width 0.2s ease, max-width 0.2s ease, transform 0.2s ease'
-              if (zoom === 'fit') {
-                svgEl.style.maxWidth = '100%'
-                svgEl.style.width = '100%'
-              } else {
-                svgEl.style.maxWidth = 'none'
-                svgEl.style.width = `${Math.round(zoom * 100)}%`
-              }
+              applySvgDimensions(svgEl, zoom)
             }
           }
         })
@@ -87,13 +134,7 @@ function Chart({ code, id }) {
     if (!ref.current) return
     const svgEl = ref.current.querySelector('svg')
     if (svgEl) {
-      if (zoom === 'fit') {
-        svgEl.style.maxWidth = '100%'
-        svgEl.style.width = '100%'
-      } else {
-        svgEl.style.maxWidth = 'none'
-        svgEl.style.width = `${Math.round(zoom * 100)}%`
-      }
+      applySvgDimensions(svgEl, zoom)
     }
   }, [zoom])
 
@@ -182,9 +223,16 @@ function MethodologyExplorer({ data }) {
 
   if (!categories.length) {
     return (
-      <p className={styles.noData}>
-        No methodology taxonomy available for this corpus.
-      </p>
+      <div className={styles.noData} style={{ padding: '24px', textAlign: 'center', background: '#FEF2F2', border: '1px solid #FECACA', borderRadius: '8px' }}>
+        <h4 style={{ color: '#991B1B', margin: '0 0 8px 0', fontSize: '15px' }}>
+          Diagnostic Assessment: Scope Relevance Exclusions
+        </h4>
+        <p style={{ color: '#7F1D1D', margin: 0, fontSize: '13px', lineHeight: '1.5' }}>
+          No directly or partially relevant papers identified for <strong>"{corpusName}"</strong>.
+          Unrelated or off-topic publications have been strictly excluded to prevent corpus contamination.
+          Please ingest papers directly aligned with this research topic.
+        </p>
+      </div>
     )
   }
 
@@ -284,6 +332,40 @@ function MethodologyExplorer({ data }) {
                           {p.detail}
                         </p>
                       )}
+
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px', marginTop: '6px' }}>
+                        {p.model_architecture && !p.model_architecture.toLowerCase().includes('not specified') && (
+                          <span className={styles.paperChip} title="Model Architecture">
+                            Arch: {p.model_architecture}
+                          </span>
+                        )}
+                        {p.learning_paradigm && !p.learning_paradigm.toLowerCase().includes('not specified') && (
+                          <span className={styles.paperChip} title="Learning Paradigm">
+                            {p.learning_paradigm}
+                          </span>
+                        )}
+                        {p.data_modality && !p.data_modality.toLowerCase().includes('not specified') && (
+                          <span className={styles.paperChip} title="Data Modality">
+                            {p.data_modality}
+                          </span>
+                        )}
+                        {p.research_design && !p.research_design.toLowerCase().includes('not specified') && (
+                          <span className={styles.paperChip} title="Research Design">
+                            {p.research_design}
+                          </span>
+                        )}
+                        {p.relevance_level && (
+                          <span
+                            className={styles.paperChip}
+                            style={{
+                              borderColor: p.relevance_level === 'Directly Relevant' ? '#86EFAC' : '#FDE047',
+                              color: p.relevance_level === 'Directly Relevant' ? '#166534' : '#854D0E',
+                            }}
+                          >
+                            {p.relevance_level}
+                          </span>
+                        )}
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -327,9 +409,16 @@ function ThematicClustersExplorer({ data }) {
 
   if (!themes.length) {
     return (
-      <p className={styles.noData}>
-        No thematic clusters generated for this corpus.
-      </p>
+      <div className={styles.noData} style={{ padding: '24px', textAlign: 'center', background: '#FFFBEB', border: '1px solid #FDE68A', borderRadius: '8px' }}>
+        <h4 style={{ color: '#92400E', margin: '0 0 8px 0', fontSize: '15px' }}>
+          Diagnostic Assessment: Thematic Clusters
+        </h4>
+        <p style={{ color: '#78350F', margin: 0, fontSize: '13px', lineHeight: '1.5' }}>
+          No coherent multi-paper thematic clusters (minimum 2 publications sharing problem characteristics)
+          could be established for <strong>"{topic}"</strong>.
+          Individual publications are not forced into isolated singleton clusters.
+        </p>
+      </div>
     )
   }
 
@@ -463,9 +552,15 @@ function ResearchGapsExplorer({ data }) {
 
   if (!gaps.length) {
     return (
-      <p className={styles.noData}>
-        No research gaps synthesized for this corpus.
-      </p>
+      <div className={styles.noData} style={{ padding: '24px', textAlign: 'center', background: '#FFF1F2', border: '1px solid #FECDD3', borderRadius: '8px' }}>
+        <h4 style={{ color: '#881337', margin: '0 0 8px 0', fontSize: '15px' }}>
+          Diagnostic Assessment: Research Gaps & Frontiers
+        </h4>
+        <p style={{ color: '#9F1239', margin: 0, fontSize: '13px', lineHeight: '1.5' }}>
+          No verifiable author-stated limitations or cross-paper synthesized gaps identified.
+          Unsubstantiated or speculative claims are strictly excluded to preserve scientific accuracy.
+        </p>
+      </div>
     )
   }
 
@@ -539,17 +634,18 @@ function ResearchGapsExplorer({ data }) {
                                 : styles.authorBadge
                     }
                   >
-                    {isCorpus
-                      ? 'Corpus Retrieval Gap'
-                      : isSynth
-                        ? 'Evidence-Supported Synthesized Gap'
-                        : isFutureWork
-                          ? 'Author-Stated Future Work'
-                          : isInferred
-                            ? 'Inferred Cross-Domain Opportunity'
-                            : isUnavailable
-                              ? 'Unavailable Evidence'
-                              : 'Author-Stated Limitation'}
+                    {gap.category_label ||
+                      (isCorpus
+                        ? 'Corpus Retrieval Gap'
+                        : isSynth
+                          ? 'Evidence-Supported Synthesized Gap'
+                          : isFutureWork
+                            ? 'Author-Stated Future Work'
+                            : isInferred
+                              ? 'Inferred Cross-Domain Opportunity'
+                              : isUnavailable
+                                ? 'Unavailable Evidence'
+                                : 'Author-Stated Limitation')}
                   </span>
 
                   <h4 className={styles.gapTitle}>
@@ -564,15 +660,16 @@ function ResearchGapsExplorer({ data }) {
                     <span className={styles.limitationDot}>●</span>
 
                     <span className={styles.gapStageBoxLabel}>
-                      {isCorpus
-                        ? 'Observed Dimensional Deficit'
-                        : isFutureWork
-                          ? 'Author-Stated Future Work'
-                          : isSynth
-                            ? 'Cross-Paper Evidence'
-                            : isUnavailable
-                              ? 'Inspected Sections Status'
-                              : 'Observed Limitation'}
+                      {gap.category_label ||
+                        (isCorpus
+                          ? 'Observed Dimensional Deficit'
+                          : isFutureWork
+                            ? 'Author-Stated Future Work'
+                            : isSynth
+                              ? 'Cross-Paper Evidence'
+                              : isUnavailable
+                                ? 'Inspected Sections Status'
+                                : 'Observed Limitation')}
                     </span>
                   </div>
 
@@ -666,20 +763,34 @@ export default function MermaidDiagrams({
   diagrams = {},
   diagramData = null,
 }) {
-  const keys = [
+  const defaultKeys = [
     'methodology_flowchart',
     'themes_mindmap',
     'research_gaps_flowchart',
   ]
 
-  const [tab, setTab] = useState('methodology_flowchart')
+  const passedKeys = Object.keys(diagrams || {}).filter(
+    k => Boolean(diagrams[k] && typeof diagrams[k] === 'string' && diagrams[k].trim())
+  )
+
+  const keys = passedKeys.length > 0 && !passedKeys.some(k => defaultKeys.includes(k))
+    ? passedKeys
+    : defaultKeys
+
+  const [tab, setTab] = useState(() => keys[0] || 'methodology_flowchart')
   const [viewMode, setViewMode] = useState('mermaid')
+
+  useEffect(() => {
+    if (!keys.includes(tab)) {
+      setTab(keys[0] || 'methodology_flowchart')
+    }
+  }, [keys, tab])
 
   const hasDiagramData = Boolean(
     diagramData && (
-      diagramData.methodology?.categories?.length > 0 ||
-      diagramData.thematic_clusters?.themes?.length > 0 ||
-      diagramData.research_gaps?.gaps?.length > 0
+      (diagramData.methodology?.categories && diagramData.methodology.categories.length > 0) ||
+      (diagramData.thematic_clusters?.themes && diagramData.thematic_clusters.themes.length > 0) ||
+      (diagramData.research_gaps?.gaps && diagramData.research_gaps.gaps.length > 0)
     )
   )
 
@@ -691,7 +802,7 @@ export default function MermaidDiagrams({
     )
   )
 
-  if (!hasDiagramData && !hasMermaidCode) {
+  if (!hasDiagramData && !hasMermaidCode && !diagramData) {
     return (
       <div className={styles.root}>
         <div className={styles.emptyWrap}>
@@ -716,33 +827,31 @@ export default function MermaidDiagrams({
           {keys.map(k => (
             <button
               key={k}
+              type="button"
               className={tab === k ? styles.tabOn : styles.tab}
               onClick={() => setTab(k)}
             >
-              {LABELS[k] || k}
+              {LABELS[k] || k.replace(/_/g, ' ')}
             </button>
           ))}
         </div>
 
         <div className={styles.viewControls}>
           <button
+            type="button"
             className={
               viewMode === 'interactive'
                 ? styles.viewBtnActive
                 : styles.viewBtn
             }
             onClick={() => setViewMode('interactive')}
-            disabled={!hasDiagramData}
-            title={
-              hasDiagramData
-                ? 'Interactive hierarchical cards with expandable papers & details'
-                : 'Structured interactive diagram data is not available'
-            }
+            title="Interactive hierarchical cards with expandable papers & details"
           >
             Interactive Cards
           </button>
 
           <button
+            type="button"
             className={
               viewMode === 'mermaid'
                 ? styles.viewBtnActive
@@ -757,7 +866,7 @@ export default function MermaidDiagrams({
       </div>
 
       <div className={styles.contentArea}>
-        {viewMode === 'interactive' && hasDiagramData ? (
+        {viewMode === 'interactive' ? (
           <div>
             {tab === 'methodology_flowchart' && (
               <MethodologyExplorer
@@ -775,6 +884,12 @@ export default function MermaidDiagrams({
               <ResearchGapsExplorer
                 data={diagramData?.research_gaps}
               />
+            )}
+
+            {!defaultKeys.includes(tab) && (
+              <p className={styles.noData}>
+                Interactive cards are available for Methodology Flowchart, Thematic Clusters, and Research Gaps. Switch to Mermaid Diagram view to inspect custom architecture graphs.
+              </p>
             )}
           </div>
         ) : (
@@ -821,16 +936,21 @@ export default function MermaidDiagrams({
               </div>
             )}
 
-            {diagrams[tab] ? (
+            {diagrams && diagrams[tab] ? (
               <Chart
                 key={tab}
                 code={diagrams[tab]}
                 id={tab}
               />
             ) : (
-              <p className={styles.noData}>
-                No diagram code generated for this view.
-              </p>
+              <div className={styles.noDataWrap}>
+                <p className={styles.noData}>
+                  No diagram code generated for this view.
+                </p>
+                <p className={styles.noDataSub} style={{ fontSize: '11.5px', color: '#64748B', textAlign: 'center' }}>
+                  Switch to <strong>Interactive Cards</strong> to explore structured taxonomy data.
+                </p>
+              </div>
             )}
           </div>
         )}
