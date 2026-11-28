@@ -47,8 +47,12 @@ class EvaluationTests(unittest.TestCase):
         import server
         (self.root / 'pdf_corpus/2011.02840_example.pdf').touch()
         (self.root / 'pdf_corpus/unknown_example.pdf').touch()
+        # Also patch DATA_DIR so _get_active_corpus_ids() doesn't read the real
+        # active_review.json (which may contain IDs from a previous live session),
+        # causing the dummy PDFs to be filtered out.
         with patch.object(server, 'PDF_DIR', str(self.root / 'pdf_corpus')), \
-             patch.object(server, 'SCHEMAS_DIR', str(self.root / 'extracted_schemas')):
+             patch.object(server, 'SCHEMAS_DIR', str(self.root / 'extracted_schemas')), \
+             patch.object(server, 'DATA_DIR', str(self.root)):
             papers = server.get_corpus()['papers']
         self.assertEqual(papers[0]['generation_mode'], 'GENUINE_LLM')
         self.assertEqual(papers[1]['generation_mode'], 'UNKNOWN')

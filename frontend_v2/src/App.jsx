@@ -87,16 +87,23 @@ export default function App() {
   }
 
   // Clear session to return to fresh WelcomeScreen
-  const handleStartFresh = () => {
+  const handleStartFresh = async () => {
     const confirmReset = window.confirm(
       'Start a new research review? This will return to the welcome screen so you can search a new topic or upload fresh papers.'
     )
     if (confirmReset) {
+      try {
+        await fetch('/api/clear-corpus', { method: 'POST' })
+      } catch (e) {
+        console.error('Error clearing corpus:', e)
+      }
       localStorage.removeItem('monograph_session_active')
       setHasActiveSession(false)
       setActivePdfPaper(null)
       setActivePillarLens(null)
       setInspectorState(null)
+      setCorpus([])
+      setReportData(null)
     }
   }
 

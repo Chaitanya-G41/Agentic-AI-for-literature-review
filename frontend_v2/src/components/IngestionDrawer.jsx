@@ -196,6 +196,18 @@ export default function IngestionDrawer({ isOpen, onClose, onRefreshData }) {
       setPipelineLogs(prev => [...prev, { time: new Date().toLocaleTimeString(), msg }])
     }
 
+    const runStage = async (label, url) => {
+      const res = await fetch(url, { method: 'POST' })
+      if (!res.ok) {
+        let detail = ''
+        try { const j = await res.json(); detail = j.detail || JSON.stringify(j) } catch (_) {
+          try { detail = await res.text() } catch (_) { detail = `HTTP ${res.status}` }
+        }
+        throw new Error(`${label} failed (${res.status}): ${detail}`)
+      }
+      return res
+    }
+
     try {
       if (downloadPromise) {
         setPipelineStage('Downloading Papers')
@@ -206,35 +218,35 @@ export default function IngestionDrawer({ isOpen, onClose, onRefreshData }) {
 
       setPipelineStage('1/5: GROBID Parsing & Schema Extraction')
       addLog('Agent 2: Extracting TEI-XML schemas & methodology via GROBID...')
-      const r1 = await fetch('/api/run-agent/extraction', { method: 'POST' })
-      if (!r1.ok) addLog('Extraction completed with cached or existing schemas.')
-      else addLog('Extracted structured schemas with zero hallucination grounding.')
+      await runStage('Extraction Agent', '/api/run-agent/extraction')
+      addLog('Extracted structured schemas with zero hallucination grounding.')
 
       setPipelineStage('2/5: Single-Paper Deterministic Summaries')
       addLog('Agent 3: Generating deterministic Pydantic summaries (0 LLM calls)...')
-      await fetch('/api/run-agent/summarizer', { method: 'POST' }).catch(() => {})
+      await runStage('Summarizer Agent', '/api/run-agent/summarizer')
       addLog('Summaries compiled.')
 
       setPipelineStage('3/5: Cross-Paper Comparative Analysis')
       addLog('Agent 4: Computing architectural alignment matrix...')
-      await fetch('/api/run-agent/comparative', { method: 'POST' }).catch(() => {})
+      await runStage('Comparative Agent', '/api/run-agent/comparative')
       addLog('Comparative matrix constructed.')
 
       setPipelineStage('4/5: Research Gap Synthesis')
       addLog('Agent 5: Synthesizing systemic bottlenecks & frontier research gaps...')
-      await fetch('/api/run-agent/research-gap', { method: 'POST' }).catch(() => {})
+      await runStage('Research Gap Agent', '/api/run-agent/research-gap')
       addLog('Identified research gaps.')
 
       setPipelineStage('5/5: Compiling Monograph & Mermaid Diagrams')
-      addLog('Agent 6: Generating high-density review with Mermaid.js architecture diagrams...')
-      await fetch('/api/run-agent/report', { method: 'POST' }).catch(() => {})
+      addLog('Agent 6: Generating high-density review with Mermaid.js architecture diagrams (~45-90s on NIM)...')
+      await runStage('Report Agent', '/api/run-agent/report')
       addLog('Monograph synthesis ready!')
 
       setPipelineFinished(true)
       setPipelineStage('Complete')
       if (onRefreshData) await onRefreshData()
     } catch (err) {
-      addLog(`Error: ${err.message}`)
+      addLog(`❌ Error: ${err.message}`)
+      setPipelineStage('Pipeline Error')
     } finally {
       setPipelineRunning(false)
     }
@@ -244,11 +256,20 @@ export default function IngestionDrawer({ isOpen, onClose, onRefreshData }) {
   const handleDownloadAndSynthesize = () => {
     const selected = candidates.filter(p => selectedIds.includes(p.arxiv_id || p.id))
     if (!selected.length) return
-    const downloadPromise = fetch('/api/download-papers', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ papers: selected }),
-    })
+    const downloadPromise = (async () => {
+      // Clear out old corpus workspace first so old topics are not mixed
+      await fetch('/api/clear-corpus', { method: 'POST' }).catch(() => {})
+      const res = await fetch('/api/download-papers', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ papers: selected, query: query.trim() }),
+      })
+      if (!res.ok) {
+        const j = await res.json().catch(() => ({}))
+        throw new Error(`Download failed (${res.status}): ${j.detail || 'unknown'}`)
+      }
+      return res
+    })()
     runFullPipeline(downloadPromise)
   }
 

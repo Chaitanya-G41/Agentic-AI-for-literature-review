@@ -215,11 +215,16 @@ def classify_paradigm(title: str, abstract: str = "") -> Dict[str, str]:
 
 @app.get("/api/corpus")
 def get_corpus():
-    """Returns list of papers with rich schema metadata, figures, and extraction status."""
+    """Returns list of papers with rich schema metadata, figures, and extraction status for the active corpus."""
     if not os.path.exists(PDF_DIR):
         return {"papers": []}
 
+    active_ids = _get_active_corpus_ids()
     pdf_files = sorted(glob.glob(os.path.join(PDF_DIR, "*.pdf")))
+    if active_ids:
+        active_set = set(active_ids)
+        pdf_files = [p for p in pdf_files if os.path.basename(p).split("_")[0] in active_set]
+
     papers = []
 
     for pdf_path in pdf_files:
@@ -538,11 +543,23 @@ def download_selected(req: DownloadRequest):
     try:
         from src.ingestion.screening_agent import RelevanceScreeningAgent
         agent = RelevanceScreeningAgent()
+
+        paper_ids = [str(p.get("arxiv_id") or p.get("id")).strip() for p in req.papers if (p.get("arxiv_id") or p.get("id"))]
+
+        # Clean out any old PDFs in PDF_DIR that are NOT part of the new selection
+        if os.path.exists(PDF_DIR):
+            for old_pdf in glob.glob(os.path.join(PDF_DIR, "*.pdf")):
+                old_id = os.path.basename(old_pdf).split("_")[0]
+                if old_id not in paper_ids:
+                    try:
+                        os.remove(old_pdf)
+                    except Exception:
+                        pass
+
         saved = agent.download_papers(req.papers, output_dir=PDF_DIR)
 
         # Track active paper IDs and review query
         active_file = os.path.join(DATA_DIR, "active_review.json")
-        paper_ids = [p.get("arxiv_id") or p.get("id") for p in req.papers if (p.get("arxiv_id") or p.get("id"))]
         
         # Determine active topic / query
         active_query = (req.query or "").strip()
@@ -583,15 +600,47 @@ def download_selected(req: DownloadRequest):
 def load_benchmark_corpus_api():
     """Downloads the default 12 benchmark Agentic AI papers."""
     try:
-        from src.ingestion.downloader import download_benchmark_corpus
+        # Clear out current corpus first
+        clear_corpus_api()
+
+        from src.ingestion.downloader import download_benchmark_corpus, BENCHMARK_PAPERS
         download_benchmark_corpus()
-        return {"status": "success", "message": "12 Benchmark Papers Downloaded"}
+        benchmark_ids = [p["arxiv_id"] for p in BENCHMARK_PAPERS if "arxiv_id" in p]
+
+        active_file = os.path.join(DATA_DIR, "active_review.json")
+        try:
+            with open(active_file, "w", encoding="utf-8") as f:
+                json.dump({
+                    "active_paper_ids": benchmark_ids,
+                    "query": "Agentic AI Multi-Agent Benchmark",
+                    "count": len(benchmark_ids),
+                    "timestamp": datetime.now(timezone.utc).isoformat()
+                }, f, indent=2)
+        except Exception:
+            pass
+
+        return {"status": "success", "message": "12 Benchmark Papers Downloaded", "active_ids": benchmark_ids}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 
 def _get_active_corpus_ids() -> List[str]:
-    """Returns the paper IDs for PDFs currently present in PDF_DIR."""
+    """
+    Returns strictly the paper IDs for the active review session.
+    Priority 1: Read active_review.json (written by /api/download-papers or /api/load-benchmark).
+    Priority 2: If no active_review.json exists, return IDs of PDFs currently in PDF_DIR.
+    """
+    active_file = os.path.join(DATA_DIR, "active_review.json")
+    if os.path.exists(active_file):
+        try:
+            with open(active_file, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                ids = data.get("active_paper_ids", [])
+                if ids:
+                    return [str(pid).split("_")[0].strip() for pid in ids if str(pid).strip()]
+        except Exception:
+            pass
+
     if not os.path.exists(PDF_DIR):
         return []
     pdf_files = sorted(glob.glob(os.path.join(PDF_DIR, "*.pdf")))
@@ -600,12 +649,13 @@ def _get_active_corpus_ids() -> List[str]:
 
 @app.post("/api/clear-corpus")
 def clear_corpus_api():
-    """Clears workspace session markers without wiping historical schemas or reports."""
+    """Clears workspace session markers, active PDFs, and stale comparison files for a fresh topic review."""
     for fpath in [
         os.path.join(DATA_DIR, "active_review.json"),
         os.path.join(DATA_DIR, "active_query.json"),
         os.path.join(DATA_DIR, "screening_results.json"),
         os.path.join(DATA_DIR, "gap_analysis.json"),
+        os.path.join(DATA_DIR, "comparative_analysis.json"),
         os.path.join(REPORTS_DIR, "diagram_data.json"),
         os.path.join(REPORTS_DIR, "literature_review_report.md"),
     ]:
@@ -615,19 +665,31 @@ def clear_corpus_api():
             except Exception:
                 pass
 
+    # Remove active PDFs from corpus directory so previous review papers are not carried over
+    if os.path.exists(PDF_DIR):
+        for pdf_path in glob.glob(os.path.join(PDF_DIR, "*.pdf")):
+            try:
+                os.remove(pdf_path)
+            except Exception:
+                pass
+
     return {"status": "cleared", "message": "Workspace initialized for fresh topic exploration"}
 
 
 @app.post("/api/run-agent/extraction")
 def run_extraction_agent_api():
-    """Runs PDF Parser and Schema Extraction Agent on all corpus papers.
-    Skips papers that already have a schema file to avoid redundant LLM calls
-    (each NVIDIA NIM call takes ~270s).
+    """Runs PDF Parser and Schema Extraction Agent on active corpus papers.
+    Skips papers that already have a schema file to avoid redundant LLM calls.
     """
     from src.ingestion.parser import parse_pdf_file
     from src.agents.extraction import run_extraction_agent
 
+    active_ids = _get_active_corpus_ids()
     pdf_files = sorted(glob.glob(os.path.join(PDF_DIR, "*.pdf")))
+    if active_ids:
+        active_set = set(active_ids)
+        pdf_files = [p for p in pdf_files if os.path.basename(p).split("_")[0] in active_set]
+
     os.makedirs(SCHEMAS_DIR, exist_ok=True)
     extracted_schemas = []
     skipped = []
@@ -854,6 +916,26 @@ async def upload_pdf(request: Request, filename: Optional[str] = Query(None)):
     dest = os.path.join(PDF_DIR, os.path.basename(fname))
     with open(dest, "wb") as f:
         f.write(content)
+
+    paper_id = os.path.basename(fname).split("_")[0].replace(".pdf", "")
+    active_file = os.path.join(DATA_DIR, "active_review.json")
+    try:
+        active_ids = []
+        if os.path.exists(active_file):
+            with open(active_file, "r", encoding="utf-8") as af:
+                active_ids = json.load(af).get("active_paper_ids", [])
+        if paper_id not in active_ids:
+            active_ids.append(paper_id)
+        with open(active_file, "w", encoding="utf-8") as af:
+            json.dump({
+                "active_paper_ids": active_ids,
+                "query": "Custom Uploaded Corpus",
+                "count": len(active_ids),
+                "timestamp": datetime.now(timezone.utc).isoformat()
+            }, af, indent=2)
+    except Exception:
+        pass
+
     return {"status": "ok", "filename": os.path.basename(fname), "size": len(content)}
 
 

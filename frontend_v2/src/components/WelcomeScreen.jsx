@@ -279,17 +279,21 @@ export default function WelcomeScreen({ onStartReview, onLoadBenchmark, existing
 
   const handleUploadAndSynthesize = async () => {
     if (!localFiles.length) return
-    const uploadPromises = localFiles.map(async file => {
-      try {
-        await fetch(`/api/upload-pdf?filename=${encodeURIComponent(file.name)}`, {
-          method: 'POST',
-          body: file,
-        })
-      } catch (e) {
-        console.error('Upload failed for', file.name, e)
-      }
-    })
-    runPipelineWithStep(Promise.all(uploadPromises))
+    const uploadStep = (async () => {
+      await fetch('/api/clear-corpus', { method: 'POST' }).catch(() => {})
+      const uploads = localFiles.map(async file => {
+        try {
+          await fetch(`/api/upload-pdf?filename=${encodeURIComponent(file.name)}`, {
+            method: 'POST',
+            body: file,
+          })
+        } catch (e) {
+          console.error('Upload failed for', file.name, e)
+        }
+      })
+      await Promise.all(uploads)
+    })()
+    runPipelineWithStep(uploadStep)
   }
 
   return (
